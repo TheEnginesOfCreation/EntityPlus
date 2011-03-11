@@ -260,6 +260,9 @@ void Use_Shooter( gentity_t *ent, gentity_t *other, gentity_t *activator ) {
 	case WP_PLASMAGUN:
 		fire_plasma( ent, ent->s.origin, dir );
 		break;
+	case WP_BFG:
+		fire_bfg( ent, ent->s.origin, dir );
+		break;
 	}
 
 	G_AddEvent( ent, EV_FIRE_WEAPON, 0 );
@@ -314,6 +317,14 @@ Fires at either the target or the current direction.
 */
 void SP_shooter_grenade( gentity_t *ent ) {
 	InitShooter( ent, WP_GRENADE_LAUNCHER);
+}
+
+/*QUAKED shooter_bfg (1 0 0) (-16 -16 -16) (16 16 16)
+Fires at either the target or the current direction.
+"random" is the number of degrees of deviance from the taget. (1.0 default)
+*/
+void SP_shooter_bfg( gentity_t *ent ) {
+	InitShooter( ent, WP_BFG );
 }
 
 

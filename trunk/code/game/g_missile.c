@@ -14,7 +14,6 @@ void G_BounceMissile( gentity_t *ent, trace_t *trace ) {
 	vec3_t	velocity;
 	float	dot;
 	int		hitTime;
-	float	bounce;
 
 	// reflect the velocity on the trace plane
 	hitTime = level.previousTime + ( level.time - level.previousTime ) * trace->fraction;
@@ -24,9 +23,7 @@ void G_BounceMissile( gentity_t *ent, trace_t *trace ) {
 
 	if ( ent->s.eFlags & EF_BOUNCE_HALF ) {
 
-		//TODO: this algorithm is not correct but it approaches a simulation of decreased/increased gravity.
-		bounce = 1 - (0.35 * ( 1.0 / (800.0 / ent->parent->client->ps.gravity)));	//0.65 is default bounce force with the default 800 gravity
-		VectorScale( ent->s.pos.trDelta, bounce, ent->s.pos.trDelta );
+		VectorScale( ent->s.pos.trDelta, 0.65, ent->s.pos.trDelta );
 		// check for stop
 		if ( trace->plane.normal[2] > 0.2 && VectorLength( ent->s.pos.trDelta ) < 40 ) {
 			G_SetOrigin( ent, trace->endpos );
