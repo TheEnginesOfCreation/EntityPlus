@@ -1139,6 +1139,23 @@ SHOOTER_* ENTITIES
 
 //=============================================================================
 
+/*QUAKED shooter_bfg (1 0 .5) (-8 -8 -8) (8 8 8)
+This will shoot a bfg projectile each time it's triggered. Aiming is done by setting the "angles" key or by targeting an info_notnull or target_position entity.
+-------- KEYS --------
+angles: this sets the pitch and yaw aiming angles of shooter (default 0 0). The roll angle does not apply.
+targetname : activating trigger points to this.
+target : this points to a target_position entity for aiming the grenades.
+random : random aiming variance in degrees from the straight line to the targeted entity (default 0 - see Notes).
+notfree : when set to 1, entity will not spawn in "Free for all" and "Tournament" modes.
+notteam : when set to 1, entity will not spawn in "Teamplay" and "CTF" modes.
+notsingle : when set to 1, entity will not spawn in Single Player mode (bot play mode).
+-------- NOTES --------
+When the random key is set, its value is used to calculate a maximum angle deviation from the normal trajectory formed by a straight line between the shooter and the aiming entity it targets. The final trajectory will be a random value anywhere between no deviation at all (0) to maximum deviation (value of the random key).
+
+Both the setting "angles" key or "targeting a target_position" methods can be used to aim the shooter. However, the target_position method is simpler.*/
+
+//=============================================================================
+
 /*QUAKED shooter_grenade (1 0 .5) (-8 -8 -8) (8 8 8)
 This will shoot a grenade each time it's triggered. Aiming is done by setting the "angles" key or by targeting an info_notnull or target_position entity.
 -------- KEYS --------
