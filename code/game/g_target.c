@@ -477,6 +477,7 @@ void target_logic_use (gentity_t *self, gentity_t *other, gentity_t *activator) 
 	if ( ( self->spawnflags & 2 ) && activator->client && activator->client->sess.sessionTeam != TEAM_BLUE ) {
 		return;
 	}
+
 	if ( self->spawnflags & 4 ) {
 		gentity_t	*ent;
 
@@ -510,13 +511,6 @@ void SP_target_logic (gentity_t *self) {
 When triggered, ends the game and proceeds to the intermission screen
 */
 void target_intermission_use (gentity_t *self, gentity_t *other, gentity_t *activator) {
-	if ( ( self->spawnflags & 1 ) && activator->client && activator->client->sess.sessionTeam != TEAM_RED ) {
-		return;
-	}
-	if ( ( self->spawnflags & 2 ) && activator->client && activator->client->sess.sessionTeam != TEAM_BLUE ) {
-		return;
-	}
-	
 	BeginIntermission();
 }
 
@@ -526,32 +520,24 @@ void SP_target_intermission (gentity_t *self) {
 
 //==========================================================
 
-/*QUAKED target_gravity (.5 .5 .5) (-8 -8 -8) (8 8 8) RED_ONLY BLUE_ONLY GLOBAL
+/*QUAKED target_gravity (.5 .5 .5) (-8 -8 -8) (8 8 8) GLOBAL
 Sets the gravity of the activator. The gravity is set through the "count" key.
 If GLOBAL is checked, all players in the game will have their gravity changed.
 The activator can be forced to be from a certain team.
 */
 void target_gravity_use (gentity_t *self, gentity_t *other, gentity_t *activator) {
 	int i;
-	
-	if ( ( self->spawnflags & 1 ) && activator->client && activator->client->sess.sessionTeam != TEAM_RED ) {
-		return;
-	}
-	if ( ( self->spawnflags & 2 ) && activator->client && activator->client->sess.sessionTeam != TEAM_BLUE ) {
-		return;
-	}
-	
+		
 	if (!self->count) {
 		self->count = 800;
 	}
 
-	if ( (self->spawnflags & 4) )
+	if ( (self->spawnflags & 1) )
 	{
 		for (i = 0; i < level.maxclients; i++)
 		{
 			level.clients[i].ps.gravity = self->count;
 		}
-		//g_gravity = self->count;
 	}
 	else
 		activator->client->ps.gravity = self->count;
@@ -561,4 +547,52 @@ void target_gravity_use (gentity_t *self, gentity_t *other, gentity_t *activator
 
 void SP_target_gravity (gentity_t *self) {
 	self->use = target_gravity_use;
+}
+
+//==========================================================
+
+/*QUAKED target_botspawn (.5 .5 .5) (-8 -8 -8) (8 8 8) OPPOSING_TEAM
+Spawns a bot into the game
+*/
+void target_botspawn_use (gentity_t *self, gentity_t *other, gentity_t *activator) {
+	char *team[4];
+	int teamnum;
+	float skill;
+
+	switch (activator->client->sess.sessionTeam) {
+		case TEAM_BLUE:
+			if (( self->spawnflags & 1 )) {
+				*team = "red";
+				teamnum = TEAM_RED;
+			} else {
+				*team = "blue";
+				teamnum = TEAM_BLUE;
+			}
+			break;
+		case TEAM_RED:
+			if (( self->spawnflags & 1 )) {
+				*team = "blue";
+				teamnum = TEAM_BLUE;
+			} else {
+				*team = "red";
+				teamnum = TEAM_RED;
+			}
+			break;
+		default:
+			*team = "free";
+			teamnum = TEAM_FREE;
+			break;
+	}
+
+	if ( self->clientname )
+	{
+		skill = trap_Cvar_VariableValue( "g_spSkill" );
+		trap_SendConsoleCommand( EXEC_INSERT, va("addbot %s %f %s 0\n", self->clientname, skill, team) ); //name, skill [0-4], team [red,blue,free], delay
+	}
+	else
+		G_AddRandomBot(teamnum);
+}
+
+void SP_target_botspawn (gentity_t *self) {
+	self->use = target_botspawn_use;
 }
