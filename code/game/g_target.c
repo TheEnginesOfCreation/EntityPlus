@@ -396,6 +396,74 @@ void SP_target_relay (gentity_t *self) {
 
 //==========================================================
 
+/*QUAKED target_kill (.5 .5 .5) (-8 -8 -8) (8 8 8)
+Kills the activator.
+*/
+void target_kill_use( gentity_t *self, gentity_t *other, gentity_t *activator ) {
+	G_Damage ( activator, NULL, NULL, NULL, NULL, 100000, DAMAGE_NO_PROTECTION, MOD_TELEFRAG);
+}
+
+void SP_target_kill( gentity_t *self ) {
+	self->use = target_kill_use;
+}
+
+//==========================================================
+
+/*QUAKED target_position (0 0.5 0) (-4 -4 -4) (4 4 4)
+Used as a positional target for in-game calculation, like jumppad targets.
+*/
+void SP_target_position( gentity_t *self ){
+	G_SetOrigin( self, self->s.origin );
+}
+
+static void target_location_linkup(gentity_t *ent)
+{
+	int i;
+	int n;
+
+	if (level.locationLinked) 
+		return;
+
+	level.locationLinked = qtrue;
+
+	level.locationHead = NULL;
+
+	trap_SetConfigstring( CS_LOCATIONS, "unknown" );
+
+	for (i = 0, ent = g_entities, n = 1;
+			i < level.num_entities;
+			i++, ent++) {
+		if (ent->classname && !Q_stricmp(ent->classname, "target_location")) {
+			// lets overload some variables!
+			ent->health = n; // use for location marking
+			trap_SetConfigstring( CS_LOCATIONS + n, ent->message );
+			n++;
+			ent->nextTrain = level.locationHead;
+			level.locationHead = ent;
+		}
+	}
+
+	// All linked together now
+}
+
+//==========================================================
+
+/*QUAKED target_location (0 0.5 0) (-8 -8 -8) (8 8 8)
+Set "message" to the name of this location.
+Set "count" to 0-7 for color.
+0:white 1:red 2:green 3:yellow 4:blue 5:cyan 6:magenta 7:white
+
+Closest target_location in sight used for the location, if none
+in site, closest in distance
+*/
+void SP_target_location( gentity_t *self ){
+	self->think = target_location_linkup;
+	self->nextthink = level.time + 200;  // Let them all spawn first
+
+	G_SetOrigin( self, self->s.origin );
+}
+
+//==========================================================
 
 /*QUAKED target_logic (.5 .5 .5) (-8 -8 -8) (8 8 8) RED_ONLY BLUE_ONLY RANDOM STAY_ON
 This doesn't perform any actions except fire its targets when it's triggered by two different triggers.
@@ -438,6 +506,25 @@ void SP_target_logic (gentity_t *self) {
 
 //==========================================================
 
+/*QUAKED target_intermission (.5 .5 .5) (-8 -8 -8) (8 8 8) RED_ONLY BLUE_ONLY
+When triggered, ends the game and proceeds to the intermission screen
+*/
+void target_intermission_use (gentity_t *self, gentity_t *other, gentity_t *activator) {
+	if ( ( self->spawnflags & 1 ) && activator->client && activator->client->sess.sessionTeam != TEAM_RED ) {
+		return;
+	}
+	if ( ( self->spawnflags & 2 ) && activator->client && activator->client->sess.sessionTeam != TEAM_BLUE ) {
+		return;
+	}
+	
+	BeginIntermission();
+}
+
+void SP_target_intermission (gentity_t *self) {
+	self->use = target_intermission_use;
+}
+
+//==========================================================
 
 /*QUAKED target_gravity (.5 .5 .5) (-8 -8 -8) (8 8 8) RED_ONLY BLUE_ONLY GLOBAL
 Sets the gravity of the activator. The gravity is set through the "count" key.
@@ -475,83 +562,3 @@ void target_gravity_use (gentity_t *self, gentity_t *other, gentity_t *activator
 void SP_target_gravity (gentity_t *self) {
 	self->use = target_gravity_use;
 }
-
-//==========================================================
-
-
-/*QUAKED target_intermission (.5 .5 .5) (-8 -8 -8) (8 8 8) RED_ONLY BLUE_ONLY
-When triggered, ends the game and proceeds to the intermission screen
-*/
-void target_intermission_use (gentity_t *self, gentity_t *other, gentity_t *activator) {
-	BeginIntermission();
-}
-
-void SP_target_intermission (gentity_t *self) {
-	self->use = target_intermission_use;
-}
-
-//==========================================================
-
-/*QUAKED target_kill (.5 .5 .5) (-8 -8 -8) (8 8 8)
-Kills the activator.
-*/
-void target_kill_use( gentity_t *self, gentity_t *other, gentity_t *activator ) {
-	G_Damage ( activator, NULL, NULL, NULL, NULL, 100000, DAMAGE_NO_PROTECTION, MOD_TELEFRAG);
-}
-
-void SP_target_kill( gentity_t *self ) {
-	self->use = target_kill_use;
-}
-
-/*QUAKED target_position (0 0.5 0) (-4 -4 -4) (4 4 4)
-Used as a positional target for in-game calculation, like jumppad targets.
-*/
-void SP_target_position( gentity_t *self ){
-	G_SetOrigin( self, self->s.origin );
-}
-
-static void target_location_linkup(gentity_t *ent)
-{
-	int i;
-	int n;
-
-	if (level.locationLinked) 
-		return;
-
-	level.locationLinked = qtrue;
-
-	level.locationHead = NULL;
-
-	trap_SetConfigstring( CS_LOCATIONS, "unknown" );
-
-	for (i = 0, ent = g_entities, n = 1;
-			i < level.num_entities;
-			i++, ent++) {
-		if (ent->classname && !Q_stricmp(ent->classname, "target_location")) {
-			// lets overload some variables!
-			ent->health = n; // use for location marking
-			trap_SetConfigstring( CS_LOCATIONS + n, ent->message );
-			n++;
-			ent->nextTrain = level.locationHead;
-			level.locationHead = ent;
-		}
-	}
-
-	// All linked together now
-}
-
-/*QUAKED target_location (0 0.5 0) (-8 -8 -8) (8 8 8)
-Set "message" to the name of this location.
-Set "count" to 0-7 for color.
-0:white 1:red 2:green 3:yellow 4:blue 5:cyan 6:magenta 7:white
-
-Closest target_location in sight used for the location, if none
-in site, closest in distance
-*/
-void SP_target_location( gentity_t *self ){
-	self->think = target_location_linkup;
-	self->nextthink = level.time + 200;  // Let them all spawn first
-
-	G_SetOrigin( self, self->s.origin );
-}
-
