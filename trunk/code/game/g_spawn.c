@@ -96,6 +96,7 @@ field_t fields[] = {
 	{"angle", FOFS(s.angles), F_ANGLEHACK},
 	{"targetShaderName", FOFS(targetShaderName), F_LSTRING},
 	{"targetShaderNewName", FOFS(targetShaderNewName), F_LSTRING},
+	{"clientname", FOFS(clientname), F_LSTRING},
 
 	{NULL}
 };
@@ -148,6 +149,7 @@ void SP_target_push (gentity_t *ent);
 void SP_target_logic (gentity_t *ent);
 void SP_target_gravity (gentity_t *ent);
 void SP_target_intermission (gentity_t *ent);
+void SP_target_botspawn (gentity_t *ent);
 
 void SP_light (gentity_t *self);
 void SP_info_null (gentity_t *self);
@@ -229,6 +231,7 @@ spawn_t	spawns[] = {
 	{"target_logic", SP_target_logic},
 	{"target_gravity", SP_target_gravity},
 	{"target_intermission", SP_target_intermission},
+	{"target_botspawn", SP_target_botspawn},
 
 	{"light", SP_light},
 	{"path_corner", SP_path_corner},

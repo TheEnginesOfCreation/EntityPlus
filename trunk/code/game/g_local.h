@@ -106,6 +106,7 @@ struct gentity_s {
 	char		*targetShaderName;
 	char		*targetShaderNewName;
 	gentity_t	*target_ent;
+	char		*clientname;			// name of the bot to spawn for target_botspawn
 
 	float		speed;
 	vec3_t		movedir;
