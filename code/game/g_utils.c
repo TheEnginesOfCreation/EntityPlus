@@ -278,11 +278,13 @@ void G_ToggleTargetsEnabled( gentity_t *ent, gentity_t *activator ) {
 		if ( t == ent ) {
 			G_Printf ("WARNING: Entity targets itself.\n");
 		} else {
-			if ( ( t->flags & FL_DISABLED ) ) {
-				t->flags -= FL_DISABLED;
-			} else {
-				t->flags += FL_DISABLED;
-			}
+			G_Printf("entity found\n");
+			if ( ( ent->spawnflags & 4 ) )	
+				t->flags |= FL_DISABLED; //always_disable spawnflag is set, so set the disabled bit
+			else if ( ( ent->spawnflags & 8 ) )
+				t->flags &= ~FL_DISABLED;	//always_enable spawnflag is set, so clear the disabled bit
+			else
+				t->flags ^= FL_DISABLED;	//no spawnflag is set, so toggle
 		}
 		if ( !ent->inuse ) {
 			G_Printf("entity was removed while using targets\n");
