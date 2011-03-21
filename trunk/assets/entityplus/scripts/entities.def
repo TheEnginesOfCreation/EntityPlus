@@ -1242,6 +1242,20 @@ When the random key is set, its value is used to calculate a minimum and a maxim
 
 //=============================================================================
 
+/*QUAKED target_disable (0 .7 .7) (-8 -8 -8) (8 8 8) RED_ONLY BLUE_ONLY
+Targets any trigger_ entity to disable or enable that entity.
+-------- KEYS --------
+targetname : activating trigger points to this.
+target : this points to entities to enable/disable when this entity is triggered
+notfree : when set to 1, entity will not spawn in "Free for all" and "Tournament" modes.
+notteam : when set to 1, entity will not spawn in "Teamplay" and "CTF" modes.
+notsingle : when set to 1, entity will not spawn in Single Player mode (bot play mode).
+-------- NOTES --------
+The target_disable entity works as a toggle, so enabled entities will be disabled and enabled entities will be disabled.
+Disabled trigger_entities will stop firing their targets when disabled. trigger_always entities cannot be disabled because they're triggered by the spawning of the world.*/
+
+//=============================================================================
+
 /*QUAKED target_give (0 .5 0) (-8 -8 -8) (8 8 8)
 This is used to give ammo, weapons, health or items to the player who activates it.
 -------- KEYS --------
