@@ -23,6 +23,11 @@ void multi_wait( gentity_t *ent ) {
 // ent->activator should be set to the activator so it can be held through a delay
 // so wait for the delay time before firing
 void multi_trigger( gentity_t *ent, gentity_t *activator ) {
+	
+	//if FL_DISABLED flag is set, do not use the targets
+	if ( ( ent->flags & FL_DISABLED ) )
+		return;
+	
 	ent->activator = activator;
 	if ( ent->nextthink ) {
 		return;		// can't retrigger until the wait is over
@@ -194,6 +199,9 @@ void SP_trigger_push( gentity_t *self ) {
 
 
 void Use_target_push( gentity_t *self, gentity_t *other, gentity_t *activator ) {
+	if ( (self->flags & FL_DISABLED) )
+		return;
+
 	if ( !activator->client ) {
 		return;
 	}
@@ -250,6 +258,9 @@ trigger_teleport
 
 void trigger_teleporter_touch (gentity_t *self, gentity_t *other, trace_t *trace ) {
 	gentity_t	*dest;
+
+	if ( ( self->flags & FL_DISABLED ) )
+		return;
 
 	if ( !other->client ) {
 		return;
@@ -334,6 +345,9 @@ void hurt_use( gentity_t *self, gentity_t *other, gentity_t *activator ) {
 void hurt_touch( gentity_t *self, gentity_t *other, trace_t *trace ) {
 	int		dflags;
 
+	if ( ( self->flags & FL_DISABLED ) )
+		return;
+
 	if ( !other->takedamage ) {
 		return;
 	}
@@ -404,7 +418,10 @@ so, the basic time between firing is a random time between
 
 */
 void func_timer_think( gentity_t *self ) {
-	G_UseTargets (self, self->activator);
+	if ( !( self->flags & FL_DISABLED ) ) {
+		G_UseTargets (self, self->activator);
+	}
+
 	// set time before next firing
 	self->nextthink = level.time + 1000 * ( self->wait + crandom() * self->random );
 }

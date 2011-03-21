@@ -596,3 +596,26 @@ void target_botspawn_use (gentity_t *self, gentity_t *other, gentity_t *activato
 void SP_target_botspawn (gentity_t *self) {
 	self->use = target_botspawn_use;
 }
+
+//==========================================================
+
+
+/*QUAKED target_disable (.5 .5 .5) (-8 -8 -8) (8 8 8) RED_ONLY BLUE_ONLY
+This toggles the FL_DISABLED flag on the target
+*/
+void target_disable_use (gentity_t *self, gentity_t *other, gentity_t *activator) {
+	if ( ( self->spawnflags & 1 ) && activator->client 
+		&& activator->client->sess.sessionTeam != TEAM_RED ) {
+		return;
+	}
+	if ( ( self->spawnflags & 2 ) && activator->client 
+		&& activator->client->sess.sessionTeam != TEAM_BLUE ) {
+		return;
+	}
+
+	G_ToggleTargetsEnabled (self, activator);
+}
+
+void SP_target_disable (gentity_t *self) {
+	self->use = target_disable_use;
+}
