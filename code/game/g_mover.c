@@ -1478,10 +1478,11 @@ ROTATING
 */
 
 
-/*QUAKED func_rotating (0 .5 .8) ? START_ON - X_AXIS Y_AXIS
+/*QUAKED func_rotating (0 .5 .8) ? - - X_AXIS Y_AXIS Z_AXIS
 You need to have an origin brush as part of this entity.  The center of that brush will be
-the point around which it is rotated. It will rotate around the Z axis by default.  You can
-check either the X_AXIS or Y_AXIS box to change that.
+the point around which it is rotated. You can check the X_AXIS, Y_AXIS or Z_AXIS boxes to 
+determine around which axes the brush will be rotated. If no boxes are checked the brush will
+rotate around the Z axis by default.
 
 "model2"	.md3 model to also draw
 "speed"		determines how fast it moves; default value is 100.
@@ -1490,7 +1491,8 @@ check either the X_AXIS or Y_AXIS box to change that.
 "light"		constantLight radius
 */
 void SP_func_rotating (gentity_t *ent) {
-	//TODO: implement a rotation range/angle and make it triggerable. This allows implementation of an entity that rotates from one position to another after it's triggered
+	qboolean axisset = qfalse;
+
 	if ( !ent->speed ) {
 		ent->speed = 100;
 	}
@@ -1499,9 +1501,15 @@ void SP_func_rotating (gentity_t *ent) {
 	ent->s.apos.trType = TR_LINEAR;
 	if ( ent->spawnflags & 4 ) {
 		ent->s.apos.trDelta[2] = ent->speed;
-	} else if ( ent->spawnflags & 8 ) {
+		axisset = qtrue;
+	}
+	
+	if ( ent->spawnflags & 8 ) {
 		ent->s.apos.trDelta[0] = ent->speed;
-	} else {
+		axisset = qtrue;
+	} 
+	
+	if ( ent->spawnflags & 16 || !axisset ) {
 		ent->s.apos.trDelta[1] = ent->speed;
 	}
 

@@ -449,8 +449,8 @@ Target this entity with a misc_model to have the model attached to the entity (s
 
 //=============================================================================
 
-/*QUAKED func_rotating (0 .5 .8) ? - - X_AXIS Y_AXIS
-Solid entity that rotates continuously. Rotates on the Z axis by default and requires an origin brush. It will always start on in the game and is not targetable.
+/*QUAKED func_rotating (0 .5 .8) ? - - X_AXIS Y_AXIS Z_AXIS
+Solid entity that rotates continuously. Rotates on one or multiple axes and requires an origin brush. It will always start on in the game and is not targetable.
 -------- KEYS --------
 speed : determines how fast entity rotates (default 100).
 noise : path/name of .wav file to play. Use looping sounds only (eg. sound/world/drone6.wav).
@@ -474,8 +474,9 @@ _shader OR shader : Path to the metashader used to assign textures to the terrai
 -------- SPAWNFLAGS --------
 X_AXIS : entity will rotate along the X axis.
 Y_AXIS : entity will rotate along the Y axis.
+Z_AXIS : entity will rotate along the Z axis.
 -------- NOTES --------
-You need to have an origin brush as part of this entity. The center of that brush will be the point through which the rotation axis passes. Setting the origin key is simply an alternate method to using an origin brush. It will rotate along the Z axis by default. You can check either the X_AXIS or Y_AXIS box to change that. When using the model2 key, the origin point of the model will correspond to the origin point defined by either the origin brush or the origin coordinate value.
+You need to have an origin brush as part of this entity. The center of that brush will be the point through which the rotation axis passes. Setting the origin key is simply an alternate method to using an origin brush. You can check the X_AXIS, Y_AXIS or Z_AXIS boxes to determine along which axes rotation should occur. If no boxes are checked the entity will rotate along the Z axis. When using the model2 key, the origin point of the model will correspond to the origin point defined by either the origin brush or the origin coordinate value.
 
 Target this entity with a misc_model to have the model attached to the entity (set the model's "target" key to the same value as this entity's "targetname").*/
 
