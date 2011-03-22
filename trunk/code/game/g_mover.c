@@ -1537,8 +1537,8 @@ BOBBING
 */
 
 
-/*QUAKED func_bobbing (0 .5 .8) ? X_AXIS Y_AXIS
-Normally bobs on the Z axis
+/*QUAKED func_bobbing (0 .5 .8) ? X_AXIS Y_AXIS Z_AXIS
+Normally bobs on only the Z axis
 "model2"	.md3 model to also draw
 "height"	amplitude of bob (32 default)
 "speed"		seconds to complete a bob cycle (4 default)
@@ -1550,6 +1550,7 @@ Normally bobs on the Z axis
 void SP_func_bobbing (gentity_t *ent) {
 	float		height;
 	float		phase;
+	qboolean	axisset = qfalse;
 
 	G_SpawnFloat( "speed", "4", &ent->speed );
 	G_SpawnFloat( "height", "32", &height );
@@ -1569,9 +1570,15 @@ void SP_func_bobbing (gentity_t *ent) {
 	// set the axis of bobbing
 	if ( ent->spawnflags & 1 ) {
 		ent->s.pos.trDelta[0] = height;
-	} else if ( ent->spawnflags & 2 ) {
+		axisset = qtrue;
+	} 
+
+	if ( ent->spawnflags & 2 ) {
 		ent->s.pos.trDelta[1] = height;
-	} else {
+		axisset = qtrue;
+	} 
+	
+	if ( ( ent->spawnflags & 4 ) || !axisset ) {
 		ent->s.pos.trDelta[2] = height;
 	}
 }
