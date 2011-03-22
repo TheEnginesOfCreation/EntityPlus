@@ -236,8 +236,8 @@ FUNC_* ENTITIES
 
 //=============================================================================
 
-/*QUAKED func_bobbing (0 .5 .8) ? X_AXIS Y_AXIS
-Solid entity that oscillates back and forth in a linear motion. By default, it will have an amount of displacement in either direction equal to the dimension of the brush in the axis in which it's bobbing. Entity bobs on the Z axis (up-down) by default. It can also emit sound if the "noise" key is set. Will crush the player when blocked.
+/*QUAKED func_bobbing (0 .5 .8) ? X_AXIS Y_AXIS Z_AXIS
+Solid entity that oscillates back and forth in a linear motion. By default, it will have an amount of displacement in either direction equal to the dimension of the brush in the axes in which it's bobbing. Entity bobs only on the Z axis (up-down) by default. It can also emit sound if the "noise" key is set. Will crush the player when blocked.
 -------- KEYS --------
 speed : amount of time in seconds for one complete oscillation cycle (default 4).
 height : sets the amount of travel of the oscillation movement (default 32). 
@@ -263,6 +263,7 @@ _shader OR shader : Path to the metashader used to assign textures to the terrai
 -------- SPAWNFLAGS --------
 X_AXIS : entity will bob along the X axis.
 Y_AXIS : entity will bob along the Y axis.
+Z_AXIS : entity will bob along the Z axis.
 -------- NOTES --------
 In order for the sound to be emitted from the entity, it is recommended to include a brush with an origin shader at its center, otherwise the sound will not follow the entity as it moves. Setting the origin key is simply an alternate method to using an origin brush. When using the model2 key, the origin point of the model will correspond to the origin point defined by either the origin brush or the origin coordinate value.
 
