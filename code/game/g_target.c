@@ -488,15 +488,16 @@ void target_logic_use (gentity_t *self, gentity_t *other, gentity_t *activator) 
 		return;
 	}
 
-	if (self->triggeredorigin1 == NULL) {
-		self->triggeredorigin1 = &other->s.origin;
+	if (self->triggeredentity == 0) {
+		self->triggeredentity = &other->s.number;
 	}
-	else if (self->triggeredorigin1 == &other->s.origin) {
+	else if (self->triggeredentity == &other->s.number) {
 		if ( !(self->spawnflags & 8) ) { //spawnflags 8 will make the first trigger stay on until the target_logic is fully triggered
-			self->triggeredorigin1 = NULL;
+			self->triggeredentity = 0;
 		}
 	}
 	else {
+		self->triggeredentity = 0;	//reset target_logic
 		G_UseTargets (self, activator);
 	}
 }

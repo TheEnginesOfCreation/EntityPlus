@@ -102,7 +102,7 @@ struct gentity_s {
 	float		angle;			// set in editor, -1 = up, -2 = down
 	char		*target;
 	char		*targetname;
-	vec3_t		*triggeredorigin1;		// origin of first trigger for target_logic
+	int			triggeredentity;		// entity index of first trigger for target_logic
 	char		*team;
 	char		*targetShaderName;
 	char		*targetShaderNewName;
