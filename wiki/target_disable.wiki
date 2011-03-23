@@ -1,0 +1,23 @@
+= Introduction =
+
+Targets any trigger_ entity to disable or enable that entity.
+
+= Keys =
+
+  * targetname : activating trigger points to this.
+  * target : this points to entities to enable/disable when this entity is triggered
+  * notfree : when set to 1, entity will not spawn in "Free for all" and "Tournament" modes.
+  * notteam : when set to 1, entity will not spawn in "Teamplay" and "CTF" modes.
+  * notsingle : when set to 1, entity will not spawn in Single Player mode (bot play mode).
+
+= Spawnflags =
+
+  * RED_ONLY : only red team players can activate trigger.
+  * BLUE_ONLY : only blue team players can activate trigger.
+  * ALWAYS_DISABLE : The targeted entity will always be disabled.
+  * ALWAYS_ENABLE : The targeted entity will always be enabled.
+
+= Notes =
+
+By default the target_disable entity works as a toggle, so enabled entities will be disabled and disabled entities will be enabled.
+Disabled trigger_ entities will stop firing their targets when disabled. trigger_always entities cannot be disabled because they're triggered by the world.
