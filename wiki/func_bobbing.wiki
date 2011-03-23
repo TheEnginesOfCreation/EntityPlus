@@ -1,0 +1,3 @@
+= func_bobbing =
+
+func_bobbing entities work slightly different when it comes to setting the axis along which the entity moves. In vanilla Quake 3, the func_bobbing could only move along one axis. In EntityPlus, the X_AXIS, Y_AXIS and the new Z_AXIS spawnflags work additive. This means that when both the X_AXIS and Z_AXIS spwanflags are checked, the entity will move along both axes at the same time. When no spawnflags are selected, the entity moves only along the Z axis.
