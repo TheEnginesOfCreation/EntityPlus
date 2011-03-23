@@ -126,3 +126,37 @@ textures/entityplus/target_intermission
 		tcmod scroll 5 .25 
 	}	
 }
+
+textures/entityplus/bouncepad1q1metal7_99_disabled
+{
+	surfaceparm nodamage
+	q3map_lightimage textures/sfx/jumppadsmall.tga	
+	q3map_surfacelight 2000
+	qer_editorimage textures/sfx/bouncepad1q1metal7_99.tga
+
+	
+	{
+		map textures/sfx/bouncepad1q1metal7_99.tga
+		rgbGen identity
+	}
+	
+	{
+		map $lightmap
+		rgbGen identity
+		blendfunc gl_dst_color gl_zero
+	}
+	
+	//{
+	//	map textures/sfx/bouncepad01b_layer1.tga
+	//	blendfunc gl_one gl_one
+	//	rgbGen wave sin .5 .5 0 1.5	
+	//}
+
+	//{
+	//	clampmap textures/sfx/jumppadsmall.tga
+	//	blendfunc gl_one gl_one
+	//	tcMod stretch sin 1.2 .8 0 1.5
+	//	rgbGen wave square .5 .5 .25 1.5
+	//}
+
+}
