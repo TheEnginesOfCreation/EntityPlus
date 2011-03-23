@@ -1,6 +1,6 @@
 = Introduction =
 
-Targets any trigger_ entity to disable or enable that entity.
+Targets any trigger`_` entity to disable or enable that entity.
 
 = Keys =
 
@@ -20,4 +20,4 @@ Targets any trigger_ entity to disable or enable that entity.
 = Notes =
 
 By default the target_disable entity works as a toggle, so enabled entities will be disabled and disabled entities will be enabled.
-Disabled trigger_ entities will stop firing their targets when disabled. trigger_always entities cannot be disabled because they're triggered by the world.
+Disabled trigger`_` entities will stop firing their targets when disabled. trigger_always entities cannot be disabled because they're triggered by the world.
