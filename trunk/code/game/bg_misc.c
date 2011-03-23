@@ -59,6 +59,22 @@ gitem_t	bg_itemlist[] =
 /* sounds */ ""
 	},
 
+/*QUAKED item_armor_vest (.3 .3 1) (-16 -16 -16) (16 16 16) suspended
+*/
+	{
+		"item_armor_vest", 
+		"sound/misc/ar2_pkup.wav",
+        { "models/powerups/armor/armor_gre.md3",
+		0, 0, 0},
+/* icon */		"icons/iconr_green",
+/* pickup */	"Armor",
+		25,
+		IT_ARMOR,
+		0,
+/* precache */ "",
+/* sounds */ ""
+	},
+
 /*QUAKED item_armor_combat (.3 .3 1) (-16 -16 -16) (16 16 16) suspended
 */
 	{
