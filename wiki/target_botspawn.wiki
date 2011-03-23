@@ -1,0 +1,19 @@
+= target_botspawn =
+
+Spawns a bot into the game.
+
+= Keys =
+
+  * clientname : the name of the bot to spawn. Leave empty for a random bot.
+  * targetname : activating trigger points to this.
+  * notfree : when set to 1, entity will not spawn in "Free for all" and "Tournament" modes.
+  * notteam : when set to 1, entity will not spawn in "Teamplay" and "CTF" modes.
+  * notsingle : when set to 1, entity will not spawn in Single Player mode (bot play mode).
+
+= Spawnflags =
+
+  * OPPOSING_TEAM : In team games, bots will be spawned for the enemy team instead of the player's own team.
+
+= Notes = 
+
+None
