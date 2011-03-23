@@ -741,6 +741,29 @@ model="models/powerups/armor/armor_yel.md3"*/
 
 //=============================================================================
 
+/*QUAKED item_armor_vest (.18 1 .27) (-16 -16 -16) (16 16 16) SUSPENDED
+Green Armor - 25 points. All armor can be cumulated up to a maximum of 200 points and slowly wears out to 100 points.
+-------- KEYS --------
+wait : time in seconds before item respawns after being picked up (default 25, -1 = never respawn).
+random : random time variance in seconds added or subtracted from "wait" delay (default 0 - see Notes).
+team : set this to team items. Teamed items will respawn randomly after team master is picked up (see Notes).
+target : picking up the item will trigger the entity this points to.
+targetname : a target_give entity can point to this for respawn freebies.
+notfree : when set to 1, entity will not spawn in "Free for all" and "Tournament" modes.
+notteam : when set to 1, entity will not spawn in "Teamplay" and "CTF" modes.
+notsingle : when set to 1, entity will not spawn in Single Player mode (bot play mode).
+notbot : used to make an item invisible for bot attraction.
+-------- SPAWNFLAGS --------
+SUSPENDED : item will spawn where it was placed in map and won't drop to the floor.
+-------- NOTES --------
+The amount of time it takes for an item in the team to respawn is determined by the "wait" value of the item that was picked up previously. So if one of the items in the team has it's "wait" key set to -1 (never respawn), the random respawning cycle of the teamed items will stop after that item is picked up.
+
+When the random key is set, its value is used to calculate a minimum and a maximum delay. The final time delay will be a random value anywhere between the minimum and maximum values: (min delay = wait - random) (max delay = wait + random).
+-------- MODEL FOR RADIANT ONLY - DO NOT SET THIS AS A KEY --------
+model="models/powerups/armor/armor_gre.md3"*/
+
+//=============================================================================
+
 /*QUAKED item_armor_shard (0 .7 0) (-16 -16 -16) (16 16 16) SUSPENDED
 Green Armor Shard - 5 points. All armor can be cumulated up to a maximum of 200 points and slowly wears out to 100 points.
 -------- KEYS --------
