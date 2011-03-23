@@ -127,6 +127,27 @@ textures/entityplus/target_intermission
 	}	
 }
 
+textures/entityplus/target_disable
+{
+	qer_editorimage textures/entityplus/target_disable.tga
+	qer_trans .5
+	surfaceparm nomarks
+	surfaceparm trans
+	surfaceparm nonsolid
+	cull disable
+	{
+		map textures/entityplus/target_disable.tga
+		blendfunc add
+		rgbgen identity
+	}
+	{
+		map textures/entityplus/screen_noise.tga
+		blendfunc add
+		rgbgen wave triangle .5 .05 0 10
+		tcmod scroll 5 .25 
+	}	
+}
+
 textures/entityplus/bouncepad1q1metal7_99_disabled
 {
 	surfaceparm nodamage
