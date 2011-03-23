@@ -263,12 +263,6 @@ void G_ToggleTargetsEnabled( gentity_t *ent, gentity_t *activator ) {
 		return;
 	}
 
-	if (ent->targetShaderName && ent->targetShaderNewName) {
-		float f = level.time * 0.001;
-		AddRemap(ent->targetShaderName, ent->targetShaderNewName, f);
-		trap_SetConfigstring(CS_SHADERSTATE, BuildShaderStateConfig());
-	}
-
 	if ( !ent->target ) {
 		return;
 	}
@@ -278,13 +272,21 @@ void G_ToggleTargetsEnabled( gentity_t *ent, gentity_t *activator ) {
 		if ( t == ent ) {
 			G_Printf ("WARNING: Entity targets itself.\n");
 		} else {
-			G_Printf("entity found\n");
 			if ( ( ent->spawnflags & 4 ) )	
 				t->flags |= FL_DISABLED; //always_disable spawnflag is set, so set the disabled bit
 			else if ( ( ent->spawnflags & 8 ) )
 				t->flags &= ~FL_DISABLED;	//always_enable spawnflag is set, so clear the disabled bit
 			else
 				t->flags ^= FL_DISABLED;	//no spawnflag is set, so toggle
+
+			//enable or disable client side prediction on client side predicted triggers
+			if ( ( strcmp( t->classname, "trigger_push" ) == 0 ) || ( strcmp( t->classname, "trigger_teleport" ) == 0 ) )
+			{
+				if ( ( t->flags & FL_DISABLED ) )
+					t->r.svFlags |= SVF_NOCLIENT;
+				else
+					t->r.svFlags &= ~SVF_NOCLIENT;
+			}
 		}
 		if ( !ent->inuse ) {
 			G_Printf("entity was removed while using targets\n");
