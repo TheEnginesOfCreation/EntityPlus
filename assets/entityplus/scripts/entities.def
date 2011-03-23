@@ -1380,6 +1380,17 @@ STAY_ON : a trigger will remain triggered until the target_logic is reset.*/
 
 //=============================================================================
 
+/*QUAKED target_playerspeed (0 .5 0) (-8 -8 -8) (8 8 8)
+Sets the movement speed for player(s). Defaults to the speed set through the g_speed cvar (320 by default).
+-------- KEYS --------
+speed : the movement speed to apply to the player(s).
+targetname : the activating trigger points to this.
+notfree : when set to 1, entity will not spawn in "Free for all" and "Tournament" modes.
+notteam : when set to 1, entity will not spawn in "Teamplay" and "CTF" modes.
+notsingle : when set to 1, entity will not spawn in Single Player mode (bot play mode).*/
+
+//=============================================================================
+
 /*QUAKED target_position (0 .5 0) (-8 -8 -8) (8 8 8)
 Aiming target for entities like light, misc_portal_camera and trigger_push (jump pads) in particular.
 -------- KEYS --------

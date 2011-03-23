@@ -817,11 +817,15 @@ void ClientThink_real( gentity_t *ent ) {
 		client->ps.pm_type = PM_NORMAL;
 	}
 
-	if (!client->ps.gravity)
+	// set gravity
+	if ( !client->ps.gravity )
 		client->ps.gravity = g_gravity.value;
 
 	// set speed
-	client->ps.speed = g_speed.value;
+	if ( !ent->speed )
+		client->ps.speed = g_speed.value;
+	else
+		client->ps.speed = ent->speed;			//ent->speed holds a modified speed value that's set by a target_playerspeed
 
 #ifdef MISSIONPACK
 	if( bg_itemlist[client->ps.stats[STAT_PERSISTANT_POWERUP]].giTag == PW_SCOUT ) {

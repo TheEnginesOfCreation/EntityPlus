@@ -524,7 +524,6 @@ void SP_target_intermission (gentity_t *self) {
 /*QUAKED target_gravity (.5 .5 .5) (-8 -8 -8) (8 8 8) GLOBAL
 Sets the gravity of the activator. The gravity is set through the "count" key.
 If GLOBAL is checked, all players in the game will have their gravity changed.
-The activator can be forced to be from a certain team.
 */
 void target_gravity_use (gentity_t *self, gentity_t *other, gentity_t *activator) {
 	int i;
@@ -600,7 +599,6 @@ void SP_target_botspawn (gentity_t *self) {
 
 //==========================================================
 
-
 /*QUAKED target_disable (.5 .5 .5) (-8 -8 -8) (8 8 8) RED_ONLY BLUE_ONLY
 This toggles the FL_DISABLED flag on the target
 */
@@ -619,4 +617,23 @@ void target_disable_use (gentity_t *self, gentity_t *other, gentity_t *activator
 
 void SP_target_disable (gentity_t *self) {
 	self->use = target_disable_use;
+}
+
+//==========================================================
+
+/*QUAKED target_playerspeed (.5 .5 .5) (-8 -8 -8) (8 8 8) GLOBAL
+Sets the movement speed for player(s). Defaults to the speed set through the g_speed cvar (320 by default).
+*/
+void target_playerspeed_use (gentity_t *self, gentity_t *other, gentity_t *activator) {
+	int i;
+
+	if ( !self->speed ) {
+		self->speed = g_speed.value;
+	}
+
+	activator->speed = self->speed;	//this doesn't actually change the player's speed. This value is read in ClientThink_real (active.c) again.
+}
+
+void SP_target_playerspeed (gentity_t *self) {
+	self->use = target_playerspeed_use;
 }
