@@ -1,0 +1,28 @@
+= func_breakable =
+
+A static entity that is removed when it receives a set amount of damage.
+
+= Keys =
+
+  * health : The entire entity is removed once this amount of damages has been inflicted to it.
+  * notfree : when set to 1, entity will not spawn in "Free for all" and "Tournament" modes.
+  * notteam : when set to 1, entity will not spawn in "Teamplay" and "CTF" modes.
+  * notsingle : when set to 1, entity will not spawn in Single Player mode (bot play mode).
+
+= Q3Map2 Keys =
+
+  * `_`targetname : Used to attach a misc_model entity to this entity.
+  * `_`lightmapscale : Floating point value scaling the resolution of lightmaps on brushes/patches in this entity (default 1.0).
+  * `_`cs OR `_`castshadows : Allows per-entity control over shadow casting. Defaults to 0 on entities, 1 on world. 0 = no shadow casting. 1 = cast shadows on world. > 1 = cast shadows on entities with `_`rs (or `_`receiveshadows) with the corresponding value, AND world. Negative values imply same, but DO NOT cast shadows on world.
+  * `_`rs OR `_`receiveshadows : Allows per-entity control over shadow reception. Defaults to 1 on everything (world shadows). 0 = receives NO shadows. > 1 = receive shadows only from corresponding keyed entities (see above) and world. < 1 = receive shadows ONLY from corresponding keyed entities.
+  * `_`celshader : Sets the cel shader used for this geometry. Note: omit the "textures/" prefix.
+
+= Q3Map2 Terrain Keys =
+
+  * `_`indexmap OR alphamap : Path/name for the art file used to guide the mapping of textures on the terrain surface.
+  * `_`layers OR layers : Integer value is the number unique root shaders that will be use on the terrain.
+  * `_`shader OR shader : Path to the metashader used to assign textures to the terrain entity. Note: Omit the "textures/" prefix.
+
+= Notes =
+
+Target this entity with a misc_model to have the model attached to the entity (set the model's "target" key to the same value as this entity's "targetname").
