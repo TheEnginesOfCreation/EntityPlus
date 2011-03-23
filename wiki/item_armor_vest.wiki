@@ -11,7 +11,7 @@ Green Armor - 25 points. All armor can be cumulated up to a maximum of 200 point
   * targetname : a target_give entity can point to this for respawn freebies.
   * notfree : when set to 1, entity will not spawn in "Free for all" and "Tournament" modes.
   * notteam : when set to 1, entity will not spawn in "Teamplay" and "CTF" modes.
-   * notsingle : when set to 1, entity will not spawn in Single Player mode (bot play mode).
+  * notsingle : when set to 1, entity will not spawn in Single Player mode (bot play mode).
   * notbot : used to make an item invisible for bot attraction.
 
 = Spawnflags =
