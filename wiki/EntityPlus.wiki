@@ -12,3 +12,4 @@ This page links to all the features of !EntityPlus
   * [target_gravity]
   * [target_intermission]
   * [target_logic]
+  * [target_playerspeed]
