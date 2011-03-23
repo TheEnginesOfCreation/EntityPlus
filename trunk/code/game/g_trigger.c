@@ -127,6 +127,10 @@ trigger_push
 
 void trigger_push_touch (gentity_t *self, gentity_t *other, trace_t *trace ) {
 
+	//if FL_DISABLED flag is set, do not push player
+	if ( ( self->flags & FL_DISABLED ) )
+		return;
+
 	if ( !other->client ) {
 		return;
 	}
@@ -199,9 +203,6 @@ void SP_trigger_push( gentity_t *self ) {
 
 
 void Use_target_push( gentity_t *self, gentity_t *other, gentity_t *activator ) {
-	if ( (self->flags & FL_DISABLED) )
-		return;
-
 	if ( !activator->client ) {
 		return;
 	}
