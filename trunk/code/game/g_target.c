@@ -489,9 +489,9 @@ void target_logic_use (gentity_t *self, gentity_t *other, gentity_t *activator) 
 	}
 
 	if (self->triggeredentity == 0) {
-		self->triggeredentity = &other->s.number;
+		self->triggeredentity = other->s.number;
 	}
-	else if (self->triggeredentity == &other->s.number) {
+	else if (self->triggeredentity == other->s.number) {
 		if ( !(self->spawnflags & 8) ) { //spawnflags 8 will make the first trigger stay on until the target_logic is fully triggered
 			self->triggeredentity = 0;
 		}
@@ -555,31 +555,31 @@ void SP_target_gravity (gentity_t *self) {
 Spawns a bot into the game
 */
 void target_botspawn_use (gentity_t *self, gentity_t *other, gentity_t *activator) {
-	char *team[4];
+	char *team;
 	int teamnum;
 	float skill;
 
 	switch (activator->client->sess.sessionTeam) {
 		case TEAM_BLUE:
 			if (( self->spawnflags & 1 )) {
-				*team = "red";
+				team = "red";
 				teamnum = TEAM_RED;
 			} else {
-				*team = "blue";
+				team = "blue";
 				teamnum = TEAM_BLUE;
 			}
 			break;
 		case TEAM_RED:
 			if (( self->spawnflags & 1 )) {
-				*team = "blue";
+				team = "blue";
 				teamnum = TEAM_BLUE;
 			} else {
-				*team = "red";
+				team = "red";
 				teamnum = TEAM_RED;
 			}
 			break;
 		default:
-			*team = "free";
+			team = "free";
 			teamnum = TEAM_FREE;
 			break;
 	}
