@@ -1,0 +1,1 @@
+quake3.exe +set fs_game entityplus +set sv_pure 0 +set fraglimit 0 +set timelimit 0 +set sv_maxclients 8 +devmap entityplus
