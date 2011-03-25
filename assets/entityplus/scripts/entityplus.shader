@@ -169,6 +169,27 @@ textures/entityplus/target_botspawn
 	}	
 }
 
+textures/entityplus/target_playerspeed
+{
+	qer_editorimage textures/entityplus/target_playerspeed.tga
+	qer_trans .5
+	surfaceparm nomarks
+	surfaceparm trans
+	surfaceparm nonsolid
+	cull disable
+	{
+		map textures/entityplus/target_playerspeed.tga
+		blendfunc add
+		rgbgen identity
+	}
+	{
+		map textures/entityplus/screen_noise.tga
+		blendfunc add
+		rgbgen wave triangle .5 .05 0 10
+		tcmod scroll 5 .25 
+	}	
+}
+
 textures/entityplus/bouncepad1q1metal7_99_disabled
 {
 	surfaceparm nodamage
@@ -187,18 +208,4 @@ textures/entityplus/bouncepad1q1metal7_99_disabled
 		rgbGen identity
 		blendfunc gl_dst_color gl_zero
 	}
-	
-	//{
-	//	map textures/sfx/bouncepad01b_layer1.tga
-	//	blendfunc gl_one gl_one
-	//	rgbGen wave sin .5 .5 0 1.5	
-	//}
-
-	//{
-	//	clampmap textures/sfx/jumppadsmall.tga
-	//	blendfunc gl_one gl_one
-	//	tcMod stretch sin 1.2 .8 0 1.5
-	//	rgbGen wave square .5 .5 .25 1.5
-	//}
-
 }
