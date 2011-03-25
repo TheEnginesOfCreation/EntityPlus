@@ -43,10 +43,23 @@ https://code.google.com/p/entityplus/wiki/EntityPlus
 
 
 
+EXAMPLE MAP
+-----------
+The release package of EntityPlus contains an example map which demonstrates a number of the features found in EntityPlus. 
+This map can be loaded by entering the following commands in the console:
+
+	\fraglimit 0
+	\timelimit 0
+    \map entityplus 
+
+The map can also be started by double clicking the entityplus.bat file that comes with the release package. This batch file 
+is located next to the quake.exe executable. 
+
+
 VERSION HISTORY
 ---------------
 
-v0.2 (?? mar 2011)
+v0.2 (25 mar 2011)
 	- [Added] shooter_bfg
 	- [Added] target_botspawn
 	- [Added] target_disable
