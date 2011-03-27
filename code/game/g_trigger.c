@@ -24,10 +24,6 @@ void multi_wait( gentity_t *ent ) {
 // so wait for the delay time before firing
 void multi_trigger( gentity_t *ent, gentity_t *activator ) {
 	
-	//if FL_DISABLED flag is set, do not use the targets
-	if ( ( ent->flags & FL_DISABLED ) )
-		return;
-	
 	ent->activator = activator;
 	if ( ent->nextthink ) {
 		return;		// can't retrigger until the wait is over
@@ -126,10 +122,6 @@ trigger_push
 */
 
 void trigger_push_touch (gentity_t *self, gentity_t *other, trace_t *trace ) {
-
-	//if FL_DISABLED flag is set, do not push player
-	if ( ( self->flags & FL_DISABLED ) )
-		return;
 
 	if ( !other->client ) {
 		return;
@@ -260,9 +252,6 @@ trigger_teleport
 void trigger_teleporter_touch (gentity_t *self, gentity_t *other, trace_t *trace ) {
 	gentity_t	*dest;
 
-	if ( ( self->flags & FL_DISABLED ) )
-		return;
-
 	if ( !other->client ) {
 		return;
 	}
@@ -345,9 +334,6 @@ void hurt_use( gentity_t *self, gentity_t *other, gentity_t *activator ) {
 
 void hurt_touch( gentity_t *self, gentity_t *other, trace_t *trace ) {
 	int		dflags;
-
-	if ( ( self->flags & FL_DISABLED ) )
-		return;
 
 	if ( !other->takedamage ) {
 		return;
