@@ -612,11 +612,13 @@ void target_disable_use (gentity_t *self, gentity_t *other, gentity_t *activator
 		return;
 	}
 
-	G_ToggleTargetsEnabled (self, activator);
+	G_ToggleTargetsEnabled ( self );
 }
 
 void SP_target_disable (gentity_t *self) {
 	self->use = target_disable_use;
+	if ( ( self->spawnflags & 16 ) )
+		G_ToggleTargetsEnabled ( self );
 }
 
 //==========================================================

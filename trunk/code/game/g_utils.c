@@ -256,7 +256,7 @@ match (string)self.target and link or unlink them from the world
 
 ==============================
 */
-void G_ToggleTargetsEnabled( gentity_t *ent, gentity_t *activator ) {
+void G_ToggleTargetsEnabled( gentity_t *ent ) {
 	gentity_t		*t;
 	
 	if ( !ent ) {
