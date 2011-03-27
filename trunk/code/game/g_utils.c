@@ -252,7 +252,7 @@ G_ToggleTargetsEnabled
 "activator" should be set to the entity that initiated the firing.
 
 Search for (string)targetname in all entities that
-match (string)self.target and toggle their FL_DISABLED flag
+match (string)self.target and link or unlink them from the world
 
 ==============================
 */
@@ -272,21 +272,16 @@ void G_ToggleTargetsEnabled( gentity_t *ent, gentity_t *activator ) {
 		if ( t == ent ) {
 			G_Printf ("WARNING: Entity targets itself.\n");
 		} else {
-			if ( ( ent->spawnflags & 4 ) )	
-				t->flags |= FL_DISABLED; //always_disable spawnflag is set, so set the disabled bit
-			else if ( ( ent->spawnflags & 8 ) )
-				t->flags &= ~FL_DISABLED;	//always_enable spawnflag is set, so clear the disabled bit
+			if ( ( ent->spawnflags & 4 ) && !t->r.linked )	
+				trap_LinkEntity( t ); //always_disable spawnflag is set, so link entity to the world
+			else if ( ( ent->spawnflags & 8 ) && t->r.linked )
+				trap_UnlinkEntity( t );	//always_enable spawnflag is set, so unlink entity from the world
 			else
-				t->flags ^= FL_DISABLED;	//no spawnflag is set, so toggle
-
-			//enable or disable client side prediction on client side predicted triggers
-			if ( ( strcmp( t->classname, "trigger_push" ) == 0 ) || ( strcmp( t->classname, "trigger_teleport" ) == 0 ) )
-			{
-				if ( ( t->flags & FL_DISABLED ) )
-					t->r.svFlags |= SVF_NOCLIENT;
+				//no spawnflag is set, so toggle
+				if ( t->r.linked )
+					trap_UnlinkEntity( t );
 				else
-					t->r.svFlags &= ~SVF_NOCLIENT;
-			}
+					trap_LinkEntity( t );
 		}
 		if ( !ent->inuse ) {
 			G_Printf("entity was removed while using targets\n");

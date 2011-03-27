@@ -31,7 +31,6 @@
 #define FL_NO_BOTS				0x00002000	// spawn point not for bot use
 #define FL_NO_HUMANS			0x00004000	// spawn point just for bots
 #define FL_FORCE_GESTURE		0x00008000	// force gesture on client
-#define FL_DISABLED				0x00010000  // trigger is disabled
 
 // movers are things like doors, plats, buttons, etc
 typedef enum {
