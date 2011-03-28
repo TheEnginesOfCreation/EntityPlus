@@ -1314,16 +1314,6 @@ GLOBAL : all players are affected instead of only the activator.*/
 
 //=============================================================================
 
-/*QUAKED target_intermission (0 .5 0) (-8 -8 -8) (8 8 8)
-Ends game and progresses to intermission screen when triggered
--------- KEYS --------
-targetname : activating trigger points to this.
-notfree : when set to 1, entity will not spawn in "Free for all" and "Tournament" modes.
-notteam : when set to 1, entity will not spawn in "Teamplay" and "CTF" modes.
-notsingle : when set to 1, entity will not spawn in Single Player mode (bot play mode).*/
-
-//=============================================================================
-
 /*QUAKED target_kill (0 .5 0) (-8 -8 -8) (8 8 8)
 This will kill the player who activates the trigger that fires this target.
 -------- KEYS --------
@@ -1379,6 +1369,19 @@ RED_ONLY : only red team players can activate trigger.
 BLUE_ONLY : only blue team players can activate trigger.
 RANDOM : only one of the targeted entities will be triggered at random.
 STAY_ON : a trigger will remain triggered until the target_logic is reset.*/
+
+//=============================================================================
+
+/*QUAKED target_mapchange (0 .5 0) (-8 -8 -8) (8 8 8) SHOW_INTERMISSION
+Loads the specified map.
+-------- KEYS --------
+mapname : The map to load. When omitted, the current map will be restarted.
+targetname : activating trigger points to this.
+notfree : when set to 1, entity will not spawn in "Free for all" and "Tournament" modes.
+notteam : when set to 1, entity will not spawn in "Teamplay" and "CTF" modes.
+notsingle : when set to 1, entity will not spawn in Single Player mode (bot play mode).
+-------- SPAWNFLAGS --------
+SHOW_INTERMISSION :  When set, the intermission screen is shown before loading the next map.*/
 
 //=============================================================================
 

@@ -107,6 +107,7 @@ struct gentity_s {
 	char		*targetShaderNewName;
 	gentity_t	*target_ent;
 	char		*clientname;			// name of the bot to spawn for target_botspawn
+	char		*mapname;				// name of the map to switch to for target_mapchange
 
 	float		speed;
 	vec3_t		movedir;

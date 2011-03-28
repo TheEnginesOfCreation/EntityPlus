@@ -97,6 +97,7 @@ field_t fields[] = {
 	{"targetShaderName", FOFS(targetShaderName), F_LSTRING},
 	{"targetShaderNewName", FOFS(targetShaderNewName), F_LSTRING},
 	{"clientname", FOFS(clientname), F_LSTRING},
+	{"mapname", FOFS(mapname), F_LSTRING},
 
 	{NULL}
 };
@@ -148,7 +149,7 @@ void SP_target_location (gentity_t *ent);
 void SP_target_push (gentity_t *ent);
 void SP_target_logic (gentity_t *ent);
 void SP_target_gravity (gentity_t *ent);
-void SP_target_intermission (gentity_t *ent);
+void SP_target_mapchange (gentity_t *ent);
 void SP_target_botspawn (gentity_t *ent);
 void SP_target_disable (gentity_t *ent);
 void SP_target_playerspeed (gentity_t *ent);
@@ -232,7 +233,7 @@ spawn_t	spawns[] = {
 	{"target_push", SP_target_push},
 	{"target_logic", SP_target_logic},
 	{"target_gravity", SP_target_gravity},
-	{"target_intermission", SP_target_intermission},
+	{"target_mapchange", SP_target_mapchange},
 	{"target_botspawn", SP_target_botspawn},
 	{"target_disable", SP_target_disable},
 	{"target_playerspeed", SP_target_playerspeed},
