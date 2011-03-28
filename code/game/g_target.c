@@ -508,15 +508,35 @@ void SP_target_logic (gentity_t *self) {
 
 //==========================================================
 
-/*QUAKED target_intermission (.5 .5 .5) (-8 -8 -8) (8 8 8) RED_ONLY BLUE_ONLY
-When triggered, ends the game and proceeds to the intermission screen
+/*QUAKED target_mapchange (.5 .5 .5) (-8 -8 -8) (8 8 8) SHOW_INTERMISSION
+When triggered, loads the specified map. 
+When the SHOW_INTERMISSION spawnflag is set, the intermission screen is displayed before loading the next map.
 */
-void target_intermission_use (gentity_t *self, gentity_t *other, gentity_t *activator) {
-	BeginIntermission();
+void target_mapchange_use (gentity_t *self, gentity_t *other, gentity_t *activator) {
+	char *cmd;
+
+	//keep cheats enabled if they were enabled
+	if ( g_cheats.integer )
+		cmd = "devmap";
+	else
+		cmd = "map";
+
+	if ( ( self->spawnflags & 1 ) )
+	{
+		if ( self->mapname )
+			trap_SendConsoleCommand( EXEC_INSERT, va( "nextmap \"%s %s\"\n", cmd, self->mapname ) ); 
+		
+		BeginIntermission();
+	} else {
+		if ( self->mapname )
+			trap_SendConsoleCommand( EXEC_INSERT, va( "%s %s\n", cmd, self->mapname ) ); 
+		else
+			trap_SendConsoleCommand( EXEC_INSERT, "map_restart 0" ); 
+	}
 }
 
-void SP_target_intermission (gentity_t *self) {
-	self->use = target_intermission_use;
+void SP_target_mapchange (gentity_t *self) {
+	self->use = target_mapchange_use;
 }
 
 //==========================================================
