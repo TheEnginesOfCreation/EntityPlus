@@ -7484,7 +7484,9 @@ base_wall/concrete_dark
 {
 "targetname" "intermission"
 "origin" "-304 3520 304"
-"classname" "target_intermission"
+"classname" "target_mapchange"
+"mapname" "entityplus"
+"spawnflags" "1"
 }
 // entity 231
 {
