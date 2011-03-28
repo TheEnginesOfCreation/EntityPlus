@@ -513,14 +513,19 @@ When triggered, loads the specified map.
 When the SHOW_INTERMISSION spawnflag is set, the intermission screen is displayed before loading the next map.
 */
 void target_mapchange_use (gentity_t *self, gentity_t *other, gentity_t *activator) {
-	char *cmd;
+	char	*cmd;
 
-	//keep cheats enabled if they were enabled
-	if ( g_cheats.integer )
-		cmd = "devmap";
+
+	//determine map switch command to use
+	if ( g_gametype.integer == GT_SINGLE_PLAYER )
+		cmd = "spmap";		//stay in single player mode
+	else if ( g_cheats.integer )
+		cmd = "devmap";		//keep cheats enabled
 	else
 		cmd = "map";
 
+
+	//perform map switch
 	if ( ( self->spawnflags & 1 ) )
 	{
 		if ( self->mapname )
