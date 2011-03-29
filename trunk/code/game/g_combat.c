@@ -659,6 +659,8 @@ void player_die( gentity_t *self, gentity_t *inflictor, gentity_t *attacker, int
 
 	trap_LinkEntity (self);
 
+	// Fire trigger_death and trigger_frag entities
+	G_UseTriggerFragAndDeathEntities ( self, attacker );
 }
 
 

@@ -1569,6 +1569,50 @@ notsingle : when set to 1, entity will not spawn in Single Player mode (bot play
 
 //=============================================================================
 
+/*QUAKED trigger_death (.5 .5 .5) (-8 -8 -8) (8 8 8) RED_ONLY BLUE_ONLY TRIGGER_ONCE
+Triggered when a player dies.
+-------- KEYS --------
+target : this points to the entity to activate.
+nobots : dying bots do not trigger this entity.
+nohumans : dying humans do not trigger this entity.
+count : the number of players that must have died before this entity is triggered
+notfree : when set to 1, entity will not spawn in "Free for all" and "Tournament" modes.
+notteam : when set to 1, entity will not spawn in "Teamplay" and "CTF" modes.
+notsingle : when set to 1, entity will not spawn in Single Player mode (bot play mode).
+-------- SPAWNFLAGS --------
+RED_ONLY : only red team players can activate trigger.
+BLUE_ONLY : only blue team players can activate trigger.
+TRIGGER_ONCE : The trigger will only fire once
+-------- NOTES --------
+When the count key is set, the trigger_death must effectively be triggered [count] number of times before it actually fires its targets. The trigger_death entity is considered to be triggered only when a player that matches the entity's nobots/nohumans/red_only/blue_only configuration has died. Note that the count specifies a total number of deaths, not a per-player count.
+
+This entity will be triggered through any means of death, including cratering, suicide and environmental hazards such as lava, slime, drowning or trigger_hurt entities. The dying player is seen as the activator of the trigger.*/
+
+//=============================================================================
+
+/*QUAKED trigger_frag (.5 .5 .5) (-8 -8 -8) (8 8 8) RED_ONLY BLUE_ONLY TRIGGER_ONCE NO_SUICIDE
+Triggered when a player scores a frag.
+-------- KEYS --------
+target : this points to the entity to activate.
+nobots : bots scoring a frag do not trigger this entity.
+nohumans : humans scoring a frag do not trigger this entity.
+count : the number of frags that must be scored before this entity is triggered
+notfree : when set to 1, entity will not spawn in "Free for all" and "Tournament" modes.
+notteam : when set to 1, entity will not spawn in "Teamplay" and "CTF" modes.
+notsingle : when set to 1, entity will not spawn in Single Player mode (bot play mode).
+-------- SPAWNFLAGS --------
+RED_ONLY : only red team players can activate trigger.
+BLUE_ONLY : only blue team players can activate trigger.
+TRIGGER_ONCE : The trigger will only fire once
+NO_SUICIDE : The trigger does not respond to players blowing themselves up.
+-------- NOTES --------
+When the count key is set, the trigger_frag must effectively be triggered [count] number of times before it actually fires its targets. The trigger_frag entity is considered to be triggered only when a player that matches the entity's nobots/nohumans/red_only/blue_only configuration has scored a frag. Note that the count specifies a total number of frags, not a per-player count.
+
+This entity will be triggered only when a player kills another player. The player scoring the frag is seen as the activator of the trigger*/
+
+//=============================================================================
+
+
 /*QUAKED trigger_hurt (.5 .5 .5) ? - - SILENT NO_PROTECTION SLOW
 Any player that touches this will be hurt by "dmg" points of damage once per server frame (very fast). A sizzling sound is also played while the player is being hurt.
 -------- KEYS --------
