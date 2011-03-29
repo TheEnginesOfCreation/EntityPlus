@@ -13,9 +13,13 @@ The first time a player enters the game, they will be at an 'initial' spot.
 Targets will be fired when someone spawns in on them.
 "nobots" will prevent bots from using this spot.
 "nohumans" will prevent non-bots from using this spot.
+"count" is used to limit the number of times the spawnpoint can be used. When 0 or omitted there is no limit
 */
 void SP_info_player_deathmatch( gentity_t *ent ) {
 	int		i;
+
+	G_SpawnInt( "count", "0", &ent->count);
+	ent->damage = 0; //damage is used to keep track of the number of times this spawnpoint was used.
 
 	G_SpawnInt( "nobots", "0", &i);
 	if ( i ) {
@@ -129,15 +133,33 @@ gentity_t *SelectRandomDeathmatchSpawnPoint( void ) {
 	count = 0;
 	spot = NULL;
 
+	//find the spots that are active and do not telefrag
 	while ((spot = G_Find (spot, FOFS(classname), "info_player_deathmatch")) != NULL) {
-		if ( SpotWouldTelefrag( spot ) ) {
+		if ( SpotWouldTelefrag( spot ) || !SpawnPointIsActive( spot ) ) {
 			continue;
 		}
 		spots[ count ] = spot;
 		count++;
 	}
 
-	if ( !count ) {	// no spots that won't telefrag
+	//no spots are found, so we look for active spots even if they telefrag
+	if ( !count ) {
+		spot = NULL;
+		while ((spot = G_Find (spot, FOFS(classname), "info_player_deathmatch")) != NULL) {
+			if ( !SpawnPointIsActive( spot ) ) {
+				continue;
+			}
+			spots[ count ] = spot;
+			count++;
+		}
+	}
+	
+
+	if ( !count ) {	
+		// there are no active spots at all, so we'll allow spawning at a random non-active spot
+		// TODO: Make a more predictable solution for this
+		
+		//G_Error( "Couldn't find a spawn point" );
 		return G_Find( NULL, FOFS(classname), "info_player_deathmatch");
 	}
 
@@ -163,8 +185,9 @@ gentity_t *SelectRandomFurthestSpawnPoint ( vec3_t avoidPoint, vec3_t origin, ve
 	numSpots = 0;
 	spot = NULL;
 
+	// Find spots that are active and don't telefrag
 	while ((spot = G_Find (spot, FOFS(classname), "info_player_deathmatch")) != NULL) {
-		if ( SpotWouldTelefrag( spot ) ) {
+		if ( SpotWouldTelefrag( spot ) || !SpawnPointIsActive( spot ) ) {
 			continue;
 		}
 		VectorSubtract( spot->s.origin, avoidPoint, delta );
@@ -191,7 +214,41 @@ gentity_t *SelectRandomFurthestSpawnPoint ( vec3_t avoidPoint, vec3_t origin, ve
 			numSpots++;
 		}
 	}
+
 	if (!numSpots) {
+		// No spots were found, so find spots that are active even if they telefrag
+		while ((spot = G_Find (spot, FOFS(classname), "info_player_deathmatch")) != NULL) {
+			if ( !SpawnPointIsActive( spot ) ) {
+				continue;
+			}
+			VectorSubtract( spot->s.origin, avoidPoint, delta );
+			dist = VectorLength( delta );
+			for (i = 0; i < numSpots; i++) {
+				if ( dist > list_dist[i] ) {
+					if ( numSpots >= 64 )
+						numSpots = 64-1;
+					for (j = numSpots; j > i; j--) {
+						list_dist[j] = list_dist[j-1];
+						list_spot[j] = list_spot[j-1];
+					}
+					list_dist[i] = dist;
+					list_spot[i] = spot;
+					numSpots++;
+					if (numSpots > 64)
+						numSpots = 64;
+					break;
+				}
+			}
+			if (i >= numSpots && numSpots < 64) {
+				list_dist[numSpots] = dist;
+				list_spot[numSpots] = spot;
+				numSpots++;
+			}
+		}
+	}
+
+	if (!numSpots) {
+		// there are no active spots at all, so we'll allow spawning at a random non-active spot
 		spot = G_Find( NULL, FOFS(classname), "info_player_deathmatch");
 		if (!spot)
 			G_Error( "Couldn't find a spawn point" );
@@ -256,6 +313,8 @@ SelectInitialSpawnPoint
 
 Try to find a spawn point marked 'initial', where the client
 is allowed to spawn. Otherwise use normal spawn selection.
+It is assumed there's only ONE spawnpoint marked 'initial'
+in the map.
 ============
 */
 gentity_t *SelectInitialSpawnPoint( vec3_t origin, vec3_t angles ) {
@@ -263,7 +322,7 @@ gentity_t *SelectInitialSpawnPoint( vec3_t origin, vec3_t angles ) {
 
 	spot = NULL;
 	while ((spot = G_Find (spot, FOFS(classname), "info_player_deathmatch")) != NULL) {
-		if ( spot->spawnflags & 1 ) {
+		if ( (spot->spawnflags & 1) && SpawnPointIsActive(spot) ) {
 			break;
 		}
 	}
@@ -292,6 +351,27 @@ gentity_t *SelectSpectatorSpawnPoint( vec3_t origin, vec3_t angles ) {
 	VectorCopy( level.intermission_angle, angles );
 
 	return NULL;
+}
+
+/*
+===========
+SpawnPointIsActive
+
+Returns the active state of a spawnpoint. A spawnpoint is not active
+when it has reached the maximum number of spawns. A spawnpoint's
+count key is used to set the max number of spawns allowed in that spot.
+
+============
+*/
+qboolean SpawnPointIsActive( gentity_t *spot ) {
+	if ( !spot->count )
+		return qtrue;
+
+	//damage is used to keep track of the number of spawns at this spot
+	if ( spot->damage < spot->count )
+		return qtrue;
+
+	return qfalse;
 }
 
 /*
@@ -1086,6 +1166,11 @@ void ClientSpawn(gentity_t *ent) {
 
 		} while ( 1 );
 	}
+
+	// reduce one allowed spawn from spawnpoint, if limit is set
+	if ( spawnPoint->count && spawnPoint->damage < spawnPoint->count )
+		spawnPoint->damage++;
+
 	client->pers.teamState.state = TEAM_ACTIVE;
 
 	// always clear the kamikaze flag

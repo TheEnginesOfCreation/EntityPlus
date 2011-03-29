@@ -986,8 +986,9 @@ gentity_t *SelectRandomTeamSpawnPoint( int teamstate, team_t team ) {
 
 	spot = NULL;
 
+	// find spots that are active and don't telefrag
 	while ((spot = G_Find (spot, FOFS(classname), classname)) != NULL) {
-		if ( SpotWouldTelefrag( spot ) ) {
+		if ( SpotWouldTelefrag( spot ) || !SpawnPointIsActive( spot )) {
 			continue;
 		}
 		spots[ count ] = spot;
@@ -995,7 +996,23 @@ gentity_t *SelectRandomTeamSpawnPoint( int teamstate, team_t team ) {
 			break;
 	}
 
-	if ( !count ) {	// no spots that won't telefrag
+	// no spots were found so find active spawnpoints even if they telefrag
+	if ( !count ) {
+		while ((spot = G_Find (spot, FOFS(classname), classname)) != NULL) {
+			if ( !SpawnPointIsActive( spot )) {
+				continue;
+			}
+			spots[ count ] = spot;
+			if (++count == MAX_TEAM_SPAWN_POINTS)
+				break;
+		}
+	}
+
+	if ( !count ) {	
+		// there are no active spots at all, so we'll allow spawning at a random non-active spot
+		// TODO: Make a more predictable solution for this
+		
+		//G_Error( "Couldn't find a spawn point" );
 		return G_Find( NULL, FOFS(classname), classname);
 	}
 
