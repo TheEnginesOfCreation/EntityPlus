@@ -290,7 +290,35 @@ void G_ToggleTargetsEnabled( gentity_t *ent ) {
 	}
 }
 
+/*
+==============================
+G_UseTriggerDeathEntities
 
+"died" should be set to the entity that died.
+"attacker" is the entity that is responsible for the death.
+
+Search for all trigger_death entities and fire them
+==============================
+*/
+void G_UseTriggerFragAndDeathEntities ( gentity_t *died, gentity_t *attacker ) {
+	gentity_t		*t;
+
+	//fire trigger_frag entities if the attacker was a human player
+	if ( attacker->client ) {
+		t = NULL;
+		while ( ( t = G_Find( t, FOFS(classname), "trigger_frag" ) ) != NULL ) {
+			if ( t->use )
+				t->use( t, died, attacker );
+		}
+	}
+
+	//fire trigger_death entities
+	t = NULL;
+	while ( ( t = G_Find( t, FOFS(classname), "trigger_death" ) ) != NULL ) {
+		if ( t->use )
+			t->use( t, attacker, died );
+	}
+}
 
 /*
 =============

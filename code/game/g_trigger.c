@@ -440,3 +440,144 @@ void SP_func_timer( gentity_t *self ) {
 }
 
 
+/*
+==============================================================================
+
+trigger_death
+
+==============================================================================
+*/
+
+/*QUAKED trigger_death(.5 .5 .5) (-8 -8 -8) (8 8 8) RED_ONLY BLUE_ONLY TRIGGER_ONCE
+Entity that's triggered when a player dies.
+activator is the player that died. other is unused.
+If the TRIGGER_ONCE spawnflag is set, the entity can only be triggered once
+*/
+void trigger_death_use( gentity_t *self, gentity_t *other, gentity_t *activator ) {
+	
+	//filter red/blue players
+	if ( ( self->spawnflags & 1 ) && activator->client->sess.sessionTeam != TEAM_RED ) {
+		return;
+	}
+	if ( ( self->spawnflags & 2 ) && activator->client->sess.sessionTeam != TEAM_BLUE ) {
+		return;
+	}
+
+	// if died player is a bot and bots aren't allowed, do nothing
+	if ( ( self->flags & FL_NO_BOTS ) && ( activator->r.svFlags & SVF_BOT ) )
+		return;
+
+	// if died player is not a bot and humans aren't allowed, do nothing
+	if ( ( self->flags & FL_NO_HUMANS ) && !( activator->r.svFlags & SVF_BOT ) )
+		return;
+
+	//damage is used to keep track of the number of times a player died
+	self->damage++;
+
+	if ( self->damage < self->count )
+		return;
+
+	self->damage = 0;
+	
+	G_UseTargets ( self, activator );
+
+	//the entity is triggered and TRIGGER_ONCE is set, so remove the entity from the game.
+	if ( ( self->spawnflags & 4 ) )
+		G_FreeEntity( self );
+}
+
+
+void SP_trigger_death( gentity_t *self ) {
+	int		i;
+
+	self->use = trigger_death_use;
+
+	G_SpawnInt( "nobots", "0", &i);
+	if ( i ) {
+		self->flags |= FL_NO_BOTS;
+	}
+	G_SpawnInt( "nohumans", "0", &i );
+	if ( i ) {
+		self->flags |= FL_NO_HUMANS;
+	}
+
+	G_SpawnInt( "count", "1", &self->count );	//count is the number of times a player must die before the entity is triggered
+	self->damage = 0;							//damage is used to keep track of the number of times a player died
+
+	self->r.svFlags = SVF_NOCLIENT;
+}
+
+/*
+==============================================================================
+
+trigger_frag
+
+==============================================================================
+*/
+
+/*QUAKED trigger_frag(.5 .5 .5) (-8 -8 -8) (8 8 8) RED_ONLY BLUE_ONLY TRIGGER_ONCE NO_SUICIDE
+Entity that's triggered when a makes a frag.
+activator is the entity that is responsible for the death of another player. other is the player that died.
+If the TRIGGER_ONCE spawnflag is set, the entity can only be triggered once
+*/
+void trigger_frag_use( gentity_t *self, gentity_t *other, gentity_t *activator ) {
+	
+	// cannot be triggered by non-player entities
+	if ( !activator->client )
+		return;
+
+	// the NO_SUICIDE spawnflag is set and player killed himself so we do nothing
+	if ( ( self->spawnflags & 8 ) && activator == other )
+		return;
+
+	//filter red/blue players
+	if ( ( self->spawnflags & 1 ) && activator->client->sess.sessionTeam != TEAM_RED ) {
+		return;
+	}
+	if ( ( self->spawnflags & 2 ) && activator->client->sess.sessionTeam != TEAM_BLUE ) {
+		return;
+	}
+
+	// if player scoring a frag is a bot and bots aren't allowed, do nothing
+	if ( ( self->flags & FL_NO_BOTS ) && ( activator->r.svFlags & SVF_BOT ) )
+		return;
+
+	// if player scoring a frag is not a bot and humans aren't allowed, do nothing
+	if ( ( self->flags & FL_NO_HUMANS ) && !( activator->r.svFlags & SVF_BOT ) )
+		return;
+
+	//damage is used to keep track of the number of times a frag was made
+	self->damage++;
+
+	if ( self->damage < self->count )
+		return;
+	
+	self->damage = 0;
+	
+	G_UseTargets ( self, activator );
+
+	//the entity is triggered and TRIGGER_ONCE is set, so remove the entity from the game.
+	if ( ( self->spawnflags & 4 ) )
+		G_FreeEntity( self );
+}
+
+
+void SP_trigger_frag( gentity_t *self ) {
+	int		i;
+
+	self->use = trigger_frag_use;
+
+	G_SpawnInt( "nobots", "0", &i);
+	if ( i ) {
+		self->flags |= FL_NO_BOTS;
+	}
+	G_SpawnInt( "nohumans", "0", &i );
+	if ( i ) {
+		self->flags |= FL_NO_HUMANS;
+	}
+
+	G_SpawnInt( "count", "1", &self->count );	//count is the number of times a frag must be scored before the entity is triggered
+	self->damage = 0;							//damage is used to keep track of the number of times a frag was scored
+
+	self->r.svFlags = SVF_NOCLIENT;
+}
