@@ -515,6 +515,8 @@ When the SHOW_INTERMISSION spawnflag is set, the intermission screen is displaye
 void target_mapchange_use (gentity_t *self, gentity_t *other, gentity_t *activator) {
 	char	*cmd;
 
+	//store session data to persist health/armor/weapons etc... to next level
+	G_UpdateSessionDataForMapChange( activator->client );
 
 	//determine map switch command to use
 	if ( g_gametype.integer == GT_SINGLE_PLAYER )
