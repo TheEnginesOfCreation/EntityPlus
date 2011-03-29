@@ -24,14 +24,26 @@ void G_WriteClientSessionData( gclient_t *client ) {
 	const char	*s;
 	const char	*var;
 
-	s = va("%i %i %i %i %i %i %i", 
+	s = va("%i %i %i %i %i %i %i %i %i %i %i %i %i %i %i %i %i %i %i", 
 		client->sess.sessionTeam,
 		client->sess.spectatorTime,
 		client->sess.spectatorState,
 		client->sess.spectatorClient,
 		client->sess.wins,
 		client->sess.losses,
-		client->sess.teamLeader
+		client->sess.teamLeader,
+		client->sess.sessionHealth,
+		client->sess.sessionArmor,
+		client->sess.sessionWeapons,
+		client->sess.sessionWeapon,
+		client->sess.sessionAmmoMG,
+		client->sess.sessionAmmoSG,
+		client->sess.sessionAmmoGL,
+		client->sess.sessionAmmoRL,
+		client->sess.sessionAmmoLG,
+		client->sess.sessionAmmoRG,
+		client->sess.sessionAmmoPG,
+		client->sess.sessionAmmoBFG
 		);
 
 	var = va( "session%i", client - level.clients );
@@ -58,14 +70,26 @@ void G_ReadSessionData( gclient_t *client ) {
 	var = va( "session%i", client - level.clients );
 	trap_Cvar_VariableStringBuffer( var, s, sizeof(s) );
 
-	sscanf( s, "%i %i %i %i %i %i %i",
+	sscanf( s, "%i %i %i %i %i %i %i %i %i %i %i %i %i %i %i %i %i %i %i",
 		&sessionTeam,                 // bk010221 - format
 		&client->sess.spectatorTime,
 		&spectatorState,              // bk010221 - format
 		&client->sess.spectatorClient,
 		&client->sess.wins,
 		&client->sess.losses,
-		&teamLeader                   // bk010221 - format
+		&teamLeader,                   // bk010221 - format
+		&client->sess.sessionHealth,
+		&client->sess.sessionArmor,
+		&client->sess.sessionWeapons,
+		&client->sess.sessionWeapon,
+		&client->sess.sessionAmmoMG,
+		&client->sess.sessionAmmoSG,
+		&client->sess.sessionAmmoGL,
+		&client->sess.sessionAmmoRL,
+		&client->sess.sessionAmmoLG,
+		&client->sess.sessionAmmoRG,
+		&client->sess.sessionAmmoPG,
+		&client->sess.sessionAmmoBFG
 		);
 
 	// bk001205 - format issues
@@ -132,6 +156,59 @@ void G_InitSessionData( gclient_t *client, char *userinfo ) {
 	G_WriteClientSessionData( client );
 }
 
+/*
+==================
+G_UpdateSessionDataForMapChange
+
+Updates session data prior to a map change that's forced by a target_mapchange entity
+==================
+*/
+void G_UpdateSessionDataForMapChange( gclient_t *client ) {
+	clientSession_t	*sess;
+
+	sess = &client->sess;
+
+	sess->sessionHealth = client->ps.stats[STAT_HEALTH];
+	sess->sessionArmor = client->ps.stats[STAT_ARMOR];
+	sess->sessionWeapons = client->ps.stats[STAT_WEAPONS];
+	sess->sessionWeapon = client->ps.weapon;
+	sess->sessionAmmoMG = client->ps.ammo[WP_MACHINEGUN];
+	sess->sessionAmmoSG = client->ps.ammo[WP_SHOTGUN];
+	sess->sessionAmmoGL = client->ps.ammo[WP_GRENADE_LAUNCHER];
+	sess->sessionAmmoRL = client->ps.ammo[WP_ROCKET_LAUNCHER];
+	sess->sessionAmmoLG = client->ps.ammo[WP_LIGHTNING];
+	sess->sessionAmmoRG = client->ps.ammo[WP_RAILGUN];
+	sess->sessionAmmoPG = client->ps.ammo[WP_PLASMAGUN];
+	sess->sessionAmmoBFG = client->ps.ammo[WP_BFG];
+
+	G_WriteClientSessionData( client );
+}
+
+/*
+==================
+G_ClearSessionDataForMapChange
+
+Clears session data for map changes so that data does not persist through a hard map change (a map change not caused by target_mapchange) 
+==================
+*/
+void G_ClearSessionDataForMapChange( gclient_t *client ) {
+	clientSession_t	*sess;
+
+	sess = &client->sess;
+
+	sess->sessionHealth = 0;
+	sess->sessionArmor = 0;
+	sess->sessionWeapons = 0;
+	sess->sessionWeapon = 0;
+	sess->sessionAmmoMG = 0;
+	sess->sessionAmmoSG = 0;
+	sess->sessionAmmoGL = 0;
+	sess->sessionAmmoRL = 0;
+	sess->sessionAmmoLG = 0;
+	sess->sessionAmmoRG = 0;
+	sess->sessionAmmoPG = 0;
+	sess->sessionAmmoBFG = 0;
+}
 
 /*
 ==================

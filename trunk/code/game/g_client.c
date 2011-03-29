@@ -1156,19 +1156,49 @@ void ClientSpawn(gentity_t *ent) {
 
 	client->ps.clientNum = index;
 
-	client->ps.stats[STAT_WEAPONS] = ( 1 << WP_MACHINEGUN );
-	if ( g_gametype.integer == GT_TEAM ) {
-		client->ps.ammo[WP_MACHINEGUN] = 50;
-	} else {
-		client->ps.ammo[WP_MACHINEGUN] = 100;
+	//give weapons
+	if ( client->sess.sessionWeapons )
+		client->ps.stats[STAT_WEAPONS] = client->sess.sessionWeapons;
+	else
+	{
+		client->ps.stats[STAT_WEAPONS] = ( 1 << WP_MACHINEGUN );
+		client->ps.stats[STAT_WEAPONS] |= ( 1 << WP_GAUNTLET );
 	}
 
-	client->ps.stats[STAT_WEAPONS] |= ( 1 << WP_GAUNTLET );
+	//give ammo
 	client->ps.ammo[WP_GAUNTLET] = -1;
 	client->ps.ammo[WP_GRAPPLING_HOOK] = -1;
 
-	// health will count down towards max_health
-	ent->health = client->ps.stats[STAT_HEALTH] = client->ps.stats[STAT_MAX_HEALTH] + 25;
+	if ( client->sess.sessionAmmoMG )
+		client->ps.ammo[WP_MACHINEGUN] = client->sess.sessionAmmoMG;
+	else {
+		if ( g_gametype.integer == GT_TEAM ) {
+			client->ps.ammo[WP_MACHINEGUN] = 50;
+		} else {
+			client->ps.ammo[WP_MACHINEGUN] = 100;
+		}
+	}
+
+	if ( client->sess.sessionAmmoSG ) client->ps.ammo[WP_SHOTGUN] = client->sess.sessionAmmoSG;
+	if ( client->sess.sessionAmmoGL ) client->ps.ammo[WP_GRENADE_LAUNCHER] = client->sess.sessionAmmoGL;
+	if ( client->sess.sessionAmmoRL ) client->ps.ammo[WP_ROCKET_LAUNCHER] = client->sess.sessionAmmoRL;
+	if ( client->sess.sessionAmmoLG ) client->ps.ammo[WP_LIGHTNING] = client->sess.sessionAmmoLG;
+	if ( client->sess.sessionAmmoRG ) client->ps.ammo[WP_RAILGUN] = client->sess.sessionAmmoRG;
+	if ( client->sess.sessionAmmoPG ) client->ps.ammo[WP_PLASMAGUN] = client->sess.sessionAmmoPG;
+	if ( client->sess.sessionAmmoBFG ) client->ps.ammo[WP_BFG] = client->sess.sessionAmmoBFG;
+
+
+	//give health
+	if ( client->sess.sessionHealth ) 
+		ent->health = client->ps.stats[STAT_HEALTH] = client->sess.sessionHealth;
+	else
+		// health will count down towards max_health
+		ent->health = client->ps.stats[STAT_HEALTH] = client->ps.stats[STAT_MAX_HEALTH] + 25;
+
+	//give armor
+	if ( client->sess.sessionArmor )
+		client->ps.stats[STAT_ARMOR] = client->sess.sessionArmor;
+
 
 	G_SetOrigin( ent, spawn_origin );
 	VectorCopy( spawn_origin, client->ps.origin );
@@ -1209,13 +1239,16 @@ void ClientSpawn(gentity_t *ent) {
 		// fire the targets of the spawn point
 		G_UseTargets( spawnPoint, ent );
 
-		// select the highest weapon number available, after any
-		// spawn given items have fired
-		client->ps.weapon = 1;
-		for ( i = WP_NUM_WEAPONS - 1 ; i > 0 ; i-- ) {
-			if ( client->ps.stats[STAT_WEAPONS] & ( 1 << i ) ) {
-				client->ps.weapon = i;
-				break;
+		// select the highest weapon number available, after any spawn given items have fired
+		if ( client->sess.sessionWeapon )
+			client->ps.weapon = client->sess.sessionWeapon;
+		else {
+			client->ps.weapon = 1;
+			for ( i = WP_NUM_WEAPONS - 1 ; i > 0 ; i-- ) {
+				if ( client->ps.stats[STAT_WEAPONS] & ( 1 << i ) ) {
+					client->ps.weapon = i;
+					break;
+				}
 			}
 		}
 	}
@@ -1238,6 +1271,9 @@ void ClientSpawn(gentity_t *ent) {
 
 	// clear entity state values
 	BG_PlayerStateToEntityState( &client->ps, &ent->s, qtrue );
+
+	// clear map change session data
+	G_ClearSessionDataForMapChange( client );
 }
 
 
