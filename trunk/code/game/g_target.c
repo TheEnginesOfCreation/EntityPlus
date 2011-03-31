@@ -543,6 +543,8 @@ void target_mapchange_use (gentity_t *self, gentity_t *other, gentity_t *activat
 }
 
 void SP_target_mapchange (gentity_t *self) {
+	G_SpawnString("mapname", "", &self->mapname);
+
 	self->use = target_mapchange_use;
 }
 
@@ -621,6 +623,8 @@ void target_botspawn_use (gentity_t *self, gentity_t *other, gentity_t *activato
 }
 
 void SP_target_botspawn (gentity_t *self) {
+	G_SpawnString("clientname", "", &self->clientname);
+
 	self->use = target_botspawn_use;
 }
 
