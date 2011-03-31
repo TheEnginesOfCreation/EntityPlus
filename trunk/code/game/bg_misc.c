@@ -510,6 +510,22 @@ gitem_t	bg_itemlist[] =
 /* precache */ "",
 /* sounds */ "sound/items/use_medkit.wav"
 	},
+/*QUAKED holdable_key (.2 .2 .2) (-16 -16 -16) (16 16 16) suspended
+*/
+	{
+		"holdable_key", 
+		"sound/items/holdable.wav",
+        { 
+		"models/powerups/holdable/key.md3", 
+		0, 0, 0},
+/* icon */		"icons/key",
+/* pickup */	"Key",
+		60,
+		IT_HOLDABLE,
+		HI_KEY,
+/* precache */ "",
+/* sounds */ "sound/items/use_medkit.wav"
+	},
 
 	//
 	// POWERUP ITEMS

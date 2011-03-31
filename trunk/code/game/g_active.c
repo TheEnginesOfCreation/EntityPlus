@@ -258,6 +258,8 @@ void	G_TouchTriggers( gentity_t *ent ) {
 			continue;
 		}
 
+		//Com_Printf("I'm at least a trigger!\n");
+
 		// ignore most entities if a spectator
 		if ( ent->client->sess.sessionTeam == TEAM_SPECTATOR ) {
 			if ( hit->s.eType != ET_TELEPORT_TRIGGER &&
@@ -283,6 +285,15 @@ void	G_TouchTriggers( gentity_t *ent ) {
 		memset( &trace, 0, sizeof(trace) );
 
 		if ( hit->touch ) {
+			
+			// if this trigger is a lock
+			if( hit->touch == lock_touch ) {
+				// make sure the player's holding a key
+				if( bg_itemlist[ent->client->ps.stats[STAT_HOLDABLE_ITEM]].giTag != HI_KEY ) {
+					continue;
+				}
+			}
+
 			hit->touch (hit, ent, &trace);
 		}
 

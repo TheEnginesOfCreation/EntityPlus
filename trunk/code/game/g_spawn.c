@@ -130,8 +130,10 @@ void SP_trigger_multiple (gentity_t *ent);
 void SP_trigger_push (gentity_t *ent);
 void SP_trigger_teleport (gentity_t *ent);
 void SP_trigger_hurt (gentity_t *ent);
+
 void SP_trigger_death (gentity_t *ent);
 void SP_trigger_frag (gentity_t *ent);
+void SP_trigger_lock (gentity_t *ent);
 
 void SP_target_remove_powerups( gentity_t *ent );
 void SP_target_give (gentity_t *ent);
@@ -217,6 +219,7 @@ spawn_t	spawns[] = {
 	{"trigger_hurt", SP_trigger_hurt},
 	{"trigger_death", SP_trigger_death},
 	{"trigger_frag", SP_trigger_frag},
+	{"trigger_lock", SP_trigger_lock},
 
 	// targets perform no action by themselves, but must be triggered
 	// by another entity
