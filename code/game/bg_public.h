@@ -276,6 +276,7 @@ typedef enum {
 	HI_KAMIKAZE,
 	HI_PORTAL,
 	HI_INVULNERABILITY,
+	HI_KEY,
 
 	HI_NUM_HOLDABLE
 } holdable_t;

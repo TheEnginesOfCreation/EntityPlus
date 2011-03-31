@@ -581,3 +581,45 @@ void SP_trigger_frag( gentity_t *self ) {
 
 	self->r.svFlags = SVF_NOCLIENT;
 }
+/*
+==============================================================================
+
+EntityPlus: trigger_lock
+
+==============================================================================
+*/
+
+void lock_touch(gentity_t *self, gentity_t *other, trace_t *trace) {
+	if(!other->client)
+		return;
+
+	// remove the key
+	other->client->ps.stats[STAT_HOLDABLE_ITEM] = 0;
+
+	// everything else is the same as a trigger_multiple
+	multi_trigger(self, other);
+}
+
+/*
+QUAKED trigger_lock (.5 .5 .5) ? SPECTATOR
+Used in conjunction with a holdable_key to grant/deny access to some entity
+(e.g. a door).
+*/
+void SP_trigger_lock(gentity_t *self) {
+	InitTrigger(self);
+
+	// default values
+	G_SpawnFloat("wait", "0.5", &self->wait);
+	G_SpawnFloat("random", "0", &self->random);
+
+	// random cannot be larger than wait
+	if((self->random >= self->wait) && (self->wait >= 0)) {
+		self->random = self->wait - FRAMETIME;
+		G_Printf("trigger_lock has random >= wait\n");
+	}
+
+	self->touch = lock_touch;
+
+	trap_LinkEntity(self);
+}
+

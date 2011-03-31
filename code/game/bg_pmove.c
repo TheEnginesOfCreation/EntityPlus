@@ -1536,6 +1536,11 @@ static void PM_Weapon( void ) {
 
 	// check for item using
 	if ( pm->cmd.buttons & BUTTON_USE_HOLDABLE ) {
+
+		// keys are automatically used & removed
+		if(bg_itemlist[pm->ps->stats[STAT_HOLDABLE_ITEM]].giTag == HI_KEY)
+			return;
+
 		if ( ! ( pm->ps->pm_flags & PMF_USE_ITEM_HELD ) ) {
 			if ( bg_itemlist[pm->ps->stats[STAT_HOLDABLE_ITEM]].giTag == HI_MEDKIT
 				&& pm->ps->stats[STAT_HEALTH] >= (pm->ps->stats[STAT_MAX_HEALTH] + 25) ) {
