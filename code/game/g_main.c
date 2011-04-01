@@ -496,12 +496,23 @@ G_ShutdownGame
 =================
 */
 void G_ShutdownGame( int restart ) {
+	int i;
+
 	G_Printf ("==== ShutdownGame ====\n");
 
 	if ( level.logFile ) {
 		G_LogPrintf("ShutdownGame:\n" );
 		G_LogPrintf("------------------------------------------------------------\n" );
 		trap_FS_FCloseFile( level.logFile );
+	}
+
+	//drop all bots from game
+	if ( g_gametype.integer == GT_SINGLE_PLAYER ) {
+		for (i = 0; i < MAX_CLIENTS; i++ ) {
+			if ( g_entities[i].r.svFlags & SVF_BOT ) {
+				trap_DropClient( g_entities[i].client->ps.clientNum, "" );
+			}
+		}
 	}
 
 	// write all the client session data so we can get it back
