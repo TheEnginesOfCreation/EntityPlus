@@ -538,7 +538,7 @@ void target_mapchange_use (gentity_t *self, gentity_t *other, gentity_t *activat
 		if ( self->mapname )
 			trap_SendConsoleCommand( EXEC_INSERT, va( "%s %s\n", cmd, self->mapname ) ); 
 		else
-			trap_SendConsoleCommand( EXEC_INSERT, "map_restart 0" ); 
+			trap_SendConsoleCommand( EXEC_INSERT, "map_restart 0\n" ); 
 	}
 }
 
@@ -623,8 +623,6 @@ void target_botspawn_use (gentity_t *self, gentity_t *other, gentity_t *activato
 }
 
 void SP_target_botspawn (gentity_t *self) {
-	G_SpawnString("clientname", "", &self->clientname);
-
 	self->use = target_botspawn_use;
 }
 
