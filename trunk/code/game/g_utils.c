@@ -718,3 +718,13 @@ int DebugLine(vec3_t start, vec3_t end, int color) {
 
 	return trap_DebugPolygonCreate(color, 4, points);
 }
+
+/*
+==================
+IsBot
+==================
+*/
+qboolean IsBot(gentity_t *self) {
+	//return qtrue if client is a bot
+	return (self->r.svFlags & SVF_BOT);
+}

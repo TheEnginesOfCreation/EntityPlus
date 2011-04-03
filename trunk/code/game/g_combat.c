@@ -60,6 +60,10 @@ void TossClientItems( gentity_t *self ) {
 	int			i;
 	gentity_t	*drop;
 
+	//bots don't drop items in single player
+	if ( g_gametype.integer == GT_SINGLE_PLAYER && IsBot( self ))
+		return;
+
 	// drop the weapon if not a gauntlet or machinegun
 	weapon = self->s.weapon;
 
