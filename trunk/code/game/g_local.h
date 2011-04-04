@@ -637,6 +637,7 @@ void ClientUserinfoChanged( int clientNum );
 void ClientDisconnect( int clientNum );
 void ClientBegin( int clientNum );
 void ClientCommand( int clientNum );
+void DropClientSilently( int clientNum );
 
 //
 // g_active.c

@@ -506,11 +506,11 @@ void G_ShutdownGame( int restart ) {
 		trap_FS_FCloseFile( level.logFile );
 	}
 
-	//drop all bots from game
+	//drop all bots from game in single player
 	if ( g_gametype.integer == GT_SINGLE_PLAYER ) {
 		for (i = 0; i < MAX_CLIENTS; i++ ) {
 			if ( g_entities[i].r.svFlags & SVF_BOT ) {
-				trap_DropClient( g_entities[i].client->ps.clientNum, "" );
+				DropClientSilently( g_entities[i].client->ps.clientNum );
 			}
 		}
 	}
