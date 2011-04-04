@@ -583,6 +583,17 @@ respawn
 void respawn( gentity_t *ent ) {
 	gentity_t	*tent;
 
+	if ( g_gametype.integer == GT_SINGLE_PLAYER ) {
+		if ( IsBot( ent ) ) {
+			//kick fragged bots from game
+			DropClientSilently( ent->client->ps.clientNum );
+			return;
+		} else {
+			//restart map if player dies
+			trap_SendConsoleCommand( EXEC_INSERT, "map_restart 0\n" );
+		}
+	}
+
 	CopyToBodyQue (ent);
 	ClientSpawn(ent);
 
@@ -1466,4 +1477,14 @@ void ClientDisconnect( int clientNum ) {
 	}
 }
 
+/*
+===========
+DropClientSilently
 
+Drops a client without displaying a message about it.
+See http://www.quake3world.com/forum/viewtopic.php?f=16&t=45625
+============
+*/
+void DropClientSilently( int clientNum ) {
+	trap_DropClient( clientNum, "DR_SILENT_DROP" );
+}

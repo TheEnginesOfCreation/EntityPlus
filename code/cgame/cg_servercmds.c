@@ -439,8 +439,8 @@ static void CG_MapRestart( void ) {
 
 	// we really should clear more parts of cg here and stop sounds
 
-	// play the "fight" sound if this is a restart without warmup
-	if ( cg.warmup == 0 /* && cgs.gametype == GT_TOURNAMENT */) {
+	// play the "fight" sound if this is a restart without warmup and we're not in SP mode
+	if ( cg.warmup == 0 && cgs.gametype != GT_SINGLE_PLAYER ) {
 		trap_S_StartLocalSound( cgs.media.countFightSound, CHAN_ANNOUNCER );
 		CG_CenterPrint( "FIGHT!", 120, GIANTCHAR_WIDTH*2 );
 	}
@@ -958,9 +958,11 @@ Cmd_Argc() / Cmd_Argv()
 static void CG_ServerCommand( void ) {
 	const char	*cmd;
 	char		text[MAX_SAY_TEXT];
+	int			offset;
+	const char  *arg;
 
 	cmd = CG_Argv(0);
-
+	
 	if ( !cmd[0] ) {
 		// server claimed the command
 		return;
@@ -977,7 +979,11 @@ static void CG_ServerCommand( void ) {
 	}
 
 	if ( !strcmp( cmd, "print" ) ) {
-		CG_Printf( "%s", CG_Argv(1) );
+		arg = CG_Argv(1);
+		offset = strlen(arg) - strlen("DR_SILENT_DROP") - 1 ;
+		
+		if ( strcmp(&arg[offset], "DR_SILENT_DROP\n") )
+			CG_Printf( "%s", arg );
 #ifdef MISSIONPACK
 		cmd = CG_Argv(1);			// yes, this is obviously a hack, but so is the way we hear about
 									// votes passing or failing
