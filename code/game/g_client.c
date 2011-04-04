@@ -270,6 +270,30 @@ gentity_t *SelectRandomFurthestSpawnPoint ( vec3_t avoidPoint, vec3_t origin, ve
 
 /*
 ===========
+FindTeleporterTarget
+
+Finds target location for holdable_teleporter if forced
+============
+*/
+gentity_t *FindTeleporterTarget ( gentity_t *ent, vec3_t origin, vec3_t angles ) {
+	gentity_t *target;
+	
+	target = G_PickTarget( ent->teleporterTarget );
+	
+	//target does not exist, so find a random spawnpoint
+	if ( !target ) {
+		return SelectSpawnPoint( ent->client->ps.origin, origin, angles);
+	}
+
+	VectorCopy (target->s.origin, origin);
+	origin[2] += 9;
+	VectorCopy (target->s.angles, angles);
+
+	return target;
+}
+
+/*
+===========
 SelectSpawnPoint
 
 Chooses a player start, deathmatch start, etc

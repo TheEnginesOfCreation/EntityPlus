@@ -631,6 +631,7 @@ random : random time variance in seconds added or subtracted from "wait" delay (
 team : set this to team items. Teamed items will respawn randomly after team master is picked up (see Notes).
 target : picking up the item will trigger the entity this points to.
 targetname : a target_give entity can point to this for respawn freebies.
+teleportertarget : targeting a spawnpoint entity with this will force the item to teleport the player to this spawnpoint.
 notfree : when set to 1, entity will not spawn in "Free for all" and "Tournament" modes.
 notteam : when set to 1, entity will not spawn in "Teamplay" and "CTF" modes.
 notsingle : when set to 1, entity will not spawn in Single Player mode (bot play mode).

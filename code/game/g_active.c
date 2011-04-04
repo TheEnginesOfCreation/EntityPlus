@@ -616,7 +616,13 @@ void ClientEvents( gentity_t *ent, int oldEventSequence ) {
 				}
 			}
 #endif
-			SelectSpawnPoint( ent->client->ps.origin, origin, angles );
+			if ( ent->teleporterTarget ) {
+				FindTeleporterTarget( ent, origin, angles );
+				ent->teleporterTarget = NULL;		//reset the teleporter target again
+			}
+			else
+				SelectSpawnPoint( ent->client->ps.origin, origin, angles );
+
 			TeleportPlayer( ent, origin, angles );
 			break;
 

@@ -97,6 +97,7 @@ field_t fields[] = {
 	{"targetShaderName", FOFS(targetShaderName), F_LSTRING},
 	{"targetShaderNewName", FOFS(targetShaderNewName), F_LSTRING},
 	{"clientname", FOFS(clientname), F_LSTRING},
+	{"teleporterTarget", FOFS(teleporterTarget), F_LSTRING},
 
 	{NULL}
 };
