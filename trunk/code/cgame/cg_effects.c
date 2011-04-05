@@ -696,3 +696,106 @@ void CG_BigExplode( vec3_t playerOrigin ) {
 	CG_LaunchExplode( origin, velocity, cgs.media.smoke2 );
 }
 
+/*
+==================
+CG_LaunchDebris
+==================
+*/
+void CG_LaunchDebris( vec3_t origin, vec3_t velocity, qhandle_t hModel ) {
+	localEntity_t	*le;
+	refEntity_t		*re;
+
+	le = CG_AllocLocalEntity();
+	re = &le->refEntity;
+
+	le->leType = LE_FRAGMENT;
+	le->startTime = cg.time;
+	le->endTime = le->startTime + 5000 + random() * 3000;
+
+	VectorCopy( origin, re->origin );
+	AxisCopy( axisDefault, re->axis );
+	re->hModel = hModel;
+
+	le->pos.trType = TR_GRAVITY;
+	VectorCopy( origin, le->pos.trBase );
+	VectorCopy( velocity, le->pos.trDelta );
+	le->pos.trTime = cg.time;
+
+	le->bounceFactor = 0.6f;
+
+	le->leBounceSoundType = LEBS_DEBRIS;
+	//le->leMarkType = LEMT_BLOOD;
+}
+
+/*
+===================
+CG_ShowDebris
+
+Generated a bunch of debris launching out from a breakable's location
+===================
+*/
+void CG_ShowDebris( vec3_t breakableOrigin ) {
+	vec3_t	origin, velocity;
+
+	Com_Printf("%f %f %f\n", breakableOrigin[0], breakableOrigin[1], breakableOrigin[2]);
+
+	VectorCopy( breakableOrigin, origin );
+	velocity[0] = crandom()*GIB_VELOCITY;
+	velocity[1] = crandom()*GIB_VELOCITY;
+	velocity[2] = GIB_JUMP + crandom()*GIB_VELOCITY;
+	CG_LaunchDebris( origin, velocity, cgs.media.gibIntestine );
+
+	VectorCopy( breakableOrigin, origin );
+	velocity[0] = crandom()*GIB_VELOCITY;
+	velocity[1] = crandom()*GIB_VELOCITY;
+	velocity[2] = GIB_JUMP + crandom()*GIB_VELOCITY;
+	CG_LaunchDebris( origin, velocity, cgs.media.gibIntestine );
+
+	VectorCopy( breakableOrigin, origin );
+	velocity[0] = crandom()*GIB_VELOCITY;
+	velocity[1] = crandom()*GIB_VELOCITY;
+	velocity[2] = GIB_JUMP + crandom()*GIB_VELOCITY;
+	CG_LaunchDebris( origin, velocity, cgs.media.gibIntestine );
+
+	VectorCopy( breakableOrigin, origin );
+	velocity[0] = crandom()*GIB_VELOCITY;
+	velocity[1] = crandom()*GIB_VELOCITY;
+	velocity[2] = GIB_JUMP + crandom()*GIB_VELOCITY;
+	CG_LaunchDebris( origin, velocity, cgs.media.gibIntestine );
+
+	VectorCopy( breakableOrigin, origin );
+	velocity[0] = crandom()*GIB_VELOCITY;
+	velocity[1] = crandom()*GIB_VELOCITY;
+	velocity[2] = GIB_JUMP + crandom()*GIB_VELOCITY;
+	CG_LaunchDebris( origin, velocity, cgs.media.gibIntestine );
+
+	VectorCopy( breakableOrigin, origin );
+	velocity[0] = crandom()*GIB_VELOCITY;
+	velocity[1] = crandom()*GIB_VELOCITY;
+	velocity[2] = GIB_JUMP + crandom()*GIB_VELOCITY;
+	CG_LaunchDebris( origin, velocity, cgs.media.gibIntestine );
+
+	VectorCopy( breakableOrigin, origin );
+	velocity[0] = crandom()*GIB_VELOCITY;
+	velocity[1] = crandom()*GIB_VELOCITY;
+	velocity[2] = GIB_JUMP + crandom()*GIB_VELOCITY;
+	CG_LaunchDebris( origin, velocity, cgs.media.gibIntestine );
+
+	VectorCopy( breakableOrigin, origin );
+	velocity[0] = crandom()*GIB_VELOCITY;
+	velocity[1] = crandom()*GIB_VELOCITY;
+	velocity[2] = GIB_JUMP + crandom()*GIB_VELOCITY;
+	CG_LaunchDebris( origin, velocity, cgs.media.gibIntestine );
+
+	VectorCopy( breakableOrigin, origin );
+	velocity[0] = crandom()*GIB_VELOCITY;
+	velocity[1] = crandom()*GIB_VELOCITY;
+	velocity[2] = GIB_JUMP + crandom()*GIB_VELOCITY;
+	CG_LaunchDebris( origin, velocity, cgs.media.gibIntestine );
+
+	VectorCopy( breakableOrigin, origin );
+	velocity[0] = crandom()*GIB_VELOCITY;
+	velocity[1] = crandom()*GIB_VELOCITY;
+	velocity[2] = GIB_JUMP + crandom()*GIB_VELOCITY;
+	CG_LaunchDebris( origin, velocity, cgs.media.gibIntestine );
+}

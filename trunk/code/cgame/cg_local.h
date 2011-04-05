@@ -230,7 +230,8 @@ typedef enum {
 typedef enum {
 	LEBS_NONE,
 	LEBS_BLOOD,
-	LEBS_BRASS
+	LEBS_BRASS,
+	LEBS_DEBRIS
 } leBounceSoundType_t;	// fragment local entities can make sounds on impacts
 
 typedef struct localEntity_s {

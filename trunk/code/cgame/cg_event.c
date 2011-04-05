@@ -1136,6 +1136,11 @@ void CG_EntityEvent( centity_t *cent, vec3_t position ) {
 		CG_Beam( cent );
 		break;
 
+	case EV_BREAK_BREAKABLE:
+		DEBUGNAME("EV_BREAK_BREAKABLE");
+		CG_ShowDebris( cent->lerpOrigin );
+		break;
+
 	default:
 		DEBUGNAME("UNKNOWN");
 		CG_Error( "Unknown event: %i", event );
