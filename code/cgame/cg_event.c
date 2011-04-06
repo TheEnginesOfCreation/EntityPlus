@@ -1136,8 +1136,8 @@ void CG_EntityEvent( centity_t *cent, vec3_t position ) {
 		CG_Beam( cent );
 		break;
 
-	case EV_BREAK_BREAKABLE:
-		DEBUGNAME("EV_BREAK_BREAKABLE");
+	case EV_EMIT_DEBRIS:
+		DEBUGNAME("EV_EMIT_DEBRIS");
 		CG_ShowDebris( cent->lerpOrigin );
 		break;
 

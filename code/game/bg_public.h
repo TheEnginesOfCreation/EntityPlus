@@ -430,7 +430,7 @@ typedef enum {
 	EV_TAUNT_GUARDBASE,
 	EV_TAUNT_PATROL,
 
-	EV_BREAK_BREAKABLE		// a func_breakable is destroyed
+	EV_EMIT_DEBRIS		// a target_debrisemitter is triggered
 
 } entity_event_t;
 
