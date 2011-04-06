@@ -1458,12 +1458,16 @@ BREAKABLE
 ===============================================================================
 */
 
+//other is the player that broke the func_breakable
 void Break_Breakable(gentity_t *ent, gentity_t *other/*, trace_t *trace */) {
 	//TODO: make func_breakable play a sound when it's broken? Make it possible to trigger another entity when it is broken?
 	ent->takedamage = qfalse;
 	ent->s.eType = ET_INVISIBLE;
-	ent->freeAfterEvent = qtrue;
-	G_AddEvent( ent, EV_BREAK_BREAKABLE, 0 );
+	//ent->freeAfterEvent = qtrue;
+	//G_AddEvent( ent, EV_EMIT_DEBRIS, 0 );
+	
+	G_UseTargets( ent, other );
+	//G_FreeEntity( ent );
 }
 
 

@@ -629,7 +629,7 @@ void SP_target_botspawn (gentity_t *self) {
 //==========================================================
 
 /*QUAKED target_disable (.5 .5 .5) (-8 -8 -8) (8 8 8) RED_ONLY BLUE_ONLY
-This toggles the FL_DISABLED flag on the target
+links or unlinks entities from the world, effectively enabling or disabling triggers
 */
 void target_disable_use (gentity_t *self, gentity_t *other, gentity_t *activator) {
 	if ( ( self->spawnflags & 1 ) && activator->client 
@@ -667,4 +667,18 @@ void target_playerspeed_use (gentity_t *self, gentity_t *other, gentity_t *activ
 
 void SP_target_playerspeed (gentity_t *self) {
 	self->use = target_playerspeed_use;
+}
+
+//==========================================================
+
+/*QUAKED target_debrisemitter (.5 .5 .5) (-8 -8 -8) (8 8 8) 
+Emits chunks of debris.
+*/
+
+void target_debrisemitter_use (gentity_t *self, gentity_t *other, gentity_t *activator) {
+	G_AddEvent( self, EV_EMIT_DEBRIS, 0 ); //client doesn't respond to this for some reason....
+}
+
+void SP_target_debrisemitter (gentity_t *self) {
+	self->use = target_debrisemitter_use;
 }
