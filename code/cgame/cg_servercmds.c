@@ -979,6 +979,12 @@ static void CG_ServerCommand( void ) {
 	}
 
 	if ( !strcmp( cmd, "print" ) ) {
+		//commented out method below does a simple substring. The active implementation checks for the DR_SILENT_DROP substring at the end
+		//of the entire command, which is a more accurate way of detecting if this is a silent player drop.
+		/*
+		if (!strstr(arg, "DR_SILENT_DROP"))
+			CG_Printf( "%s", arg ); 
+		*/
 		arg = CG_Argv(1);
 		offset = strlen(arg) - strlen("DR_SILENT_DROP") - 1 ;
 		
