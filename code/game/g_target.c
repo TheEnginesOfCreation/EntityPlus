@@ -676,7 +676,14 @@ Emits chunks of debris.
 */
 
 void target_debrisemitter_use (gentity_t *self, gentity_t *other, gentity_t *activator) {
-	G_AddEvent( self, EV_EMIT_DEBRIS, 0 ); //client doesn't respond to this for some reason....
+	gentity_t *ent;
+	//G_AddEvent( self, EV_EMIT_DEBRIS, 0 ); //client doesn't respond to this for some reason....
+	
+	if ( !self->count )
+		self->count = 10;
+
+	ent = G_TempEntity(self->s.origin, EV_EMIT_DEBRIS);
+	ent->s.eventParm = self->count;
 }
 
 void SP_target_debrisemitter (gentity_t *self) {
