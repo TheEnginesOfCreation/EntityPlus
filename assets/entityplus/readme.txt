@@ -1,5 +1,5 @@
 ENTITYPLUS 
-version 0.2
+version 0.3
 -----------
 
 EntityPlus is a Quake III Arena mod that is aimed at expanding the toolset for Quake III Arena map makers.
@@ -50,14 +50,47 @@ This map can be loaded by entering the following commands in the console:
 
 	\fraglimit 0
 	\timelimit 0
-    \map entityplus 
+    \spmap entityplus 
 
 The map can also be started by double clicking the entityplus.bat file that comes with the release package. This batch file 
-is located next to the quake.exe executable. 
+is located next to the quake.exe executable.
+
+
+KEY EXAMPLE
+-----------
+A seperate map to demonstrate the use of the key and lock entities is included with the name "keytest".
 
 
 VERSION HISTORY
 ---------------
+v0.3 (12 apr 2011)
+	- [Added] IMMEDIATELY spawnflag for target_disable.
+	- [Added] mapname key for target_mapchange.
+	- [Added] SHOW_INTERMISSION spawnflat for target_mapchange.
+	- [Added] Health, armor, weapons and ammo are retained through a map change if it was caused by a target_mapchange.
+	- [Added] target_death and target_frag entities.
+	- [Added] count key for spawnpoint entities to limit the number of times a player can spawn there.
+	- [Added] startsound and endsound keys to func_door
+	- [Added] sound key to func_button
+	- [Added] trigger_lock and holdable_key entities
+	- [Added] Example map for trigger_lock and holdable_key entities called "keytest"
+	- [Added] teleporttarget key to holdable_teleporter
+	- [Added] target_debrisemitter entity
+	- [Added] target key for func_breakable
+	- [Fixed] target_mapchange leaving single player mode when current level is loaded with spmap.
+	- [Fixed] Bots are left in the game when a map_restart is issued or the map is changed (note: bots are only kicked when in single player mode)
+	- [Fixed] target_mapchange doesn't properly end a map_restart command with a newline character, messing up the next command.
+	- [Fixed] Green armor texture is too bright and too saturated
+	- [Changed] trigger_disable now links and unlinks entities from the world instead of tagging them with a FL_DISABLED flag.
+	- [Changed] Removed START_OFF spawnflag from trigger_hurt.
+	- [Changed] Renamed target_intermission to target_mapchange.
+	- [Changed] Example map uses target_mapchange instead of target_intermission.
+	- [Changed] Bots no longer drop items when in single player mode (g_gametype 2)
+	- [Changed] Bots are removed from the game when fragged when in single player mode (g_gametype 2)
+	- [Changed] "FIGHT!" message is no longer shown when in single player mode (g_gametype 2)
+	- [Changed] Bots defined in arena files are no longer announced when in single player mode (g_gametype 2)
+	- [Changed] EntityPlus startup batch file now loads entityplus example map in single player mode
+	
 
 v0.2 (25 mar 2011)
 	- [Added] shooter_bfg
@@ -76,6 +109,17 @@ v0.1 (11 mar 2011)
 	- [Added] target_gravity
 	- [Added] target_intermission
 	- [Added] target_logic
+
+
+CREDITS
+-------
+Project lead and programming	: Eraesr (eraesr@gmail.com)
+
+Additional programming and
+programming support				: ^misantropia^
+
+Additional programming			: Kaz
+
 
 
 CONTACT
