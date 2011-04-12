@@ -1,0 +1,13 @@
+=Single Player Mode=
+
+EntityPlus is slowly evolving into a more single player oriented mod. Therefor, a few changes have been made to running maps in single player mode.
+Maps are loaded in single player mode through the spmap command. In vanilla Quake 3, the single player career where you play map after map against bots is pretty similar to free for all deathmatch. In EntityPlus, this is not the case.
+Single player mode will eventually be overhauled into a full blown single player experience. A few changes to make it a more smooth single player like experience have already been put in place. These changes are:
+
+  * Bots no longer drop items when they are fragged.
+  * Bots are removed from the game when they are fragged.
+  * When the current map is restarted or a different map is loaded, bots are removed from the game.
+  * The "FIGHT!" message at the start of a game is no longer displayed
+  * Bots defined in the maps' respective .arena files used to be announced by the voice announcer. This is no longer the case.
+
+Note that these changes only apply when a map was loaded with spmap.
