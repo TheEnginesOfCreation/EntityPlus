@@ -22,4 +22,4 @@ This page links to all the features of !EntityPlus
   * [trigger_frag]
   * [trigger_lock]
   * [spawnpoints]
-  * [single player mode]
+  * [singlePlayerMode single player mode]
