@@ -15,7 +15,4 @@ Ends game and progresses to intermission screen when triggered
 
 = Notes =
 
-none
-
-
-Was named target_intermission in pre-0.3 releases.
+When the map is loaded in single player mode, the target_mapchange entity stores the current health, armor, weapon and ammo stats for each player before moving on to the next map. When the new map is loaded, the stored stats are applied to each player again. This means players will have consistent stats throughout map changes.
