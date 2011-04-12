@@ -4,19 +4,19 @@ Key can be picked up and used in conjunction with a trigger_lock to open doors, 
 
 =Keys=
 
-  *wait : time in seconds before item respawns after being picked up (default 60, -1 = never respawn).
-  *random : random time variance in seconds added or subtracted from "wait" delay (default 0 - see Notes).
-  *team : set this to team items. Teamed items will respawn randomly after team master is picked up (see Notes).
-  *target : picking up the item will trigger the entity this points to.
-  *targetname : a target_give entity can point to this for respawn freebies.
-  *notfree : when set to 1, entity will not spawn in "Free for all" and "Tournament" modes.
-  *notteam : when set to 1, entity will not spawn in "Teamplay" and "CTF" modes.
-  *notsingle : when set to 1, entity will not spawn in Single Player mode (bot play mode).
-  *notbot : used to make an item invisible for bot attraction.
+  * wait : time in seconds before item respawns after being picked up (default 60, -1 = never respawn).
+  * random : random time variance in seconds added or subtracted from "wait" delay (default 0 - see Notes).
+  * team : set this to team items. Teamed items will respawn randomly after team master is picked up (see Notes).
+  * target : picking up the item will trigger the entity this points to.
+  * targetname : a target_give entity can point to this for respawn freebies.
+  * notfree : when set to 1, entity will not spawn in "Free for all" and "Tournament" modes.
+  * notteam : when set to 1, entity will not spawn in "Teamplay" and "CTF" modes.
+  * notsingle : when set to 1, entity will not spawn in Single Player mode (bot play mode).
+  * notbot : used to make an item invisible for bot attraction.
 
 =Spawnflags=
 
-  *SUSPENDED : item will spawn where it was placed in map and won't drop to the floor.
+  * SUSPENDED : item will spawn where it was placed in map and won't drop to the floor.
 
 =Notes=
 
