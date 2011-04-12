@@ -1138,7 +1138,7 @@ void CG_EntityEvent( centity_t *cent, vec3_t position ) {
 
 	case EV_EMIT_DEBRIS:
 		DEBUGNAME("EV_EMIT_DEBRIS");
-		CG_ShowDebris( cent->lerpOrigin );
+		CG_ShowDebris( cent->lerpOrigin, cent->currentState.eventParm );
 		break;
 
 	default:

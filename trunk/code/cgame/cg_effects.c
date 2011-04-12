@@ -734,11 +734,20 @@ CG_ShowDebris
 Generated a bunch of debris launching out from a breakable's location
 ===================
 */
-void CG_ShowDebris( vec3_t breakableOrigin ) {
+void CG_ShowDebris( vec3_t breakableOrigin, int count ) {
 	vec3_t	origin, velocity;
+	int i;
 
-	Com_Printf("%f %f %f\n", breakableOrigin[0], breakableOrigin[1], breakableOrigin[2]);
+	//Com_Printf("%f %f %f\n", breakableOrigin[0], breakableOrigin[1], breakableOrigin[2]);
 
+	for (i = 0; i < count; i++) {
+		VectorCopy( breakableOrigin, origin );
+		velocity[0] = crandom()*GIB_VELOCITY;
+		velocity[1] = crandom()*GIB_VELOCITY;
+		velocity[2] = GIB_JUMP + crandom()*GIB_VELOCITY;
+		CG_LaunchDebris( origin, velocity, cgs.media.gibIntestine );
+	}
+/*
 	VectorCopy( breakableOrigin, origin );
 	velocity[0] = crandom()*GIB_VELOCITY;
 	velocity[1] = crandom()*GIB_VELOCITY;
@@ -792,10 +801,5 @@ void CG_ShowDebris( vec3_t breakableOrigin ) {
 	velocity[1] = crandom()*GIB_VELOCITY;
 	velocity[2] = GIB_JUMP + crandom()*GIB_VELOCITY;
 	CG_LaunchDebris( origin, velocity, cgs.media.gibIntestine );
-
-	VectorCopy( breakableOrigin, origin );
-	velocity[0] = crandom()*GIB_VELOCITY;
-	velocity[1] = crandom()*GIB_VELOCITY;
-	velocity[2] = GIB_JUMP + crandom()*GIB_VELOCITY;
-	CG_LaunchDebris( origin, velocity, cgs.media.gibIntestine );
+	*/
 }
