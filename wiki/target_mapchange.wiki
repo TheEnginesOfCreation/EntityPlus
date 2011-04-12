@@ -1,4 +1,4 @@
-= target_intermission =
+= target_mapchange =
 
 Ends game and progresses to intermission screen when triggered
 
@@ -16,3 +16,6 @@ Ends game and progresses to intermission screen when triggered
 = Notes =
 
 none
+
+
+Was named target_intermission in pre-0.3 releases.
