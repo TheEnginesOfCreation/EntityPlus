@@ -1,0 +1,18 @@
+=target_debrisemitter=
+
+Emits debris with thick smoke trails when triggered.
+
+= Keys =
+
+  * targetname : activating trigger points to this.
+  * notfree : when set to 1, entity will not spawn in "Free for all" and "Tournament" modes.
+  * notteam : when set to 1, entity will not spawn in "Teamplay" and "CTF" modes.
+  * notsingle : when set to 1, entity will not spawn in Single Player mode (bot play mode).
+
+= Spawnflags =
+
+  none
+
+= Notes =
+
+This entity can be used in combination with a func_breakable to create the illusion of the func_breakable exploding into bits.
