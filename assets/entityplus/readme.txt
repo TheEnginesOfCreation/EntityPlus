@@ -68,7 +68,7 @@ v0.3 (12 apr 2011)
 	- [Added] mapname key for target_mapchange.
 	- [Added] SHOW_INTERMISSION spawnflat for target_mapchange.
 	- [Added] Health, armor, weapons and ammo are retained through a map change if it was caused by a target_mapchange.
-	- [Added] target_death and target_frag entities.
+	- [Added] trigger_death and trigger_frag entities.
 	- [Added] count key for spawnpoint entities to limit the number of times a player can spawn there.
 	- [Added] startsound and endsound keys to func_door
 	- [Added] sound key to func_button
