@@ -1,0 +1,18 @@
+= target_intermission =
+
+Ends game and progresses to intermission screen when triggered
+
+= Keys =
+  * mapname : The map to load. When omitted, the current map will be restarted.
+  * targetname : activating trigger points to this.
+  * notfree : when set to 1, entity will not spawn in "Free for all" and "Tournament" modes.
+  * notteam : when set to 1, entity will not spawn in "Teamplay" and "CTF" modes.
+  * notsingle : when set to 1, entity will not spawn in Single Player mode (bot play mode).
+
+= Spawnflags =
+
+  * SHOW_INTERMISSION :  When set, the intermission screen is shown before loading the next map.
+
+= Notes =
+
+none
