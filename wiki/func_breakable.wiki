@@ -10,7 +10,7 @@ A static entity that is removed when it receives a set amount of damage.
   * notteam : when set to 1, entity will not spawn in "Teamplay" and "CTF" modes.
   * notsingle : when set to 1, entity will not spawn in Single Player mode (bot play mode).
 
-= Q3Map2 Keys =
+= `Q3Map2` Keys =
 
   * `_`targetname : Used to attach a misc_model entity to this entity.
   * `_`lightmapscale : Floating point value scaling the resolution of lightmaps on brushes/patches in this entity (default 1.0).
@@ -18,7 +18,7 @@ A static entity that is removed when it receives a set amount of damage.
   * `_`rs OR `_`receiveshadows : Allows per-entity control over shadow reception. Defaults to 1 on everything (world shadows). 0 = receives NO shadows. > 1 = receive shadows only from corresponding keyed entities (see above) and world. < 1 = receive shadows ONLY from corresponding keyed entities.
   * `_`celshader : Sets the cel shader used for this geometry. Note: omit the "textures/" prefix.
 
-= Q3Map2 Terrain Keys =
+= `Q3Map2` Terrain Keys =
 
   * `_`indexmap OR alphamap : Path/name for the art file used to guide the mapping of textures on the terrain surface.
   * `_`layers OR layers : Integer value is the number unique root shaders that will be use on the terrain.
