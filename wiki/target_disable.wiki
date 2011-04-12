@@ -16,8 +16,9 @@ Targets any trigger`_` entity to disable or enable that entity.
   * BLUE_ONLY : only blue team players can activate trigger.
   * ALWAYS_DISABLE : The targeted entity will always be disabled.
   * ALWAYS_ENABLE : The targeted entity will always be enabled.
+  * IMMEDIATELY : The target_disable will enable/disable it's targeted entities when it is spawned.
 
 = Notes =
 
 By default the target_disable entity works as a toggle, so enabled entities will be disabled and disabled entities will be enabled.
-Disabled trigger`_` entities will stop firing their targets when disabled. trigger_always entities cannot be disabled because they're triggered by the world.
+Disabled trigger`_` entities will stop firing their targets when disabled. It is possible to target other entities as well, but the results vary per entity type and are untested.
