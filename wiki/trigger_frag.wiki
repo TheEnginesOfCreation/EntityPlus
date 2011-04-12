@@ -1,0 +1,26 @@
+= trigger_frag =
+
+Triggered when a player scores a frag.
+
+= Keys =
+
+  * target : this points to the entity to activate.
+  * nobots : bots scoring a frag do not trigger this entity.
+  * nohumans : humans scoring a frag do not trigger this entity.
+  * count : the number of frags that must be scored before this entity is triggered
+  * notfree : when set to 1, entity will not spawn in "Free for all" and "Tournament" modes.
+  * notteam : when set to 1, entity will not spawn in "Teamplay" and "CTF" modes.
+  * notsingle : when set to 1, entity will not spawn in Single Player mode (bot play mode).
+  * notbot : used to make an item invisible for bot attraction.
+
+= Spawnflags =
+
+  * RED_ONLY : only red team players can activate trigger.
+  * BLUE_ONLY : only blue team players can activate trigger.
+  * TRIGGER_ONCE : The trigger will only fire once
+
+= Notes =
+
+When the count key is set, the trigger_frag must effectively be triggered [count] number of times before it actually fires its targets. The trigger_frag entity is considered to be triggered only when a player that matches the entity's nobots/nohumans/red_only/blue_only configuration has scored a frag. Note that the count specifies a total number of frags, not a per-player count.
+
+This entity will be triggered only when a player kills another player. The player scoring the frag is seen as the activator of the trigger*/
