@@ -1329,7 +1329,8 @@ ALWAYS_ENABLE : The targeted entity will always be enabled.
 IMMEDIATELY : The target_disable will enable/disable it's targeted entities when it is spawned.
 -------- NOTES --------
 By default the target_disable entity works as a toggle, so enabled entities will be disabled and disabled entities will be enabled.
-Disabled trigger_ entities will stop firing their targets when disabled. trigger_always entities cannot be disabled because they're triggered by the world.*/
+Disabled trigger_ entities will stop firing their targets when disabled. It is possible to target other entities as well, but the results vary
+per entity type and are untested.*/
 
 //=============================================================================
 
@@ -1429,6 +1430,8 @@ notteam : when set to 1, entity will not spawn in "Teamplay" and "CTF" modes.
 notsingle : when set to 1, entity will not spawn in Single Player mode (bot play mode).
 -------- SPAWNFLAGS --------
 SHOW_INTERMISSION :  When set, the intermission screen is shown before loading the next map.*/
+-------- NOTES --------
+When the map is loaded in single player mode, the target_mapchange entity stores the current health, armor, weapon and ammo stats for each player before moving on to the next map. When the new map is loaded, the stored stats are applied to each player again. This means players will have consistent stats throughout map changes.
 
 //=============================================================================
 
