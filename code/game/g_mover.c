@@ -580,7 +580,7 @@ void Reached_BinaryMover( gentity_t *ent ) {
 
 		// return to pos1 after a delay
 		ent->think = ReturnToPos1;
-		G_Printf("%f\n", ent->wait);
+
 		if ( ent->wait != -2000)
 			ent->nextthink = level.time + ent->wait;
 
