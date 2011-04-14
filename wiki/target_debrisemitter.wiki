@@ -16,3 +16,8 @@ Emits debris with thick smoke trails when triggered.
 = Notes =
 
 This entity can be used in combination with a func_breakable to create the illusion of the func_breakable exploding into bits.
+
+----
+
+Example video of target_debrisemitter in combination with func_breakable:
+<wiki:video url="http://www.youtube.com/watch?v=BZoWnELVhpc">
