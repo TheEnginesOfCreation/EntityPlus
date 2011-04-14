@@ -151,7 +151,7 @@ void CG_DebrisTrail( localEntity_t *le ) {
 
 		puff = CG_SmokePuff( newOrigin, vec3_origin, 
 					  20,		// radius
-					  1, 1, 1, 1,	// color
+					  1, 1, 1, .2,	// color
 					  2000,		// trailTime
 					  t,		// startTime
 					  0,		// fadeInTime

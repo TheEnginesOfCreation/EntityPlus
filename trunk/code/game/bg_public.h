@@ -430,7 +430,8 @@ typedef enum {
 	EV_TAUNT_GUARDBASE,
 	EV_TAUNT_PATROL,
 
-	EV_EMIT_DEBRIS		// a target_debrisemitter is triggered
+	EV_EMIT_DEBRIS_NORMAL,		// a target_debrisemitter that emits light concrete is triggered
+	EV_EMIT_DEBRIS_DARK			// a target_debrisemitter that emits dark concrete is triggered
 
 } entity_event_t;
 

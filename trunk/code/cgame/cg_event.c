@@ -1136,9 +1136,14 @@ void CG_EntityEvent( centity_t *cent, vec3_t position ) {
 		CG_Beam( cent );
 		break;
 
-	case EV_EMIT_DEBRIS:
-		DEBUGNAME("EV_EMIT_DEBRIS");
-		CG_ShowDebris( cent->lerpOrigin, cent->currentState.eventParm );
+	case EV_EMIT_DEBRIS_NORMAL:
+		DEBUGNAME("EV_EMIT_DEBRIS_NORMAL");
+		CG_ShowDebris( cent->lerpOrigin, cent->currentState.eventParm, EV_EMIT_DEBRIS_NORMAL );
+		break;
+
+	case EV_EMIT_DEBRIS_DARK:
+		DEBUGNAME("EV_EMIT_DEBRIS_DARK");
+		CG_ShowDebris( cent->lerpOrigin, cent->currentState.eventParm, EV_EMIT_DEBRIS_DARK );
 		break;
 
 	default:
