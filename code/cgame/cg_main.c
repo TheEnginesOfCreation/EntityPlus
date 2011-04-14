@@ -957,6 +957,24 @@ static void CG_RegisterGraphics( void ) {
 	cgs.media.gibSkull = trap_R_RegisterModel( "models/gibs/skull.md3" );
 	cgs.media.gibBrain = trap_R_RegisterModel( "models/gibs/brain.md3" );
 
+	cgs.media.debris1 = trap_R_RegisterModel( "models/debris/concrete_b1.md3" );
+	cgs.media.debris2 = trap_R_RegisterModel( "models/debris/concrete_b2.md3" );
+	cgs.media.debris3 = trap_R_RegisterModel( "models/debris/concrete_b3.md3" );
+	cgs.media.debris4 = trap_R_RegisterModel( "models/debris/concrete_b4.md3" );
+	cgs.media.debris5 = trap_R_RegisterModel( "models/debris/concrete_b5.md3" );
+	cgs.media.debris6 = trap_R_RegisterModel( "models/debris/concrete_b6.md3" );
+	cgs.media.debris7 = trap_R_RegisterModel( "models/debris/concrete_b7.md3" );
+	cgs.media.debris8 = trap_R_RegisterModel( "models/debris/concrete_b8.md3" );
+
+	cgs.media.debrisdark1 = trap_R_RegisterModel( "models/debris/concrete_d1.md3" );
+	cgs.media.debrisdark2 = trap_R_RegisterModel( "models/debris/concrete_d2.md3" );
+	cgs.media.debrisdark3 = trap_R_RegisterModel( "models/debris/concrete_d3.md3" );
+	cgs.media.debrisdark4 = trap_R_RegisterModel( "models/debris/concrete_d4.md3" );
+	cgs.media.debrisdark5 = trap_R_RegisterModel( "models/debris/concrete_d5.md3" );
+	cgs.media.debrisdark6 = trap_R_RegisterModel( "models/debris/concrete_d6.md3" );
+	cgs.media.debrisdark7 = trap_R_RegisterModel( "models/debris/concrete_d7.md3" );
+	cgs.media.debrisdark8 = trap_R_RegisterModel( "models/debris/concrete_d8.md3" );
+
 	cgs.media.smoke2 = trap_R_RegisterModel( "models/weapons2/shells/s_shell.md3" );
 
 	cgs.media.balloonShader = trap_R_RegisterShader( "sprites/balloon3" );

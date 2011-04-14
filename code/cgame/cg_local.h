@@ -693,6 +693,25 @@ typedef struct {
 	qhandle_t	gibSkull;
 	qhandle_t	gibBrain;
 
+	// debris explosions
+	qhandle_t	debris1;
+	qhandle_t	debris2;
+	qhandle_t	debris3;
+	qhandle_t	debris4;
+	qhandle_t	debris5;
+	qhandle_t	debris6;
+	qhandle_t	debris7;
+	qhandle_t	debris8;
+
+	qhandle_t	debrisdark1;
+	qhandle_t	debrisdark2;
+	qhandle_t	debrisdark3;
+	qhandle_t	debrisdark4;
+	qhandle_t	debrisdark5;
+	qhandle_t	debrisdark6;
+	qhandle_t	debrisdark7;
+	qhandle_t	debrisdark8;
+
 	qhandle_t	smoke2;
 
 	qhandle_t	machinegunBrassModel;
