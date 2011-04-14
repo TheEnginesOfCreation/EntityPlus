@@ -336,7 +336,7 @@ Normal sliding door entity. By default, the door will activate when player walks
 -------- KEYS --------
 angle : determines the opening direction of door (up = -1, down = -2).
 speed : determines how fast the door moves (default 100).
-wait : number of seconds before door returns (default 2, -1 = return immediately)
+wait : number of seconds before door returns (default 2, -1 = return immediately, -2 return only when triggered again)
 lip : lip remaining at end of move (default 8)
 targetname : if set, a func_button or trigger is required to activate the door.
 health : (default 0) if set to any non-zero value, the button must take damage (any amount) to activate.
