@@ -369,6 +369,7 @@ SelectSpectatorSpawnPoint
 ============
 */
 gentity_t *SelectSpectatorSpawnPoint( vec3_t origin, vec3_t angles ) {
+
 	FindIntermissionPoint();
 
 	VectorCopy( level.intermission_origin, origin );
@@ -1166,8 +1167,7 @@ void ClientSpawn(gentity_t *ent) {
 	// do it before setting health back up, so farthest
 	// ranging doesn't count this client
 	if ( client->sess.sessionTeam == TEAM_SPECTATOR ) {
-		spawnPoint = SelectSpectatorSpawnPoint ( 
-						spawn_origin, spawn_angles);
+		spawnPoint = SelectSpectatorSpawnPoint ( spawn_origin, spawn_angles );		
 	} else if (g_gametype.integer >= GT_CTF ) {
 		// all base oriented team games use the CTF spawn points
 		spawnPoint = SelectCTFSpawnPoint ( 
@@ -1203,7 +1203,7 @@ void ClientSpawn(gentity_t *ent) {
 	}
 
 	// reduce one allowed spawn from spawnpoint, if limit is set
-	if ( spawnPoint->count && spawnPoint->damage < spawnPoint->count )
+	if ( spawnPoint && spawnPoint->count && spawnPoint->damage < spawnPoint->count )
 		spawnPoint->damage++;
 
 	client->pers.teamState.state = TEAM_ACTIVE;
