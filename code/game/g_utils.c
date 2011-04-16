@@ -724,7 +724,20 @@ int DebugLine(vec3_t start, vec3_t end, int color) {
 IsBot
 ==================
 */
-qboolean IsBot(gentity_t *self) {
+qboolean IsBot( gentity_t *self ) {
 	//return qtrue if client is a bot
 	return (self->r.svFlags & SVF_BOT);
+}
+
+qboolean IsClientBot( gclient_t *client ) {
+	gentity_t *ent;
+	int i;
+
+	for (i = 0; i < MAX_CLIENTS; i++) {
+		ent = &g_entities[i];
+		if ( ent->client->ps.clientNum == client->ps.clientNum )
+			return IsBot( ent );
+	}
+
+	return qfalse;
 }

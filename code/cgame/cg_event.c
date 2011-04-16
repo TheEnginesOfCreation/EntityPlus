@@ -185,13 +185,13 @@ static void CG_Obituary( entityState_t *ent ) {
 		}
 	}
 
-	if (message) {
+	if (message && cgs.gametype != GT_SINGLE_PLAYER ) {
 		CG_Printf( "%s %s.\n", targetName, message);
 		return;
 	}
 
 	// check for kill messages from the current clientNum
-	if ( attacker == cg.snap->ps.clientNum ) {
+	if ( attacker == cg.snap->ps.clientNum && cgs.gametype != GT_SINGLE_PLAYER ) {
 		char	*s;
 
 		if ( cgs.gametype < GT_TEAM ) {
@@ -303,7 +303,7 @@ static void CG_Obituary( entityState_t *ent ) {
 			break;
 		}
 
-		if (message) {
+		if (message && cgs.gametype != GT_SINGLE_PLAYER) {
 			CG_Printf( "%s %s %s%s\n", 
 				targetName, message, attackerName, message2);
 			return;
@@ -311,7 +311,8 @@ static void CG_Obituary( entityState_t *ent ) {
 	}
 
 	// we don't know what it was
-	CG_Printf( "%s died.\n", targetName );
+	if (cgs.gametype != GT_SINGLE_PLAYER)
+		CG_Printf( "%s died.\n", targetName );
 }
 
 //==========================================================================
