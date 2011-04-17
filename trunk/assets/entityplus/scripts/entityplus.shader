@@ -41,6 +41,217 @@ textures/common/ladderclip
 }
 
 //
+// KEYCARDS 
+// By Obsidian (obsidian@robotrenegade.com - http://robotrenegade.com)
+//
+models/powerups/keys/keycard-b
+{
+	{
+		map models/powerups/keys/envmap-b.tga
+		tcGen environment
+		//tcMod turb 0.75 0.25 0 0.25
+		//tcMod scroll 0 0.25
+	}  
+	{
+		map models/powerups/keys/keycard-b.tga
+		blendFunc blend
+		rgbGen wave sin 0.5 0.25 0 0.25
+	}
+}
+models/powerups/keys/vector-b
+{
+	cull none
+	surfaceparm trans
+	qer_trans 0.5
+	{
+		map models/powerups/keys/vector-b.tga
+		blendFunc add
+		rgbGen wave sin 0 0.5 0 0.25
+	}
+}
+models/powerups/keys/vector-b2
+{
+	cull none
+	surfaceparm trans
+	qer_editorImage models/powerups/keys/vector-b.tga
+	qer_trans 0.5
+	{
+		map models/powerups/keys/vector-b.tga
+		blendFunc add
+		rgbGen wave noise 0.75 0.25 0 30
+	}
+}
+models/powerups/keys/vector-b3
+{
+	cull none
+	deformVertexes move 0 0 8 sawtooth 0 1 0 2
+	surfaceparm trans
+	qer_editorImage models/powerups/keys/vector-b.tga
+	qer_trans 0.5
+	{
+		map models/powerups/keys/vector-b.tga
+		blendFunc add
+		rgbGen wave sin 0 1 0 1
+	}
+}
+
+
+models/powerups/keys/keycard-g
+{
+	{
+		map models/powerups/keys/envmap-g.tga
+		tcGen environment
+		//tcMod turb 0.75 0.25 0 0.25
+		//tcMod scroll 0 0.25
+	}  
+	{
+		map models/powerups/keys/keycard-g.tga
+		blendFunc blend
+		rgbGen wave sin 0.5 0.25 0 0.25
+	}
+}
+models/powerups/keys/vector-g
+{
+	cull none
+	surfaceparm trans
+	qer_trans 0.5
+	{
+		map models/powerups/keys/vector-g.tga
+		blendFunc add
+		rgbGen wave sin 0 0.5 0 0.25
+	}
+}
+models/powerups/keys/vector-g2
+{
+	cull none
+	surfaceparm trans
+	qer_editorImage models/powerups/keys/vector-g.tga
+	qer_trans 0.5
+	{
+		map models/powerups/keys/vector-g.tga
+		blendFunc add
+		rgbGen wave noise 0.75 0.25 0 30
+	}
+}
+models/powerups/keys/vector-g3
+{
+	cull none
+	deformVertexes move 0 0 8 sawtooth 0 1 0 2
+	surfaceparm trans
+	qer_editorImage models/powerups/keys/vector-g.tga
+	qer_trans 0.5
+	{
+		map models/powerups/keys/vector-g.tga
+		blendFunc add
+		rgbGen wave sin 0 1 0 1
+	}
+}
+
+
+models/powerups/keys/keycard-r
+{
+	{
+		map models/powerups/keys/envmap-r.tga
+		tcGen environment
+		//tcMod turb 0.75 0.25 0 0.25
+		//tcMod scroll 0 0.25
+	}  
+	{
+		map models/powerups/keys/keycard-r.tga
+		blendFunc blend
+		rgbGen wave sin 0.5 0.25 0 0.25
+	}
+}
+models/powerups/keys/vector-r
+{
+	cull none
+	surfaceparm trans
+	qer_trans 0.5
+	{
+		map models/powerups/keys/vector-r.tga
+		blendFunc add
+		rgbGen wave sin 0 0.5 0 0.25
+	}
+}
+models/powerups/keys/vector-r2
+{
+	cull none
+	surfaceparm trans
+	qer_editorImage models/powerups/keys/vector-r.tga
+	qer_trans 0.5
+	{
+		map models/powerups/keys/vector-r.tga
+		blendFunc add
+		rgbGen wave noise 0.75 0.25 0 30
+	}
+}
+models/powerups/keys/vector-r3
+{
+	cull none
+	deformVertexes move 0 0 8 sawtooth 0 1 0 2
+	surfaceparm trans
+	qer_editorImage models/powerups/keys/vector-r.tga
+	qer_trans 0.5
+	{
+		map models/powerups/keys/vector-r.tga
+		blendFunc add
+		rgbGen wave sin 0 1 0 1
+	}
+}
+
+
+models/powerups/keys/keycard-y
+{
+	{
+		map models/powerups/keys/envmap-y.tga
+		tcGen environment
+		//tcMod turb 0.75 0.25 0 0.25
+		//tcMod scroll 0 0.25
+	}  
+	{
+		map models/powerups/keys/keycard-y.tga
+		blendFunc blend
+		rgbGen wave sin 0.5 0.25 0 0.25
+	}
+}
+models/powerups/keys/vector-y
+{
+	cull none
+	surfaceparm trans
+	qer_trans 0.5
+	{
+		map models/powerups/keys/vector-y.tga
+		blendFunc add
+		rgbGen wave sin 0 0.5 0 0.25
+	}
+}
+models/powerups/keys/vector-y2
+{
+	cull none
+	surfaceparm trans
+	qer_editorImage models/powerups/keys/vector-y.tga
+	qer_trans 0.5
+	{
+		map models/powerups/keys/vector-y.tga
+		blendFunc add
+		rgbGen wave noise 0.75 0.25 0 30
+	}
+}
+models/powerups/keys/vector-y3
+{
+	cull none
+	deformVertexes move 0 0 8 sawtooth 0 1 0 2
+	surfaceparm trans
+	qer_editorImage models/powerups/keys/vector-y.tga
+	qer_trans 0.5
+	{
+		map models/powerups/keys/vector-y.tga
+		blendFunc add
+		rgbGen wave sin 0 1 0 1
+	}
+}
+
+//
 // ENTITYPLUS.MAP
 //
 
