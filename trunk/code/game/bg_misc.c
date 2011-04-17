@@ -510,21 +510,69 @@ gitem_t	bg_itemlist[] =
 /* precache */ "",
 /* sounds */ "sound/items/use_medkit.wav"
 	},
-/*QUAKED holdable_key (.2 .2 .2) (-16 -16 -16) (16 16 16) suspended
+/*QUAKED holdable_key_red (.2 .2 .2) (-16 -16 -16) (16 16 16) suspended
 */
 	{
-		"holdable_key", 
+		"holdable_key_red", 
 		"sound/items/holdable.wav",
         { 
-		"models/powerups/holdable/key.md3", 
+		"models/powerups/keys/keycard-r.md3", 
 		0, 0, 0},
-/* icon */		"icons/key",
-/* pickup */	"Key",
+/* icon */		"icons/key_red",
+/* pickup */	"Red keycard",
 		60,
 		IT_HOLDABLE,
-		HI_KEY,
+		HI_KEY_RED,
 /* precache */ "",
-/* sounds */ "sound/items/use_medkit.wav"
+/* sounds */ ""	//TODO: link sound to a keycard 'use' sound and have trigger_lock play that sound when it's 'unlocked'
+	},
+/*QUAKED holdable_key_green (.2 .2 .2) (-16 -16 -16) (16 16 16) suspended
+*/
+	{
+		"holdable_key_green", 
+		"sound/items/holdable.wav",
+        { 
+		"models/powerups/keys/keycard-g.md3", 
+		0, 0, 0},
+/* icon */		"icons/key_green",
+/* pickup */	"Green keycard",
+		60,
+		IT_HOLDABLE,
+		HI_KEY_GREEN,
+/* precache */ "",
+/* sounds */ ""	//TODO: link sound to a keycard 'use' sound and have trigger_lock play that sound when it's 'unlocked'
+	},
+/*QUAKED holdable_key_blue (.2 .2 .2) (-16 -16 -16) (16 16 16) suspended
+*/
+	{
+		"holdable_key_blue", 
+		"sound/items/holdable.wav",
+        { 
+		"models/powerups/keys/keycard-b.md3", 
+		0, 0, 0},
+/* icon */		"icons/key_blue",
+/* pickup */	"Blue keycard",
+		60,
+		IT_HOLDABLE,
+		HI_KEY_BLUE,
+/* precache */ "",
+/* sounds */ ""	//TODO: link sound to a keycard 'use' sound and have trigger_lock play that sound when it's 'unlocked'
+	},
+/*QUAKED holdable_key_yellow (.2 .2 .2) (-16 -16 -16) (16 16 16) suspended
+*/
+	{
+		"holdable_key_yellow", 
+		"sound/items/holdable.wav",
+        { 
+		"models/powerups/keys/keycard-y.md3", 
+		0, 0, 0},
+/* icon */		"icons/key_yellow",
+/* pickup */	"Yellow keycard",
+		60,
+		IT_HOLDABLE,
+		HI_KEY_YELLOW,
+/* precache */ "",
+/* sounds */ ""	//TODO: link sound to a keycard 'use' sound and have trigger_lock play that sound when it's 'unlocked'
 	},
 
 	//
