@@ -23,7 +23,6 @@ void multi_wait( gentity_t *ent ) {
 // ent->activator should be set to the activator so it can be held through a delay
 // so wait for the delay time before firing
 void multi_trigger( gentity_t *ent, gentity_t *activator ) {
-	
 	ent->activator = activator;
 	if ( ent->nextthink ) {
 		return;		// can't retrigger until the wait is over
@@ -590,20 +589,38 @@ EntityPlus: trigger_lock
 */
 
 void lock_touch(gentity_t *self, gentity_t *other, trace_t *trace) {
-	if(!other->client)
+	int keyOwned;
+
+	if (!other->client)
 		return;
+	
 
-	// remove the key
-	other->client->ps.stats[STAT_HOLDABLE_ITEM] = 0;
 
-	// everything else is the same as a trigger_multiple
-	multi_trigger(self, other);
+	keyOwned = bg_itemlist[other->client->ps.stats[STAT_HOLDABLE_ITEM]].giTag;
+	if (
+		keyOwned == HI_KEY_RED && (self->spawnflags & 4) ||
+		keyOwned == HI_KEY_GREEN && (self->spawnflags & 8) ||
+		keyOwned == HI_KEY_BLUE && (self->spawnflags & 16) ||
+		keyOwned == HI_KEY_YELLOW && (self->spawnflags & 32)
+	)
+	{
+		// remove the key
+		other->client->ps.stats[STAT_HOLDABLE_ITEM] = 0;
+
+		// everything else is the same as a trigger_multiple
+		multi_trigger(self, other);
+	}
+	//else if ( self->message )
+	//{
+	//	G_Printf("%s\n", self->message);
+	//}
 }
 
 /*
-QUAKED trigger_lock (.5 .5 .5) ? SPECTATOR
-Used in conjunction with a holdable_key to grant/deny access to some entity
+QUAKED trigger_lock (.5 .5 .5) ? RED_ONLY BLUE_ONLY KEY_RED KEY_GREEN KEY_BLUE KEY_YELLOW
+Used in conjunction with a holdable_key_* to grant/deny access to some entity
 (e.g. a door).
+Spawnflags determine which key is needed to trigger this lock
 */
 void SP_trigger_lock(gentity_t *self) {
 	InitTrigger(self);
@@ -611,15 +628,21 @@ void SP_trigger_lock(gentity_t *self) {
 	// default values
 	G_SpawnFloat("wait", "0.5", &self->wait);
 	G_SpawnFloat("random", "0", &self->random);
+	
+	//if none of the KEY_* spawnflags have been selected, default to KEY_RED
+	if ( !(self->spawnflags & 4) && !(self->spawnflags & 8) && !(self->spawnflags & 16) && !(self->spawnflags & 32) )
+		self->spawnflags |= 4;
 
 	// random cannot be larger than wait
-	if((self->random >= self->wait) && (self->wait >= 0)) {
+	if ( self->random >= self->wait && self->wait >= 0 ) {
 		self->random = self->wait - FRAMETIME;
 		G_Printf("trigger_lock has random >= wait\n");
 	}
 
 	self->touch = lock_touch;
+	//self->touch = Touch_Multi;
 
+	
 	trap_LinkEntity(self);
 }
 

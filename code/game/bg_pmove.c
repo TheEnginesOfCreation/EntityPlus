@@ -1546,7 +1546,12 @@ static void PM_Weapon( void ) {
 	if ( pm->cmd.buttons & BUTTON_USE_HOLDABLE ) {
 
 		// keys are automatically used & removed
-		if(bg_itemlist[pm->ps->stats[STAT_HOLDABLE_ITEM]].giTag == HI_KEY)
+		if (
+			bg_itemlist[pm->ps->stats[STAT_HOLDABLE_ITEM]].giTag == HI_KEY_RED ||
+			bg_itemlist[pm->ps->stats[STAT_HOLDABLE_ITEM]].giTag == HI_KEY_GREEN ||
+			bg_itemlist[pm->ps->stats[STAT_HOLDABLE_ITEM]].giTag == HI_KEY_BLUE ||
+			bg_itemlist[pm->ps->stats[STAT_HOLDABLE_ITEM]].giTag == HI_KEY_YELLOW
+		)
 			return;
 
 		if ( ! ( pm->ps->pm_flags & PMF_USE_ITEM_HELD ) ) {
