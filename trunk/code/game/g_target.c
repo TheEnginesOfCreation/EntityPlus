@@ -470,7 +470,19 @@ This doesn't perform any actions except fire its targets when it's triggered by 
 The activator can be forced to be from a certain team.
 if RANDOM is checked, only one of the targets will be fired, not all of them
 */
+void target_logic_reset (gentity_t *self) {
+	int i;
+	for (i = 0; i < MAX_LOGIC_ENTITIES; i++)
+		self->logicEntities[i] = 0;
+}
+
 void target_logic_use (gentity_t *self, gentity_t *other, gentity_t *activator) {
+	int			i;
+	int			triggerCount;		//number of entities targetting this target_logic
+	int			triggeredCount;		//number of entities targetting this target_logic that have already been triggered
+	qboolean	found;
+	gentity_t	*t;
+
 	if ( ( self->spawnflags & 1 ) && activator->client && activator->client->sess.sessionTeam != TEAM_RED ) {
 		return;
 	}
@@ -478,6 +490,72 @@ void target_logic_use (gentity_t *self, gentity_t *other, gentity_t *activator) 
 		return;
 	}
 
+	//determine the number of entities (triggers) targeting this target_logic
+	triggerCount = triggeredCount = 0;
+	t = NULL;
+	while ( (t = G_Find (t, FOFS(target), self->targetname)) != NULL ) {
+		found = qfalse;
+		if ( t == self ) {
+			G_Printf ("WARNING: Entity used itself.\n");
+		} else {
+			triggerCount++;
+		}
+	}
+
+	G_Printf("triggers: %i\n", triggerCount);
+
+	//count the number of entities that have already triggered the target_logic
+	for ( i = 0; i < MAX_LOGIC_ENTITIES; i++ ) {
+		if ( self->logicEntities[i] ) {
+			triggeredCount++;
+
+			//if the entity that is currently being triggered is in the list, see if we should remove it again
+			if ( self->logicEntities[i] == other->s.number ) {
+				found = qtrue;
+				
+				//STAY_ON is not selected, remove the trigger for the list of triggered entities
+				if ( !(self->spawnflags & 8) ) {
+					self->logicEntities[i] = 0;
+					triggeredCount--;		//the trigger was counted as being triggerd, but is not so anymore
+				}
+			}
+		}
+	}
+
+	//the entity was not yet in the list of triggered entities, so add it
+	if ( !found ) {
+		for ( i = 0; i < MAX_LOGIC_ENTITIES; i++ ) {
+			if ( !self->logicEntities[i] )
+			{
+				self->logicEntities[i] = other->s.number;
+				triggeredCount++;
+				break;
+			}
+		}
+	}
+
+	G_Printf("triggered: %i\n", triggeredCount);
+
+	if ( triggerCount == triggeredCount ) {
+		target_logic_reset( self );
+
+		//If RANDOM is selected so use a random target
+		if ( self->spawnflags & 4 ) {
+			gentity_t	*ent;
+
+			ent = G_PickTarget( self->target );
+			if ( ent && ent->use ) {
+				ent->use( ent, self, activator );
+			}
+			return;
+		}
+		
+		//The RANDOM spawnflag wasn't selected, so use all targets
+		G_UseTargets (self, activator);
+	}
+
+
+	/*
 	if (self->triggeredentity == 0) {
 		self->triggeredentity = other->s.number;
 	}
@@ -501,10 +579,14 @@ void target_logic_use (gentity_t *self, gentity_t *other, gentity_t *activator) 
 		
 		G_UseTargets (self, activator);
 	}
+	*/
 }
+
+
 
 void SP_target_logic (gentity_t *self) {
 	self->use = target_logic_use;
+	target_logic_reset( self );
 }
 
 //==========================================================
