@@ -42,6 +42,8 @@ typedef enum {
 
 #define SP_PODIUM_MODEL		"models/mapobjects/podium/podium4.md3"
 
+#define MAX_LOGIC_ENTITIES		10 //maximum number of entities that can target a target_logic
+
 //============================================================================
 
 typedef struct gentity_s gentity_t;
@@ -101,7 +103,7 @@ struct gentity_s {
 	float		angle;			// set in editor, -1 = up, -2 = down
 	char		*target;
 	char		*targetname;
-	int			triggeredentity;		// entity index of first trigger for target_logic
+	int			logicEntities[MAX_LOGIC_ENTITIES];	//keeping track of entities targeting a target_logic
 	char		*team;
 	char		*targetShaderName;
 	char		*targetShaderNewName;
@@ -415,7 +417,6 @@ typedef struct {
 	int			portalSequence;
 #endif
 } level_locals_t;
-
 
 //
 // g_spawn.c
