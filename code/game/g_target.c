@@ -502,8 +502,6 @@ void target_logic_use (gentity_t *self, gentity_t *other, gentity_t *activator) 
 		}
 	}
 
-	G_Printf("triggers: %i\n", triggerCount);
-
 	//count the number of entities that have already triggered the target_logic
 	for ( i = 0; i < MAX_LOGIC_ENTITIES; i++ ) {
 		if ( self->logicEntities[i] ) {
@@ -534,8 +532,6 @@ void target_logic_use (gentity_t *self, gentity_t *other, gentity_t *activator) 
 		}
 	}
 
-	G_Printf("triggered: %i\n", triggeredCount);
-
 	if ( triggerCount == triggeredCount ) {
 		target_logic_reset( self );
 
@@ -553,33 +549,6 @@ void target_logic_use (gentity_t *self, gentity_t *other, gentity_t *activator) 
 		//The RANDOM spawnflag wasn't selected, so use all targets
 		G_UseTargets (self, activator);
 	}
-
-
-	/*
-	if (self->triggeredentity == 0) {
-		self->triggeredentity = other->s.number;
-	}
-	else if (self->triggeredentity == other->s.number) {
-		if ( !(self->spawnflags & 8) ) { //spawnflags 8 will make the first trigger stay on until the target_logic is fully triggered
-			self->triggeredentity = 0;
-		}
-	}
-	else {
-		self->triggeredentity = 0;	//reset target_logic
-
-		if ( self->spawnflags & 4 ) {
-			gentity_t	*ent;
-
-			ent = G_PickTarget( self->target );
-			if ( ent && ent->use ) {
-				ent->use( ent, self, activator );
-			}
-			return;
-		}
-		
-		G_UseTargets (self, activator);
-	}
-	*/
 }
 
 
