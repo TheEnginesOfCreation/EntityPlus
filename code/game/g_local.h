@@ -230,6 +230,7 @@ typedef struct {
 	int			sessionAmmoRG;
 	int			sessionAmmoPG;
 	int			sessionAmmoBFG;
+	int			sessionHoldable;
 } clientSession_t;
 
 //
