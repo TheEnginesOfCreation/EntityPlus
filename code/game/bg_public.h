@@ -271,11 +271,16 @@ typedef enum {
 typedef enum {
 	HI_NONE,
 
+	//can only hold one of the items below. Adding items here requires editing of GetPlayerHoldable() in g_utils
 	HI_TELEPORTER,
 	HI_MEDKIT,
 	HI_KAMIKAZE,
 	HI_PORTAL,
 	HI_INVULNERABILITY,
+
+	HI_HOLDABLE_SPLIT,	//not an actual item, only a marker to differentiate between different types of holdables. Do not 'give' this to players.
+	
+	//can hold multiple of the items below
 	HI_KEY_RED,
 	HI_KEY_GREEN,
 	HI_KEY_BLUE,
@@ -691,7 +696,6 @@ void	BG_PlayerStateToEntityState( playerState_t *ps, entityState_t *s, qboolean 
 void	BG_PlayerStateToEntityStateExtraPolate( playerState_t *ps, entityState_t *s, int time, qboolean snap );
 
 qboolean	BG_PlayerTouchesItem( playerState_t *ps, entityState_t *item, int atTime );
-
 
 #define ARENAS_PER_TIER		4
 #define MAX_ARENAS			1024

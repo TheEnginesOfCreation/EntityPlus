@@ -1308,7 +1308,7 @@ void ClientSpawn(gentity_t *ent) {
 	if ( client->sess.sessionAmmoBFG ) client->ps.ammo[WP_BFG] = client->sess.sessionAmmoBFG;
 
 
-	//give holdable
+	//give holdables
 	if ( client->sess.sessionHoldable ) 
 		client->ps.stats[STAT_HOLDABLE_ITEM] = client->sess.sessionHoldable;
 

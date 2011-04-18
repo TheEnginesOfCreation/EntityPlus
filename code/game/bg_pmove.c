@@ -1515,7 +1515,6 @@ static void PM_TorsoAnimation( void ) {
 	}
 }
 
-
 /*
 ==============
 PM_Weapon
@@ -1525,6 +1524,7 @@ Generates weapon events and modifes the weapon counter
 */
 static void PM_Weapon( void ) {
 	int		addTime;
+	int		giTag;
 
 	// don't allow attack until all buttons are up
 	if ( pm->ps->pm_flags & PMF_RESPAWNED ) {
@@ -1545,23 +1545,15 @@ static void PM_Weapon( void ) {
 	// check for item using
 	if ( pm->cmd.buttons & BUTTON_USE_HOLDABLE ) {
 
-		// keys are automatically used & removed
-		if (
-			bg_itemlist[pm->ps->stats[STAT_HOLDABLE_ITEM]].giTag == HI_KEY_RED ||
-			bg_itemlist[pm->ps->stats[STAT_HOLDABLE_ITEM]].giTag == HI_KEY_GREEN ||
-			bg_itemlist[pm->ps->stats[STAT_HOLDABLE_ITEM]].giTag == HI_KEY_BLUE ||
-			bg_itemlist[pm->ps->stats[STAT_HOLDABLE_ITEM]].giTag == HI_KEY_YELLOW
-		)
-			return;
-
 		if ( ! ( pm->ps->pm_flags & PMF_USE_ITEM_HELD ) ) {
-			if ( bg_itemlist[pm->ps->stats[STAT_HOLDABLE_ITEM]].giTag == HI_MEDKIT
-				&& pm->ps->stats[STAT_HEALTH] >= (pm->ps->stats[STAT_MAX_HEALTH] + 25) ) {
+			giTag = GetPlayerHoldable(pm->ps->stats[STAT_HOLDABLE_ITEM]);
+			if ( giTag == HI_MEDKIT && pm->ps->stats[STAT_HEALTH] >= (pm->ps->stats[STAT_MAX_HEALTH] + 25) ) {
 				// don't use medkit if at max health
 			} else {
 				pm->ps->pm_flags |= PMF_USE_ITEM_HELD;
-				PM_AddEvent( EV_USE_ITEM0 + bg_itemlist[pm->ps->stats[STAT_HOLDABLE_ITEM]].giTag );
-				pm->ps->stats[STAT_HOLDABLE_ITEM] = 0;
+				PM_AddEvent( EV_USE_ITEM0 + giTag );
+				if ( giTag != HI_NONE )
+					pm->ps->stats[STAT_HOLDABLE_ITEM] -= (1 << giTag);
 			}
 			return;
 		}
@@ -2152,4 +2144,3 @@ void Pmove (pmove_t *pmove) {
 	//PM_CheckStuck();
 
 }
-

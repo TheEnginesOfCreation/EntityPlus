@@ -595,7 +595,7 @@ void lock_touch(gentity_t *self, gentity_t *other, trace_t *trace) {
 		return;
 	
 
-
+	//TODO: change this to work with new bitmask stat_holdable_item
 	keyOwned = bg_itemlist[other->client->ps.stats[STAT_HOLDABLE_ITEM]].giTag;
 	if (
 		keyOwned == HI_KEY_RED && (self->spawnflags & 4) ||
@@ -605,7 +605,7 @@ void lock_touch(gentity_t *self, gentity_t *other, trace_t *trace) {
 	)
 	{
 		// remove the key
-		other->client->ps.stats[STAT_HOLDABLE_ITEM] = 0;
+		other->client->ps.stats[STAT_HOLDABLE_ITEM] = 0;	//TODO: change this to work with new bitmask stat_holdable_item
 
 		// everything else is the same as a trigger_multiple
 		multi_trigger(self, other);

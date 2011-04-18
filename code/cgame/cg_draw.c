@@ -1445,23 +1445,68 @@ static void CG_DrawTeamInfo( void ) {
 }
 #endif // MISSIONPACK
 
+
+
 /*
 ===================
 CG_DrawHoldableItem
 ===================
 */
-#ifndef MISSIONPACK
+//#ifndef MISSIONPACK
 static void CG_DrawHoldableItem( void ) { 
 	int		value;
+	int		offset;
 
-	value = cg.snap->ps.stats[STAT_HOLDABLE_ITEM];
+	//draw usable item
+	value = GetHoldableListIndex(GetPlayerHoldable(cg.snap->ps.stats[STAT_HOLDABLE_ITEM]));
+
 	if ( value ) {
 		CG_RegisterItemVisuals( value );
 		CG_DrawPic( 640-ICON_SIZE, (SCREEN_HEIGHT-ICON_SIZE)/2, ICON_SIZE, ICON_SIZE, cg_items[ value ].icon );
 	}
 
+	//draw red key
+	offset = ICON_SIZE;
+	if (cg.snap->ps.stats[STAT_HOLDABLE_ITEM] & (1 << HI_KEY_RED) ) {
+		value = GetHoldableListIndex(HI_KEY_RED);
+		if ( value ) {
+			CG_RegisterItemVisuals( value );
+			CG_DrawPic( 640-ICON_SIZE, ((SCREEN_HEIGHT-ICON_SIZE)/2)+offset, ICON_SIZE, ICON_SIZE, cg_items[ value ].icon );
+		}
+	}
+
+	//draw green key
+	if (cg.snap->ps.stats[STAT_HOLDABLE_ITEM] & (1 << HI_KEY_GREEN) ) {
+		offset += ICON_SIZE;
+		value = GetHoldableListIndex(HI_KEY_GREEN);
+		if ( value ) {
+			CG_RegisterItemVisuals( value );
+			CG_DrawPic( 640-ICON_SIZE, ((SCREEN_HEIGHT-ICON_SIZE)/2)+offset, ICON_SIZE, ICON_SIZE, cg_items[ value ].icon );
+		}
+	}
+
+	//draw blue key
+	if (cg.snap->ps.stats[STAT_HOLDABLE_ITEM] & (1 << HI_KEY_BLUE) ) {
+		offset += ICON_SIZE;
+		value = GetHoldableListIndex(HI_KEY_BLUE);
+		if ( value ) {
+			CG_RegisterItemVisuals( value );
+			CG_DrawPic( 640-ICON_SIZE, ((SCREEN_HEIGHT-ICON_SIZE)/2)+offset, ICON_SIZE, ICON_SIZE, cg_items[ value ].icon );
+		}
+	}
+	
+	//draw yellow key
+	if (cg.snap->ps.stats[STAT_HOLDABLE_ITEM] & (1 << HI_KEY_YELLOW) ) {
+		offset += ICON_SIZE;
+		value = GetHoldableListIndex(HI_KEY_YELLOW);
+		if ( value ) {
+			CG_RegisterItemVisuals( value );
+			CG_DrawPic( 640-ICON_SIZE, ((SCREEN_HEIGHT-ICON_SIZE)/2)+offset, ICON_SIZE, ICON_SIZE, cg_items[ value ].icon );
+		}
+	}
+
 }
-#endif // MISSIONPACK
+//#endif // MISSIONPACK
 
 #ifdef MISSIONPACK
 /*
