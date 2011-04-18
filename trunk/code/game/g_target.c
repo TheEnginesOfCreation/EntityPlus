@@ -478,16 +478,6 @@ void target_logic_use (gentity_t *self, gentity_t *other, gentity_t *activator) 
 		return;
 	}
 
-	if ( self->spawnflags & 4 ) {
-		gentity_t	*ent;
-
-		ent = G_PickTarget( self->target );
-		if ( ent && ent->use ) {
-			ent->use( ent, self, activator );
-		}
-		return;
-	}
-
 	if (self->triggeredentity == 0) {
 		self->triggeredentity = other->s.number;
 	}
@@ -498,6 +488,17 @@ void target_logic_use (gentity_t *self, gentity_t *other, gentity_t *activator) 
 	}
 	else {
 		self->triggeredentity = 0;	//reset target_logic
+
+		if ( self->spawnflags & 4 ) {
+			gentity_t	*ent;
+
+			ent = G_PickTarget( self->target );
+			if ( ent && ent->use ) {
+				ent->use( ent, self, activator );
+			}
+			return;
+		}
+		
 		G_UseTargets (self, activator);
 	}
 }
