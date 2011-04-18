@@ -544,7 +544,7 @@ void target_mapchange_use (gentity_t *self, gentity_t *other, gentity_t *activat
 }
 
 void SP_target_mapchange (gentity_t *self) {
-	G_SpawnString("mapname", "", &self->mapname);
+	//G_SpawnString("mapname", "", &self->mapname);
 
 	self->use = target_mapchange_use;
 }

@@ -96,6 +96,7 @@ field_t fields[] = {
 	{"angle", FOFS(s.angles), F_ANGLEHACK},
 	{"targetShaderName", FOFS(targetShaderName), F_LSTRING},
 	{"targetShaderNewName", FOFS(targetShaderNewName), F_LSTRING},
+	{"mapname", FOFS(mapname), F_LSTRING},
 	{"clientname", FOFS(clientname), F_LSTRING},
 	{"teleporterTarget", FOFS(teleporterTarget), F_LSTRING},
 
