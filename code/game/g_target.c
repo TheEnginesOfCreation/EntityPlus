@@ -645,10 +645,19 @@ void target_disable_use (gentity_t *self, gentity_t *other, gentity_t *activator
 	G_ToggleTargetsEnabled ( self );
 }
 
+//used for immediately spawnflag
+void target_disable_think (gentity_t *self) {
+	self->nextthink = 0;
+	G_ToggleTargetsEnabled ( self );
+}
+
 void SP_target_disable (gentity_t *self) {
 	self->use = target_disable_use;
-	if ( ( self->spawnflags & 16 ) )
-		G_ToggleTargetsEnabled ( self );
+	
+	if ( ( self->spawnflags & 16 ) ) {
+		self->nextthink = level.time + 300;
+		self->think = target_disable_think;
+	}
 }
 
 //==========================================================
