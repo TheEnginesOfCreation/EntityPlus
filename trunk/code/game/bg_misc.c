@@ -1098,6 +1098,7 @@ This needs to be the same for client side prediction and server use.
 */
 qboolean BG_CanItemBeGrabbed( int gametype, const entityState_t *ent, const playerState_t *ps ) {
 	gitem_t	*item;
+	int i;
 #ifdef MISSIONPACK
 	int		upperBound;
 #endif
@@ -1227,9 +1228,15 @@ qboolean BG_CanItemBeGrabbed( int gametype, const entityState_t *ent, const play
 		return qfalse;
 
 	case IT_HOLDABLE:
-		// can only hold one item at a time
-		if ( ps->stats[STAT_HOLDABLE_ITEM] ) {
+
+		if ( item->giTag < HI_HOLDABLE_SPLIT && GetPlayerHoldable( ps->stats[STAT_HOLDABLE_ITEM] ) != HI_NONE ) {
+			//player tries to pick up a holdable of which only one can be held while he already has one
 			return qfalse;
+		}
+		else {
+			//player tries to pick up a key. Do not allow pickup if that specific key is already in possession
+			if ( ps->stats[STAT_HOLDABLE_ITEM] & (1 << item->giTag) )
+				return qfalse;
 		}
 		return qtrue;
 
@@ -1661,4 +1668,50 @@ void BG_PlayerStateToEntityStateExtraPolate( playerState_t *ps, entityState_t *s
 
 	s->loopSound = ps->loopSound;
 	s->generic1 = ps->generic1;
+}
+
+/*
+==================
+GetPlayerHoldable( int stat_holdable )
+Determines what unique holdable item the player is carrying.
+==================
+*/
+int GetPlayerHoldable( int stat_holdable ) {
+
+	if ( stat_holdable & (1 << HI_TELEPORTER) )
+		return HI_TELEPORTER;
+
+	if ( stat_holdable & (1 << HI_MEDKIT) )
+		return HI_MEDKIT;
+
+	if ( stat_holdable & (1 << HI_KAMIKAZE) )
+		return HI_PORTAL;
+
+	if ( stat_holdable & (1 << HI_PORTAL) )
+		return HI_PORTAL;
+
+	if ( stat_holdable & (1 << HI_INVULNERABILITY) )
+		return HI_INVULNERABILITY;
+	
+	return HI_NONE;
+}
+
+/*
+==================
+GetHoldableListIndex( int giTag )
+Determines what the index is of a holdable in the bg_itemlist
+==================
+*/
+int GetHoldableListIndex( int giTag ) {
+	int i;
+
+	if ( giTag <= HI_NONE || giTag >= HI_NUM_HOLDABLE || giTag == HI_HOLDABLE_SPLIT )
+		return 0;
+
+	for (i = 0; i < bg_numItems; i++ ){
+		if ( bg_itemlist[i].giType == IT_HOLDABLE && bg_itemlist[i].giTag == giTag )
+			return i;
+	}
+
+	return 0;
 }

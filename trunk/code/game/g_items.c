@@ -173,9 +173,12 @@ int Pickup_PersistantPowerup( gentity_t *ent, gentity_t *other ) {
 #endif
 
 int Pickup_Holdable( gentity_t *ent, gentity_t *other ) {
+	int i;
 
-	other->client->ps.stats[STAT_HOLDABLE_ITEM] = ent->item - bg_itemlist;
+	//other->client->ps.stats[STAT_HOLDABLE_ITEM] = ent->item - bg_itemlist;
+	other->client->ps.stats[STAT_HOLDABLE_ITEM] |= (1 << ent->item->giTag);
 	
+	//set teleportation target if player picks up a personal teleporter with fixed teleporter target
 	if ( ent->item->giTag == HI_TELEPORTER && ent->teleporterTarget ) {
 		other->teleporterTarget = ent->teleporterTarget;
 	}

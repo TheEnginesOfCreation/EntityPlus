@@ -331,7 +331,8 @@ static void CG_UseItem( centity_t *cent ) {
 	es = &cent->currentState;
 	
 	itemNum = (es->event & ~EV_EVENT_BITS) - EV_USE_ITEM0;
-	if ( itemNum < 0 || itemNum > HI_NUM_HOLDABLE ) {
+	//if ( itemNum < 0 || itemNum > HI_NUM_HOLDABLE ) {
+	if ( itemNum < 0 || itemNum > HI_HOLDABLE_SPLIT ) {
 		itemNum = 0;
 	}
 

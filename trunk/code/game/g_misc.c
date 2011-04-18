@@ -368,7 +368,7 @@ void DropPortalDestination( gentity_t *player ) {
 	ent->count = player->client->portalID;
 
 	// give the item back so they can drop the source now
-	player->client->ps.stats[STAT_HOLDABLE_ITEM] = BG_FindItem( "Portal" ) - bg_itemlist;
+	player->client->ps.stats[STAT_HOLDABLE_ITEM] = BG_FindItem( "Portal" ) - bg_itemlist;	//TODO: fix this with new bitmask stat_holdable_item
 }
 
 
