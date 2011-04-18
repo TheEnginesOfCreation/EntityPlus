@@ -589,31 +589,35 @@ EntityPlus: trigger_lock
 */
 
 void lock_touch(gentity_t *self, gentity_t *other, trace_t *trace) {
-	int keyOwned;
-
+	int holdables;
+	
 	if (!other->client)
 		return;
-	
 
-	//TODO: change this to work with new bitmask stat_holdable_item
-	keyOwned = bg_itemlist[other->client->ps.stats[STAT_HOLDABLE_ITEM]].giTag;
-	if (
-		keyOwned == HI_KEY_RED && (self->spawnflags & 4) ||
-		keyOwned == HI_KEY_GREEN && (self->spawnflags & 8) ||
-		keyOwned == HI_KEY_BLUE && (self->spawnflags & 16) ||
-		keyOwned == HI_KEY_YELLOW && (self->spawnflags & 32)
-	)
-	{
-		// remove the key
-		other->client->ps.stats[STAT_HOLDABLE_ITEM] = 0;	//TODO: change this to work with new bitmask stat_holdable_item
+	holdables = other->client->ps.stats[STAT_HOLDABLE_ITEM];
 
-		// everything else is the same as a trigger_multiple
-		multi_trigger(self, other);
-	}
-	//else if ( self->message )
-	//{
-	//	G_Printf("%s\n", self->message);
-	//}
+	//if player doesn't have all the required keycards, do nothing
+	if ( (self->spawnflags & 4) && !(holdables & (1 << HI_KEY_RED)) ) 
+		return;
+	if ( (self->spawnflags & 8) && !(holdables & (1 << HI_KEY_GREEN)) )
+		return;
+	if ( (self->spawnflags & 16) && !(holdables & (1 << HI_KEY_BLUE)) )
+		return;
+	if ( (self->spawnflags & 32) && !(holdables & (1 << HI_KEY_YELLOW)) )
+		return;
+
+	// remove the required keys
+	if (self->spawnflags & 4)
+		other->client->ps.stats[STAT_HOLDABLE_ITEM] -= (1 << HI_KEY_RED);
+	if (self->spawnflags & 8)
+		other->client->ps.stats[STAT_HOLDABLE_ITEM] -= (1 << HI_KEY_GREEN);
+	if (self->spawnflags & 16)
+		other->client->ps.stats[STAT_HOLDABLE_ITEM] -= (1 << HI_KEY_BLUE);
+	if (self->spawnflags & 32)
+		other->client->ps.stats[STAT_HOLDABLE_ITEM] -= (1 << HI_KEY_YELLOW);
+
+	// everything else is the same as a trigger_multiple
+	multi_trigger(self, other);
 }
 
 /*
