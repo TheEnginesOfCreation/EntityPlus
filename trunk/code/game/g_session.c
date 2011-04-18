@@ -24,7 +24,7 @@ void G_WriteClientSessionData( gclient_t *client ) {
 	const char	*s;
 	const char	*var;
 
-	s = va("%i %i %i %i %i %i %i %i %i %i %i %i %i %i %i %i %i %i %i", 
+	s = va("%i %i %i %i %i %i %i %i %i %i %i %i %i %i %i %i %i %i %i %i", 
 		client->sess.sessionTeam,
 		client->sess.spectatorTime,
 		client->sess.spectatorState,
@@ -43,7 +43,8 @@ void G_WriteClientSessionData( gclient_t *client ) {
 		client->sess.sessionAmmoLG,
 		client->sess.sessionAmmoRG,
 		client->sess.sessionAmmoPG,
-		client->sess.sessionAmmoBFG
+		client->sess.sessionAmmoBFG,
+		client->sess.sessionHoldable
 		);
 
 	var = va( "session%i", client - level.clients );
@@ -70,7 +71,7 @@ void G_ReadSessionData( gclient_t *client ) {
 	var = va( "session%i", client - level.clients );
 	trap_Cvar_VariableStringBuffer( var, s, sizeof(s) );
 
-	sscanf( s, "%i %i %i %i %i %i %i %i %i %i %i %i %i %i %i %i %i %i %i",
+	sscanf( s, "%i %i %i %i %i %i %i %i %i %i %i %i %i %i %i %i %i %i %i %i",
 		&sessionTeam,                 // bk010221 - format
 		&client->sess.spectatorTime,
 		&spectatorState,              // bk010221 - format
@@ -89,7 +90,8 @@ void G_ReadSessionData( gclient_t *client ) {
 		&client->sess.sessionAmmoLG,
 		&client->sess.sessionAmmoRG,
 		&client->sess.sessionAmmoPG,
-		&client->sess.sessionAmmoBFG
+		&client->sess.sessionAmmoBFG,
+		&client->sess.sessionHoldable
 		);
 
 	// bk001205 - format issues
@@ -180,6 +182,7 @@ void G_UpdateSessionDataForMapChange( gclient_t *client ) {
 	sess->sessionAmmoRG = client->ps.ammo[WP_RAILGUN];
 	sess->sessionAmmoPG = client->ps.ammo[WP_PLASMAGUN];
 	sess->sessionAmmoBFG = client->ps.ammo[WP_BFG];
+	sess->sessionHoldable = client->ps.stats[STAT_HOLDABLE_ITEM];
 
 	G_WriteClientSessionData( client );
 }
@@ -208,6 +211,7 @@ void G_ClearSessionDataForMapChange( gclient_t *client ) {
 	sess->sessionAmmoRG = 0;
 	sess->sessionAmmoPG = 0;
 	sess->sessionAmmoBFG = 0;
+	sess->sessionHoldable = 0;
 }
 
 /*

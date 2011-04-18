@@ -1308,6 +1308,10 @@ void ClientSpawn(gentity_t *ent) {
 	if ( client->sess.sessionAmmoBFG ) client->ps.ammo[WP_BFG] = client->sess.sessionAmmoBFG;
 
 
+	//give holdable
+	if ( client->sess.sessionHoldable ) 
+		client->ps.stats[STAT_HOLDABLE_ITEM] = client->sess.sessionHoldable;
+
 	//give health
 	if ( client->sess.sessionHealth ) 
 		ent->health = client->ps.stats[STAT_HEALTH] = client->sess.sessionHealth;
