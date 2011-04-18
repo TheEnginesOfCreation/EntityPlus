@@ -579,7 +579,7 @@ HOLDABLE_* ENTITIES
 //=============================================================================
 
 /*QUAKED holdable_key_blue (.7 0 1) (-16 -16 -16) (16 16 16) SUSPENDED
-Key can be picked up and used in conjunction with a trigger_lock to open doors, etc.
+Key can be picked up and used in conjunction with a trigger_lock to open doors, etc. It is possible to pick up more than one key at once.
 -------- KEYS --------
 wait : time in seconds before item respawns after being picked up (default 60, -1 = never respawn).
 random : random time variance in seconds added or subtracted from "wait" delay (default 0 - see Notes).
@@ -602,7 +602,7 @@ model="models/powerups/keys/keycard-b.md3"*/
 //=============================================================================
 
 /*QUAKED holdable_key_green (.7 0 1) (-16 -16 -16) (16 16 16) SUSPENDED
-Key can be picked up and used in conjunction with a trigger_lock to open doors, etc.
+Key can be picked up and used in conjunction with a trigger_lock to open doors, etc. It is possible to pick up more than one key at once.
 -------- KEYS --------
 wait : time in seconds before item respawns after being picked up (default 60, -1 = never respawn).
 random : random time variance in seconds added or subtracted from "wait" delay (default 0 - see Notes).
@@ -625,7 +625,7 @@ model="models/powerups/keys/keycard-g.md3"*/
 //=============================================================================
 
 /*QUAKED holdable_key_red (.7 0 1) (-16 -16 -16) (16 16 16) SUSPENDED
-Key can be picked up and used in conjunction with a trigger_lock to open doors, etc.
+Key can be picked up and used in conjunction with a trigger_lock to open doors, etc. It is possible to pick up more than one key at once.
 -------- KEYS --------
 wait : time in seconds before item respawns after being picked up (default 60, -1 = never respawn).
 random : random time variance in seconds added or subtracted from "wait" delay (default 0 - see Notes).
@@ -648,7 +648,7 @@ model="models/powerups/keys/keycard-r.md3"*/
 //=============================================================================
 
 /*QUAKED holdable_key_yellow (.7 0 1) (-16 -16 -16) (16 16 16) SUSPENDED
-Key can be picked up and used in conjunction with a trigger_lock to open doors, etc.
+Key can be picked up and used in conjunction with a trigger_lock to open doors, etc. It is possible to pick up more than one key at once.
 -------- KEYS --------
 wait : time in seconds before item respawns after being picked up (default 60, -1 = never respawn).
 random : random time variance in seconds added or subtracted from "wait" delay (default 0 - see Notes).
@@ -1753,7 +1753,7 @@ KEY_GREEN : only triggered when player has holdable_key_green item.
 KEY_BLUE : only triggered when player has holdable_key_blue item.
 KEY_YELLOW : only triggered when player has holdable_key_yellow item.
 -------- NOTES --------
-The KEY_* spawnflags are OR-ed, meaning that checking multiple of these spawnflags will allow multiple keys to trigger the lock. When no KEY_* spawnflag is checked, the lock will respond to the holdable_key_red item.*/
+The KEY_* spawnflags are AND-ed, meaning that checking multiple of these spawnflags will require the player to have multiple keys to trigger the lock. When no KEY_* spawnflag is checked, the lock will respond to the holdable_key_red item.*/
 
 //=============================================================================
 
