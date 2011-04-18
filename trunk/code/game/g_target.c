@@ -629,7 +629,7 @@ void SP_target_botspawn (gentity_t *self) {
 
 //==========================================================
 
-/*QUAKED target_disable (.5 .5 .5) (-8 -8 -8) (8 8 8) RED_ONLY BLUE_ONLY
+/*QUAKED target_disable (.5 .5 .5) (-8 -8 -8) (8 8 8) RED_ONLY BLUE_ONLY ALWAYS_DISABLE ALWAYS_ENABLE IMMEDIATELY
 links or unlinks entities from the world, effectively enabling or disabling triggers
 */
 void target_disable_use (gentity_t *self, gentity_t *other, gentity_t *activator) {
