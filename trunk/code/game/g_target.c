@@ -666,6 +666,10 @@ void target_botspawn_use (gentity_t *self, gentity_t *other, gentity_t *activato
 			break;
 	}
 
+	G_AddCustomBot( self->clientname, self->s.number );
+
+
+	/*
 	if ( self->clientname )
 	{
 		skill = trap_Cvar_VariableValue( "g_spSkill" );
@@ -673,9 +677,13 @@ void target_botspawn_use (gentity_t *self, gentity_t *other, gentity_t *activato
 	}
 	else
 		G_AddRandomBot(teamnum);
+	*/
 }
 
 void SP_target_botspawn (gentity_t *self) {
+	if ( !self->clientname || !strcmp(self->clientname, "") )
+		self->clientname = "sarge";
+
 	self->use = target_botspawn_use;
 }
 

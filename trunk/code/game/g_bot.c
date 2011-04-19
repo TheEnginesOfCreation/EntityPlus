@@ -209,6 +209,7 @@ static void PlayerIntroSound( const char *modelAndSkin ) {
 	trap_SendConsoleCommand( EXEC_APPEND, va( "play sound/player/announce/%s.wav\n", skin ) );
 }
 
+
 /*
 ===============
 G_AddRandomBot
@@ -546,7 +547,7 @@ qboolean G_BotConnect( int clientNum, qboolean restart ) {
 G_AddBot
 ===============
 */
-static void G_AddBot( const char *name, float skill, const char *team, int delay, char *altname) {
+static void G_AddBot( const char *name, float skill, const char *team, int delay, char *altname, int parentEntityNum ) {
 	int				clientNum;
 	char			*botinfo;
 	gentity_t		*bot;
@@ -665,6 +666,9 @@ static void G_AddBot( const char *name, float skill, const char *team, int delay
 	bot->r.svFlags |= SVF_BOT;
 	bot->inuse = qtrue;
 
+	// set the bot's spawning entity
+	Info_SetValueForKey( userinfo, "parentid", va( "%i", parentEntityNum ) );
+
 	// register the userinfo
 	trap_SetUserinfo( clientNum, userinfo );
 
@@ -731,7 +735,7 @@ void Svcmd_AddBot_f( void ) {
 	// alternative name
 	trap_Argv( 5, altname, sizeof( altname ) );
 
-	G_AddBot( name, skill, team, delay, altname );
+	G_AddBot( name, skill, team, delay, altname, 0 );
 
 	// if this was issued during gameplay and we are playing locally,
 	// go ahead and load the bot's media immediately
@@ -997,4 +1001,15 @@ void G_InitBots( qboolean restart ) {
 			G_SpawnBots( Info_ValueForKey( arenainfo, "bots" ), basedelay );
 		}
 	}
+}
+
+/*
+====================
+G_AddSinglePlayerBot
+====================
+*/
+
+void G_AddCustomBot( const char *name, int parentEntityNum ) {
+	float skill = trap_Cvar_VariableValue( "g_spSkill" );
+	G_AddBot( name, skill, "free", 0, name, parentEntityNum );
 }
