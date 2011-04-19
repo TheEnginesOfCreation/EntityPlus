@@ -1050,6 +1050,9 @@ char *ClientConnect( int clientNum, qboolean firstTime, qboolean isBot ) {
 		if( !G_BotConnect( clientNum, !firstTime ) ) {
 			return "BotConnectfailed";
 		}
+
+		//link the bot to the target_botspawn entity. For this we abuse the parent property.
+		LinkBotSpawnEntity( ent, Info_ValueForKey (userinfo, "parentid") );
 	}
 
 	// get and distribute relevent paramters
@@ -1166,7 +1169,9 @@ void ClientSpawn(gentity_t *ent) {
 	// find a spawn point
 	// do it before setting health back up, so farthest
 	// ranging doesn't count this client
-	if ( client->sess.sessionTeam == TEAM_SPECTATOR ) {
+	if ( ent->parent ) {
+		spawnPoint = ent->parent;
+	} else if ( client->sess.sessionTeam == TEAM_SPECTATOR ) {
 		spawnPoint = SelectSpectatorSpawnPoint ( spawn_origin, spawn_angles );		
 	} else if (g_gametype.integer >= GT_CTF ) {
 		// all base oriented team games use the CTF spawn points
@@ -1276,53 +1281,57 @@ void ClientSpawn(gentity_t *ent) {
 
 	client->ps.clientNum = index;
 
-	//give weapons
-	if ( client->sess.sessionWeapons )
-		client->ps.stats[STAT_WEAPONS] = client->sess.sessionWeapons;
-	else
-	{
-		client->ps.stats[STAT_WEAPONS] = ( 1 << WP_MACHINEGUN );
-		client->ps.stats[STAT_WEAPONS] |= ( 1 << WP_GAUNTLET );
-	}
-
-	//give ammo
-	client->ps.ammo[WP_GAUNTLET] = -1;
-	client->ps.ammo[WP_GRAPPLING_HOOK] = -1;
-
-	if ( client->sess.sessionAmmoMG )
-		client->ps.ammo[WP_MACHINEGUN] = client->sess.sessionAmmoMG;
-	else {
-		if ( g_gametype.integer == GT_TEAM ) {
-			client->ps.ammo[WP_MACHINEGUN] = 50;
-		} else {
-			client->ps.ammo[WP_MACHINEGUN] = 100;
+	
+	if ( ent->parent ) {
+		SetupCustomBot( ent );
+	} else {
+		//give weapons
+		if ( client->sess.sessionWeapons )
+			client->ps.stats[STAT_WEAPONS] = client->sess.sessionWeapons;
+		else
+		{
+			client->ps.stats[STAT_WEAPONS] = ( 1 << WP_MACHINEGUN );
+			client->ps.stats[STAT_WEAPONS] |= ( 1 << WP_GAUNTLET );
 		}
+
+		//give ammo
+		client->ps.ammo[WP_GAUNTLET] = -1;
+		client->ps.ammo[WP_GRAPPLING_HOOK] = -1;
+
+		if ( client->sess.sessionAmmoMG )
+			client->ps.ammo[WP_MACHINEGUN] = client->sess.sessionAmmoMG;
+		else {
+			if ( g_gametype.integer == GT_TEAM ) {
+				client->ps.ammo[WP_MACHINEGUN] = 50;
+			} else {
+				client->ps.ammo[WP_MACHINEGUN] = 100;
+			}
+		}
+
+		if ( client->sess.sessionAmmoSG ) client->ps.ammo[WP_SHOTGUN] = client->sess.sessionAmmoSG;
+		if ( client->sess.sessionAmmoGL ) client->ps.ammo[WP_GRENADE_LAUNCHER] = client->sess.sessionAmmoGL;
+		if ( client->sess.sessionAmmoRL ) client->ps.ammo[WP_ROCKET_LAUNCHER] = client->sess.sessionAmmoRL;
+		if ( client->sess.sessionAmmoLG ) client->ps.ammo[WP_LIGHTNING] = client->sess.sessionAmmoLG;
+		if ( client->sess.sessionAmmoRG ) client->ps.ammo[WP_RAILGUN] = client->sess.sessionAmmoRG;
+		if ( client->sess.sessionAmmoPG ) client->ps.ammo[WP_PLASMAGUN] = client->sess.sessionAmmoPG;
+		if ( client->sess.sessionAmmoBFG ) client->ps.ammo[WP_BFG] = client->sess.sessionAmmoBFG;
+
+
+		//give holdables
+		if ( client->sess.sessionHoldable ) 
+			client->ps.stats[STAT_HOLDABLE_ITEM] = client->sess.sessionHoldable;
+
+		//give health
+		if ( client->sess.sessionHealth ) 
+			ent->health = client->ps.stats[STAT_HEALTH] = client->sess.sessionHealth;
+		else
+			// health will count down towards max_health
+			ent->health = client->ps.stats[STAT_HEALTH] = client->ps.stats[STAT_MAX_HEALTH] + 25;
+
+		//give armor
+		if ( client->sess.sessionArmor )
+			client->ps.stats[STAT_ARMOR] = client->sess.sessionArmor;
 	}
-
-	if ( client->sess.sessionAmmoSG ) client->ps.ammo[WP_SHOTGUN] = client->sess.sessionAmmoSG;
-	if ( client->sess.sessionAmmoGL ) client->ps.ammo[WP_GRENADE_LAUNCHER] = client->sess.sessionAmmoGL;
-	if ( client->sess.sessionAmmoRL ) client->ps.ammo[WP_ROCKET_LAUNCHER] = client->sess.sessionAmmoRL;
-	if ( client->sess.sessionAmmoLG ) client->ps.ammo[WP_LIGHTNING] = client->sess.sessionAmmoLG;
-	if ( client->sess.sessionAmmoRG ) client->ps.ammo[WP_RAILGUN] = client->sess.sessionAmmoRG;
-	if ( client->sess.sessionAmmoPG ) client->ps.ammo[WP_PLASMAGUN] = client->sess.sessionAmmoPG;
-	if ( client->sess.sessionAmmoBFG ) client->ps.ammo[WP_BFG] = client->sess.sessionAmmoBFG;
-
-
-	//give holdables
-	if ( client->sess.sessionHoldable ) 
-		client->ps.stats[STAT_HOLDABLE_ITEM] = client->sess.sessionHoldable;
-
-	//give health
-	if ( client->sess.sessionHealth ) 
-		ent->health = client->ps.stats[STAT_HEALTH] = client->sess.sessionHealth;
-	else
-		// health will count down towards max_health
-		ent->health = client->ps.stats[STAT_HEALTH] = client->ps.stats[STAT_MAX_HEALTH] + 25;
-
-	//give armor
-	if ( client->sess.sessionArmor )
-		client->ps.stats[STAT_ARMOR] = client->sess.sessionArmor;
-
 
 	G_SetOrigin( ent, spawn_origin );
 	VectorCopy( spawn_origin, client->ps.origin );
@@ -1491,4 +1500,86 @@ See http://www.quake3world.com/forum/viewtopic.php?f=16&t=45625
 */
 void DropClientSilently( int clientNum ) {
 	trap_DropClient( clientNum, "DR_SILENT_DROP" );
+}
+
+/*
+===========
+SetupBotSpecifics
+
+Applies properties from the entity that spawned the bot to the bot
+============
+*/
+void SetupCustomBot( gentity_t *bot ) {
+	if ( !bot || !(bot->parent) )
+		return;
+
+	//give bot unlimited ammo
+	bot->client->ps.ammo[WP_GAUNTLET] = -1;
+	bot->client->ps.ammo[WP_MACHINEGUN] = 999;
+	bot->client->ps.ammo[WP_SHOTGUN] = 999;
+	bot->client->ps.ammo[WP_GRENADE_LAUNCHER] = 999;
+	bot->client->ps.ammo[WP_ROCKET_LAUNCHER] = 999;
+	bot->client->ps.ammo[WP_LIGHTNING] = 999;
+	bot->client->ps.ammo[WP_RAILGUN] = 999;
+	bot->client->ps.ammo[WP_PLASMAGUN] = 999;
+	bot->client->ps.ammo[WP_BFG] = 999;
+
+
+	//give bot weapons
+	bot->client->ps.stats[STAT_WEAPONS] = WP_GAUNTLET;
+	/*
+	if ( bot->parent->spawnflags & 2 )
+		bot->client->ps.stats[STAT_WEAPONS] |= ( 1 << WP_MACHINEGUN );
+	if ( bot->parent->spawnflags & 4 )
+		bot->client->ps.stats[STAT_WEAPONS] |= ( 1 << WP_SHOTGUN );
+	if ( bot->parent->spawnflags & 8 )
+		bot->client->ps.stats[STAT_WEAPONS] |= ( 1 << WP_GRENADE_LAUNCHER );
+	if ( bot->parent->spawnflags & 16 )
+		bot->client->ps.stats[STAT_WEAPONS] |= ( 1 << WP_ROCKET_LAUNCHER );
+	if ( bot->parent->spawnflags & 32 )
+		bot->client->ps.stats[STAT_WEAPONS] |= ( 1 << WP_LIGHTNING );
+	if ( bot->parent->spawnflags & 64 )
+		bot->client->ps.stats[STAT_WEAPONS] |= ( 1 << WP_RAILGUN );
+	if ( bot->parent->spawnflags & 128 )
+		bot->client->ps.stats[STAT_WEAPONS] |= ( 1 << WP_PLASMAGUN );
+	if ( bot->parent->spawnflags & 256 )
+		bot->client->ps.stats[STAT_WEAPONS] |= ( 1 << WP_BFG );
+	*/
+
+	//set bot's health (it doesn't degrade automatically)
+	if ( bot->parent->health ) {
+		bot->health = bot->client->ps.stats[STAT_HEALTH] = bot->client->ps.stats[STAT_MAX_HEALTH] = bot->parent->health;
+	} else
+		bot->health = bot->client->ps.stats[STAT_HEALTH] = bot->client->ps.stats[STAT_MAX_HEALTH] + 25;
+
+	//clear parent
+	bot->parent = NULL;
+}
+
+
+/*
+===========
+LinkBotSpawnEntity
+
+Links a bot to the entity that spawned it
+============
+*/
+void LinkBotSpawnEntity( gentity_t *bot, char *parentid[] ) {
+	gentity_t	*t;
+	int			entityNum;
+	
+	if ( !bot )
+		return;
+
+	if ( !parentid || !strcmp(parentid, "") )
+		return;
+
+	entityNum = atoi(parentid);
+
+	t = NULL;
+	while ( (t = G_Find (t, FOFS(classname), "target_botspawn")) != NULL ) {
+		if ( t->s.number == entityNum ) {
+			bot->parent = t;
+		}
+	}
 }
