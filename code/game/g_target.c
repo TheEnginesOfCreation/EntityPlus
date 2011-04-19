@@ -633,8 +633,10 @@ void SP_target_gravity (gentity_t *self) {
 
 //==========================================================
 
-/*QUAKED target_botspawn (.5 .5 .5) (-8 -8 -8) (8 8 8) OPPOSING_TEAM
+/*QUAKED target_botspawn (.5 .5 .5) (-8 -8 -8) (8 8 8) 
+OPPOSING_TEAM WP_MACHINEGUN WP_SHOTGUN WP_GRENADE_LAUNCHER WP_ROCKET_LAUNCHER WP_LIGHTNING WP_RAILGUN WP_PLASMAGUN WP_BFG
 Spawns a bot into the game
+Use the health key to determine the amount of health the bot will have
 */
 void target_botspawn_use (gentity_t *self, gentity_t *other, gentity_t *activator) {
 	char *team;
