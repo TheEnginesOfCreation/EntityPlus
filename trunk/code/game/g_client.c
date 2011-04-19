@@ -1171,6 +1171,8 @@ void ClientSpawn(gentity_t *ent) {
 	// ranging doesn't count this client
 	if ( ent->parent ) {
 		spawnPoint = ent->parent;
+		VectorCopy( spawnPoint->s.origin, spawn_origin );
+		VectorCopy(  spawnPoint->s.angles, spawn_angles );
 	} else if ( client->sess.sessionTeam == TEAM_SPECTATOR ) {
 		spawnPoint = SelectSpectatorSpawnPoint ( spawn_origin, spawn_angles );		
 	} else if (g_gametype.integer >= GT_CTF ) {
@@ -1527,7 +1529,6 @@ void SetupCustomBot( gentity_t *bot ) {
 
 	//give bot weapons
 	bot->client->ps.stats[STAT_WEAPONS] = WP_GAUNTLET;
-	/*
 	if ( bot->parent->spawnflags & 2 )
 		bot->client->ps.stats[STAT_WEAPONS] |= ( 1 << WP_MACHINEGUN );
 	if ( bot->parent->spawnflags & 4 )
@@ -1544,7 +1545,6 @@ void SetupCustomBot( gentity_t *bot ) {
 		bot->client->ps.stats[STAT_WEAPONS] |= ( 1 << WP_PLASMAGUN );
 	if ( bot->parent->spawnflags & 256 )
 		bot->client->ps.stats[STAT_WEAPONS] |= ( 1 << WP_BFG );
-	*/
 
 	//set bot's health (it doesn't degrade automatically)
 	if ( bot->parent->health ) {

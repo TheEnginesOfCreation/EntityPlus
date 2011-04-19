@@ -1340,9 +1340,10 @@ TARGET_* ENTITIES
 
 //=============================================================================
 
-/*QUAKED target_botspawn (0 .7 .7) (-8 -8 -8) (8 8 8) OPPOSING_TEAM
+/*QUAKED target_botspawn (0 .7 .7) (-16 -16 -24) (16 16 32) OPPOSING_TEAM WP_MACHINEGUN WP_SHOTGUN WP_GRENADE_LAUNCHER WP_ROCKET_LAUNCHER WP_LIGHTNING WP_RAILGUN WP_PLASMAGUN WP_BFG
 Spawns a bot into the game.
 -------- KEYS --------
+angle : direction in which bot will look when spawning in the game.
 clientname : the name of the bot to spawn. Leave empty for a random bot.
 targetname : activating trigger points to this.
 notfree : when set to 1, entity will not spawn in "Free for all" and "Tournament" modes.
