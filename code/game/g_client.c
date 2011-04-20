@@ -591,7 +591,7 @@ void respawn( gentity_t *ent ) {
 			return;
 		} else {
 			//restart map if player dies
-			trap_SendConsoleCommand( EXEC_INSERT, "map_restart 0\n" );
+			//trap_SendConsoleCommand( EXEC_INSERT, "map_restart 0\n" );
 		}
 	}
 

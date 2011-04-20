@@ -787,6 +787,7 @@ This function may execute for a couple of minutes with a slow disk.
 =================
 */
 static void CG_RegisterGraphics( void ) {
+	gitem_t		*backpack;
 	int			i;
 	char		items[MAX_ITEMS+1];
 	static char		*sb_nums[11] = {
@@ -1026,6 +1027,13 @@ static void CG_RegisterGraphics( void ) {
 			CG_LoadingItem( i );
 			CG_RegisterItemVisuals( i );
 		}
+	}
+
+	// register graphics for backpack if we're in single player mode
+	if ( cgs.gametype == GT_SINGLE_PLAYER ) {
+		backpack = BG_FindItemForBackpack();
+		CG_LoadingItem( backpack - bg_itemlist );
+		CG_RegisterItemVisuals( backpack - bg_itemlist );
 	}
 
 	// wall marks
