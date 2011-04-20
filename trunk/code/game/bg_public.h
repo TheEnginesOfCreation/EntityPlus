@@ -610,7 +610,8 @@ typedef enum {
 	IT_HOLDABLE,			// single use, holdable item
 							// EFX: rotate + bob
 	IT_PERSISTANT_POWERUP,
-	IT_TEAM
+	IT_TEAM,
+	IT_BACKPACK				// Backpack dropped by player when dying in SP mode
 } itemType_t;
 
 #define MAX_ITEM_MODELS 4
