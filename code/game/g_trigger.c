@@ -23,6 +23,15 @@ void multi_wait( gentity_t *ent ) {
 // ent->activator should be set to the activator so it can be held through a delay
 // so wait for the delay time before firing
 void multi_trigger( gentity_t *ent, gentity_t *activator ) {
+	//if nobots flag is set and activator is a bot, do nothing
+	if ( (ent->flags & FL_NO_BOTS) && IsBot( activator ) )
+		return;
+
+	//if nohumans flag is set and activtaor is a human, do nothing
+	if ( (ent->flags & FL_NO_HUMANS) && !IsBot( activator ) )
+		return;
+	
+	
 	ent->activator = activator;
 	if ( ent->nextthink ) {
 		return;		// can't retrigger until the wait is over
@@ -72,6 +81,17 @@ so, the basic time between firing is a random time between
 (wait - random) and (wait + random)
 */
 void SP_trigger_multiple( gentity_t *ent ) {
+	int		i;
+
+	G_SpawnInt( "nobots", "0", &i);
+	if ( i ) {
+		ent->flags |= FL_NO_BOTS;
+	}
+	G_SpawnInt( "nohumans", "0", &i );
+	if ( i ) {
+		ent->flags |= FL_NO_HUMANS;
+	}
+	
 	G_SpawnFloat( "wait", "0.5", &ent->wait );
 	G_SpawnFloat( "random", "0", &ent->random );
 

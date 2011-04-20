@@ -1792,6 +1792,8 @@ target : this points to the entity to activate.
 targetname : activating trigger points to this.
 wait : time in seconds until trigger becomes re-triggerable after it's been touched (default 0.2, -1 = trigger once).
 random : random time variance in seconds added or subtracted from "wait" delay (default 0 - see Notes).
+nobots : bots cannot trigger this entity.
+nohumans : human players cannot trigger this entity.
 notfree : when set to 1, entity will not spawn in "Free for all" and "Tournament" modes.
 notteam : when set to 1, entity will not spawn in "Teamplay" and "CTF" modes.
 notsingle : when set to 1, entity will not spawn in Single Player mode (bot play mode).
