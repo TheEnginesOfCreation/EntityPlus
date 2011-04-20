@@ -820,6 +820,11 @@ void G_Damage( gentity_t *targ, gentity_t *inflictor, gentity_t *attacker,
 		return;
 	}
 
+	//in single player bots cannot harm other bots
+	//TODO: adapt bot AI so they don't initiate attacks on each other
+	if ( g_gametype.integer == GT_SINGLE_PLAYER && IsBot( targ ) && IsBot( attacker ) )
+		return;
+
 	// the intermission has allready been qualified for, so don't
 	// allow any extra scoring
 	if ( level.intermissionQueued ) {
