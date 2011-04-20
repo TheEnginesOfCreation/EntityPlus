@@ -669,17 +669,6 @@ void target_botspawn_use (gentity_t *self, gentity_t *other, gentity_t *activato
 	}
 
 	G_AddCustomBot( self->clientname, self->s.number );
-
-
-	/*
-	if ( self->clientname )
-	{
-		skill = trap_Cvar_VariableValue( "g_spSkill" );
-		trap_SendConsoleCommand( EXEC_INSERT, va("addbot %s %f %s 0\n", self->clientname, skill, team) ); //name, skill [0-4], team [red,blue,free], delay
-	}
-	else
-		G_AddRandomBot(teamnum);
-	*/
 }
 
 void SP_target_botspawn (gentity_t *self) {

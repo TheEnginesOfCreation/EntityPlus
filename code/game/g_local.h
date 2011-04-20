@@ -643,7 +643,7 @@ void ClientCommand( int clientNum );
 void DropClientSilently( int clientNum );
 void LinkBotSpawnEntity( gentity_t *bot, char *parentid[] );
 void SetupCustomBot( gentity_t *bot );
-
+void PrecacheBotAssets();
 
 //
 // g_active.c
