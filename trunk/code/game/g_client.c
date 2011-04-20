@@ -1134,6 +1134,13 @@ void ClientBegin( int clientNum ) {
 	}
 	G_LogPrintf( "ClientBegin: %i\n", clientNum );
 
+	//code is commented out because it doesn't really seem to be necessary
+	/*
+	//if we're in Single Player and the connecting client is the player, preload bot model assets
+	if ( g_gametype.integer == GT_SINGLE_PLAYER && !(ent->r.svFlags & SVF_BOT) )
+		PrecacheBotAssets();
+	*/
+
 	// count current clients and rank for scoreboard
 	CalculateRanks();
 }
@@ -1173,6 +1180,7 @@ void ClientSpawn(gentity_t *ent) {
 		spawnPoint = ent->parent;
 		VectorCopy( spawnPoint->s.origin, spawn_origin );
 		VectorCopy(  spawnPoint->s.angles, spawn_angles );
+		trap_SendServerCommand( -1, "loaddefered\n" );	//force clients to load the deferred assets
 	} else if ( client->sess.sessionTeam == TEAM_SPECTATOR ) {
 		spawnPoint = SelectSpectatorSpawnPoint ( spawn_origin, spawn_angles );		
 	} else if (g_gametype.integer >= GT_CTF ) {
@@ -1515,7 +1523,7 @@ void SetupCustomBot( gentity_t *bot ) {
 	if ( !bot || !(bot->parent) )
 		return;
 
-	//give bot unlimited ammo
+	//give bot unlimited ammo. 999 ammo is considered unlimited here, because -1 leads to odd weapon choices for bots.
 	bot->client->ps.ammo[WP_GAUNTLET] = -1;
 	bot->client->ps.ammo[WP_MACHINEGUN] = 999;
 	bot->client->ps.ammo[WP_SHOTGUN] = 999;
@@ -1525,7 +1533,7 @@ void SetupCustomBot( gentity_t *bot ) {
 	bot->client->ps.ammo[WP_RAILGUN] = 999;
 	bot->client->ps.ammo[WP_PLASMAGUN] = 999;
 	bot->client->ps.ammo[WP_BFG] = 999;
-
+	
 
 	//give bot weapons
 	bot->client->ps.stats[STAT_WEAPONS] = WP_GAUNTLET;
@@ -1547,13 +1555,14 @@ void SetupCustomBot( gentity_t *bot ) {
 		bot->client->ps.stats[STAT_WEAPONS] |= ( 1 << WP_BFG );
 
 	//set bot's health (it doesn't degrade automatically)
-	if ( bot->parent->health ) {
+	if ( bot->parent->health && bot->parent->health > 0) {
 		bot->health = bot->client->ps.stats[STAT_HEALTH] = bot->client->ps.stats[STAT_MAX_HEALTH] = bot->parent->health;
 	} else
 		bot->health = bot->client->ps.stats[STAT_HEALTH] = bot->client->ps.stats[STAT_MAX_HEALTH] + 25;
 
-	//clear parent
-	bot->parent = NULL;
+	//use targets of target_botspawn
+	if ( bot->parent->target )
+		G_UseTargets( bot->parent, bot);
 }
 
 
@@ -1581,5 +1590,33 @@ void LinkBotSpawnEntity( gentity_t *bot, char *parentid[] ) {
 		if ( t->s.number == entityNum ) {
 			bot->parent = t;
 		}
+	}
+}
+
+/*
+===========
+PrecacheBotAssets
+
+Preloads assets for bots that can be spawned into the game.
+The function was called from ClientBegin but commented out because it doesn't seem necessary to do this.
+============
+*/
+void PrecacheBotAssets() {
+	int i;
+	gentity_t *t;
+	gclient_t *client;
+
+	//add bots to the game to load their assets
+	t = NULL;
+	while ( (t = G_Find (t, FOFS(classname), "target_botspawn")) != NULL ) {
+		G_AddCustomBot( t->clientname, t->s.number );	
+	}
+	trap_SendServerCommand( -1, "loaddefered\n" );
+
+	//remove them again so they don't interfere with the game
+	for ( i = 0; i < g_maxclients.integer; i++ ) {
+		client = level.clients + i;
+		if ( IsClientBot( client ) )
+			DropClientSilently( client->ps.clientNum );
 	}
 }

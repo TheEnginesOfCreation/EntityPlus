@@ -1341,16 +1341,27 @@ TARGET_* ENTITIES
 //=============================================================================
 
 /*QUAKED target_botspawn (0 .7 .7) (-16 -16 -24) (16 16 32) OPPOSING_TEAM WP_MACHINEGUN WP_SHOTGUN WP_GRENADE_LAUNCHER WP_ROCKET_LAUNCHER WP_LIGHTNING WP_RAILGUN WP_PLASMAGUN WP_BFG
-Spawns a bot into the game.
+Spawns a bot into the game at the location of the target_botspawn entity.
 -------- KEYS --------
 angle : direction in which bot will look when spawning in the game.
-clientname : the name of the bot to spawn. Leave empty for a random bot.
+clientname : the name of the bot to spawn. When omitted it defaults to Sarge.
+target : this points to entities to activate when this entity is triggered.
 targetname : activating trigger points to this.
 notfree : when set to 1, entity will not spawn in "Free for all" and "Tournament" modes.
 notteam : when set to 1, entity will not spawn in "Teamplay" and "CTF" modes.
 notsingle : when set to 1, entity will not spawn in Single Player mode (bot play mode).
 -------- SPAWNFLAGS --------
-OPPOSING_TEAM : In team games, bots will be spawned for the enemy team instead of the player's own team.*/
+OPPOSING_TEAM : In team games, bots will be spawned for the enemy team instead of the player's own team.
+WP_MACHINEGUN : The bot spawns into the game with a Machinegun.
+WP_SHOTGUN	  : The bot spawns into the game with a Shotgun.
+WP_GRENADE_LAUNCHER : The bot spawns into the game with a Grenade Launcher.
+WP_ROCKET_LAUNCHER : The bot spawns into the game with a Rocket Launcher.
+WP_LIGHTNING : The bot spawns into the game with a Lightninggun.
+WP_RAILGUN : The bot spawns into the game with a Railgun.
+WP_PLASMAGUN : The bot spawns into the game with a Plasmagun.
+WP_BFG : The bot spawns into the game with a BFG.
+-------- NOTES --------
+By default bots spawn with only the gauntlet as weapon. Use spawnflags to customize the set of weapons the bot will spawn with. Bots will always have unlimited ammo for all weapons. The choice of weapon is still up to the bot. This means that spawning a bot with a MG and GL doesn't guarantee the bot will use the GL.*/
 
 //=============================================================================
 
