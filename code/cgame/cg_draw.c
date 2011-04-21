@@ -1012,7 +1012,7 @@ static void CG_DrawUpperRight( void ) {
 	if ( cg_drawTimer.integer ) {
 		y = CG_DrawTimer( y );
 	}
-	if ( cg_drawAttacker.integer ) {
+	if ( cg_drawAttacker.integer && cgs.gametype != GT_SINGLE_PLAYER ) {
 		y = CG_DrawAttacker( y );
 	}
 
@@ -1041,7 +1041,10 @@ static float CG_DrawScores( float y ) {
 	int			v;
 	vec4_t		color;
 	float		y1;
-	gitem_t		*item;
+	gitem_t		*item;	
+
+	if ( cgs.gametype == GT_SINGLE_PLAYER )
+		return;	//do not draw scores in single player
 
 	s1 = cgs.scores1;
 	s2 = cgs.scores2;

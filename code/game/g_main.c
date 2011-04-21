@@ -427,6 +427,12 @@ void G_InitGame( int levelTime, int randomSeed, int restart ) {
 		G_Printf( "Not logging to disk.\n" );
 	}
 
+	if ( g_gametype.integer == GT_SINGLE_PLAYER ) {
+		g_fraglimit.integer = 0; //no fraglimit in single player
+		g_timelimit.integer = 0; //no timelimit in single player
+		g_maxclients.integer = MAX_CLIENTS; //make sure we have room for 64 clients
+	}
+
 	G_InitWorldSession();
 
 	// initialize all entities for this game
