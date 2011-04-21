@@ -1506,7 +1506,7 @@ STAY_ON : a trigger will remain triggered until the target_logic is reset.*/
 
 //=============================================================================
 
-/*QUAKED target_mapchange (0 .5 0) (-8 -8 -8) (8 8 8) SHOW_INTERMISSION
+/*QUAKED target_mapchange (0 .5 0) (-8 -8 -8) (8 8 8) SHOW_INTERMISSION SCRIPT
 Loads the specified map.
 -------- KEYS --------
 mapname : The map to load. When omitted, the current map will be restarted.
@@ -1515,9 +1515,12 @@ notfree : when set to 1, entity will not spawn in "Free for all" and "Tournament
 notteam : when set to 1, entity will not spawn in "Teamplay" and "CTF" modes.
 notsingle : when set to 1, entity will not spawn in Single Player mode (bot play mode).
 -------- SPAWNFLAGS --------
-SHOW_INTERMISSION :  When set, the intermission screen is shown before loading the next map.*/
+SHOW_INTERMISSION : When set, the intermission screen is shown before loading the next map.
+SCRIPT : The game will execute the name specified as mapname as a script.
 -------- NOTES --------
-When the map is loaded in single player mode, the target_mapchange entity stores the current health, armor, weapon and ammo stats for each player before moving on to the next map. When the new map is loaded, the stored stats are applied to each player again. This means players will have consistent stats throughout map changes.
+When the map is loaded in single player mode, the target_mapchange entity stores the current health, armor, weapon and ammo stats and holdable items for each player before moving on to the next map. When the new map is loaded, the stored stats are applied to each player again. This means players will have consistent stats throughout map changes.
+
+The SCRIPT spawnflag will allow you to execute a .cfg script. This can be used to link in a demo or cinematic before loading a new map. Do note that when jumping to a demo or a cinematic, the server is effectively killed and player stats are no longer persisted through mapchanges.*/
 
 //=============================================================================
 
