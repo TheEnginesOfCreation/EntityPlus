@@ -15,6 +15,11 @@ Targets will be fired when someone spawns in on them.
 "nohumans" will prevent non-bots from using this spot.
 "count" is used to limit the number of times the spawnpoint can be used. When 0 or omitted there is no limit
 */
+
+void info_player_deathmatch_use (gentity_t *self, gentity_t *other, gentity_t *activator) {
+	self->flags ^= FL_NO_SPAWN;	//toggle no spawn flag
+}
+
 void SP_info_player_deathmatch( gentity_t *ent ) {
 	int		i;
 
@@ -29,6 +34,8 @@ void SP_info_player_deathmatch( gentity_t *ent ) {
 	if ( i ) {
 		ent->flags |= FL_NO_HUMANS;
 	}
+	
+	ent->use = info_player_deathmatch_use;
 }
 
 /*QUAKED info_player_start (1 0 0) (-16 -16 -24) (16 16 32)
@@ -385,10 +392,15 @@ SpawnPointIsActive
 Returns the active state of a spawnpoint. A spawnpoint is not active
 when it has reached the maximum number of spawns. A spawnpoint's
 count key is used to set the max number of spawns allowed in that spot.
+If a spawnpoint has it's FL_NO_SPAWN flag set, it is also disabled.
+This flag can be toggled by aiming at the spawnpoint with a trigger.
 
 ============
 */
 qboolean SpawnPointIsActive( gentity_t *spot ) {
+	if ( spot->flags & FL_NO_SPAWN )
+		return qfalse;
+
 	if ( !spot->count )
 		return qtrue;
 

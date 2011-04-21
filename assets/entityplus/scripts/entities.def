@@ -763,7 +763,9 @@ notfree : when set to 1, entity will not spawn in "Free for all" and "Tournament
 notteam : when set to 1, entity will not spawn in "Teamplay" and "CTF" modes.
 notsingle : when set to 1, entity will not spawn in Single Player mode (bot play mode).
 -------- SPAWNFLAGS --------
-INITIAL : makes the spawnpoint the initial place for the player to spawn at the beginning of the game.*/
+INITIAL : makes the spawnpoint the initial place for the player to spawn at the beginning of the game.
+-------- NOTES --------
+Targetting an info_player_deathmatch spawnpoint with a trigger will enable or disable the spawnpoint. Spawnpoints are by default enabled. Note that a spawnpoint that reached it's [count] number of spawns and is therefor disabled is not enabled by triggering it.*/
 
 //=============================================================================
 
