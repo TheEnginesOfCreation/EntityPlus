@@ -190,6 +190,10 @@ int Pickup_Holdable( gentity_t *ent, gentity_t *other ) {
 	return RESPAWN_HOLDABLE;
 }
 
+void Pickup_Backpack( gentity_t *ent, gentity_t *other) {
+	G_Printf("Pickup BACKPACK\n");
+}
+
 
 //======================================================================
 
@@ -453,6 +457,9 @@ void Touch_Item (gentity_t *ent, gentity_t *other, trace_t *trace) {
 		break;
 	case IT_HOLDABLE:
 		respawn = Pickup_Holdable(ent, other);
+		break;
+	case IT_BACKPACK:
+		Pickup_Backpack(ent, other);
 		break;
 	default:
 		return;
