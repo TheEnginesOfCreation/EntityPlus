@@ -581,7 +581,7 @@ void target_mapchange_use (gentity_t *self, gentity_t *other, gentity_t *activat
 	else
 		cmd = "map";
 
-	//perform map switch
+	//perform map switch/script execution
 	if ( ( self->spawnflags & 1 ) )
 	{
 		if ( self->mapname ) {
