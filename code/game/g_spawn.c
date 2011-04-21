@@ -159,6 +159,7 @@ void SP_target_botspawn (gentity_t *ent);
 void SP_target_disable (gentity_t *ent);
 void SP_target_playerspeed (gentity_t *ent);
 void SP_target_debrisemitter (gentity_t *ent);
+void SP_target_objective (gentity_t *ent);
 
 void SP_light (gentity_t *self);
 void SP_info_null (gentity_t *self);
@@ -247,6 +248,7 @@ spawn_t	spawns[] = {
 	{"target_disable", SP_target_disable},
 	{"target_playerspeed", SP_target_playerspeed},
 	{"target_debrisemitter", SP_target_debrisemitter},
+	{"target_objective", SP_target_objective},
 
 	{"light", SP_light},
 	{"path_corner", SP_path_corner},

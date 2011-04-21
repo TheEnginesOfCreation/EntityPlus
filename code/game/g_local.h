@@ -256,6 +256,9 @@ typedef struct {
 	int			voteCount;			// to prevent people from constantly calling votes
 	int			teamVoteCount;		// to prevent people from constantly calling votes
 	qboolean	teamInfo;			// send team overlay updates?
+	char		primaryObjective[MAX_STRING_CHARS];	// the primary objective
+	char		secondaryObjective[MAX_STRING_CHARS]; // the secondary objective
+
 } clientPersistant_t;
 
 

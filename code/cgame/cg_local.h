@@ -813,6 +813,9 @@ typedef struct {
 	qhandle_t	scoreboardScore;
 	qhandle_t	scoreboardTime;
 
+	// objectives screen
+	qhandle_t	objectivesOverlay;
+
 	// medals shown during gameplay
 	qhandle_t	medalImpressive;
 	qhandle_t	medalExcellent;

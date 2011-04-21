@@ -244,6 +244,21 @@ Draw the normal in-game scoreboard
 =================
 */
 void CG_DrawSinglePlayerObjectives( void ) {
+	vec4_t color;
+
+	if ( !cg.showScores )
+		return;
+
+	color[0] = 0.3;
+	color[1] = 1;
+	color[2] = 0;
+	color[3] = 1;
+
+	CG_DrawPic( (SCREEN_WIDTH - 512) / 2, (SCREEN_HEIGHT - 384) / 2, 512, 384, cgs.media.objectivesOverlay );
+	CG_DrawBigStringColor( 105, 75, "Primary", color );
+	CG_DrawSmallStringColor( 90, 100, "this is the primary objective.", color);
+
+	CG_DrawBigStringColor( 90, 260, "Secondary", color );
 }
 
 /*
