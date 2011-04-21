@@ -560,7 +560,7 @@ void SP_target_logic (gentity_t *self) {
 
 //==========================================================
 
-/*QUAKED target_mapchange (.5 .5 .5) (-8 -8 -8) (8 8 8) SHOW_INTERMISSION
+/*QUAKED target_mapchange (.5 .5 .5) (-8 -8 -8) (8 8 8) SHOW_INTERMISSION SCRIPT
 When triggered, loads the specified map. 
 When the SHOW_INTERMISSION spawnflag is set, the intermission screen is displayed before loading the next map.
 */
@@ -572,22 +572,28 @@ void target_mapchange_use (gentity_t *self, gentity_t *other, gentity_t *activat
 		G_UpdateSessionDataForMapChange( activator->client );
 
 	//determine map switch command to use
-	if ( g_gametype.integer == GT_SINGLE_PLAYER )
+	if ( self->spawnflags & 2 )
+		cmd = "exec";		//a cfg script will be executed instead
+	else if ( g_gametype.integer == GT_SINGLE_PLAYER )
 		cmd = "spmap";		//stay in single player mode
 	else if ( g_cheats.integer )
 		cmd = "devmap";		//keep cheats enabled
 	else
 		cmd = "map";
 
-
 	//perform map switch
 	if ( ( self->spawnflags & 1 ) )
 	{
-		if ( self->mapname )
-			trap_SendConsoleCommand( EXEC_INSERT, va( "nextmap \"%s %s\"\n", cmd, self->mapname ) ); 
+		if ( self->mapname ) {
+			if ( self->spawnflags & 2 )
+				trap_SendConsoleCommand( EXEC_INSERT, va( "exec %s\n", self->mapname ) ); 
+			else
+				trap_SendConsoleCommand( EXEC_INSERT, va( "nextmap \"%s %s\"\n", cmd, self->mapname ) ); 
+		}
 		
 		BeginIntermission();
 	} else {
+		G_Printf("%s %s\n", cmd, self->mapname);
 		if ( self->mapname )
 			trap_SendConsoleCommand( EXEC_INSERT, va( "%s %s\n", cmd, self->mapname ) ); 
 		else
@@ -596,8 +602,6 @@ void target_mapchange_use (gentity_t *self, gentity_t *other, gentity_t *activat
 }
 
 void SP_target_mapchange (gentity_t *self) {
-	//G_SpawnString("mapname", "", &self->mapname);
-
 	self->use = target_mapchange_use;
 }
 
