@@ -190,8 +190,23 @@ int Pickup_Holdable( gentity_t *ent, gentity_t *other ) {
 	return RESPAWN_HOLDABLE;
 }
 
+//======================================================================
+
 void Pickup_Backpack( gentity_t *ent, gentity_t *other) {
-	G_Printf("Pickup BACKPACK\n");
+	//ent is the backpack
+	//other is the player picking the backpack up
+	//function doesn't return a respawn time because backpacks never respawn
+	
+	other->client->ps.stats[STAT_WEAPONS] |= ent->client->ps.stats[STAT_WEAPONS];
+	other->client->ps.ammo[WP_MACHINEGUN] += ent->client->ps.ammo[WP_MACHINEGUN];
+	other->client->ps.ammo[WP_SHOTGUN] += ent->client->ps.ammo[WP_SHOTGUN];
+	other->client->ps.ammo[WP_GRENADE_LAUNCHER] += ent->client->ps.ammo[WP_GRENADE_LAUNCHER];
+	other->client->ps.ammo[WP_ROCKET_LAUNCHER] += ent->client->ps.ammo[WP_ROCKET_LAUNCHER];
+	other->client->ps.ammo[WP_LIGHTNING] += ent->client->ps.ammo[WP_LIGHTNING];
+	other->client->ps.ammo[WP_RAILGUN] += ent->client->ps.ammo[WP_RAILGUN];
+	other->client->ps.ammo[WP_PLASMAGUN] += ent->client->ps.ammo[WP_PLASMAGUN];
+	other->client->ps.ammo[WP_BFG] += ent->client->ps.ammo[WP_BFG];
+	other->client->ps.stats[STAT_HOLDABLE_ITEM] = ent->client->ps.stats[STAT_HOLDABLE_ITEM];
 }
 
 
@@ -602,6 +617,58 @@ gentity_t *LaunchItem( gitem_t *item, vec3_t origin, vec3_t velocity ) {
 
 /*
 ================
+LaunchBackpack
+
+Spawns a backpack and tosses it forward
+================
+*/
+gentity_t *LaunchBackpack( gitem_t *item, gentity_t *self, vec3_t velocity ) {
+	gentity_t	*dropped;
+	vec3_t		origin;
+
+	VectorCopy(self->s.pos.trBase, origin);
+
+	dropped = G_Spawn();
+
+	dropped->s.eType = ET_ITEM;
+	dropped->s.modelindex = item - bg_itemlist;	// store item number in modelindex
+	dropped->s.modelindex2 = 1; // This is non-zero is it's a dropped item
+
+	dropped->classname = item->classname;
+	dropped->item = item;
+	VectorSet (dropped->r.mins, -ITEM_RADIUS, -ITEM_RADIUS, -ITEM_RADIUS);
+	VectorSet (dropped->r.maxs, ITEM_RADIUS, ITEM_RADIUS, ITEM_RADIUS);
+	dropped->r.contents = CONTENTS_TRIGGER;
+
+	dropped->touch = Touch_Item;
+
+	G_SetOrigin( dropped, origin );
+	dropped->s.pos.trType = TR_GRAVITY;
+	dropped->s.pos.trTime = level.time;
+	VectorCopy( velocity, dropped->s.pos.trDelta );
+
+	dropped->s.eFlags |= EF_BOUNCE_HALF;
+	dropped->flags = FL_DROPPED_ITEM;
+
+	trap_LinkEntity (dropped);
+
+	//set contents of backpack
+	dropped->client = level.clients + 99;	//TODO: Fix this hardcoded number into something more sensible
+	dropped->client->ps.stats[STAT_WEAPONS] = self->client->ps.stats[STAT_WEAPONS];
+	dropped->client->ps.ammo[WP_MACHINEGUN] = self->client->ps.ammo[WP_MACHINEGUN];
+	dropped->client->ps.ammo[WP_SHOTGUN] = self->client->ps.ammo[WP_SHOTGUN];
+	dropped->client->ps.ammo[WP_GRENADE_LAUNCHER] = self->client->ps.ammo[WP_GRENADE_LAUNCHER];
+	dropped->client->ps.ammo[WP_ROCKET_LAUNCHER] = self->client->ps.ammo[WP_ROCKET_LAUNCHER];
+	dropped->client->ps.ammo[WP_LIGHTNING] = self->client->ps.ammo[WP_LIGHTNING];
+	dropped->client->ps.ammo[WP_RAILGUN] = self->client->ps.ammo[WP_RAILGUN];
+	dropped->client->ps.ammo[WP_PLASMAGUN] = self->client->ps.ammo[WP_PLASMAGUN];
+	dropped->client->ps.ammo[WP_BFG] = self->client->ps.ammo[WP_BFG];
+	dropped->client->ps.stats[STAT_HOLDABLE_ITEM] = self->client->ps.stats[STAT_HOLDABLE_ITEM];
+	return dropped;
+}
+
+/*
+================
 Drop_Item
 
 Spawns an item and tosses it forward
@@ -619,7 +686,10 @@ gentity_t *Drop_Item( gentity_t *ent, gitem_t *item, float angle ) {
 	VectorScale( velocity, 150, velocity );
 	velocity[2] += 200 + crandom() * 50;
 	
-	return LaunchItem( item, ent->s.pos.trBase, velocity );
+	if ( item->giType = IT_BACKPACK )
+		return LaunchBackpack( item, ent, velocity );
+	else
+		return LaunchItem( item, ent->s.pos.trBase, velocity );
 }
 
 

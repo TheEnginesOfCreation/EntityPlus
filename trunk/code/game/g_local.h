@@ -449,6 +449,7 @@ void UseHoldableItem( gentity_t *ent );
 void PrecacheItem (gitem_t *it);
 gentity_t *Drop_Item( gentity_t *ent, gitem_t *item, float angle );
 gentity_t *LaunchItem( gitem_t *item, vec3_t origin, vec3_t velocity );
+gentity_t *LaunchBackpack( gitem_t *item, gentity_t *self, vec3_t velocity );
 void SetRespawn (gentity_t *ent, float delay);
 void G_SpawnItem (gentity_t *ent, gitem_t *item);
 void FinishSpawningItem( gentity_t *ent );
