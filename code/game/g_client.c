@@ -113,7 +113,7 @@ gentity_t *SelectNearestDeathmatchSpawnPoint( vec3_t from ) {
 
 		VectorSubtract( spot->s.origin, from, delta );
 		dist = VectorLength( delta );
-		if ( dist < nearestDist ) {
+		if ( dist < nearestDist && SpawnPointIsActive(spot) ) {
 			nearestDist = dist;
 			nearestSpot = spot;
 		}
@@ -1193,6 +1193,11 @@ void ClientSpawn(gentity_t *ent) {
 		VectorCopy( spawnPoint->s.origin, spawn_origin );
 		VectorCopy(  spawnPoint->s.angles, spawn_angles );
 		trap_SendServerCommand( -1, "loaddefered\n" );	//force clients to load the deferred assets
+	} else if ( g_gametype.integer == GT_SINGLE_PLAYER ) {
+		//in single player, find the closest spawnpoint to spawn at
+		spawnPoint = SelectNearestDeathmatchSpawnPoint( client->ps.origin );
+		VectorCopy( spawnPoint->s.origin, spawn_origin );
+		VectorCopy(  spawnPoint->s.angles, spawn_angles );
 	} else if ( client->sess.sessionTeam == TEAM_SPECTATOR ) {
 		spawnPoint = SelectSpectatorSpawnPoint ( spawn_origin, spawn_angles );		
 	} else if (g_gametype.integer >= GT_CTF ) {
