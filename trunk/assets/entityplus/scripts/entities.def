@@ -751,7 +751,7 @@ notsingle : when set to 1, entity will not spawn in Single Player mode (bot play
 
 //=============================================================================
 
-/*QUAKED info_player_deathmatch (1 0 1) (-16 -16 -24) (16 16 32) INITIAL
+/*QUAKED info_player_deathmatch (1 0 1) (-16 -16 -24) (16 16 32) INITIAL DISABLED
 Normal player spawning location for Q3A levels.
 -------- KEYS --------
 angle : direction in which player will look when spawning in the game. Does not apply to bots.
@@ -764,8 +764,9 @@ notteam : when set to 1, entity will not spawn in "Teamplay" and "CTF" modes.
 notsingle : when set to 1, entity will not spawn in Single Player mode (bot play mode).
 -------- SPAWNFLAGS --------
 INITIAL : makes the spawnpoint the initial place for the player to spawn at the beginning of the game.
+DISABLED : the spawn point is in a disabled state when the map is first loaded. It can be enabled by triggering it. See notes.
 -------- NOTES --------
-Targetting an info_player_deathmatch spawnpoint with a trigger will enable or disable the spawnpoint. Spawnpoints are by default enabled. Note that a spawnpoint that reached it's [count] number of spawns and is therefor disabled is not enabled by triggering it.*/
+Targetting an info_player_deathmatch spawnpoint with a trigger will enable or disable the spawnpoint. Spawnpoints are by default enabled unless the DISABLED spawnflag is set. Note that a spawnpoint that reached it's [count] number of spawns and is therefor disabled is not enabled by triggering it.*/
 
 //=============================================================================
 
