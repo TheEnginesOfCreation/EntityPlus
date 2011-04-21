@@ -1014,6 +1014,8 @@ qboolean BG_CanItemBeGrabbed( int gametype, const entityState_t *ent, const play
 	item = &bg_itemlist[ent->modelindex];
 
 	switch( item->giType ) {
+	case IT_BACKPACK:
+		return qtrue;	// backpack can always be picked up
 	case IT_WEAPON:
 		return qtrue;	// weapons are always picked up
 
