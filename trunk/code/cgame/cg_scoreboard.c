@@ -238,6 +238,16 @@ static int CG_TeamScoreboard( int y, team_t team, float fade, int maxClients, in
 
 /*
 =================
+CG_DrawSinglePlayerObjectives
+
+Draw the normal in-game scoreboard
+=================
+*/
+void CG_DrawSinglePlayerObjectives( void ) {
+}
+
+/*
+=================
 CG_DrawScoreboard
 
 Draw the normal in-game scoreboard
@@ -258,9 +268,14 @@ qboolean CG_DrawOldScoreboard( void ) {
 		return qfalse;
 	}
 
-	if ( cgs.gametype == GT_SINGLE_PLAYER && cg.predictedPlayerState.pm_type == PM_INTERMISSION ) {
-		cg.deferredPlayerLoading = 0;
-		return qfalse;
+	if ( cgs.gametype == GT_SINGLE_PLAYER ) {
+		if ( cg.predictedPlayerState.pm_type == PM_INTERMISSION ) {
+			cg.deferredPlayerLoading = 0;
+			return qfalse;
+		}
+
+		CG_DrawSinglePlayerObjectives();	//draw objectives screen instead of scores in SP.
+		return qtrue;
 	}
 
 	// don't draw scoreboard during death while warmup up
