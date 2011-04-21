@@ -761,3 +761,23 @@ void target_debrisemitter_use (gentity_t *self, gentity_t *other, gentity_t *act
 void SP_target_debrisemitter (gentity_t *self) {
 	self->use = target_debrisemitter_use;
 }
+
+//==========================================================
+
+/*QUAKED target_objective (.5 .5 .5) (-8 -8 -8) (8 8 8) SECONDARY
+Sets the textual representation of the player's objective.
+Set the SECONDARY spawnflag to set the secondary objective instead of the primary.
+*/
+
+void target_objective_use (gentity_t *self, gentity_t *other, gentity_t *activator) {
+	if ( self->spawnflags & 2 )
+		strcpy(activator->client->pers.secondaryObjective, self->message);
+	else
+		strcpy(activator->client->pers.primaryObjective, self->message);
+
+	G_Printf("%s\n", activator->client->pers.primaryObjective);
+}
+
+void SP_target_objective (gentity_t *self) {
+	self->use = target_objective_use;
+}
