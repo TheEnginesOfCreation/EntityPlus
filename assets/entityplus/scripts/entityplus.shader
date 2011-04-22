@@ -332,27 +332,6 @@ textures/entityplus/func_breakable
 	}	
 }
 
-textures/entityplus/target_intermission
-{
-	qer_editorimage textures/entityplus/target_intermission.tga
-	qer_trans .5
-	surfaceparm nomarks
-	surfaceparm trans
-	surfaceparm nonsolid
-	cull disable
-	{
-		map textures/entityplus/target_intermission.tga
-		blendfunc add
-		rgbgen identity
-	}
-	{
-		map textures/entityplus/screen_noise.tga
-		blendfunc add
-		rgbgen wave triangle .5 .05 0 10
-		tcmod scroll 5 .25 
-	}	
-}
-
 textures/entityplus/target_disable
 {
 	qer_editorimage textures/entityplus/target_disable.tga
@@ -363,48 +342,6 @@ textures/entityplus/target_disable
 	cull disable
 	{
 		map textures/entityplus/target_disable.tga
-		blendfunc add
-		rgbgen identity
-	}
-	{
-		map textures/entityplus/screen_noise.tga
-		blendfunc add
-		rgbgen wave triangle .5 .05 0 10
-		tcmod scroll 5 .25 
-	}	
-}
-
-textures/entityplus/target_botspawn
-{
-	qer_editorimage textures/entityplus/target_botspawn.tga
-	qer_trans .5
-	surfaceparm nomarks
-	surfaceparm trans
-	surfaceparm nonsolid
-	cull disable
-	{
-		map textures/entityplus/target_botspawn.tga
-		blendfunc add
-		rgbgen identity
-	}
-	{
-		map textures/entityplus/screen_noise.tga
-		blendfunc add
-		rgbgen wave triangle .5 .05 0 10
-		tcmod scroll 5 .25 
-	}	
-}
-
-textures/entityplus/target_playerspeed
-{
-	qer_editorimage textures/entityplus/target_playerspeed.tga
-	qer_trans .5
-	surfaceparm nomarks
-	surfaceparm trans
-	surfaceparm nonsolid
-	cull disable
-	{
-		map textures/entityplus/target_playerspeed.tga
 		blendfunc add
 		rgbgen identity
 	}
