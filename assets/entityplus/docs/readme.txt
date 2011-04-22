@@ -1,5 +1,5 @@
 ENTITYPLUS 
-version 0.3
+version 0.4
 -----------
 
 EntityPlus is a Quake III Arena mod that is aimed at expanding the toolset for Quake III Arena map makers.
@@ -12,12 +12,22 @@ expand the possibilities of single player experiences in Q3A. While Q3A will nev
 campaign-based game, EntityPlus will give map makers a broader palette of features to work with, allowing the
 most innovative of mappers to create interesting new experiences that haven't been part of Quake III Arena yet.
 
-The mod is completely open source and anyone is allowed to make their own additions to the code base. I am
-even accepting feature requests which I will try to implement in the codebase in a timely fashion. This will allow
-mappers for the first time to think way beyond the boundaries of Q3A. Within this mod, a challenge for mappers
+The mod is completely open source and anyone is allowed to make their own additions to the codebase. I am
+even accepting feature requests which I will try to implement in the codebase in a timely fashion. This will, for 
+the first time, allow mappers to think way beyond the boundaries of Q3A. Within this mod, a challenge for mappers
 is hidden. Try to think of something that sheds the shackles of Q3A's basic multiplayer deathmatch gameplay
 and think of new interesting things to do within this new limitless world.
 
+
+SINGLE PLAYER
+-------------
+Through the course of developing this mod it quickly became apparent that the Quake 3 mapping community is really
+excited about the possibility of making Quake 3 maps that are meant to be single player experiences. The term
+"single player" here is used to describe an experience more akin to the SP games of Quake or Quake 2 than Quake 3's
+own single player bot matches.
+To facilitate this, EntityPlus implements a lot of features that are strictly aimed at single player gameplay. These
+features and changes are only applied when running the game in single player mode (g_gametype 2). To force the game
+into single player mode, a map must be loaded with the "spmap" command rather than the "map" command.
 
 
 INSTALLATION
@@ -61,12 +71,69 @@ KEY EXAMPLE
 A seperate map to demonstrate the use of the key and lock entities is included with the name "keytest".
 
 
+CREDITS
+-------
+Project lead and programming	: Eraesr
+
+Additional programming and
+programming support				: ^misantropia^
+
+Additional programming			: Kaz
+
+Keycard models and skins		: Obsidian
+
+Debris models					: DaEngineer
+
+
+CONTACT
+-------
+Contact me at eraesr@gmail.com or visit The Engines of Creation at http://www.theenginesofcreation.com.
+To follow the project or get the source code, go to https://code.google.com/p/entityplus.
+If you want to follow discussions surrounding the mod or leave your own input, visit the 
+discussion thread in the Quake3World Level Editing & Modelling forums at http://quake3world.com/forum/viewtopic.php?f=10&t=45510.
+
+
 VERSION HISTORY
 ---------------
+v0.4 (?? apr 2011)
+	- [Added] Dying in single player causes the player to drop a backpack which can be picked up to restore the player's weapons/ammo/holdables.
+	- [Added] Ladderclip texture to create ladders.
+	- [Added] DARK_DEBRIS key for target_debrisemitter to toggle between lighter and darker bits of debris.
+	- [Added] Red, Green, Blue and Yellow keycards (holdable_key_* entities).
+	- [Added] nobots and nohumans keys to trigger_multiple.
+	- [Added] KEY_RED, KEY_GREEN, KEY_BLUE and KEY_YELLOW spawnflags for trigger_lock.
+	- [Added] Targeting an info_player_deathmatch with a trigger will enable or disable the spawnpoint.
+	- [Added] DISABLED spawnflag to info_player_deathmatch.
+	- [Added] SCRIPT spawnflag to target_mapchange.
+	- [Fixed] Game crashes when joining the spectators.
+	- [Fixed] target_mapchange incorrectly reads specified mapname.
+	- [Fixed] IMMEDIATELY spawnflag on target_disable doesn't work in some cases.
+	- [Fixed] The RANDOM spawnflag on target_logic causes an entity to always be triggered.
+	- [Changed] target_botspawn now spawns bots at it's own location and allows customization of the bot to spawn.
+	- [Changed] target_logic can now be targetted by up to 10 entities instead of just 2.
+	- [Changed] target_debrisemitter spews out actual debris models.
+	- [Changed] Smoke trails for target_debrisemitter are slightly less opaque now.
+	- [Changed] target_mapchange now only retains player stats when game is in single player mode.
+	- [Changed] Holdable item is also persisted across map changes caused by target_mapchange.
+	- [Changed] setting the wait key for a func_door to -2 will prevent it from closing until it is triggered again.
+	- [Changed] Player is respawned at the nearest active spawnpoint instead of the furthest in single player mode.
+	- [Changed] Bots can no longer damage each other in single player mode.
+	- [Changed] Bots are no longer able to pick up items in single player mode.
+	- [Changed] Bots no longer chat in single player mode.
+	- [Changed] "You fragged ... " messages no longer shown in single player mode.
+	- [Changed] Obituaries ("... was fragged by ...") messages are no longer shown in single player mode.
+	- [Changed] "... conneced" messages no longer shown in SP mode when connecting player is a bot.
+	- [Changed] join and team change messages no longer shown in SP mode when joining/changing player is a bot.
+	- [Changed] Fraglimit and timelimit are forced to 0 in single player mode.
+	- [Changed] Maxclients is forced to 64 in single player mode.
+	- [Changed] Removed non-essential information from HUD in single player mode.
+	
+	
+
 v0.3 (12 apr 2011)
 	- [Added] IMMEDIATELY spawnflag for target_disable.
 	- [Added] mapname key for target_mapchange.
-	- [Added] SHOW_INTERMISSION spawnflat for target_mapchange.
+	- [Added] SHOW_INTERMISSION spawnflag for target_mapchange.
 	- [Added] Health, armor, weapons and ammo are retained through a map change if it was caused by a target_mapchange.
 	- [Added] trigger_death and trigger_frag entities.
 	- [Added] count key for spawnpoint entities to limit the number of times a player can spawn there.
@@ -109,21 +176,3 @@ v0.1 (11 mar 2011)
 	- [Added] target_gravity
 	- [Added] target_intermission
 	- [Added] target_logic
-
-
-CREDITS
--------
-Project lead and programming	: Eraesr (eraesr@gmail.com)
-
-Additional programming and
-programming support				: ^misantropia^
-
-Additional programming			: Kaz
-
-
-
-CONTACT
--------
-Contact me at eraesr@gmail.com or visit The Engines of Creation at http://www.theenginesofcreation.com.
-To follow the project or get the source code, go to https://code.google.com/p/entityplus
-For more info, visit the Level Editing & Modelling forums at http://www.quake3world.com/forums.
