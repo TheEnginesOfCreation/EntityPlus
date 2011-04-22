@@ -163,6 +163,8 @@ struct gentity_s {
 	gitem_t		*item;			// for bonus items
 
 	char		*teleporterTarget;		// forces a client to be teleported to the entity with this targetname when using holdable_teleporter. Also used as key for holdable_teleporter itself.
+
+	int			backpackContents[WP_NUM_WEAPONS - 1];
 };
 
 

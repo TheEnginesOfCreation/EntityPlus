@@ -197,16 +197,47 @@ void Pickup_Backpack( gentity_t *ent, gentity_t *other) {
 	//other is the player picking the backpack up
 	//function doesn't return a respawn time because backpacks never respawn
 	
-	other->client->ps.stats[STAT_WEAPONS] |= ent->client->ps.stats[STAT_WEAPONS];
-	other->client->ps.ammo[WP_MACHINEGUN] += ent->client->ps.ammo[WP_MACHINEGUN];
-	other->client->ps.ammo[WP_SHOTGUN] += ent->client->ps.ammo[WP_SHOTGUN];
-	other->client->ps.ammo[WP_GRENADE_LAUNCHER] += ent->client->ps.ammo[WP_GRENADE_LAUNCHER];
-	other->client->ps.ammo[WP_ROCKET_LAUNCHER] += ent->client->ps.ammo[WP_ROCKET_LAUNCHER];
-	other->client->ps.ammo[WP_LIGHTNING] += ent->client->ps.ammo[WP_LIGHTNING];
-	other->client->ps.ammo[WP_RAILGUN] += ent->client->ps.ammo[WP_RAILGUN];
-	other->client->ps.ammo[WP_PLASMAGUN] += ent->client->ps.ammo[WP_PLASMAGUN];
-	other->client->ps.ammo[WP_BFG] += ent->client->ps.ammo[WP_BFG];
-	other->client->ps.stats[STAT_HOLDABLE_ITEM] = ent->client->ps.stats[STAT_HOLDABLE_ITEM];
+	if (ent->backpackContents[WP_MACHINEGUN]) {
+		other->client->ps.stats[STAT_WEAPONS] |= (1 << WP_MACHINEGUN);
+		other->client->ps.ammo[WP_MACHINEGUN] += ent->backpackContents[WP_MACHINEGUN];
+	}
+
+	if (ent->backpackContents[WP_SHOTGUN]) {
+		other->client->ps.stats[STAT_WEAPONS] |= (1 << WP_SHOTGUN);
+		other->client->ps.ammo[WP_SHOTGUN] += ent->backpackContents[WP_SHOTGUN];
+	}
+
+	if (ent->backpackContents[WP_GRENADE_LAUNCHER]) {
+		other->client->ps.stats[STAT_WEAPONS] |= (1 << WP_GRENADE_LAUNCHER);
+		other->client->ps.ammo[WP_GRENADE_LAUNCHER] += ent->backpackContents[WP_GRENADE_LAUNCHER];
+	}
+
+	if (ent->backpackContents[WP_ROCKET_LAUNCHER]) {
+		other->client->ps.stats[WP_ROCKET_LAUNCHER] |= (1 << WP_ROCKET_LAUNCHER);
+		other->client->ps.ammo[WP_ROCKET_LAUNCHER] += ent->backpackContents[WP_ROCKET_LAUNCHER];
+	}
+
+	if (ent->backpackContents[WP_LIGHTNING]) {
+		other->client->ps.stats[STAT_WEAPONS] |= (1 << WP_LIGHTNING);
+		other->client->ps.ammo[WP_LIGHTNING] += ent->backpackContents[WP_LIGHTNING];
+	}
+
+	if (ent->backpackContents[WP_RAILGUN]) {
+		other->client->ps.stats[STAT_WEAPONS] |= (1 << WP_RAILGUN);
+		other->client->ps.ammo[WP_RAILGUN] += ent->backpackContents[WP_RAILGUN];
+	}
+
+	if (ent->backpackContents[WP_PLASMAGUN]) {
+		other->client->ps.stats[STAT_WEAPONS] |= (1 << WP_PLASMAGUN);
+		other->client->ps.ammo[WP_PLASMAGUN] += ent->backpackContents[WP_PLASMAGUN];
+	}
+
+	if (ent->backpackContents[WP_BFG]) {
+		other->client->ps.stats[STAT_WEAPONS] |= (1 << WP_SHOTGUN);
+		other->client->ps.ammo[WP_BFG] += ent->backpackContents[WP_BFG];
+	}
+
+	other->client->ps.stats[STAT_HOLDABLE_ITEM] = ent->backpackContents[0];
 }
 
 
@@ -653,17 +684,15 @@ gentity_t *LaunchBackpack( gitem_t *item, gentity_t *self, vec3_t velocity ) {
 	trap_LinkEntity (dropped);
 
 	//set contents of backpack
-	dropped->client = level.clients + 99;	//TODO: Fix this hardcoded number into something more sensible
-	dropped->client->ps.stats[STAT_WEAPONS] = self->client->ps.stats[STAT_WEAPONS];
-	dropped->client->ps.ammo[WP_MACHINEGUN] = self->client->ps.ammo[WP_MACHINEGUN];
-	dropped->client->ps.ammo[WP_SHOTGUN] = self->client->ps.ammo[WP_SHOTGUN];
-	dropped->client->ps.ammo[WP_GRENADE_LAUNCHER] = self->client->ps.ammo[WP_GRENADE_LAUNCHER];
-	dropped->client->ps.ammo[WP_ROCKET_LAUNCHER] = self->client->ps.ammo[WP_ROCKET_LAUNCHER];
-	dropped->client->ps.ammo[WP_LIGHTNING] = self->client->ps.ammo[WP_LIGHTNING];
-	dropped->client->ps.ammo[WP_RAILGUN] = self->client->ps.ammo[WP_RAILGUN];
-	dropped->client->ps.ammo[WP_PLASMAGUN] = self->client->ps.ammo[WP_PLASMAGUN];
-	dropped->client->ps.ammo[WP_BFG] = self->client->ps.ammo[WP_BFG];
-	dropped->client->ps.stats[STAT_HOLDABLE_ITEM] = self->client->ps.stats[STAT_HOLDABLE_ITEM];
+	dropped->backpackContents[0] = self->client->ps.stats[STAT_HOLDABLE_ITEM];
+	dropped->backpackContents[WP_MACHINEGUN] = self->client->ps.ammo[WP_MACHINEGUN];
+	dropped->backpackContents[WP_SHOTGUN] = self->client->ps.ammo[WP_SHOTGUN];
+	dropped->backpackContents[WP_GRENADE_LAUNCHER] = self->client->ps.ammo[WP_GRENADE_LAUNCHER];
+	dropped->backpackContents[WP_ROCKET_LAUNCHER] = self->client->ps.ammo[WP_ROCKET_LAUNCHER];
+	dropped->backpackContents[WP_LIGHTNING] = self->client->ps.ammo[WP_LIGHTNING];
+	dropped->backpackContents[WP_RAILGUN] = self->client->ps.ammo[WP_RAILGUN];
+	dropped->backpackContents[WP_PLASMAGUN] = self->client->ps.ammo[WP_PLASMAGUN];
+	dropped->backpackContents[WP_BFG] = self->client->ps.ammo[WP_BFG];
 	return dropped;
 }
 
