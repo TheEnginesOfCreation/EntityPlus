@@ -586,6 +586,20 @@ gitem_t	bg_itemlist[] =
 		"sound/items/flight.wav"
 	},
 
+/*QUAKED info_player_backpack (.3 .3 1) (-16 -16 -16) (16 16 16) */
+	{
+		"info_player_backpack", 
+		"sound/misc/w_pkup.wav",				//TODO: Make dedicated sound
+        { "models/flags/b_flag.md3", 0, 0, 0},  //TODO: Make custom model
+		"icons/iconf_blu1",						//TODO: Make dedicated icon
+		"Backpack",	
+		0,
+		IT_BACKPACK,
+		1,
+		"",
+		""
+	},
+
 /*QUAKED team_CTF_redflag (1 0 0) (-16 -16 -16) (16 16 16) 
 Only in CTF games*/
 	{
@@ -612,19 +626,6 @@ Only in CTF games*/
 		0,
 		IT_TEAM,
 		PW_BLUEFLAG,
-		"",
-		""
-	},
-/*QUAKED info_player_backpack (.3 .3 1) (-16 -16 -16) (16 16 16) suspended*/
-	{
-		"info_player_backpack", 
-		"sound/misc/w_pkup.wav",				//TODO: Make dedicated sound
-        { "models/flags/b_flag.md3", 0, 0, 0},	//TODO: Make dedicated model
-		"icons/iconf_blu1",						//TODO: Make dedicated icon
-		"Backpack",	
-		0,
-		IT_BACKPACK,
-		1,
 		"",
 		""
 	},
