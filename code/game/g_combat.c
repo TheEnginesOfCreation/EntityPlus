@@ -884,6 +884,17 @@ void G_Damage( gentity_t *targ, gentity_t *inflictor, gentity_t *attacker,
 		damage = damage * max / 100;
 	}
 
+	// scale back damage from bots to humans in single player, based on skill level
+	// "I can win" does 0.5 dmg
+	// "Bring it on" does 0.6 dmg
+	// "Hurt me plenty" does 0.7 dmg
+	// "Hardcore" does 0.8 dmg
+	// "Nightmare does 0.9 dmg
+	if ( g_gametype.integer == GT_SINGLE_PLAYER && IsBot(attacker) ) {
+		G_Printf("%f\n", trap_Cvar_VariableValue( "g_spSkill" ));
+		damage *= (0.4 + (0.1 * trap_Cvar_VariableValue( "g_spSkill" )));
+	}
+
 	client = targ->client;
 
 	if ( client ) {
