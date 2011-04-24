@@ -68,7 +68,10 @@
 #define CS_LOCATIONS			(CS_PLAYERS+MAX_CLIENTS)
 #define CS_PARTICLES			(CS_LOCATIONS+MAX_LOCATIONS) 
 
-#define CS_MAX					(CS_PARTICLES+MAX_LOCATIONS)
+#define CS_PRIMARYOBJECTIVE		(CS_PARTICLES+MAX_LOCATIONS)
+#define CS_SECONDARYOBJECTIVE	(CS_PRIMARYOBJECTIVE+1)
+
+#define CS_MAX					(CS_SECONDARYOBJECTIVE+1)
 
 #if (CS_MAX) > MAX_CONFIGSTRINGS
 #error overflow: (CS_MAX) > MAX_CONFIGSTRINGS
@@ -443,7 +446,7 @@ typedef enum {
 	EV_TAUNT_PATROL,
 
 	EV_EMIT_DEBRIS_NORMAL,		// a target_debrisemitter that emits light concrete is triggered
-	EV_EMIT_DEBRIS_DARK			// a target_debrisemitter that emits dark concrete is triggered
+	EV_EMIT_DEBRIS_DARK,		// a target_debrisemitter that emits dark concrete is triggered
 
 } entity_event_t;
 

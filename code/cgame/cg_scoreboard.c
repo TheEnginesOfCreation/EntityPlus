@@ -244,7 +244,10 @@ Draw the normal in-game scoreboard
 =================
 */
 void CG_DrawSinglePlayerObjectives( void ) {
+	const char *p;
+	const char *s;
 	vec4_t color;
+	int i;
 
 	if ( !cg.showScores )
 		return;
@@ -254,11 +257,27 @@ void CG_DrawSinglePlayerObjectives( void ) {
 	color[2] = 0;
 	color[3] = 1;
 
-	CG_DrawPic( (SCREEN_WIDTH - 512) / 2, (SCREEN_HEIGHT - 384) / 2, 512, 384, cgs.media.objectivesOverlay );
-	CG_DrawBigStringColor( 105, 75, "Primary", color );
-	CG_DrawSmallStringColor( 90, 100, "this is the primary objective.", color);
+	p = CG_ConfigString( CS_PRIMARYOBJECTIVE );
+	s = CG_ConfigString( CS_SECONDARYOBJECTIVE );
 
-	CG_DrawBigStringColor( 90, 260, "Secondary", color );
+	//draw objectives overlay
+	CG_DrawPic( (SCREEN_WIDTH - 512) / 2, (SCREEN_HEIGHT - 192) / 2, 512, 192, cgs.media.objectivesOverlay );
+	
+	//draw primary objective
+	CG_DrawSmallStringColor( 80, 175, p, color); //TODO: if primary objective is more than 60 chars, wrap to next line
+
+
+	//draw secondary objective
+	CG_DrawSmallStringColor( 80, 255, s, color); //TODO: if secondary objective is more than 60 chars, wrap to next line
+
+	//draw kills counter
+	for ( i = 0 ; i < cg.numScores ; i++ ) {
+		if ( cg.scores[i].client == cg.snap->ps.clientNum ) {
+			CG_DrawBigStringColor( 185, 310, va("%i", cg.scores[i].score), color );
+			break;
+		}
+	}
+
 }
 
 /*
@@ -541,4 +560,3 @@ void CG_DrawOldTourneyScoreboard( void ) {
 
 
 }
-
