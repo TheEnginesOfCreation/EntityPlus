@@ -199,7 +199,9 @@ void Pickup_Backpack( gentity_t *ent, gentity_t *other) {
 	
 	if (ent->backpackContents[WP_MACHINEGUN]) {
 		other->client->ps.stats[STAT_WEAPONS] |= (1 << WP_MACHINEGUN);
-		other->client->ps.ammo[WP_MACHINEGUN] += ent->backpackContents[WP_MACHINEGUN];
+		//after dying, player spawns with 'free' 100 MG ammo, so we're taking 100 bullets from the backpack and give the remainder to the player
+		if (ent->backpackContents[WP_MACHINEGUN] > 100)
+			other->client->ps.ammo[WP_MACHINEGUN] += (ent->backpackContents[WP_MACHINEGUN] - 100);
 	}
 
 	if (ent->backpackContents[WP_SHOTGUN]) {
