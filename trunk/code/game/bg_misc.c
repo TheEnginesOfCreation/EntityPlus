@@ -590,7 +590,7 @@ gitem_t	bg_itemlist[] =
 	{
 		"info_player_backpack", 
 		"sound/misc/w_pkup.wav",				//TODO: Make dedicated sound
-        { "models/flags/b_flag.md3", 0, 0, 0},  //TODO: Make custom model
+        { "models/powerups/backpack/backpack.md3", 0, 0, 0},
 		"icons/iconf_blu1",						//TODO: Make dedicated icon
 		"Backpack",	
 		0,
