@@ -296,7 +296,8 @@ void CG_CheckLocalSounds( playerState_t *ps, playerState_t *ops ) {
 			trap_S_StartLocalSound( cgs.media.hitSound, CHAN_LOCAL_SOUND );
 		}
 #else
-		trap_S_StartLocalSound( cgs.media.hitSound, CHAN_LOCAL_SOUND );
+		if ( cgs.gametype != GT_SINGLE_PLAYER )
+			trap_S_StartLocalSound( cgs.media.hitSound, CHAN_LOCAL_SOUND );	//do not play hit sounds in SP
 #endif
 	} else if ( ps->persistant[PERS_HITS] < ops->persistant[PERS_HITS] ) {
 		trap_S_StartLocalSound( cgs.media.hitTeamSound, CHAN_LOCAL_SOUND );
@@ -400,6 +401,10 @@ void CG_CheckLocalSounds( playerState_t *ps, playerState_t *ops ) {
 			trap_S_StartLocalSound( cgs.media.youHaveFlagSound, CHAN_ANNOUNCER );
 		}
 	}
+
+	//do not play lead change/timelimit/fraglimit sounds in SP
+	if (cgs.gametype == GT_SINGLE_PLAYER)
+		return;
 
 	// lead changes
 	if (!reward) {

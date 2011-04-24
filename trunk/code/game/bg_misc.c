@@ -498,6 +498,58 @@ gitem_t	bg_itemlist[] =
 		"",
 		""	//TODO: link sound to a keycard 'use' sound and have trigger_lock play that sound when it's 'unlocked'
 	},
+/*QUAKED holdable_key_master (.2 .2 .2) (-16 -16 -16) (16 16 16) suspended*/
+	{
+		"holdable_key_master", 
+		"sound/items/holdable.wav",
+        { "models/powerups/keys/key_master.md3", 0, 0, 0},
+		"icons/key_yellow",	//TODO: create 2d icon
+		"Master key",
+		60,
+		IT_HOLDABLE,
+		HI_KEY_MASTER,
+		"",
+		""	//TODO: link sound to a key 'use' sound and have trigger_lock play that sound when it's 'unlocked'
+	},
+/*QUAKED holdable_key_gold (.2 .2 .2) (-16 -16 -16) (16 16 16) suspended*/
+	{
+		"holdable_key_gold", 
+		"sound/items/holdable.wav",
+        { "models/powerups/keys/key_gold.md3", 0, 0, 0},
+		"icons/key_yellow",	//TODO: create 2d icon
+		"Gold key",
+		60,
+		IT_HOLDABLE,
+		HI_KEY_GOLD,
+		"",
+		""	//TODO: link sound to a key 'use' sound and have trigger_lock play that sound when it's 'unlocked'
+	},
+/*QUAKED holdable_key_silver (.2 .2 .2) (-16 -16 -16) (16 16 16) suspended*/
+	{
+		"holdable_key_silver", 
+		"sound/items/holdable.wav",
+        { "models/powerups/keys/key_silver.md3", 0, 0, 0},
+		"icons/key_yellow",	//TODO: create 2d icon
+		"Silver key",
+		60,
+		IT_HOLDABLE,
+		HI_KEY_SILVER,
+		"",
+		""	//TODO: link sound to a key 'use' sound and have trigger_lock play that sound when it's 'unlocked'
+	},
+/*QUAKED holdable_key_iron (.2 .2 .2) (-16 -16 -16) (16 16 16) suspended*/
+	{
+		"holdable_key_iron", 
+		"sound/items/holdable.wav",
+        { "models/powerups/keys/key_iron.md3", 0, 0, 0},
+		"icons/key_yellow",	//TODO: create 2d icon
+		"Iron key",
+		60,
+		IT_HOLDABLE,
+		HI_KEY_IRON,
+		"",
+		""	//TODO: link sound to a key 'use' sound and have trigger_lock play that sound when it's 'unlocked'
+	},
 
 	//
 	// POWERUP ITEMS

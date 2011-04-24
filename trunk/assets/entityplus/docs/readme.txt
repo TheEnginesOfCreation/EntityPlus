@@ -82,6 +82,8 @@ Additional programming			: Kaz
 
 Keycard models and skins		: Obsidian
 
+Skeleton key models and skins	: Hipshot
+
 Debris models					: DaEngineer
 
 
@@ -99,9 +101,10 @@ v0.4 (?? apr 2011)
 	- [Added] Dying in single player causes the player to drop a backpack which can be picked up to restore the player's weapons/ammo/holdables.
 	- [Added] Ladderclip texture to create ladders.
 	- [Added] DARK_DEBRIS key for target_debrisemitter to toggle between lighter and darker bits of debris.
-	- [Added] Red, Green, Blue and Yellow keycards (holdable_key_* entities).
+	- [Added] Red, Green, Blue and Yellow keycards.
+	- [Added] Master, Gold, Silver and Iron skeleton keys.
 	- [Added] nobots and nohumans keys to trigger_multiple.
-	- [Added] KEY_RED, KEY_GREEN, KEY_BLUE and KEY_YELLOW spawnflags for trigger_lock.
+	- [Added] KEY_RED, KEY_GREEN, KEY_BLUE, KEY_YELLOW, KEY_MASTER, KEY_GOLD, KEY_SILVER and KEY_IRON spawnflags for trigger_lock.
 	- [Added] Targeting an info_player_deathmatch with a trigger will enable or disable the spawnpoint.
 	- [Added] DISABLED spawnflag to info_player_deathmatch.
 	- [Added] SCRIPT spawnflag to target_mapchange.
@@ -117,6 +120,8 @@ v0.4 (?? apr 2011)
 	- [Changed] Holdable item is also persisted across map changes caused by target_mapchange.
 	- [Changed] setting the wait key for a func_door to -2 will prevent it from closing until it is triggered again.
 	- [Changed] Player is respawned at the nearest active spawnpoint instead of the furthest in single player mode.
+	- [Changed] Damage from bots to players is scaled back depending on skill level (ranging from 0.3 to 0.7 times damage)
+	- [Changed] Bots no longer attack each other in single player mode.
 	- [Changed] Bots can no longer damage each other in single player mode.
 	- [Changed] Bots are no longer able to pick up items in single player mode.
 	- [Changed] Bots no longer chat in single player mode.
@@ -125,8 +130,10 @@ v0.4 (?? apr 2011)
 	- [Changed] "... conneced" messages no longer shown in SP mode when connecting player is a bot.
 	- [Changed] join and team change messages no longer shown in SP mode when joining/changing player is a bot.
 	- [Changed] Fraglimit and timelimit are forced to 0 in single player mode.
-	- [Changed] Maxclients is forced to 64 in single player mode.
 	- [Changed] Removed non-essential information from HUD in single player mode.
+	- [Changed] Hit beep sounds are no longer played in single player.
+	- [Changed] Crosshair names are no longer displayed in single player.
+	- [Changed] The announcer voice no longer announced fraglimit or timelimit warnings and lead changes in single player.
 	
 	
 

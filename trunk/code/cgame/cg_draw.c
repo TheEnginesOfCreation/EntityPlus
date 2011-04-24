@@ -2043,6 +2043,9 @@ static void CG_DrawCrosshairNames( void ) {
 	char		*name;
 	float		w;
 
+	if ( cgs.gametype == GT_SINGLE_PLAYER )
+		return;	//do not draw crosshair names in SP
+
 	if ( !cg_drawCrosshair.integer ) {
 		return;
 	}
