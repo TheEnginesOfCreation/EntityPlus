@@ -770,12 +770,12 @@ Set the SECONDARY spawnflag to set the secondary objective instead of the primar
 */
 
 void target_objective_use (gentity_t *self, gentity_t *other, gentity_t *activator) {
-	if ( self->spawnflags & 2 )
-		strcpy(activator->client->pers.secondaryObjective, self->message);
-	else
-		strcpy(activator->client->pers.primaryObjective, self->message);
 
-	G_Printf("%s\n", activator->client->pers.primaryObjective);
+	//TODO: transmit objective to client for display on scoreboard
+	if ( self->spawnflags & 2 )
+		G_Printf("NEW SECONDARY OBJECTIVE: %s\n", self->message);
+	else
+		G_Printf("NEW PRIMARY OBJECTIVE: %s\n", self->message);
 }
 
 void SP_target_objective (gentity_t *self) {
