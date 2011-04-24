@@ -2992,6 +2992,8 @@ int BotFindEnemy(bot_state_t *bs, int curenemy) {
 		if (squaredist > Square(900.0 + alertness * 4000.0)) continue;
 		//if on the same team
 		if (BotSameTeam(bs, i)) continue;
+		//if SP mode and enemy is a bot, do not attack
+		if (g_gametype.integer == GT_SINGLE_PLAYER && IsBot(&g_entities[i])) continue;
 		//if the bot's health decreased or the enemy is shooting
 		if (curenemy < 0 && (healthdecrease || EntityIsShooting(&entinfo)))
 			f = 360;
