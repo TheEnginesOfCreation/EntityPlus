@@ -42,7 +42,7 @@ textures/common/ladderclip
 
 //
 // KEYCARDS 
-// By Obsidian (obsidian@robotrenegade.com - http://robotrenegade.com)
+// By Obsidian (http://robotrenegade.com)
 //
 models/powerups/keys/keycard-b
 {
@@ -248,6 +248,185 @@ models/powerups/keys/vector-y3
 		map models/powerups/keys/vector-y.tga
 		blendFunc add
 		rgbGen wave sin 0 1 0 1
+	}
+}
+
+//
+// SKELETON KEY SHADERS
+// By Hipshot (http://www.zfight.com/)
+//
+
+models/powerups/keys/key_master_snake
+{
+	surfaceparm trans	
+	cull none	
+	{
+		map models/powerups/keys/key_master_snake.tga
+		blendFunc add	
+		tcMod scroll -1 .5
+		rgbGen wave sin 0 1 0 .5	
+	}
+
+}
+
+models/powerups/keys/key_gold_snake
+{
+	surfaceparm trans	
+	cull none	
+	qer_trans 0.5	
+	{
+		map models/powerups/keys/key_gold_snake.tga
+		blendFunc add	
+		tcMod scroll -1 .5
+		rgbGen wave sin 0 1 0 .5	
+	}
+
+}
+
+models/powerups/keys/key_silver_snake
+{
+	surfaceparm trans	
+	cull none	
+	{
+		map models/powerups/keys/key_silver_snake.tga
+		blendFunc add	
+		tcMod scroll -1 .5
+		rgbGen wave sin 0 1 0 .5	
+	}
+
+}
+
+models/powerups/keys/key_iron_snake
+{
+	surfaceparm trans	
+	cull none	
+	{
+		map models/powerups/keys/key_iron_snake.tga
+		blendFunc add	
+		tcMod scroll -1 .5
+		rgbGen wave sin 0 1 0 .5	
+	}
+
+}
+
+models/powerups/keys/key_master
+{
+	{
+		map models/powerups/keys/key_master.tga
+		rgbGen vertex		
+	}
+	{
+		map models/powerups/keys/envmap-r.tga
+		blendFunc add	
+		tcGen environment
+		rgbGen vertex
+		tcMod scroll .05 .05	
+		tcmod scale 2 2	
+	}	
+	{
+		map models/powerups/keys/envmap-r.tga
+		blendFunc add	
+		tcGen environment
+		rgbGen vertex
+		tcMod scroll .05 .05	
+		tcmod scale 2 2
+		rgbGen wave sin 0 1 0 .5		
+	}
+	{
+		map models/powerups/keys/key_master.tga
+		blendFunc blend
+		rgbGen vertex		
+	}
+}
+
+
+models/powerups/keys/key_gold
+{
+	{
+		map models/powerups/keys/key_gold.tga
+		rgbGen vertex		
+	}
+	{
+		map models/powerups/keys/envmap-y.tga
+		blendFunc add	
+		tcGen environment
+		rgbGen vertex
+		tcMod scroll .1 .05	
+		tcmod scale 10 10
+	}	
+	{
+		map models/powerups/keys/envmap-y.tga
+		blendFunc add	
+		tcGen environment
+		rgbGen vertex
+		tcMod scroll .1 .05	
+		tcmod scale 10 10
+		rgbGen wave sin 0 1 0 .5
+	}	
+	{
+		map models/powerups/keys/key_gold.tga
+		blendFunc blend
+		rgbGen vertex		
+	}
+}
+
+models/powerups/keys/key_silver
+{
+	{
+		map models/powerups/keys/key_silver.tga
+		rgbGen vertex		
+	}
+	{
+		map models/powerups/keys/envmap-b.tga
+		blendFunc add	
+		tcGen environment
+		rgbGen vertex
+		tcMod scroll .05 -.05	
+		tcmod scale 2 2	
+	}	
+	{
+		map models/powerups/keys/envmap-b.tga
+		blendFunc add	
+		tcGen environment
+		rgbGen vertex
+		tcMod scroll .05 -.05	
+		tcmod scale 2 2
+		rgbGen wave sin 0 1 0 .5		
+	}
+	{
+		map models/powerups/keys/key_silver.tga
+		blendFunc blend
+		rgbGen vertex		
+	}
+}
+
+models/powerups/keys/key_iron
+{
+	{
+		map models/powerups/keys/key_iron.tga
+		rgbGen vertex		
+	}
+	{
+		map models/powerups/keys/envmap-y.tga
+		blendFunc add	
+		tcGen environment
+		rgbGen vertex
+		tcMod scroll .1 .05	
+		tcmod scale 10 10	
+	}	
+	{
+		map models/powerups/keys/envmap-y.tga
+		blendFunc add	
+		tcGen environment
+		rgbGen vertex
+		tcMod scroll .1 .05	
+		tcmod scale 10 10
+		rgbGen wave sin 0 1 0 .5		
+	}
+	{
+		map models/powerups/keys/key_iron.tga
+		blendFunc blend
+		rgbGen vertex		
 	}
 }
 

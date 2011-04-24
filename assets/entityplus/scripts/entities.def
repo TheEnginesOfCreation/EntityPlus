@@ -601,6 +601,29 @@ model="models/powerups/keys/keycard-b.md3"*/
 
 //=============================================================================
 
+/*QUAKED holdable_key_gold (.7 0 1) (-16 -16 -16) (16 16 16) SUSPENDED
+Key can be picked up and used in conjunction with a trigger_lock to open doors, etc. It is possible to pick up more than one key at once.
+-------- KEYS --------
+wait : time in seconds before item respawns after being picked up (default 60, -1 = never respawn).
+random : random time variance in seconds added or subtracted from "wait" delay (default 0 - see Notes).
+team : set this to team items. Teamed items will respawn randomly after team master is picked up (see Notes).
+target : picking up the item will trigger the entity this points to.
+targetname : a target_give entity can point to this for respawn freebies.
+notfree : when set to 1, entity will not spawn in "Free for all" and "Tournament" modes.
+notteam : when set to 1, entity will not spawn in "Teamplay" and "CTF" modes.
+notsingle : when set to 1, entity will not spawn in Single Player mode (bot play mode).
+notbot : used to make an item invisible for bot attraction.
+-------- SPAWNFLAGS --------
+SUSPENDED : item will spawn where it was placed in map and won't drop to the floor.
+-------- NOTES --------
+The amount of time it takes for an item in the team to respawn is determined by the "wait" value of the item that was picked up previously. So if one of the items in the team has it's "wait" key set to -1 (never respawn), the random respawning cycle of the teamed items will stop after that item is picked up.
+
+When the random key is set, its value is used to calculate a minimum and a maximum delay. The final time delay will be a random value anywhere between the minimum and maximum values: (min delay = wait - random) (max delay = wait + random).
+-------- MODEL FOR RADIANT ONLY - DO NOT SET THIS AS A KEY --------
+model="models/powerups/keys/key_gold.md3"*/
+
+//=============================================================================
+
 /*QUAKED holdable_key_green (.7 0 1) (-16 -16 -16) (16 16 16) SUSPENDED
 Key can be picked up and used in conjunction with a trigger_lock to open doors, etc. It is possible to pick up more than one key at once.
 -------- KEYS --------
@@ -624,7 +647,7 @@ model="models/powerups/keys/keycard-g.md3"*/
 
 //=============================================================================
 
-/*QUAKED holdable_key_red (.7 0 1) (-16 -16 -16) (16 16 16) SUSPENDED
+/*QUAKED holdable_key_iron (.7 0 1) (-16 -16 -16) (16 16 16) SUSPENDED
 Key can be picked up and used in conjunction with a trigger_lock to open doors, etc. It is possible to pick up more than one key at once.
 -------- KEYS --------
 wait : time in seconds before item respawns after being picked up (default 60, -1 = never respawn).
@@ -643,11 +666,11 @@ The amount of time it takes for an item in the team to respawn is determined by 
 
 When the random key is set, its value is used to calculate a minimum and a maximum delay. The final time delay will be a random value anywhere between the minimum and maximum values: (min delay = wait - random) (max delay = wait + random).
 -------- MODEL FOR RADIANT ONLY - DO NOT SET THIS AS A KEY --------
-model="models/powerups/keys/keycard-r.md3"*/
+model="models/powerups/keys/key_iron.md3"*/
 
 //=============================================================================
 
-/*QUAKED holdable_key_yellow (.7 0 1) (-16 -16 -16) (16 16 16) SUSPENDED
+/*QUAKED holdable_key_master (.7 0 1) (-16 -16 -16) (16 16 16) SUSPENDED
 Key can be picked up and used in conjunction with a trigger_lock to open doors, etc. It is possible to pick up more than one key at once.
 -------- KEYS --------
 wait : time in seconds before item respawns after being picked up (default 60, -1 = never respawn).
@@ -666,7 +689,7 @@ The amount of time it takes for an item in the team to respawn is determined by 
 
 When the random key is set, its value is used to calculate a minimum and a maximum delay. The final time delay will be a random value anywhere between the minimum and maximum values: (min delay = wait - random) (max delay = wait + random).
 -------- MODEL FOR RADIANT ONLY - DO NOT SET THIS AS A KEY --------
-model="models/powerups/keys/keycard-y.md3"*/
+model="models/powerups/keys/key_master.md3"*/
 
 //=============================================================================
 
@@ -693,6 +716,52 @@ model="models/powerups/holdable/medkit.md3"*/
 
 //=============================================================================
 
+/*QUAKED holdable_key_red (.7 0 1) (-16 -16 -16) (16 16 16) SUSPENDED
+Key can be picked up and used in conjunction with a trigger_lock to open doors, etc. It is possible to pick up more than one key at once.
+-------- KEYS --------
+wait : time in seconds before item respawns after being picked up (default 60, -1 = never respawn).
+random : random time variance in seconds added or subtracted from "wait" delay (default 0 - see Notes).
+team : set this to team items. Teamed items will respawn randomly after team master is picked up (see Notes).
+target : picking up the item will trigger the entity this points to.
+targetname : a target_give entity can point to this for respawn freebies.
+notfree : when set to 1, entity will not spawn in "Free for all" and "Tournament" modes.
+notteam : when set to 1, entity will not spawn in "Teamplay" and "CTF" modes.
+notsingle : when set to 1, entity will not spawn in Single Player mode (bot play mode).
+notbot : used to make an item invisible for bot attraction.
+-------- SPAWNFLAGS --------
+SUSPENDED : item will spawn where it was placed in map and won't drop to the floor.
+-------- NOTES --------
+The amount of time it takes for an item in the team to respawn is determined by the "wait" value of the item that was picked up previously. So if one of the items in the team has it's "wait" key set to -1 (never respawn), the random respawning cycle of the teamed items will stop after that item is picked up.
+
+When the random key is set, its value is used to calculate a minimum and a maximum delay. The final time delay will be a random value anywhere between the minimum and maximum values: (min delay = wait - random) (max delay = wait + random).
+-------- MODEL FOR RADIANT ONLY - DO NOT SET THIS AS A KEY --------
+model="models/powerups/keys/keycard-r.md3"*/
+
+//=============================================================================
+
+/*QUAKED holdable_key_silver (.7 0 1) (-16 -16 -16) (16 16 16) SUSPENDED
+Key can be picked up and used in conjunction with a trigger_lock to open doors, etc. It is possible to pick up more than one key at once.
+-------- KEYS --------
+wait : time in seconds before item respawns after being picked up (default 60, -1 = never respawn).
+random : random time variance in seconds added or subtracted from "wait" delay (default 0 - see Notes).
+team : set this to team items. Teamed items will respawn randomly after team master is picked up (see Notes).
+target : picking up the item will trigger the entity this points to.
+targetname : a target_give entity can point to this for respawn freebies.
+notfree : when set to 1, entity will not spawn in "Free for all" and "Tournament" modes.
+notteam : when set to 1, entity will not spawn in "Teamplay" and "CTF" modes.
+notsingle : when set to 1, entity will not spawn in Single Player mode (bot play mode).
+notbot : used to make an item invisible for bot attraction.
+-------- SPAWNFLAGS --------
+SUSPENDED : item will spawn where it was placed in map and won't drop to the floor.
+-------- NOTES --------
+The amount of time it takes for an item in the team to respawn is determined by the "wait" value of the item that was picked up previously. So if one of the items in the team has it's "wait" key set to -1 (never respawn), the random respawning cycle of the teamed items will stop after that item is picked up.
+
+When the random key is set, its value is used to calculate a minimum and a maximum delay. The final time delay will be a random value anywhere between the minimum and maximum values: (min delay = wait - random) (max delay = wait + random).
+-------- MODEL FOR RADIANT ONLY - DO NOT SET THIS AS A KEY --------
+model="models/powerups/keys/key_silver.md3"*/
+
+//=============================================================================
+
 /*QUAKED holdable_teleporter (.7 0 1) (-16 -16 -16) (16 16 16) SUSPENDED
 Teleporter item that can be picked up and used later. Teleports the player to a random player spawn point when used. Player can only carry one holdable item at a time.
 -------- KEYS --------
@@ -714,6 +783,29 @@ The amount of time it takes for an item in the team to respawn is determined by 
 When the random key is set, its value is used to calculate a minimum and a maximum delay. The final time delay will be a random value anywhere between the minimum and maximum values: (min delay = wait - random) (max delay = wait + random).
 -------- MODEL FOR RADIANT ONLY - DO NOT SET THIS AS A KEY --------
 model="models/powerups/holdable/teleporter.md3"*/
+
+//=============================================================================
+
+/*QUAKED holdable_key_yellow (.7 0 1) (-16 -16 -16) (16 16 16) SUSPENDED
+Key can be picked up and used in conjunction with a trigger_lock to open doors, etc. It is possible to pick up more than one key at once.
+-------- KEYS --------
+wait : time in seconds before item respawns after being picked up (default 60, -1 = never respawn).
+random : random time variance in seconds added or subtracted from "wait" delay (default 0 - see Notes).
+team : set this to team items. Teamed items will respawn randomly after team master is picked up (see Notes).
+target : picking up the item will trigger the entity this points to.
+targetname : a target_give entity can point to this for respawn freebies.
+notfree : when set to 1, entity will not spawn in "Free for all" and "Tournament" modes.
+notteam : when set to 1, entity will not spawn in "Teamplay" and "CTF" modes.
+notsingle : when set to 1, entity will not spawn in Single Player mode (bot play mode).
+notbot : used to make an item invisible for bot attraction.
+-------- SPAWNFLAGS --------
+SUSPENDED : item will spawn where it was placed in map and won't drop to the floor.
+-------- NOTES --------
+The amount of time it takes for an item in the team to respawn is determined by the "wait" value of the item that was picked up previously. So if one of the items in the team has it's "wait" key set to -1 (never respawn), the random respawning cycle of the teamed items will stop after that item is picked up.
+
+When the random key is set, its value is used to calculate a minimum and a maximum delay. The final time delay will be a random value anywhere between the minimum and maximum values: (min delay = wait - random) (max delay = wait + random).
+-------- MODEL FOR RADIANT ONLY - DO NOT SET THIS AS A KEY --------
+model="models/powerups/keys/keycard-y.md3"*/
 
 //=============================================================================
 
@@ -1769,7 +1861,7 @@ This entity will be triggered only when a player kills another player. The playe
 
 //=============================================================================
 
-/*QUAKED trigger_lock (.5 .5 .5) ? RED_ONLY BLUE_ONLY KEY_RED KEY_GREEN KEY_BLUE KEY_YELLOW
+/*QUAKED trigger_lock (.5 .5 .5) ? RED_ONLY BLUE_ONLY KEY_RED KEY_GREEN KEY_BLUE KEY_YELLOW KEY_MASTER KEY_GOLD KEY_SILVER KEY_IRON
 Used in conjunction with a holdable_key_* entities to grant/deny access to an entity (e.g. a door).
 -------- KEYS --------
 target : this points to the entity to activate.
@@ -1783,8 +1875,12 @@ KEY_RED : only triggered when player has holdable_key_red item.
 KEY_GREEN : only triggered when player has holdable_key_green item.
 KEY_BLUE : only triggered when player has holdable_key_blue item.
 KEY_YELLOW : only triggered when player has holdable_key_yellow item.
+KEY_MASTER : only triggered when player has holdable_key_master item.
+KEY_GOLD : only triggered when player has holdable_key_gold item.
+KEY_SILVER : only triggered when player has holdable_key_silver item.
+KEY_IRON : only triggered when player has holdable_key_iron item.
 -------- NOTES --------
-The KEY_* spawnflags are AND-ed, meaning that checking multiple of these spawnflags will require the player to have multiple keys to trigger the lock. When no KEY_* spawnflag is checked, the lock will respond to the holdable_key_red item.*/
+The KEY_* spawnflags are AND-ed, meaning that checking multiple of these spawnflags will require the player to have multiple keys to trigger the lock. When no KEY_* spawnflag is checked, the lock will always be triggered, even if the player has no keys.*/
 
 //=============================================================================
 

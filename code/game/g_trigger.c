@@ -604,7 +604,8 @@ void SP_trigger_frag( gentity_t *self ) {
 ==============================================================================
 
 EntityPlus: trigger_lock
-
+Note: If NONE of the trigger_lock's KEY_* spawnflags have been set, it operates
+like an ordinary trigger_multiple
 ==============================================================================
 */
 
@@ -616,7 +617,7 @@ void lock_touch(gentity_t *self, gentity_t *other, trace_t *trace) {
 
 	holdables = other->client->ps.stats[STAT_HOLDABLE_ITEM];
 
-	//if player doesn't have all the required keycards, do nothing
+	//if player doesn't have all the required key(card)s, do nothing
 	if ( (self->spawnflags & 4) && !(holdables & (1 << HI_KEY_RED)) ) 
 		return;
 	if ( (self->spawnflags & 8) && !(holdables & (1 << HI_KEY_GREEN)) )
@@ -625,8 +626,16 @@ void lock_touch(gentity_t *self, gentity_t *other, trace_t *trace) {
 		return;
 	if ( (self->spawnflags & 32) && !(holdables & (1 << HI_KEY_YELLOW)) )
 		return;
+	if ( (self->spawnflags & 64) && !(holdables & (1 << HI_KEY_MASTER)) )
+		return;
+	if ( (self->spawnflags & 128) && !(holdables & (1 << HI_KEY_GOLD)) )
+		return;
+	if ( (self->spawnflags & 256) && !(holdables & (1 << HI_KEY_SILVER)) )
+		return;
+	if ( (self->spawnflags & 512) && !(holdables & (1 << HI_KEY_IRON)) )
+		return;
 
-	// remove the required keys
+	// remove the required key(card)s
 	if (self->spawnflags & 4)
 		other->client->ps.stats[STAT_HOLDABLE_ITEM] -= (1 << HI_KEY_RED);
 	if (self->spawnflags & 8)
@@ -635,6 +644,14 @@ void lock_touch(gentity_t *self, gentity_t *other, trace_t *trace) {
 		other->client->ps.stats[STAT_HOLDABLE_ITEM] -= (1 << HI_KEY_BLUE);
 	if (self->spawnflags & 32)
 		other->client->ps.stats[STAT_HOLDABLE_ITEM] -= (1 << HI_KEY_YELLOW);
+	if (self->spawnflags & 64)
+		other->client->ps.stats[STAT_HOLDABLE_ITEM] -= (1 << HI_KEY_MASTER);
+	if (self->spawnflags & 128)
+		other->client->ps.stats[STAT_HOLDABLE_ITEM] -= (1 << HI_KEY_GOLD);
+	if (self->spawnflags & 256)
+		other->client->ps.stats[STAT_HOLDABLE_ITEM] -= (1 << HI_KEY_SILVER);
+	if (self->spawnflags & 512)
+		other->client->ps.stats[STAT_HOLDABLE_ITEM] -= (1 << HI_KEY_IRON);
 
 	// everything else is the same as a trigger_multiple
 	multi_trigger(self, other);
@@ -652,10 +669,6 @@ void SP_trigger_lock(gentity_t *self) {
 	// default values
 	G_SpawnFloat("wait", "0.5", &self->wait);
 	G_SpawnFloat("random", "0", &self->random);
-	
-	//if none of the KEY_* spawnflags have been selected, default to KEY_RED
-	if ( !(self->spawnflags & 4) && !(self->spawnflags & 8) && !(self->spawnflags & 16) && !(self->spawnflags & 32) )
-		self->spawnflags |= 4;
 
 	// random cannot be larger than wait
 	if ( self->random >= self->wait && self->wait >= 0 ) {
