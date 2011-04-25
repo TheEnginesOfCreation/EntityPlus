@@ -66,7 +66,7 @@ void TossClientItems( gentity_t *self ) {
 			return;	//bots don't drop items in single player
 
 		//the player drops a backpack in single player
-		item = BG_FindItemForBackpack();
+		item = BG_FindItemForBackpack(); 
 		Drop_Item( self, item, 0 );
 		
 	} else {

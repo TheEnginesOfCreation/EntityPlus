@@ -1594,7 +1594,7 @@ LinkBotSpawnEntity
 Links a bot to the entity that spawned it
 ============
 */
-void LinkBotSpawnEntity( gentity_t *bot, char *parentid[] ) {
+void LinkBotSpawnEntity( gentity_t *bot, char parentid[] ) {
 	gentity_t	*t;
 	int			entityNum;
 	

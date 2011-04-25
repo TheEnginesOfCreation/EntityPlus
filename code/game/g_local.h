@@ -646,7 +646,7 @@ void ClientDisconnect( int clientNum );
 void ClientBegin( int clientNum );
 void ClientCommand( int clientNum );
 void DropClientSilently( int clientNum );
-void LinkBotSpawnEntity( gentity_t *bot, char *parentid[] );
+void LinkBotSpawnEntity( gentity_t *bot, char parentid[] );
 void SetupCustomBot( gentity_t *bot );
 void PrecacheBotAssets();
 
