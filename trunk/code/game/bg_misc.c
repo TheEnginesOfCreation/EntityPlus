@@ -643,7 +643,7 @@ gitem_t	bg_itemlist[] =
 		"info_player_backpack", 
 		"sound/misc/w_pkup.wav",				//TODO: Make dedicated sound
         { "models/powerups/backpack/backpack.md3", 0, 0, 0},
-		"icons/iconf_blu1",						//TODO: Make dedicated icon
+		"icons/icon_backpack",
 		"Backpack",	
 		0,
 		IT_BACKPACK,
