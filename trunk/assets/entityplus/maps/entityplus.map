@@ -4333,6 +4333,24 @@ sfx/proto_zzztblu3
 ( -424 800 296 ) ( -424 808 296 ) ( -424 808 280 ) base_trim/pewter_shiney 48 31 -180 0.500000 -0.500000 0 0 0
 ( -424 792 296 ) ( -424 768 272 ) ( -464 792 296 ) base_trim/pewter_shiney -79 -48 -180 0.500000 0.500000 0 0 0
 }
+// brush 467
+{
+( 8 1704 240 ) ( -128 1704 240 ) ( -128 1576 240 ) common/clip 0 0 0 0.500000 0.500000 0 13 0
+( -128 1576 496 ) ( -128 1704 496 ) ( 8 1704 496 ) common/clip 0 0 0 0.500000 0.500000 0 13 0
+( -128 1576 496 ) ( 8 1576 496 ) ( 8 1576 240 ) common/clip 0 0 0 0.500000 0.500000 0 13 0
+( 0 1576 496 ) ( 0 1704 496 ) ( 0 1704 240 ) common/clip 0 0 0 0.500000 0.500000 0 13 0
+( 8 1704 496 ) ( -128 1704 496 ) ( -128 1704 240 ) common/clip 0 0 0 0.500000 0.500000 0 13 0
+( -128 1704 496 ) ( -128 1576 496 ) ( -128 1576 240 ) common/clip 0 0 0 0.500000 0.500000 0 13 0
+}
+// brush 468
+{
+( -768 1704 496 ) ( -768 1576 496 ) ( -768 1576 240 ) common/clip 0 0 0 0.500000 0.500000 0 13 0
+( -632 1704 496 ) ( -768 1704 496 ) ( -768 1704 240 ) common/clip 0 0 0 0.500000 0.500000 0 13 0
+( -640 1576 496 ) ( -640 1704 496 ) ( -640 1704 240 ) common/clip 0 0 0 0.500000 0.500000 0 13 0
+( -768 1576 496 ) ( -632 1576 496 ) ( -632 1576 240 ) common/clip 0 0 0 0.500000 0.500000 0 13 0
+( -768 1576 496 ) ( -768 1704 496 ) ( -632 1704 496 ) common/clip 0 0 0 0.500000 0.500000 0 13 0
+( -632 1704 240 ) ( -768 1704 240 ) ( -768 1576 240 ) common/clip 0 0 0 0.500000 0.500000 0 13 0
+}
 }
 // entity 1
 {
@@ -4341,6 +4359,7 @@ sfx/proto_zzztblu3
 "angle" "360"
 "origin" "8 0 56"
 "classname" "info_player_deathmatch"
+"target" "obj1"
 }
 // entity 2
 {
@@ -7009,7 +7028,7 @@ gothic_trim/pitted_rust3
 "origin" "-384 1472 312"
 "targetname" "botspawn_delay"
 "target" "botspawn"
-"wait" "5"
+"wait" "4"
 }
 // entity 207
 {
@@ -7500,4 +7519,131 @@ base_trim/pewter_shiney
 "angle" "90"
 "origin" "-384 1232 264"
 "classname" "info_player_deathmatch"
+}
+// entity 230
+{
+"classname" "target_objective"
+"origin" "72 16 56"
+"message" "Reach the exit of the level"
+"targetname" "obj1"
+}
+// entity 231
+{
+"message" "Explore the target_logic entity"
+"origin" "72 -8 56"
+"classname" "target_objective"
+"spawnflags" "1"
+"targetname" "obj1"
+}
+// entity 232
+{
+"classname" "target_objective"
+"origin" "616 200 88"
+"targetname" "block1"
+"spawnflags" "1"
+"message" "Experience low gravity"
+}
+// entity 233
+{
+"classname" "target_objective"
+"origin" "1496 160 128"
+"targetname" "airlock1"
+"spawnflags" "1"
+"message" "Learn about func_breakable"
+}
+// entity 234
+{
+"classname" "trigger_multiple"
+"wait" "-1"
+"target" "obj2"
+// brush 0
+{
+( 872 768 48 ) ( 872 616 48 ) ( 872 616 32 ) common/trigger 16 0 0 0.500000 0.500000 0 7 0
+( 1048 792 48 ) ( 872 792 48 ) ( 872 792 32 ) common/trigger -48 0 0 0.500000 0.500000 0 7 0
+( 1232 616 48 ) ( 1232 768 48 ) ( 1232 768 32 ) common/trigger 16 0 0 0.500000 0.500000 0 7 0
+( 864 616 48 ) ( 1040 616 48 ) ( 1040 616 32 ) common/trigger -48 0 0 0.500000 0.500000 0 7 0
+( 872 616 40 ) ( 872 768 40 ) ( 1048 768 40 ) common/trigger -48 -16 0 0.500000 0.500000 0 7 0
+( 1048 768 32 ) ( 872 768 32 ) ( 872 616 32 ) common/trigger -48 -16 0 0.500000 0.500000 0 7 0
+}
+}
+// entity 235
+{
+"classname" "target_objective"
+"origin" "1288 768 40"
+"targetname" "obj2"
+"spawnflags" "1"
+"message" "Enable the jumppad"
+}
+// entity 236
+{
+"classname" "target_objective"
+"origin" "648 952 64"
+"targetname" "disable1"
+"spawnflags" "1"
+"message" "Fire the double barrel BFG cannon"
+}
+// entity 237
+{
+"classname" "target_objective"
+"origin" "-384 816 272"
+"targetname" "bfg"
+"spawnflags" "1"
+"message" "Sharpen your combat skills"
+}
+// entity 238
+{
+"classname" "target_objective"
+"origin" "-344 1488 352"
+"targetname" "combatdoor"
+"spawnflags" "1"
+"message" "Enter the teleport beam"
+}
+// entity 239
+{
+"classname" "light"
+"origin" "-760 1336 368"
+"light" "100"
+"_color" "1.000000 0.837781 0.587274"
+}
+// entity 240
+{
+"_color" "1.000000 0.837781 0.587274"
+"light" "100"
+"origin" "-376 1352 368"
+"classname" "light"
+}
+// entity 241
+{
+"classname" "light"
+"origin" "0 1352 368"
+"light" "100"
+"_color" "1.000000 0.837781 0.587274"
+}
+// entity 242
+{
+"_color" "1.000000 0.837781 0.587274"
+"light" "100"
+"origin" "24 1800 368"
+"classname" "light"
+}
+// entity 243
+{
+"classname" "light"
+"origin" "-384 1808 368"
+"light" "100"
+"_color" "1.000000 0.837781 0.587274"
+}
+// entity 244
+{
+"_color" "1.000000 0.837781 0.587274"
+"light" "100"
+"origin" "-800 1816 368"
+"classname" "light"
+}
+// entity 245
+{
+"classname" "light"
+"origin" "-376 1512 368"
+"light" "75"
+"_color" "1.000000 0.000000 0.148363"
 }

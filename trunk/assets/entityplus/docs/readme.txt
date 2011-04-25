@@ -97,7 +97,7 @@ discussion thread in the Quake3World Level Editing & Modelling forums at http://
 
 VERSION HISTORY
 ---------------
-v0.4 (?? apr 2011)
+v0.4 (25 apr 2011)
 	- [Added] Dying in single player causes the player to drop a backpack which can be picked up to restore the player's weapons/ammo/holdables.
 	- [Added] Ladderclip texture to create ladders.
 	- [Added] DARK_DEBRIS key for target_debrisemitter to toggle between lighter and darker bits of debris.
