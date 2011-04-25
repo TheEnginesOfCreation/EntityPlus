@@ -1009,7 +1009,7 @@ G_AddSinglePlayerBot
 ====================
 */
 
-void G_AddCustomBot( const char *name, int parentEntityNum ) {
+void G_AddCustomBot( char *name, int parentEntityNum ) {
 	float skill = trap_Cvar_VariableValue( "g_spSkill" );
 	G_AddBot( name, skill, "free", 0, name, parentEntityNum );
 }
