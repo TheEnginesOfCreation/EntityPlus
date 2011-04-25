@@ -1458,7 +1458,8 @@ CG_DrawHoldableItem
 //#ifndef MISSIONPACK
 static void CG_DrawHoldableItem( void ) { 
 	int		value;
-	int		offset;
+	float	yoffset;
+	float	xoffset;
 
 	//draw usable item
 	value = GetHoldableListIndex(GetPlayerHoldable(cg.snap->ps.stats[STAT_HOLDABLE_ITEM]));
@@ -1468,43 +1469,87 @@ static void CG_DrawHoldableItem( void ) {
 		CG_DrawPic( 640-ICON_SIZE, (SCREEN_HEIGHT-ICON_SIZE)/2, ICON_SIZE, ICON_SIZE, cg_items[ value ].icon );
 	}
 
-	//draw red key
-	offset = ICON_SIZE;
+	//draw keys
+	yoffset = ICON_SIZE;
+	xoffset = ICON_SIZE/2;
+
+	//red key
 	if (cg.snap->ps.stats[STAT_HOLDABLE_ITEM] & (1 << HI_KEY_RED) ) {
 		value = GetHoldableListIndex(HI_KEY_RED);
 		if ( value ) {
 			CG_RegisterItemVisuals( value );
-			CG_DrawPic( 640-ICON_SIZE, ((SCREEN_HEIGHT-ICON_SIZE)/2)+offset, ICON_SIZE, ICON_SIZE, cg_items[ value ].icon );
+			CG_DrawPic( 640-ICON_SIZE+xoffset, ((SCREEN_HEIGHT-ICON_SIZE)/2)+yoffset, ICON_SIZE/2, ICON_SIZE/2, cg_items[ value ].icon );
+			yoffset += ICON_SIZE/2;
 		}
 	}
 
-	//draw green key
+	//green key
 	if (cg.snap->ps.stats[STAT_HOLDABLE_ITEM] & (1 << HI_KEY_GREEN) ) {
-		offset += ICON_SIZE;
 		value = GetHoldableListIndex(HI_KEY_GREEN);
 		if ( value ) {
 			CG_RegisterItemVisuals( value );
-			CG_DrawPic( 640-ICON_SIZE, ((SCREEN_HEIGHT-ICON_SIZE)/2)+offset, ICON_SIZE, ICON_SIZE, cg_items[ value ].icon );
+			CG_DrawPic( 640-ICON_SIZE+xoffset, ((SCREEN_HEIGHT-ICON_SIZE)/2)+yoffset, ICON_SIZE/2, ICON_SIZE/2, cg_items[ value ].icon );
+			yoffset += ICON_SIZE/2;
 		}
 	}
 
-	//draw blue key
+	//blue key
 	if (cg.snap->ps.stats[STAT_HOLDABLE_ITEM] & (1 << HI_KEY_BLUE) ) {
-		offset += ICON_SIZE;
 		value = GetHoldableListIndex(HI_KEY_BLUE);
 		if ( value ) {
 			CG_RegisterItemVisuals( value );
-			CG_DrawPic( 640-ICON_SIZE, ((SCREEN_HEIGHT-ICON_SIZE)/2)+offset, ICON_SIZE, ICON_SIZE, cg_items[ value ].icon );
+			CG_DrawPic( 640-ICON_SIZE+xoffset, ((SCREEN_HEIGHT-ICON_SIZE)/2)+yoffset, ICON_SIZE/2, ICON_SIZE/2, cg_items[ value ].icon );
+			yoffset += ICON_SIZE/2;
 		}
 	}
 	
-	//draw yellow key
+	//yellow key
 	if (cg.snap->ps.stats[STAT_HOLDABLE_ITEM] & (1 << HI_KEY_YELLOW) ) {
-		offset += ICON_SIZE;
 		value = GetHoldableListIndex(HI_KEY_YELLOW);
 		if ( value ) {
 			CG_RegisterItemVisuals( value );
-			CG_DrawPic( 640-ICON_SIZE, ((SCREEN_HEIGHT-ICON_SIZE)/2)+offset, ICON_SIZE, ICON_SIZE, cg_items[ value ].icon );
+			CG_DrawPic( 640-ICON_SIZE+xoffset, ((SCREEN_HEIGHT-ICON_SIZE)/2)+yoffset, ICON_SIZE/2, ICON_SIZE/2, cg_items[ value ].icon );
+			yoffset += ICON_SIZE/2;
+		}
+	}
+
+	//master key
+	if (cg.snap->ps.stats[STAT_HOLDABLE_ITEM] & (1 << HI_KEY_MASTER) ) {
+		value = GetHoldableListIndex(HI_KEY_MASTER);
+		if ( value ) {
+			CG_RegisterItemVisuals( value );
+			CG_DrawPic( 640-ICON_SIZE+xoffset, ((SCREEN_HEIGHT-ICON_SIZE)/2)+yoffset, ICON_SIZE/2, ICON_SIZE/2, cg_items[ value ].icon );
+			yoffset += ICON_SIZE/2;
+		}
+	}
+
+	//gold key
+	if (cg.snap->ps.stats[STAT_HOLDABLE_ITEM] & (1 << HI_KEY_GOLD) ) {		
+		value = GetHoldableListIndex(HI_KEY_GOLD);
+		if ( value ) {
+			CG_RegisterItemVisuals( value );
+			CG_DrawPic( 640-ICON_SIZE+xoffset, ((SCREEN_HEIGHT-ICON_SIZE)/2)+yoffset, ICON_SIZE/2, ICON_SIZE/2, cg_items[ value ].icon );
+			yoffset += ICON_SIZE/2;
+		}
+	}
+
+	//silver key
+	if (cg.snap->ps.stats[STAT_HOLDABLE_ITEM] & (1 << HI_KEY_SILVER) ) {
+		value = GetHoldableListIndex(HI_KEY_SILVER);
+		if ( value ) {
+			CG_RegisterItemVisuals( value );
+			CG_DrawPic( 640-ICON_SIZE+xoffset, ((SCREEN_HEIGHT-ICON_SIZE)/2)+yoffset, ICON_SIZE/2, ICON_SIZE/2, cg_items[ value ].icon );
+			yoffset += ICON_SIZE/2;
+		}
+	}
+
+	//iron key
+	if (cg.snap->ps.stats[STAT_HOLDABLE_ITEM] & (1 << HI_KEY_IRON) ) {
+		value = GetHoldableListIndex(HI_KEY_IRON);
+		if ( value ) {
+			CG_RegisterItemVisuals( value );
+			CG_DrawPic( 640-ICON_SIZE+xoffset, ((SCREEN_HEIGHT-ICON_SIZE)/2)+yoffset, ICON_SIZE/2, ICON_SIZE/2, cg_items[ value ].icon );
+			yoffset += ICON_SIZE/2;
 		}
 	}
 

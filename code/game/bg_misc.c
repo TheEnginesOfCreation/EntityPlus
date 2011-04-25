@@ -503,7 +503,7 @@ gitem_t	bg_itemlist[] =
 		"holdable_key_master", 
 		"sound/items/holdable.wav",
         { "models/powerups/keys/key_master.md3", 0, 0, 0},
-		"icons/key_yellow",	//TODO: create 2d icon
+		"icons/key_master",
 		"Master key",
 		60,
 		IT_HOLDABLE,
@@ -516,7 +516,7 @@ gitem_t	bg_itemlist[] =
 		"holdable_key_gold", 
 		"sound/items/holdable.wav",
         { "models/powerups/keys/key_gold.md3", 0, 0, 0},
-		"icons/key_yellow",	//TODO: create 2d icon
+		"icons/key_gold",
 		"Gold key",
 		60,
 		IT_HOLDABLE,
@@ -529,7 +529,7 @@ gitem_t	bg_itemlist[] =
 		"holdable_key_silver", 
 		"sound/items/holdable.wav",
         { "models/powerups/keys/key_silver.md3", 0, 0, 0},
-		"icons/key_yellow",	//TODO: create 2d icon
+		"icons/key_silver",
 		"Silver key",
 		60,
 		IT_HOLDABLE,
@@ -542,7 +542,7 @@ gitem_t	bg_itemlist[] =
 		"holdable_key_iron", 
 		"sound/items/holdable.wav",
         { "models/powerups/keys/key_iron.md3", 0, 0, 0},
-		"icons/key_yellow",	//TODO: create 2d icon
+		"icons/key_iron",
 		"Iron key",
 		60,
 		IT_HOLDABLE,
