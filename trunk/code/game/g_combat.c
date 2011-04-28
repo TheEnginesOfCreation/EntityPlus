@@ -37,8 +37,9 @@ void AddScore( gentity_t *ent, vec3_t origin, int score ) {
 	if ( level.warmupTime ) {
 		return;
 	}
-	// show score plum
-	ScorePlum(ent, origin, score);
+	// show score plum if not in single player mode
+	if ( g_gametype.integer != GT_SINGLE_PLAYER )
+		ScorePlum(ent, origin, score);
 	//
 	ent->client->ps.persistant[PERS_SCORE] += score;
 	if ( g_gametype.integer == GT_TEAM )
@@ -503,7 +504,9 @@ void player_die( gentity_t *self, gentity_t *inflictor, gentity_t *attacker, int
 		attacker->client->lastkilled_client = self->s.number;
 
 		if ( attacker == self || OnSameTeam (self, attacker ) ) {
-			AddScore( attacker, self->r.currentOrigin, -1 );
+			//only substract a score from the player upon suicide if the gametype isn't single player
+			if (g_gametype.integer != GT_SINGLE_PLAYER)
+				AddScore( attacker, self->r.currentOrigin, -1 );
 		} else {
 			AddScore( attacker, self->r.currentOrigin, 1 );
 
@@ -535,7 +538,7 @@ void player_die( gentity_t *self, gentity_t *inflictor, gentity_t *attacker, int
 			attacker->client->lastKillTime = level.time;
 
 		}
-	} else {
+	} else if ( g_gametype.integer != GT_SINGLE_PLAYER ) {
 		AddScore( self, self->r.currentOrigin, -1 );
 	}
 
