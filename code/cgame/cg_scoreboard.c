@@ -243,14 +243,14 @@ CG_DrawSinglePlayerObjectives
 Draw the normal in-game scoreboard
 =================
 */
-void CG_DrawSinglePlayerObjectives( void ) {
+qboolean CG_DrawSinglePlayerObjectives( void ) {
 	const char *p;
 	const char *s;
 	vec4_t color;
 	int i;
 
 	if ( !cg.showScores )
-		return;
+		return qfalse;
 
 	color[0] = 0.3;
 	color[1] = 1;
@@ -278,6 +278,7 @@ void CG_DrawSinglePlayerObjectives( void ) {
 		}
 	}
 
+	return qtrue;
 }
 
 /*
@@ -308,8 +309,7 @@ qboolean CG_DrawOldScoreboard( void ) {
 			return qfalse;
 		}
 
-		CG_DrawSinglePlayerObjectives();	//draw objectives screen instead of scores in SP.
-		return qtrue;
+		return CG_DrawSinglePlayerObjectives();	//draw objectives screen instead of scores in SP.
 	}
 
 	// don't draw scoreboard during death while warmup up

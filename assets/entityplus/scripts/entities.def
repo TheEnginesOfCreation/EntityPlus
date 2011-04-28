@@ -1440,6 +1440,7 @@ Spawns a bot into the game at the location of the target_botspawn entity.
 -------- KEYS --------
 angle : direction in which bot will look when spawning in the game.
 clientname : the name of the bot to spawn. When omitted it defaults to Sarge.
+health : the amount of health the bot will have when it spawns into the game.
 target : this points to entities to activate when this entity is triggered.
 targetname : activating trigger points to this.
 notfree : when set to 1, entity will not spawn in "Free for all" and "Tournament" modes.

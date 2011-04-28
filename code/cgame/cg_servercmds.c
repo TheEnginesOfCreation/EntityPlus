@@ -979,17 +979,14 @@ static void CG_ServerCommand( void ) {
 	}
 
 	if ( !strcmp( cmd, "print" ) ) {
-		//commented out method below does a simple substring. The active implementation checks for the DR_SILENT_DROP substring at the end
-		//of the entire command, which is a more accurate way of detecting if this is a silent player drop.
-		/*
-		if (!strstr(arg, "DR_SILENT_DROP"))
-			CG_Printf( "%s", arg ); 
-		*/
+		
+		//if the message to print is about a client being dropped after a silent drop, suppress the drop message
 		arg = CG_Argv(1);
 		offset = strlen(arg) - strlen("DR_SILENT_DROP") - 1 ;
+		if ( !strcmp(&arg[offset], "DR_SILENT_DROP\n") )
+			return;
 		
-		if ( strcmp(&arg[offset], "DR_SILENT_DROP\n") )
-			CG_Printf( "%s", arg );
+		CG_Printf( "%s", arg );
 #ifdef MISSIONPACK
 		cmd = CG_Argv(1);			// yes, this is obviously a hack, but so is the way we hear about
 									// votes passing or failing
