@@ -311,98 +311,118 @@ models/powerups/keys/key_iron_snake
 
 models/powerups/keys/key_master
 {
-	{
-		map models/powerups/keys/envmap-r.tga
-		tcGen environment
-		rgbGen lightingDiffuse
-		tcMod scroll .05 .05
-		tcmod scale 2 2
-	}
-	{
-		map models/powerups/keys/envmap-r.tga
-		blendFunc add
-		tcGen environment
-		tcMod scroll .05 .05
-		tcmod scale 2 2
-		rgbGen wave sin 0 1 0 .5
-	}
-	{
-		map models/powerups/keys/key_master.tga
-		blendFunc blend
-		rgbGen lightingDiffuse
-	}
+   {
+      map models/powerups/keys/key_gold.tga
+      rgbGen lightingDiffuse      
+   }
+   {
+      map models/powerups/keys/envmap-r.tga
+      blendFunc add         
+      tcGen environment
+      rgbGen lightingDiffuse
+      tcMod scroll .05 .05
+      tcmod scale 2 2
+   }
+   {
+      map models/powerups/keys/envmap-r.tga
+      blendFunc add
+      tcGen environment
+      tcMod scroll .05 .05
+      tcmod scale 2 2
+      rgbGen wave sin 0 1 0 .5
+   }
+   {
+      map models/powerups/keys/key_master.tga
+      blendFunc blend
+      rgbGen lightingDiffuse
+   }
 }
 
 models/powerups/keys/key_gold
 {
-	{
-		map models/powerups/keys/envmap-y.tga
-		tcGen environment
-		rgbGen lightingDiffuse
-		tcMod scroll .05 .05
-		tcmod scale 2 2
-	}
-	{
-		map models/powerups/keys/envmap-y.tga
-		blendFunc add
-		tcGen environment
-		tcMod scroll .05 .05
-		tcmod scale 2 2
-		rgbGen wave sin 0 1 0 .5
-	}
-	{
-		map models/powerups/keys/key_gold.tga
-		blendFunc blend
-		rgbGen lightingDiffuse
-	}
+   {
+      map models/powerups/keys/key_gold.tga
+      rgbGen lightingDiffuse      
+   }
+   {
+      map models/powerups/keys/envmap-y.tga
+      blendFunc add      
+      tcGen environment
+      rgbGen lightingDiffuse
+      tcMod scroll .05 .05
+      tcmod scale 2 2
+   }
+   {
+      map models/powerups/keys/envmap-y.tga
+      blendFunc add
+      tcGen environment
+      tcMod scroll .05 .05
+      tcmod scale 2 2
+      rgbGen wave sin 0 1 0 .5
+   }
+   {
+      map models/powerups/keys/key_gold.tga
+      blendFunc blend
+      rgbGen lightingDiffuse
+   }
 }
 
 models/powerups/keys/key_silver
 {
-	{
-		map models/powerups/keys/envmap-b.tga
-		tcGen environment
-		rgbGen lightingDiffuse
-		tcMod scroll .05 .05
-		tcmod scale 2 2
-	}
-	{
-		map models/powerups/keys/envmap-b.tga
-		blendFunc add
-		tcGen environment
-		tcMod scroll .05 .05
-		tcmod scale 2 2
-		rgbGen wave sin 0 1 0 .5
-	}
-	{
-		map models/powerups/keys/key_silver.tga
-		blendFunc blend
-		rgbGen lightingDiffuse
-	}
+   {
+      map models/powerups/keys/key_silver.tga
+      rgbGen lightingDiffuse      
+   }
+   {
+      map models/powerups/keys/envmap-b.tga
+      blendFunc add      
+      tcGen environment
+      rgbGen lightingDiffuse
+      tcMod scroll .05 .05
+      tcmod scale 2 2
+   }
+   {
+      map models/powerups/keys/envmap-b.tga
+      blendFunc add
+      tcGen environment
+      tcMod scroll .05 .05
+      tcmod scale 2 2
+      rgbGen wave sin 0 1 0 .5
+   }
+   {
+      map models/powerups/keys/key_silver.tga
+      blendFunc blend
+      rgbGen lightingDiffuse
+   }
 }
 
 models/powerups/keys/key_iron
 {
-	{
-		map models/powerups/keys/envmap-y.tga
-		tcGen environment
-		rgbGen lightingDiffuse
-		tcMod scroll .05 .05
-		tcmod scale 2 2
-	}
-	{
-		map models/powerups/keys/envmap-y.tga
-		blendFunc add
-		tcGen environment
-		tcMod scroll .05 .05
-		tcmod scale 2 2
-		rgbGen wave sin 0 1 0 .5
-	}
-	{
-		map models/powerups/keys/key_iron.tga
-		blendFunc blend
-		rgbGen lightingDiffuse
-	}
+   {
+      map models/powerups/keys/key_iron.tga
+      rgbGen lightingDiffuse      
+   }
+   {
+      map models/powerups/keys/envmap-y.tga
+      blendFunc add         
+      tcGen environment
+      rgbGen lightingDiffuse
+      tcMod scroll .05 .05
+      tcmod scale 2 2
+   }
+   {
+      map models/powerups/keys/envmap-y.tga
+      blendFunc add
+      tcGen environment
+      tcMod scroll .05 .05
+      tcmod scale 2 2
+      rgbGen wave sin 0 1 0 .5
+   }
+   {
+      map models/powerups/keys/key_iron.tga
+      blendFunc blend
+      rgbGen lightingDiffuse
+   }
 }
 
 
