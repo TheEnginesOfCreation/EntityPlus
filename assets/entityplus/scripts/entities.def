@@ -1368,7 +1368,7 @@ This will shoot a bfg projectile each time it's triggered. Aiming is done by set
 -------- KEYS --------
 angles: this sets the pitch and yaw aiming angles of shooter (default 0 0). The roll angle does not apply.
 targetname : activating trigger points to this.
-target : this points to a target_position entity for aiming the grenades.
+target : this points to a target_position entity for aiming the bfg shots.
 random : random aiming variance in degrees from the straight line to the targeted entity (default 0 - see Notes).
 notfree : when set to 1, entity will not spawn in "Free for all" and "Tournament" modes.
 notteam : when set to 1, entity will not spawn in "Teamplay" and "CTF" modes.
