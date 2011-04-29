@@ -1,6 +1,7 @@
 v0.5 (?? may 2011)
 	- [Added] health key to target_botspawn in entities.def
 	- [Fixed] target_print does not display any text in single player mode.
+	- [Fixed] entities.def entry for shooter_bfg refers to shooting grenades.
 	- [Changed] Suicide no longer subtracts a kill in single player mode.
 	- [Changed] Score plums are no longer shown in single player mode.
 
