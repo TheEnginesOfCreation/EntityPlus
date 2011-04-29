@@ -192,7 +192,7 @@ int Pickup_Holdable( gentity_t *ent, gentity_t *other ) {
 
 //======================================================================
 
-void Pickup_Backpack( gentity_t *ent, gentity_t *other) {
+int Pickup_Backpack( gentity_t *ent, gentity_t *other) {
 	//ent is the backpack
 	//other is the player picking the backpack up
 	//function doesn't return a respawn time because backpacks never respawn
@@ -240,6 +240,8 @@ void Pickup_Backpack( gentity_t *ent, gentity_t *other) {
 	}
 
 	other->client->ps.stats[STAT_HOLDABLE_ITEM] = ent->backpackContents[0];
+
+	return -1;
 }
 
 
@@ -507,7 +509,7 @@ void Touch_Item (gentity_t *ent, gentity_t *other, trace_t *trace) {
 		respawn = Pickup_Holdable(ent, other);
 		break;
 	case IT_BACKPACK:
-		Pickup_Backpack(ent, other);
+		respawn = Pickup_Backpack(ent, other);
 		break;
 	default:
 		return;
@@ -546,6 +548,10 @@ void Touch_Item (gentity_t *ent, gentity_t *other, trace_t *trace) {
 
 	// fire item targets
 	G_UseTargets (ent, other);
+
+	// items with no specified respawn will not respawn in SP
+	if ( !ent->wait && g_gametype.integer == GT_SINGLE_PLAYER )
+		ent->wait = -1;
 
 	// wait of -1 will not respawn
 	if ( ent->wait == -1 ) {
