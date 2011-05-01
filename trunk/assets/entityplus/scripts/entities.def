@@ -1866,6 +1866,7 @@ This entity will be triggered only when a player kills another player. The playe
 Used in conjunction with a holdable_key_* entities to grant/deny access to an entity (e.g. a door).
 -------- KEYS --------
 target : this points to the entity to activate.
+message : message displayed when user triggers lock without the required keys.
 notfree : when set to 1, entity will not spawn in "Free for all" and "Tournament" modes.
 notteam : when set to 1, entity will not spawn in "Teamplay" and "CTF" modes.
 notsingle : when set to 1, entity will not spawn in Single Player mode (bot play mode).

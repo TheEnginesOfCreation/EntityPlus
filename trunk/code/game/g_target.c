@@ -775,6 +775,8 @@ void target_objective_use (gentity_t *self, gentity_t *other, gentity_t *activat
 		trap_SetConfigstring( CS_SECONDARYOBJECTIVE, self->message );
 	else
 		trap_SetConfigstring( CS_PRIMARYOBJECTIVE, self->message );
+
+	trap_SendServerCommand( activator-g_entities, va("cp \"%s\"", "Objectives updated" ));
 }
 
 void SP_target_objective (gentity_t *self) {
