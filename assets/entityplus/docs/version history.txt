@@ -7,6 +7,7 @@ v0.5 (?? may 2011)
 	- [Changed] Score plums are no longer shown in single player mode.
 	- [Changed] Items no longer respawn in single player mode unless a specific value for the 'wait' key was specified.
 	- [Changed] Shaders and icons for skeleton keys have been updated
+	- [Changed] Awards (humiliation/impressive/excellent) are no longer rewarded in single player mode for improved game immersion.
 
 v0.4 (25 apr 2011)
 	- [Added] Dying in single player causes the player to drop a backpack which can be picked up to restore the player's weapons/ammo/holdables.

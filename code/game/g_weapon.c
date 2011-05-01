@@ -527,7 +527,8 @@ void weapon_railgun_fire (gentity_t *ent) {
 	} else {
 		// check for "impressive" reward sound
 		ent->client->accurateCount += hits;
-		if ( ent->client->accurateCount >= 2 ) {
+		//entityplus: awards are not rewarded in SP
+		if ( ent->client->accurateCount >= 2 && g_gametype.integer != GT_SINGLE_PLAYER ) {
 			ent->client->accurateCount -= 2;
 			ent->client->ps.persistant[PERS_IMPRESSIVE_COUNT]++;
 			// add the sprite over the player's head
