@@ -833,7 +833,7 @@ void G_Damage( gentity_t *targ, gentity_t *inflictor, gentity_t *attacker,
 
 	//in single player bots cannot harm other bots
 	//TODO: adapt bot AI so they don't initiate attacks on each other
-	if ( g_gametype.integer == GT_SINGLE_PLAYER && IsBot( targ ) && IsBot( attacker ) )
+	if ( g_gametype.integer == GT_SINGLE_PLAYER && IsBot( targ ) && attacker && IsBot( attacker ) )
 		return;
 
 	// the intermission has allready been qualified for, so don't
@@ -894,7 +894,7 @@ void G_Damage( gentity_t *targ, gentity_t *inflictor, gentity_t *attacker,
 	// "Hurt me plenty" does 0.4 dmg
 	// "Hardcore" does 0.5 dmg
 	// "Nightmare does 0.6 dmg
-	if ( g_gametype.integer == GT_SINGLE_PLAYER && IsBot(attacker) ) {
+	if ( g_gametype.integer == GT_SINGLE_PLAYER && attacker && IsBot(attacker) ) {
 		damage *= (0.1 + (0.1 * trap_Cvar_VariableValue( "g_spSkill" )));
 	}
 
