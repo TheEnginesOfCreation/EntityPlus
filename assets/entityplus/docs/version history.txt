@@ -5,6 +5,7 @@ v0.5 (?? may 2011)
 	- [Fixed] target_print does not display any text in single player mode.
 	- [Fixed] entities.def entry for shooter_bfg refers to shooting grenades.
 	- [Fixed] Game crashes when bots receive damage from world hazards (lava/slime/cratering/etc).
+	- [Fixed] light/color keys on func_ entities
 	- [Changed] Suicide no longer subtracts a kill in single player mode.
 	- [Changed] Score plums are no longer shown in single player mode.
 	- [Changed] Items no longer respawn in single player mode unless a specific value for the 'wait' key was specified.
