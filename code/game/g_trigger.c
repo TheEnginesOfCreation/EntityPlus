@@ -611,29 +611,37 @@ like an ordinary trigger_multiple
 
 void lock_touch(gentity_t *self, gentity_t *other, trace_t *trace) {
 	int holdables;
+	qboolean playerHasKeys;
 	
 	if (!other->client)
 		return;
 
 	holdables = other->client->ps.stats[STAT_HOLDABLE_ITEM];
+	playerHasKeys = qtrue;
 
 	//if player doesn't have all the required key(card)s, do nothing
 	if ( (self->spawnflags & 4) && !(holdables & (1 << HI_KEY_RED)) ) 
-		return;
+		playerHasKeys = qfalse;
 	if ( (self->spawnflags & 8) && !(holdables & (1 << HI_KEY_GREEN)) )
-		return;
+		playerHasKeys = qfalse;
 	if ( (self->spawnflags & 16) && !(holdables & (1 << HI_KEY_BLUE)) )
-		return;
+		playerHasKeys = qfalse;
 	if ( (self->spawnflags & 32) && !(holdables & (1 << HI_KEY_YELLOW)) )
-		return;
+		playerHasKeys = qfalse;
 	if ( (self->spawnflags & 64) && !(holdables & (1 << HI_KEY_MASTER)) )
-		return;
+		playerHasKeys = qfalse;
 	if ( (self->spawnflags & 128) && !(holdables & (1 << HI_KEY_GOLD)) )
-		return;
+		playerHasKeys = qfalse;
 	if ( (self->spawnflags & 256) && !(holdables & (1 << HI_KEY_SILVER)) )
-		return;
+		playerHasKeys = qfalse;
 	if ( (self->spawnflags & 512) && !(holdables & (1 << HI_KEY_IRON)) )
+		playerHasKeys = qfalse;
+
+	if ( !playerHasKeys ) {
+		if ( self->message )
+			trap_SendServerCommand( other-g_entities, va("cp \"%s\"", self->message ));
 		return;
+	}
 
 	// remove the required key(card)s
 	if (self->spawnflags & 4)

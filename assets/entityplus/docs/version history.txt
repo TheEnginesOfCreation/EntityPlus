@@ -1,5 +1,7 @@
 v0.5 (?? may 2011)
 	- [Added] health key to target_botspawn in entities.def.
+	- [Added] message key to trigger_lock.
+	- [Added] target_objective displays "objectives updated" message in screen when triggered.
 	- [Fixed] target_print does not display any text in single player mode.
 	- [Fixed] entities.def entry for shooter_bfg refers to shooting grenades.
 	- [Fixed] Game crashes when bots receive damage from world hazards (lava/slime/cratering/etc).
