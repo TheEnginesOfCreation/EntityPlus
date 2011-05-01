@@ -510,7 +510,8 @@ void player_die( gentity_t *self, gentity_t *inflictor, gentity_t *attacker, int
 		} else {
 			AddScore( attacker, self->r.currentOrigin, 1 );
 
-			if( meansOfDeath == MOD_GAUNTLET ) {
+			// entityplus: awards are not rewarded in SP
+			if( meansOfDeath == MOD_GAUNTLET && g_gametype.integer != GT_SINGLE_PLAYER ) {
 				
 				// play humiliation on player
 				attacker->client->ps.persistant[PERS_GAUNTLET_FRAG_COUNT]++;
@@ -526,7 +527,8 @@ void player_die( gentity_t *self, gentity_t *inflictor, gentity_t *attacker, int
 
 			// check for two kills in a short amount of time
 			// if this is close enough to the last kill, give a reward sound
-			if ( level.time - attacker->client->lastKillTime < CARNAGE_REWARD_TIME ) {
+			// entityplus: awards are not rewarded in SP
+			if ( level.time - attacker->client->lastKillTime < CARNAGE_REWARD_TIME && g_gametype.integer != GT_SINGLE_PLAYER ) {
 				// play excellent on player
 				attacker->client->ps.persistant[PERS_EXCELLENT_COUNT]++;
 
