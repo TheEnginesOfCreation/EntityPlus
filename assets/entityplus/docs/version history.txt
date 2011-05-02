@@ -1,5 +1,6 @@
 v0.5 (?? may 2011)
 	- [Added] health key to target_botspawn in entities.def.
+	- [Added] entities.def mentioning a wait key of -2 for func_button.
 	- [Added] message key to trigger_lock.
 	- [Added] target_objective displays "objectives updated" message in screen when triggered.
 	- [Fixed] target_print does not display any text in single player mode.
