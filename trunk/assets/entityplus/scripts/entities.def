@@ -301,7 +301,7 @@ When a button is touched by a player, it moves in the direction set by the "angl
 angle : determines the direction in which the button will move (up = -1, down = -2).
 target : all entities with a matching targetname will be triggered.
 speed : speed of button's displacement (default 40).
-wait : number of seconds button stays pressed (default 1, -1 = return immediately).
+wait : number of seconds button stays pressed (default 1, -1 = return immediately, -2 return only when triggered again)).
 lip : lip remaining at end of move (default 4 units).
 health : (default 0) if set to any non-zero value, the button must take damage (any amount) to activate.
 sound : if set, overrides the sound played when the button is pressed.
