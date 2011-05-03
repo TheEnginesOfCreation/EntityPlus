@@ -3,10 +3,11 @@ v0.5 (?? may 2011)
 	- [Added] entities.def mentioning a wait key of -2 for func_button.
 	- [Added] message key to trigger_lock.
 	- [Added] target_objective displays "objectives updated" message in screen when triggered.
+	- [Added] count key and DARK_DEBRIS spawnflag to func_breakable so it can spew out debris without a target_debrisemitter
 	- [Fixed] target_print does not display any text in single player mode.
 	- [Fixed] entities.def entry for shooter_bfg refers to shooting grenades.
 	- [Fixed] Game crashes when bots receive damage from world hazards (lava/slime/cratering/etc).
-	- [Fixed] light/color keys on func_ entities
+	- [Fixed] light/color keys on func_ entities for proper use of constantLight
 	- [Changed] Suicide no longer subtracts a kill in single player mode.
 	- [Changed] Score plums are no longer shown in single player mode.
 	- [Changed] Items no longer respawn in single player mode unless a specific value for the 'wait' key was specified.
