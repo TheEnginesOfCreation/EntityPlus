@@ -74,17 +74,29 @@ A seperate map to demonstrate the use of the key and lock entities is included w
 CREDITS
 -------
 Project lead and programming	: Eraesr
+								  [http://www.theenginesofcreation.com]
 
 Additional programming and
 programming support				: ^misantropia^
+								  [https://github.com/bnoordhuis]
+	
 
 Additional programming			: Kaz
+								  [http://student.cs.appstate.edu/freemancw]
+
+Programming support				: Perle			
+								  [http://www.q3rally.com]
 
 Keycard models and skins		: Obsidian
+								  [http://www.robotrenegade.com]
 
 Skeleton key models and skins	: Hipshot
+								  [http://www.zfight.com]
 
-Debris models					: DaEngineer
+Debris and backpack models		: DaEngineer
+								  [http://victorkarp.wordpress.com]
+
+
 
 
 CONTACT

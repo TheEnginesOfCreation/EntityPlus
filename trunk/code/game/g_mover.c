@@ -1462,18 +1462,43 @@ BREAKABLE
 
 //other is the player that broke the func_breakable
 void Break_Breakable(gentity_t *ent, gentity_t *other/*, trace_t *trace */) {
-	//TODO: make func_breakable play a sound when it's broken?
+	vec3_t size;
+	vec3_t center;
+	int count = 0;
+	int spawnflags = 0;
+	gentity_t *tmp;
+
+	// Get the center of the glass (code donated by Perle)
+	VectorSubtract(ent->r.maxs, ent->r.mins, size);
+    VectorScale(size, 0.5, size);
+    VectorAdd(ent->r.mins, size, center);
+
+
 	ent->takedamage = qfalse;
 	ent->s.eType = ET_INVISIBLE;
-	//ent->freeAfterEvent = qtrue;
-	//G_AddEvent( ent, EV_EMIT_DEBRIS, 0 );
-	
 	G_UseTargets( ent, other );
+
+	if ( ent->count > 0) {
+		count = ent->count;
+		spawnflags = ent->spawnflags;
+	}
+
+	//TODO: make func_breakable play a sound when it's broken?
 	G_FreeEntity( ent );
+
+
+	//spray out debris
+	if ( count > 0 ) {
+		if ( spawnflags & 1 )
+			tmp = G_TempEntity(center, EV_EMIT_DEBRIS_DARK);
+		else
+			tmp = G_TempEntity(center, EV_EMIT_DEBRIS_NORMAL);
+		tmp->s.eventParm = count;
+	}
 }
 
 
-/*QUAKED func_breakable (0 .5 .8) ?
+/*QUAKED func_breakable (0 .5 .8) ? DARK_DEBRIS
 A bmodel that just sits there, doing nothing. It is removed when it received a set amount of damage.
 "model2"	.md3 model to also draw
 "color"		constantLight color
@@ -1486,7 +1511,6 @@ void SP_func_breakable( gentity_t *ent ) {
 	VectorCopy( ent->s.origin, ent->s.pos.trBase );
 	VectorCopy( ent->s.origin, ent->r.currentOrigin );
 	ent->takedamage = qtrue;
-	//ent->touch = Break_Breakable;
 	ent->use = NULL;
 	ent->r.contents = CONTENTS_SOLID; 
 	ent->clipmask = MASK_SOLID;
