@@ -642,6 +642,9 @@ void lock_touch(gentity_t *self, gentity_t *other, trace_t *trace) {
 			trap_SendServerCommand( other-g_entities, va("cp \"%s\"", self->message ));
 		return;
 	}
+	else {
+		self->message = 0;	//remove the message so it's not displayed anymore once the lock is opened
+	}
 
 	// remove the required key(card)s
 	if (self->spawnflags & 4)
