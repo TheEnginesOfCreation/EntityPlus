@@ -60,15 +60,12 @@ This map can be loaded by entering the following commands in the console:
 
 	\fraglimit 0
 	\timelimit 0
-    \spmap entityplus 
+	\sv_maxclients 32
+	\con_notifytime 0
+	\spmap ep_example 
 
 The map can also be started by double clicking the entityplus.bat file that comes with the release package. This batch file 
 is located next to the quake.exe executable.
-
-
-KEY EXAMPLE
------------
-A seperate map to demonstrate the use of the key and lock entities is included with the name "keytest".
 
 
 CREDITS
