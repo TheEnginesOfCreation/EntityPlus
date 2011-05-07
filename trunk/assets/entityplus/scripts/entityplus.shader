@@ -1,4 +1,20 @@
 //
+// LADDERCLIP
+//
+textures/common/ladderclip
+{
+	qer_trans 0.40
+	surfaceparm nolightmap
+	surfaceparm nomarks
+	surfaceparm nodraw
+	surfaceparm nonsolid
+	surfaceparm playerclip
+	surfaceparm noimpact
+	surfaceparm ladder
+}
+
+
+//
 // ITEM_ARMOR_VEST
 //
 
@@ -25,20 +41,6 @@ models/powerups/armor/energy_gre1
 	}
 }
 
-//
-// LADDERCLIP
-//
-textures/common/ladderclip
-{
-	qer_trans 0.40
-	surfaceparm nolightmap
-	surfaceparm nomarks
-	surfaceparm nodraw
-	surfaceparm nonsolid
-	surfaceparm playerclip
-	surfaceparm noimpact
-	surfaceparm ladder
-}
 
 //
 // KEYCARDS 
@@ -430,120 +432,23 @@ models/powerups/keys/key_iron
 // ENTITYPLUS.MAP
 //
 
-textures/entityplus/dirt
-{
-	qer_editorimage textures/organics/dirt2.tga
-	surfaceparm trans
+textures/entityplus/lavahelldark
 	{
-		map $lightmap
-		rgbGen identity
-	}
-	{
-		map textures/organics/dirt2.tga
-		rgbGen identity
-	}
-}
-
-textures/entityplus/target_logic
-{
-	qer_editorimage textures/entityplus/target_logic.tga
-	qer_trans .5
-	surfaceparm nomarks
-	surfaceparm trans
-	surfaceparm nonsolid
-	cull disable
-	{
-		map textures/entityplus/target_logic.tga
-		blendfunc add
-		rgbgen identity
-	}
-	{
-		map textures/entityplus/screen_noise.tga
-		blendfunc add
-		rgbgen wave triangle .5 .05 0 10
-		tcmod scroll 5 .25 
-	}	
-}
-
-textures/entityplus/target_gravity
-{
-	qer_editorimage textures/entityplus/target_gravity.tga
-	qer_trans .5
-	surfaceparm nomarks
-	surfaceparm trans
-	surfaceparm nonsolid
-	cull disable
-	{
-		map textures/entityplus/target_gravity.tga
-		blendfunc add
-		rgbgen identity
-	}
-	{
-		map textures/entityplus/screen_noise.tga
-		blendfunc add
-		rgbgen wave triangle .5 .05 0 10
-		tcmod scroll 5 .25 
-	}	
-}
-
-textures/entityplus/func_breakable
-{
-	qer_editorimage textures/entityplus/func_breakable.tga
-	qer_trans .5
-	surfaceparm nomarks
-	surfaceparm trans
-	surfaceparm nonsolid
-	cull disable
-	{
-		map textures/entityplus/func_breakable.tga
-		blendfunc add
-		rgbgen identity
-	}
-	{
-		map textures/entityplus/screen_noise.tga
-		blendfunc add
-		rgbgen wave triangle .5 .05 0 10
-		tcmod scroll 5 .25 
-	}	
-}
-
-textures/entityplus/target_disable
-{
-	qer_editorimage textures/entityplus/target_disable.tga
-	qer_trans .5
-	surfaceparm nomarks
-	surfaceparm trans
-	surfaceparm nonsolid
-	cull disable
-	{
-		map textures/entityplus/target_disable.tga
-		blendfunc add
-		rgbgen identity
-	}
-	{
-		map textures/entityplus/screen_noise.tga
-		blendfunc add
-		rgbgen wave triangle .5 .05 0 10
-		tcmod scroll 5 .25 
-	}	
-}
-
-textures/entityplus/bouncepad1q1metal7_99_disabled
-{
-	surfaceparm nodamage
-	q3map_lightimage textures/sfx/jumppadsmall.tga	
-	q3map_surfacelight 2000
-	qer_editorimage textures/sfx/bouncepad1q1metal7_99.tga
-
+		qer_editorimage textures/liquids/lavahell.tga
+		q3map_globaltexture
+		surfaceparm trans
+		surfaceparm nonsolid
+		surfaceparm noimpact
+		surfaceparm nolightmap
+		q3map_surfacelight 150
+		cull disable
+	
+		tesssize 128
+		cull disable
+		deformVertexes wave 100 sin 3 2 .1 0.1
 	
 	{
-		map textures/sfx/bouncepad1q1metal7_99.tga
-		rgbGen identity
-	}
-	
-	{
-		map $lightmap
-		rgbGen identity
-		blendfunc gl_dst_color gl_zero
+		map textures/liquids/lavahell.tga
+		tcMod turb 0 .2 0 .1
 	}
 }
