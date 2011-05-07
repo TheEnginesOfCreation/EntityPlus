@@ -1586,9 +1586,10 @@ notsingle : when set to 1, entity will not spawn in Single Player mode (bot play
 //=============================================================================
 
 /*QUAKED target_logic (0 .5 0) (-8 -8 -8) (8 8 8) RED_ONLY BLUE_ONLY RANDOM STAY_ON
-This can only be activated by other triggers which will cause it in turn to activate its own targets. 
+This enitity will be activated when all triggers targeting this entity have been triggered. 
 -------- KEYS --------
-targetname : activating trigger points to this.
+targetname : activating triggers points to this.
+target : this points to entities to activate when this entity is triggered.
 notfree : when set to 1, entity will not spawn in "Free for all" and "Tournament" modes.
 notteam : when set to 1, entity will not spawn in "Teamplay" and "CTF" modes.
 notsingle : when set to 1, entity will not spawn in Single Player mode (bot play mode).
