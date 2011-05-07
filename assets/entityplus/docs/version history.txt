@@ -4,6 +4,7 @@ v0.5 (?? may 2011)
 	- [Added] message key to trigger_lock.
 	- [Added] target_objective displays "objectives updated" message in screen when triggered.
 	- [Added] count key and DARK_DEBRIS spawnflag to func_breakable so it can spew out debris without a target_debrisemitter
+	- [Added] New ep_example map which replaces the old entityplus map.
 	- [Fixed] target_print does not display any text in single player mode.
 	- [Fixed] entities.def entry for shooter_bfg refers to shooting grenades.
 	- [Fixed] Game crashes when bots receive damage from world hazards (lava/slime/cratering/etc).
