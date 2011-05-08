@@ -1,0 +1,37 @@
+======================================================================
+
+                 Entity Plus Mod for Quake 3 Arena
+
+                         Keycard Models v1.0
+                            By Obsidian
+
+                           April 16, 2011
+                      http://robotrenegade.com
+                     obsidian@robotrenegade.com
+
+======================================================================
+
+
+A set of four .md3 keycard models for Eraser's Entity Plus mod for
+Quake 3 Arena with accompanying textures and shaders.
+
+  * keycard-b (blue)
+  * keycard-g (green)
+  * keycard-r (red)
+  * keycard-y (yellow)
+
+
+
+
+======================================================================
+This work is licensed under a Creative Commons Attribution-
+NonCommercial-ShareAlike 3.0 Unported License.
+
+http://creativecommons.org/licenses/by-nc-sa/3.0/
+
+Additionally, this work may only be distributed electronically and
+must include this .txt file.
+
+Don't steal and claim as your own, is all I'm saying. Please contact
+me if creating derivative works or if you have questions.
+======================================================================
