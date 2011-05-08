@@ -1,3 +1,6 @@
+v0.5.1 (8 may 2011)
+	- [Fixed] Added missing example map roq video to pak0.pk3
+
 v0.5 (8 may 2011)
 	- [Added] health key to target_botspawn in entities.def.
 	- [Added] entities.def mentioning a wait key of -2 for func_button.
