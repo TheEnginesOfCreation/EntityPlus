@@ -261,7 +261,7 @@ qboolean CG_DrawSinglePlayerObjectives( void ) {
 	s = CG_ConfigString( CS_SECONDARYOBJECTIVE );
 
 	//draw objectives overlay
-	CG_DrawPic( (SCREEN_WIDTH - 512) / 2, (SCREEN_HEIGHT - 192) / 2, 512, 192, cgs.media.objectivesOverlay );
+	CG_DrawPic( (SCREEN_WIDTH - 512) / 2, (SCREEN_HEIGHT - 256) / 2, 512, 256, cgs.media.objectivesOverlay );
 	
 	//draw primary objective
 	CG_DrawSmallStringColor( 80, 175, p, color); //TODO: if primary objective is more than 60 chars, wrap to next line
