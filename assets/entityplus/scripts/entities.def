@@ -278,6 +278,8 @@ A static entity that is removed when it receives a set amount of damage.
 health : The entire entity is removed once this amount of damages has been inflicted to it.
 count : The entity will spew out this number of chunks of debris when it's broken (default = 0).
 target : Targetted entity will be triggered once the func_breakable is destroyed.
+light : constantLight radius of .md3 model included with entity. Has no effect on the entity's brushes (default 0).
+color : constantLight color of .md3 model included with entity. Has no effect on the entity's brushes (default 1 1 1).
 notfree : when set to 1, entity will not spawn in "Free for all" and "Tournament" modes.
 notteam : when set to 1, entity will not spawn in "Teamplay" and "CTF" modes.
 notsingle : when set to 1, entity will not spawn in Single Player mode (bot play mode).
@@ -861,7 +863,7 @@ notsingle : when set to 1, entity will not spawn in Single Player mode (bot play
 INITIAL : makes the spawnpoint the initial place for the player to spawn at the beginning of the game.
 DISABLED : the spawn point is in a disabled state when the map is first loaded. It can be enabled by triggering it. See notes.
 -------- NOTES --------
-Targetting an info_player_deathmatch spawnpoint with a trigger will enable or disable the spawnpoint. Spawnpoints are by default enabled unless the DISABLED spawnflag is set. Note that a spawnpoint that reached it's [count] number of spawns and is therefor disabled is not enabled by triggering it.*/
+Targetting an info_player_deathmatch spawnpoint with a trigger will enable or disable the spawnpoint. Spawnpoints are by default enabled unless the DISABLED spawnflag is set. Note that a spawnpoint that is disabled because it reached its [count] number of spawns is not enabled by triggering it.*/
 
 //=============================================================================
 
@@ -878,9 +880,19 @@ In genuine bot arena matches, the podium for the 1st, 2nd and 3rd place players 
 /*QUAKED info_player_start (1 0 0) (-16 -16 -24) (16 16 32)
 Player spawn location. It works in Quake III Arena, but it is not used in the Id maps. Use info_player_deathmatch instead.
 -------- KEYS --------
-angle : direction in which player will look when spawning in the game.
-target : this can point at a target_give entity for respawn freebies.*/
-count : number of times this spawnpoint can be used to spawn a player. Omit or set to 0 to set no limit
+angle : direction in which player will look when spawning in the game. Does not apply to bots.
+target : this can point at a target_give entity for respawn freebies.
+count : number of times this spawnpoint can be used to spawn a player. Omit or set to 0 to set no limit.
+nobots : when set to 1, bots will never use this spawn point to respawn in the game.
+nohumans : when set to 1, human players will never use this spawn point to respawn in the game.
+notfree : when set to 1, entity will not spawn in "Free for all" and "Tournament" modes.
+notteam : when set to 1, entity will not spawn in "Teamplay" and "CTF" modes.
+notsingle : when set to 1, entity will not spawn in Single Player mode (bot play mode).
+-------- SPAWNFLAGS --------
+INITIAL : makes the spawnpoint the initial place for the player to spawn at the beginning of the game.
+DISABLED : the spawn point is in a disabled state when the map is first loaded. It can be enabled by triggering it. See notes.
+-------- NOTES --------
+Targetting an info_player_deathmatch spawnpoint with a trigger will enable or disable the spawnpoint. Spawnpoints are by default enabled unless the DISABLED spawnflag is set. Note that a spawnpoint that is disabled because it reached its [count] number of spawns is not enabled by triggering it.*/
 
 //=============================================================================
 
