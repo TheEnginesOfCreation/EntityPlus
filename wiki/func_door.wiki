@@ -1,3 +1,0 @@
-= func_door =
-
-func_door entities have two added keys. These are the "startsound" and "endsound" keys. When the startsound key is set, the door will play the specified wav file when it begins moving. When the endsound key is set, the door will play the specified wav file when it stops moving. When a key is omitted, the default sound will be played.
