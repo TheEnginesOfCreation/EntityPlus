@@ -55,17 +55,17 @@ https://code.google.com/p/entityplus/wiki/EntityPlus
 
 EXAMPLE MAP
 -----------
-The release package of EntityPlus contains an example map which demonstrates a number of the features found in EntityPlus. 
-This map can be loaded by entering the following commands in the console:
+The release package of EntityPlus contains an example map which demonstrates a number of the features found in EntityPlus.
+It is based on an old classic map that everyone that played Quake 3 will instantly recognize. Don't get too comfy though,
+because this time you'll be fighting through piles of enemy guards to uncover a secret that you never knew was there and 
+escape to safety.
+This map can be loaded by double clicking the "entityplus.bat" file that comes with the release package. This batch file is
+located next to the quake.exe executable.
 
-	\fraglimit 0
-	\timelimit 0
-	\sv_maxclients 32
-	\con_notifytime 0
-	\spmap ep_example 
+The map can also be loaded manually by entering the following command in the console:
 
-The map can also be started by double clicking the entityplus.bat file that comes with the release package. This batch file 
-is located next to the quake.exe executable.
+	exec scripts\startup.cfg
+
 
 
 CREDITS
