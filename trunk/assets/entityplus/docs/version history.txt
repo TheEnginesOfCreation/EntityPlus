@@ -1,5 +1,6 @@
 v0.6 (? may 2011)
 	- [Fixed] Rocket Launcher is not in the backpack if player dies while having a RL.
+	- [Fixed] target_objective not displaying "objectives updated" message when it's triggered by a bot (for example through a trigger_death entity).
 
 v0.5.1 (9 may 2011)
 	- [Fixed] Added missing example map roq video to pak0.pk3
