@@ -1,3 +1,0 @@
-= func_button =
-
-func_button entities have a single added key. This is the "sound" key. When set, the button will play the specified wav file when it is pressed. When omitted, the default sound will be played.
