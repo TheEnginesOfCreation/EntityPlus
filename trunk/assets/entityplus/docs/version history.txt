@@ -1,5 +1,6 @@
-v0.5.1 (8 may 2011)
+v0.5.1 (9 may 2011)
 	- [Fixed] Added missing example map roq video to pak0.pk3
+	- [Fixed] Missing texture in ep_example map
 
 v0.5 (8 may 2011)
 	- [Added] health key to target_botspawn in entities.def.
