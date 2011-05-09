@@ -7,24 +7,13 @@ The goal is to build an expansive library of new entities that map makers can us
 whole new experiences.
 
 Because a mod is a rather strict prerequisite for any custom map, and Q3A's age and waning popularity don't
-exactly help in that aspect either, the aim will be at a completely experimental set of features that will hopefully
-expand the possibilities of single player experiences in Q3A. While Q3A will never be a full fledge single player 
-campaign-based game, EntityPlus will give map makers a broader palette of features to work with, allowing the
-most innovative of mappers to create interesting new experiences that haven't been part of Quake III Arena yet.
+exactly help in that aspect either, the aim will be to achieve a complete set of features that will
+expand the possibilities of single player experiences in Q3A. EntityPlus has reached a state where it allows
+level designers to create true single player experiences in Quake III Arena. While Q3A features a single
+player mode, this  is nothing more than a multiplayer deathmatch game where the player fights against
+computer controlled AI bots to score the most frags. In EntityPlus, the term "single player" is used to 
+describe an experience more akin to the SP games of Quake or Quake 2 than Quake 3's own single player bot matches.
 
-The mod is completely open source and anyone is allowed to make their own additions to the codebase. I am
-even accepting feature requests which I will try to implement in the codebase in a timely fashion. This will, for 
-the first time, allow mappers to think way beyond the boundaries of Q3A. Within this mod, a challenge for mappers
-is hidden. Try to think of something that sheds the shackles of Q3A's basic multiplayer deathmatch gameplay
-and think of new interesting things to do within this new limitless world.
-
-
-SINGLE PLAYER
--------------
-Through the course of developing this mod it quickly became apparent that the Quake 3 mapping community is really
-excited about the possibility of making Quake 3 maps that are meant to be single player experiences. The term
-"single player" here is used to describe an experience more akin to the SP games of Quake or Quake 2 than Quake 3's
-own single player bot matches.
 To facilitate this, EntityPlus implements a lot of features that are strictly aimed at single player gameplay. These
 features and changes are only applied when running the game in single player mode (g_gametype 2). To force the game
 into single player mode, a map must be loaded with the "spmap" command rather than the "map" command.
@@ -38,18 +27,23 @@ to load the mod.
 
 The entityplus package contains an entities.def file which is an expanded version of the entities.def file you'll
 find in your baseq3\scripts folder. This new .def file contains entity definitions for the new entities in EntityPlus.
-You can either overwrite the existing entities.def or configure GtkRadiant 1.4 or ZeroRadiant 1.6 to use the 
-entityplus folder as working folder. There is no entity definition file for use with GtkRadiant 1.5 yet.
+You can either overwrite the existing entities.def in baseq3 (although this is not recommended) or configure 
+GtkRadiant 1.4 or ZeroRadiant 1.6 to use the entityplus folder as working folder. There is no entity definition file
+for use with GtkRadiant 1.5 yet.
+
+Configuring Radiant to use the entityplus folder as working folder can be done by going to "File" > "Project Settings", 
+then under "Select mod" pick the option "Custom Quake III modification" and enter "entityplus" as value for the fs_game 
+input field. Click "ok" to apply the settings. 
 
 
 
 FEATURES
 --------
 EntityPlus adds a few new entities that can be used in maps. If you use any of the EntityPlus features in your map, 
-it can only be correctly played using the EntityPlus mod. For a list of features added to EntityPlus, go to the
-mod's Wiki:
+it can only be correctly played using the EntityPlus mod. For a list of features added to EntityPlus, download the
+manual from:
 
-https://code.google.com/p/entityplus/wiki/EntityPlus
+https://code.google.com/p/entityplus/downloads/list
 
 
 
