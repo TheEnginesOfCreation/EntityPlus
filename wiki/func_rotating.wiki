@@ -1,3 +1,0 @@
-= func_rotating =
-
-func_rotating entities work slightly different when it comes to setting the axis along which the entity rotates. In vanilla Quake 3, the func_rotating could only rotate along one axis. In EntityPlus, the X_AXIS, Y_AXIS and the new Z_AXIS spawnflags work additive. This means that when both the X_AXIS and Z_AXIS spwanflags are checked, the entity will rotate along both axes at the same time. When no spawnflags are selected, the entity rotates only along the Z axis.
