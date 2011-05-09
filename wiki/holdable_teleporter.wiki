@@ -1,5 +1,0 @@
-=holdable_teleporter=
-
-The holdable_teleporter has a single added key. This is the "teleporttarget" key. It can be used to point to a spawnpoint entity (info_player_start, info_player_deathmatch, team_CTF_redplayer, team_CTF_redspawn, team_CTF_blueplayer or team_CTF_bluespawn). Give the spawnpoint a targetname and set the holdable_teleporter's teleporttarget to the same name. When a player picks up and uses the teleporter, he/she is forced to spawn at that spawnpoint.
-
-It is most likely possible to point at a misc_teleporter_dest entity as well (or any entity with an "angle" key for that matter) but this is at the moment of this writing untested.
