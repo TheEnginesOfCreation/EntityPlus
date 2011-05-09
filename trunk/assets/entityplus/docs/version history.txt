@@ -1,3 +1,6 @@
+v0.6 (? may 2011)
+	- [Fixed] Rocket Launcher is not in the backpack if player dies while having a RL.
+
 v0.5.1 (9 may 2011)
 	- [Fixed] Added missing example map roq video to pak0.pk3
 	- [Fixed] Missing texture in ep_example map
