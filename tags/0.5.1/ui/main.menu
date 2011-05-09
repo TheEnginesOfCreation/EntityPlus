@@ -1,0 +1,559 @@
+#include "ui/menudef.h"
+
+{
+  assetGlobalDef {
+    	font "fonts/font" 16				// font
+    	smallFont "fonts/smallfont" 12				// font
+    	bigFont "fonts/bigfont" 20				// font
+	cursor "ui/assets/3_cursor3"			// cursor	
+	gradientBar "ui/assets/gradientbar2.tga"	// gradient bar
+	itemFocusSound "sound/misc/menu2.wav"		// sound for item getting focus (via keyboard or mouse )
+	
+    	fadeClamp 1.0					// sets the fadeup alpha
+	fadeCycle 1					// how often fade happens in milliseconds
+	fadeAmount 0.1					// amount to adjust alpha per cycle
+
+	shadowColor 0.1 0.1 0.1 0.25			// shadow color
+  	}
+							   
+
+
+
+
+menuDef {
+    	name "main"
+	background "menuback_a"				// Spinning Circle Background
+    	fullScreen MENU_TRUE				
+	rect 0 0 640 480				// Size and position of the menu
+    	visible MENU_TRUE				// Visible on open
+	focusColor 1 .75 0 1				// Menu focus color for text and items
+
+						
+	onOpen { 
+		setitemcolor fadebox backcolor 0 0 0 1 ; 
+		playlooped "music/sonic1.wav" ;
+		fadeout fadebox ;
+		transition cinematic 390 198 250 1 390 163 250 155 20 12 ; 
+		transition menuback_d 0 198 250 1 0 163 255 155 20 12 ;
+		transition menuback_b 0 198 640 1 0 163 640 155 20 12 ;
+		transition teamArenaBar 80 55 520 1 80 40 520 30 20 10 ;
+		transition singlebar 0 95 640 1 0 80 640 30 20 10 ;
+		transition optionbar 0 375 640 1 0 360 640 30 20 10 ; 
+		transition quitbar 0 419 640 1 0 404 640 30 20 10 ;
+      	play "sound/misc/tim_pump.wav" ; 
+		uiScript stopRefresh ;
+		}
+		
+	onESC { open quit_popmenu }
+	
+
+
+itemDef {
+	name modelselection 				//Precache player model	
+	ownerdraw UI_PLAYERMODEL			//Ownerdraw for player models
+	rect 0 0 0 0 
+	style 1
+	decoration 
+	visible 1
+    	}
+
+	
+itemDef {
+      	name menuback_e					// Flashing and rotating light
+      	style WINDOW_STYLE_SHADER
+      	rect 0 163 640 155
+     	background "menuback_e"
+      	visible 1
+	decoration
+    	}
+
+									
+
+itemDef {
+      	name menuback_b					// Transparent Blue Effect
+     	style WINDOW_STYLE_SHADER
+     	rect 0 163 640 155
+     	visible 1
+     	background "menuback_b"
+     	bordercolor 0.5 0.5 0.5 .7
+    	decoration 
+	}
+
+
+
+
+
+itemDef {
+	name cinematic
+      	style 5						// Style for cinematic
+	cinematic "mpintro.roq"
+	rect 390 163 250 155
+	backcolor 1 1 1 .25
+	decoration
+	visible 1
+	}
+
+
+
+
+itemDef {
+      	name menuback_d					// Team arena text		
+      	style WINDOW_STYLE_SHADER
+      	rect 0 163 255 155
+     	background "menuback_d"
+      	visible 1
+	decoration
+    }
+
+itemDef {
+	name windowscreen				// Vertical Line Image
+	rect 0 0 640 240
+	style 3
+	background levelshotdetail
+	forecolor 0 0 0 0
+	visible 1
+	decoration
+	}
+itemDef {
+	name windowscreen				// Vertical Line Image
+	rect 0 240 640 240
+	style 3
+	background levelshotdetail
+	forecolor 0 0 0 0
+	visible 1
+	decoration
+	}
+
+
+itemDef {
+      	name menuback_c					// Center medal image
+      	style WINDOW_STYLE_SHADER
+      	rect 205 123 235 235
+     	background "menuback_c"
+      	visible 1
+	decoration
+    }
+
+
+
+
+
+
+
+
+//	GAMETYPE	// 
+ 
+itemDef {
+      	name teamArenaBar
+      	style 2
+      	rect 80 40 520 30 
+      	backcolor 0 0 .75 .25
+      	border 4
+      	bordercolor 0.5 0.5 0.5 1
+      	bordersize 1
+      	visible 1 
+      	mouseEnter { hide gametype ; show teamarena ; setcolor backcolor .75 0 0 .25 }
+      	mouseExit { show gametype ; hide teamarena ; setcolor backcolor 0 0 .75 .25 }	
+	decoration 	
+    	}
+
+
+
+itemDef {
+      	name gametype
+	type 1
+      	text "TEAM ARENA"
+      	style 0	
+	textstyle 6
+      	rect 0 40 640 30
+   	forecolor 1 1 1 1
+	textalignx 320
+	textaligny 24 
+      	textalign 1
+	textscale .416		
+      	visible 1 		  
+    	}
+
+
+
+	
+
+itemDef {
+      	name teamarena
+	type 1
+      	text "Quake3"
+      	style 0	
+	textstyle 6
+      	rect 120 40 80 30 
+	textscale .333
+     	textalign 1
+	textalignx 40
+	textaligny 22		
+      	backcolor 0 0 0 0
+      	forecolor 1 1 1 1
+	visible 0 
+	action { play "sound/misc/kcaction.wav" ; 
+	open quake3_popmenu  }
+}
+
+itemDef {
+      	name teamarena
+      	text "Rules"
+	type 1
+      	style 0	
+	textstyle 6
+     	rect 200 40 80 30
+	textscale .333
+	textalignx 40
+	textaligny 22	 
+      	textalign 1		
+      	backcolor 0 0 0 0
+      	forecolor 1 1 1 1 
+	visible 0
+	action { play "sound/misc/kcaction.wav" ; 
+	close main ; 
+	open help_menu } 
+	}
+
+itemDef {
+      	name teamarena
+      	text "Credits"
+	type 1
+	textstyle 6
+	textscale .333
+      	style 0	
+     	rect 280 40 80 30
+	textalignx 40
+	textaligny 22	 
+      	textalign 1		
+      	backcolor 0 0 0 0
+      	forecolor 1 1 1 1
+	visible 0
+	action { play "sound/misc/kcaction.wav" ; 
+	close main ; 
+	open credit } 
+	}
+
+	
+itemDef {
+     	name teamarena
+     	text "Mods"
+	type 1
+      	style 0	
+	textstyle 6
+	textscale .333
+      	rect 360 40 80 30 
+	textalignx 40
+	textaligny 22
+     	textalign 1		
+      	backcolor 0 0 0 0
+      	forecolor 1 1 1 1
+	visible 0 
+	action { play "sound/misc/kcaction.wav" ; 
+	close main ; 
+	open mod }
+     	}
+itemDef {
+     	name teamarena
+     	text "Cinematics"
+	type 1
+      	style 0	
+	textstyle 6
+	textscale .333
+      	rect 440 40 80 30 
+	textalignx 40
+	textaligny 22
+     	textalign 1		
+      	backcolor 0 0 0 0
+      	forecolor 1 1 1 1
+	visible 0 
+	action { play "sound/misc/kcaction.wav" ; 
+	close main ; 
+	open cinematicMenu }
+     	}
+
+
+
+
+
+
+//	SINGLEPLAYER	// 
+
+itemDef {
+      	name singlebar
+      	style 2
+      	rect 0 80 640 30 
+      	backcolor 0 0 .75 .25
+      	border 4
+      	bordercolor 0.5 0.5 0.5 1
+      	bordersize 1
+      	visible 1 
+      	mouseEnter { setcolor backcolor .75 0 0 .25 ; hide play ; show playselection }
+      	mouseExit { setcolor backcolor 0 0 .75 .25 ; show play ; hide playselection }
+	decoration 	
+    	}
+
+
+itemDef {
+      	name play
+      	text "PLAY"
+	type 1
+      	style 0	
+	textstyle 6
+      	rect 0 80 640 30 
+      	textalign 1
+	textscale .416		
+	textalignx 320
+	textaligny 24
+   	forecolor 1 1 1 1
+	visible 1 
+	}
+	
+
+itemDef {
+      	name playselection
+      	text "SinglePlayer"
+	type 1
+      	textstyle 6	
+      	rect 170 80 100 30
+	textalignx 50
+	textaligny 22
+	textscale .333
+      	textalign 1		
+   	forecolor 1 1 1 1
+      	visible 0 
+      	action { play "sound/misc/kcaction.wav" ; 
+	close main ; 
+	open Skirmish }
+    	}
+
+
+itemDef {
+      	name playselection
+      	text "MultiPlayer"
+	type 1
+      	style 0
+	textstyle 6	
+      	rect 270 80 100 30 
+      	textalign 1		// center
+	textalignx 50
+	textaligny 22
+	textscale .333
+   	forecolor 1 1 1 1 
+	visible 0 
+	action { play "sound/misc/kcaction.wav" ; 
+	close main ; 
+	open joinserver }
+    	}
+
+	
+
+itemDef {
+      	name playselection
+      	text "StartServer"
+	type 1
+      	style 0	
+	textstyle 6
+      	rect 370 80 100 30 
+      	textalign 1		// center
+	textalignx 50
+	textaligny 22
+	textscale .333
+   	forecolor 1 1 1 1  
+	visible 0 
+      	action { play "sound/misc/kcaction.wav" ; 
+	close main ; 
+	open createserver }
+    	}
+
+
+
+//	OPTIONS		// 
+itemDef {
+      	name optionbar
+      	style 2
+      	rect 0 360 640 30 
+      	backcolor 0 0 1 .25
+      	border 4
+      	bordercolor 0.5 0.5 0.5 1
+      	bordersize 1
+      	visible 1 
+      	mouseEnter { setcolor backcolor .75 0 0 .25 ; hide options ; show optionselection }
+      	mouseExit { setcolor backcolor 0 0 .75 .25 ; show options ; hide optionselection }
+      	decoration 
+    	}
+
+
+itemDef {
+      	name options
+      	text "OPTIONS"
+      	style 0	
+	type 1
+	textstyle 6
+      	rect 0 360 640 30
+	textalignx 320
+	textaligny 24 
+	textscale .416
+      	textalign 1	   
+   	forecolor 1 1 1 1
+      	visible 1 
+    	}
+
+itemDef {
+      	name optionselection
+      	text "Player"
+      	style 0	
+	type 1
+	textstyle 6
+      	rect 170 360 100 30 
+	textalignx 50
+	textaligny 22
+	textscale .333
+      	textalign 1		
+   	forecolor 1 1 1 1
+      	visible 0 
+      	action { play "sound/misc/kcaction.wav" ; 
+	close main ; 
+	open player_menu }
+    	}
+
+
+itemDef {
+	name optionselection
+	text "Setup"
+	type 1
+	style 0
+	textstyle 6	
+	rect 270 360 100 30 
+	textalignx 50
+	textaligny 22
+	textscale .333
+      	textalign 1		
+   	forecolor 1 1 1 1
+      	visible 0 
+      	action { play "sound/misc/kcaction.wav" ; 
+	close main ; 
+	open setup_menu ; 
+	open control_menu }
+    	}
+
+itemDef {
+      	name optionselection
+      	text "Demos"
+	type 1
+      	style 0
+	textstyle 6	
+      	rect 370 360 100 30 
+	textalignx 50 
+	textaligny 22
+	textscale .333
+     	textalign 1	
+   	forecolor 1 1 1 1
+      	visible 0 
+      	action { play "sound/misc/kcaction.wav" ; 
+	close main ; 
+	open demo }
+    	}
+
+
+
+//	QUIT	//
+
+itemDef {
+      	name quitbar
+      	style 2
+      	rect 0 404 640 30 
+      	backcolor 0 0 1 .25
+      	border 4
+      	bordercolor 0.5 0.5 0.5 1
+      	bordersize 1
+      	visible 1 
+      	decoration 
+    	}
+
+
+
+itemDef {
+      	name quit
+      	text "QUIT"
+      	style 0	
+	type 1
+	textstyle 6
+      	rect 0 404 640 30
+	textalignx 320
+	textaligny 24 
+	textscale .416
+      	textalign 1	   
+   	forecolor 1 1 1 1
+      	visible 1 
+  	action { play "sound/misc/kcaction.wav" ;
+	open quit_popmenu }
+	mouseEnter { setitemcolor quitbar backcolor .75 0 0 .25 }
+      	mouseExit { setitemcolor quitbar backcolor 0 0 .75 .25 }
+   	}
+
+/*
+
+//	DEMO ONLY OPTION	//
+
+itemDef {
+      	name copyright
+	// demo_only
+      	text "Demo Version Only. Content Warning: Contains Depictions of Violence."
+      	style 0
+      	textscale .25
+      	rect 0 425 640 40
+      	textalign 1	
+      	textaligny 32
+      	textalignx 320 
+      	forecolor  1 .75 0 1	
+      	visible 1 
+      	decoration 
+	}
+*/
+
+
+
+itemDef {
+      	name copyright
+      	text "Quake III: Team Arena Copyright 2000 Id Software, Inc. All rights reserved"
+      	style 0
+      	textscale .25
+      	rect 0 440 640 40
+      	textalign 1	
+      	textaligny 32
+      	textalignx 320 
+      	forecolor .75 0 0 .75
+      	visible 1 
+      	decoration 
+	}
+
+itemDef {
+      	name fadebox					// Box for fading in menus
+      	style WINDOW_STYLE_FILLED
+ 	background "ui/assets/fadebox.tga"
+	forecolor 0 0 0 1
+	backcolor 0 0 0 1
+	rect 0 0 640 480
+      	visible 1 
+	decoration
+    	}
+
+
+
+
+
+
+
+
+}
+}
+}
+
+   }
+
+
+
+  }
+
+}
