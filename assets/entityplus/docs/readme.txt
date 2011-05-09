@@ -1,6 +1,6 @@
 ENTITYPLUS 
-version 0.5.1
--------------
+version 0.6
+-----------
 
 EntityPlus is a Quake III Arena mod that is aimed at expanding the toolset for Quake III Arena map makers.
 The goal is to build an expansive library of new entities that map makers can use in their maps to create
@@ -80,6 +80,9 @@ programming support				: ^misantropia^
 
 Additional programming			: Kaz
 								  [http://student.cs.appstate.edu/freemancw]
+								  
+Additional programming			: cyr
+								  [http://quake3world.com/forum/memberlist.php?mode=viewprofile&u=32395]
 
 Programming support				: Perle			
 								  [http://www.q3rally.com]
@@ -93,15 +96,19 @@ Skeleton key models and skins	: Hipshot
 Debris and backpack models		: DaEngineer
 								  [http://victorkarp.wordpress.com]
 
-
-
+Testing and feedback			: tigger.on
+								  [http://tig.onemoremonkey.com]
+								  
+Support and general enthusiasm	: The entire Quake3World LEM community
+								  [http://quake3world.com/forum/viewforum.php?f=10]
 
 CONTACT
 -------
 Contact me at eraesr@gmail.com or visit The Engines of Creation at http://www.theenginesofcreation.com.
 To follow the project or get the source code, go to https://code.google.com/p/entityplus.
 If you want to follow discussions surrounding the mod or leave your own input, visit the 
-discussion thread in the Quake3World Level Editing & Modelling forums at http://quake3world.com/forum/viewtopic.php?f=10&t=45510.
+discussion thread in the Quake3World Level Editing & Modelling forums at http://quake3world.com/forum/viewtopic.php?f=10&t=45510,
+or report an issue at the Google Code page.
 
 
 VERSION HISTORY

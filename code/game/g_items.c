@@ -215,7 +215,7 @@ int Pickup_Backpack( gentity_t *ent, gentity_t *other) {
 	}
 
 	if (ent->backpackContents[WP_ROCKET_LAUNCHER]) {
-		other->client->ps.stats[WP_ROCKET_LAUNCHER] |= (1 << WP_ROCKET_LAUNCHER);
+		other->client->ps.stats[STAT_WEAPONS] |= (1 << WP_ROCKET_LAUNCHER);
 		other->client->ps.ammo[WP_ROCKET_LAUNCHER] += ent->backpackContents[WP_ROCKET_LAUNCHER];
 	}
 
