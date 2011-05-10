@@ -4,8 +4,6 @@
 // (visible models added by raYGunn - paths provided by Suicide 20)
 // (terrain information added to func_group entity by Paul Jaquays)
 // Q3Map2 entitys/keys added by ydnar
-// Version: 1.6
-// Last updated: 2003-11-28
 // Adapted for EntityPlus
 
 //=============================================================================
@@ -272,7 +270,7 @@ Target this entity with a misc_model to have the model attached to the entity (s
 
 //=============================================================================
 
-/*QUAKED func_breakable (0 .5 .8) ? DARK_DEBRIS
+/*QUAKED func_breakable (0 .5 .8) ? LIGHT_DEBRIS DARK_DEBRIS LIGHT_LARGE_DEBRIS DARK_LARGE_DEBRIS WOOD_DEBRIS FLESH_DEBRIS
 A static entity that is removed when it receives a set amount of damage.
 -------- KEYS --------
 health : The entire entity is removed once this amount of damages has been inflicted to it.
@@ -294,9 +292,16 @@ _indexmap OR alphamap : Path/name for the art file used to guide the mapping of 
 _layers OR layers : Integer value is the number unique root shaders that will be use on the terrain.
 _shader OR shader : Path to the metashader used to assign textures to the terrain entity. Note: Omit the "textures/" prefix.
 -------- SPAWNFLAGS --------
-DARK_DEBRIS : The breakable will emit dark colored pieces of concrete debris instead of the lighter variant.
+LIGHT_DEBRIS : Emit light colored pieces of concrete debris.
+DARK_DEBRIS : Emit dark colored pieces of concrete debris.
+LIGHT_LARGE_DEBRIS : Emit large light colored pieces of concrete debris.
+DARK_LARGE_DEBRIS : Emit large dark colored pieces of concrete debris.
+WOOD_DEBRIS : Emit pieces of wooden debris.
+FLESH_DEBRIS : Emit gibs.
 -------- NOTES --------
-Target this entity with a misc_model to have the model attached to the entity (set the model's "target" key to the same value as this entity's "targetname").*/
+Target this entity with a misc_model to have the model attached to the entity (set the model's "target" key to the same value as this entity's "targetname").
+
+The various spawnflags cannot be combined. If multiple spawnflags are selected, the first spawnflag will overrule later spawnflags. When no spawnflag is defined, the func_breakable will default to LIGHT_DEBRIS.*/
 
 //=============================================================================
 
@@ -1476,7 +1481,7 @@ By default bots spawn with only the gauntlet as weapon. Use spawnflags to custom
 
 //=============================================================================
 
-/*QUAKED target_debrisemitter (0 .7 .7) (-8 -8 -8) (8 8 8) DARK_DEBRIS
+/*QUAKED target_debrisemitter (0 .7 .7) (-8 -8 -8) (8 8 8) LIGHT_DEBRIS DARK_DEBRIS LIGHT_LARGE_DEBRIS DARK_LARGE_DEBRIS WOOD_DEBRIS FLESH_DEBRIS
 Emits debris with thick smoke trails when triggered.
 -------- KEYS --------
 targetname : activating trigger points to this.
@@ -1485,7 +1490,14 @@ notfree : when set to 1, entity will not spawn in "Free for all" and "Tournament
 notteam : when set to 1, entity will not spawn in "Teamplay" and "CTF" modes.
 notsingle : when set to 1, entity will not spawn in Single Player mode (bot play mode).
 -------- SPAWNFLAGS --------
-DARK_DEBRIS : The emitter will emit dark colored pieces of concrete debris instead of the lighter variant.*/
+LIGHT_DEBRIS : Emit light colored pieces of concrete debris.
+DARK_DEBRIS : Emit dark colored pieces of concrete debris.
+LIGHT_LARGE_DEBRIS : Emit large light colored pieces of concrete debris.
+DARK_LARGE_DEBRIS : Emit large dark colored pieces of concrete debris.
+WOOD_DEBRIS : Emit pieces of wooden debris.
+FLESH_DEBRIS : Emit gibs.
+-------- NOTES --------
+The various spawnflags cannot be combined. If multiple spawnflags are selected, the first spawnflag will overrule later spawnflags. When no spawnflag is defined, the func_breakable will default to LIGHT_DEBRIS.*/
 
 //=============================================================================
 

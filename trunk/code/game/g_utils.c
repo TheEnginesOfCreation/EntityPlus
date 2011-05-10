@@ -741,3 +741,33 @@ qboolean IsClientBot( gclient_t *client ) {
 
 	return qfalse;
 }
+
+/*
+==================
+PickDebrisType
+returns a type of debris based on the passed spawnflags value
+==================
+*/
+int PickDebrisType( int spawnflags ) {
+
+	if ( spawnflags & 1 )
+		return EV_EMIT_DEBRIS_LIGHT;
+	
+	if ( spawnflags & 2 )
+		return EV_EMIT_DEBRIS_DARK;
+	
+	if ( spawnflags & 4 )
+		return EV_EMIT_DEBRIS_LIGHT_LARGE;
+
+	if ( spawnflags & 8 )
+		return EV_EMIT_DEBRIS_DARK_LARGE;
+	
+	if ( spawnflags & 16 )
+		return EV_EMIT_DEBRIS_WOOD;
+
+	if ( spawnflags & 32 )
+		return EV_EMIT_DEBRIS_FLESH;
+	
+	//if no compatible spawnflags supplied, return EV_EMIT_DEBRIS_LIGHT
+	return EV_EMIT_DEBRIS_LIGHT;
+}

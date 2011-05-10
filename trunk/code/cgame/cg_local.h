@@ -230,9 +230,15 @@ typedef enum {
 typedef enum {
 	LEBS_NONE,
 	LEBS_BLOOD,
-	LEBS_BRASS,
-	LEBS_DEBRIS
+	LEBS_BRASS
 } leBounceSoundType_t;	// fragment local entities can make sounds on impacts
+
+typedef enum {
+	LETT_NONE,				// does not emit a puff trail
+	LETT_BLOOD,				// emits a blood trail
+	LETT_DEBRIS_CONCRETE,	// emits a (gray) smoke trail
+	LETT_DEBRIS_WOOD		// emits a (brown) dust trail
+} leTrailType_t;		// defines bounce behavior and trail on fragment local entities
 
 typedef struct localEntity_s {
 	struct localEntity_s	*prev, *next;
@@ -257,8 +263,9 @@ typedef struct localEntity_s {
 	float			light;
 	vec3_t			lightColor;
 
-	leMarkType_t		leMarkType;		// mark to leave on fragment impact
-	leBounceSoundType_t	leBounceSoundType;
+	leMarkType_t		leMarkType;			// mark to leave on fragment impact
+	leBounceSoundType_t	leBounceSoundType;	// sound to play on fragment impact
+	leTrailType_t		leTrailType;		// trail to show behind fragment
 
 	refEntity_t		refEntity;		
 } localEntity_t;
@@ -694,14 +701,14 @@ typedef struct {
 	qhandle_t	gibBrain;
 
 	// debris explosions
-	qhandle_t	debris1;
-	qhandle_t	debris2;
-	qhandle_t	debris3;
-	qhandle_t	debris4;
-	qhandle_t	debris5;
-	qhandle_t	debris6;
-	qhandle_t	debris7;
-	qhandle_t	debris8;
+	qhandle_t	debrislight1;
+	qhandle_t	debrislight2;
+	qhandle_t	debrislight3;
+	qhandle_t	debrislight4;
+	qhandle_t	debrislight5;
+	qhandle_t	debrislight6;
+	qhandle_t	debrislight7;
+	qhandle_t	debrislight8;
 
 	qhandle_t	debrisdark1;
 	qhandle_t	debrisdark2;
@@ -711,6 +718,22 @@ typedef struct {
 	qhandle_t	debrisdark6;
 	qhandle_t	debrisdark7;
 	qhandle_t	debrisdark8;
+
+	qhandle_t	debrislightlarge1;
+	qhandle_t	debrislightlarge2;
+	qhandle_t	debrislightlarge3;
+
+	qhandle_t	debrisdarklarge1;
+	qhandle_t	debrisdarklarge2;
+	qhandle_t	debrisdarklarge3;
+
+	qhandle_t	debriswood1;
+	qhandle_t	debriswood2;
+	qhandle_t	debriswood3;
+	qhandle_t	debriswood4;
+	qhandle_t	debriswood5;
+
+
 
 	qhandle_t	smoke2;
 
@@ -1666,6 +1689,7 @@ void	CG_ParticleSparks (vec3_t org, vec3_t vel, int duration, float x, float y, 
 void	CG_ParticleDust (centity_t *cent, vec3_t origin, vec3_t dir);
 void	CG_ParticleMisc (qhandle_t pshader, vec3_t origin, int size, int duration, float alpha);
 void	CG_ParticleExplosion (char *animStr, vec3_t origin, vec3_t vel, int duration, int sizeStart, int sizeEnd);
+void	CG_LaunchFragment( vec3_t origin, vec3_t velocity, leTrailType_t trailType, qhandle_t hModel );
 extern qboolean		initparticles;
 int CG_NewParticleArea ( int num );
 
