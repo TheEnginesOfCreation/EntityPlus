@@ -1138,15 +1138,36 @@ void CG_EntityEvent( centity_t *cent, vec3_t position ) {
 		CG_Beam( cent );
 		break;
 
-	case EV_EMIT_DEBRIS_NORMAL:
-		DEBUGNAME("EV_EMIT_DEBRIS_NORMAL");
-		CG_ShowDebris( cent->lerpOrigin, cent->currentState.eventParm, EV_EMIT_DEBRIS_NORMAL );
+	case EV_EMIT_DEBRIS_LIGHT:
+		DEBUGNAME("EV_EMIT_DEBRIS_LIGHT");
+		CG_ShowDebris( cent->lerpOrigin, cent->currentState.eventParm, EV_EMIT_DEBRIS_LIGHT );
 		break;
 
 	case EV_EMIT_DEBRIS_DARK:
 		DEBUGNAME("EV_EMIT_DEBRIS_DARK");
 		CG_ShowDebris( cent->lerpOrigin, cent->currentState.eventParm, EV_EMIT_DEBRIS_DARK );
 		break;
+
+	case EV_EMIT_DEBRIS_LIGHT_LARGE:
+		DEBUGNAME("EV_EMIT_DEBRIS_LIGHT_LARGE");
+		CG_ShowDebris( cent->lerpOrigin, cent->currentState.eventParm, EV_EMIT_DEBRIS_LIGHT_LARGE );
+		break;
+
+	case EV_EMIT_DEBRIS_DARK_LARGE:
+		DEBUGNAME("EV_EMIT_DEBRIS_DARK_LARGE");
+		CG_ShowDebris( cent->lerpOrigin, cent->currentState.eventParm, EV_EMIT_DEBRIS_DARK_LARGE );
+		break;
+
+	case EV_EMIT_DEBRIS_WOOD:
+		DEBUGNAME("EV_EMIT_DEBRIS_WOOD");
+		CG_ShowDebris( cent->lerpOrigin, cent->currentState.eventParm, EV_EMIT_DEBRIS_WOOD );
+		break;
+
+	case EV_EMIT_DEBRIS_FLESH:
+		DEBUGNAME("EV_EMIT_DEBRIS_FLESH");
+		CG_ShowDebris( cent->lerpOrigin, cent->currentState.eventParm, EV_EMIT_DEBRIS_FLESH );
+		break;
+
 
 	default:
 		DEBUGNAME("UNKNOWN");

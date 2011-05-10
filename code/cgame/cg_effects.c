@@ -530,6 +530,7 @@ void CG_LaunchGib( vec3_t origin, vec3_t velocity, qhandle_t hModel ) {
 
 	le->leBounceSoundType = LEBS_BLOOD;
 	le->leMarkType = LEMT_BLOOD;
+	le->leTrailType = LETT_BLOOD;
 }
 
 /*
@@ -553,9 +554,9 @@ void CG_GibPlayer( vec3_t playerOrigin ) {
 	velocity[1] = crandom()*GIB_VELOCITY;
 	velocity[2] = GIB_JUMP + crandom()*GIB_VELOCITY;
 	if ( rand() & 1 ) {
-		CG_LaunchGib( origin, velocity, cgs.media.gibSkull );
+		CG_LaunchFragment( origin, velocity, LETT_BLOOD, cgs.media.gibSkull );
 	} else {
-		CG_LaunchGib( origin, velocity, cgs.media.gibBrain );
+		CG_LaunchFragment( origin, velocity, LETT_BLOOD, cgs.media.gibBrain );
 	}
 
 	// allow gibs to be turned off for speed
@@ -567,55 +568,55 @@ void CG_GibPlayer( vec3_t playerOrigin ) {
 	velocity[0] = crandom()*GIB_VELOCITY;
 	velocity[1] = crandom()*GIB_VELOCITY;
 	velocity[2] = GIB_JUMP + crandom()*GIB_VELOCITY;
-	CG_LaunchGib( origin, velocity, cgs.media.gibAbdomen );
+	CG_LaunchFragment( origin, velocity, LETT_BLOOD, cgs.media.gibAbdomen );
 
 	VectorCopy( playerOrigin, origin );
 	velocity[0] = crandom()*GIB_VELOCITY;
 	velocity[1] = crandom()*GIB_VELOCITY;
 	velocity[2] = GIB_JUMP + crandom()*GIB_VELOCITY;
-	CG_LaunchGib( origin, velocity, cgs.media.gibArm );
+	CG_LaunchFragment( origin, velocity, LETT_BLOOD, cgs.media.gibArm );
 
 	VectorCopy( playerOrigin, origin );
 	velocity[0] = crandom()*GIB_VELOCITY;
 	velocity[1] = crandom()*GIB_VELOCITY;
 	velocity[2] = GIB_JUMP + crandom()*GIB_VELOCITY;
-	CG_LaunchGib( origin, velocity, cgs.media.gibChest );
+	CG_LaunchFragment( origin, velocity, LETT_BLOOD, cgs.media.gibChest );
 
 	VectorCopy( playerOrigin, origin );
 	velocity[0] = crandom()*GIB_VELOCITY;
 	velocity[1] = crandom()*GIB_VELOCITY;
 	velocity[2] = GIB_JUMP + crandom()*GIB_VELOCITY;
-	CG_LaunchGib( origin, velocity, cgs.media.gibFist );
+	CG_LaunchFragment( origin, velocity, LETT_BLOOD, cgs.media.gibFist );
 
 	VectorCopy( playerOrigin, origin );
 	velocity[0] = crandom()*GIB_VELOCITY;
 	velocity[1] = crandom()*GIB_VELOCITY;
 	velocity[2] = GIB_JUMP + crandom()*GIB_VELOCITY;
-	CG_LaunchGib( origin, velocity, cgs.media.gibFoot );
+	CG_LaunchFragment( origin, velocity, LETT_BLOOD, cgs.media.gibFoot );
 
 	VectorCopy( playerOrigin, origin );
 	velocity[0] = crandom()*GIB_VELOCITY;
 	velocity[1] = crandom()*GIB_VELOCITY;
 	velocity[2] = GIB_JUMP + crandom()*GIB_VELOCITY;
-	CG_LaunchGib( origin, velocity, cgs.media.gibForearm );
+	CG_LaunchFragment( origin, velocity, LETT_BLOOD, cgs.media.gibForearm );
 
 	VectorCopy( playerOrigin, origin );
 	velocity[0] = crandom()*GIB_VELOCITY;
 	velocity[1] = crandom()*GIB_VELOCITY;
 	velocity[2] = GIB_JUMP + crandom()*GIB_VELOCITY;
-	CG_LaunchGib( origin, velocity, cgs.media.gibIntestine );
+	CG_LaunchFragment( origin, velocity, LETT_BLOOD, cgs.media.gibIntestine );
 
 	VectorCopy( playerOrigin, origin );
 	velocity[0] = crandom()*GIB_VELOCITY;
 	velocity[1] = crandom()*GIB_VELOCITY;
 	velocity[2] = GIB_JUMP + crandom()*GIB_VELOCITY;
-	CG_LaunchGib( origin, velocity, cgs.media.gibLeg );
+	CG_LaunchFragment( origin, velocity, LETT_BLOOD, cgs.media.gibLeg );
 
 	VectorCopy( playerOrigin, origin );
 	velocity[0] = crandom()*GIB_VELOCITY;
 	velocity[1] = crandom()*GIB_VELOCITY;
 	velocity[2] = GIB_JUMP + crandom()*GIB_VELOCITY;
-	CG_LaunchGib( origin, velocity, cgs.media.gibLeg );
+	CG_LaunchFragment( origin, velocity, LETT_BLOOD, cgs.media.gibLeg );
 }
 
 /*
@@ -698,10 +699,10 @@ void CG_BigExplode( vec3_t playerOrigin ) {
 
 /*
 ==================
-CG_LaunchDebris
+CG_LaunchFragment
 ==================
 */
-void CG_LaunchDebris( vec3_t origin, vec3_t velocity, qhandle_t hModel ) {
+void CG_LaunchFragment( vec3_t origin, vec3_t velocity, leTrailType_t trailType, qhandle_t hModel ) {
 	localEntity_t	*le;
 	refEntity_t		*re;
 
@@ -723,8 +724,16 @@ void CG_LaunchDebris( vec3_t origin, vec3_t velocity, qhandle_t hModel ) {
 
 	le->bounceFactor = 0.6f;
 
-	le->leBounceSoundType = LEBS_DEBRIS;
-	//le->leMarkType = LEMT_BLOOD;
+	if ( trailType == LETT_BLOOD ) {
+		le->leBounceSoundType = LEBS_BLOOD;
+		le->leMarkType = LEMT_BLOOD;
+	} else {
+		le->leBounceSoundType = LEBS_NONE;
+		le->leMarkType = LEMT_NONE;
+	}
+
+	
+	le->leTrailType = trailType;
 }
 
 /*
@@ -734,7 +743,7 @@ CG_ShowDebris
 Generated a bunch of debris launching out from an entity's location
 ===================
 */
-void CG_ShowDebris( vec3_t srcOrigin, int count, int type ) {
+void CG_ShowDebris( vec3_t srcOrigin, int count, int evType ) {
 	vec3_t	origin, velocity;
 	int i, r;
 
@@ -743,44 +752,103 @@ void CG_ShowDebris( vec3_t srcOrigin, int count, int type ) {
 		velocity[0] = crandom()*GIB_VELOCITY;
 		velocity[1] = crandom()*GIB_VELOCITY;
 		velocity[2] = GIB_JUMP + crandom()*GIB_VELOCITY;
-		r = rand() % 8;
 		
-		if ( type == EV_EMIT_DEBRIS_NORMAL ) {
+		if ( evType == EV_EMIT_DEBRIS_LIGHT ) {
+			r = rand() % 8;
 			if (r == 0)
-				CG_LaunchDebris( origin, velocity, cgs.media.debris1 );
+				CG_LaunchFragment( origin, velocity, LETT_DEBRIS_CONCRETE, cgs.media.debrislight1 );
 			else if (r == 1)
-				CG_LaunchDebris( origin, velocity, cgs.media.debris2 );
+				CG_LaunchFragment( origin, velocity, LETT_DEBRIS_CONCRETE, cgs.media.debrislight2 );
 			else if (r == 2)
-				CG_LaunchDebris( origin, velocity, cgs.media.debris3 );
+				CG_LaunchFragment( origin, velocity, LETT_DEBRIS_CONCRETE, cgs.media.debrislight3 );
 			else if (r == 3)
-				CG_LaunchDebris( origin, velocity, cgs.media.debris4 );
+				CG_LaunchFragment( origin, velocity, LETT_DEBRIS_CONCRETE, cgs.media.debrislight4 );
 			else if (r == 4)
-				CG_LaunchDebris( origin, velocity, cgs.media.debris5 );
+				CG_LaunchFragment( origin, velocity, LETT_DEBRIS_CONCRETE, cgs.media.debrislight5 );
 			else if (r == 5)
-				CG_LaunchDebris( origin, velocity, cgs.media.debris6 );
+				CG_LaunchFragment( origin, velocity, LETT_DEBRIS_CONCRETE, cgs.media.debrislight6 );
 			else if (r == 6)
-				CG_LaunchDebris( origin, velocity, cgs.media.debris7 );
+				CG_LaunchFragment( origin, velocity, LETT_DEBRIS_CONCRETE, cgs.media.debrislight7 );
 			else if (r == 7)
-				CG_LaunchDebris( origin, velocity, cgs.media.debris8 );
+				CG_LaunchFragment( origin, velocity, LETT_DEBRIS_CONCRETE, cgs.media.debrislight8 );
 		}
 
-		if ( type == EV_EMIT_DEBRIS_DARK ) {
+		if ( evType == EV_EMIT_DEBRIS_DARK ) {
+			r = rand() % 8;
 			if (r == 0)
-				CG_LaunchDebris( origin, velocity, cgs.media.debrisdark1 );
+				CG_LaunchFragment( origin, velocity, LETT_DEBRIS_CONCRETE, cgs.media.debrisdark1 );
 			else if (r == 1)
-				CG_LaunchDebris( origin, velocity, cgs.media.debrisdark2 );
+				CG_LaunchFragment( origin, velocity, LETT_DEBRIS_CONCRETE, cgs.media.debrisdark2 );
 			else if (r == 2)
-				CG_LaunchDebris( origin, velocity, cgs.media.debrisdark3 );
+				CG_LaunchFragment( origin, velocity, LETT_DEBRIS_CONCRETE, cgs.media.debrisdark3 );
 			else if (r == 3)
-				CG_LaunchDebris( origin, velocity, cgs.media.debrisdark4 );
+				CG_LaunchFragment( origin, velocity, LETT_DEBRIS_CONCRETE, cgs.media.debrisdark4 );
 			else if (r == 4)
-				CG_LaunchDebris( origin, velocity, cgs.media.debrisdark5 );
+				CG_LaunchFragment( origin, velocity, LETT_DEBRIS_CONCRETE, cgs.media.debrisdark5 );
 			else if (r == 5)
-				CG_LaunchDebris( origin, velocity, cgs.media.debrisdark6 );
+				CG_LaunchFragment( origin, velocity, LETT_DEBRIS_CONCRETE, cgs.media.debrisdark6 );
 			else if (r == 6)
-				CG_LaunchDebris( origin, velocity, cgs.media.debrisdark7 );
+				CG_LaunchFragment( origin, velocity, LETT_DEBRIS_CONCRETE, cgs.media.debrisdark7 );
 			else if (r == 7)
-				CG_LaunchDebris( origin, velocity, cgs.media.debrisdark8 );
+				CG_LaunchFragment( origin, velocity, LETT_DEBRIS_CONCRETE, cgs.media.debrisdark8 );
+		}
+
+		if ( evType == EV_EMIT_DEBRIS_LIGHT_LARGE ) {
+			r = rand() % 3;
+			if (r == 0)
+				CG_LaunchFragment( origin, velocity, LETT_DEBRIS_CONCRETE, cgs.media.debrislightlarge1 );
+			else if (r == 1)
+				CG_LaunchFragment( origin, velocity, LETT_DEBRIS_CONCRETE, cgs.media.debrislightlarge2 );
+			else if (r == 2)
+				CG_LaunchFragment( origin, velocity, LETT_DEBRIS_CONCRETE, cgs.media.debrislightlarge3 );
+		}
+
+		if ( evType == EV_EMIT_DEBRIS_DARK_LARGE ) {
+			r = rand() % 3;
+			if (r == 0)
+				CG_LaunchFragment( origin, velocity, LETT_DEBRIS_CONCRETE, cgs.media.debrisdarklarge1 );
+			else if (r == 1)
+				CG_LaunchFragment( origin, velocity, LETT_DEBRIS_CONCRETE, cgs.media.debrisdarklarge2 );
+			else if (r == 2)
+				CG_LaunchFragment( origin, velocity, LETT_DEBRIS_CONCRETE, cgs.media.debrisdarklarge3 );
+		}
+
+		if ( evType == EV_EMIT_DEBRIS_WOOD ) {
+			r = rand() % 5;
+			if (r == 0)
+				CG_LaunchFragment( origin, velocity, LETT_DEBRIS_WOOD, cgs.media.debriswood1 );
+			else if (r == 1)
+				CG_LaunchFragment( origin, velocity, LETT_DEBRIS_WOOD, cgs.media.debriswood2 );
+			else if (r == 2)
+				CG_LaunchFragment( origin, velocity, LETT_DEBRIS_WOOD, cgs.media.debriswood3 );
+			else if (r == 3)
+				CG_LaunchFragment( origin, velocity, LETT_DEBRIS_WOOD, cgs.media.debriswood4 );
+			else if (r == 4)
+				CG_LaunchFragment( origin, velocity, LETT_DEBRIS_WOOD, cgs.media.debriswood5 );
+		}
+
+		if ( evType == EV_EMIT_DEBRIS_FLESH ) {
+			r = rand() % 10;
+			if (r == 0)
+				CG_LaunchFragment( origin, velocity, LETT_BLOOD, cgs.media.gibSkull );
+			else if (r == 1)
+				CG_LaunchFragment( origin, velocity, LETT_BLOOD, cgs.media.gibBrain );
+			else if (r == 2)
+				CG_LaunchFragment( origin, velocity, LETT_BLOOD, cgs.media.gibAbdomen );
+			else if (r == 3)
+				CG_LaunchFragment( origin, velocity, LETT_BLOOD, cgs.media.gibArm );
+			else if (r == 4)
+				CG_LaunchFragment( origin, velocity, LETT_BLOOD, cgs.media.gibChest );
+			else if (r == 5)
+				CG_LaunchFragment( origin, velocity, LETT_BLOOD, cgs.media.gibFist );
+			else if (r == 6)
+				CG_LaunchFragment( origin, velocity, LETT_BLOOD, cgs.media.gibFoot );
+			else if (r == 7)
+				CG_LaunchFragment( origin, velocity, LETT_BLOOD, cgs.media.gibForearm );
+			else if (r == 8)
+				CG_LaunchFragment( origin, velocity, LETT_BLOOD, cgs.media.gibIntestine );
+			else if (r == 9)
+				CG_LaunchFragment( origin, velocity, LETT_BLOOD, cgs.media.gibLeg );
 		}
 	}
 }
