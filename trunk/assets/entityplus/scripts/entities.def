@@ -901,12 +901,16 @@ Targetting an info_player_deathmatch spawnpoint with a trigger will enable or di
 
 //=============================================================================
 
-//QUAKED info_spectator_start (1 0 0) (-16 -16 -24) (16 16 32)
-//Spectator spawn location. Doesn't appear to work in game. Commented out.
-//-------- KEYS --------
-//notfree : when set to 1, entity will not spawn in "Free for all" and "Tournament" modes.
-//notteam : when set to 1, entity will not spawn in "Teamplay" and "CTF" modes.
-//notsingle : when set to 1, entity will not spawn in Single Player mode (bot play mode).
+/*QUAKED info_waypoint (1 0 0) (-16 -16 -24) (16 16 32)
+Bot patrolling waypoint.
+-------- KEYS --------
+target : point at another info_waypoint to chain waypoints together
+targetname : target another info_waypoint or a target_botspawn entity at this to make a bot move to this waypoint after reaching the previous waypoint or spawning.
+notfree : when set to 1, entity will not spawn in "Free for all" and "Tournament" modes.
+notteam : when set to 1, entity will not spawn in "Teamplay" and "CTF" modes.
+notsingle : when set to 1, entity will not spawn in Single Player mode (bot play mode).
+-------- NOTES --------
+Waypoints can be chained together to form a path. A bot that's spawned at a target_botspawn that targets a waypoint which is part of the path will walk up and down this path. Do not make circular waypoint chains, this will crash the game.*/
 
 //=============================================================================
 
