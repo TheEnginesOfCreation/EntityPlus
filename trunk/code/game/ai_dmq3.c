@@ -3023,6 +3023,8 @@ int BotFindEnemy(bot_state_t *bs, int curenemy) {
 		bs->enemysuicide = qfalse;
 		bs->enemydeath_time = 0;
 		bs->enemyvisible_time = FloatTime();
+		if ( bs->ltgtype == LTG_PATROL )
+			bs->ltgtype = 0;
 		return qtrue;
 	}
 	return qfalse;
