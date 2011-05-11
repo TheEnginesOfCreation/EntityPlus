@@ -733,7 +733,17 @@ typedef struct {
 	qhandle_t	debriswood4;
 	qhandle_t	debriswood5;
 
+	qhandle_t	debrisglass1;
+	qhandle_t	debrisglass2;
+	qhandle_t	debrisglass3;
+	qhandle_t	debrisglass4;
+	qhandle_t	debrisglass5;
 
+	qhandle_t	debrisglasslarge1;
+	qhandle_t	debrisglasslarge2;
+	qhandle_t	debrisglasslarge3;
+	qhandle_t	debrisglasslarge4;
+	qhandle_t	debrisglasslarge5;
 
 	qhandle_t	smoke2;
 

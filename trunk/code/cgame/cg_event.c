@@ -1168,6 +1168,10 @@ void CG_EntityEvent( centity_t *cent, vec3_t position ) {
 		CG_ShowDebris( cent->lerpOrigin, cent->currentState.eventParm, EV_EMIT_DEBRIS_FLESH );
 		break;
 
+	case EV_EMIT_DEBRIS_GLASS:
+		DEBUGNAME("EV_EMIT_DEBRIS_GLASS");
+		CG_ShowDebris( cent->lerpOrigin, cent->currentState.eventParm, EV_EMIT_DEBRIS_GLASS );
+		break;
 
 	default:
 		DEBUGNAME("UNKNOWN");

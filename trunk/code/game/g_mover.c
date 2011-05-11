@@ -1496,7 +1496,7 @@ void Break_Breakable(gentity_t *ent, gentity_t *other) {
 }
 
 
-/*QUAKED func_breakable (0 .5 .8) ? LIGHT_DEBRIS DARK_DEBRIS LIGHT_LARGE_DEBRIS DARK_LARGE_DEBRIS WOOD_DEBRIS FLESH_DEBRIS
+/*QUAKED func_breakable (0 .5 .8) ? see PickDebrisType in g_util.c for spawnflags
 A bmodel that just sits there, doing nothing. It is removed when it received a set amount of damage.
 "model2"	.md3 model to also draw
 "color"		constantLight color
