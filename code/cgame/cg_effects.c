@@ -870,7 +870,7 @@ void CG_ShowDebris( vec3_t srcOrigin, int count, int evType ) {
 			else if (r == 12)
 				CG_LaunchFragment( origin, velocity, LETT_NONE, cgs.media.debrisglasslarge3 );
 			else if (r == 13)
-				CG_LaunchFragment( origin, velocity, LETT_NONE, cgs.media.debrisglasslarge3 );	//todo: glass_4_large.md3 is missing
+				CG_LaunchFragment( origin, velocity, LETT_NONE, cgs.media.debrisglasslarge4 );
 			else if (r == 14)
 				CG_LaunchFragment( origin, velocity, LETT_NONE, cgs.media.debrisglasslarge5 );
 		}
