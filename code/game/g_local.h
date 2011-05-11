@@ -709,6 +709,7 @@ typedef struct bot_settings_s
 	char characterfile[MAX_FILEPATH];
 	float skill;
 	char team[MAX_FILEPATH];
+	char waypoint[MAX_TOKEN_CHARS];
 } bot_settings_t;
 
 int BotAISetup( int restart );

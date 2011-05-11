@@ -532,6 +532,7 @@ qboolean G_BotConnect( int clientNum, qboolean restart ) {
 	Q_strncpyz( settings.characterfile, Info_ValueForKey( userinfo, "characterfile" ), sizeof(settings.characterfile) );
 	settings.skill = atof( Info_ValueForKey( userinfo, "skill" ) );
 	Q_strncpyz( settings.team, Info_ValueForKey( userinfo, "team" ), sizeof(settings.team) );
+	Q_strncpyz( settings.waypoint, Info_ValueForKey( userinfo, "waypoint" ), sizeof( settings.waypoint ) );
 
 	if (!BotAISetupClient( clientNum, &settings, restart )) {
 		trap_DropClient( clientNum, "BotAISetupClient failed" );
@@ -547,7 +548,7 @@ qboolean G_BotConnect( int clientNum, qboolean restart ) {
 G_AddBot
 ===============
 */
-static void G_AddBot( const char *name, float skill, const char *team, int delay, char *altname, int parentEntityNum ) {
+static void G_AddBot( const char *name, float skill, const char *team, int delay, char *altname, int parentEntityNum, char* waypoint ) {
 	int				clientNum;
 	char			*botinfo;
 	gentity_t		*bot;
@@ -668,6 +669,7 @@ static void G_AddBot( const char *name, float skill, const char *team, int delay
 
 	// set the bot's spawning entity
 	Info_SetValueForKey( userinfo, "parentid", va( "%i", parentEntityNum ) );
+	Info_SetValueForKey( userinfo, "waypoint", waypoint);
 
 	// register the userinfo
 	trap_SetUserinfo( clientNum, userinfo );
@@ -698,6 +700,7 @@ void Svcmd_AddBot_f( void ) {
 	char			altname[MAX_TOKEN_CHARS];
 	char			string[MAX_TOKEN_CHARS];
 	char			team[MAX_TOKEN_CHARS];
+	char			waypoint[MAX_TOKEN_CHARS];
 
 	// are bots enabled?
 	if ( !trap_Cvar_VariableIntegerValue( "bot_enable" ) ) {
@@ -735,7 +738,10 @@ void Svcmd_AddBot_f( void ) {
 	// alternative name
 	trap_Argv( 5, altname, sizeof( altname ) );
 
-	G_AddBot( name, skill, team, delay, altname, 0 );
+	// waypoint
+	trap_Argv( 6, waypoint, sizeof(waypoint) );
+
+	G_AddBot( name, skill, team, delay, altname, 0, waypoint );
 
 	// if this was issued during gameplay and we are playing locally,
 	// go ahead and load the bot's media immediately
@@ -1009,7 +1015,7 @@ G_AddSinglePlayerBot
 ====================
 */
 
-void G_AddCustomBot( char *name, int parentEntityNum ) {
+void G_AddCustomBot( char *name, int parentEntityNum, char* waypoint ) {
 	float skill = trap_Cvar_VariableValue( "g_spSkill" );
-	G_AddBot( name, skill, "free", 0, name, parentEntityNum );
+	G_AddBot( name, skill, "free", 0, name, parentEntityNum, waypoint );
 }

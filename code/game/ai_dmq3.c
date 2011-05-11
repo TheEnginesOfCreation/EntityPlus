@@ -5237,6 +5237,9 @@ void BotDeathmatchAI(bot_state_t *bs, float thinktime) {
 	}
 	//check the console messages
 	BotCheckConsoleMessages(bs);
+	// patrolling AI should never go for items
+	if( bs->patrolpoints && !bs->ltgtype )
+		bs->ltgtype = LTG_PATROL;
 	//if not in the intermission and not in observer mode
 	if (!BotIntermission(bs) && !BotIsObserver(bs)) {
 		//do team AI

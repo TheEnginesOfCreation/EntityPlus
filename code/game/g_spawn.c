@@ -116,6 +116,7 @@ void SP_info_firstplace(gentity_t *ent);
 void SP_info_secondplace(gentity_t *ent);
 void SP_info_thirdplace(gentity_t *ent);
 void SP_info_podium(gentity_t *ent);
+void SP_info_waypoint( gentity_t *self );
 
 void SP_func_plat (gentity_t *ent);
 void SP_func_static (gentity_t *ent);
@@ -188,7 +189,7 @@ void SP_team_blueobelisk( gentity_t *ent );
 void SP_team_redobelisk( gentity_t *ent );
 void SP_team_neutralobelisk( gentity_t *ent );
 #endif
-void SP_item_botroam( gentity_t *ent ) {};
+//void SP_item_botroam( gentity_t *ent ) {};
 
 spawn_t	spawns[] = {
 	// info entities don't do anything at all, but provide positional
@@ -199,6 +200,7 @@ spawn_t	spawns[] = {
 	{"info_null", SP_info_null},
 	{"info_notnull", SP_info_notnull},		// use target_position instead
 	{"info_camp", SP_info_camp},
+	{"info_waypoint", SP_info_waypoint},
 
 	{"func_plat", SP_func_plat},
 	{"func_button", SP_func_button},
@@ -274,7 +276,7 @@ spawn_t	spawns[] = {
 	{"team_blueobelisk", SP_team_blueobelisk},
 	{"team_neutralobelisk", SP_team_neutralobelisk},
 #endif
-	{"item_botroam", SP_item_botroam},
+	//{"item_botroam", SP_item_botroam},
 
 	{0, 0}
 };
