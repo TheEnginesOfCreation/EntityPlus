@@ -1,0 +1,23 @@
+- Pickup sounds for holdable_key_* entities
+
+- "Use" sounds for holdable_key_* entities
+
+
+
+- Test bot AI to see if they really don't initiate attacks on each other
+
+- Make func_breakable play a sound when it's broken
+
+
+
+
+- See if we can make a -1 value for the wait key of func_door entities to behave like the -2 value is working now (and check if it isn't already working like that).
+  ANSWER: no, -1 is return immediately and this does exactly what it says it does
+
+- Test the effects of target_disable on various entities, most importantly spawn points.
+  ANSWER: target_disable does not do a thing on spawnpoints. A new implementation makes sure that an info_player_deathmatch that's targeted by a 
+  trigger will be enabled/disabled by firing the trigger.
+  
+  
+  
+  
