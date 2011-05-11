@@ -850,5 +850,29 @@ void CG_ShowDebris( vec3_t srcOrigin, int count, int evType ) {
 			else if (r == 9)
 				CG_LaunchFragment( origin, velocity, LETT_BLOOD, cgs.media.gibLeg );
 		}
+
+		if ( evType == EV_EMIT_DEBRIS_GLASS ) {
+			r = rand() % 15;	//we're getting twice the number of small shards as big shards this way
+			if (r == 0 || r == 1)
+				CG_LaunchFragment( origin, velocity, LETT_NONE, cgs.media.debrisglass1 );
+			else if (r == 2 || r == 3)
+				CG_LaunchFragment( origin, velocity, LETT_NONE, cgs.media.debrisglass2 );
+			else if (r == 4 || r == 5)
+				CG_LaunchFragment( origin, velocity, LETT_NONE, cgs.media.debrisglass3 );
+			else if (r == 6 || r == 7)
+				CG_LaunchFragment( origin, velocity, LETT_NONE, cgs.media.debrisglass4 );
+			else if (r == 8 || r == 9)
+				CG_LaunchFragment( origin, velocity, LETT_NONE, cgs.media.debrisglass5 );
+			else if (r == 10)
+				CG_LaunchFragment( origin, velocity, LETT_NONE, cgs.media.debrisglasslarge1 );
+			else if (r == 11)
+				CG_LaunchFragment( origin, velocity, LETT_NONE, cgs.media.debrisglasslarge2 );
+			else if (r == 12)
+				CG_LaunchFragment( origin, velocity, LETT_NONE, cgs.media.debrisglasslarge3 );
+			else if (r == 13)
+				CG_LaunchFragment( origin, velocity, LETT_NONE, cgs.media.debrisglasslarge3 );	//todo: glass_4_large.md3 is missing
+			else if (r == 14)
+				CG_LaunchFragment( origin, velocity, LETT_NONE, cgs.media.debrisglasslarge5 );
+		}
 	}
 }

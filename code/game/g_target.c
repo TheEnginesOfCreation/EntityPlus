@@ -736,7 +736,7 @@ void SP_target_playerspeed (gentity_t *self) {
 
 //==========================================================
 
-/*QUAKED target_debrisemitter (.5 .5 .5) (-8 -8 -8) (8 8 8) LIGHT_DEBRIS DARK_DEBRIS LIGHT_LARGE_DEBRIS DARK_LARGE_DEBRIS WOOD_DEBRIS FLESH_DEBRIS
+/*QUAKED target_debrisemitter (.5 .5 .5) (-8 -8 -8) (8 8 8) see PickDebrisType in g_util.c for spawnflags
 Emits chunks of debris.
 If no spawnflag is set, the entity will emit light chunks of concrete
 */

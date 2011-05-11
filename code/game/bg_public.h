@@ -445,12 +445,13 @@ typedef enum {
 	EV_TAUNT_GUARDBASE,
 	EV_TAUNT_PATROL,
 
-	EV_EMIT_DEBRIS_LIGHT,		// a target_debrisemitter or func_breakable that emits light concrete chunks is triggered
-	EV_EMIT_DEBRIS_DARK,		// a target_debrisemitter or func_breakable that emits dark concrete chunks is triggered
-	EV_EMIT_DEBRIS_LIGHT_LARGE,	// a target_debrisemitter or func_breakable that emits light large concrete chunks is triggered
-	EV_EMIT_DEBRIS_DARK_LARGE,	// a target_debrisemitter or func_breakable that emits dark large concrete chunks is triggered
-	EV_EMIT_DEBRIS_WOOD,		// a target_debrisemitter or func_breakable that emits wooden chunks is triggered
-	EV_EMIT_DEBRIS_FLESH		// a target_debrisemitter or func_breakable that emits gibs is triggered
+	EV_EMIT_DEBRIS_LIGHT,		// emit light concrete chunks
+	EV_EMIT_DEBRIS_DARK,		// emit dark concrete chunks
+	EV_EMIT_DEBRIS_LIGHT_LARGE,	// emit light large concrete chunks
+	EV_EMIT_DEBRIS_DARK_LARGE,	// emit dark large concrete chunks
+	EV_EMIT_DEBRIS_WOOD,		// emit wooden chunks
+	EV_EMIT_DEBRIS_FLESH,		// emit gibs
+	EV_EMIT_DEBRIS_GLASS		// emite shards of glass
 
 } entity_event_t;
 

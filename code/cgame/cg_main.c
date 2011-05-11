@@ -992,6 +992,18 @@ static void CG_RegisterGraphics( void ) {
 	cgs.media.debriswood4 = trap_R_RegisterModel( "models/debris/wood_b4.md3" );
 	cgs.media.debriswood5 = trap_R_RegisterModel( "models/debris/wood_b5.md3" );
 
+	cgs.media.debrisglass1 = trap_R_RegisterModel( "models/debris/glass_1.md3" );
+	cgs.media.debrisglass2 = trap_R_RegisterModel( "models/debris/glass_2.md3" );
+	cgs.media.debrisglass3 = trap_R_RegisterModel( "models/debris/glass_3.md3" );
+	cgs.media.debrisglass4 = trap_R_RegisterModel( "models/debris/glass_4.md3" );
+	cgs.media.debrisglass5 = trap_R_RegisterModel( "models/debris/glass_5.md3" );
+
+	cgs.media.debrisglasslarge1 = trap_R_RegisterModel( "models/debris/glass_1_large.md3" );
+	cgs.media.debrisglasslarge2 = trap_R_RegisterModel( "models/debris/glass_2_large.md3" );
+	cgs.media.debrisglasslarge3 = trap_R_RegisterModel( "models/debris/glass_3_large.md3" );
+	cgs.media.debrisglasslarge4 = trap_R_RegisterModel( "models/debris/glass_4_large.md3" );
+	cgs.media.debrisglasslarge5 = trap_R_RegisterModel( "models/debris/glass_5_large.md3" );
+
 	cgs.media.smoke2 = trap_R_RegisterModel( "models/weapons2/shells/s_shell.md3" );
 
 	cgs.media.balloonShader = trap_R_RegisterShader( "sprites/balloon3" );
