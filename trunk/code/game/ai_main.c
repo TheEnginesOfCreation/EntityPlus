@@ -1124,6 +1124,63 @@ void BotReadSessionData(bot_state_t *bs) {
 		);
 }
 
+void BotInitPatrolPoints(bot_state_t* bs, char* target)
+{
+	gentity_t* wpEnt = G_Find (NULL, FOFS(targetname), target );
+	
+	if(!wpEnt)
+	{
+		G_Printf("undefined waypoint target %s \n", g_entities[bs->client].target);
+		return;
+	}
+
+	while( wpEnt )
+	{
+		bot_waypoint_t *newWP;
+		bot_waypoint_t *botWpTail;
+		gentity_t* curWpEnt = wpEnt;
+		int wpArea;
+
+		wpEnt = G_Find (NULL, FOFS(targetname), curWpEnt->target );		
+
+		wpArea = BotPointAreaNum( curWpEnt->s.origin );	
+		if( !wpArea )
+		{
+			G_Printf("no AAS area for waypoint at %s \n", vtos(curWpEnt->s.origin) );
+			continue;
+		}
+		if( !trap_AAS_AreaReachability(wpArea) )
+		{
+			G_Printf("waypoint at %s is unreachable \n", vtos(curWpEnt->s.origin) );
+			continue;
+		}
+
+		// alloc waypoint
+		newWP = BotCreateWayPoint("", curWpEnt->s.origin, wpArea);
+		if( !newWP ) continue;
+		
+		// add to bot's list
+		if( bs->patrolpoints )
+		{
+			botWpTail = bs->patrolpoints;
+			while( botWpTail->next )
+				botWpTail = botWpTail->next;
+
+			botWpTail->next = newWP;
+			newWP->prev = botWpTail;
+		}
+		else
+			bs->patrolpoints = newWP;
+	}
+
+	if( bs->patrolpoints )
+	{
+		bs->curpatrolpoint = bs->patrolpoints;
+		bs->ltgtype = LTG_PATROL;
+	}
+	// more elegant: add newWP to the head of the list, then set curpatrolpoint to the tail
+}
+
 /*
 ==============
 BotAISetupClient
@@ -1201,6 +1258,10 @@ int BotAISetupClient(int client, struct bot_settings_s *settings, qboolean resta
 	bs->ms = trap_BotAllocMoveState();
 	bs->walker = trap_Characteristic_BFloat(bs->character, CHARACTERISTIC_WALKER, 0, 1);
 	numbots++;
+	
+	if ( settings->waypoint ) {
+		BotInitPatrolPoints(bs, settings->waypoint );
+	}
 
 	if (trap_Cvar_VariableIntegerValue("bot_testichat")) {
 		trap_BotLibVarSet("bot_testichat", "1");

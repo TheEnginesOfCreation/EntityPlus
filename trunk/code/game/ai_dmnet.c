@@ -674,7 +674,7 @@ int BotGetLongTermGoal(bot_state_t *bs, int tfl, int retreat, bot_goal_t *goal) 
 		return qtrue;
 	}
 	//patrolling along several waypoints
-	if (bs->ltgtype == LTG_PATROL && !retreat) {
+	if (bs->ltgtype == LTG_PATROL) {
 		//check for bot typing status message
 		if (bs->teammessage_time && bs->teammessage_time < FloatTime()) {
 			strcpy(buf, "");
@@ -713,12 +713,6 @@ int BotGetLongTermGoal(bot_state_t *bs, int tfl, int retreat, bot_goal_t *goal) 
 					bs->patrolflags |= PATROL_BACK;
 				}
 			}
-		}
-		//stop after 5 minutes
-		if (bs->teamgoal_time < FloatTime()) {
-			BotAI_BotInitialChat(bs, "patrol_stop", NULL);
-			trap_BotEnterChat(bs->cs, bs->decisionmaker, CHAT_TELL);
-			bs->ltgtype = 0;
 		}
 		if (!bs->curpatrolpoint) {
 			bs->ltgtype = 0;

@@ -672,7 +672,7 @@ void target_botspawn_use (gentity_t *self, gentity_t *other, gentity_t *activato
 			break;
 	}
 
-	G_AddCustomBot( self->clientname, self->s.number );
+	G_AddCustomBot( self->clientname, self->s.number, self->target );
 }
 
 void SP_target_botspawn (gentity_t *self) {

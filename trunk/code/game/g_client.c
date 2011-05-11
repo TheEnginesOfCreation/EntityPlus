@@ -1630,7 +1630,7 @@ void PrecacheBotAssets() {
 	//add bots to the game to load their assets
 	t = NULL;
 	while ( (t = G_Find (t, FOFS(classname), "target_botspawn")) != NULL ) {
-		G_AddCustomBot( t->clientname, t->s.number );	
+		G_AddCustomBot( t->clientname, t->s.number, t->target );
 	}
 	trap_SendServerCommand( -1, "loaddefered\n" );
 

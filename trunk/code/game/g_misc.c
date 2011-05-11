@@ -17,6 +17,11 @@ void SP_info_camp( gentity_t *self ) {
 	G_SetOrigin( self, self->s.origin );
 }
 
+/*QUAKED info_waypoint (0 0.5 0) (-4 -4 -4) (4 4 4)
+Used as a waypoint target for bot patrolling
+*/
+void SP_info_waypoint( gentity_t *self ) {
+}
 
 /*QUAKED info_null (0 0.5 0) (-4 -4 -4) (4 4 4)
 Used as a positional target for calculations in the utilities (spotlights, etc), but removed during gameplay.
