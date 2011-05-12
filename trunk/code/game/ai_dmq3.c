@@ -1589,7 +1589,8 @@ void BotSetupForMovement(bot_state_t *bs) {
 	if (bs->cur_ps.pm_flags & PMF_DUCKED) initmove.presencetype = PRESENCE_CROUCH;
 	else initmove.presencetype = PRESENCE_NORMAL;
 	//
-	if (bs->walker > 0.5) initmove.or_moveflags |= MFL_WALK;
+	if (bs->walker > 0.5) 
+		initmove.or_moveflags |= MFL_WALK;
 	//
 	VectorCopy(bs->viewangles, initmove.viewangles);
 	//
@@ -2246,8 +2247,11 @@ BotWantsToRetreat
 ==================
 */
 int BotWantsToRetreat(bot_state_t *bs) {
-	aas_entityinfo_t entinfo;
+//	aas_entityinfo_t entinfo;
 
+	return qfalse;
+
+/*
 	if (gametype == GT_CTF) {
 		//always retreat when carrying a CTF flag
 		if (BotCTFCarryingFlag(bs))
@@ -2291,6 +2295,7 @@ int BotWantsToRetreat(bot_state_t *bs) {
 	if (BotAggression(bs) < 50)
 		return qtrue;
 	return qfalse;
+*/
 }
 
 /*
@@ -2299,8 +2304,11 @@ BotWantsToChase
 ==================
 */
 int BotWantsToChase(bot_state_t *bs) {
-	aas_entityinfo_t entinfo;
+	//aas_entityinfo_t entinfo;
 
+	return qfalse;
+
+	/*
 	if (gametype == GT_CTF) {
 		//never chase when carrying a CTF flag
 		if (BotCTFCarryingFlag(bs))
@@ -2342,6 +2350,7 @@ int BotWantsToChase(bot_state_t *bs) {
 	if (BotAggression(bs) > 50)
 		return qtrue;
 	return qfalse;
+	*/
 }
 
 /*
@@ -2636,8 +2645,17 @@ bot_moveresult_t BotAttackMove(bot_state_t *bs, int tfl) {
 	memset(&moveresult, 0, sizeof(bot_moveresult_t));
 	//
 	attack_skill = trap_Characteristic_BFloat(bs->character, CHARACTERISTIC_ATTACK_SKILL, 0, 1);
-	jumper = trap_Characteristic_BFloat(bs->character, CHARACTERISTIC_JUMPER, 0, 1);
-	croucher = trap_Characteristic_BFloat(bs->character, CHARACTERISTIC_CROUCHER, 0, 1);
+	
+	if (gametype == GT_SINGLE_PLAYER) {
+		//entityplus: do not let bots jump or crouch in SP
+		jumper = 0;
+		croucher = 0;
+	} else {
+		jumper = trap_Characteristic_BFloat(bs->character, CHARACTERISTIC_JUMPER, 0, 1);
+		croucher = trap_Characteristic_BFloat(bs->character, CHARACTERISTIC_CROUCHER, 0, 1);
+	}
+	
+	
 	//if the bot is really stupid
 	if (attack_skill < 0.2) return moveresult;
 	//initialize the movement state
@@ -3023,8 +3041,6 @@ int BotFindEnemy(bot_state_t *bs, int curenemy) {
 		bs->enemysuicide = qfalse;
 		bs->enemydeath_time = 0;
 		bs->enemyvisible_time = FloatTime();
-		if ( bs->ltgtype == LTG_PATROL )
-			bs->ltgtype = 0;
 		return qtrue;
 	}
 	return qfalse;
@@ -4843,7 +4859,8 @@ void BotCheckEvents(bot_state_t *bs, entityState_t *state) {
 #endif
 				if (!strcmp(buf, "sound/items/poweruprespawn.wav")) {
 				//powerup respawned... go get it
-				BotGoForPowerups(bs);
+				if ( gametype != GT_SINGLE_PLAYER )	//entityplus: single player enemies shouldn't go for powerups
+					BotGoForPowerups(bs);
 			}
 			break;
 		}
