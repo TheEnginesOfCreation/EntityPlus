@@ -669,7 +669,8 @@ static void G_AddBot( const char *name, float skill, const char *team, int delay
 
 	// set the bot's spawning entity
 	Info_SetValueForKey( userinfo, "parentid", va( "%i", parentEntityNum ) );
-	Info_SetValueForKey( userinfo, "waypoint", waypoint);
+	if ( waypoint )
+		Info_SetValueForKey( userinfo, "waypoint", waypoint);
 
 	// register the userinfo
 	trap_SetUserinfo( clientNum, userinfo );

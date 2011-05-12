@@ -1147,10 +1147,7 @@ void BotInitPatrolPoints(bot_state_t* bs, char* target)
 	gentity_t* wpEnt = G_Find (NULL, FOFS(targetname), target );
 	
 	if(!wpEnt)
-	{
-		G_Printf("undefined waypoint target %s \n", g_entities[bs->client].target);
 		return;
-	}
 
 	while( wpEnt )
 	{
