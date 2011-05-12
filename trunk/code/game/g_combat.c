@@ -676,8 +676,10 @@ void player_die( gentity_t *self, gentity_t *inflictor, gentity_t *attacker, int
 
 	trap_LinkEntity (self);
 
-	// Fire trigger_death and trigger_frag entities
+	// Fire trigger_death and trigger_frag target entities and the deathtarget for the related target_botspawn 
 	G_UseTriggerFragAndDeathEntities ( self, attacker );
+	if ( self->parent )
+		G_UseDeathTargets( self->parent, self );
 }
 
 

@@ -247,6 +247,52 @@ void G_UseTargets( gentity_t *ent, gentity_t *activator ) {
 
 /*
 ==============================
+G_UseDeathTargets
+
+"activator" should be set to the entity that initiated the firing.
+
+Search for (string)targetname in all entities that
+match (string)self.deathtarget and call their .use function.
+Specifically used for target_botspawn entities that have their 
+deathtarget key set.
+
+==============================
+*/
+void G_UseDeathTargets( gentity_t *ent, gentity_t *activator ) {
+	gentity_t		*t;
+	
+	if ( !ent ) {
+		return;
+	}
+
+	if (ent->targetShaderName && ent->targetShaderNewName) {
+		float f = level.time * 0.001;
+		AddRemap(ent->targetShaderName, ent->targetShaderNewName, f);
+		trap_SetConfigstring(CS_SHADERSTATE, BuildShaderStateConfig());
+	}
+
+	if ( !ent->deathTarget ) {
+		return;
+	}
+
+	t = NULL;
+	while ( (t = G_Find (t, FOFS(targetname), ent->deathTarget)) != NULL ) {
+		if ( t == ent ) {
+			G_Printf ("WARNING: Entity used itself.\n");
+		} else {
+			if ( t->use ) {
+				t->use (t, ent, activator);
+			}
+		}
+		if ( !ent->inuse ) {
+			G_Printf("entity was removed while using targets\n");
+			return;
+		}
+	}
+}
+
+/*
+==============================
 G_ToggleTargetsEnabled
 
 "activator" should be set to the entity that initiated the firing.

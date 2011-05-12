@@ -99,6 +99,7 @@ field_t fields[] = {
 	{"mapname", FOFS(mapname), F_LSTRING},
 	{"clientname", FOFS(clientname), F_LSTRING},
 	{"teleporterTarget", FOFS(teleporterTarget), F_LSTRING},
+	{"deathTarget", FOFS(deathTarget), F_LSTRING},
 
 	{NULL}
 };
