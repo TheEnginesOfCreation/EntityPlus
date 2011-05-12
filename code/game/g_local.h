@@ -163,8 +163,8 @@ struct gentity_s {
 	gitem_t		*item;			// for bonus items
 
 	char		*teleporterTarget;		// forces a client to be teleported to the entity with this targetname when using holdable_teleporter. Also used as key for holdable_teleporter itself.
-
 	int			backpackContents[WP_NUM_WEAPONS - 1];
+	char		*deathTarget;	//target to trigger when bot from target_botspawn dies
 };
 
 
@@ -476,6 +476,7 @@ void	G_KillBox (gentity_t *ent);
 gentity_t *G_Find (gentity_t *from, int fieldofs, const char *match);
 gentity_t *G_PickTarget (char *targetname);
 void	G_UseTargets (gentity_t *ent, gentity_t *activator);
+void	G_UseDeathTargets (gentity_t *ent, gentity_t *activator);
 void	G_SetMovedir ( vec3_t angles, vec3_t movedir);
 
 void	G_InitGentity( gentity_t *e );
