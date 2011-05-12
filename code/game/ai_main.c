@@ -1124,6 +1124,24 @@ void BotReadSessionData(bot_state_t *bs) {
 		);
 }
 
+// does one of the bots patrolpoint match the given origin?
+qboolean BotHasWaypoint(bot_state_t* bs, vec3_t wpOrigin)
+{
+	bot_waypoint_t* wp = bs->patrolpoints;
+
+	if( !wp )
+		return qfalse;
+
+	while( wp )
+	{
+		if( VectorCompare(wpOrigin, wp->goal.origin) )
+			return qtrue;
+		wp = wp->next;
+	}
+
+	return qfalse;
+}
+
 void BotInitPatrolPoints(bot_state_t* bs, char* target)
 {
 	gentity_t* wpEnt = G_Find (NULL, FOFS(targetname), target );
@@ -1142,6 +1160,13 @@ void BotInitPatrolPoints(bot_state_t* bs, char* target)
 		int wpArea;
 
 		wpEnt = G_Find (NULL, FOFS(targetname), curWpEnt->target );		
+
+		// circular linked waypoints -> patrol loop
+		if( BotHasWaypoint(bs, curWpEnt->s.origin) )
+		{
+			bs->patrolflags |= PATROL_LOOP;
+			break;
+		}
 
 		wpArea = BotPointAreaNum( curWpEnt->s.origin );	
 		if( !wpArea )

@@ -695,22 +695,27 @@ int BotGetLongTermGoal(bot_state_t *bs, int tfl, int retreat, bot_goal_t *goal) 
 		}
 		//if the bot touches the current goal
 		if (trap_BotTouchingGoal(bs->origin, &bs->curpatrolpoint->goal)) {
-			if (bs->patrolflags & PATROL_BACK) {
-				if (bs->curpatrolpoint->prev) {
-					bs->curpatrolpoint = bs->curpatrolpoint->prev;
-				}
-				else {
+			if (bs->patrolflags & PATROL_LOOP) {
+				if (bs->curpatrolpoint->next)
 					bs->curpatrolpoint = bs->curpatrolpoint->next;
-					bs->patrolflags &= ~PATROL_BACK;
-				}
-			}
-			else {
-				if (bs->curpatrolpoint->next) {
-					bs->curpatrolpoint = bs->curpatrolpoint->next;
-				}
-				else {
-					bs->curpatrolpoint = bs->curpatrolpoint->prev;
-					bs->patrolflags |= PATROL_BACK;
+				else
+					bs->curpatrolpoint = bs->patrolpoints;
+			} else {	// back and forth mode
+				if (bs->patrolflags & PATROL_BACK) {
+					if (bs->curpatrolpoint->prev) {
+						bs->curpatrolpoint = bs->curpatrolpoint->prev;
+					}
+					else {
+						bs->curpatrolpoint = bs->curpatrolpoint->next;
+						bs->patrolflags &= ~PATROL_BACK;
+					}
+				} else {
+					if (bs->curpatrolpoint->next) {
+						bs->curpatrolpoint = bs->curpatrolpoint->next;
+					} else {
+						bs->curpatrolpoint = bs->curpatrolpoint->prev;
+						bs->patrolflags |= PATROL_BACK;
+					}
 				}
 			}
 		}
