@@ -640,7 +640,9 @@ void SP_target_gravity (gentity_t *self) {
 /*QUAKED target_botspawn (.5 .5 .5) (-8 -8 -8) (8 8 8) 
 OPPOSING_TEAM WP_MACHINEGUN WP_SHOTGUN WP_GRENADE_LAUNCHER WP_ROCKET_LAUNCHER WP_LIGHTNING WP_RAILGUN WP_PLASMAGUN WP_BFG
 Spawns a bot into the game
-Use the health key to determine the amount of health the bot will have
+Use the health key to determine the amount of health the bot will spawn with
+The entity specified with deathtarget will be activated when the spawned bot dies
+Use the skill key to specify the skill level for the bot relative to the g_spskill level. This is only applied to the amount of damage it deals.
 */
 void target_botspawn_use (gentity_t *self, gentity_t *other, gentity_t *activator) {
 	char *team;
@@ -678,6 +680,8 @@ void target_botspawn_use (gentity_t *self, gentity_t *other, gentity_t *activato
 void SP_target_botspawn (gentity_t *self) {
 	if ( !self->clientname || !strcmp(self->clientname, "") )
 		self->clientname = "sarge";
+
+	G_SpawnFloat( "skill", "0", &self->skill );
 
 	self->use = target_botspawn_use;
 }
@@ -787,7 +791,7 @@ void target_skill_use (gentity_t *self, gentity_t *other, gentity_t *activator) 
 }
 
 void SP_target_skill (gentity_t *self) {
-	G_SpawnInt( "skill", "2", &self->skill );
+	G_SpawnFloat( "skill", "2", &self->skill );
 
 	if ( self->skill > 5 ) 
 		self->skill = 5;

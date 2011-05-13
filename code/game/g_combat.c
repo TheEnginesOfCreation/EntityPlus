@@ -899,7 +899,21 @@ void G_Damage( gentity_t *targ, gentity_t *inflictor, gentity_t *attacker,
 	// "Hardcore" does 0.35 dmg
 	// "Nightmare does 0.45 dmg
 	if ( g_gametype.integer == GT_SINGLE_PLAYER && attacker && IsBot(attacker) ) {
-		damage *= ( ( 0.1 * trap_Cvar_VariableValue( "g_spSkill" ) ) - 0.05 );
+		float skill = trap_Cvar_VariableValue( "g_spSkill" );
+		int orgdmg = damage;
+
+		if ( attacker->parent && attacker->parent->skill )
+			skill += attacker->parent->skill;
+
+		if (skill < 1)
+			skill = 1;	//relative skill level should not drop below 1 but is allowed to rise above 5
+		
+		damage *= ( ( 0.1 * skill  ) - 0.05 );	//TODO: round damage to nearest int instead of down
+		
+		if ( damage < 1 )
+			damage = 1;	//make sure bot does at least -some- damage
+
+		G_Printf("skill: %f -- mp: %f -- orgdmg: %i -- dmg: %i\n", skill, ( 0.1 * skill  ) - 0.05, orgdmg, damage);
 	}
 
 	client = targ->client;

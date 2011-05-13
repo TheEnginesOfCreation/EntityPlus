@@ -1463,8 +1463,9 @@ TARGET_* ENTITIES
 Spawns a bot into the game at the location of the target_botspawn entity.
 -------- KEYS --------
 angle : direction in which bot will look when spawning in the game.
-clientname : the name of the bot to spawn. When omitted it defaults to Sarge.
-health : the amount of health the bot will have when it spawns into the game.
+clientname : the name of the bot to spawn (default = "Sarge").
+health : the amount of health the bot will have when it spawns into the game (default = 125).
+skill : sets the relative skill level of the bot (default = 0).
 target : this points to entities to activate when this entity is triggered.
 targetname : activating trigger points to this.
 deathtarget : this points to entities to activate when a bot spawned by the target_botspawn dies.
@@ -1482,7 +1483,9 @@ WP_RAILGUN : The bot spawns into the game with a Railgun.
 WP_PLASMAGUN : The bot spawns into the game with a Plasmagun.
 WP_BFG : The bot spawns into the game with a BFG.
 -------- NOTES --------
-By default bots spawn with only the gauntlet as weapon. Use spawnflags to customize the set of weapons the bot will spawn with. Bots will always have unlimited ammo for all weapons. The choice of weapon is still up to the bot. This means that spawning a bot with a MG and GL doesn't guarantee the bot will use the GL.*/
+By default bots spawn with only the gauntlet as weapon. Use spawnflags to customize the set of weapons the bot will spawn with. Bots will always have unlimited ammo for all weapons. The choice of weapon is still up to the bot. This means that spawning a bot with a MG and GL doesn't guarantee the bot will use the GL.
+
+Setting the skill key works like a modifier on top of the current skill level. So a skill value of 1 means the bot is one skill level tougher than the current skill setting. A skill value of -2 means the bot is two skill levels lower than the current setting. A bot's relative skill level never drops below 1 but may rise above 5. Floating point values (like 1.3) are allowed.*/
 
 //=============================================================================
 
@@ -1757,7 +1760,7 @@ notsingle : when set to 1, entity will not spawn in Single Player mode (bot play
 Sets the skill level for the next map that will be loaded.
 -------- KEYS --------
 targetname : ativating entity points to this.
-skill : the skill level to apply. 1 is easiest, 5 is hardest.
+skill : the skill level to apply. 1 is easiest, 5 is hardest (default = 2).
 notfree : when set to 1, entity will not spawn in "Free for all" and "Tournament" modes.
 notteam : when set to 1, entity will not spawn in "Teamplay" and "CTF" modes.
 notsingle : when set to 1, entity will not spawn in Single Player mode (bot play mode).*/
