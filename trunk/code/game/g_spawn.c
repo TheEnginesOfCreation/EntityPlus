@@ -100,6 +100,7 @@ field_t fields[] = {
 	{"clientname", FOFS(clientname), F_LSTRING},
 	{"teleporterTarget", FOFS(teleporterTarget), F_LSTRING},
 	{"deathTarget", FOFS(deathTarget), F_LSTRING},
+	{"skill", FOFS(skill), F_FLOAT},
 
 	{NULL}
 };
