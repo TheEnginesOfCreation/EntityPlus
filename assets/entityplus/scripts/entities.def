@@ -1753,6 +1753,17 @@ notsingle : when set to 1, entity will not spawn in Single Player mode (bot play
 
 //=============================================================================
 
+/*QUAKED target_skill (0 .5 0) (-8 -8 -8) (8 8 8)
+Sets the skill level for the next map that will be loaded.
+-------- KEYS --------
+targetname : ativating entity points to this.
+skill : the skill level to apply. 1 is easiest, 5 is hardest.
+notfree : when set to 1, entity will not spawn in "Free for all" and "Tournament" modes.
+notteam : when set to 1, entity will not spawn in "Teamplay" and "CTF" modes.
+notsingle : when set to 1, entity will not spawn in Single Player mode (bot play mode).*/
+
+//=============================================================================
+
 /*QUAKED target_speaker (0 .7 .7) (-8 -8 -8) (8 8 8) LOOPED_ON LOOPED_OFF GLOBAL ACTIVATOR
 Sound generating entity that plays .wav files. Normal non-looping sounds play each time the target_speaker is triggered. Looping sounds can be set to play by themselves (no activating trigger) or be toggled on/off by a trigger.
 -------- KEYS --------
