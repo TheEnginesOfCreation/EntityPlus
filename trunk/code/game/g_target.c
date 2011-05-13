@@ -775,3 +775,24 @@ void target_objective_use (gentity_t *self, gentity_t *other, gentity_t *activat
 void SP_target_objective (gentity_t *self) {
 	self->use = target_objective_use;
 }
+
+//==========================================================
+
+/*QUAKED target_skill (.5 .5 .5) (-8 -8 -8) (8 8 8)
+Sets the skill level for the next map that will be loaded
+*/
+
+void target_skill_use (gentity_t *self, gentity_t *other, gentity_t *activator) {
+	trap_SendConsoleCommand( EXEC_INSERT, va( "seta g_spskill %i\n", self->skill) );
+}
+
+void SP_target_skill (gentity_t *self) {
+	G_SpawnInt( "skill", "2", &self->skill );
+
+	if ( self->skill > 5 ) 
+		self->skill = 5;
+	else if ( self->skill < 1 )
+		self->skill = 1;
+	
+	self->use = target_skill_use;
+}
