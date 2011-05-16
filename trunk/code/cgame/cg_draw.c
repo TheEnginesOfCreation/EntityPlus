@@ -2719,6 +2719,9 @@ void CG_DrawActive( stereoFrame_t stereoView ) {
 		VectorMA( cg.refdef.vieworg, -separation, cg.refdef.viewaxis[1], cg.refdef.vieworg );
 	}
 
+	// apply earthquake effect
+	CG_Earthquake();
+
 	// draw 3D view
 	trap_R_RenderScene( &cg.refdef );
 

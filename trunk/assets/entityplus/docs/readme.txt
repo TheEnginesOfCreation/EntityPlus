@@ -95,6 +95,9 @@ Testing and feedback			: tigger.on
 								  
 Support and general enthusiasm	: The entire Quake3World LEM community
 								  [http://quake3world.com/forum/viewforum.php?f=10]
+						
+Earthquake code					: The Reaction Factory
+								  [http://rfactory.org]
 
 CONTACT
 -------

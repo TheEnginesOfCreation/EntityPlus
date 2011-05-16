@@ -1,6 +1,7 @@
 v0.6 (? may 2011)
 	- [Added] info_waypoint entity to plot patrolling routes for bots.
 	- [Added] target_skill entity to set the skill level for the next map.
+	- [Added] target_earthquake entity
 	- [Added] LIGHT_LARGE_DEBRIS, DARK_LARGE_DEBRIS, WOOD_DEBRIS, FLESH_DEBRIS and GLASS_DEBRIS spawnflags to target_debrisemitter and func_breakable.
 	- [Added] deathtarget key to target_botspawn in order to activate entities upon a bot's death.
 	- [Added] skill key to target_botspawn in order to set the skill level of the bot relative to the global skill level.

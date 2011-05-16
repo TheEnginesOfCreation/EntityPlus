@@ -1546,6 +1546,18 @@ per entity type and are untested.*/
 
 //=============================================================================
 
+/*QUAKED target_earthquake (0 .7 .7) (-8 -8 -8) (8 8 8) 
+Starts an earthquake that shakes the screen
+-------- KEYS --------
+targetname : activating trigger points to this.
+length : duration of the earthquake in seconds (2 - 32)
+intensity : intensity of the earthquake (1 - 16)
+notfree : when set to 1, entity will not spawn in "Free for all" and "Tournament" modes.
+notteam : when set to 1, entity will not spawn in "Teamplay" and "CTF" modes.
+notsingle : when set to 1, entity will not spawn in Single Player mode (bot play mode).*/
+
+//=============================================================================
+
 /*QUAKED target_give (0 .5 0) (-8 -8 -8) (8 8 8)
 This is used to give ammo, weapons, health or items to the player who activates it.
 -------- KEYS --------
