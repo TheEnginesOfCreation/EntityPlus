@@ -451,7 +451,9 @@ typedef enum {
 	EV_EMIT_DEBRIS_DARK_LARGE,	// emit dark large concrete chunks
 	EV_EMIT_DEBRIS_WOOD,		// emit wooden chunks
 	EV_EMIT_DEBRIS_FLESH,		// emit gibs
-	EV_EMIT_DEBRIS_GLASS		// emite shards of glass
+	EV_EMIT_DEBRIS_GLASS,		// emite shards of glass
+
+	EV_EARTHQUAKE
 
 } entity_event_t;
 
