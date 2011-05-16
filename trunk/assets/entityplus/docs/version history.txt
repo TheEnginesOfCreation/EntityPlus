@@ -11,7 +11,7 @@ v0.6 (? may 2011)
 	- [Fixed] Negative values for count key on target_relay prevent the entity from being used.
 	- [Fixed] Sometimes wrong spawnpoint is picked in ep_example map when dying in key room.
 	- [Fixed] Not killing all enemies in ep_example map prevents exit for key room from opening up.
-	- [Changed] con_notify time is now reset to 0 in single player at map load.
+	- [Changed] con_notify time is now set to 0 in single player at map load.
 
 v0.5.1 (9 may 2011)
 	- [Fixed] Added missing example map roq video to pak0.pk3
