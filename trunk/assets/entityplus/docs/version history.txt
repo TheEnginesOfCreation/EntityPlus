@@ -8,6 +8,9 @@ v0.6 (? may 2011)
 	- [Fixed] Rocket Launcher is not in the backpack if player dies while having a RL.
 	- [Fixed] target_objective not displaying "objectives updated" message when it's triggered by a bot (for example through a trigger_death entity).
 	- [Fixed] count key was missing from target_relay description in entities.def and manual.
+	- [Fixed] Negative values for count key on target_relay prevent the entity from being used.
+	- [Fixed] Sometimes wrong spawnpoint is picked in ep_example map when dying in key room.
+	- [Fixed] Not killing all enemies in ep_example map prevents exit for key room from opening up.
 
 v0.5.1 (9 may 2011)
 	- [Fixed] Added missing example map roq video to pak0.pk3
