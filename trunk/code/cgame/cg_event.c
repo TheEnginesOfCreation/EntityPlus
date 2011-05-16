@@ -1178,6 +1178,22 @@ void CG_EntityEvent( centity_t *cent, vec3_t position ) {
 		CG_StartEarthquake((es->eventParm & 0x0F) + 1, ((1 + ((es->eventParm & 0xF0) >> 4)) * 2000) + 1000);
 		break;
 
+	case EV_EXPLOSION:
+		DEBUGNAME("EV_EXPLOSION");
+		
+		if ( cg_oldRocket.integer == 0 ) {
+			dir[0] = 0;
+			dir[1] = 0;
+			dir[2] = 25;
+			CG_ParticleExplosion( "explode1", cent->lerpOrigin, dir, 1400, 20, 30 );
+		}
+		
+		dir[0] = 0;
+		dir[1] = 0;
+		dir[2] = 0;
+		CG_MakeExplosion( cent->lerpOrigin, dir, cgs.media.dishFlashModel, cgs.media.rocketExplosionShader, 1000, qtrue );
+		break;
+
 	default:
 		DEBUGNAME("UNKNOWN");
 		CG_Error( "Unknown event: %i", event );
