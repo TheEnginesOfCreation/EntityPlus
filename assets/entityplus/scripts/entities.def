@@ -298,6 +298,7 @@ LIGHT_LARGE_DEBRIS : Emit large light colored pieces of concrete debris.
 DARK_LARGE_DEBRIS : Emit large dark colored pieces of concrete debris.
 WOOD_DEBRIS : Emit pieces of wooden debris.
 FLESH_DEBRIS : Emit gibs.
+GLASS_DEBRIS : Emit shards of glass.
 -------- NOTES --------
 Target this entity with a misc_model to have the model attached to the entity (set the model's "target" key to the same value as this entity's "targetname").
 
@@ -1485,7 +1486,9 @@ WP_BFG : The bot spawns into the game with a BFG.
 -------- NOTES --------
 By default bots spawn with only the gauntlet as weapon. Use spawnflags to customize the set of weapons the bot will spawn with. Bots will always have unlimited ammo for all weapons. The choice of weapon is still up to the bot. This means that spawning a bot with a MG and GL doesn't guarantee the bot will use the GL.
 
-Setting the skill key works like a modifier on top of the current skill level. So a skill value of 1 means the bot is one skill level tougher than the current skill setting. A skill value of -2 means the bot is two skill levels lower than the current setting. A bot's relative skill level never drops below 1 but may rise above 5. Floating point values (like 1.3) are allowed.*/
+Setting the skill key works like a modifier on top of the current skill level. So a skill value of 1 means the bot is one skill level tougher than the current skill setting. A skill value of -2 means the bot is two skill levels lower than the current setting. A bot's relative skill level never drops below 1 but may rise above 5. Floating point values (like 1.3) are allowed.
+
+Note that the Radiant level editor will not display targetting paths for the deathtarget key.*/
 
 //=============================================================================
 
@@ -1504,6 +1507,7 @@ LIGHT_LARGE_DEBRIS : Emit large light colored pieces of concrete debris.
 DARK_LARGE_DEBRIS : Emit large dark colored pieces of concrete debris.
 WOOD_DEBRIS : Emit pieces of wooden debris.
 FLESH_DEBRIS : Emit gibs.
+GLASS_DEBRIS : Emit shards of glass.
 -------- NOTES --------
 The various spawnflags cannot be combined. If multiple spawnflags are selected, the first spawnflag will overrule later spawnflags. When no spawnflag is defined, the func_breakable will default to LIGHT_DEBRIS.*/
 

@@ -374,7 +374,7 @@ void target_relay_use (gentity_t *self, gentity_t *other, gentity_t *activator) 
 		return;
 	}
 
-	if (!self->count) {
+	if (!self->count || self->count < 0) {
 		self->count = 1;
 	}
 
