@@ -597,11 +597,18 @@ void target_mapchange_use (gentity_t *self, gentity_t *other, gentity_t *activat
 		if ( self->mapname )
 			trap_SendConsoleCommand( EXEC_INSERT, va( "%s %s\n", cmd, self->mapname ) ); 
 		else
-			trap_SendConsoleCommand( EXEC_INSERT, "map_restart 0\n" ); 
+			trap_SendConsoleCommand( EXEC_INSERT, "map_restart 0\n" ); //shouldn't happen
 	}
 }
 
 void SP_target_mapchange (gentity_t *self) {
+	char info[1024];
+
+	if ( !self->mapname )
+	{
+		trap_GetServerinfo(info, sizeof(info));
+		self->mapname = Info_ValueForKey( info, "mapname" );
+	}
 	self->use = target_mapchange_use;
 }
 
@@ -836,4 +843,19 @@ void SP_target_earthquake (gentity_t *self) {
 	self->use = target_earthquake_use;
 	self->s.eType = ET_EVENTS;
 	trap_LinkEntity (self);
+}
+
+//==========================================================
+
+/*QUAKED target_effect (.5 .5 .5) (-8 -8 -8) (8 8 8)
+shows animated environmental effect
+*/
+
+void target_effect_use (gentity_t *self, gentity_t *other, gentity_t *activator) {
+	G_TempEntity( self->s.origin, EV_EXPLOSION );
+}
+
+void SP_target_effect (gentity_t *self) {
+	RegisterItem( BG_FindItemForWeapon( WP_ROCKET_LAUNCHER ) );	//uses RL gfx so we must register the RL
+	self->use = target_effect_use;
 }

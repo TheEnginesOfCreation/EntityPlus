@@ -165,6 +165,7 @@ void SP_target_debrisemitter (gentity_t *ent);
 void SP_target_objective (gentity_t *ent);
 void SP_target_skill (gentity_t *ent);
 void SP_target_earthquake (gentity_t *ent);
+void SP_target_effect (gentity_t *ent);
 
 void SP_light (gentity_t *self);
 void SP_info_null (gentity_t *self);
@@ -257,6 +258,7 @@ spawn_t	spawns[] = {
 	{"target_objective", SP_target_objective},
 	{"target_skill", SP_target_skill},
 	{"target_earthquake", SP_target_earthquake},
+	{"target_effect", SP_target_effect},
 
 	{"light", SP_light},
 	{"path_corner", SP_path_corner},

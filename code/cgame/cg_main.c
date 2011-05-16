@@ -1057,13 +1057,6 @@ static void CG_RegisterGraphics( void ) {
 		}
 	}
 
-	// register graphics for backpack if we're in single player mode
-	if ( cgs.gametype == GT_SINGLE_PLAYER ) {
-		backpack = BG_FindItemForBackpack();
-		CG_LoadingItem( backpack - bg_itemlist );
-		CG_RegisterItemVisuals( backpack - bg_itemlist );
-	}
-
 	// wall marks
 	cgs.media.bulletMarkShader = trap_R_RegisterShader( "gfx/damage/bullet_mrk" );
 	cgs.media.burnMarkShader = trap_R_RegisterShader( "gfx/damage/burn_med_mrk" );

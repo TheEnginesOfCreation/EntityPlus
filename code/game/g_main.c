@@ -491,7 +491,8 @@ void G_InitGame( int levelTime, int randomSeed, int restart ) {
 
 	G_RemapTeamShaders();
 
-	trap_Cvar_Set("con_notifytime", "0");
+	if (g_gametype.integer == GT_SINGLE_PLAYER) 
+		trap_Cvar_Set("con_notifytime", "0");
 }
 
 
