@@ -1004,6 +1004,8 @@ static void CG_RegisterGraphics( void ) {
 	cgs.media.debrisglasslarge4 = trap_R_RegisterModel( "models/debris/glass_4_large.md3" );
 	cgs.media.debrisglasslarge5 = trap_R_RegisterModel( "models/debris/glass_5_large.md3" );
 
+	cgs.media.sparkShader = trap_R_RegisterShaderNoMip("spark");
+	
 	cgs.media.smoke2 = trap_R_RegisterModel( "models/weapons2/shells/s_shell.md3" );
 
 	cgs.media.balloonShader = trap_R_RegisterShader( "sprites/balloon3" );

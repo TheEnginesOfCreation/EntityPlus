@@ -451,6 +451,7 @@ void CG_EntityEvent( centity_t *cent, vec3_t position ) {
 	const char		*s;
 	int				clientNum;
 	clientInfo_t	*ci;
+	byte			r, g, b;
 
 	es = &cent->currentState;
 	event = es->event & ~EV_EVENT_BITS;
@@ -1181,6 +1182,7 @@ void CG_EntityEvent( centity_t *cent, vec3_t position ) {
 	case EV_EXPLOSION:
 		DEBUGNAME("EV_EXPLOSION");
 		
+		// show plume (if enabled)
 		if ( cg_oldRocket.integer == 0 ) {
 			dir[0] = 0;
 			dir[1] = 0;
@@ -1188,10 +1190,21 @@ void CG_EntityEvent( centity_t *cent, vec3_t position ) {
 			CG_ParticleExplosion( "explode1", cent->lerpOrigin, dir, 1400, 20, 30 );
 		}
 		
+		// show explosion
 		dir[0] = 0;
 		dir[1] = 0;
 		dir[2] = 0;
 		CG_MakeExplosion( cent->lerpOrigin, dir, cgs.media.dishFlashModel, cgs.media.rocketExplosionShader, 1000, qtrue );
+		break;
+	
+	case EV_PARTICLES_GRAVITY:
+		DEBUGNAME("EV_PARTICLES_GRAVITY");
+		CG_ParticlesFromEntityState( cent->lerpOrigin, qtrue, es );
+		break;
+
+	case EV_PARTICLES_LINEAR:
+		DEBUGNAME("EV_PARTICLES_LINEAR");
+		CG_ParticlesFromEntityState( cent->lerpOrigin, qfalse, es );
 		break;
 
 	default:

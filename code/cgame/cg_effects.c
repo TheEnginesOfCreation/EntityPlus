@@ -928,3 +928,89 @@ void CG_Earthquake()
 	cg.refdefViewAngles[2] += terremotoZ;
 	AnglesToAxis( cg.refdefViewAngles, cg.refdef.viewaxis );
 }
+
+/*
+===================
+CG_ExplosionParticles
+
+Shows particles
+===================
+*/
+void CG_Particles( vec3_t origin, int count, int speed, int lifetime, qboolean gravity, byte r, byte g, byte b ) {
+	int jump; // amount to nudge the particles trajectory vector up by
+	int light; // amount of light for each particle
+	vec4_t lColor; // color of light for each particle
+	qhandle_t shader; // shader to use for the particles
+	int index;
+	vec3_t randVec, tempVec;
+
+	jump = 70;
+	light = 100;
+	lColor[0] = r;
+	lColor[1] = g;
+	lColor[2] = b;
+	shader = cgs.media.sparkShader;
+
+	for( index = 0; index < count; index++ ) {
+		localEntity_t *le;
+		refEntity_t *re;
+
+		le = CG_AllocLocalEntity(); //allocate a local entity
+		re = &le->refEntity;
+		le->leFlags = LEF_PUFF_DONT_SCALE; //don't change the particle size
+		le->leType = LE_MOVE_SCALE_FADE; // particle should fade over time
+		le->startTime = cg.time; // set the start time of the particle to the current time
+		le->endTime = cg.time + lifetime + (random() * (lifetime / 2));	//life time will be anywhere between [lifetime] and [lifetime * 1.5]
+		le->lifeRate = 1.0 / ( le->endTime - le->startTime );
+		re = &le->refEntity;
+		re->shaderTime = cg.time / 1000.0f;
+		re->reType = RT_SPRITE;
+		re->rotation = 0;
+		re->radius = 3;
+		re->customShader = shader;
+		re->shaderRGBA[0] = r;
+		re->shaderRGBA[1] = g;
+		re->shaderRGBA[2] = b;
+		re->shaderRGBA[3] = 0xff;
+		le->light = light;
+		VectorCopy( lColor, le->lightColor );
+		le->color[3] = 1.0;
+		if ( gravity )
+			le->pos.trType = TR_GRAVITY; // moves in a gravity affected arc
+		else
+			le->pos.trType = TR_LINEAR; // moves in straight line, outward from the origin
+		le->pos.trTime = cg.time;
+		VectorCopy( origin, le->pos.trBase );
+		VectorCopy( origin, re->origin );
+
+		tempVec[0] = crandom(); //between 1 and -1
+		tempVec[1] = crandom();
+		tempVec[2] = crandom();
+		VectorNormalize(tempVec);
+		VectorScale(tempVec, speed, randVec);
+		randVec[2] += jump; //nudge the particles up a bit
+		VectorCopy( randVec, le->pos.trDelta );	
+	}
+}
+
+/*
+===================
+CG_ParticlesFromEntityState
+
+Takes entitystate and extracts data inside to use for CG_Particles.
+es->constantLight is used for the color of the particles.
+es->eventParm is used for the number of particles.
+es->generic1 is used for the speed of the particles.
+===================
+*/
+void CG_ParticlesFromEntityState( vec3_t origin, qboolean gravity, entityState_t *es) {
+	byte r, g, b;
+	int speed = 100;
+	int lifetime = 3000;
+	
+	r = es->constantLight & 255;
+	g = ( es->constantLight >> 8 ) & 255;
+	b = ( es->constantLight >> 16 ) & 255;
+	
+	CG_Particles( origin, es->eventParm, es->generic1, lifetime, gravity, r, g, b );
+}

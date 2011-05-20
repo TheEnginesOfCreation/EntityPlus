@@ -105,7 +105,7 @@ void CG_PuffTrail( localEntity_t *le ) {
 	vec3_t	newOrigin;
 	localEntity_t	*puff;
 	float r, g, b, a;
-	qhandle_t *mediaShader;
+	qhandle_t mediaShader;
 	int verticalMovement;
 
 	if ( le->leTrailType == LETT_NONE )

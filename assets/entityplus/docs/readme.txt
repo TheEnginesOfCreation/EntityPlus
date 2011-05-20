@@ -98,6 +98,9 @@ Support and general enthusiasm	: The entire Quake3World LEM community
 						
 Earthquake code					: The Reaction Factory
 								  [http://rfactory.org]
+								  
+Particle effect code			: Juz's Slipgate
+								  [http://www.juz.org.uk]
 
 CONTACT
 -------
