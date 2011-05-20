@@ -266,18 +266,29 @@ qboolean CG_DrawSinglePlayerObjectives( void ) {
 	//draw primary objective
 	CG_DrawSmallStringColor( 80, 175, p, color); //TODO: if primary objective is more than 60 chars, wrap to next line
 
-
 	//draw secondary objective
 	CG_DrawSmallStringColor( 80, 255, s, color); //TODO: if secondary objective is more than 60 chars, wrap to next line
 
 	//draw kills counter
 	for ( i = 0 ; i < cg.numScores ; i++ ) {
 		if ( cg.scores[i].client == cg.snap->ps.clientNum ) {
-			CG_DrawBigStringColor( 185, 310, va("%i", cg.scores[i].score), color );
+			CG_DrawBigStringColor( 195, 310, va("%i", cg.scores[i].score), color );
 			break;
 		}
 	}
 
+	//draw deaths counter
+	CG_DrawBigStringColor( 250, 310, "Deaths", color);
+	for ( i = 0 ; i < cg.numScores ; i++ ) {
+		if ( cg.scores[i].client == cg.snap->ps.clientNum ) {
+			CG_DrawBigStringColor( 360, 310, va("%i", cg.snap->ps.persistant[PERS_KILLED]), color );
+			break;
+		}
+	}
+
+	//draw skill indicator
+	//CG_DrawBigStringColor( 420, 310, "Skill", color);
+	
 	return qtrue;
 }
 

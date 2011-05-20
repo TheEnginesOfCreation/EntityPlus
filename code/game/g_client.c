@@ -580,9 +580,6 @@ void respawn( gentity_t *ent ) {
 			//kick fragged bots from game
 			DropClientSilently( ent->client->ps.clientNum );
 			return;
-		} else {
-			//restart map if player dies
-			//trap_SendConsoleCommand( EXEC_INSERT, "map_restart 0\n" );
 		}
 	}
 
