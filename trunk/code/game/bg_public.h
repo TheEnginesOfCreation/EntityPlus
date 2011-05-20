@@ -454,7 +454,9 @@ typedef enum {
 	EV_EMIT_DEBRIS_GLASS,		// emite shards of glass
 
 	EV_EARTHQUAKE,
-	EV_EXPLOSION
+	EV_EXPLOSION,
+	EV_PARTICLES_GRAVITY,
+	EV_PARTICLES_LINEAR
 
 } entity_event_t;
 

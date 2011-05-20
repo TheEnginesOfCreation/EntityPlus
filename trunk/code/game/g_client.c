@@ -1510,7 +1510,7 @@ void DropClientSilently( int clientNum ) {
 
 /*
 ===========
-SetupBotSpecifics
+SetupCustomBot
 
 Applies properties from the entity that spawned the bot to the bot
 ============

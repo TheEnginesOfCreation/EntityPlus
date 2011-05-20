@@ -620,11 +620,10 @@ If GLOBAL is checked, all players in the game will have their gravity changed.
 */
 void target_gravity_use (gentity_t *self, gentity_t *other, gentity_t *activator) {
 	int i;
-		
-	if (!self->count) {
-		self->count = 800;
-	}
 
+	if ( !self->count )
+		self->count = g_gravity.integer;
+	
 	if ( (self->spawnflags & 1) )
 	{
 		for (i = 0; i < level.maxclients; i++)
@@ -634,8 +633,6 @@ void target_gravity_use (gentity_t *self, gentity_t *other, gentity_t *activator
 	}
 	else
 		activator->client->ps.gravity = self->count;
-
-	
 }
 
 void SP_target_gravity (gentity_t *self) {
@@ -847,15 +844,73 @@ void SP_target_earthquake (gentity_t *self) {
 
 //==========================================================
 
-/*QUAKED target_effect (.5 .5 .5) (-8 -8 -8) (8 8 8)
+/*QUAKED target_effect (.5 .5 .5) (-8 -8 -8) (8 8 8) EXPLOSION PARTICLES_GRAVITY PARTICLES_LINEAR
 shows animated environmental effect
+The EXPLOSION spawnflag will cause the entity to show an explosion
+The PARTICLES_GRAVITY spawnflag will cause the entity to show particles which are affected by gravity and drop to the ground
+The PARTICLES_LINEAR spawnflag will cause the entity to show particles which are not affected by gravity and move in a straight line
 */
 
 void target_effect_use (gentity_t *self, gentity_t *other, gentity_t *activator) {
-	G_TempEntity( self->s.origin, EV_EXPLOSION );
+	gentity_t *ent;
+	gentity_t *ent2;
+	gentity_t *ent3;
+
+	//set default values
+	if ( !self->count )
+		self->count = 100;
+	else if (self->count > 255)
+		self->count = 255;
+
+	if ( !self->speed )
+		self->speed = 100;
+
+	//explosion
+	if ( self->spawnflags & 1 ) {
+		ent = G_TempEntity( self->s.origin, EV_EXPLOSION );
+	}
+
+	//particles_gravity
+	if ( self->spawnflags & 2 ) {
+		ent2 = G_TempEntity( self->s.origin, EV_PARTICLES_GRAVITY );
+		ent2->s.constantLight = self->s.constantLight;	//constantLight is used to determine particle color
+		ent2->s.eventParm = self->count; //eventParm is used to determine the number of particles
+		ent2->s.generic1 = self->speed; //generic1 is used to determine the speed of the particles
+	}
+
+	//particles_linear
+	if ( self->spawnflags & 4 ) {
+		ent3 = G_TempEntity( self->s.origin, EV_PARTICLES_LINEAR );
+		ent3->s.constantLight = self->s.constantLight;	//constantLight is used to determine particle color
+		ent3->s.eventParm = self->count; //eventParm is used to determine the number of particles
+		ent3->s.generic1 = self->speed; //generic1 is used to determine the speed of the particles
+	}
 }
 
 void SP_target_effect (gentity_t *self) {
-	RegisterItem( BG_FindItemForWeapon( WP_ROCKET_LAUNCHER ) );	//uses RL gfx so we must register the RL
+	vec3_t		color;
+	int			r, g, b;
+
+	if ( !self->spawnflags ) {
+		G_Printf( va( S_COLOR_YELLOW "WARNING: target_effect without selected effects at %s\n", vtos(self->s.origin) ) );
+		G_FreeEntity( self );
+	}
+	
+	G_SpawnVector( "color", "1 1 1", color );
+
+	r = color[0] * 255;
+	if (r > 255) r = 255;
+
+	g = color[1] * 255;
+	if (g > 255) g = 255;
+
+	b = color[2] * 255;
+	if (b > 255) b = 255;
+	
+	self->s.constantLight = r + (g << 8) + (b << 16);
+
+	if ( self->spawnflags & 1 ) {
+		RegisterItem( BG_FindItemForWeapon( WP_ROCKET_LAUNCHER ) );	//uses RL gfx so we must register the RL
+	}
 	self->use = target_effect_use;
 }

@@ -745,6 +745,8 @@ typedef struct {
 	qhandle_t	debrisglasslarge4;
 	qhandle_t	debrisglasslarge5;
 
+	qhandle_t	sparkShader;
+
 	qhandle_t	smoke2;
 
 	qhandle_t	machinegunBrassModel;

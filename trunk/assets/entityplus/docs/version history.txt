@@ -14,6 +14,8 @@ v0.6 (? may 2011)
 	- [Fixed] Not killing all enemies in ep_example map prevents exit for key room from opening up.
 	- [Fixed] Lava doesn't drain in ep_example map if not all enemies in level are killed.
 	- [Changed] con_notify time is now set to 0 in single player at map load.
+	- [Changed] target_gravity defaults to g_gravity value instead of a fixed 800 now.
+	- [Changed] player now (re)spawns at nearest spawnpoint even if that spawnpoint would telefrag an enemy (SP mode only).
 
 v0.5.1 (9 may 2011)
 	- [Fixed] Added missing example map roq video to pak0.pk3
