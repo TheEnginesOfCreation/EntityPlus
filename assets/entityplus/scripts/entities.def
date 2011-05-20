@@ -1492,7 +1492,7 @@ Note that the Radiant level editor will not display targetting paths for the dea
 
 //=============================================================================
 
-/*QUAKED target_debrisemitter (0 .7 .7) (-8 -8 -8) (8 8 8) LIGHT_DEBRIS DARK_DEBRIS LIGHT_LARGE_DEBRIS DARK_LARGE_DEBRIS WOOD_DEBRIS FLESH_DEBRIS
+/*QUAKED target_debrisemitter (0 .7 .7) (-8 -8 -8) (8 8 8) LIGHT_DEBRIS DARK_DEBRIS LIGHT_LARGE_DEBRIS DARK_LARGE_DEBRIS WOOD_DEBRIS FLESH_DEBRIS GLASS_DEBRIS
 Emits debris with thick smoke trails when triggered.
 -------- KEYS --------
 targetname : activating trigger points to this.
@@ -1509,7 +1509,7 @@ WOOD_DEBRIS : Emit pieces of wooden debris.
 FLESH_DEBRIS : Emit gibs.
 GLASS_DEBRIS : Emit shards of glass.
 -------- NOTES --------
-The various spawnflags cannot be combined. If multiple spawnflags are selected, the first spawnflag will overrule later spawnflags. When no spawnflag is defined, the func_breakable will default to LIGHT_DEBRIS.*/
+The various spawnflags cannot be combined. If multiple spawnflags are selected, the first spawnflag will overrule later spawnflags. When no spawnflag is defined, the target_debrisemitter will default to LIGHT_DEBRIS.*/
 
 //=============================================================================
 
