@@ -240,6 +240,13 @@ typedef enum {
 	LETT_DEBRIS_WOOD		// emits a (brown) dust trail
 } leTrailType_t;		// defines bounce behavior and trail on fragment local entities
 
+typedef enum {
+	PT_GRAVITY,
+	PT_LINEAR_UP,
+	PT_LINEAR_DOWN,
+	PT_LINEAR_BOTH
+} particleType_t;
+
 typedef struct localEntity_s {
 	struct localEntity_s	*prev, *next;
 	leType_t		leType;
