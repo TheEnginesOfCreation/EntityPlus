@@ -1199,12 +1199,22 @@ void CG_EntityEvent( centity_t *cent, vec3_t position ) {
 	
 	case EV_PARTICLES_GRAVITY:
 		DEBUGNAME("EV_PARTICLES_GRAVITY");
-		CG_ParticlesFromEntityState( cent->lerpOrigin, qtrue, es );
+		CG_ParticlesFromEntityState( cent->lerpOrigin, PT_GRAVITY, es );
 		break;
 
 	case EV_PARTICLES_LINEAR:
 		DEBUGNAME("EV_PARTICLES_LINEAR");
-		CG_ParticlesFromEntityState( cent->lerpOrigin, qfalse, es );
+		CG_ParticlesFromEntityState( cent->lerpOrigin, PT_LINEAR_BOTH, es );
+		break;
+
+	case EV_PARTICLES_LINEAR_UP:
+		DEBUGNAME("EV_PARTICLES_LINEAR_UP");
+		CG_ParticlesFromEntityState( cent->lerpOrigin, PT_LINEAR_UP, es );
+		break;
+
+	case EV_PARTICLES_LINEAR_DOWN:
+		DEBUGNAME("EV_PARTICLES_LINEAR_DOWN");
+		CG_ParticlesFromEntityState( cent->lerpOrigin, PT_LINEAR_DOWN, es );
 		break;
 
 	default:

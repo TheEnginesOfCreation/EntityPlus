@@ -913,7 +913,7 @@ void G_Damage( gentity_t *targ, gentity_t *inflictor, gentity_t *attacker,
 		if ( damage < 1 )
 			damage = 1;	//make sure bot does at least -some- damage
 
-		G_Printf("skill: %f -- mp: %f -- orgdmg: %i -- dmg: %i\n", skill, ( 0.1 * skill  ) - 0.05, orgdmg, damage);
+		//G_Printf("skill: %f -- mp: %f -- orgdmg: %i -- dmg: %i\n", skill, ( 0.1 * skill  ) - 0.05, orgdmg, damage);
 	}
 
 	client = targ->client;

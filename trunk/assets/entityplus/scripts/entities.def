@@ -1562,7 +1562,7 @@ notsingle : when set to 1, entity will not spawn in Single Player mode (bot play
 
 //=============================================================================
 
-/*QUAKED target_effect (0 .7 .7) (-8 -8 -8) (8 8 8) EXPLOSION PARTICLES_GRAVITY PARTICLES_LINEAR
+/*QUAKED target_effect (0 .7 .7) (-8 -8 -8) (8 8 8) EXPLOSION PARTICLES_GRAVITY PARTICLES_LINEAR PARTICLES_LINEAR_UP PARTICLES_LINEAR_DOWN
 shows animated environmental effect
 -------- KEYS --------
 targetname : activating trigger points to this.
@@ -1574,8 +1574,10 @@ notteam : when set to 1, entity will not spawn in "Teamplay" and "CTF" modes.
 notsingle : when set to 1, entity will not spawn in Single Player mode (bot play mode).
 -------- SPAWNFLAGS --------
 EXPLOSION : Shows an explosion when activated.
-PARTICLES_GRAVITY : Generates particles that are affected by gravity when activated.
-PARTICLES_LINEAR : Generates particles that are not affected by gravity when activated.
+PARTICLES_GRAVITY : Generates particles that are affected by gravity.
+PARTICLES_LINEAR : Generates particles that are not affected by gravity.
+PARTICLES_LINEAR_UP : Generates particles that are not affected by gravity that only move upwards.
+PARTICLES_LINEAR_DOWN : Generates particles that are not affected by gravity that only move downwards.
 -------- NOTES --------
 Spawnflags can be combined to have the entity show multiple effects when triggered.*/
 
