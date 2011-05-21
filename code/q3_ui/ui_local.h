@@ -280,6 +280,11 @@ extern char	*ui_medalPicNames[];
 extern char	*ui_medalSounds[];
 
 //
+// ui_epmenu.c
+//
+void UI_EPLevelMenu( void );
+
+//
 // ui_mfield.c
 //
 extern void			MField_Clear( mfield_t *edit );
