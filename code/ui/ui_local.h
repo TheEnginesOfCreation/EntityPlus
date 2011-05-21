@@ -868,6 +868,11 @@ void UI_LoadBestScores(const char *map, int game);
 extern uiStatic_t	uis;
 
 //
+// ui_epmenu.c
+//
+void UI_EPLevelMenu( void );
+
+//
 // ui_spLevel.c
 //
 void UI_SPLevelMenu_Cache( void );

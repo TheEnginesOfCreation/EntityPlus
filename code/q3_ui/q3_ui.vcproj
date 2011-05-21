@@ -930,6 +930,10 @@
 				</FileConfiguration>
 			</File>
 			<File
+				RelativePath=".\ui_epmenu.c"
+				>
+			</File>
+			<File
 				RelativePath="ui_gameinfo.c"
 				>
 				<FileConfiguration
