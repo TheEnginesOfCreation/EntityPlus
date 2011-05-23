@@ -12,21 +12,18 @@ MAIN MENU
 #include "ui_local.h"
 
 
-#define ID_SINGLEPLAYER			10
-#define ID_MULTIPLAYER			11
-#define ID_SETUP				12
-#define ID_DEMOS				13
-#define ID_CINEMATICS			14
-#define ID_TEAMARENA		15
-#define ID_MODS					16
-#define ID_EXIT					17
+#define ID_SINGLEPLAYER				10
+#define ID_MULTIPLAYER				11
+#define ID_SETUP					12
+#define ID_DEMOS					13
+#define ID_CINEMATICS				14
+#define ID_TEAMARENA				15
+#define ID_MODS						16
+#define ID_EXIT						17
 
-#define MAIN_BANNER_MODEL				"models/mapobjects/banner/banner5.md3"
-#define MAIN_MENU_MODEL_KEYCARD_RED		"models/powerups/keys/keycard-r.md3"
-#define MAIN_MENU_MODEL_KEYCARD_BLUE	"models/powerups/keys/keycard-b.md3"
-#define MAIN_MENU_MODEL_KEYCARD_YELLOW	"models/powerups/keys/keycard-y.md3"
-#define MAIN_MENU_MODEL_KEYCARD_GREEN	"models/powerups/keys/keycard-g.md3"
-#define MAIN_MENU_VERTICAL_SPACING		34
+#define MAIN_BANNER_MODEL			"models/mapobjects/banner/banner5.md3"
+#define MAIN_MENU_MODEL				"models/mapobjects/visor_posed.md3"
+#define MAIN_MENU_VERTICAL_SPACING	34
 
 
 typedef struct {
@@ -123,18 +120,8 @@ MainMenu_Cache
 ===============
 */
 void MainMenu_Cache( void ) {
-	int r;
 	s_main.bannerModel = trap_R_RegisterModel( MAIN_BANNER_MODEL );
-
-	r = rand() % 4;
-	if ( r == 0 )
-		s_main.menuModel = trap_R_RegisterModel( MAIN_MENU_MODEL_KEYCARD_RED );
-	else if ( r == 1 )
-		s_main.menuModel = trap_R_RegisterModel( MAIN_MENU_MODEL_KEYCARD_BLUE );
-	else if ( r == 2 )
-		s_main.menuModel = trap_R_RegisterModel( MAIN_MENU_MODEL_KEYCARD_YELLOW );
-	else if ( r == 3 )
-		s_main.menuModel = trap_R_RegisterModel( MAIN_MENU_MODEL_KEYCARD_GREEN );
+	s_main.menuModel = trap_R_RegisterModel( MAIN_MENU_MODEL );
 }
 
 sfxHandle_t ErrorMessage_Key(int key)
@@ -222,23 +209,23 @@ static void Main_MenuDraw( void ) {
 	AxisClear( refdef2.viewaxis );
 
 	x = 200;
-	y = 200;
+	y = 135;
 	w = 440;
-	h = 280;
+	h = 345;
 	UI_AdjustFrom640( &x, &y, &w, &h );
 	refdef2.x = x;
 	refdef2.y = y;
 	refdef2.width = w;
 	refdef2.height = h;
 
-	refdef2.fov_x = 60;
+	refdef2.fov_x = 30;
 	refdef2.fov_y = 19.6875;
 
 	refdef2.time = uis.realtime;
 
-	origin2[0] = 300; //z?
-	origin2[1] = 0;	  //-x?
-	origin2[2] = 16; //-y?
+	origin2[0] = 600;
+	origin2[1] = 0;
+	origin2[2] = -64;
 
 	// add the menu model
 
