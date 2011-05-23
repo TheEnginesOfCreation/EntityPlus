@@ -6,11 +6,26 @@
 #define ID_PREVPAGE 7
 #define ID_NEXTPAGE 8
 
+#define ID_SKILL1 9
+#define ID_SKILL2 10
+#define ID_SKILL3 11
+#define ID_SKILL4 12
+#define ID_SKILL5 13
+
 #define MAX_MAPSPERPAGE	4
 #define MAX_MAPCOLS 2
 #define MAX_MAPROWS 2
 #define MAX_SERVERMAPS	64
 #define MAX_NAMELENGTH	16
+
+#define ART_FRAME					"menu/art/cut_frame"
+#define ART_FIGHT0					"menu/art/fight_0"
+#define ART_FIGHT1					"menu/art/fight_1"
+#define ART_MAP_COMPLETE1			"menu/art/level_complete1"
+#define ART_MAP_COMPLETE2			"menu/art/level_complete2"
+#define ART_MAP_COMPLETE3			"menu/art/level_complete3"
+#define ART_MAP_COMPLETE4			"menu/art/level_complete4"
+#define ART_MAP_COMPLETE5			"menu/art/level_complete5"
 
 #define ART_BACK0		"menu/art/back_0"
 #define ART_BACK1		"menu/art/back_1"	
@@ -24,6 +39,7 @@
 #define ART_ARROWS		"menu/art/gs_arrows_0"
 #define ART_ARROWSL		"menu/art/gs_arrows_l"
 #define ART_ARROWSR		"menu/art/gs_arrows_r"
+
 
 typedef struct {
 	menuframework_s	menu;
@@ -46,10 +62,313 @@ typedef struct {
 	int				currentmap;
 	int				nummaps;
 	int				maxpages;
+	int				mapGamebits[MAX_SERVERMAPS];
 } epMenuInfo_t;
 
-static epMenuInfo_t	epMenuInfo;
 
+typedef struct {
+	menuframework_s	menu;
+
+	menutext_s		banner;
+	menutext_s		item_skill1;
+	menutext_s		item_skill2;
+	menutext_s		item_skill3;
+	menutext_s		item_skill4;
+	menutext_s		item_skill5;
+
+	menubitmap_s	frame;
+	menubitmap_s	back;
+	menubitmap_s	next;
+	menubitmap_s	art_skillPic;
+
+	qhandle_t		skillpics[5];
+	sfxHandle_t		nightmareSound;
+	sfxHandle_t		silenceSound;
+} epSkillInfo_t;
+
+static epMenuInfo_t		epMenuInfo;
+static epSkillInfo_t	epSkillInfo;
+
+/*
+===============
+EPSkill_StartGame
+
+Starts the game at the selected skill level
+===============
+*/
+void EPSkill_StartGame( void ) {
+	trap_Cvar_SetValue( "sv_maxclients", 64 );
+	trap_Cvar_SetValue ("timelimit", 0 );
+	trap_Cvar_SetValue ("fraglimit", 0 );
+	trap_Cvar_SetValue ("con_notifytime", 0 );
+	trap_Cmd_ExecuteText( EXEC_APPEND, va( "spmap %s\n", epMenuInfo.maplist[epMenuInfo.currentmap] ) );
+}
+
+/*
+===============
+EPSkill_Cache
+
+Caches assets
+===============
+*/
+void EPSkill_Cache( void ) {
+	
+	trap_R_RegisterShaderNoMip( ART_FRAME );
+	trap_R_RegisterShaderNoMip( ART_BACK0 );
+	trap_R_RegisterShaderNoMip( ART_BACK1 );
+	trap_R_RegisterShaderNoMip( ART_FIGHT0 );
+	trap_R_RegisterShaderNoMip( ART_FIGHT1 );
+
+	epSkillInfo.skillpics[0] = trap_R_RegisterShaderNoMip( ART_MAP_COMPLETE1 );
+	epSkillInfo.skillpics[1] = trap_R_RegisterShaderNoMip( ART_MAP_COMPLETE2 );
+	epSkillInfo.skillpics[2] = trap_R_RegisterShaderNoMip( ART_MAP_COMPLETE3 );
+	epSkillInfo.skillpics[3] = trap_R_RegisterShaderNoMip( ART_MAP_COMPLETE4 );
+	epSkillInfo.skillpics[4] = trap_R_RegisterShaderNoMip( ART_MAP_COMPLETE5 );
+
+	epSkillInfo.nightmareSound = trap_S_RegisterSound( "sound/misc/nightmare.wav", qfalse );
+	epSkillInfo.silenceSound = trap_S_RegisterSound( "sound/misc/silence.wav", qfalse );
+}
+
+/*
+===============
+EPSkill_SetSkillColor
+===============
+*/
+static void EPSkill_SetSkillColor( int skill, vec4_t color ) {
+	switch( skill ) {
+	case 1:
+		epSkillInfo.item_skill1.color = color;
+		break;
+	case 2:
+		epSkillInfo.item_skill2.color = color;
+		break;
+	case 3:
+		epSkillInfo.item_skill3.color = color;
+		break;
+	case 4:
+		epSkillInfo.item_skill4.color = color;
+		break;
+	case 5:
+		epSkillInfo.item_skill5.color = color;
+		break;
+	default:
+		break;
+	}
+}
+
+/*
+===============
+EPMenu_MenuEvent
+===============
+*/
+static void EPSkill_MenuEvent( void* ptr, int event ) {
+	int		id;
+	int		skill;
+
+	if( event != QM_ACTIVATED ) {
+		return;
+	}
+
+	switch( ((menucommon_s*)ptr)->id ) {
+		case ID_BACK:
+			UI_PopMenu();
+			break;
+		
+		case ID_NEXT:
+			EPSkill_StartGame();
+			break;
+
+		case ID_SKILL1:
+		case ID_SKILL2:
+		case ID_SKILL3:
+		case ID_SKILL4:
+		case ID_SKILL5:
+			EPSkill_SetSkillColor( (int)trap_Cvar_VariableValue( "g_spSkill" ), color_red );
+
+			id = ((menucommon_s*)ptr)->id;
+			skill = id - ID_SKILL1 + 1;
+			trap_Cvar_SetValue( "g_spSkill", skill );
+
+			EPSkill_SetSkillColor( skill, color_white );
+			epSkillInfo.art_skillPic.shader = epSkillInfo.skillpics[skill - 1];
+
+			if( id == ID_SKILL5 ) {
+				trap_S_StartLocalSound( epSkillInfo.nightmareSound, CHAN_ANNOUNCER );
+			}
+			else {
+				trap_S_StartLocalSound( epSkillInfo.silenceSound, CHAN_ANNOUNCER );
+			}
+			break;
+	}
+}
+
+/*
+===============
+UI_EPSkillMenu
+
+Builds the EntityPlus skill selection menu
+===============
+*/
+void UI_EPSkillMenu( void ) {
+	int skill;
+
+	//initialize menu
+	memset( &epSkillInfo, 0, sizeof(epSkillInfo) );
+	epSkillInfo.menu.fullscreen = qtrue;
+	epSkillInfo.menu.wrapAround = qtrue;
+
+	//cache assets
+	EPSkill_Cache();
+
+	//add text banner
+	epSkillInfo.banner.generic.type  = MTYPE_BTEXT;
+	epSkillInfo.banner.generic.x	   = 320;
+	epSkillInfo.banner.generic.y	   = 16;
+	epSkillInfo.banner.string        = "DIFFICULTY";
+	epSkillInfo.banner.color         = color_white;
+	epSkillInfo.banner.style         = UI_CENTER;
+	Menu_AddItem( &epSkillInfo.menu, &epSkillInfo.banner );
+
+	//add frame
+	epSkillInfo.frame.generic.type		= MTYPE_BITMAP;
+	epSkillInfo.frame.generic.name		= ART_FRAME;
+	epSkillInfo.frame.generic.flags		= QMF_LEFT_JUSTIFY|QMF_INACTIVE;
+	epSkillInfo.frame.generic.x			= 142;
+	epSkillInfo.frame.generic.y			= 118;
+	epSkillInfo.frame.width				= 359;
+	epSkillInfo.frame.height			= 256;
+	Menu_AddItem( &epSkillInfo.menu, &epSkillInfo.frame );
+
+	//add skill level texts
+	epSkillInfo.item_skill1.generic.type		= MTYPE_PTEXT;
+	epSkillInfo.item_skill1.generic.flags		= QMF_CENTER_JUSTIFY|QMF_PULSEIFFOCUS;
+	epSkillInfo.item_skill1.generic.x			= 320;
+	epSkillInfo.item_skill1.generic.y			= 170;
+	epSkillInfo.item_skill1.generic.callback	= EPSkill_MenuEvent;
+	epSkillInfo.item_skill1.generic.id			= ID_SKILL1;
+	epSkillInfo.item_skill1.string				= "I Can Win";
+	epSkillInfo.item_skill1.color				= color_red;
+	epSkillInfo.item_skill1.style				= UI_CENTER;
+	Menu_AddItem( &epSkillInfo.menu, &epSkillInfo.item_skill1 );
+
+	epSkillInfo.item_skill2.generic.type		= MTYPE_PTEXT;
+	epSkillInfo.item_skill2.generic.flags		= QMF_CENTER_JUSTIFY|QMF_PULSEIFFOCUS;
+	epSkillInfo.item_skill2.generic.x			= 320;
+	epSkillInfo.item_skill2.generic.y			= 198;
+	epSkillInfo.item_skill2.generic.callback	= EPSkill_MenuEvent;
+	epSkillInfo.item_skill2.generic.id			= ID_SKILL2;
+	epSkillInfo.item_skill2.string				= "Bring It On";
+	epSkillInfo.item_skill2.color				= color_red;
+	epSkillInfo.item_skill2.style				= UI_CENTER;
+	Menu_AddItem( &epSkillInfo.menu, &epSkillInfo.item_skill2 );
+
+	epSkillInfo.item_skill3.generic.type		= MTYPE_PTEXT;
+	epSkillInfo.item_skill3.generic.flags		= QMF_CENTER_JUSTIFY|QMF_PULSEIFFOCUS;
+	epSkillInfo.item_skill3.generic.x			= 320;
+	epSkillInfo.item_skill3.generic.y			= 227;
+	epSkillInfo.item_skill3.generic.callback	= EPSkill_MenuEvent;
+	epSkillInfo.item_skill3.generic.id			= ID_SKILL3;
+	epSkillInfo.item_skill3.string				= "Hurt Me Plenty";
+	epSkillInfo.item_skill3.color				= color_red;
+	epSkillInfo.item_skill3.style				= UI_CENTER;
+	Menu_AddItem( &epSkillInfo.menu, &epSkillInfo.item_skill3 );
+
+	epSkillInfo.item_skill4.generic.type		= MTYPE_PTEXT;
+	epSkillInfo.item_skill4.generic.flags		= QMF_CENTER_JUSTIFY|QMF_PULSEIFFOCUS;
+	epSkillInfo.item_skill4.generic.x			= 320;
+	epSkillInfo.item_skill4.generic.y			= 255;
+	epSkillInfo.item_skill4.generic.callback	= EPSkill_MenuEvent;
+	epSkillInfo.item_skill4.generic.id			= ID_SKILL4;
+	epSkillInfo.item_skill4.string				= "Hardcore";
+	epSkillInfo.item_skill4.color				= color_red;
+	epSkillInfo.item_skill4.style				= UI_CENTER;
+	Menu_AddItem( &epSkillInfo.menu, &epSkillInfo.item_skill4 );
+
+	epSkillInfo.item_skill5.generic.type		= MTYPE_PTEXT;
+	epSkillInfo.item_skill5.generic.flags		= QMF_CENTER_JUSTIFY|QMF_PULSEIFFOCUS;
+	epSkillInfo.item_skill5.generic.x			= 320;
+	epSkillInfo.item_skill5.generic.y			= 283;
+	epSkillInfo.item_skill5.generic.callback	= EPSkill_MenuEvent;
+	epSkillInfo.item_skill5.generic.id			= ID_SKILL5;
+	epSkillInfo.item_skill5.string				= "NIGHTMARE!";
+	epSkillInfo.item_skill5.color				= color_red;
+	epSkillInfo.item_skill5.style				= UI_CENTER;
+	Menu_AddItem( &epSkillInfo.menu, &epSkillInfo.item_skill5 );
+
+	//add skillpic
+	epSkillInfo.art_skillPic.generic.type		= MTYPE_BITMAP;
+	epSkillInfo.art_skillPic.generic.flags	= QMF_LEFT_JUSTIFY|QMF_INACTIVE;
+	epSkillInfo.art_skillPic.generic.x		= 320-64;
+	epSkillInfo.art_skillPic.generic.y		= 368;
+	epSkillInfo.art_skillPic.width			= 128;
+	epSkillInfo.art_skillPic.height			= 96;
+	Menu_AddItem( &epSkillInfo.menu, &epSkillInfo.art_skillPic );
+
+	//add back button
+	epSkillInfo.back.generic.type			= MTYPE_BITMAP;
+	epSkillInfo.back.generic.name			= ART_BACK0;
+	epSkillInfo.back.generic.flags			= QMF_LEFT_JUSTIFY|QMF_PULSEIFFOCUS;
+	epSkillInfo.back.generic.x				= 0;
+	epSkillInfo.back.generic.y				= 480-64;
+	epSkillInfo.back.generic.callback		= EPSkill_MenuEvent;
+	epSkillInfo.back.generic.id				= ID_BACK;
+	epSkillInfo.back.width					= 128;
+	epSkillInfo.back.height					= 64;
+	epSkillInfo.back.focuspic				= ART_BACK1;
+	Menu_AddItem( &epSkillInfo.menu, &epSkillInfo.back );
+
+	//add fight button
+	epSkillInfo.next.generic.type			= MTYPE_BITMAP;
+	epSkillInfo.next.generic.name			= ART_FIGHT0;
+	epSkillInfo.next.generic.flags			= QMF_RIGHT_JUSTIFY|QMF_PULSEIFFOCUS;
+	epSkillInfo.next.generic.x				= 640;
+	epSkillInfo.next.generic.y				= 480-64;
+	epSkillInfo.next.generic.callback		= EPSkill_MenuEvent;
+	epSkillInfo.next.generic.id				= ID_NEXT;
+	epSkillInfo.next.width					= 128;
+	epSkillInfo.next.height					= 64;
+	epSkillInfo.next.focuspic				= ART_FIGHT1;
+	Menu_AddItem( &epSkillInfo.menu, &epSkillInfo.next );
+
+	//highlight the right skill level
+	skill = (int)Com_Clamp( 1, 5, trap_Cvar_VariableValue( "g_spSkill" ) );
+	EPSkill_SetSkillColor( skill, color_white );
+	epSkillInfo.art_skillPic.shader = epSkillInfo.skillpics[skill - 1];
+	if( skill == 5 ) {
+		trap_S_StartLocalSound( epSkillInfo.nightmareSound, CHAN_ANNOUNCER );
+	}
+
+	//add menu to stack
+	UI_PushMenu( &epSkillInfo.menu );
+}
+
+
+
+
+/*
+=================
+GametypeBits
+=================
+*/
+
+static qboolean EPMenu_MapGametype( char *string ) {
+	char	*p;
+	char	*token;
+
+	p = string;
+	while( 1 ) {
+		token = COM_ParseExt( &p, qfalse );
+		if( token[0] == 0 ) {
+			break;
+		}
+
+		if( Q_stricmp( token, "entityplus" ) == 0 ) {
+			return qtrue;
+		}
+	}
+
+	return qfalse;
+}
 
 /*
 =================
@@ -115,6 +434,42 @@ static void EPMenu_Update( void ) {
 	Q_strupr( epMenuInfo.mapname.string );
 }
 
+
+/*
+=================
+EPMenu_GametypeEvent
+=================
+*/
+static void EPMenu_GametypeFilter( void ) {
+	int			i;
+	int			count;
+	int			gamebits;
+	const char	*info;
+	qboolean	show;
+
+	show = qfalse;
+	count = UI_GetNumArenas();
+	epMenuInfo.nummaps = 0;
+	for( i = 0; i < count; i++ ) {
+		info = UI_GetArenaInfoByNumber( i );
+
+		show = EPMenu_MapGametype( Info_ValueForKey( info, "type") );
+		if ( !show )
+			continue;
+
+		Q_strncpyz( epMenuInfo.maplist[epMenuInfo.nummaps], Info_ValueForKey( info, "map"), MAX_NAMELENGTH );
+		Q_strupr( epMenuInfo.maplist[epMenuInfo.nummaps] );
+		epMenuInfo.mapGamebits[epMenuInfo.nummaps] = GT_SINGLE_PLAYER;
+		epMenuInfo.nummaps++;
+	}
+	epMenuInfo.maxpages = (epMenuInfo.nummaps + MAX_MAPSPERPAGE-1)/MAX_MAPSPERPAGE;
+	epMenuInfo.page = 0;
+	epMenuInfo.currentmap = 0;
+
+	EPMenu_Update();
+}
+
+
 /*
 ===============
 EPMenu_MenuEvent
@@ -128,6 +483,11 @@ static void EPMenu_MenuEvent( void* ptr, int event ) {
 	switch( ((menucommon_s*)ptr)->id ) {
 		case ID_BACK:
 			UI_PopMenu();
+			break;
+		
+		case ID_NEXT:
+			//TODO: Implement skill selection menu
+			UI_EPSkillMenu();
 			break;
 
 		case ID_PREVPAGE:
@@ -204,17 +564,6 @@ static void EPMenu_LevelshotDraw( void *self ) {
 }
 
 /*
-===============
-UI_EPMenu_NextEvent
-
-Callback for "next" button
-===============
-*/
-static void UI_EPMenu_NextEvent( void* ptr, int notification ) {
-	//TODO: implement
-}
-
-/*
 =================
 EPMenu_MapEvent
 =================
@@ -230,20 +579,16 @@ static void EPMenu_MapEvent( void* ptr, int event ) {
 
 /*
 ===============
-UI_EPLevelMenu
+EPMenu_Cache
 
-Builds the EntityPlus Single Player menu
+Caches assets
 ===============
 */
-void UI_EPLevelMenu( void ) {
-	int i;
-	int x, y;
-	static char mapnamebuffer[64];
-
-	//initialize menu
-	memset( &epMenuInfo, 0, sizeof(epMenuInfo) );
-	epMenuInfo.menu.fullscreen = qtrue;
-	epMenuInfo.menu.wrapAround = qtrue;
+void EPMenu_Cache( void ) {
+	int			i;
+	qboolean	precache;
+	char		picname[64];
+	const char	*info;
 
 	//register artwork shaders
 	trap_R_RegisterShaderNoMip( ART_FRAMEL );
@@ -258,6 +603,48 @@ void UI_EPLevelMenu( void ) {
 	trap_R_RegisterShaderNoMip( ART_ARROWS );
 	trap_R_RegisterShaderNoMip( ART_ARROWSL );
 	trap_R_RegisterShaderNoMip( ART_ARROWSR );
+
+	//cache maps
+	precache = trap_Cvar_VariableValue("com_buildscript");
+
+	epMenuInfo.nummaps = UI_GetNumArenas();
+
+	for( i = 0; i < epMenuInfo.nummaps; i++ ) {
+		info = UI_GetArenaInfoByNumber( i );
+
+		Q_strncpyz( epMenuInfo.maplist[i], Info_ValueForKey( info, "map"), MAX_NAMELENGTH );
+		Q_strupr( epMenuInfo.maplist[i] );
+		epMenuInfo.mapGamebits[i] = GT_SINGLE_PLAYER;
+
+		if( precache ) {
+			Com_sprintf( picname, sizeof(picname), "levelshots/%s", epMenuInfo.maplist[i] );
+			trap_R_RegisterShaderNoMip(picname);
+		}
+	}
+
+	epMenuInfo.maxpages = (epMenuInfo.nummaps + MAX_MAPSPERPAGE-1)/MAX_MAPSPERPAGE;
+}
+
+/*
+===============
+UI_EPLevelMenu
+
+Builds the EntityPlus Single Player menu
+===============
+*/
+void UI_EPLevelMenu( void ) {
+	int i;
+	int x, y;
+	static char mapnamebuffer[64];
+	
+
+	//initialize menu
+	memset( &epMenuInfo, 0, sizeof(epMenuInfo) );
+	epMenuInfo.menu.fullscreen = qtrue;
+	epMenuInfo.menu.wrapAround = qtrue;
+
+	//cache assets
+	EPMenu_Cache();
 
 	//add text banner
 	epMenuInfo.banner.generic.type  = MTYPE_BTEXT;
@@ -294,7 +681,6 @@ void UI_EPLevelMenu( void ) {
 	epMenuInfo.back.generic.flags			= QMF_LEFT_JUSTIFY|QMF_PULSEIFFOCUS;
 	epMenuInfo.back.generic.x				= 0;
 	epMenuInfo.back.generic.y				= 480-64;
-	//epMenuInfo.back.generic.callback		= UI_EPMenu_BackEvent;
 	epMenuInfo.back.generic.callback		= EPMenu_MenuEvent;
 	epMenuInfo.back.generic.id				= ID_BACK;
 	epMenuInfo.back.width					= 128;
@@ -308,7 +694,7 @@ void UI_EPLevelMenu( void ) {
 	epMenuInfo.next.generic.flags			= QMF_RIGHT_JUSTIFY|QMF_PULSEIFFOCUS;
 	epMenuInfo.next.generic.x				= 640;
 	epMenuInfo.next.generic.y				= 480-64;
-	epMenuInfo.next.generic.callback		= UI_EPMenu_NextEvent;
+	epMenuInfo.next.generic.callback		= EPMenu_MenuEvent;
 	epMenuInfo.next.generic.id				= ID_NEXT;
 	epMenuInfo.next.width					= 128;
 	epMenuInfo.next.height					= 64;
@@ -322,31 +708,31 @@ void UI_EPLevelMenu( void ) {
 		x =	(i % MAX_MAPCOLS) * (128+8) + 188;
 		y = (i / MAX_MAPROWS) * (128+8) + 96;
 
-		epMenuInfo.mappics[i].generic.type   = MTYPE_BITMAP;
-		epMenuInfo.mappics[i].generic.flags  = QMF_LEFT_JUSTIFY|QMF_INACTIVE;
-		epMenuInfo.mappics[i].generic.x	    = x;
-		epMenuInfo.mappics[i].generic.y	    = y;
+		epMenuInfo.mappics[i].generic.type		= MTYPE_BITMAP;
+		epMenuInfo.mappics[i].generic.flags		= QMF_LEFT_JUSTIFY|QMF_INACTIVE;
+		epMenuInfo.mappics[i].generic.x			= x;
+		epMenuInfo.mappics[i].generic.y			= y;
 		epMenuInfo.mappics[i].generic.id		= ID_PICTURES+i;
-		epMenuInfo.mappics[i].width  		= 128;
-		epMenuInfo.mappics[i].height  	    = 96;
-		epMenuInfo.mappics[i].focuspic       = ART_SELECTED;
-		epMenuInfo.mappics[i].errorpic       = ART_UNKNOWNMAP;
-		epMenuInfo.mappics[i].generic.ownerdraw = EPMenu_LevelshotDraw;
+		epMenuInfo.mappics[i].width				= 128;
+		epMenuInfo.mappics[i].height			= 96;
+		epMenuInfo.mappics[i].focuspic			= ART_SELECTED;
+		epMenuInfo.mappics[i].errorpic			= ART_UNKNOWNMAP;
+		epMenuInfo.mappics[i].generic.ownerdraw	= EPMenu_LevelshotDraw;
 		Menu_AddItem( &epMenuInfo.menu, &epMenuInfo.mappics[i] );
 		
-		epMenuInfo.mapbuttons[i].generic.type     = MTYPE_BITMAP;
-		epMenuInfo.mapbuttons[i].generic.flags    = QMF_LEFT_JUSTIFY|QMF_PULSEIFFOCUS|QMF_NODEFAULTINIT;
-		epMenuInfo.mapbuttons[i].generic.id       = ID_PICTURES+i;
-		epMenuInfo.mapbuttons[i].generic.callback = EPMenu_MapEvent;
-		epMenuInfo.mapbuttons[i].generic.x	     = x - 30;
-		epMenuInfo.mapbuttons[i].generic.y	     = y - 32;
-		epMenuInfo.mapbuttons[i].width  		     = 256;
-		epMenuInfo.mapbuttons[i].height  	     = 248;
-		epMenuInfo.mapbuttons[i].generic.left     = x;
-		epMenuInfo.mapbuttons[i].generic.top  	 = y;
-		epMenuInfo.mapbuttons[i].generic.right    = x + 128;
-		epMenuInfo.mapbuttons[i].generic.bottom   = y + 128;
-		epMenuInfo.mapbuttons[i].focuspic         = ART_SELECT;
+		epMenuInfo.mapbuttons[i].generic.type		= MTYPE_BITMAP;
+		epMenuInfo.mapbuttons[i].generic.flags		= QMF_LEFT_JUSTIFY|QMF_PULSEIFFOCUS|QMF_NODEFAULTINIT;
+		epMenuInfo.mapbuttons[i].generic.id			= ID_PICTURES+i;
+		epMenuInfo.mapbuttons[i].generic.callback	= EPMenu_MapEvent;
+		epMenuInfo.mapbuttons[i].generic.x			= x - 30;
+		epMenuInfo.mapbuttons[i].generic.y			= y - 32;
+		epMenuInfo.mapbuttons[i].width				= 256;
+		epMenuInfo.mapbuttons[i].height				= 248;
+		epMenuInfo.mapbuttons[i].generic.left		= x;
+		epMenuInfo.mapbuttons[i].generic.top		= y;
+		epMenuInfo.mapbuttons[i].generic.right		= x + 128;
+		epMenuInfo.mapbuttons[i].generic.bottom		= y + 128;
+		epMenuInfo.mapbuttons[i].focuspic			= ART_SELECT;
 		Menu_AddItem( &epMenuInfo.menu, &epMenuInfo.mapbuttons[i] );
 	}
 
@@ -396,4 +782,7 @@ void UI_EPLevelMenu( void ) {
 
 	//add menu to stack
 	UI_PushMenu( &epMenuInfo.menu );
+
+	//filter the levels to show
+	EPMenu_GametypeFilter();
 }

@@ -35,6 +35,9 @@ Configuring Radiant to use the entityplus folder as working folder can be done b
 then under "Select mod" pick the option "Custom Quake III modification" and enter "entityplus" as value for the fs_game 
 input field. Click "ok" to apply the settings. 
 
+The mod can be started by using the "EntityPlus.bat" file found in your Quake III Arena installation folder. In EntityPlus,
+the single player menu will list all the maps that are compatible with entityplus' single player mode.
+
 
 
 FEATURES
@@ -52,13 +55,7 @@ EXAMPLE MAP
 The release package of EntityPlus contains an example map which demonstrates a number of the features found in EntityPlus.
 It is based on an old classic map that everyone that played Quake 3 will instantly recognize. Don't get too comfy though,
 because this time you'll be fighting through piles of enemy guards to uncover a secret that you never knew was there and 
-escape to safety.
-This map can be loaded by double clicking the "entityplus.bat" file that comes with the release package. This batch file is
-located next to the quake.exe executable.
-
-The map can also be loaded manually by entering the following command in the console:
-
-	exec scripts\startup.cfg
+escape to safety. The map can be found in the single player menu.
 
 
 
