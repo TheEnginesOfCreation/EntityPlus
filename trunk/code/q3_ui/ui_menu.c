@@ -22,6 +22,10 @@ MAIN MENU
 #define ID_EXIT					17
 
 #define MAIN_BANNER_MODEL				"models/mapobjects/banner/banner5.md3"
+#define MAIN_MENU_MODEL_KEYCARD_RED		"models/powerups/keys/keycard-r.md3"
+#define MAIN_MENU_MODEL_KEYCARD_BLUE	"models/powerups/keys/keycard-b.md3"
+#define MAIN_MENU_MODEL_KEYCARD_YELLOW	"models/powerups/keys/keycard-y.md3"
+#define MAIN_MENU_MODEL_KEYCARD_GREEN	"models/powerups/keys/keycard-g.md3"
 #define MAIN_MENU_VERTICAL_SPACING		34
 
 
@@ -38,6 +42,7 @@ typedef struct {
 	menutext_s		exit;
 
 	qhandle_t		bannerModel;
+	qhandle_t		menuModel;
 } mainmenu_t;
 
 
@@ -77,7 +82,6 @@ void Main_MenuEvent (void* ptr, int event) {
 
 	switch( ((menucommon_s*)ptr)->id ) {
 	case ID_SINGLEPLAYER:
-		//UI_SPLevelMenu();
 		UI_EPLevelMenu();
 		break;
 
@@ -119,7 +123,18 @@ MainMenu_Cache
 ===============
 */
 void MainMenu_Cache( void ) {
+	int r;
 	s_main.bannerModel = trap_R_RegisterModel( MAIN_BANNER_MODEL );
+
+	r = rand() % 4;
+	if ( r == 0 )
+		s_main.menuModel = trap_R_RegisterModel( MAIN_MENU_MODEL_KEYCARD_RED );
+	else if ( r == 1 )
+		s_main.menuModel = trap_R_RegisterModel( MAIN_MENU_MODEL_KEYCARD_BLUE );
+	else if ( r == 2 )
+		s_main.menuModel = trap_R_RegisterModel( MAIN_MENU_MODEL_KEYCARD_YELLOW );
+	else if ( r == 3 )
+		s_main.menuModel = trap_R_RegisterModel( MAIN_MENU_MODEL_KEYCARD_GREEN );
 }
 
 sfxHandle_t ErrorMessage_Key(int key)
@@ -139,13 +154,17 @@ TTimo: this function is common to the main menu and errorMessage menu
 static void Main_MenuDraw( void ) {
 	refdef_t		refdef;
 	refEntity_t		ent;
-	vec3_t			origin;
+	vec3_t			origin;	
 	vec3_t			angles;
 	float			adjust;
 	float			x, y, w, h;
 	vec4_t			color = {0.5, 0, 0, 1};
+	refdef_t		refdef2;
+	refEntity_t		ent2;
+	vec3_t			origin2;
+	vec3_t			angles2;
 
-	// setup the refdef
+	// setup the refdef for banner model
 
 	memset( &refdef, 0, sizeof( refdef ) );
 
@@ -175,7 +194,7 @@ static void Main_MenuDraw( void ) {
 
 	trap_R_ClearScene();
 
-	// add the model
+	// add the banner model
 
 	memset( &ent, 0, sizeof(ent) );
 
@@ -191,6 +210,52 @@ static void Main_MenuDraw( void ) {
 	trap_R_AddRefEntityToScene( &ent );
 
 	trap_R_RenderScene( &refdef );
+
+
+
+	// setup the refdef for menu model
+
+	memset( &refdef2, 0, sizeof( refdef2 ) );
+
+	refdef2.rdflags = RDF_NOWORLDMODEL;
+
+	AxisClear( refdef2.viewaxis );
+
+	x = 200;
+	y = 200;
+	w = 440;
+	h = 280;
+	UI_AdjustFrom640( &x, &y, &w, &h );
+	refdef2.x = x;
+	refdef2.y = y;
+	refdef2.width = w;
+	refdef2.height = h;
+
+	refdef2.fov_x = 60;
+	refdef2.fov_y = 19.6875;
+
+	refdef2.time = uis.realtime;
+
+	origin2[0] = 300; //z?
+	origin2[1] = 0;	  //-x?
+	origin2[2] = 16; //-y?
+
+	// add the menu model
+
+	memset( &ent2, 0, sizeof(ent2) );
+
+	adjust = uis.realtime / 20;		//makes it rotate
+	VectorSet( angles2, 0, 0 + adjust, 0 );
+	AnglesToAxis( angles2, ent2.axis );
+	ent2.hModel = s_main.menuModel;
+	VectorCopy( origin2, ent2.origin );
+	VectorCopy( origin2, ent2.lightingOrigin );
+	ent2.renderfx = RF_LIGHTING_ORIGIN | RF_NOSHADOW;
+	VectorCopy( ent2.origin, ent2.oldorigin );
+
+	trap_R_AddRefEntityToScene( &ent2 );
+
+	trap_R_RenderScene( &refdef2 );
 	
 	if (strlen(s_errorMessage.errorMessage))
 	{
@@ -289,98 +354,98 @@ void UI_MainMenu( void ) {
 	s_main.menu.draw = Main_MenuDraw;
 	s_main.menu.fullscreen = qtrue;
 	s_main.menu.wrapAround = qtrue;
-	s_main.menu.showlogo = qtrue;
+	s_main.menu.showlogo = qfalse;
 
 	y = 134;
 	s_main.singleplayer.generic.type		= MTYPE_PTEXT;
 	s_main.singleplayer.generic.flags		= QMF_CENTER_JUSTIFY|QMF_PULSEIFFOCUS;
-	s_main.singleplayer.generic.x			= 320;
+	s_main.singleplayer.generic.x			= 64;
 	s_main.singleplayer.generic.y			= y;
 	s_main.singleplayer.generic.id			= ID_SINGLEPLAYER;
 	s_main.singleplayer.generic.callback	= Main_MenuEvent; 
 	s_main.singleplayer.string				= "SINGLE PLAYER";
 	s_main.singleplayer.color				= color_red;
-	s_main.singleplayer.style				= style;
+	s_main.singleplayer.style				= UI_DROPSHADOW;
 
 	y += MAIN_MENU_VERTICAL_SPACING;
 	s_main.multiplayer.generic.type			= MTYPE_PTEXT;
 	s_main.multiplayer.generic.flags		= QMF_CENTER_JUSTIFY|QMF_PULSEIFFOCUS;
-	s_main.multiplayer.generic.x			= 320;
+	s_main.multiplayer.generic.x			= 64;
 	s_main.multiplayer.generic.y			= y;
 	s_main.multiplayer.generic.id			= ID_MULTIPLAYER;
 	s_main.multiplayer.generic.callback		= Main_MenuEvent; 
 	s_main.multiplayer.string				= "MULTIPLAYER";
 	s_main.multiplayer.color				= color_red;
-	s_main.multiplayer.style				= style;
+	s_main.multiplayer.style				= UI_DROPSHADOW;
 
 	y += MAIN_MENU_VERTICAL_SPACING;
 	s_main.setup.generic.type				= MTYPE_PTEXT;
 	s_main.setup.generic.flags				= QMF_CENTER_JUSTIFY|QMF_PULSEIFFOCUS;
-	s_main.setup.generic.x					= 320;
+	s_main.setup.generic.x					= 64;
 	s_main.setup.generic.y					= y;
 	s_main.setup.generic.id					= ID_SETUP;
 	s_main.setup.generic.callback			= Main_MenuEvent; 
 	s_main.setup.string						= "SETUP";
 	s_main.setup.color						= color_red;
-	s_main.setup.style						= style;
+	s_main.setup.style						= UI_DROPSHADOW;
 
 	y += MAIN_MENU_VERTICAL_SPACING;
 	s_main.demos.generic.type				= MTYPE_PTEXT;
 	s_main.demos.generic.flags				= QMF_CENTER_JUSTIFY|QMF_PULSEIFFOCUS;
-	s_main.demos.generic.x					= 320;
+	s_main.demos.generic.x					= 64;
 	s_main.demos.generic.y					= y;
 	s_main.demos.generic.id					= ID_DEMOS;
 	s_main.demos.generic.callback			= Main_MenuEvent; 
 	s_main.demos.string						= "DEMOS";
 	s_main.demos.color						= color_red;
-	s_main.demos.style						= style;
+	s_main.demos.style						= UI_DROPSHADOW;
 
 	y += MAIN_MENU_VERTICAL_SPACING;
 	s_main.cinematics.generic.type			= MTYPE_PTEXT;
 	s_main.cinematics.generic.flags			= QMF_CENTER_JUSTIFY|QMF_PULSEIFFOCUS;
-	s_main.cinematics.generic.x				= 320;
+	s_main.cinematics.generic.x				= 64;
 	s_main.cinematics.generic.y				= y;
 	s_main.cinematics.generic.id			= ID_CINEMATICS;
 	s_main.cinematics.generic.callback		= Main_MenuEvent; 
 	s_main.cinematics.string				= "CINEMATICS";
 	s_main.cinematics.color					= color_red;
-	s_main.cinematics.style					= style;
+	s_main.cinematics.style					= UI_DROPSHADOW;
 
 	if (UI_TeamArenaExists()) {
 		teamArena = qtrue;
 		y += MAIN_MENU_VERTICAL_SPACING;
 		s_main.teamArena.generic.type			= MTYPE_PTEXT;
 		s_main.teamArena.generic.flags			= QMF_CENTER_JUSTIFY|QMF_PULSEIFFOCUS;
-		s_main.teamArena.generic.x				= 320;
+		s_main.teamArena.generic.x				= 64;
 		s_main.teamArena.generic.y				= y;
 		s_main.teamArena.generic.id				= ID_TEAMARENA;
 		s_main.teamArena.generic.callback		= Main_MenuEvent; 
 		s_main.teamArena.string					= "TEAM ARENA";
 		s_main.teamArena.color					= color_red;
-		s_main.teamArena.style					= style;
+		s_main.teamArena.style					= UI_DROPSHADOW;
 	}
 
 	y += MAIN_MENU_VERTICAL_SPACING;
 	s_main.mods.generic.type			= MTYPE_PTEXT;
 	s_main.mods.generic.flags			= QMF_CENTER_JUSTIFY|QMF_PULSEIFFOCUS;
-	s_main.mods.generic.x				= 320;
+	s_main.mods.generic.x				= 64;
 	s_main.mods.generic.y				= y;
 	s_main.mods.generic.id				= ID_MODS;
 	s_main.mods.generic.callback		= Main_MenuEvent; 
 	s_main.mods.string					= "MODS";
 	s_main.mods.color					= color_red;
-	s_main.mods.style					= style;
+	s_main.mods.style					= UI_DROPSHADOW;
 
 	y += MAIN_MENU_VERTICAL_SPACING;
 	s_main.exit.generic.type				= MTYPE_PTEXT;
 	s_main.exit.generic.flags				= QMF_CENTER_JUSTIFY|QMF_PULSEIFFOCUS;
-	s_main.exit.generic.x					= 320;
+	s_main.exit.generic.x					= 64;
 	s_main.exit.generic.y					= y;
 	s_main.exit.generic.id					= ID_EXIT;
 	s_main.exit.generic.callback			= Main_MenuEvent; 
 	s_main.exit.string						= "EXIT";
 	s_main.exit.color						= color_red;
-	s_main.exit.style						= style;
+	s_main.exit.style						= UI_DROPSHADOW;
 
 	Menu_AddItem( &s_main.menu,	&s_main.singleplayer );
 	Menu_AddItem( &s_main.menu,	&s_main.multiplayer );
