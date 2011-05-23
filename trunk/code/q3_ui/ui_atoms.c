@@ -971,7 +971,8 @@ void UI_Cache_f( void ) {
 	UI_BotSelectMenu_Cache();
 	UI_CDKeyMenu_Cache();
 	UI_ModsMenu_Cache();
-
+	EPMenu_Cache();
+	EPSkill_Cache();
 }
 
 

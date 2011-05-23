@@ -73,6 +73,8 @@ set cc=..\..\..\bin\lcc -DQ3_VM -S -Wf-target=bytecode -Wf-g -I..\..\cgame -I..\
 @if errorlevel 1 goto quit
 ..\..\..\bin\lcc -DQ3_VM -S -Wf-target=bytecode -Wf-g -I..\..\cgame -I..\..\game -I..\..\q3_ui ../ui_startserver.c
 @if errorlevel 1 goto quit
+..\..\..\bin\lcc -DQ3_VM -S -Wf-target=bytecode -Wf-g -I..\..\cgame -I..\..\game -I..\..\q3_ui ../ui_epmenu.c
+@if errorlevel 1 goto quit
 ..\..\..\bin\lcc -DQ3_VM -S -Wf-target=bytecode -Wf-g -I..\..\cgame -I..\..\game -I..\..\q3_ui ../ui_team.c
 @if errorlevel 1 goto quit
 ..\..\..\bin\lcc -DQ3_VM -S -Wf-target=bytecode -Wf-g -I..\..\cgame -I..\..\game -I..\..\q3_ui ../ui_video.c
@@ -85,10 +87,6 @@ set cc=..\..\..\bin\lcc -DQ3_VM -S -Wf-target=bytecode -Wf-g -I..\..\cgame -I..\
 @if errorlevel 1 goto quit
 ..\..\..\bin\lcc -DQ3_VM -S -Wf-target=bytecode -Wf-g -I..\..\cgame -I..\..\game -I..\..\q3_ui ../ui_removebots.c
 @if errorlevel 1 goto quit
-rem lcc -DQ3_VM -S -Wf-target=bytecode -Wf-g -I..\..\cgame -I..\..\game -I..\..\q3_ui ../ui_loadconfig.c
-rem @if errorlevel 1 goto quit
-rem lcc -DQ3_VM -S -Wf-target=bytecode -Wf-g -I..\..\cgame -I..\..\game -I..\..\q3_ui ../ui_saveconfig.c
-rem @if errorlevel 1 goto quit
 ..\..\..\bin\lcc -DQ3_VM -S -Wf-target=bytecode -Wf-g -I..\..\cgame -I..\..\game -I..\..\q3_ui ../ui_teamorders.c
 @if errorlevel 1 goto quit
 ..\..\..\bin\lcc -DQ3_VM -S -Wf-target=bytecode -Wf-g -I..\..\cgame -I..\..\game -I..\..\q3_ui ../ui_mods.c

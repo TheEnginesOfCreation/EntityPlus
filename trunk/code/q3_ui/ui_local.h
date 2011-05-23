@@ -283,6 +283,8 @@ extern char	*ui_medalSounds[];
 // ui_epmenu.c
 //
 void UI_EPLevelMenu( void );
+void EPMenu_Cache( void );
+void EPSkill_Cache( void );
 
 //
 // ui_mfield.c
