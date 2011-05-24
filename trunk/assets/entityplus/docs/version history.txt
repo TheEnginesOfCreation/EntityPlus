@@ -1,8 +1,8 @@
 v0.6 (? may 2011)
 	- [Added] info_waypoint entity to plot patrolling routes for bots.
 	- [Added] target_skill entity to set the skill level for the next map.
-	- [Added] target_earthquake entity
-	- [Added] target_effect entity
+	- [Added] target_earthquake entity.
+	- [Added] target_effect entity.
 	- [Added] LIGHT_LARGE_DEBRIS, DARK_LARGE_DEBRIS, WOOD_DEBRIS, FLESH_DEBRIS and GLASS_DEBRIS spawnflags to target_debrisemitter and func_breakable.
 	- [Added] deathtarget key to target_botspawn in order to activate entities upon a bot's death.
 	- [Added] skill key to target_botspawn in order to set the skill level of the bot relative to the global skill level.
@@ -14,9 +14,12 @@ v0.6 (? may 2011)
 	- [Fixed] Sometimes wrong spawnpoint is picked in ep_example map when dying in key room.
 	- [Fixed] Not killing all enemies in ep_example map prevents exit for key room from opening up.
 	- [Fixed] Lava doesn't drain in ep_example map if not all enemies in level are killed.
+	- [Fixed] Not killing enemies quickly enough in ep_example map causes the default sv_maxclients limit to be hit, preventing the player from completing the map.
 	- [Changed] con_notify time is now set to 0 in single player at map load.
 	- [Changed] target_gravity defaults to g_gravity value instead of a fixed 800 now.
-	- [Changed] player now (re)spawns at nearest spawnpoint even if that spawnpoint would telefrag an enemy (SP mode only).
+	- [Changed] Player now (re)spawns at nearest spawnpoint even if that spawnpoint would telefrag an enemy (SP mode only).
+	- [Changed] Enemies spawning into the game no longer show the teleportation effect.
+	- [Changed] Main menu looks a bit different now.
 
 v0.5.1 (9 may 2011)
 	- [Fixed] Added missing example map roq video to pak0.pk3
