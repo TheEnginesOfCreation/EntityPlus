@@ -343,11 +343,6 @@ void G_RegisterCvars( void ) {
 	}
 
 	level.warmupModificationCount = g_warmup.modificationCount;
-
-	if (g_gametype.integer == GT_SINGLE_PLAYER) {
-		trap_Cvar_Set("fraglimit", "0");						//no fraglimit in SP
-		trap_Cvar_Set("timelimit", "0");						//no timelimit in SP
-	}
 }
 
 /*
@@ -491,8 +486,11 @@ void G_InitGame( int levelTime, int randomSeed, int restart ) {
 
 	G_RemapTeamShaders();
 
-	if (g_gametype.integer == GT_SINGLE_PLAYER) 
-		trap_Cvar_Set("con_notifytime", "0");
+	if (g_gametype.integer == GT_SINGLE_PLAYER) {
+		trap_Cvar_Set("con_notifytime", "0");	//to hide bot spawning messages which are hard coded in the engine
+		trap_Cvar_Set("fraglimit", "0");
+		trap_Cvar_Set("timelimit", "0");
+	}
 }
 
 

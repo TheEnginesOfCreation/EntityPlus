@@ -347,7 +347,7 @@ void UI_EPSkillMenu( void ) {
 
 /*
 =================
-GametypeBits
+EPMenu_MapGametype
 =================
 */
 
