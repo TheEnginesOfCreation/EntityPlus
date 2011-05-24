@@ -1453,8 +1453,10 @@ void ClientDisconnect( int clientNum ) {
 	// send effect if they were completely connected
 	if ( ent->client->pers.connected == CON_CONNECTED 
 		&& ent->client->sess.sessionTeam != TEAM_SPECTATOR ) {
-		tent = G_TempEntity( ent->client->ps.origin, EV_PLAYER_TELEPORT_OUT );
-		tent->s.clientNum = ent->s.clientNum;
+			if ( g_gametype.integer != GT_SINGLE_PLAYER ) {
+				tent = G_TempEntity( ent->client->ps.origin, EV_PLAYER_TELEPORT_OUT );
+				tent->s.clientNum = ent->s.clientNum;
+			}
 
 		// They don't get to take powerups with them!
 		// Especially important for stuff like CTF flags

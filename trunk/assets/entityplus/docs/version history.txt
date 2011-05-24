@@ -18,7 +18,7 @@ v0.6 (? may 2011)
 	- [Changed] con_notify time is now set to 0 in single player at map load.
 	- [Changed] target_gravity defaults to g_gravity value instead of a fixed 800 now.
 	- [Changed] Player now (re)spawns at nearest spawnpoint even if that spawnpoint would telefrag an enemy (SP mode only).
-	- [Changed] Enemies spawning into the game no longer show the teleportation effect.
+	- [Changed] Enemies spawning into or out of the game no longer show the teleportation effect.
 	- [Changed] Main menu looks a bit different now.
 
 v0.5.1 (9 may 2011)
