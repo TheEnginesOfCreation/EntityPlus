@@ -22,7 +22,7 @@ MAIN MENU
 #define ID_EXIT						17
 
 #define MAIN_BANNER_MODEL			"models/mapobjects/banner/banner5.md3"
-#define MAIN_MENU_MODEL				"models/mapobjects/visor_posed.md3"
+#define MAIN_MENU_MODEL				"models/powerups/keys/key_master.md3"
 #define MAIN_MENU_VERTICAL_SPACING	34
 
 
@@ -223,9 +223,9 @@ static void Main_MenuDraw( void ) {
 
 	refdef2.time = uis.realtime;
 
-	origin2[0] = 600;
+	origin2[0] = 100;
 	origin2[1] = 0;
-	origin2[2] = -64;
+	origin2[2] = -12;
 
 	// add the menu model
 
