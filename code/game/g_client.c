@@ -1113,8 +1113,10 @@ void ClientBegin( int clientNum ) {
 
 	if ( client->sess.sessionTeam != TEAM_SPECTATOR ) {
 		// send event
-		tent = G_TempEntity( ent->client->ps.origin, EV_PLAYER_TELEPORT_IN );
-		tent->s.clientNum = ent->s.clientNum;
+		if ( g_gametype.integer != GT_SINGLE_PLAYER ) {
+			tent = G_TempEntity( ent->client->ps.origin, EV_PLAYER_TELEPORT_IN );
+			tent->s.clientNum = ent->s.clientNum;
+		}
 
 		if ( g_gametype.integer != GT_TOURNAMENT && ( !(ent->r.svFlags & SVF_BOT) || g_gametype.integer != GT_SINGLE_PLAYER ) ) {
 			trap_SendServerCommand( -1, va("print \"%s" S_COLOR_WHITE " entered the game\n\"", client->pers.netname) );
