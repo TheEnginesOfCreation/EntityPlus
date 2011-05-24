@@ -22,7 +22,10 @@ MAIN MENU
 #define ID_EXIT						17
 
 #define MAIN_BANNER_MODEL			"models/mapobjects/banner/banner5.md3"
-#define MAIN_MENU_MODEL				"models/powerups/keys/key_master.md3"
+#define MAIN_MENU_MODEL_KEY_MASTER	"models/powerups/keys/key_master.md3"
+#define MAIN_MENU_MODEL_KEY_GOLD	"models/powerups/keys/key_gold.md3"
+#define MAIN_MENU_MODEL_KEY_SILVER	"models/powerups/keys/key_silver.md3"
+#define MAIN_MENU_MODEL_KEY_IRON	"models/powerups/keys/key_iron.md3"
 #define MAIN_MENU_VERTICAL_SPACING	34
 
 
@@ -120,8 +123,37 @@ MainMenu_Cache
 ===============
 */
 void MainMenu_Cache( void ) {
+	int r;
+	qtime_t tm;
+	int seed;
+	
 	s_main.bannerModel = trap_R_RegisterModel( MAIN_BANNER_MODEL );
-	s_main.menuModel = trap_R_RegisterModel( MAIN_MENU_MODEL );
+
+	trap_RealTime(&tm);
+	seed = 1;
+	seed = seed * 31 + tm.tm_sec;
+	seed = seed * 31 + tm.tm_min;
+	seed = seed * 31 + tm.tm_hour;
+	seed = seed * 31 + tm.tm_mday;
+	srand( seed );
+	
+	r = rand() % 4;
+
+	switch ( r ) {
+		case 0:
+			s_main.menuModel = trap_R_RegisterModel( MAIN_MENU_MODEL_KEY_MASTER );
+			break;
+		case 1:
+			s_main.menuModel = trap_R_RegisterModel( MAIN_MENU_MODEL_KEY_GOLD );
+			break;
+		case 2:
+			s_main.menuModel = trap_R_RegisterModel( MAIN_MENU_MODEL_KEY_SILVER );
+			break;
+		case 3:
+			s_main.menuModel = trap_R_RegisterModel( MAIN_MENU_MODEL_KEY_IRON );
+			break;
+	}
+	
 }
 
 sfxHandle_t ErrorMessage_Key(int key)
@@ -337,7 +369,7 @@ void UI_MainMenu( void ) {
 		
 		return;
 	}
-
+	
 	s_main.menu.draw = Main_MenuDraw;
 	s_main.menu.fullscreen = qtrue;
 	s_main.menu.wrapAround = qtrue;
