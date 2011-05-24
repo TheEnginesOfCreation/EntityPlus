@@ -31295,8 +31295,9 @@ gothic_wall/iron01_e
 }
 // entity 461
 {
+"target" "waypointa"
 "classname" "target_botspawn"
-"origin" "896 -2256 24"
+"origin" "900 -1982 24"
 "angle" "315"
 "spawnflags" "4"
 "targetname" "bs1"
@@ -31305,12 +31306,13 @@ gothic_wall/iron01_e
 }
 // entity 462
 {
+"target" "waypointc"
 "clientname" "visor"
 "health" "35"
 "targetname" "bs1"
 "spawnflags" "4"
 "angle" "225"
-"origin" "1280 -2256 24"
+"origin" "1276 -1662 24"
 "classname" "target_botspawn"
 }
 // entity 463
@@ -32104,6 +32106,7 @@ gothic_trim/pitted_rust3
 }
 // entity 494
 {
+"target" "waypoint0"
 "classname" "target_botspawn"
 "origin" "2176 -1168 -48"
 "angle" "135"
@@ -32241,14 +32244,14 @@ gothic_trim/pitted_rust3
 }
 // entity 501
 {
-"targetname" "swarm"
 "clientname" "visor"
 "health" "30"
 "spawnflags" "2"
 "angle" "360"
 "origin" "960 448 96"
 "classname" "target_botspawn"
-"deathtarget" "counter"
+"targetname" "swarm"
+"deathtarget" "enemy4"
 }
 // entity 502
 {
@@ -32258,19 +32261,19 @@ gothic_trim/pitted_rust3
 "spawnflags" "2"
 "health" "30"
 "clientname" "visor"
-"targetname" "swarm"
+"targetname" "enemy3"
 "deathtarget" "counter"
 }
 // entity 503
 {
-"targetname" "swarm"
 "clientname" "gorre"
 "health" "30"
 "spawnflags" "2"
 "angle" "180"
 "origin" "1624 16 -40"
 "classname" "target_botspawn"
-"deathtarget" "counter"
+"targetname" "enemy2"
+"deathtarget" "enemy5"
 }
 // entity 504
 {
@@ -32280,40 +32283,21 @@ gothic_trim/pitted_rust3
 "spawnflags" "2"
 "health" "30"
 "clientname" "visor"
-"targetname" "swarm2"
+"targetname" "enemy5"
 "deathtarget" "counter"
 }
 // entity 505
 {
-"wait" "7"
-"target" "swarm2"
-"targetname" "swarm"
-"origin" "1656 -88 -32"
-"classname" "target_delay"
-}
-// entity 506
-{
-"targetname" "swarm2"
 "clientname" "visor"
 "health" "30"
 "spawnflags" "2"
 "angle" "90"
 "origin" "1368 -392 -40"
 "classname" "target_botspawn"
-"deathtarget" "counter"
-}
-// entity 507
-{
-"classname" "target_botspawn"
-"origin" "1312 -392 -40"
-"angle" "90"
-"spawnflags" "2"
-"health" "30"
-"clientname" "visor"
+"deathtarget" "enemy1"
 "targetname" "swarm"
-"deathtarget" "counter"
 }
-// entity 508
+// entity 506
 {
 "classname" "target_botspawn"
 "origin" "1080 -144 -40"
@@ -32321,40 +32305,32 @@ gothic_trim/pitted_rust3
 "spawnflags" "2"
 "health" "30"
 "clientname" "visor"
-"targetname" "swarm2"
-"deathtarget" "counter"
+"targetname" "enemy4"
+"deathtarget" "enemy7"
 }
-// entity 509
+// entity 507
 {
 "spawnflags" "128"
-"targetname" "swarm2"
 "clientname" "gorre"
 "health" "30"
 "angle" "45"
 "origin" "936 -464 -40"
 "classname" "target_botspawn"
+"targetname" "enemy6"
 "deathtarget" "counter"
 }
-// entity 510
-{
-"classname" "target_delay"
-"origin" "1656 -120 -32"
-"targetname" "swarm"
-"target" "swarm3"
-"wait" "13"
-}
-// entity 511
+// entity 508
 {
 "classname" "target_botspawn"
 "origin" "936 -416 -40"
 "angle" "45"
 "health" "30"
 "clientname" "gorre"
-"targetname" "swarm3"
 "spawnflags" "128"
+"targetname" "enemy7"
 "deathtarget" "counter"
 }
-// entity 512
+// entity 509
 {
 "classname" "target_botspawn"
 "origin" "1416 -392 -40"
@@ -32362,10 +32338,10 @@ gothic_trim/pitted_rust3
 "spawnflags" "2"
 "health" "30"
 "clientname" "visor"
-"targetname" "swarm3"
-"deathtarget" "counter"
+"targetname" "enemy1"
+"deathtarget" "enemy6"
 }
-// entity 513
+// entity 510
 {
 "classname" "target_botspawn"
 "origin" "1624 72 -40"
@@ -32373,21 +32349,21 @@ gothic_trim/pitted_rust3
 "spawnflags" "2"
 "health" "30"
 "clientname" "gorre"
-"targetname" "swarm3"
-"deathtarget" "counter"
+"deathtarget" "enemy2"
+"targetname" "swarm"
 }
-// entity 514
+// entity 511
 {
-"targetname" "swarm3"
 "clientname" "visor"
 "health" "30"
 "spawnflags" "2"
 "angle" "180"
 "origin" "1448 440 96"
 "classname" "target_botspawn"
-"deathtarget" "counter"
+"deathtarget" "enemy3"
+"targetname" "swarm"
 }
-// entity 515
+// entity 512
 {
 "classname" "func_door"
 "angle" "180"
@@ -32405,7 +32381,7 @@ gothic_trim/pitted_rust3
 ( 1572 220 -84 ) ( 1556 220 -84 ) ( 1556 196 -84 ) gothic_trim/pitted_rust3 0 0 0 0.500000 0.500000 0 0 0
 }
 }
-// entity 516
+// entity 513
 {
 "targetname" "swarm"
 "spawnflags" "2"
@@ -32413,7 +32389,7 @@ gothic_trim/pitted_rust3
 "origin" "1632 456 -40"
 "classname" "info_player_deathmatch"
 }
-// entity 517
+// entity 514
 {
 "classname" "func_button"
 "angle" "270"
@@ -32429,7 +32405,7 @@ gothic_trim/pitted_rust3
 ( 1280 -1144 -120 ) ( 1248 -1144 -120 ) ( 1248 -1184 -120 ) gothic_button/timbuttonside 0 0 0 0.500000 0.500000 0 0 0
 }
 }
-// entity 518
+// entity 515
 {
 "target" "btnmulti3"
 "wait" "-2"
@@ -32445,7 +32421,7 @@ gothic_trim/pitted_rust3
 ( 784 80 -8 ) ( 824 80 -8 ) ( 824 80 -40 ) gothic_button/timbuttonside 16 31 -180 0.500000 -0.500000 0 0 0
 }
 }
-// entity 519
+// entity 516
 {
 "classname" "func_button"
 "angle" "180"
@@ -32461,7 +32437,7 @@ gothic_trim/pitted_rust3
 ( -80 -400 0 ) ( -80 -368 0 ) ( -120 -368 0 ) gothic_button/timbuttonside 0 16 -90 0.500000 0.500000 0 0 0
 }
 }
-// entity 520
+// entity 517
 {
 "target" "btnmulti1"
 "wait" "-2"
@@ -32477,7 +32453,7 @@ gothic_trim/pitted_rust3
 ( -80 -1208 32 ) ( -120 -1208 32 ) ( -120 -1208 0 ) gothic_button/timbuttonside 16 -17 0 0.500000 0.500000 0 0 0
 }
 }
-// entity 521
+// entity 518
 {
 "deathtarget" "lavadoor"
 "classname" "target_botspawn"
@@ -32488,38 +32464,38 @@ gothic_trim/pitted_rust3
 "targetname" "bs6"
 "clientname" "klesk"
 }
-// entity 522
+// entity 519
 {
 "classname" "target_logic"
 "origin" "-232 -808 160"
 "targetname" "logic"
 "target" "bs6"
 }
-// entity 523
+// entity 520
 {
 "classname" "item_botroam"
 "origin" "1432 -88 -32"
 "weight" "200"
 }
-// entity 524
+// entity 521
 {
 "weight" "150"
 "origin" "1184 -64 200"
 "classname" "item_botroam"
 }
-// entity 525
+// entity 522
 {
 "classname" "item_botroam"
 "origin" "152 -416 16"
 "weight" "200"
 }
-// entity 526
+// entity 523
 {
 "weight" "200"
 "origin" "152 -1192 16"
 "classname" "item_botroam"
 }
-// entity 527
+// entity 524
 {
 "classname" "func_door"
 "targetname" "lavadoor"
@@ -32539,7 +32515,7 @@ gothic_trim/pitted_rust3
 ( -108 -480 -120 ) ( -108 -1096 -120 ) ( -108 -1096 -424 ) common/nodraw 0 0 0 0.500000 0.500000 0 12 0
 }
 }
-// entity 528
+// entity 525
 {
 "targetname" "btnmulti1"
 "wait" "-2"
@@ -32555,14 +32531,14 @@ gothic_trim/pitted_rust3
 ( -76 -1208 -44 ) ( -76 -1240 -44 ) ( -76 -1240 -76 ) gothic_trim/pitted_rust2 0 -104 0 0.500000 0.500000 0 0 0
 }
 }
-// entity 529
+// entity 526
 {
 "target" "logic"
 "targetname" "btnmulti1"
 "origin" "-66 -1182 16"
 "classname" "target_relay"
 }
-// entity 530
+// entity 527
 {
 "classname" "func_door"
 "angle" "-1"
@@ -32578,14 +32554,14 @@ gothic_trim/pitted_rust3
 ( -44 -400 -76 ) ( -40 -400 -76 ) ( -72 -368 -76 ) gothic_trim/pitted_rust2 0 144 0 0.500000 0.500000 0 0 0
 }
 }
-// entity 531
+// entity 528
 {
 "target" "logic"
 "targetname" "btnmulti2"
 "origin" "-56 -432 16"
 "classname" "target_relay"
 }
-// entity 532
+// entity 529
 {
 "targetname" "btnmulti3"
 "wait" "-2"
@@ -32601,14 +32577,14 @@ gothic_trim/pitted_rust3
 ( 772 112 -84 ) ( 772 80 -84 ) ( 772 80 -116 ) gothic_trim/pitted_rust2 -80 -184 0 0.500000 0.500000 0 0 0
 }
 }
-// entity 533
+// entity 530
 {
 "target" "logic"
 "targetname" "btnmulti3"
 "origin" "776 56 -40"
 "classname" "target_relay"
 }
-// entity 534
+// entity 531
 {
 "classname" "func_door"
 "angle" "-1"
@@ -32624,14 +32600,14 @@ gothic_trim/pitted_rust3
 ( 1248 -1164 -196 ) ( 1248 -1168 -196 ) ( 1280 -1136 -196 ) gothic_trim/pitted_rust2 -112 112 -90 0.500000 0.500000 0 0 0
 }
 }
-// entity 535
+// entity 532
 {
 "target" "logic"
 "targetname" "btnmulti4"
 "origin" "1272 -1120 -104"
 "classname" "target_relay"
 }
-// entity 536
+// entity 533
 {
 "classname" "trigger_multiple"
 "wait" "-1"
@@ -32646,7 +32622,7 @@ gothic_trim/pitted_rust3
 ( 816 -776 -392 ) ( 784 -776 -392 ) ( 784 -808 -392 ) common/trigger 0 0 0 0.500000 0.500000 0 7 0
 }
 }
-// entity 537
+// entity 534
 {
 "classname" "func_breakable"
 "health" "21"
@@ -32663,7 +32639,7 @@ gothic_trim/pitted_rust3
 ( 1192 -920 -400 ) ( 1168 -920 -448 ) ( 1168 -944 -448 ) gothic_block/blocks18c 0 0 0 0.500000 0.500000 134217728 0 0
 }
 }
-// entity 538
+// entity 535
 {
 "classname" "func_breakable"
 "health" "14"
@@ -32678,7 +32654,7 @@ gothic_trim/pitted_rust3
 ( 928 -944 -224 ) ( 1040 -944 -224 ) ( 1040 -944 -352 ) gothic_block/blocks15 0 0 0 0.500000 0.500000 134217728 0 0
 }
 }
-// entity 539
+// entity 536
 {
 "classname" "func_breakable"
 "health" "21"
@@ -32697,7 +32673,7 @@ gothic_trim/pitted_rust3
 ( 1216 -920 -312 ) ( 1208 -920 -368 ) ( 1208 -944 -368 ) gothic_block/blocks18c 0 0 0 0.500000 0.500000 134217728 0 0
 }
 }
-// entity 540
+// entity 537
 {
 "classname" "func_breakable"
 "health" "24"
@@ -32714,7 +32690,7 @@ gothic_trim/pitted_rust3
 ( 1192 -920 -400 ) ( 1168 -920 -448 ) ( 1168 -944 -448 ) common/caulk 0 0 0 0.500000 0.500000 134217728 0 0
 }
 }
-// entity 541
+// entity 538
 {
 "classname" "func_breakable"
 "health" "24"
@@ -32731,7 +32707,7 @@ gothic_trim/pitted_rust3
 ( 1216 -920 -312 ) ( 1208 -920 -368 ) ( 1208 -944 -368 ) common/caulk 0 0 0 0.500000 0.500000 134217728 0 0
 }
 }
-// entity 542
+// entity 539
 {
 "classname" "target_objective"
 "origin" "2320 -264 184"
@@ -32739,7 +32715,7 @@ gothic_trim/pitted_rust3
 "message" "Retrieve key to unlock main door"
 "targetname" "btn1"
 }
-// entity 543
+// entity 540
 {
 "classname" "target_objective"
 "origin" "1208 -240 184"
@@ -32747,7 +32723,7 @@ gothic_trim/pitted_rust3
 "targetname" "swarm"
 "message" "Fight off the assault"
 }
-// entity 544
+// entity 541
 {
 "classname" "target_objective"
 "origin" "1552 192 16"
@@ -32755,7 +32731,7 @@ gothic_trim/pitted_rust3
 "spawnflags" "1"
 "message" "Use the key to unlock the door"
 }
-// entity 545
+// entity 542
 {
 "classname" "target_objective"
 "origin" "472 -1440 -56"
@@ -32763,7 +32739,7 @@ gothic_trim/pitted_rust3
 "spawnflags" "1"
 "message" "Hit 4 switches to reveal the secret exit"
 }
-// entity 546
+// entity 543
 {
 "classname" "target_objective"
 "origin" "-216 -848 160"
@@ -32771,7 +32747,7 @@ gothic_trim/pitted_rust3
 "spawnflags" "1"
 "message" "Defeat Klesk"
 }
-// entity 547
+// entity 544
 {
 "classname" "target_objective"
 "origin" "-128 -904 16"
@@ -32779,12 +32755,12 @@ gothic_trim/pitted_rust3
 "spawnflags" "1"
 "message" "Lava drainage activated. Escape through the secret passage."
 }
-// entity 548
+// entity 545
 {
 "classname" "ammo_bullets"
 "origin" "1624 -1440 16"
 }
-// entity 549
+// entity 546
 {
 "targetname" "alarm1"
 "noise" "sound/world/klaxon1.wav"
@@ -32792,7 +32768,7 @@ gothic_trim/pitted_rust3
 "classname" "target_speaker"
 "spawnflags" "4"
 }
-// entity 550
+// entity 547
 {
 "classname" "target_delay"
 "origin" "1200 -96 184"
@@ -32800,28 +32776,28 @@ gothic_trim/pitted_rust3
 "targetname" "alarm1"
 "wait" "1.5"
 }
-// entity 551
+// entity 548
 {
 "classname" "target_relay"
 "origin" "1184 -128 184"
 "targetname" "alarm_relay"
 "target" "alarm1"
 }
-// entity 552
+// entity 549
 {
 "classname" "target_relay"
 "origin" "1184 -160 184"
 "targetname" "swarm"
 "target" "alarm_relay"
 }
-// entity 553
+// entity 550
 {
 "classname" "target_disable"
 "origin" "1232 -120 184"
 "targetname" "obj2"
 "target" "alarm1"
 }
-// entity 554
+// entity 551
 {
 "speed" "400"
 "light" "200"
@@ -32847,21 +32823,21 @@ gothic_trim/pitted_rust3
 ( -404 -744 -484 ) ( -404 -760 -484 ) ( -404 -760 -500 ) common/origin 0 -16 0 0.500000 0.500000 0 14 0
 }
 }
-// entity 555
+// entity 552
 {
 "target" "trainlight1_2"
 "targetname" "trainlight1_1"
 "origin" "-440 -752 -456"
 "classname" "path_corner"
 }
-// entity 556
+// entity 553
 {
 "target" "trainlight1_1"
 "classname" "path_corner"
 "origin" "-72 -752 -456"
 "targetname" "trainlight1_2"
 }
-// entity 557
+// entity 554
 {
 "classname" "func_train"
 "target" "trainlight2_1"
@@ -32887,21 +32863,21 @@ gothic_trim/pitted_rust3
 ( -392 -840 -492 ) ( -408 -840 -492 ) ( -408 -856 -492 ) common/origin 0 0 0 0.500000 0.500000 0 14 0
 }
 }
-// entity 558
+// entity 555
 {
 "classname" "path_corner"
 "origin" "-440 -848 -456"
 "targetname" "trainlight2_1"
 "target" "trainlight2_2"
 }
-// entity 559
+// entity 556
 {
 "targetname" "trainlight2_2"
 "origin" "-72 -848 -456"
 "classname" "path_corner"
 "target" "trainlight2_1"
 }
-// entity 560
+// entity 557
 {
 "targetname" "hurt"
 "dmg" "50"
@@ -32916,14 +32892,14 @@ gothic_trim/pitted_rust3
 ( 608 -464 -408 ) ( -104 -464 -408 ) ( -104 -1080 -408 ) common/trigger 0 0 0 0.500000 0.500000 0 7 0
 }
 }
-// entity 561
+// entity 558
 {
 "target" "hurt"
 "targetname" "lavadoor"
 "origin" "-88 -880 16"
 "classname" "target_disable"
 }
-// entity 562
+// entity 559
 {
 "team" "doorteam1"
 "angle" "90"
@@ -32938,7 +32914,7 @@ gothic_trim/pitted_rust3
 ( -464 -792 -576 ) ( -448 -792 -576 ) ( -448 -736 -576 ) base_floor/clangdark 64 0 -90 0.500000 0.500000 0 0 0
 }
 }
-// entity 563
+// entity 560
 {
 "team" "doorteam1"
 "angle" "270"
@@ -32953,7 +32929,7 @@ gothic_trim/pitted_rust3
 ( -464 -808 -576 ) ( -464 -864 -576 ) ( -464 -864 -600 ) base_door/shinymetaldoor_outside 192 128 0 0.500000 0.500000 0 0 0
 }
 }
-// entity 564
+// entity 561
 {
 "spawnflags" "4"
 "classname" "func_rotating"
@@ -32987,7 +32963,7 @@ sfx/proto_zzztblu3
 ( -1352 -792 -568 ) ( -1352 -808 -568 ) ( -1352 -808 -576 ) common/origin 0 0 0 0.500000 0.500000 0 14 0
 }
 }
-// entity 565
+// entity 562
 {
 "speed" "200"
 "spawnflags" "8"
@@ -33021,14 +32997,14 @@ sfx/proto_zzztblu3
 ( -1352 -792 -568 ) ( -1352 -808 -568 ) ( -1352 -808 -584 ) common/origin 0 0 0 0.500000 0.500000 0 14 0
 }
 }
-// entity 566
+// entity 563
 {
 "classname" "target_speaker"
 "origin" "-1064 -616 -544"
 "noise" "sound/world/tim_hole.wav"
 "spawnflags" "1"
 }
-// entity 567
+// entity 564
 {
 "classname" "func_rotating"
 "spawnflags" "12"
@@ -33062,42 +33038,42 @@ sfx/proto_zzztblu3
 ( -1336 -792 -584 ) ( -1352 -792 -584 ) ( -1352 -808 -584 ) common/origin 0 0 0 0.500000 0.500000 0 14 0
 }
 }
-// entity 568
+// entity 565
 {
 "target" "wild2"
 "targetname" "wild1"
 "origin" "-1664 -896 -776"
 "classname" "path_corner"
 }
-// entity 569
+// entity 566
 {
 "target" "wild3"
 "targetname" "wild2"
 "origin" "-1472 -512 -256"
 "classname" "path_corner"
 }
-// entity 570
+// entity 567
 {
 "targetname" "wild3"
 "target" "wild4"
 "origin" "-824 -1024 -456"
 "classname" "path_corner"
 }
-// entity 571
+// entity 568
 {
 "target" "wild5"
 "targetname" "wild4"
 "origin" "-1408 -1088 -936"
 "classname" "path_corner"
 }
-// entity 572
+// entity 569
 {
 "target" "wild1"
 "targetname" "wild5"
 "origin" "-1648 -992 -584"
 "classname" "path_corner"
 }
-// entity 573
+// entity 570
 {
 "light" "600"
 "color" "0.0 0.0 1.0"
@@ -33123,35 +33099,35 @@ sfx/proto_zzztblu3
 ( -1520 -960 -784 ) ( -1536 -960 -784 ) ( -1536 -976 -784 ) common/botclip 0 0 0 0.500000 0.500000 0 13 0
 }
 }
-// entity 574
+// entity 571
 {
 "target" "wild12"
 "targetname" "wild11"
 "origin" "-1592 -1064 -472"
 "classname" "path_corner"
 }
-// entity 575
+// entity 572
 {
 "target" "wild13"
 "targetname" "wild12"
 "origin" "-1048 -800 -584"
 "classname" "path_corner"
 }
-// entity 576
+// entity 573
 {
 "target" "wild14"
 "targetname" "wild13"
 "origin" "-1344 -736 -544"
 "classname" "path_corner"
 }
-// entity 577
+// entity 574
 {
 "target" "wild11"
 "targetname" "wild14"
 "origin" "-1624 -544 -336"
 "classname" "path_corner"
 }
-// entity 578
+// entity 575
 {
 "classname" "func_train"
 "target" "wild11"
@@ -33177,35 +33153,35 @@ sfx/proto_zzztblu3
 ( -1496 -960 -768 ) ( -1496 -976 -768 ) ( -1496 -976 -784 ) common/botclip 0 0 0 0.500000 0.500000 0 13 0
 }
 }
-// entity 579
+// entity 576
 {
 "target" "wild22"
 "targetname" "wild21"
 "origin" "-1656 -728 -936"
 "classname" "path_corner"
 }
-// entity 580
+// entity 577
 {
 "target" "wild23"
 "targetname" "wild22"
 "origin" "-984 -488 -272"
 "classname" "path_corner"
 }
-// entity 581
+// entity 578
 {
 "target" "wild24"
 "targetname" "wild23"
 "origin" "-1552 -840 -320"
 "classname" "path_corner"
 }
-// entity 582
+// entity 579
 {
 "target" "wild21"
 "targetname" "wild24"
 "origin" "-1136 -936 -744"
 "classname" "path_corner"
 }
-// entity 583
+// entity 580
 {
 "light" "600"
 "color" "0.0 0.0 1.0"
@@ -33231,49 +33207,49 @@ sfx/proto_zzztblu3
 ( -1448 -960 -784 ) ( -1464 -960 -784 ) ( -1464 -976 -784 ) common/botclip 0 0 0 0.500000 0.500000 0 13 0
 }
 }
-// entity 584
+// entity 581
 {
 "_color" "0.843305 0.859922 1.000000"
 "light" "300"
 "origin" "-1504 -664 -752"
 "classname" "light"
 }
-// entity 585
+// entity 582
 {
 "classname" "light"
 "origin" "-1504 -936 -752"
 "light" "300"
 "_color" "0.843305 0.859922 1.000000"
 }
-// entity 586
+// entity 583
 {
 "classname" "light"
 "origin" "-1200 -672 -752"
 "light" "300"
 "_color" "0.843305 0.859922 1.000000"
 }
-// entity 587
+// entity 584
 {
 "_color" "0.843305 0.859922 1.000000"
 "light" "300"
 "origin" "-1200 -944 -752"
 "classname" "light"
 }
-// entity 588
+// entity 585
 {
 "spawnflags" "1"
 "noise" "sound/world/tim_hole.wav"
 "origin" "-1064 -800 -544"
 "classname" "target_speaker"
 }
-// entity 589
+// entity 586
 {
 "classname" "target_speaker"
 "origin" "-1056 -992 -544"
 "noise" "sound/world/tim_hole.wav"
 "spawnflags" "1"
 }
-// entity 590
+// entity 587
 {
 "target" "bridge"
 "wait" "-2"
@@ -33289,7 +33265,7 @@ sfx/proto_zzztblu3
 ( -960 -592 -512 ) ( -960 -624 -512 ) ( -960 -624 -576 ) gothic_button/timbuttonside 0 0 0 0.500000 0.500000 0 0 0
 }
 }
-// entity 591
+// entity 588
 {
 "wait" "-2"
 "targetname" "bridge"
@@ -33343,35 +33319,35 @@ sfx/proto_zzztblu3
 ( -1320 -784 -616 ) ( -1344 -784 -608 ) ( -1344 -816 -608 ) base_floor/clanggrate 0 0 0 0.500000 0.500000 0 0 0
 }
 }
-// entity 592
+// entity 589
 {
 "_color" "0.843305 0.859922 1.000000"
 "light" "200"
 "origin" "-1200 -944 -440"
 "classname" "light"
 }
-// entity 593
+// entity 590
 {
 "classname" "light"
 "origin" "-928 -944 -432"
 "light" "150"
 "_color" "0.843305 0.859922 1.000000"
 }
-// entity 594
+// entity 591
 {
 "_color" "0.843305 0.859922 1.000000"
 "light" "150"
 "origin" "-928 -672 -432"
 "classname" "light"
 }
-// entity 595
+// entity 592
 {
 "classname" "light"
 "origin" "-1200 -672 -440"
 "light" "200"
 "_color" "0.843305 0.859922 1.000000"
 }
-// entity 596
+// entity 593
 {
 "classname" "trigger_multiple"
 "target" "endlevel"
@@ -33386,7 +33362,7 @@ sfx/proto_zzztblu3
 ( -1344 -768 -584 ) ( -1376 -768 -584 ) ( -1376 -832 -584 ) common/trigger 0 0 0 0.500000 0.500000 0 7 0
 }
 }
-// entity 597
+// entity 594
 {
 "targetname" "endlevel"
 "classname" "target_mapchange"
@@ -33394,39 +33370,88 @@ sfx/proto_zzztblu3
 "spawnflags" "2"
 "mapname" "scripts\\ep_example.cfg"
 }
-// entity 598
+// entity 595
 {
 "classname" "target_relay"
 "origin" "848 -792 -360"
 "targetname" "swarm"
 "target" "firstspawn"
 }
-// entity 599
+// entity 596
 {
 "target" "firstspawn"
 "targetname" "obj2"
 "origin" "848 -824 -360"
 "classname" "target_relay"
 }
-// entity 600
+// entity 597
 {
 "classname" "target_relay"
 "origin" "1592 176 16"
 "targetname" "counter"
 "target" "obj2"
-"count" "12"
+"count" "4"
 }
-// entity 601
+// entity 598
 {
 "target" "swarmdoor"
 "targetname" "swarm"
 "origin" "1592 240 -16"
 "classname" "target_relay"
 }
-// entity 602
+// entity 599
 {
 "classname" "target_relay"
 "origin" "1624 240 -16"
 "targetname" "obj2"
 "target" "swarmdoor"
+}
+// entity 600
+{
+"target" "waypoint2"
+"targetname" "waypoint1"
+"origin" "2176 -1664 -48"
+"classname" "info_waypoint"
+}
+// entity 601
+{
+"target" "waypoint2"
+"classname" "info_waypoint"
+"origin" "1912 -1664 24"
+"targetname" "waypoint2"
+}
+// entity 602
+{
+"classname" "info_waypoint"
+"origin" "2176 -1200 -48"
+"targetname" "waypoint0"
+"target" "waypoint1"
+}
+// entity 603
+{
+"target" "waypointb"
+"targetname" "waypointa"
+"origin" "848 -1664 24"
+"classname" "info_waypoint"
+}
+// entity 604
+{
+"target" "waypointc"
+"classname" "info_waypoint"
+"origin" "1312 -1664 24"
+"targetname" "waypointb"
+}
+// entity 605
+{
+"target" "waypointd"
+"targetname" "waypointc"
+"origin" "1280 -2304 24"
+"classname" "info_waypoint"
+}
+// entity 606
+{
+"classname" "info_waypoint"
+"origin" "904 -2304 24"
+"targetname" "waypointd"
+"target" "waypointa"
 }
