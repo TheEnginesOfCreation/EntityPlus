@@ -1044,7 +1044,7 @@ static float CG_DrawScores( float y ) {
 	gitem_t		*item;	
 
 	if ( cgs.gametype == GT_SINGLE_PLAYER )
-		return;	//do not draw scores in single player
+		return y;	//do not draw scores in single player
 
 	s1 = cgs.scores1;
 	s2 = cgs.scores2;
