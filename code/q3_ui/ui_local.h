@@ -234,6 +234,20 @@ typedef struct
 	float*			color;
 } menutext_s;
 
+typedef enum {
+	MM_KEY_MASTER,
+	MM_KEY_GOLD,
+	MM_KEY_SILVER,
+	MM_KEY_RED,
+	MM_KEY_BLUE,
+	MM_BACKPACK,
+	MM_ROCKET_LAUNCHER,
+	MM_ARMOR_RED,
+	MM_AMMO_MG,
+	MM_SKULL,
+	MM_NUM_MENUMODELS
+} menumodel_t;
+
 extern void			Menu_Cache( void );
 extern void			Menu_Focus( menucommon_s *m );
 extern void			Menu_AddItem( menuframework_s *menu, void *item );

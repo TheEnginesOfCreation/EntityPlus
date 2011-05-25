@@ -21,11 +21,17 @@ MAIN MENU
 #define ID_MODS						16
 #define ID_EXIT						17
 
-#define MAIN_BANNER_MODEL			"models/mapobjects/banner/banner5.md3"
-#define MAIN_MENU_MODEL_KEY_MASTER	"models/powerups/keys/key_master.md3"
-#define MAIN_MENU_MODEL_KEY_GOLD	"models/powerups/keys/key_gold.md3"
-#define MAIN_MENU_MODEL_KEY_SILVER	"models/powerups/keys/key_silver.md3"
-#define MAIN_MENU_MODEL_KEY_IRON	"models/powerups/keys/key_iron.md3"
+#define MAIN_BANNER_MODEL				"models/mapobjects/banner/banner5.md3"
+#define MAIN_MENU_MODEL_KEY_MASTER		"models/powerups/keys/key_master.md3"
+#define MAIN_MENU_MODEL_KEY_GOLD		"models/powerups/keys/key_gold.md3"
+#define MAIN_MENU_MODEL_KEY_SILVER		"models/powerups/keys/key_silver.md3"
+#define MAIN_MENU_MODEL_KEY_RED			"models/powerups/keys/keycard-r.md3"
+#define MAIN_MENU_MODEL_KEY_BLUE		"models/powerups/keys/keycard-b.md3"
+#define MAIN_MENU_MODEL_BACKPACK		"models/powerups/backpack/backpack.md3"
+#define MAIN_MENU_MODEL_ROCKET_LAUNCHER	"models/weapons2/rocketl/rocketl.md3"
+#define MAIN_MENU_MODEL_ARMOR_RED		"models/powerups/armor/armor_red.md3"
+#define MAIN_MENU_MODEL_AMMO_MG			"models/powerups/ammo/machinegunam.md3"
+#define MAIN_MENU_MODEL_SKULL			"models/gibs/skull.md3"
 #define MAIN_MENU_VERTICAL_SPACING	34
 
 
@@ -43,6 +49,8 @@ typedef struct {
 
 	qhandle_t		bannerModel;
 	qhandle_t		menuModel;
+	vec3_t			menuModelOrigin;
+	vec3_t			menuModelAngles;
 } mainmenu_t;
 
 
@@ -137,23 +145,69 @@ void MainMenu_Cache( void ) {
 	seed = seed * 31 + tm.tm_mday;
 	srand( seed );
 	
-	r = rand() % 4;
+	r = rand() % MM_NUM_MENUMODELS;
+
+	//set default origin
+	s_main.menuModelOrigin[0] = 100;	//depth on the 2D menu plane
+	s_main.menuModelOrigin[1] = -5;	//X on the 2D menu plane
+	s_main.menuModelOrigin[2] = -10;	//Y on the 2D menu plane
+
+	//set default angles
+	VectorSet( s_main.menuModelAngles, 0, 0, 0 );
+
+	//if gibs are disabled and the skull was selected for the menu model, select a different menu model
+	if (trap_Cvar_VariableValue( "cg_gibs" ) == 0)
+		while (r == MM_SKULL)
+			r = rand() % MM_NUM_MENUMODELS;
 
 	switch ( r ) {
-		case 0:
+		default:
+		case MM_KEY_MASTER:
 			s_main.menuModel = trap_R_RegisterModel( MAIN_MENU_MODEL_KEY_MASTER );
 			break;
-		case 1:
+		case MM_KEY_GOLD:
 			s_main.menuModel = trap_R_RegisterModel( MAIN_MENU_MODEL_KEY_GOLD );
 			break;
-		case 2:
+		case MM_KEY_SILVER:
 			s_main.menuModel = trap_R_RegisterModel( MAIN_MENU_MODEL_KEY_SILVER );
 			break;
-		case 3:
-			s_main.menuModel = trap_R_RegisterModel( MAIN_MENU_MODEL_KEY_IRON );
+		case MM_KEY_RED:
+			s_main.menuModelOrigin[0] = 150;
+			VectorSet( s_main.menuModelAngles, 0, 0, 15 );
+			s_main.menuModel = trap_R_RegisterModel( MAIN_MENU_MODEL_KEY_RED );
+			break;
+		case MM_KEY_BLUE:
+			s_main.menuModelOrigin[0] = 150;
+			VectorSet( s_main.menuModelAngles, 15, 0, -15 );
+			s_main.menuModel = trap_R_RegisterModel( MAIN_MENU_MODEL_KEY_BLUE );
+			break;
+		case MM_BACKPACK:
+			s_main.menuModelOrigin[0] = 150;
+			VectorSet( s_main.menuModelAngles, 15, 0, -15 );
+			s_main.menuModel = trap_R_RegisterModel( MAIN_MENU_MODEL_BACKPACK );
+			break;
+		case MM_ROCKET_LAUNCHER:
+			s_main.menuModelOrigin[0] = 150;
+			s_main.menuModelOrigin[2] = 0;
+			VectorSet( s_main.menuModelAngles, -15, 0, 15 );
+			s_main.menuModel = trap_R_RegisterModel( MAIN_MENU_MODEL_ROCKET_LAUNCHER );
+			break;
+		case MM_ARMOR_RED:
+			s_main.menuModelOrigin[0] = 175;
+			s_main.menuModel = trap_R_RegisterModel( MAIN_MENU_MODEL_ARMOR_RED );
+			break;
+		case MM_AMMO_MG:
+			s_main.menuModelOrigin[0] = 200;
+			s_main.menuModelOrigin[2] = 0;
+			VectorSet( s_main.menuModelAngles, 0, 0, 15 );
+			s_main.menuModel = trap_R_RegisterModel( MAIN_MENU_MODEL_AMMO_MG );
+			break;
+		case MM_SKULL:
+			s_main.menuModelOrigin[2] = 0;
+			VectorSet( s_main.menuModelAngles, 0, 0, 10 );
+			s_main.menuModel = trap_R_RegisterModel( MAIN_MENU_MODEL_SKULL );
 			break;
 	}
-	
 }
 
 sfxHandle_t ErrorMessage_Key(int key)
@@ -180,7 +234,6 @@ static void Main_MenuDraw( void ) {
 	vec4_t			color = {0.5, 0, 0, 1};
 	refdef_t		refdef2;
 	refEntity_t		ent2;
-	vec3_t			origin2;
 	vec3_t			angles2;
 
 	// setup the refdef for banner model
@@ -255,20 +308,17 @@ static void Main_MenuDraw( void ) {
 
 	refdef2.time = uis.realtime;
 
-	origin2[0] = 100;
-	origin2[1] = 0;
-	origin2[2] = -12;
-
 	// add the menu model
 
 	memset( &ent2, 0, sizeof(ent2) );
 
 	adjust = uis.realtime / 20;		//makes it rotate
-	VectorSet( angles2, 0, 0 + adjust, 0 );
+	VectorCopy(s_main.menuModelAngles, angles2);
+	angles2[1] += adjust;
 	AnglesToAxis( angles2, ent2.axis );
 	ent2.hModel = s_main.menuModel;
-	VectorCopy( origin2, ent2.origin );
-	VectorCopy( origin2, ent2.lightingOrigin );
+	VectorCopy( s_main.menuModelOrigin, ent2.origin );
+	VectorCopy( s_main.menuModelOrigin, ent2.lightingOrigin );
 	ent2.renderfx = RF_LIGHTING_ORIGIN | RF_NOSHADOW;
 	VectorCopy( ent2.origin, ent2.oldorigin );
 
