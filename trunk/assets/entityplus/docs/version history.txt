@@ -1,3 +1,6 @@
+v0.6.1 (25 may 2011)
+	- [Fixed] Buttons in main menu don't always highlight properly on mouse-over.
+
 v0.6 (25 may 2011)
 	- [Added] info_waypoint entity to plot patrolling routes for bots.
 	- [Added] target_skill entity to set the skill level for the next map.
