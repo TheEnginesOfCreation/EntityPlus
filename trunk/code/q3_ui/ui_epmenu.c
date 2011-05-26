@@ -101,7 +101,8 @@ void EPSkill_StartGame( void ) {
 	trap_Cvar_SetValue ("timelimit", 0 );
 	trap_Cvar_SetValue ("fraglimit", 0 );
 	trap_Cvar_SetValue ("con_notifytime", 0 );
-	trap_Cmd_ExecuteText( EXEC_APPEND, va( "spmap %s\n", epMenuInfo.maplist[epMenuInfo.currentmap] ) );
+	trap_Cvar_SetValue ("g_gametype", GT_ENTITYPLUS );
+	trap_Cmd_ExecuteText( EXEC_APPEND, va( "map %s\n", epMenuInfo.maplist[epMenuInfo.currentmap] ) );
 }
 
 /*
@@ -459,7 +460,7 @@ static void EPMenu_GametypeFilter( void ) {
 
 		Q_strncpyz( epMenuInfo.maplist[epMenuInfo.nummaps], Info_ValueForKey( info, "map"), MAX_NAMELENGTH );
 		Q_strupr( epMenuInfo.maplist[epMenuInfo.nummaps] );
-		epMenuInfo.mapGamebits[epMenuInfo.nummaps] = GT_SINGLE_PLAYER;
+		epMenuInfo.mapGamebits[epMenuInfo.nummaps] = GT_ENTITYPLUS;
 		epMenuInfo.nummaps++;
 	}
 	epMenuInfo.maxpages = (epMenuInfo.nummaps + MAX_MAPSPERPAGE-1)/MAX_MAPSPERPAGE;
@@ -614,7 +615,7 @@ void EPMenu_Cache( void ) {
 
 		Q_strncpyz( epMenuInfo.maplist[i], Info_ValueForKey( info, "map"), MAX_NAMELENGTH );
 		Q_strupr( epMenuInfo.maplist[i] );
-		epMenuInfo.mapGamebits[i] = GT_SINGLE_PLAYER;
+		epMenuInfo.mapGamebits[i] = GT_ENTITYPLUS;
 
 		if( precache ) {
 			Com_sprintf( picname, sizeof(picname), "levelshots/%s", epMenuInfo.maplist[i] );

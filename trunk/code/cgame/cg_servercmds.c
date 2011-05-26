@@ -440,7 +440,7 @@ static void CG_MapRestart( void ) {
 	// we really should clear more parts of cg here and stop sounds
 
 	// play the "fight" sound if this is a restart without warmup and we're not in SP mode
-	if ( cg.warmup == 0 && cgs.gametype != GT_SINGLE_PLAYER ) {
+	if ( cg.warmup == 0 && cgs.gametype != GT_ENTITYPLUS ) {
 		trap_S_StartLocalSound( cgs.media.countFightSound, CHAN_ANNOUNCER );
 		CG_CenterPrint( "FIGHT!", 120, GIANTCHAR_WIDTH*2 );
 	}

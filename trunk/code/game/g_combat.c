@@ -38,7 +38,7 @@ void AddScore( gentity_t *ent, vec3_t origin, int score ) {
 		return;
 	}
 	// show score plum if not in single player mode
-	if ( g_gametype.integer != GT_SINGLE_PLAYER )
+	if ( g_gametype.integer != GT_ENTITYPLUS )
 		ScorePlum(ent, origin, score);
 	//
 	ent->client->ps.persistant[PERS_SCORE] += score;
@@ -61,7 +61,7 @@ void TossClientItems( gentity_t *self ) {
 	int			i;
 	gentity_t	*drop;
 
-	if ( g_gametype.integer == GT_SINGLE_PLAYER ) {
+	if ( g_gametype.integer == GT_ENTITYPLUS ) {
 
 		if ( IsBot( self ) )
 			return;	//bots don't drop items in single player
@@ -505,13 +505,13 @@ void player_die( gentity_t *self, gentity_t *inflictor, gentity_t *attacker, int
 
 		if ( attacker == self || OnSameTeam (self, attacker ) ) {
 			//only substract a score from the player upon suicide if the gametype isn't single player
-			if (g_gametype.integer != GT_SINGLE_PLAYER)
+			if (g_gametype.integer != GT_ENTITYPLUS)
 				AddScore( attacker, self->r.currentOrigin, -1 );
 		} else {
 			AddScore( attacker, self->r.currentOrigin, 1 );
 
 			// entityplus: awards are not rewarded in SP
-			if( meansOfDeath == MOD_GAUNTLET && g_gametype.integer != GT_SINGLE_PLAYER ) {
+			if( meansOfDeath == MOD_GAUNTLET && g_gametype.integer != GT_ENTITYPLUS ) {
 				
 				// play humiliation on player
 				attacker->client->ps.persistant[PERS_GAUNTLET_FRAG_COUNT]++;
@@ -528,7 +528,7 @@ void player_die( gentity_t *self, gentity_t *inflictor, gentity_t *attacker, int
 			// check for two kills in a short amount of time
 			// if this is close enough to the last kill, give a reward sound
 			// entityplus: awards are not rewarded in SP
-			if ( level.time - attacker->client->lastKillTime < CARNAGE_REWARD_TIME && g_gametype.integer != GT_SINGLE_PLAYER ) {
+			if ( level.time - attacker->client->lastKillTime < CARNAGE_REWARD_TIME && g_gametype.integer != GT_ENTITYPLUS ) {
 				// play excellent on player
 				attacker->client->ps.persistant[PERS_EXCELLENT_COUNT]++;
 
@@ -540,7 +540,7 @@ void player_die( gentity_t *self, gentity_t *inflictor, gentity_t *attacker, int
 			attacker->client->lastKillTime = level.time;
 
 		}
-	} else if ( g_gametype.integer != GT_SINGLE_PLAYER ) {
+	} else if ( g_gametype.integer != GT_ENTITYPLUS ) {
 		AddScore( self, self->r.currentOrigin, -1 );
 	}
 
@@ -837,7 +837,7 @@ void G_Damage( gentity_t *targ, gentity_t *inflictor, gentity_t *attacker,
 
 	//in single player bots cannot harm other bots
 	//TODO: adapt bot AI so they don't initiate attacks on each other
-	if ( g_gametype.integer == GT_SINGLE_PLAYER && IsBot( targ ) && attacker && IsBot( attacker ) )
+	if ( g_gametype.integer == GT_ENTITYPLUS && IsBot( targ ) && attacker && IsBot( attacker ) )
 		return;
 
 	// the intermission has allready been qualified for, so don't
@@ -898,7 +898,7 @@ void G_Damage( gentity_t *targ, gentity_t *inflictor, gentity_t *attacker,
 	// "Hurt me plenty" does 0.25 dmg
 	// "Hardcore" does 0.35 dmg
 	// "Nightmare does 0.45 dmg
-	if ( g_gametype.integer == GT_SINGLE_PLAYER && attacker && IsBot(attacker) ) {
+	if ( g_gametype.integer == GT_ENTITYPLUS && attacker && IsBot(attacker) ) {
 		float skill = trap_Cvar_VariableValue( "g_spSkill" );
 		int orgdmg = damage;
 

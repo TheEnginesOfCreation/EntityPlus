@@ -568,13 +568,13 @@ void target_mapchange_use (gentity_t *self, gentity_t *other, gentity_t *activat
 	char	*cmd;
 
 	//store session data to persist health/armor/weapons/ammo to next level (only in SP mode)
-	if ( g_gametype.integer == GT_SINGLE_PLAYER )
+	if ( g_gametype.integer == GT_ENTITYPLUS )
 		G_UpdateSessionDataForMapChange( activator->client );
 
 	//determine map switch command to use
 	if ( self->spawnflags & 2 )
 		cmd = "exec";		//a cfg script will be executed instead
-	else if ( g_gametype.integer == GT_SINGLE_PLAYER )
+	else if ( g_gametype.integer == GT_ENTITYPLUS )
 		cmd = "spmap";		//stay in single player mode
 	else if ( g_cheats.integer )
 		cmd = "devmap";		//keep cheats enabled

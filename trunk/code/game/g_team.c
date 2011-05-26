@@ -156,7 +156,7 @@ qboolean OnSameTeam( gentity_t *ent1, gentity_t *ent2 ) {
 		return qfalse;
 	}
 
-	if ( g_gametype.integer < GT_TEAM ) {
+	if ( !G_IsTeamGame() ) {
 		return qfalse;
 	}
 
@@ -1377,7 +1377,7 @@ gentity_t *SpawnObelisk( vec3_t origin, int team, int spawnflags) {
 void SP_team_redobelisk( gentity_t *ent ) {
 	gentity_t *obelisk;
 
-	if ( g_gametype.integer <= GT_TEAM ) {
+	if ( g_gametype.integer <= GT_TEAM || g_gametype.integer == GT_ENTITYPLUS ) {
 		G_FreeEntity(ent);
 		return;
 	}
@@ -1402,7 +1402,7 @@ void SP_team_redobelisk( gentity_t *ent ) {
 void SP_team_blueobelisk( gentity_t *ent ) {
 	gentity_t *obelisk;
 
-	if ( g_gametype.integer <= GT_TEAM ) {
+	if ( g_gametype.integer <= GT_TEAM || g_gametype.integer == GT_ENTITYPLUS ) {
 		G_FreeEntity(ent);
 		return;
 	}

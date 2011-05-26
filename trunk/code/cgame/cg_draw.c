@@ -1000,7 +1000,7 @@ static void CG_DrawUpperRight( void ) {
 
 	y = 0;
 
-	if ( cgs.gametype >= GT_TEAM && cg_drawTeamOverlay.integer == 1 ) {
+	if ( CG_IsTeamGame && cg_drawTeamOverlay.integer == 1 ) {
 		y = CG_DrawTeamOverlay( y, qtrue, qtrue );
 	} 
 	if ( cg_drawSnapshot.integer ) {
@@ -1012,7 +1012,7 @@ static void CG_DrawUpperRight( void ) {
 	if ( cg_drawTimer.integer ) {
 		y = CG_DrawTimer( y );
 	}
-	if ( cg_drawAttacker.integer && cgs.gametype != GT_SINGLE_PLAYER ) {
+	if ( cg_drawAttacker.integer && cgs.gametype != GT_ENTITYPLUS ) {
 		y = CG_DrawAttacker( y );
 	}
 
@@ -1043,7 +1043,7 @@ static float CG_DrawScores( float y ) {
 	float		y1;
 	gitem_t		*item;	
 
-	if ( cgs.gametype == GT_SINGLE_PLAYER )
+	if ( cgs.gametype == GT_ENTITYPLUS )
 		return y;	//do not draw scores in single player
 
 	s1 = cgs.scores1;
@@ -1054,7 +1054,7 @@ static float CG_DrawScores( float y ) {
 	y1 = y;
 
 	// draw from the right side to left
-	if ( cgs.gametype >= GT_TEAM ) {
+	if ( CG_IsTeamGame() ) {
 		x = 640;
 		color[0] = 0.0f;
 		color[1] = 0.0f;
@@ -1310,7 +1310,7 @@ static void CG_DrawLowerRight( void ) {
 
 	y = 480 - ICON_SIZE;
 
-	if ( cgs.gametype >= GT_TEAM && cg_drawTeamOverlay.integer == 2 ) {
+	if ( CG_IsTeamGame() && cg_drawTeamOverlay.integer == 2 ) {
 		y = CG_DrawTeamOverlay( y, qtrue, qfalse );
 	} 
 
@@ -1363,7 +1363,7 @@ static void CG_DrawLowerLeft( void ) {
 
 	y = 480 - ICON_SIZE;
 
-	if ( cgs.gametype >= GT_TEAM && cg_drawTeamOverlay.integer == 3 ) {
+	if ( CG_IsTeamGame() && cg_drawTeamOverlay.integer == 3 ) {
 		y = CG_DrawTeamOverlay( y, qfalse, qfalse );
 	} 
 
@@ -2088,7 +2088,7 @@ static void CG_DrawCrosshairNames( void ) {
 	char		*name;
 	float		w;
 
-	if ( cgs.gametype == GT_SINGLE_PLAYER )
+	if ( cgs.gametype == GT_ENTITYPLUS )
 		return;	//do not draw crosshair names in SP
 
 	if ( !cg_drawCrosshair.integer ) {
@@ -2136,7 +2136,7 @@ static void CG_DrawSpectator(void) {
 	if ( cgs.gametype == GT_TOURNAMENT ) {
 		CG_DrawBigString(320 - 15 * 8, 460, "waiting to play", 1.0F);
 	}
-	else if ( cgs.gametype >= GT_TEAM ) {
+	else if ( CG_IsTeamGame() ) {
 		CG_DrawBigString(320 - 39 * 8, 460, "press ESC and use the JOIN menu to play", 1.0F);
 	}
 }
@@ -2226,7 +2226,7 @@ static qboolean CG_DrawScoreboard() {
 	}
 
 	// should never happen in Team Arena
-	if (cgs.gametype == GT_SINGLE_PLAYER && cg.predictedPlayerState.pm_type == PM_INTERMISSION ) {
+	if (cgs.gametype == GT_ENTITYPLUS && cg.predictedPlayerState.pm_type == PM_INTERMISSION ) {
 		cg.deferredPlayerLoading = 0;
 		firstTime = qtrue;
 		return qfalse;
@@ -2254,7 +2254,7 @@ static qboolean CG_DrawScoreboard() {
 
 
 	if (menuScoreboard == NULL) {
-		if ( cgs.gametype >= GT_TEAM ) {
+		if ( CG_IsTeamGame() ) {
 			menuScoreboard = Menus_FindByName("teamscore_menu");
 		} else {
 			menuScoreboard = Menus_FindByName("score_menu");
@@ -2293,7 +2293,7 @@ static void CG_DrawIntermission( void ) {
 	//	return;
 	//}
 #else
-	if ( cgs.gametype == GT_SINGLE_PLAYER ) {
+	if ( cgs.gametype == GT_ENTITYPLUS ) {
 		CG_DrawCenterString();
 		return;
 	}
@@ -2626,7 +2626,7 @@ static void CG_Draw2D( void ) {
 			CG_DrawReward();
 		}
     
-		if ( cgs.gametype >= GT_TEAM ) {
+		if ( CG_IsTeamGame() ) {
 #ifndef MISSIONPACK
 			CG_DrawTeamInfo();
 #endif

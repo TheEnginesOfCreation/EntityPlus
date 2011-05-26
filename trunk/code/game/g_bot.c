@@ -390,7 +390,7 @@ void G_CheckMinimumPlayers( void ) {
 	minplayers = bot_minplayers.integer;
 	if (minplayers <= 0) return;
 
-	if (g_gametype.integer >= GT_TEAM) {
+	if (G_IsTeamGame()) {
 		if (minplayers >= g_maxclients.integer / 2) {
 			minplayers = (g_maxclients.integer / 2) -1;
 		}
@@ -468,7 +468,7 @@ void G_CheckBotSpawn( void ) {
 
 		//we don't want this in EntityPlus
 		/*
-		if( g_gametype.integer == GT_SINGLE_PLAYER ) {
+		if( g_gametype.integer == GT_ENTITYPLUS ) {
 			trap_GetUserinfo( botSpawnQueue[n].clientNum, userinfo, sizeof(userinfo) );
 			PlayerIntroSound( Info_ValueForKey (userinfo, "model") );
 		}
@@ -647,7 +647,7 @@ static void G_AddBot( const char *name, float skill, const char *team, int delay
 
 	// initialize the bot settings
 	if( !team || !*team ) {
-		if( g_gametype.integer >= GT_TEAM ) {
+		if( G_IsTeamGame() ) {
 			if( PickTeam(clientNum) == TEAM_RED) {
 				team = "red";
 			}
@@ -967,7 +967,7 @@ void G_InitBots( qboolean restart ) {
 
 	trap_Cvar_Register( &bot_minplayers, "bot_minplayers", "0", CVAR_SERVERINFO );
 
-	if( g_gametype.integer == GT_SINGLE_PLAYER ) {
+	if( g_gametype.integer == GT_ENTITYPLUS ) {
 		trap_GetServerinfo( serverinfo, sizeof(serverinfo) );
 		Q_strncpyz( map, Info_ValueForKey( serverinfo, "mapname" ), sizeof(map) );
 		arenainfo = G_GetArenaInfoByMap( map );
