@@ -449,7 +449,7 @@ gitem_t	bg_itemlist[] =
 /*QUAKED holdable_key_red (.2 .2 .2) (-16 -16 -16) (16 16 16) suspended*/
 	{
 		"holdable_key_red", 
-		"sound/items/holdable.wav",
+		"sound/items/key.wav",
         { "models/powerups/keys/keycard-r.md3", 0, 0, 0},
 		"icons/key_red",
 		"Red keycard",
@@ -462,7 +462,7 @@ gitem_t	bg_itemlist[] =
 /*QUAKED holdable_key_green (.2 .2 .2) (-16 -16 -16) (16 16 16) suspended*/
 	{
 		"holdable_key_green", 
-		"sound/items/holdable.wav",
+		"sound/items/key.wav",
         { "models/powerups/keys/keycard-g.md3", 0, 0, 0},
 		"icons/key_green",
 		"Green keycard",
@@ -475,7 +475,7 @@ gitem_t	bg_itemlist[] =
 /*QUAKED holdable_key_blue (.2 .2 .2) (-16 -16 -16) (16 16 16) suspended*/
 	{
 		"holdable_key_blue", 
-		"sound/items/holdable.wav",
+		"sound/items/key.wav",
         { "models/powerups/keys/keycard-b.md3", 0, 0, 0},
 		"icons/key_blue",
 		"Blue keycard",
@@ -488,7 +488,7 @@ gitem_t	bg_itemlist[] =
 /*QUAKED holdable_key_yellow (.2 .2 .2) (-16 -16 -16) (16 16 16) suspended*/
 	{
 		"holdable_key_yellow", 
-		"sound/items/holdable.wav",
+		"sound/items/key.wav",
         { "models/powerups/keys/keycard-y.md3", 0, 0, 0},
 		"icons/key_yellow",
 		"Yellow keycard",
@@ -501,7 +501,7 @@ gitem_t	bg_itemlist[] =
 /*QUAKED holdable_key_master (.2 .2 .2) (-16 -16 -16) (16 16 16) suspended*/
 	{
 		"holdable_key_master", 
-		"sound/items/holdable.wav",
+		"sound/items/key.wav",
         { "models/powerups/keys/key_master.md3", 0, 0, 0},
 		"icons/key_master",
 		"Master key",
@@ -514,7 +514,7 @@ gitem_t	bg_itemlist[] =
 /*QUAKED holdable_key_gold (.2 .2 .2) (-16 -16 -16) (16 16 16) suspended*/
 	{
 		"holdable_key_gold", 
-		"sound/items/holdable.wav",
+		"sound/items/key.wav",
         { "models/powerups/keys/key_gold.md3", 0, 0, 0},
 		"icons/key_gold",
 		"Gold key",
@@ -527,7 +527,7 @@ gitem_t	bg_itemlist[] =
 /*QUAKED holdable_key_silver (.2 .2 .2) (-16 -16 -16) (16 16 16) suspended*/
 	{
 		"holdable_key_silver", 
-		"sound/items/holdable.wav",
+		"sound/items/key.wav",
         { "models/powerups/keys/key_silver.md3", 0, 0, 0},
 		"icons/key_silver",
 		"Silver key",
@@ -540,7 +540,7 @@ gitem_t	bg_itemlist[] =
 /*QUAKED holdable_key_iron (.2 .2 .2) (-16 -16 -16) (16 16 16) suspended*/
 	{
 		"holdable_key_iron", 
-		"sound/items/holdable.wav",
+		"sound/items/key.wav",
         { "models/powerups/keys/key_iron.md3", 0, 0, 0},
 		"icons/key_iron",
 		"Iron key",
