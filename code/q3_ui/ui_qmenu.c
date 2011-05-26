@@ -1724,3 +1724,16 @@ void Menu_Cache( void )
 	sliderButton_1 = trap_R_RegisterShaderNoMip( "menu/art/sliderbutt_1" );
 }
 	
+
+/*
+==================
+UI_IsTeamGame
+returns true if the specified gametype is a team gametype
+==================
+*/
+qboolean UI_IsTeamGame(int gametype) {
+	if ( gametype >= GT_TEAM && gametype != GT_ENTITYPLUS )
+		return qtrue;
+	else
+		return qfalse;
+}

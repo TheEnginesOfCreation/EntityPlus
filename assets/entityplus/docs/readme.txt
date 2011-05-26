@@ -90,6 +90,9 @@ Debris and backpack models		: DaEngineer
 Testing and feedback			: tigger.on
 								  [http://tig.onemoremonkey.com]
 								  
+Testing and feedback			: EmeraldTiger
+								  [http://emeraldproductions.weebly.com/]
+								  
 Support and general enthusiasm	: The entire Quake3World LEM community
 								  [http://quake3world.com/forum/viewforum.php?f=10]
 						

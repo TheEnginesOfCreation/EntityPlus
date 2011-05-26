@@ -89,6 +89,9 @@ typedef enum {
 	GT_1FCTF,
 	GT_OBELISK,
 	GT_HARVESTER,
+	
+	//-- new game types go after this --
+	GT_ENTITYPLUS,		//entityplus' single player mode
 	GT_MAX_GAME_TYPE
 } gametype_t;
 

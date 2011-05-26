@@ -1252,6 +1252,7 @@ void CG_RankRunFrame( void );
 void CG_SetScoreSelection(void *menu);
 score_t *CG_GetSelectedScore();
 void CG_BuildSpectatorString();
+qboolean CG_IsTeamGame();
 
 
 //

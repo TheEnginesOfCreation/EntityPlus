@@ -413,7 +413,7 @@ void UI_TeamOrdersMenu_f( void ) {
 	// make sure it's a team game
 	trap_GetConfigString( CS_SERVERINFO, info, sizeof(info) );
 	teamOrdersMenuInfo.gametype = atoi( Info_ValueForKey( info, "g_gametype" ) );
-	if( teamOrdersMenuInfo.gametype < GT_TEAM ) {
+	if( !UI_IsTeamGame(teamOrdersMenuInfo.gametype) ) {
 		return;
 	}
 

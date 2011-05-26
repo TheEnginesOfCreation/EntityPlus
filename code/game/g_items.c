@@ -66,7 +66,7 @@ int Pickup_Powerup( gentity_t *ent, gentity_t *other ) {
 
     // if same team in team game, no sound
     // cannot use OnSameTeam as it expects to g_entities, not clients
-  	if ( g_gametype.integer >= GT_TEAM && other->client->sess.sessionTeam == client->sess.sessionTeam  ) {
+  	if ( G_IsTeamGame() && other->client->sess.sessionTeam == client->sess.sessionTeam  ) {
       continue;
     }
 
@@ -465,7 +465,7 @@ void Touch_Item (gentity_t *ent, gentity_t *other, trace_t *trace) {
 	if (other->health < 1)
 		return;		// dead people can't pickup
 
-	if ( g_gametype.integer == GT_SINGLE_PLAYER && IsBot(other) )
+	if ( g_gametype.integer == GT_ENTITYPLUS && IsBot(other) )
 		return;		// bots don't pick up items in single player mode
 
 	// the same pickup rules are used for client side and server side
@@ -550,7 +550,7 @@ void Touch_Item (gentity_t *ent, gentity_t *other, trace_t *trace) {
 	G_UseTargets (ent, other);
 
 	// items with no specified respawn will not respawn in SP
-	if ( !ent->wait && g_gametype.integer == GT_SINGLE_PLAYER )
+	if ( !ent->wait && g_gametype.integer == GT_ENTITYPLUS )
 		ent->wait = -1;
 
 	// wait of -1 will not respawn
@@ -909,7 +909,7 @@ void ClearRegisteredItems( void ) {
 	RegisterItem( BG_FindItemForWeapon( WP_GAUNTLET ) );
 
 	// precache backpack in SP mode
-	if ( g_gametype.integer == GT_SINGLE_PLAYER )
+	if ( g_gametype.integer == GT_ENTITYPLUS )
 		RegisterItem( BG_FindItemForBackpack() );
 
 #ifdef MISSIONPACK

@@ -79,7 +79,7 @@ qboolean SpotWouldTelefrag( gentity_t *spot ) {
 	gentity_t	*hit;
 	vec3_t		mins, maxs;
 
-	if ( g_gametype.integer == GT_SINGLE_PLAYER )
+	if ( g_gametype.integer == GT_ENTITYPLUS )
 		return qfalse;		//bit of a hack: in single player we'll allow the player to spawn even if the spawnpoint telefrags
 
 	VectorAdd( spot->s.origin, playerMins, mins );
@@ -575,7 +575,7 @@ respawn
 void respawn( gentity_t *ent ) {
 	gentity_t	*tent;
 
-	if ( g_gametype.integer == GT_SINGLE_PLAYER ) {
+	if ( g_gametype.integer == GT_ENTITYPLUS ) {
 		if ( IsBot( ent ) ) {
 			//kick fragged bots from game
 			DropClientSilently( ent->client->ps.clientNum );
@@ -857,7 +857,7 @@ void ClientUserinfoChanged( int clientNum ) {
 	client->ps.stats[STAT_MAX_HEALTH] = client->pers.maxHealth;
 
 	// set model
-	if( g_gametype.integer >= GT_TEAM ) {
+	if( G_IsTeamGame() ) {
 		Q_strncpyz( model, Info_ValueForKey (userinfo, "team_model"), sizeof( model ) );
 		Q_strncpyz( headModel, Info_ValueForKey (userinfo, "team_headmodel"), sizeof( headModel ) );
 	} else {
@@ -866,7 +866,7 @@ void ClientUserinfoChanged( int clientNum ) {
 	}
 
 	// bots set their team a few frames later
-	if (g_gametype.integer >= GT_TEAM && g_entities[clientNum].r.svFlags & SVF_BOT) {
+	if (G_IsTeamGame() && g_entities[clientNum].r.svFlags & SVF_BOT) {
 		s = Info_ValueForKey( userinfo, "team" );
 		if ( !Q_stricmp( s, "red" ) || !Q_stricmp( s, "r" ) ) {
 			team = TEAM_RED;
@@ -903,7 +903,7 @@ void ClientUserinfoChanged( int clientNum ) {
 */
 
 #ifdef MISSIONPACK
-	if (g_gametype.integer >= GT_TEAM) {
+	if (G_IsTeamGame()) {
 		client->pers.teamInfo = qtrue;
 	} else {
 		s = Info_ValueForKey( userinfo, "teamoverlay" );
@@ -1048,11 +1048,11 @@ char *ClientConnect( int clientNum, qboolean firstTime, qboolean isBot ) {
 	ClientUserinfoChanged( clientNum );
 
 	// don't do the "xxx connected" messages if they were caried over from previous level
-	if ( firstTime && ( !isBot || g_gametype.integer != GT_SINGLE_PLAYER ) ) {
+	if ( firstTime && ( !isBot || g_gametype.integer != GT_ENTITYPLUS ) ) {
 		trap_SendServerCommand( -1, va("print \"%s" S_COLOR_WHITE " connected\n\"", client->pers.netname) );
 	}
 
-	if ( g_gametype.integer >= GT_TEAM &&
+	if ( G_IsTeamGame() &&
 		client->sess.sessionTeam != TEAM_SPECTATOR ) {
 		BroadcastTeamChange( client, -1 );
 	}
@@ -1113,12 +1113,12 @@ void ClientBegin( int clientNum ) {
 
 	if ( client->sess.sessionTeam != TEAM_SPECTATOR ) {
 		// send event
-		if ( g_gametype.integer != GT_SINGLE_PLAYER ) {
+		if ( g_gametype.integer != GT_ENTITYPLUS ) {
 			tent = G_TempEntity( ent->client->ps.origin, EV_PLAYER_TELEPORT_IN );
 			tent->s.clientNum = ent->s.clientNum;
 		}
 
-		if ( g_gametype.integer != GT_TOURNAMENT && ( !(ent->r.svFlags & SVF_BOT) || g_gametype.integer != GT_SINGLE_PLAYER ) ) {
+		if ( g_gametype.integer != GT_TOURNAMENT && ( !(ent->r.svFlags & SVF_BOT) || g_gametype.integer != GT_ENTITYPLUS ) ) {
 			trap_SendServerCommand( -1, va("print \"%s" S_COLOR_WHITE " entered the game\n\"", client->pers.netname) );
 		}
 	}
@@ -1127,7 +1127,7 @@ void ClientBegin( int clientNum ) {
 	//code is commented out because it doesn't really seem to be necessary
 	/*
 	//if we're in Single Player and the connecting client is the player, preload bot model assets
-	if ( g_gametype.integer == GT_SINGLE_PLAYER && !(ent->r.svFlags & SVF_BOT) )
+	if ( g_gametype.integer == GT_ENTITYPLUS && !(ent->r.svFlags & SVF_BOT) )
 		PrecacheBotAssets();
 	*/
 
@@ -1171,7 +1171,7 @@ void ClientSpawn(gentity_t *ent) {
 		VectorCopy( spawnPoint->s.origin, spawn_origin );
 		VectorCopy(  spawnPoint->s.angles, spawn_angles );
 		trap_SendServerCommand( -1, "loaddefered\n" );	//force clients to load the deferred assets
-	} else if ( g_gametype.integer == GT_SINGLE_PLAYER ) {
+	} else if ( g_gametype.integer == GT_ENTITYPLUS ) {
 		//in single player, find the closest spawnpoint to spawn at
 		spawnPoint = SelectNearestDeathmatchSpawnPoint( client->ps.origin );
 		VectorCopy( spawnPoint->s.origin, spawn_origin );
@@ -1453,7 +1453,7 @@ void ClientDisconnect( int clientNum ) {
 	// send effect if they were completely connected
 	if ( ent->client->pers.connected == CON_CONNECTED 
 		&& ent->client->sess.sessionTeam != TEAM_SPECTATOR ) {
-			if ( g_gametype.integer != GT_SINGLE_PLAYER ) {
+			if ( g_gametype.integer != GT_ENTITYPLUS ) {
 				tent = G_TempEntity( ent->client->ps.origin, EV_PLAYER_TELEPORT_OUT );
 				tent->s.clientNum = ent->s.clientNum;
 			}

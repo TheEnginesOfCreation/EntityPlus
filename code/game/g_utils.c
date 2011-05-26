@@ -820,3 +820,16 @@ int PickDebrisType( int spawnflags ) {
 	//if no compatible spawnflags supplied, return EV_EMIT_DEBRIS_LIGHT
 	return EV_EMIT_DEBRIS_LIGHT;
 }
+
+/*
+==================
+G_IsTeamGame
+returns true if we're currently in a team gametype
+==================
+*/
+qboolean G_IsTeamGame() {
+	if ( g_gametype.integer >= GT_TEAM && g_gametype.integer != GT_ENTITYPLUS )
+		return qtrue;
+	else
+		return qfalse;
+}

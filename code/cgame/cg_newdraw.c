@@ -1009,13 +1009,13 @@ qboolean CG_OwnerDrawVisible(int flags) {
 	}
 
 	if (flags & CG_SHOW_ANYTEAMGAME) {
-		if( cgs.gametype >= GT_TEAM) {
+		if( CG_IsTeamGame() ) {
 			return qtrue;
 		}
 	}
 
 	if (flags & CG_SHOW_ANYNONTEAMGAME) {
-		if( cgs.gametype < GT_TEAM) {
+		if( !CG_IsTeamGame() ) {
 			return qtrue;
 		}
 	}
@@ -1063,7 +1063,7 @@ qboolean CG_OwnerDrawVisible(int flags) {
 	}
 
 	if (flags & CG_SHOW_SINGLEPLAYER) {
-		if( cgs.gametype == GT_SINGLE_PLAYER ) {
+		if( cgs.gametype == GT_ENTITYPLUS ) {
 			return qtrue;
 		}
 	}
@@ -1148,7 +1148,7 @@ static void CG_Draw2ndPlace(rectDef_t *rect, float scale, vec4_t color, qhandle_
 
 const char *CG_GetGameStatusText() {
 	const char *s = "";
-	if ( cgs.gametype < GT_TEAM) {
+	if ( !CG_IsTeamGame() ) {
 		if (cg.snap->ps.persistant[PERS_TEAM] != TEAM_SPECTATOR ) {
 			s = va("%s place with %i",CG_PlaceString( cg.snap->ps.persistant[PERS_RANK] + 1 ),cg.snap->ps.persistant[PERS_SCORE] );
 		}

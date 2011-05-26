@@ -1606,7 +1606,7 @@ void BotCheckItemPickup(bot_state_t *bs, int *oldinventory) {
 #ifdef MISSIONPACK
 	int offence, leader;
 
-	if (gametype <= GT_TEAM)
+	if (!G_IsTeamGame())
 		return;
 
 	offence = -1;
@@ -2169,7 +2169,7 @@ TeamPlayIsOn
 ==================
 */
 int TeamPlayIsOn(void) {
-	return ( gametype >= GT_TEAM );
+	return ( G_IsTeamGame() );
 }
 
 /*
@@ -2646,7 +2646,7 @@ bot_moveresult_t BotAttackMove(bot_state_t *bs, int tfl) {
 	//
 	attack_skill = trap_Characteristic_BFloat(bs->character, CHARACTERISTIC_ATTACK_SKILL, 0, 1);
 	
-	if (gametype == GT_SINGLE_PLAYER) {
+	if (gametype == GT_ENTITYPLUS) {
 		//entityplus: do not let bots jump or crouch in SP
 		jumper = 0;
 		croucher = 0;
@@ -2774,7 +2774,7 @@ int BotSameTeam(bot_state_t *bs, int entnum) {
 		//BotAI_Print(PRT_ERROR, "BotSameTeam: client out of range\n");
 		return qfalse;
 	}
-	if ( gametype >= GT_TEAM ) {
+	if ( G_IsTeamGame() ) {
 		trap_GetConfigstring(CS_PLAYERS+bs->client, info1, sizeof(info1));
 		trap_GetConfigstring(CS_PLAYERS+entnum, info2, sizeof(info2));
 		//
@@ -3011,7 +3011,7 @@ int BotFindEnemy(bot_state_t *bs, int curenemy) {
 		//if on the same team
 		if (BotSameTeam(bs, i)) continue;
 		//if SP mode and enemy is a bot, do not attack
-		if (g_gametype.integer == GT_SINGLE_PLAYER && IsBot(&g_entities[i])) continue;
+		if (g_gametype.integer == GT_ENTITYPLUS && IsBot(&g_entities[i])) continue;
 		//if the bot's health decreased or the enemy is shooting
 		if (curenemy < 0 && (healthdecrease || EntityIsShooting(&entinfo)))
 			f = 360;
@@ -4859,7 +4859,7 @@ void BotCheckEvents(bot_state_t *bs, entityState_t *state) {
 #endif
 				if (!strcmp(buf, "sound/items/poweruprespawn.wav")) {
 				//powerup respawned... go get it
-				if ( gametype != GT_SINGLE_PLAYER )	//entityplus: single player enemies shouldn't go for powerups
+				if ( gametype != GT_ENTITYPLUS )	//entityplus: single player enemies shouldn't go for powerups
 					BotGoForPowerups(bs);
 			}
 			break;
