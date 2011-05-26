@@ -74,6 +74,9 @@ Additional programming			: Kaz
 								  
 Additional programming			: cyr
 								  [http://quake3world.com/forum/memberlist.php?mode=viewprofile&u=32395]
+								  
+Additional programming			: gooball
+								  [http://quake3world.com/forum/memberlist.php?mode=viewprofile&u=30967]
 
 Programming support				: Perle			
 								  [http://www.q3rally.com]

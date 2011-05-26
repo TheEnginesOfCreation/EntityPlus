@@ -1,4 +1,5 @@
 v0.7 (?? jun 2011)
+	- [Added] custom pickup sound for keys.
 	- [Fixed] sv_maxclients is no longer forced to 8 when starting a map through the single player menu.
 	- [Changed] Running maps in EntityPlus' single player mode now requires g_gametype to be set to 8 instead of 2.
 
