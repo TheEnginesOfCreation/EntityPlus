@@ -1018,5 +1018,15 @@ G_AddSinglePlayerBot
 
 void G_AddCustomBot( char *name, int parentEntityNum, char* waypoint ) {
 	float skill = trap_Cvar_VariableValue( "g_spSkill" );
+	int noprint = trap_Cvar_VariableIntegerValue( "cl_noprint" );
+
+	//set cl_noprint to 1 while adding bots in SP mode so that their loading message don't appear
+	if (g_gametype.integer == GT_ENTITYPLUS)
+		trap_Cvar_Set( "cl_noprint", "1" );
+
 	G_AddBot( name, skill, "free", 0, name, parentEntityNum, waypoint );
+
+	//restore cl_noprint to its former value
+	if (g_gametype.integer == GT_ENTITYPLUS)
+		trap_Cvar_Set( "cl_noprint", va("%i", noprint ) );
 }

@@ -32,7 +32,11 @@ MAIN MENU
 #define MAIN_MENU_MODEL_ARMOR_RED		"models/powerups/armor/armor_red.md3"
 #define MAIN_MENU_MODEL_AMMO_MG			"models/powerups/ammo/machinegunam.md3"
 #define MAIN_MENU_MODEL_SKULL			"models/gibs/skull.md3"
+
+#define ART_LOGO						"menu/art/logo"
+
 #define MAIN_MENU_VERTICAL_SPACING	34
+
 
 
 typedef struct {
@@ -46,6 +50,8 @@ typedef struct {
 	menutext_s		teamArena;
 	menutext_s		mods;
 	menutext_s		exit;
+
+	menubitmap_s	logo;
 
 	qhandle_t		bannerModel;
 	qhandle_t		menuModel;
@@ -135,6 +141,8 @@ void MainMenu_Cache( void ) {
 	qtime_t tm;
 	int seed;
 	
+	trap_R_RegisterShaderNoMip( ART_LOGO );
+
 	s_main.bannerModel = trap_R_RegisterModel( MAIN_BANNER_MODEL );
 
 	trap_RealTime(&tm);
@@ -231,11 +239,12 @@ static void Main_MenuDraw( void ) {
 	vec3_t			angles;
 	float			adjust;
 	float			x, y, w, h;
-	vec4_t			color = {0.5, 0, 0, 1};
+	vec4_t			color = {0, 0, 0.5, 1};
 	refdef_t		refdef2;
 	refEntity_t		ent2;
 	vec3_t			angles2;
 
+	/*
 	// setup the refdef for banner model
 
 	memset( &refdef, 0, sizeof( refdef ) );
@@ -282,6 +291,7 @@ static void Main_MenuDraw( void ) {
 	trap_R_AddRefEntityToScene( &ent );
 
 	trap_R_RenderScene( &refdef );
+*/
 
 
 
@@ -426,6 +436,16 @@ void UI_MainMenu( void ) {
 	s_main.menu.wrapAround = qtrue;
 	s_main.menu.showlogo = qfalse;
 
+	//add logo
+	s_main.logo.generic.type  = MTYPE_BITMAP;
+	s_main.logo.generic.name  = ART_LOGO;
+	s_main.logo.generic.flags = QMF_INACTIVE|QMF_CENTER_JUSTIFY;
+	s_main.logo.generic.x	   = 320;
+	s_main.logo.generic.y	   = 0;
+	s_main.logo.width  			= 512;
+	s_main.logo.height  	   = 128;
+
+	//add menu buttons
 	y = 134;
 	s_main.singleplayer.generic.type		= MTYPE_PTEXT;
 	s_main.singleplayer.generic.flags		= QMF_PULSEIFFOCUS;
@@ -434,7 +454,7 @@ void UI_MainMenu( void ) {
 	s_main.singleplayer.generic.id			= ID_SINGLEPLAYER;
 	s_main.singleplayer.generic.callback	= Main_MenuEvent; 
 	s_main.singleplayer.string				= "SINGLE PLAYER";
-	s_main.singleplayer.color				= color_red;
+	s_main.singleplayer.color				= color_lightBlue;
 	s_main.singleplayer.style				= UI_DROPSHADOW;
 
 	y += MAIN_MENU_VERTICAL_SPACING;
@@ -445,7 +465,7 @@ void UI_MainMenu( void ) {
 	s_main.multiplayer.generic.id			= ID_MULTIPLAYER;
 	s_main.multiplayer.generic.callback		= Main_MenuEvent; 
 	s_main.multiplayer.string				= "MULTIPLAYER";
-	s_main.multiplayer.color				= color_red;
+	s_main.multiplayer.color				= color_lightBlue;
 	s_main.multiplayer.style				= UI_DROPSHADOW;
 
 	y += MAIN_MENU_VERTICAL_SPACING;
@@ -456,7 +476,7 @@ void UI_MainMenu( void ) {
 	s_main.setup.generic.id					= ID_SETUP;
 	s_main.setup.generic.callback			= Main_MenuEvent; 
 	s_main.setup.string						= "SETUP";
-	s_main.setup.color						= color_red;
+	s_main.setup.color						= color_lightBlue;
 	s_main.setup.style						= UI_DROPSHADOW;
 
 	y += MAIN_MENU_VERTICAL_SPACING;
@@ -467,7 +487,7 @@ void UI_MainMenu( void ) {
 	s_main.demos.generic.id					= ID_DEMOS;
 	s_main.demos.generic.callback			= Main_MenuEvent; 
 	s_main.demos.string						= "DEMOS";
-	s_main.demos.color						= color_red;
+	s_main.demos.color						= color_lightBlue;
 	s_main.demos.style						= UI_DROPSHADOW;
 
 	y += MAIN_MENU_VERTICAL_SPACING;
@@ -478,7 +498,7 @@ void UI_MainMenu( void ) {
 	s_main.cinematics.generic.id			= ID_CINEMATICS;
 	s_main.cinematics.generic.callback		= Main_MenuEvent; 
 	s_main.cinematics.string				= "CINEMATICS";
-	s_main.cinematics.color					= color_red;
+	s_main.cinematics.color					= color_lightBlue;
 	s_main.cinematics.style					= UI_DROPSHADOW;
 
 	if (UI_TeamArenaExists()) {
@@ -491,7 +511,7 @@ void UI_MainMenu( void ) {
 		s_main.teamArena.generic.id				= ID_TEAMARENA;
 		s_main.teamArena.generic.callback		= Main_MenuEvent; 
 		s_main.teamArena.string					= "TEAM ARENA";
-		s_main.teamArena.color					= color_red;
+		s_main.teamArena.color					= color_lightBlue;
 		s_main.teamArena.style					= UI_DROPSHADOW;
 	}
 
@@ -503,7 +523,7 @@ void UI_MainMenu( void ) {
 	s_main.mods.generic.id				= ID_MODS;
 	s_main.mods.generic.callback		= Main_MenuEvent; 
 	s_main.mods.string					= "MODS";
-	s_main.mods.color					= color_red;
+	s_main.mods.color					= color_lightBlue;
 	s_main.mods.style					= UI_DROPSHADOW;
 
 	y += MAIN_MENU_VERTICAL_SPACING;
@@ -514,9 +534,10 @@ void UI_MainMenu( void ) {
 	s_main.exit.generic.id					= ID_EXIT;
 	s_main.exit.generic.callback			= Main_MenuEvent; 
 	s_main.exit.string						= "EXIT";
-	s_main.exit.color						= color_red;
+	s_main.exit.color						= color_lightBlue;
 	s_main.exit.style						= UI_DROPSHADOW;
 
+	Menu_AddItem( &s_main.menu, &s_main.logo );
 	Menu_AddItem( &s_main.menu,	&s_main.singleplayer );
 	Menu_AddItem( &s_main.menu,	&s_main.multiplayer );
 	Menu_AddItem( &s_main.menu,	&s_main.setup );
