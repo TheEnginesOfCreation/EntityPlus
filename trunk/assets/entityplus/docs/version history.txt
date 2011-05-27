@@ -9,6 +9,7 @@ v0.7 (?? jun 2011)
 	- [Changed] All types of health can increase health above 100.
 	- [Changed] con_notifytime is no longer forced to 0.
 	- [Changed] Main menu has a new logo and set in a blue color scheme.
+	- [Changed] ".... entered the game" message is no longer displayed for the player in SP mode.
 
 v0.6.1 (25 may 2011)
 	- [Fixed] Buttons in main menu don't always highlight properly on mouse-over.

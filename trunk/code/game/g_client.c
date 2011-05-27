@@ -1118,7 +1118,7 @@ void ClientBegin( int clientNum ) {
 			tent->s.clientNum = ent->s.clientNum;
 		}
 
-		if ( g_gametype.integer != GT_TOURNAMENT && ( !(ent->r.svFlags & SVF_BOT) || g_gametype.integer != GT_ENTITYPLUS ) ) {
+		if ( g_gametype.integer != GT_TOURNAMENT && g_gametype.integer != GT_ENTITYPLUS ) {
 			trap_SendServerCommand( -1, va("print \"%s" S_COLOR_WHITE " entered the game\n\"", client->pers.netname) );
 		}
 	}
