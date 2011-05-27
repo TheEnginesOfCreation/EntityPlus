@@ -1217,6 +1217,11 @@ void CG_EntityEvent( centity_t *cent, vec3_t position ) {
 		CG_ParticlesFromEntityState( cent->lerpOrigin, PT_LINEAR_DOWN, es );
 		break;
 
+	case EV_OBJECTIVES_UPDATED:
+		DEBUGNAME("EV_OBJECTIVES_UPDATED");
+		//TODO: Implement some fancy objectives updated notification here
+		break;
+
 	default:
 		DEBUGNAME("UNKNOWN");
 		CG_Error( "Unknown event: %i", event );

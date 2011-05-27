@@ -777,7 +777,8 @@ void target_objective_use (gentity_t *self, gentity_t *other, gentity_t *activat
 	else
 		trap_SetConfigstring( CS_PRIMARYOBJECTIVE, self->message );
 
-	trap_SendServerCommand( -1, va("cp \"%s\"", "Objectives updated" ));
+	trap_SendServerCommand( -1, va("cp \"%s\"", "Objectives updated" ));	//TODO: Remove this line once the event based notification is implemented
+	G_TempEntity( self->s.origin, EV_OBJECTIVES_UPDATED );
 }
 
 void SP_target_objective (gentity_t *self) {
@@ -814,7 +815,7 @@ starts earthquake
 */
 
 void target_earthquake_use (gentity_t *self, gentity_t *other, gentity_t *activator) {
-	G_AddEvent(self, EV_EARTHQUAKE, self->s.generic1);
+	G_AddEvent(activator, EV_EARTHQUAKE, self->s.generic1);
 }
 
 void SP_target_earthquake (gentity_t *self) {
