@@ -279,6 +279,7 @@ extern vec4_t		color_black;
 extern vec4_t		color_white;
 extern vec4_t		color_yellow;
 extern vec4_t		color_blue;
+extern vec4_t		color_lightBlue;
 extern vec4_t		color_orange;
 extern vec4_t		color_red;
 extern vec4_t		color_dim;

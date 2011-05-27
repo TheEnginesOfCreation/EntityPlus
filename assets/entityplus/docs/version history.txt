@@ -2,10 +2,13 @@ v0.7 (?? jun 2011)
 	- [Added] custom pickup sound for keys.
 	- [Fixed] sv_maxclients is no longer forced to 8 when starting a map through the single player menu.
 	- [Fixed] Player handicap no longer affects single player mode.
+	- [Fixed] Bot connection and loading messages are no longer displayed in the console when running in single player mode.
 	- [Changed] Running maps in EntityPlus' single player mode now requires g_gametype to be set to 8 instead of 2.
 	- [Changed] In-game pause menu no longer shows inaccessible options.
 	- [Changed] Health no longer degrades to 100 when it is above 100.
 	- [Changed] All types of health can increase health above 100.
+	- [Changed] con_notifytime is no longer forced to 0.
+	- [Changed] Main menu has a new logo and set in a blue color scheme.
 
 v0.6.1 (25 may 2011)
 	- [Fixed] Buttons in main menu don't always highlight properly on mouse-over.

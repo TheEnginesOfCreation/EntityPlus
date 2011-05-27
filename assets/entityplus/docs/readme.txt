@@ -1,5 +1,5 @@
 ENTITYPLUS 
-version 0.6
+version 0.7
 -----------
 
 EntityPlus is a Quake III Arena mod that is aimed at expanding the toolset for Quake III Arena map makers.
@@ -90,11 +90,11 @@ Skeleton key models and skins	: Hipshot
 Debris and backpack models		: DaEngineer
 								  [http://victorkarp.wordpress.com]
 
+Testing, feedback and logo		: EmeraldTiger
+								  [http://emeraldproductions.weebly.com/]
+
 Testing and feedback			: tigger.on
 								  [http://tig.onemoremonkey.com]
-								  
-Testing and feedback			: EmeraldTiger
-								  [http://emeraldproductions.weebly.com/]
 								  
 Support and general enthusiasm	: The entire Quake3World LEM community
 								  [http://quake3world.com/forum/viewforum.php?f=10]

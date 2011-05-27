@@ -100,7 +100,7 @@ void EPSkill_StartGame( void ) {
 	trap_Cvar_SetValue( "sv_maxclients", 64 );
 	trap_Cvar_SetValue ("timelimit", 0 );
 	trap_Cvar_SetValue ("fraglimit", 0 );
-	trap_Cvar_SetValue ("con_notifytime", 0 );
+	//trap_Cvar_SetValue ("con_notifytime", 0 );
 	trap_Cvar_SetValue ("g_gametype", GT_ENTITYPLUS );
 	trap_Cmd_ExecuteText( EXEC_APPEND, va( "map %s\n", epMenuInfo.maplist[epMenuInfo.currentmap] ) );
 }
