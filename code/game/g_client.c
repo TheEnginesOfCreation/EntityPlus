@@ -1260,13 +1260,19 @@ void ClientSpawn(gentity_t *ent) {
 	client->airOutTime = level.time + 12000;
 
 	trap_GetUserinfo( index, userinfo, sizeof(userinfo) );
-	// set max health
-	client->pers.maxHealth = atoi( Info_ValueForKey( userinfo, "handicap" ) );
-	if ( client->pers.maxHealth < 1 || client->pers.maxHealth > 100 ) {
-		client->pers.maxHealth = 100;
+	
+	if ( g_gametype.integer != GT_ENTITYPLUS ) {
+		// set max health
+		client->pers.maxHealth = atoi( Info_ValueForKey( userinfo, "handicap" ) );
+		if ( client->pers.maxHealth < 1 || client->pers.maxHealth > 100 ) {
+			client->pers.maxHealth = 100;
+		}
+		// clear entity values
+		client->ps.stats[STAT_MAX_HEALTH] = client->pers.maxHealth;
+	} else {
+		client->pers.maxHealth = 999;
+		client->ps.stats[STAT_MAX_HEALTH] = client->pers.maxHealth;
 	}
-	// clear entity values
-	client->ps.stats[STAT_MAX_HEALTH] = client->pers.maxHealth;
 	client->ps.eFlags = flags;
 
 	ent->s.groundEntityNum = ENTITYNUM_NONE;
@@ -1329,9 +1335,14 @@ void ClientSpawn(gentity_t *ent) {
 		//give health
 		if ( client->sess.sessionHealth ) 
 			ent->health = client->ps.stats[STAT_HEALTH] = client->sess.sessionHealth;
-		else
-			// health will count down towards max_health
-			ent->health = client->ps.stats[STAT_HEALTH] = client->ps.stats[STAT_MAX_HEALTH] + 25;
+		else {
+			if (g_gametype.integer != GT_ENTITYPLUS) {
+				// health will count down towards max_health
+				ent->health = client->ps.stats[STAT_HEALTH] = client->ps.stats[STAT_MAX_HEALTH] + 25;
+			} else {
+				ent->health = client->ps.stats[STAT_HEALTH] = 100;
+			}
+		}
 
 		//give armor
 		if ( client->sess.sessionArmor )

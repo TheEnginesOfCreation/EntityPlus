@@ -156,66 +156,71 @@ void InGame_MenuInit( void ) {
 	s_ingame.frame.width				= 466;//359;
 	s_ingame.frame.height				= 332;//256;
 
-	//y = 96;
 	y = 88;
-	s_ingame.team.generic.type			= MTYPE_PTEXT;
-	s_ingame.team.generic.flags			= QMF_CENTER_JUSTIFY|QMF_PULSEIFFOCUS;
-	s_ingame.team.generic.x				= 320;
-	s_ingame.team.generic.y				= y;
-	s_ingame.team.generic.id			= ID_TEAM;
-	s_ingame.team.generic.callback		= InGame_Event; 
-	s_ingame.team.string				= "START";
-	s_ingame.team.color					= color_red;
-	s_ingame.team.style					= UI_CENTER|UI_SMALLFONT;
+	if( trap_Cvar_VariableValue( "g_gametype" ) != GT_ENTITYPLUS) {
+		s_ingame.team.generic.type			= MTYPE_PTEXT;
+		s_ingame.team.generic.flags			= QMF_CENTER_JUSTIFY|QMF_PULSEIFFOCUS;
+		s_ingame.team.generic.x				= 320;
+		s_ingame.team.generic.y				= y;
+		s_ingame.team.generic.id			= ID_TEAM;
+		s_ingame.team.generic.callback		= InGame_Event; 
+		s_ingame.team.string				= "START";
+		s_ingame.team.color					= color_red;
+		s_ingame.team.style					= UI_CENTER|UI_SMALLFONT;
+		
+		y += INGAME_MENU_VERTICAL_SPACING;
+		s_ingame.addbots.generic.type		= MTYPE_PTEXT;
+		s_ingame.addbots.generic.flags		= QMF_CENTER_JUSTIFY|QMF_PULSEIFFOCUS;
+		s_ingame.addbots.generic.x			= 320;
+		s_ingame.addbots.generic.y			= y;
+		s_ingame.addbots.generic.id			= ID_ADDBOTS;
+		s_ingame.addbots.generic.callback	= InGame_Event; 
+		s_ingame.addbots.string				= "ADD BOTS";
+		s_ingame.addbots.color				= color_red;
+		s_ingame.addbots.style				= UI_CENTER|UI_SMALLFONT;
+		if( !trap_Cvar_VariableValue( "sv_running" ) || !trap_Cvar_VariableValue( "bot_enable" ) || (trap_Cvar_VariableValue( "g_gametype" ) == GT_ENTITYPLUS)) {
+			s_ingame.addbots.generic.flags |= QMF_GRAYED;
+		}
 
-	y += INGAME_MENU_VERTICAL_SPACING;
-	s_ingame.addbots.generic.type		= MTYPE_PTEXT;
-	s_ingame.addbots.generic.flags		= QMF_CENTER_JUSTIFY|QMF_PULSEIFFOCUS;
-	s_ingame.addbots.generic.x			= 320;
-	s_ingame.addbots.generic.y			= y;
-	s_ingame.addbots.generic.id			= ID_ADDBOTS;
-	s_ingame.addbots.generic.callback	= InGame_Event; 
-	s_ingame.addbots.string				= "ADD BOTS";
-	s_ingame.addbots.color				= color_red;
-	s_ingame.addbots.style				= UI_CENTER|UI_SMALLFONT;
-	if( !trap_Cvar_VariableValue( "sv_running" ) || !trap_Cvar_VariableValue( "bot_enable" ) || (trap_Cvar_VariableValue( "g_gametype" ) == GT_ENTITYPLUS)) {
-		s_ingame.addbots.generic.flags |= QMF_GRAYED;
-	}
+		y += INGAME_MENU_VERTICAL_SPACING;
+		s_ingame.removebots.generic.type		= MTYPE_PTEXT;
+		s_ingame.removebots.generic.flags		= QMF_CENTER_JUSTIFY|QMF_PULSEIFFOCUS;
+		s_ingame.removebots.generic.x			= 320;
+		s_ingame.removebots.generic.y			= y;
+		s_ingame.removebots.generic.id			= ID_REMOVEBOTS;
+		s_ingame.removebots.generic.callback	= InGame_Event; 
+		s_ingame.removebots.string				= "REMOVE BOTS";
+		s_ingame.removebots.color				= color_red;
+		s_ingame.removebots.style				= UI_CENTER|UI_SMALLFONT;
+		if( !trap_Cvar_VariableValue( "sv_running" ) || !trap_Cvar_VariableValue( "bot_enable" ) || (trap_Cvar_VariableValue( "g_gametype" ) == GT_ENTITYPLUS)) {
+			s_ingame.removebots.generic.flags |= QMF_GRAYED;
+		}
 
-	y += INGAME_MENU_VERTICAL_SPACING;
-	s_ingame.removebots.generic.type		= MTYPE_PTEXT;
-	s_ingame.removebots.generic.flags		= QMF_CENTER_JUSTIFY|QMF_PULSEIFFOCUS;
-	s_ingame.removebots.generic.x			= 320;
-	s_ingame.removebots.generic.y			= y;
-	s_ingame.removebots.generic.id			= ID_REMOVEBOTS;
-	s_ingame.removebots.generic.callback	= InGame_Event; 
-	s_ingame.removebots.string				= "REMOVE BOTS";
-	s_ingame.removebots.color				= color_red;
-	s_ingame.removebots.style				= UI_CENTER|UI_SMALLFONT;
-	if( !trap_Cvar_VariableValue( "sv_running" ) || !trap_Cvar_VariableValue( "bot_enable" ) || (trap_Cvar_VariableValue( "g_gametype" ) == GT_ENTITYPLUS)) {
-		s_ingame.removebots.generic.flags |= QMF_GRAYED;
-	}
-
-	y += INGAME_MENU_VERTICAL_SPACING;
-	s_ingame.teamorders.generic.type		= MTYPE_PTEXT;
-	s_ingame.teamorders.generic.flags		= QMF_CENTER_JUSTIFY|QMF_PULSEIFFOCUS;
-	s_ingame.teamorders.generic.x			= 320;
-	s_ingame.teamorders.generic.y			= y;
-	s_ingame.teamorders.generic.id			= ID_TEAMORDERS;
-	s_ingame.teamorders.generic.callback	= InGame_Event; 
-	s_ingame.teamorders.string				= "TEAM ORDERS";
-	s_ingame.teamorders.color				= color_red;
-	s_ingame.teamorders.style				= UI_CENTER|UI_SMALLFONT;
-	if( !UI_IsTeamGame(trap_Cvar_VariableValue("g_gametype")) ) {
-		s_ingame.teamorders.generic.flags |= QMF_GRAYED;
-	}
-	else {
-		trap_GetClientState( &cs );
-		trap_GetConfigString( CS_PLAYERS + cs.clientNum, info, MAX_INFO_STRING );
-		team = atoi( Info_ValueForKey( info, "t" ) );
-		if( team == TEAM_SPECTATOR ) {
+		y += INGAME_MENU_VERTICAL_SPACING;
+		s_ingame.teamorders.generic.type		= MTYPE_PTEXT;
+		s_ingame.teamorders.generic.flags		= QMF_CENTER_JUSTIFY|QMF_PULSEIFFOCUS;
+		s_ingame.teamorders.generic.x			= 320;
+		s_ingame.teamorders.generic.y			= y;
+		s_ingame.teamorders.generic.id			= ID_TEAMORDERS;
+		s_ingame.teamorders.generic.callback	= InGame_Event; 
+		s_ingame.teamorders.string				= "TEAM ORDERS";
+		s_ingame.teamorders.color				= color_red;
+		s_ingame.teamorders.style				= UI_CENTER|UI_SMALLFONT;
+		if( !UI_IsTeamGame(trap_Cvar_VariableValue("g_gametype")) ) {
 			s_ingame.teamorders.generic.flags |= QMF_GRAYED;
 		}
+		else {
+			trap_GetClientState( &cs );
+			trap_GetConfigString( CS_PLAYERS + cs.clientNum, info, MAX_INFO_STRING );
+			team = atoi( Info_ValueForKey( info, "t" ) );
+			if( team == TEAM_SPECTATOR ) {
+				s_ingame.teamorders.generic.flags |= QMF_GRAYED;
+			}
+		}
+	}
+	else
+	{
+		y += INGAME_MENU_VERTICAL_SPACING * 1.5; 
 	}
 
 	y += INGAME_MENU_VERTICAL_SPACING;
@@ -288,10 +293,13 @@ void InGame_MenuInit( void ) {
 	s_ingame.quit.style					= UI_CENTER|UI_SMALLFONT;
 
 	Menu_AddItem( &s_ingame.menu, &s_ingame.frame );
-	Menu_AddItem( &s_ingame.menu, &s_ingame.team );
-	Menu_AddItem( &s_ingame.menu, &s_ingame.addbots );
-	Menu_AddItem( &s_ingame.menu, &s_ingame.removebots );
-	Menu_AddItem( &s_ingame.menu, &s_ingame.teamorders );
+	
+	if( trap_Cvar_VariableValue( "g_gametype" ) != GT_ENTITYPLUS) {
+		Menu_AddItem( &s_ingame.menu, &s_ingame.team );
+		Menu_AddItem( &s_ingame.menu, &s_ingame.addbots );
+		Menu_AddItem( &s_ingame.menu, &s_ingame.removebots );
+		Menu_AddItem( &s_ingame.menu, &s_ingame.teamorders );
+	}
 	Menu_AddItem( &s_ingame.menu, &s_ingame.setup );
 	Menu_AddItem( &s_ingame.menu, &s_ingame.server );
 	Menu_AddItem( &s_ingame.menu, &s_ingame.restart );
