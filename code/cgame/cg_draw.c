@@ -2601,17 +2601,15 @@ static void CG_Draw2D( void ) {
 		return;
 	}
 
-	/*
-	if ( cg.demoPlayback ) {
+	if ( cg_letterBoxSize.integer ) {
 		colorBlack[0] = 0;
 		colorBlack[1] = 0;
 		colorBlack[2] = 0;
 		colorBlack[3] = 1;
-		CG_FillRect(0, 0, 640, 96, colorBlack);
-		CG_FillRect(0, 480 - 96, 640, 96, colorBlack);
+		CG_FillRect(0, 0, 640, cg_letterBoxSize.value, colorBlack);
+		CG_FillRect(0, 480 - cg_letterBoxSize.value, 640, cg_letterBoxSize.value, colorBlack);
 		return;
 	}
-	*/
 
 	if ( cg_draw2D.integer == 0 ) {
 		return;
