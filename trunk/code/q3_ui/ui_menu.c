@@ -32,8 +32,6 @@ MAIN MENU
 #define MAIN_MENU_MODEL_ARMOR_RED		"models/powerups/armor/armor_red.md3"
 #define MAIN_MENU_MODEL_AMMO_MG			"models/powerups/ammo/machinegunam.md3"
 #define MAIN_MENU_MODEL_SKULL			"models/gibs/skull.md3"
-#define MAIN_MENU_MODEL_ARMOR_GREEN  "models/powerups/armor/armor_green.md3"
-#define MAIN_MENU_MODEL_BFG       "models/weapons2/bfg/bfg.md3"
 
 #define ART_LOGO						"menu/art/logo"
 
