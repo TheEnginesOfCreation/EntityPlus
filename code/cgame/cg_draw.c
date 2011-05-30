@@ -1594,9 +1594,7 @@ static void CG_DrawObjectivesNotification( void ) {
 		draw = qtrue;
 
 	if ( draw )
-		CG_DrawPic( 640-ICON_SIZE, (SCREEN_HEIGHT-ICON_SIZE)/2 - ICON_SIZE, ICON_SIZE, ICON_SIZE, cgs.media.objectivesUpdated );//TODO: positioning?
-
-
+		CG_DrawPic( 8, 8, ICON_SIZE, ICON_SIZE, cgs.media.objectivesUpdated );
 }
 
 
@@ -2592,6 +2590,7 @@ CG_Draw2D
 =================
 */
 static void CG_Draw2D( void ) {
+	vec4_t colorBlack;
 #ifdef MISSIONPACK
 	if (cgs.orderPending && cg.time > cgs.orderTime) {
 		CG_CheckOrderPending();
@@ -2601,6 +2600,18 @@ static void CG_Draw2D( void ) {
 	if ( cg.levelShot ) {
 		return;
 	}
+
+	/*
+	if ( cg.demoPlayback ) {
+		colorBlack[0] = 0;
+		colorBlack[1] = 0;
+		colorBlack[2] = 0;
+		colorBlack[3] = 1;
+		CG_FillRect(0, 0, 640, 96, colorBlack);
+		CG_FillRect(0, 480 - 96, 640, 96, colorBlack);
+		return;
+	}
+	*/
 
 	if ( cg_draw2D.integer == 0 ) {
 		return;
