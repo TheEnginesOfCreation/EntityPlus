@@ -777,10 +777,8 @@ void target_objective_use (gentity_t *self, gentity_t *other, gentity_t *activat
 	else
 		trap_SetConfigstring( CS_PRIMARYOBJECTIVE, self->message );
 
-	if ( !(self->spawnflags & 2) ) {
-		//trap_SendServerCommand( -1, va("cp \"%s\"", "Objectives updated" ));
+	if ( !(self->spawnflags & 2) )
 		G_TempEntity( self->s.origin, EV_OBJECTIVES_UPDATED );
-	}
 }
 
 void SP_target_objective (gentity_t *self) {
