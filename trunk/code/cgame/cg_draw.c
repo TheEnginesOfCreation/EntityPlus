@@ -1582,15 +1582,15 @@ static void CG_DrawPersistantPowerup( void ) {
 static void CG_DrawObjectivesNotification( void ) {
 	qboolean draw = qfalse;
 	
-	if ( cg.time >= cg.rewardTime + OBJECTIVES_TIME )
+	if ( cg.time >= cg.objectivesTime + OBJECTIVES_TIME )
 		return;
 
 	//icon blinks
-	if ( cg.time < cg.rewardTime + 500 )
+	if ( cg.time < cg.objectivesTime + 500 )
 		draw = qtrue;
-	else if ( cg.time > cg.rewardTime + 1000 && cg.time < cg.rewardTime + 1500 )
+	else if ( cg.time > cg.objectivesTime + 1000 && cg.time < cg.objectivesTime + 1500 )
 		draw = qtrue;
-	else if ( cg.time > cg.rewardTime + 2000 && cg.time < cg.rewardTime + 2500 )
+	else if ( cg.time > cg.objectivesTime + 2000 && cg.time < cg.objectivesTime + 2500 )
 		draw = qtrue;
 
 	if ( draw )

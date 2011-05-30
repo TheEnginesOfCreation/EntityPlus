@@ -63,7 +63,7 @@ typedef struct {
 static mainmenu_t s_main;
 
 typedef struct {
-	menuframework_s menu;	
+	menuframework_s menu;
 	char errorMessage[4096];
 } errorMessage_t;
 
@@ -233,10 +233,6 @@ TTimo: this function is common to the main menu and errorMessage menu
 */
 
 static void Main_MenuDraw( void ) {
-	refdef_t		refdef;
-	refEntity_t		ent;
-	vec3_t			origin;	
-	vec3_t			angles;
 	float			adjust;
 	float			x, y, w, h;
 	vec4_t			color = {0, 0, 0.5, 1};
@@ -244,104 +240,54 @@ static void Main_MenuDraw( void ) {
 	refEntity_t		ent2;
 	vec3_t			angles2;
 
-	/*
-	// setup the refdef for banner model
 
-	memset( &refdef, 0, sizeof( refdef ) );
-
-	refdef.rdflags = RDF_NOWORLDMODEL;
-
-	AxisClear( refdef.viewaxis );
-
-	x = 0;
-	y = 0;
-	w = 640;
-	h = 120;
-	UI_AdjustFrom640( &x, &y, &w, &h );
-	refdef.x = x;
-	refdef.y = y;
-	refdef.width = w;
-	refdef.height = h;
-
-	adjust = 0; // JDC: Kenneth asked me to stop this 1.0 * sin( (float)uis.realtime / 1000 );
-	refdef.fov_x = 60 + adjust;
-	refdef.fov_y = 19.6875 + adjust;
-
-	refdef.time = uis.realtime;
-
-	origin[0] = 300;
-	origin[1] = 0;
-	origin[2] = -32;
-
-	trap_R_ClearScene();
-
-	// add the banner model
-
-	memset( &ent, 0, sizeof(ent) );
-
-	adjust = 5.0 * sin( (float)uis.realtime / 5000 );
-	VectorSet( angles, 0, 180 + adjust, 0 );
-	AnglesToAxis( angles, ent.axis );
-	ent.hModel = s_main.bannerModel;
-	VectorCopy( origin, ent.origin );
-	VectorCopy( origin, ent.lightingOrigin );
-	ent.renderfx = RF_LIGHTING_ORIGIN | RF_NOSHADOW;
-	VectorCopy( ent.origin, ent.oldorigin );
-
-	trap_R_AddRefEntityToScene( &ent );
-
-	trap_R_RenderScene( &refdef );
-*/
-
-
-
-	// setup the refdef for menu model
-
-	memset( &refdef2, 0, sizeof( refdef2 ) );
-
-	refdef2.rdflags = RDF_NOWORLDMODEL;
-
-	AxisClear( refdef2.viewaxis );
-
-	x = 200;
-	y = 135;
-	w = 440;
-	h = 345;
-	UI_AdjustFrom640( &x, &y, &w, &h );
-	refdef2.x = x;
-	refdef2.y = y;
-	refdef2.width = w;
-	refdef2.height = h;
-
-	refdef2.fov_x = 30;
-	refdef2.fov_y = 19.6875;
-
-	refdef2.time = uis.realtime;
-
-	// add the menu model
-
-	memset( &ent2, 0, sizeof(ent2) );
-
-	adjust = uis.realtime / 20;		//makes it rotate
-	VectorCopy(s_main.menuModelAngles, angles2);
-	angles2[1] += adjust;
-	AnglesToAxis( angles2, ent2.axis );
-	ent2.hModel = s_main.menuModel;
-	VectorCopy( s_main.menuModelOrigin, ent2.origin );
-	VectorCopy( s_main.menuModelOrigin, ent2.lightingOrigin );
-	ent2.renderfx = RF_LIGHTING_ORIGIN | RF_NOSHADOW;
-	VectorCopy( ent2.origin, ent2.oldorigin );
-
-	trap_R_AddRefEntityToScene( &ent2 );
-
-	trap_R_RenderScene( &refdef2 );
-	
 	if (strlen(s_errorMessage.errorMessage))
 	{
+		UI_DrawNamedPic(64, 0, 512, 128, ART_LOGO );
 		UI_DrawProportionalString_AutoWrapped( 320, 192, 600, 20, s_errorMessage.errorMessage, UI_CENTER|UI_SMALLFONT|UI_DROPSHADOW, menu_text_color );
 	}
 	else
 	{
+		// setup the refdef for menu model
+		memset( &refdef2, 0, sizeof( refdef2 ) );
+
+		refdef2.rdflags = RDF_NOWORLDMODEL;
+
+		AxisClear( refdef2.viewaxis );
+
+		x = 200;
+		y = 135;
+		w = 440;
+		h = 345;
+		UI_AdjustFrom640( &x, &y, &w, &h );
+		refdef2.x = x;
+		refdef2.y = y;
+		refdef2.width = w;
+		refdef2.height = h;
+
+		refdef2.fov_x = 30;
+		refdef2.fov_y = 19.6875;
+
+		refdef2.time = uis.realtime;
+
+		// add the menu model
+
+		memset( &ent2, 0, sizeof(ent2) );
+
+		adjust = uis.realtime / 20;		//makes it rotate
+		VectorCopy(s_main.menuModelAngles, angles2);
+		angles2[1] += adjust;
+		AnglesToAxis( angles2, ent2.axis );
+		ent2.hModel = s_main.menuModel;
+		VectorCopy( s_main.menuModelOrigin, ent2.origin );
+		VectorCopy( s_main.menuModelOrigin, ent2.lightingOrigin );
+		ent2.renderfx = RF_LIGHTING_ORIGIN | RF_NOSHADOW;
+		VectorCopy( ent2.origin, ent2.oldorigin );
+
+		trap_R_AddRefEntityToScene( &ent2 );
+
+		trap_R_RenderScene( &refdef2 );
+
 		// standard menu drawing
 		Menu_Draw( &s_main.menu );		
 	}
@@ -399,6 +345,7 @@ void UI_MainMenu( void ) {
 
 	trap_Cvar_Set( "sv_killserver", "1" );
 
+	/*
 	if( !uis.demoversion && !ui_cdkeychecked.integer ) {
 		char	key[17];
 
@@ -408,9 +355,10 @@ void UI_MainMenu( void ) {
 			return;
 		}
 	}
+	*/
 	
-	memset( &s_main, 0 ,sizeof(mainmenu_t) );
-	memset( &s_errorMessage, 0 ,sizeof(errorMessage_t) );
+	memset( &s_main, 0, sizeof(mainmenu_t) );
+	memset( &s_errorMessage, 0, sizeof(errorMessage_t) );
 
 	// com_errorMessage would need that too
 	MainMenu_Cache();
@@ -422,12 +370,11 @@ void UI_MainMenu( void ) {
 		s_errorMessage.menu.key = ErrorMessage_Key;
 		s_errorMessage.menu.fullscreen = qtrue;
 		s_errorMessage.menu.wrapAround = qtrue;
-		s_errorMessage.menu.showlogo = qtrue;		
+		s_errorMessage.menu.showlogo = qfalse;		
 
 		trap_Key_SetCatcher( KEYCATCH_UI );
 		uis.menusp = 0;
 		UI_PushMenu ( &s_errorMessage.menu );
-		
 		return;
 	}
 	
