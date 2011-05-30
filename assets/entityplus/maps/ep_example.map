@@ -31260,6 +31260,7 @@ gothic_wall/iron01_e
 "message" "Escape from the temple"
 "origin" "792 -832 -360"
 "classname" "target_objective"
+"spawnflags" "2"
 }
 // entity 458
 {

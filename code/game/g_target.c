@@ -765,7 +765,7 @@ void SP_target_debrisemitter (gentity_t *self) {
 
 //==========================================================
 
-/*QUAKED target_objective (.5 .5 .5) (-8 -8 -8) (8 8 8) SECONDARY
+/*QUAKED target_objective (.5 .5 .5) (-8 -8 -8) (8 8 8) SECONDARY SILENT
 Sets the textual representation of the player's objective.
 Set the SECONDARY spawnflag to set the secondary objective instead of the primary.
 */
@@ -777,11 +777,14 @@ void target_objective_use (gentity_t *self, gentity_t *other, gentity_t *activat
 	else
 		trap_SetConfigstring( CS_PRIMARYOBJECTIVE, self->message );
 
-	trap_SendServerCommand( -1, va("cp \"%s\"", "Objectives updated" ));	//TODO: Remove this line once the event based notification is implemented
-	G_TempEntity( self->s.origin, EV_OBJECTIVES_UPDATED );
+	if ( !(self->spawnflags & 2) ) {
+		//trap_SendServerCommand( -1, va("cp \"%s\"", "Objectives updated" ));
+		G_TempEntity( self->s.origin, EV_OBJECTIVES_UPDATED );
+	}
 }
 
 void SP_target_objective (gentity_t *self) {
+	G_SpawnInt( "id", "-1", &self->s.generic1 );
 	self->use = target_objective_use;
 }
 

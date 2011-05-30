@@ -835,6 +835,8 @@ static void CG_RegisterGraphics( void ) {
 	cgs.media.scoreboardTime = trap_R_RegisterShaderNoMip( "menu/tab/time.tga" );
 
 	cgs.media.objectivesOverlay = trap_R_RegisterShaderNoMip( "menu/objectives/overlay.tga" );
+	cgs.media.objectivesUpdated = trap_R_RegisterShaderNoMip( "menu/objectives/updated.tga" );
+	cgs.media.objectivesUpdatedSound = trap_S_RegisterSound( "sound/misc/objectives.wav", qfalse );
 
 	cgs.media.smokePuffShader = trap_R_RegisterShader( "smokePuff" );
 	cgs.media.smokePuffRageProShader = trap_R_RegisterShader( "smokePuffRagePro" );

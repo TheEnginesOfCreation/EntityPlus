@@ -779,6 +779,7 @@ static float CG_DrawFPS( float y ) {
 		fps = 1000 * FPS_FRAMES / total;
 
 		s = va( "%ifps", fps );
+		
 		w = CG_DrawStrlen( s ) * BIGCHAR_WIDTH;
 
 		CG_DrawBigString( 635 - w, y + 2, s, 1.0F);
@@ -797,6 +798,9 @@ static float CG_DrawTimer( float y ) {
 	int			w;
 	int			mins, seconds, tens;
 	int			msec;
+
+	if (cgs.gametype == GT_ENTITYPLUS)
+		return;	//do not draw timer in single player entityplus
 
 	msec = cg.time - cgs.levelStartTime;
 
@@ -1574,6 +1578,26 @@ static void CG_DrawPersistantPowerup( void ) {
 }
 #endif
 #endif // MISSIONPACK
+
+static void CG_DrawObjectivesNotification( void ) {
+	qboolean draw = qfalse;
+	
+	if ( cg.time >= cg.rewardTime + OBJECTIVES_TIME )
+		return;
+
+	//icon blinks
+	if ( cg.time < cg.rewardTime + 500 )
+		draw = qtrue;
+	else if ( cg.time > cg.rewardTime + 1000 && cg.time < cg.rewardTime + 1500 )
+		draw = qtrue;
+	else if ( cg.time > cg.rewardTime + 2000 && cg.time < cg.rewardTime + 2500 )
+		draw = qtrue;
+
+	if ( draw )
+		CG_DrawPic( 640-ICON_SIZE, (SCREEN_HEIGHT-ICON_SIZE)/2 - ICON_SIZE, ICON_SIZE, ICON_SIZE, cgs.media.objectivesUpdated );//TODO: positioning?
+
+
+}
 
 
 /*
@@ -2624,6 +2648,7 @@ static void CG_Draw2D( void ) {
 			//CG_DrawPersistantPowerup();
 #endif
 			CG_DrawReward();
+			CG_DrawObjectivesNotification();
 		}
     
 		if ( CG_IsTeamGame() ) {
