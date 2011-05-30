@@ -36,6 +36,7 @@
 #define	SINK_TIME			1000		// time for fragments to sink into ground before going away
 #define	ATTACKER_HEAD_TIME	10000
 #define	REWARD_TIME			3000
+#define OBJECTIVES_TIME		2500		//time for objectives updated notification to remain on screen
 
 #define	PULSE_SCALE			1.5			// amount to scale up the icons when activating
 
@@ -857,6 +858,8 @@ typedef struct {
 
 	// objectives screen
 	qhandle_t	objectivesOverlay;
+	qhandle_t	objectivesUpdated;
+	sfxHandle_t	objectivesUpdatedSound;
 
 	// medals shown during gameplay
 	qhandle_t	medalImpressive;

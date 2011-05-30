@@ -61,7 +61,7 @@ escape to safety. The map can be found in the single player menu.
 
 CREDITS
 -------
-Project lead and programming	: Eraesr
+Project lead and programming	: Eraser
 								  [http://www.theenginesofcreation.com]
 
 Additional programming and
@@ -75,9 +75,6 @@ Additional programming			: Kaz
 Additional programming			: cyr
 								  [http://quake3world.com/forum/memberlist.php?mode=viewprofile&u=32395]
 								  
-Additional programming			: gooball
-								  [http://quake3world.com/forum/memberlist.php?mode=viewprofile&u=30967]
-
 Programming support				: Perle			
 								  [http://www.q3rally.com]
 
@@ -89,6 +86,9 @@ Skeleton key models and skins	: Hipshot
 
 Debris and backpack models		: DaEngineer
 								  [http://victorkarp.wordpress.com]
+								  
+Holdable key SFX				: gooball
+								  [http://quake3world.com/forum/memberlist.php?mode=viewprofile&u=30967]
 
 Testing, feedback and logo		: EmeraldTiger
 								  [http://emeraldproductions.weebly.com/]
@@ -99,15 +99,9 @@ Testing and feedback			: tigger.on
 Support and general enthusiasm	: The entire Quake3World LEM community
 								  [http://quake3world.com/forum/viewforum.php?f=10]
 						
-Earthquake code					: The Reaction Factory
-								  [http://rfactory.org]
-								  
-Particle effect code			: Juz's Slipgate
-								  [http://www.juz.org.uk]
-
 CONTACT
 -------
-Contact me at eraesr@gmail.com or visit The Engines of Creation at http://www.theenginesofcreation.com.
+Contact Eraser at eraesr@gmail.com or visit The Engines of Creation at http://www.theenginesofcreation.com.
 To follow the project or get the source code, go to https://code.google.com/p/entityplus.
 If you want to follow discussions surrounding the mod or leave your own input, visit the 
 discussion thread in the Quake3World Level Editing & Modelling forums at http://quake3world.com/forum/viewtopic.php?f=10&t=45510,
@@ -117,3 +111,11 @@ or report an issue at the Google Code page.
 VERSION HISTORY
 ---------------
 For a complete version history, view the "version history.txt" file.
+
+
+DISCLAIMERS
+-----------
+- Parts of the earthquake code used in EntityPlus were taken from The Reaction Factory [http://rfactory.org]
+- Parts of the particle effect code used in EntityPlus were taken from Juz's Slipgate [http://www.juz.org.uk]
+- The objectives updated sound effect was created by "wildweasel" and distributed through the freesound project.
+  It was licensed under the Creative Commons Sampling Plus 1.0 license [http://creativecommons.org/licenses/sampling+/1.0/]

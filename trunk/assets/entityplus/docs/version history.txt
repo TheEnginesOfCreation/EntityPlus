@@ -1,5 +1,6 @@
 v0.7 (?? jun 2011)
 	- [Added] custom pickup sound for keys.
+	- [Added] SILENT spawnflag for target_objective
 	- [Fixed] sv_maxclients is no longer forced to 8 when starting a map through the single player menu.
 	- [Fixed] Player handicap no longer affects single player mode.
 	- [Fixed] Bot connection and loading messages are no longer displayed in the console when running in single player mode.
@@ -7,6 +8,7 @@ v0.7 (?? jun 2011)
 	- [Changed] In-game pause menu no longer shows inaccessible options.
 	- [Changed] Health no longer degrades to 100 when it is above 100.
 	- [Changed] All types of health can increase health above 100.
+	- [Changed] Notification for updated objectives is made more subtle with a sound and a blinking icon.
 	- [Changed] con_notifytime is no longer forced to 0.
 	- [Changed] Main menu has a new logo and set in a blue color scheme.
 	- [Changed] ".... entered the game" message is no longer displayed for the player in SP mode.

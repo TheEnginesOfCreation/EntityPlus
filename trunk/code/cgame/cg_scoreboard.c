@@ -240,7 +240,7 @@ static int CG_TeamScoreboard( int y, team_t team, float fade, int maxClients, in
 =================
 CG_DrawSinglePlayerObjectives
 
-Draw the normal in-game scoreboard
+Draw the single player objectives overlay
 =================
 */
 qboolean CG_DrawSinglePlayerObjectives( void ) {

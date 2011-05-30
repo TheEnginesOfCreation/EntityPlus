@@ -1690,7 +1690,7 @@ The SCRIPT spawnflag will allow you to execute a .cfg script. This can be used t
 
 //=============================================================================
 
-/*QUAKED target_objective (0 .5 0) (-8 -8 -8) (8 8 8) SECONDARY
+/*QUAKED target_objective (0 .5 0) (-8 -8 -8) (8 8 8) SECONDARY SILENT
 Sets the primary or secondary objective for a player.
 -------- KEYS --------
 targetname : activating trigger points to this.
@@ -1699,7 +1699,8 @@ notfree : when set to 1, entity will not spawn in "Free for all" and "Tournament
 notteam : when set to 1, entity will not spawn in "Teamplay" and "CTF" modes.
 notsingle : when set to 1, entity will not spawn in Single Player mode (bot play mode).
 -------- SPAWNFLAGS --------
-SECONDARY : The secondary objective is set instead of the primary objective.*/
+SECONDARY : The secondary objective is set instead of the primary objective.
+SILENT : When set, the player will not be notified that the objectives are updated.*/
 
 //=============================================================================
 
