@@ -78,16 +78,16 @@ Additional programming			: cyr
 Programming support				: Perle			
 								  [http://www.q3rally.com]
 
-Keycard models and skins		: Obsidian
+Keycard models					: Obsidian
 								  [http://www.robotrenegade.com]
 
-Skeleton key models and skins	: Hipshot
+Skeleton key models				: Hipshot
 								  [http://www.zfight.com]
 
 Debris and backpack models		: DaEngineer
 								  [http://victorkarp.wordpress.com]
 								  
-Holdable key SFX				: gooball
+Key SFX and green armor skin	: gooball
 								  [http://quake3world.com/forum/memberlist.php?mode=viewprofile&u=30967]
 
 Testing, feedback and logo		: EmeraldTiger

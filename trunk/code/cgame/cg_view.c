@@ -741,6 +741,10 @@ Generates and draws a game scene and status information at the given time.
 void CG_DrawActiveFrame( int serverTime, stereoFrame_t stereoView, qboolean demoPlayback ) {
 	int		inwater;
 
+	if ( serverTime == 0 && !demoPlayback )
+		trap_Cvar_Set("cg_letterBoxSize", "0");
+		//cg_letterBoxSize.integer = 0;
+
 	cg.time = serverTime;
 	cg.demoPlayback = demoPlayback;
 
