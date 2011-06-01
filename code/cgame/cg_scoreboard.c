@@ -252,6 +252,8 @@ qboolean CG_DrawSinglePlayerObjectives( void ) {
 	if ( !cg.showScores )
 		return qfalse;
 
+	cg.objectivesTime = 0;	//stop objectives notification from showing
+
 	color[0] = 0.3;
 	color[1] = 1;
 	color[2] = 0;
