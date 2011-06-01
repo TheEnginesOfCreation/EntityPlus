@@ -1219,8 +1219,10 @@ void CG_EntityEvent( centity_t *cent, vec3_t position ) {
 
 	case EV_OBJECTIVES_UPDATED:
 		DEBUGNAME("EV_OBJECTIVES_UPDATED");
-		cg.objectivesTime = cg.time;
-		trap_S_StartSound( NULL, es->number, CHAN_LOCAL_SOUND, cgs.media.objectivesUpdatedSound );
+		if ( cgs.gametype == GT_ENTITYPLUS ) {
+			cg.objectivesTime = cg.time;
+			trap_S_StartLocalSound( cgs.media.objectivesUpdatedSound, CHAN_LOCAL_SOUND );
+		}
 		break;
 
 	default:

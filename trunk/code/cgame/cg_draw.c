@@ -1582,7 +1582,7 @@ static void CG_DrawPersistantPowerup( void ) {
 static void CG_DrawObjectivesNotification( void ) {
 	qboolean draw = qfalse;
 	
-	if ( cg.time >= cg.objectivesTime + OBJECTIVES_TIME )
+	if ( cg.objectivesTime == 0 || cg.time >= cg.objectivesTime + OBJECTIVES_TIME )
 		return;
 
 	//icon blinks
@@ -1594,7 +1594,10 @@ static void CG_DrawObjectivesNotification( void ) {
 		draw = qtrue;
 
 	if ( draw )
+	{
+		trap_R_SetColor( NULL );
 		CG_DrawPic( 8, 8, ICON_SIZE, ICON_SIZE, cgs.media.objectivesUpdated );
+	}
 }
 
 
