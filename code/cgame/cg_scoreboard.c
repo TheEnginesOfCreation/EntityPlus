@@ -291,6 +291,9 @@ qboolean CG_DrawSinglePlayerObjectives( void ) {
 	//draw skill indicator
 	//CG_DrawBigStringColor( 420, 310, "Skill", color);
 	
+	//draw level score
+	//CG_DrawBigStringColor( 420, 310, va("%i", cg.snap->ps.persistant[PERS_LEVEL_SCORE]), color);
+	
 	return qtrue;
 }
 
