@@ -1102,6 +1102,9 @@ void G_Damage( gentity_t *targ, gentity_t *inflictor, gentity_t *attacker,
 		}
 	}
 
+	//if we're in SP mode and player damages a bot, award the amount of damage dealt as points
+	if ( !IsBot(attacker) && IsBot(targ) && g_gametype.integer == GT_ENTITYPLUS )
+		G_AddLevelScore(attacker->client, take);
 }
 
 

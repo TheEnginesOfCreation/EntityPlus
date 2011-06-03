@@ -833,3 +833,13 @@ qboolean G_IsTeamGame() {
 	else
 		return qfalse;
 }
+
+/*
+==================
+G_AddLevelScore
+Adds a number of points to the player's score for this level
+==================
+*/
+void G_AddLevelScore( gclient_t *client, int points ) {
+	client->ps.persistant[PERS_LEVEL_SCORE] += points;
+}

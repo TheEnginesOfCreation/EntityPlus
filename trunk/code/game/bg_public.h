@@ -220,7 +220,8 @@ typedef enum {
 	PERS_DEFEND_COUNT,				// defend awards
 	PERS_ASSIST_COUNT,				// assist awards
 	PERS_GAUNTLET_FRAG_COUNT,		// kills with the guantlet
-	PERS_CAPTURES					// captures
+	PERS_CAPTURES,					// captures
+	PERS_LEVEL_SCORE				// score for current level
 } persEnum_t;
 
 
