@@ -604,6 +604,9 @@ void target_mapchange_use (gentity_t *self, gentity_t *other, gentity_t *activat
 void SP_target_mapchange (gentity_t *self) {
 	char info[1024];
 
+	if ( self->spawnflags & 2 )
+		G_Printf( va( S_COLOR_YELLOW "WARNING: target_mapchange with SCRIPT spawnflag at %s is obsolete . Use target_script instead.\n", vtos(self->s.origin) ) );
+
 	if ( !self->mapname )
 	{
 		trap_GetServerinfo(info, sizeof(info));
@@ -940,4 +943,34 @@ void SP_target_effect (gentity_t *self) {
 	}
 
 	self->use = target_effect_use;
+}
+
+//==========================================================
+
+/*QUAKED target_script (.5 .5 .5) (-8 -8 -8) (8 8 8)
+When triggered, executes the specified script.
+*/
+void target_script_use (gentity_t *self, gentity_t *other, gentity_t *activator) {
+	int noprint = trap_Cvar_VariableIntegerValue( "cl_noprint" );
+
+	//set cl_noprint to 1 while executing script so the "execing xxx.cfg" message isn't displayed
+	//trap_Cvar_Set( "cl_noprint", "1" );
+
+	trap_SendConsoleCommand( EXEC_INSERT, va( "exec %s\n", self->mapname ) ); 
+
+	//restore cl_noprint to its former value
+	//trap_Cvar_Set( "cl_noprint", va("%i", noprint ) );
+}
+
+void SP_target_script (gentity_t *self) {
+	char info[1024];
+
+	G_SpawnString("script", "", &self->mapname);
+
+	if ( !self->mapname )
+	{
+		G_Printf( va( S_COLOR_YELLOW "WARNING: target_script without specified script at %s\n", vtos(self->s.origin) ) );
+		G_FreeEntity( self );
+	}
+	self->use = target_script_use;
 }
