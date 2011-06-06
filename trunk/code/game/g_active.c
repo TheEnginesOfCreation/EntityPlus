@@ -434,8 +434,8 @@ void ClientTimerActions( gentity_t *ent, int msec ) {
 			}
 #endif
 		} else {
-			// count down health when over max
-			if ( ent->health > client->ps.stats[STAT_MAX_HEALTH] ) {
+			// count down health when over max (if not playing SP mode)
+			if ( g_gametype.integer != GT_ENTITYPLUS && ent->health > client->ps.stats[STAT_MAX_HEALTH] ) {
 				ent->health--;
 			}
 		}
