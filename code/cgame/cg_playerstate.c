@@ -22,6 +22,11 @@ void CG_CheckAmmo( void ) {
 
 	// see about how many seconds of ammo we have remaining
 	weapons = cg.snap->ps.stats[ STAT_WEAPONS ];
+
+	// if player doesn't have a weapon, don't draw an ammo warning
+	if ( weapons == WP_NONE )
+		return;	
+
 	total = 0;
 	for ( i = WP_MACHINEGUN ; i < WP_NUM_WEAPONS ; i++ ) {
 		if ( ! ( weapons & ( 1 << i ) ) ) {

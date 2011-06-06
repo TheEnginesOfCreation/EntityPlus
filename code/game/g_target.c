@@ -85,7 +85,7 @@ void Use_target_remove_powerups( gentity_t *ent, gentity_t *other, gentity_t *ac
 
 		activator->client->ps.stats[STAT_WEAPONS] = 0;
 
-		for ( i = WP_NONE; i < WP_NUM_WEAPONS; i++ ) {
+		for ( i = WP_MACHINEGUN; i < WP_NUM_WEAPONS; i++ ) {
 			activator->client->ps.ammo[i] = 0;
 		}
 	}

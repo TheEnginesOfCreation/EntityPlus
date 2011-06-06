@@ -1457,6 +1457,10 @@ void CG_DrawWeaponSelect( void ) {
 		return;
 	}
 
+	// don't display if player has no weapons
+	if ( cg.snap->ps.stats[STAT_WEAPONS] == WP_NONE )
+		return;
+
 	color = CG_FadeColor( cg.weaponSelectTime, WEAPON_SELECT_TIME );
 	if ( !color ) {
 		return;
