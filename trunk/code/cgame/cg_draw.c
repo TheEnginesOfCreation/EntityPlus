@@ -800,7 +800,7 @@ static float CG_DrawTimer( float y ) {
 	int			msec;
 
 	if (cgs.gametype == GT_ENTITYPLUS)
-		return;	//do not draw timer in single player entityplus
+		return y;	//do not draw timer in single player entityplus
 
 	msec = cg.time - cgs.levelStartTime;
 
