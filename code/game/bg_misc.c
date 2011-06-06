@@ -449,7 +449,7 @@ gitem_t	bg_itemlist[] =
 /*QUAKED holdable_key_red (.2 .2 .2) (-16 -16 -16) (16 16 16) suspended*/
 	{
 		"holdable_key_red", 
-		"sound/items/keycard_01.wav",
+		"sound/items/keycard_03.wav",
         { "models/powerups/keys/keycard-r.md3", 0, 0, 0},
 		"icons/key_red",
 		"Red keycard",
@@ -462,7 +462,7 @@ gitem_t	bg_itemlist[] =
 /*QUAKED holdable_key_green (.2 .2 .2) (-16 -16 -16) (16 16 16) suspended*/
 	{
 		"holdable_key_green", 
-		"sound/items/keycard_01.wav",
+		"sound/items/keycard_03.wav",
         { "models/powerups/keys/keycard-g.md3", 0, 0, 0},
 		"icons/key_green",
 		"Green keycard",
@@ -475,7 +475,7 @@ gitem_t	bg_itemlist[] =
 /*QUAKED holdable_key_blue (.2 .2 .2) (-16 -16 -16) (16 16 16) suspended*/
 	{
 		"holdable_key_blue", 
-		"sound/items/keycard_01.wav",
+		"sound/items/keycard_03.wav",
         { "models/powerups/keys/keycard-b.md3", 0, 0, 0},
 		"icons/key_blue",
 		"Blue keycard",
@@ -488,7 +488,7 @@ gitem_t	bg_itemlist[] =
 /*QUAKED holdable_key_yellow (.2 .2 .2) (-16 -16 -16) (16 16 16) suspended*/
 	{
 		"holdable_key_yellow", 
-		"sound/items/keycard_01.wav",
+		"sound/items/keycard_03.wav",
         { "models/powerups/keys/keycard-y.md3", 0, 0, 0},
 		"icons/key_yellow",
 		"Yellow keycard",
