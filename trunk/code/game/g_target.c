@@ -951,23 +951,23 @@ void SP_target_effect (gentity_t *self) {
 When triggered, executes the specified script.
 */
 void target_script_use (gentity_t *self, gentity_t *other, gentity_t *activator) {
-	int noprint = trap_Cvar_VariableIntegerValue( "cl_noprint" );
+	//int noprint = trap_Cvar_VariableIntegerValue( "cl_noprint" );
 
 	//set cl_noprint to 1 while executing script so the "execing xxx.cfg" message isn't displayed
 	//trap_Cvar_Set( "cl_noprint", "1" );
 
-	trap_SendConsoleCommand( EXEC_INSERT, va( "exec %s\n", self->mapname ) ); 
+	G_Printf("script: [%s]\n", self->script);
+
+	trap_SendConsoleCommand( EXEC_INSERT, va( "exec %s\n", self->script ) ); 
 
 	//restore cl_noprint to its former value
 	//trap_Cvar_Set( "cl_noprint", va("%i", noprint ) );
 }
 
 void SP_target_script (gentity_t *self) {
-	char info[1024];
-
-	G_SpawnString("script", "", &self->mapname);
-
-	if ( !self->mapname )
+	//G_SpawnString("script", "", &self->mapname);
+	
+	if ( !self->script )
 	{
 		G_Printf( va( S_COLOR_YELLOW "WARNING: target_script without specified script at %s\n", vtos(self->s.origin) ) );
 		G_FreeEntity( self );

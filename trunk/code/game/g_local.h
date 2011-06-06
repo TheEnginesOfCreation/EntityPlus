@@ -111,6 +111,7 @@ struct gentity_s {
 	gentity_t	*target_ent;
 	char		*clientname;			// name of the bot to spawn for target_botspawn
 	char		*mapname;				// name of the map to switch to for target_mapchange
+	char		*script;				// name of the script to execute for target_script
 
 	float		speed;
 	vec3_t		movedir;
