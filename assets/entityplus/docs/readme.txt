@@ -86,8 +86,11 @@ Skeleton key models				: Hipshot
 
 Debris and backpack models		: DaEngineer
 								  [http://victorkarp.wordpress.com]
+
+Custom sound effects			: Patrick "Scout" Schotte
+				
 								  
-Key SFX and green armor skin	: gooball
+Green armor skin				: gooball
 								  [http://quake3world.com/forum/memberlist.php?mode=viewprofile&u=30967]
 
 Testing, feedback and logo		: EmeraldTiger
@@ -98,7 +101,13 @@ Testing and feedback			: tigger.on
 								  
 Support and general enthusiasm	: The entire Quake3World LEM community
 								  [http://quake3world.com/forum/viewforum.php?f=10]
-						
+
+ADDITIONAL CREDIT
+-----------------
+- Parts of the earthquake code used in EntityPlus were taken from The Reaction Factory [http://rfactory.org]
+- Parts of the particle effect code used in EntityPlus were taken from Juz's Slipgate [http://www.juz.org.uk]
+
+					
 CONTACT
 -------
 Contact Eraser at eraesr@gmail.com or visit The Engines of Creation at http://www.theenginesofcreation.com.
@@ -111,11 +120,3 @@ or report an issue at the Google Code page.
 VERSION HISTORY
 ---------------
 For a complete version history, view the "version history.txt" file.
-
-
-DISCLAIMERS
------------
-- Parts of the earthquake code used in EntityPlus were taken from The Reaction Factory [http://rfactory.org]
-- Parts of the particle effect code used in EntityPlus were taken from Juz's Slipgate [http://www.juz.org.uk]
-- The objectives updated sound effect was created by "wildweasel" and distributed through the freesound project.
-  It was licensed under the Creative Commons Sampling Plus 1.0 license [http://creativecommons.org/licenses/sampling+/1.0/]

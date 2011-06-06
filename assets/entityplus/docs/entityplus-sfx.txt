@@ -1,0 +1,37 @@
+Entity Plus Mod
+
+Sound files for keys, keycards and objective updates
+By Patrick "Scout" Schotte
+June 06, 2011
+
+thescout@gmx.de
+
+---------------------------------------------------------------------
+
+these are eight sounds for Eraser's Entity Plus mod
+
+-key_01.wav
+-key_01+02.wav
+-key_02.wav
+
+-keycard_01.wav
+-keycard_02.wav
+
+-objective_update_01.wav
+-objective_update_02.wav
+-objective_update_03.wav
+
+All files are in 16bit mono for Quake 3 Arena compatibility
+
+---------------------------------------------------------------------
+
+This work is licensed under a Creative Commons Attribution-
+NonCommercial-ShareAlike 3.0 Unported License.
+
+http://creativecommons.org/licenses/by-nc-sa/3.0/
+
+These files may be electronically distributed only at 
+no charge to the recipient in their current state, must 
+include this .txt file, and may not be modified in
+any way. Under no circumstances are these files to be 
+distributed on CD-ROM without prior written permission.
