@@ -1270,7 +1270,7 @@ void ClientSpawn(gentity_t *ent) {
 		// clear entity values
 		client->ps.stats[STAT_MAX_HEALTH] = client->pers.maxHealth;
 	} else {
-		client->pers.maxHealth = 999;
+		client->pers.maxHealth = 100;
 		client->ps.stats[STAT_MAX_HEALTH] = client->pers.maxHealth;
 	}
 	client->ps.eFlags = flags;
