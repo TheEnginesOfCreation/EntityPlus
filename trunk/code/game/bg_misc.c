@@ -457,7 +457,7 @@ gitem_t	bg_itemlist[] =
 		IT_HOLDABLE,
 		HI_KEY_RED,
 		"",
-		""	//TODO: link sound to a keycard 'use' sound and have trigger_lock play that sound when it's 'unlocked'
+		""
 	},
 /*QUAKED holdable_key_green (.2 .2 .2) (-16 -16 -16) (16 16 16) suspended*/
 	{
@@ -470,7 +470,7 @@ gitem_t	bg_itemlist[] =
 		IT_HOLDABLE,
 		HI_KEY_GREEN,
 		"",
-		""	//TODO: link sound to a keycard 'use' sound and have trigger_lock play that sound when it's 'unlocked'
+		""
 	},
 /*QUAKED holdable_key_blue (.2 .2 .2) (-16 -16 -16) (16 16 16) suspended*/
 	{
@@ -483,7 +483,7 @@ gitem_t	bg_itemlist[] =
 		IT_HOLDABLE,
 		HI_KEY_BLUE,
 		"",
-		""	//TODO: link sound to a keycard 'use' sound and have trigger_lock play that sound when it's 'unlocked'
+		""
 	},
 /*QUAKED holdable_key_yellow (.2 .2 .2) (-16 -16 -16) (16 16 16) suspended*/
 	{
@@ -496,7 +496,7 @@ gitem_t	bg_itemlist[] =
 		IT_HOLDABLE,
 		HI_KEY_YELLOW,
 		"",
-		""	//TODO: link sound to a keycard 'use' sound and have trigger_lock play that sound when it's 'unlocked'
+		""
 	},
 /*QUAKED holdable_key_master (.2 .2 .2) (-16 -16 -16) (16 16 16) suspended*/
 	{
@@ -509,7 +509,7 @@ gitem_t	bg_itemlist[] =
 		IT_HOLDABLE,
 		HI_KEY_MASTER,
 		"",
-		""	//TODO: link sound to a key 'use' sound and have trigger_lock play that sound when it's 'unlocked'
+		""
 	},
 /*QUAKED holdable_key_gold (.2 .2 .2) (-16 -16 -16) (16 16 16) suspended*/
 	{
