@@ -40,24 +40,60 @@ void SP_target_give( gentity_t *ent ) {
 
 //==========================================================
 
-/*QUAKED target_remove_powerups (1 0 0) (-8 -8 -8) (8 8 8)
+/*QUAKED target_remove_powerups (1 0 0) (-8 -8 -8) (8 8 8) POWERUPS FLAGS WEAPONS HOLDABLES
 takes away all the activators powerups.
 Used to drop flight powerups into death puts.
 */
 void Use_target_remove_powerups( gentity_t *ent, gentity_t *other, gentity_t *activator ) {
+	int i;
+
 	if( !activator->client ) {
 		return;
 	}
 
-	if( activator->client->ps.powerups[PW_REDFLAG] ) {
-		Team_ReturnFlag( TEAM_RED );
-	} else if( activator->client->ps.powerups[PW_BLUEFLAG] ) {
-		Team_ReturnFlag( TEAM_BLUE );
-	} else if( activator->client->ps.powerups[PW_NEUTRALFLAG] ) {
-		Team_ReturnFlag( TEAM_FREE );
+	if ( !ent->spawnflags )
+		ent->spawnflags = 3;	//POWERUPS + FLAGS
+
+	//remove powerups
+	if ( ent->spawnflags & 1 ) {
+		activator->client->ps.powerups[PW_QUAD] = 0;
+		activator->client->ps.powerups[PW_BATTLESUIT] = 0;
+		activator->client->ps.powerups[PW_HASTE] = 0;
+		activator->client->ps.powerups[PW_INVIS] = 0;
+		activator->client->ps.powerups[PW_REGEN] = 0;
+		activator->client->ps.powerups[PW_FLIGHT] = 0;
 	}
 
-	memset( activator->client->ps.powerups, 0, sizeof( activator->client->ps.powerups ) );
+	//remove CTF flags
+	if ( ent->spawnflags & 2 ) {
+		if( activator->client->ps.powerups[PW_REDFLAG] ) {
+			Team_ReturnFlag( TEAM_RED );
+		} else if( activator->client->ps.powerups[PW_BLUEFLAG] ) {
+			Team_ReturnFlag( TEAM_BLUE );
+		} else if( activator->client->ps.powerups[PW_NEUTRALFLAG] ) {
+			Team_ReturnFlag( TEAM_FREE );
+		}
+
+		activator->client->ps.powerups[PW_REDFLAG] = 0;
+		activator->client->ps.powerups[PW_BLUEFLAG] = 0;
+		activator->client->ps.powerups[PW_NEUTRALFLAG] = 0;
+	}
+
+	//remove weapons and ammo
+	if ( ent->spawnflags & 4 ) {
+		activator->client->ps.weapon = WP_NONE;
+
+		activator->client->ps.stats[STAT_WEAPONS] = 0;
+
+		for ( i = WP_NONE; i < WP_NUM_WEAPONS; i++ ) {
+			activator->client->ps.ammo[i] = 0;
+		}
+	}
+
+	//remove holdables and keys
+	if ( ent->spawnflags & 8 ) {
+		activator->client->ps.stats[STAT_HOLDABLE_ITEM] = 0;
+	}
 }
 
 void SP_target_remove_powerups( gentity_t *ent ) {
