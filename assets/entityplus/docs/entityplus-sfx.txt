@@ -25,6 +25,25 @@ All files are in 16bit mono for Quake 3 Arena compatibility
 
 ---------------------------------------------------------------------
 
+This is an update of the soundpack for Eraser's Entity Plus mod.
+Included are three sounds:
+
+-keycard_01.wav
+-keycard_03.wav
+
+-objective_update_01.wav
+
+What's new:
+
+-keycard_01 was shortened a bit
+-keycard_03, a new file combining the main elements of keycard_02 with
+ the bass sound of the old keycard_01, was added
+-objective_update_01 was shortened to sound firm
+
+All files are in 16bit mono again for Quake 3 Arena compatibility
+
+---------------------------------------------------------------------
+
 This work is licensed under a Creative Commons Attribution-
 NonCommercial-ShareAlike 3.0 Unported License.
 

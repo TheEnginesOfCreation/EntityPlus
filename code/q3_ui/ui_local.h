@@ -98,6 +98,7 @@ extern vmCvar_t	ui_cdkeychecked;
 #define MTYPE_SCROLLLIST		8
 #define MTYPE_PTEXT				9
 #define MTYPE_BTEXT				10
+#define MTYPE_STEXT				11
 
 #define QMF_BLINK				0x00000001
 #define QMF_SMALLFONT			0x00000002

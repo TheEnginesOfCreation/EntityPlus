@@ -34,8 +34,11 @@ MAIN MENU
 #define MAIN_MENU_MODEL_SKULL			"models/gibs/skull.md3"
 
 #define ART_LOGO						"menu/art/logo"
+#define ART_OVERLAY						"menu/art/mainoverlay"
+#define ART_BACKGROUND					"menu/backgrounds/01"
 
-#define MAIN_MENU_VERTICAL_SPACING	34
+#define MAIN_MENU_VERTICAL_SPACING	20
+#define MAIN_MENU_MARGIN_LEFT		48
 
 
 
@@ -51,7 +54,9 @@ typedef struct {
 	menutext_s		mods;
 	menutext_s		exit;
 
+	menutext_s		header;
 	menubitmap_s	logo;
+	menubitmap_s	overlay;
 
 	qhandle_t		bannerModel;
 	qhandle_t		menuModel;
@@ -248,6 +253,8 @@ static void Main_MenuDraw( void ) {
 	}
 	else
 	{
+		UI_DrawNamedPic( 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, ART_BACKGROUND );
+/*
 		// setup the refdef for menu model
 		memset( &refdef2, 0, sizeof( refdef2 ) );
 
@@ -287,11 +294,12 @@ static void Main_MenuDraw( void ) {
 		trap_R_AddRefEntityToScene( &ent2 );
 
 		trap_R_RenderScene( &refdef2 );
-
+*/
 		// standard menu drawing
 		Menu_Draw( &s_main.menu );		
 	}
 
+	/*
 	if (uis.demoversion) {
 		UI_DrawProportionalString( 320, 372, "DEMO      FOR MATURE AUDIENCES      DEMO", UI_CENTER|UI_SMALLFONT, color );
 		UI_DrawString( 320, 400, "Quake III Arena(c) 1999-2000, Id Software, Inc.  All Rights Reserved", UI_CENTER|UI_SMALLFONT, color );
@@ -299,6 +307,7 @@ static void Main_MenuDraw( void ) {
 		UI_DrawString( 320, 430, "Get more EntityPlus info at http://code.google.com/p/entityplus", UI_CENTER|UI_SMALLFONT, color );
 		UI_DrawString( 320, 450, "Quake III Arena(c) 1999-2000, Id Software, Inc.  All Rights Reserved", UI_CENTER|UI_SMALLFONT, color );
 	}
+	*/
 }
 
 
@@ -384,6 +393,7 @@ void UI_MainMenu( void ) {
 	s_main.menu.showlogo = qfalse;
 
 	//add logo
+	/*
 	s_main.logo.generic.type  = MTYPE_BITMAP;
 	s_main.logo.generic.name  = ART_LOGO;
 	s_main.logo.generic.flags = QMF_INACTIVE|QMF_CENTER_JUSTIFY;
@@ -391,109 +401,130 @@ void UI_MainMenu( void ) {
 	s_main.logo.generic.y	   = 0;
 	s_main.logo.width  			= 512;
 	s_main.logo.height  	   = 128;
+	*/
+
+	//add overlay
+	s_main.overlay.generic.type		= MTYPE_BITMAP;
+	s_main.overlay.generic.name		= ART_OVERLAY;
+	s_main.overlay.generic.flags	= QMF_INACTIVE;
+	s_main.overlay.generic.x		= MAIN_MENU_VERTICAL_SPACING + 6;
+	s_main.overlay.generic.y		= 350 - MAIN_MENU_VERTICAL_SPACING - 16;
+	s_main.overlay.width  			= 256;
+	s_main.overlay.height			= 128;
+
+	//add header
+	s_main.header.generic.type		= MTYPE_TEXT;
+	s_main.header.generic.x			= MAIN_MENU_MARGIN_LEFT;
+	s_main.header.generic.y			= 350 - MAIN_MENU_VERTICAL_SPACING;
+	s_main.header.string			= "ENTITYPLUS";
+	s_main.header.color				= color_white;
+	s_main.header.style				= UI_DROPSHADOW;
 
 	//add menu buttons
-	y = 134;
-	s_main.singleplayer.generic.type		= MTYPE_PTEXT;
+	y = 350;
+	s_main.singleplayer.generic.type		= MTYPE_STEXT;
 	s_main.singleplayer.generic.flags		= QMF_PULSEIFFOCUS;
-	s_main.singleplayer.generic.x			= 64;
+	s_main.singleplayer.generic.x			= MAIN_MENU_MARGIN_LEFT;
 	s_main.singleplayer.generic.y			= y;
 	s_main.singleplayer.generic.id			= ID_SINGLEPLAYER;
 	s_main.singleplayer.generic.callback	= Main_MenuEvent; 
 	s_main.singleplayer.string				= "SINGLE PLAYER";
-	s_main.singleplayer.color				= color_lightBlue;
-	s_main.singleplayer.style				= UI_DROPSHADOW;
+	s_main.singleplayer.color				= color_red;
+	s_main.singleplayer.style				= UI_DROPSHADOW|UI_BIGFONT;
 
 	y += MAIN_MENU_VERTICAL_SPACING;
-	s_main.multiplayer.generic.type			= MTYPE_PTEXT;
+	s_main.multiplayer.generic.type			= MTYPE_STEXT;
 	s_main.multiplayer.generic.flags		= QMF_PULSEIFFOCUS;
-	s_main.multiplayer.generic.x			= 64;
+	s_main.multiplayer.generic.x			= MAIN_MENU_MARGIN_LEFT;
 	s_main.multiplayer.generic.y			= y;
 	s_main.multiplayer.generic.id			= ID_MULTIPLAYER;
 	s_main.multiplayer.generic.callback		= Main_MenuEvent; 
 	s_main.multiplayer.string				= "MULTIPLAYER";
-	s_main.multiplayer.color				= color_lightBlue;
+	s_main.multiplayer.color				= color_red;
 	s_main.multiplayer.style				= UI_DROPSHADOW;
 
 	y += MAIN_MENU_VERTICAL_SPACING;
-	s_main.setup.generic.type				= MTYPE_PTEXT;
+	s_main.setup.generic.type				= MTYPE_STEXT;
 	s_main.setup.generic.flags				= QMF_PULSEIFFOCUS;
-	s_main.setup.generic.x					= 64;
+	s_main.setup.generic.x					= MAIN_MENU_MARGIN_LEFT;
 	s_main.setup.generic.y					= y;
 	s_main.setup.generic.id					= ID_SETUP;
 	s_main.setup.generic.callback			= Main_MenuEvent; 
 	s_main.setup.string						= "SETUP";
-	s_main.setup.color						= color_lightBlue;
+	s_main.setup.color						= color_red;
 	s_main.setup.style						= UI_DROPSHADOW;
 
+	/*
 	y += MAIN_MENU_VERTICAL_SPACING;
-	s_main.demos.generic.type				= MTYPE_PTEXT;
+	s_main.demos.generic.type				= MTYPE_STEXT;
 	s_main.demos.generic.flags				= QMF_PULSEIFFOCUS;
-	s_main.demos.generic.x					= 64;
+	s_main.demos.generic.x					= MAIN_MENU_MARGIN_LEFT;
 	s_main.demos.generic.y					= y;
 	s_main.demos.generic.id					= ID_DEMOS;
 	s_main.demos.generic.callback			= Main_MenuEvent; 
 	s_main.demos.string						= "DEMOS";
-	s_main.demos.color						= color_lightBlue;
+	s_main.demos.color						= color_red;
 	s_main.demos.style						= UI_DROPSHADOW;
 
 	y += MAIN_MENU_VERTICAL_SPACING;
-	s_main.cinematics.generic.type			= MTYPE_PTEXT;
+	s_main.cinematics.generic.type			= MTYPE_STEXT;
 	s_main.cinematics.generic.flags			= QMF_PULSEIFFOCUS;
-	s_main.cinematics.generic.x				= 64;
+	s_main.cinematics.generic.x				= MAIN_MENU_MARGIN_LEFT;
 	s_main.cinematics.generic.y				= y;
 	s_main.cinematics.generic.id			= ID_CINEMATICS;
 	s_main.cinematics.generic.callback		= Main_MenuEvent; 
 	s_main.cinematics.string				= "CINEMATICS";
-	s_main.cinematics.color					= color_lightBlue;
+	s_main.cinematics.color					= color_red;
 	s_main.cinematics.style					= UI_DROPSHADOW;
 
 	if (UI_TeamArenaExists()) {
 		teamArena = qtrue;
 		y += MAIN_MENU_VERTICAL_SPACING;
-		s_main.teamArena.generic.type			= MTYPE_PTEXT;
+		s_main.teamArena.generic.type			= MTYPE_STEXT;
 		s_main.teamArena.generic.flags			= QMF_PULSEIFFOCUS;
-		s_main.teamArena.generic.x				= 64;
+		s_main.teamArena.generic.x				= MAIN_MENU_MARGIN_LEFT;
 		s_main.teamArena.generic.y				= y;
 		s_main.teamArena.generic.id				= ID_TEAMARENA;
 		s_main.teamArena.generic.callback		= Main_MenuEvent; 
 		s_main.teamArena.string					= "TEAM ARENA";
-		s_main.teamArena.color					= color_lightBlue;
+		s_main.teamArena.color					= color_red;
 		s_main.teamArena.style					= UI_DROPSHADOW;
 	}
 
 	y += MAIN_MENU_VERTICAL_SPACING;
-	s_main.mods.generic.type			= MTYPE_PTEXT;
+	s_main.mods.generic.type			= MTYPE_STEXT;
 	s_main.mods.generic.flags			= QMF_PULSEIFFOCUS;
-	s_main.mods.generic.x				= 64;
+	s_main.mods.generic.x				= MAIN_MENU_MARGIN_LEFT;
 	s_main.mods.generic.y				= y;
 	s_main.mods.generic.id				= ID_MODS;
 	s_main.mods.generic.callback		= Main_MenuEvent; 
 	s_main.mods.string					= "MODS";
-	s_main.mods.color					= color_lightBlue;
+	s_main.mods.color					= color_red;
 	s_main.mods.style					= UI_DROPSHADOW;
-
+*/
 	y += MAIN_MENU_VERTICAL_SPACING;
-	s_main.exit.generic.type				= MTYPE_PTEXT;
+	s_main.exit.generic.type				= MTYPE_STEXT;
 	s_main.exit.generic.flags				= QMF_PULSEIFFOCUS;
-	s_main.exit.generic.x					= 64;
+	s_main.exit.generic.x					= MAIN_MENU_MARGIN_LEFT;
 	s_main.exit.generic.y					= y;
 	s_main.exit.generic.id					= ID_EXIT;
 	s_main.exit.generic.callback			= Main_MenuEvent; 
 	s_main.exit.string						= "EXIT";
-	s_main.exit.color						= color_lightBlue;
+	s_main.exit.color						= color_red;
 	s_main.exit.style						= UI_DROPSHADOW;
 
-	Menu_AddItem( &s_main.menu, &s_main.logo );
+	//Menu_AddItem( &s_main.menu, &s_main.logo );
+	Menu_AddItem( &s_main.menu,	&s_main.overlay );
+	Menu_AddItem( &s_main.menu,	&s_main.header );
 	Menu_AddItem( &s_main.menu,	&s_main.singleplayer );
 	Menu_AddItem( &s_main.menu,	&s_main.multiplayer );
 	Menu_AddItem( &s_main.menu,	&s_main.setup );
+	/*
 	Menu_AddItem( &s_main.menu,	&s_main.demos );
 	Menu_AddItem( &s_main.menu,	&s_main.cinematics );
-	if (teamArena) {
-		Menu_AddItem( &s_main.menu,	&s_main.teamArena );
-	}
+	if (teamArena) Menu_AddItem( &s_main.menu, &s_main.teamArena );
 	Menu_AddItem( &s_main.menu,	&s_main.mods );
+	*/
 	Menu_AddItem( &s_main.menu,	&s_main.exit );             
 
 	trap_Key_SetCatcher( KEYCATCH_UI );

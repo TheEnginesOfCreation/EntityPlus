@@ -216,6 +216,86 @@ static void PText_Draw( menutext_s *t )
 
 /*
 =================
+SText_Init
+=================
+*/
+static void SText_Init( menutext_s *t )
+{
+	int	x;
+	int	y;
+	int	w;
+	int	h;
+	float	sizeScale;
+
+	//TODO: sensitive area for main menu items doesn't seem to exactly match the text
+	sizeScale = UI_ProportionalSizeScale( t->style );
+
+	x = t->generic.x;
+	y = t->generic.y;
+	w = UI_ProportionalStringWidth( t->string ) * sizeScale;
+	h =	PROP_HEIGHT * sizeScale;
+
+	if( t->generic.flags & QMF_RIGHT_JUSTIFY ) {
+		x -= w;
+	}
+	else if( t->generic.flags & QMF_CENTER_JUSTIFY ) {
+		x -= w / 2;
+	}
+
+	t->generic.left   = x - PROP_GAP_WIDTH * sizeScale;
+	t->generic.right  = x + w + PROP_GAP_WIDTH * sizeScale;
+	t->generic.top    = y;
+	t->generic.bottom = y + h;
+}
+
+
+/*
+=================
+SText_Draw
+=================
+*/
+static void SText_Draw( menutext_s *t )
+{
+	int		x;
+	int		y;
+	char	buff[512];	
+	float*	color;
+	int		style;
+
+	x = t->generic.x;
+	y = t->generic.y;
+
+	buff[0] = '\0';
+
+	// possible label
+	if (t->generic.name)
+		strcpy(buff, t->generic.name);
+
+	// possible value
+	if (t->string)
+		strcat(buff, t->string);
+		
+	if (t->generic.flags & QMF_GRAYED)
+		color = text_color_disabled;
+	else
+		color = t->color;
+
+	style = t->style;
+	if( t->generic.flags & QMF_PULSEIFFOCUS ) {
+		if( Menu_ItemAtCursor( t->generic.parent ) == t ) {
+			style |= UI_PULSE;
+		}
+		else {
+			style |= UI_INVERSE;
+		}
+	}
+
+	UI_DrawString( x, y, buff, style, color );
+}
+
+
+/*
+=================
 Bitmap_Init
 =================
 */
@@ -1302,6 +1382,10 @@ void Menu_AddItem( menuframework_s *menu, void *item )
 				BText_Init((menutext_s*)item);
 				break;
 
+			case MTYPE_STEXT:
+				SText_Init((menutext_s*)item);
+				break;
+
 			default:
 				trap_Error( va("Menu_Init: unknown type %d", itemptr->type) );
 		}
@@ -1492,6 +1576,10 @@ void Menu_Draw( menuframework_s *menu )
 
 				case MTYPE_BTEXT:
 					BText_Draw( (menutext_s*)itemptr );
+					break;
+
+				case MTYPE_STEXT:
+					SText_Draw( (menutext_s*)itemptr );
 					break;
 
 				default:
@@ -1705,9 +1793,11 @@ void Menu_Cache( void )
 	uis.whiteShader = trap_R_RegisterShaderNoMip( "white" );
 	if ( uis.glconfig.hardwareType == GLHW_RAGEPRO ) {
 		// the blend effect turns to shit with the normal 
-		uis.menuBackShader	= trap_R_RegisterShaderNoMip( "menubackRagePro" );
+		//uis.menuBackShader	= trap_R_RegisterShaderNoMip( "menubackRagePro" );
+		uis.menuBackShader = trap_R_RegisterShaderNoMip( "menu/backgrounds/01.tga" );
 	} else {
-		uis.menuBackShader	= trap_R_RegisterShaderNoMip( "menuback" );
+		//uis.menuBackShader	= trap_R_RegisterShaderNoMip( "menuback" );
+		uis.menuBackShader = trap_R_RegisterShaderNoMip( "menu/backgrounds/01.tga" );
 	}
 	uis.menuBackNoLogoShader = trap_R_RegisterShaderNoMip( "menubacknologo" );
 
@@ -1724,7 +1814,8 @@ void Menu_Cache( void )
 	sliderButton_0 = trap_R_RegisterShaderNoMip( "menu/art/sliderbutt_0" );
 	sliderButton_1 = trap_R_RegisterShaderNoMip( "menu/art/sliderbutt_1" );
 }
-	
+
+
 
 /*
 ==================
