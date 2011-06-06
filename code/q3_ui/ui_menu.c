@@ -37,7 +37,7 @@ MAIN MENU
 #define ART_OVERLAY						"menu/art/mainoverlay"
 #define ART_BACKGROUND					"menu/backgrounds/01"
 
-#define MAIN_MENU_VERTICAL_SPACING	20
+#define MAIN_MENU_VERTICAL_SPACING	34
 #define MAIN_MENU_MARGIN_LEFT		48
 
 
@@ -403,26 +403,28 @@ void UI_MainMenu( void ) {
 	s_main.logo.height  	   = 128;
 	*/
 
+	y = 296;
+
 	//add overlay
 	s_main.overlay.generic.type		= MTYPE_BITMAP;
 	s_main.overlay.generic.name		= ART_OVERLAY;
 	s_main.overlay.generic.flags	= QMF_INACTIVE;
-	s_main.overlay.generic.x		= MAIN_MENU_VERTICAL_SPACING + 6;
-	s_main.overlay.generic.y		= 350 - MAIN_MENU_VERTICAL_SPACING - 16;
+	s_main.overlay.generic.x		= MAIN_MENU_VERTICAL_SPACING;
+	s_main.overlay.generic.y		= y - 48;
 	s_main.overlay.width  			= 256;
-	s_main.overlay.height			= 128;
+	s_main.overlay.height			= 256;
 
 	//add header
-	s_main.header.generic.type		= MTYPE_TEXT;
+	s_main.header.generic.type		= MTYPE_PTEXT;
 	s_main.header.generic.x			= MAIN_MENU_MARGIN_LEFT;
-	s_main.header.generic.y			= 350 - MAIN_MENU_VERTICAL_SPACING;
+	s_main.header.generic.y			= y;
 	s_main.header.string			= "ENTITYPLUS";
 	s_main.header.color				= color_white;
 	s_main.header.style				= UI_DROPSHADOW;
 
 	//add menu buttons
-	y = 350;
-	s_main.singleplayer.generic.type		= MTYPE_STEXT;
+	y += MAIN_MENU_VERTICAL_SPACING;
+	s_main.singleplayer.generic.type		= MTYPE_PTEXT;
 	s_main.singleplayer.generic.flags		= QMF_PULSEIFFOCUS;
 	s_main.singleplayer.generic.x			= MAIN_MENU_MARGIN_LEFT;
 	s_main.singleplayer.generic.y			= y;
@@ -430,10 +432,9 @@ void UI_MainMenu( void ) {
 	s_main.singleplayer.generic.callback	= Main_MenuEvent; 
 	s_main.singleplayer.string				= "SINGLE PLAYER";
 	s_main.singleplayer.color				= color_red;
-	s_main.singleplayer.style				= UI_DROPSHADOW|UI_BIGFONT;
 
 	y += MAIN_MENU_VERTICAL_SPACING;
-	s_main.multiplayer.generic.type			= MTYPE_STEXT;
+	s_main.multiplayer.generic.type			= MTYPE_PTEXT;
 	s_main.multiplayer.generic.flags		= QMF_PULSEIFFOCUS;
 	s_main.multiplayer.generic.x			= MAIN_MENU_MARGIN_LEFT;
 	s_main.multiplayer.generic.y			= y;
@@ -441,10 +442,9 @@ void UI_MainMenu( void ) {
 	s_main.multiplayer.generic.callback		= Main_MenuEvent; 
 	s_main.multiplayer.string				= "MULTIPLAYER";
 	s_main.multiplayer.color				= color_red;
-	s_main.multiplayer.style				= UI_DROPSHADOW;
 
 	y += MAIN_MENU_VERTICAL_SPACING;
-	s_main.setup.generic.type				= MTYPE_STEXT;
+	s_main.setup.generic.type				= MTYPE_PTEXT;
 	s_main.setup.generic.flags				= QMF_PULSEIFFOCUS;
 	s_main.setup.generic.x					= MAIN_MENU_MARGIN_LEFT;
 	s_main.setup.generic.y					= y;
@@ -452,11 +452,10 @@ void UI_MainMenu( void ) {
 	s_main.setup.generic.callback			= Main_MenuEvent; 
 	s_main.setup.string						= "SETUP";
 	s_main.setup.color						= color_red;
-	s_main.setup.style						= UI_DROPSHADOW;
 
 	/*
 	y += MAIN_MENU_VERTICAL_SPACING;
-	s_main.demos.generic.type				= MTYPE_STEXT;
+	s_main.demos.generic.type				= MTYPE_PTEXT;
 	s_main.demos.generic.flags				= QMF_PULSEIFFOCUS;
 	s_main.demos.generic.x					= MAIN_MENU_MARGIN_LEFT;
 	s_main.demos.generic.y					= y;
@@ -467,7 +466,7 @@ void UI_MainMenu( void ) {
 	s_main.demos.style						= UI_DROPSHADOW;
 
 	y += MAIN_MENU_VERTICAL_SPACING;
-	s_main.cinematics.generic.type			= MTYPE_STEXT;
+	s_main.cinematics.generic.type			= MTYPE_PTEXT;
 	s_main.cinematics.generic.flags			= QMF_PULSEIFFOCUS;
 	s_main.cinematics.generic.x				= MAIN_MENU_MARGIN_LEFT;
 	s_main.cinematics.generic.y				= y;
@@ -480,7 +479,7 @@ void UI_MainMenu( void ) {
 	if (UI_TeamArenaExists()) {
 		teamArena = qtrue;
 		y += MAIN_MENU_VERTICAL_SPACING;
-		s_main.teamArena.generic.type			= MTYPE_STEXT;
+		s_main.teamArena.generic.type			= MTYPE_PTEXT;
 		s_main.teamArena.generic.flags			= QMF_PULSEIFFOCUS;
 		s_main.teamArena.generic.x				= MAIN_MENU_MARGIN_LEFT;
 		s_main.teamArena.generic.y				= y;
@@ -492,7 +491,7 @@ void UI_MainMenu( void ) {
 	}
 
 	y += MAIN_MENU_VERTICAL_SPACING;
-	s_main.mods.generic.type			= MTYPE_STEXT;
+	s_main.mods.generic.type			= MTYPE_PTEXT;
 	s_main.mods.generic.flags			= QMF_PULSEIFFOCUS;
 	s_main.mods.generic.x				= MAIN_MENU_MARGIN_LEFT;
 	s_main.mods.generic.y				= y;
@@ -503,7 +502,7 @@ void UI_MainMenu( void ) {
 	s_main.mods.style					= UI_DROPSHADOW;
 */
 	y += MAIN_MENU_VERTICAL_SPACING;
-	s_main.exit.generic.type				= MTYPE_STEXT;
+	s_main.exit.generic.type				= MTYPE_PTEXT;
 	s_main.exit.generic.flags				= QMF_PULSEIFFOCUS;
 	s_main.exit.generic.x					= MAIN_MENU_MARGIN_LEFT;
 	s_main.exit.generic.y					= y;
@@ -511,7 +510,6 @@ void UI_MainMenu( void ) {
 	s_main.exit.generic.callback			= Main_MenuEvent; 
 	s_main.exit.string						= "EXIT";
 	s_main.exit.color						= color_red;
-	s_main.exit.style						= UI_DROPSHADOW;
 
 	//Menu_AddItem( &s_main.menu, &s_main.logo );
 	Menu_AddItem( &s_main.menu,	&s_main.overlay );
