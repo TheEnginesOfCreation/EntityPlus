@@ -1772,13 +1772,20 @@ RANDOM : one one of the targeted entities will be triggered at random.*/
 
 //=============================================================================
 
-/*QUAKED target_remove_powerups (0 .7 .7) (-8 -8 -8) (8 8 8)
-This takes away any and all item_* type powerups from player except health and armor (holdable_* items are not taken away either). Must be activated by a button or trigger_multiple entity. The player that activates the trigger will lose any powerup(s) currently in his possession.
+/*QUAKED target_remove_powerups (0 .7 .7) (-8 -8 -8) (8 8 8) POWERUPS FLAGS WEAPONS HOLDABLES
+This takes away all specified items. Must be activated by a button or trigger_multiple entity. The player that activates the trigger will lose any of the specified item(s) currently in his possession.
 -------- KEYS --------
 targetname : activating trigger points to this.
 notfree : when set to 1, entity will not spawn in "Free for all" and "Tournament" modes.
 notteam : when set to 1, entity will not spawn in "Teamplay" and "CTF" modes.
-notsingle : when set to 1, entity will not spawn in Single Player mode (bot play mode).*/
+notsingle : when set to 1, entity will not spawn in Single Player mode (bot play mode).
+-------- SPAWNFLAGS --------
+POWERUPS : Removes all item_* type of powerups except health and armor.
+FLAGS : Returns the flag the activating player is carrying to the base.
+WEAPONS : Removes all weapons and ammo.
+HOLDABLES : Removes all holdable_* items, including keys.
+-------- NOTES --------
+If no spawnflags are selected, the target_remove_powerups entity reverts to its default behavior of removing powerups and flags.*/
 
 //=============================================================================
 
