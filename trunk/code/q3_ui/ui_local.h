@@ -246,6 +246,8 @@ typedef enum {
 	MM_ARMOR_RED,
 	MM_AMMO_MG,
 	MM_SKULL,
+	MM_SHOTGUN,
+	MM_ARMOR_GREEN,
 	MM_NUM_MENUMODELS
 } menumodel_t;
 

@@ -32,6 +32,9 @@ MAIN MENU
 #define MAIN_MENU_MODEL_ARMOR_RED		"models/powerups/armor/armor_red.md3"
 #define MAIN_MENU_MODEL_AMMO_MG			"models/powerups/ammo/machinegunam.md3"
 #define MAIN_MENU_MODEL_SKULL			"models/gibs/skull.md3"
+#define MAIN_MENU_MODEL_SHOTGUN         "models/weapons2/shotgun/shotgun.md3"
+#define MAIN_MENU_MODEL_ARMOR_GREEN		"models/powerups/armor/armor_green.md3"
+
 
 #define ART_LOGO						"menu/art/logo"
 #define ART_OVERLAY						"menu/art/mainoverlay"
@@ -220,6 +223,16 @@ void MainMenu_Cache( void ) {
 			VectorSet( s_main.menuModelAngles, 0, 0, 10 );
 			s_main.menuModel = trap_R_RegisterModel( MAIN_MENU_MODEL_SKULL );
 			break;
+		case MM_SHOTGUN:
+			s_main.menuModelOrigin[0] = 150;
+			s_main.menuModelOrigin[2] = 0;
+			VectorSet( s_main.menuModelAngles, -15, 0, 15 );
+			s_main.menuModel = trap_R_RegisterModel( MAIN_MENU_MODEL_SHOTGUN );
+			break;
+		case MM_ARMOR_GREEN:
+			s_main.menuModelOrigin[0] = 175;
+			s_main.menuModel = trap_R_RegisterModel( MAIN_MENU_MODEL_ARMOR_GREEN );
+			break;	
 	}
 }
 
