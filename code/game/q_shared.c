@@ -1236,3 +1236,46 @@ void Info_SetValueForKey_Big( char *s, const char *key, const char *value ) {
 //====================================================================
 
 
+/*
+==================
+COM_LoadLevelScore
+Loads the current highscore for a level
+==================
+*/
+int COM_LoadLevelScore(char *levelname) {
+	char			*filename;
+	int				len;
+	fileHandle_t	f;
+	char			buf[MAX_HIGHSCORE_TEXT];
+	
+
+	filename = va("games/%s.epgame", levelname);
+
+	len = trap_FS_FOpenFile( filename, &f, FS_READ );
+	if ( len > 0 ) {
+		trap_FS_Read( buf, len, f );
+		trap_FS_FCloseFile( f );
+		return atoi( buf );
+	} else {
+		return 0;
+	}
+}
+
+/*
+==================
+COM_WriteLevelScore
+Writes the current highscore for a level to a file
+==================
+*/
+void COM_WriteLevelScore(char *levelname, int score) {
+	char			*filename;
+	fileHandle_t	f;
+	char			s[MAX_HIGHSCORE_TEXT];
+
+	filename = va("games/%s.epgame", levelname);
+	Com_sprintf(s, sizeof(s), "%i", score);
+
+	trap_FS_FOpenFile( filename, &f, FS_WRITE );
+	trap_FS_Write( s, sizeof(s), f);
+	trap_FS_FCloseFile( f );
+}

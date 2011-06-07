@@ -522,7 +522,7 @@ gitem_t	bg_itemlist[] =
 		IT_HOLDABLE,
 		HI_KEY_GOLD,
 		"",
-		""	//TODO: link sound to a key 'use' sound and have trigger_lock play that sound when it's 'unlocked'
+		""
 	},
 /*QUAKED holdable_key_silver (.2 .2 .2) (-16 -16 -16) (16 16 16) suspended*/
 	{
@@ -535,7 +535,7 @@ gitem_t	bg_itemlist[] =
 		IT_HOLDABLE,
 		HI_KEY_SILVER,
 		"",
-		""	//TODO: link sound to a key 'use' sound and have trigger_lock play that sound when it's 'unlocked'
+		""
 	},
 /*QUAKED holdable_key_iron (.2 .2 .2) (-16 -16 -16) (16 16 16) suspended*/
 	{
@@ -548,7 +548,7 @@ gitem_t	bg_itemlist[] =
 		IT_HOLDABLE,
 		HI_KEY_IRON,
 		"",
-		""	//TODO: link sound to a key 'use' sound and have trigger_lock play that sound when it's 'unlocked'
+		""
 	},
 
 	//
@@ -641,7 +641,7 @@ gitem_t	bg_itemlist[] =
 /*QUAKED info_player_backpack (.3 .3 1) (-16 -16 -16) (16 16 16) */
 	{
 		"info_player_backpack", 
-		"sound/misc/w_pkup.wav",				//TODO: Make dedicated sound
+		"sound/misc/w_pkup.wav",				//TODO: Make dedicated sound?
         { "models/powerups/backpack/backpack.md3", 0, 0, 0},
 		"icons/icon_backpack",
 		"Backpack",	

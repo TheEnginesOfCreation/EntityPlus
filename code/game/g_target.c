@@ -599,6 +599,7 @@ void SP_target_logic (gentity_t *self) {
 /*QUAKED target_mapchange (.5 .5 .5) (-8 -8 -8) (8 8 8) SHOW_INTERMISSION SCRIPT
 When triggered, loads the specified map. 
 When the SHOW_INTERMISSION spawnflag is set, the intermission screen is displayed before loading the next map.
+Note: the SCRIPT spawnflag is obsolete. Use target_script for this instead. The SCRIPT spawnflag is not defined in entities.def
 */
 void target_mapchange_use (gentity_t *self, gentity_t *other, gentity_t *activator) {
 	char	*cmd;
@@ -1001,12 +1002,41 @@ void target_script_use (gentity_t *self, gentity_t *other, gentity_t *activator)
 }
 
 void SP_target_script (gentity_t *self) {
-	//G_SpawnString("script", "", &self->mapname);
-	
 	if ( !self->script )
 	{
 		G_Printf( va( S_COLOR_YELLOW "WARNING: target_script without specified script at %s\n", vtos(self->s.origin) ) );
 		G_FreeEntity( self );
 	}
 	self->use = target_script_use;
+}
+
+//==========================================================
+
+/*QUAKED target_highscore (.5 .5 .5) (-8 -8 -8) (8 8 8)
+When triggered, registers the player's score as new high score (if it is higher than the current highscore) for the current map
+*/
+void target_highscore_use (gentity_t *self, gentity_t *other, gentity_t *activator) {
+	
+	// bots should not be able to activate this
+	if ( IsBot( activator ) )
+		return;
+
+	// only record scores for single player games
+	if ( g_gametype.integer != GT_ENTITYPLUS )
+		return;
+
+	G_Printf("Current Highscore: %i\n", level.highScore);
+	G_Printf("Your score: %i\n", activator->client->ps.persistant[PERS_LEVEL_SCORE]);
+
+	if ( activator->client->ps.persistant[PERS_LEVEL_SCORE] > level.highScore ) {
+		G_Printf("We have a new highscore!\n");
+		COM_WriteLevelScore( G_GetCurrentMapName(), activator->client->ps.persistant[PERS_LEVEL_SCORE] );
+		level.highScore = activator->client->ps.persistant[PERS_LEVEL_SCORE];
+	} else {
+		G_Printf("No new high score\n");
+	}
+}
+
+void SP_target_highscore (gentity_t *self) {
+	self->use = target_highscore_use;
 }

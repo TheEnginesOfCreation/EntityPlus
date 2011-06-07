@@ -487,10 +487,12 @@ void G_InitGame( int levelTime, int randomSeed, int restart ) {
 	G_RemapTeamShaders();
 
 	if (g_gametype.integer == GT_ENTITYPLUS) {
-		//trap_Cvar_Set("con_notifytime", "0");	//to hide bot spawning messages which are hard coded in the engine
 		trap_Cvar_Set("fraglimit", "0");
 		trap_Cvar_Set("timelimit", "0");
 	}
+
+	//get level's high score
+	level.highScore = COM_LoadLevelScore( G_GetCurrentMapName() );
 }
 
 
