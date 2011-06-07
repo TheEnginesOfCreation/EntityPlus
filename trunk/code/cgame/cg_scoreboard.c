@@ -288,11 +288,9 @@ qboolean CG_DrawSinglePlayerObjectives( void ) {
 		}
 	}
 
-	//draw skill indicator
-	//CG_DrawBigStringColor( 420, 310, "Skill", color);
-	
 	//draw level score
-	//CG_DrawBigStringColor( 420, 310, va("%i", cg.snap->ps.persistant[PERS_LEVEL_SCORE]), color);
+	CG_DrawBigStringColor( 415, 310, "Score", color);
+	CG_DrawSmallStringColor( 505, 310, va("%i", cg.snap->ps.persistant[PERS_LEVEL_SCORE]), color);	//TODO: align score to the right
 	
 	return qtrue;
 }

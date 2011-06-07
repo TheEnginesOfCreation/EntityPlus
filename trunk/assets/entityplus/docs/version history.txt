@@ -4,6 +4,8 @@ v0.7 (?? jun 2011)
 	- [Added] cg_letterBoxSize cvar.
 	- [Added] target_script entity which implements the SCRIPT functionality previously available on target_mapchange.
 	- [Added] POWERUPS, FLAGS, WEAPONS and HOLDABLES spawnflags to target_remove_powerups.
+	- [Added] target_highscore entity to record a highscore for a map.
+	- [Added] Single Player menu shows the current high score for each level.
 	- [Fixed] sv_maxclients is no longer forced to 8 when starting a map through the single player menu.
 	- [Fixed] Player handicap no longer affects single player mode.
 	- [Fixed] Bot connection and loading messages are no longer displayed in the console when running in single player mode.
@@ -12,11 +14,11 @@ v0.7 (?? jun 2011)
 	- [Changed] Health no longer degrades to 100 when it is above 100.
 	- [Changed] Notification for updated objectives is made more subtle with a sound and a blinking icon.
 	- [Changed] con_notifytime is no longer forced to 0.
-	- [Changed] Main menu has a new logo and is set in a blue color scheme.
 	- [Changed] ".... entered the game" message is no longer displayed for the player in SP mode.
 	- [Changed] Updated skin of green armor.
 	- [Changed] CD Key menu is no longer automatically displayed if no CD key is entered.
 	- [Changed] Removed SCRIPT spawnflag from target_mapchange.
+	- [Changed] New main menu (again!)
 
 v0.6.1 (25 may 2011)
 	- [Fixed] Buttons in main menu don't always highlight properly on mouse-over.

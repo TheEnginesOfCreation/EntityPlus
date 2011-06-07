@@ -168,6 +168,7 @@ void SP_target_skill (gentity_t *ent);
 void SP_target_earthquake (gentity_t *ent);
 void SP_target_effect (gentity_t *ent);
 void SP_target_script (gentity_t *ent);
+void SP_target_highscore (gentity_t *ent);
 
 void SP_light (gentity_t *self);
 void SP_info_null (gentity_t *self);
@@ -262,6 +263,7 @@ spawn_t	spawns[] = {
 	{"target_earthquake", SP_target_earthquake},
 	{"target_effect", SP_target_effect},
 	{"target_script", SP_target_script},
+	{"target_highscore", SP_target_highscore},
 
 	{"light", SP_light},
 	{"path_corner", SP_path_corner},

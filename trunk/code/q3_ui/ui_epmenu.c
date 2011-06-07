@@ -57,6 +57,9 @@ typedef struct {
 	menubitmap_s	prevpage;
 	menubitmap_s	nextpage;
 
+	menutext_s		highScoreCaption;
+	menutext_s		highScore;
+
 	char			maplist[MAX_SERVERMAPS][MAX_NAMELENGTH];
 	int				page;
 	int				currentmap;
@@ -430,6 +433,9 @@ static void EPMenu_Update( void ) {
 
 		// set the map name
 		strcpy( epMenuInfo.mapname.string, epMenuInfo.maplist[epMenuInfo.currentmap] );
+
+		// set the high score
+		strcpy( epMenuInfo.highScore.string, va("%i", COM_LoadLevelScore( epMenuInfo.maplist[epMenuInfo.currentmap] ) ) );
 	}
 	
 	Q_strupr( epMenuInfo.mapname.string );
@@ -487,7 +493,6 @@ static void EPMenu_MenuEvent( void* ptr, int event ) {
 			break;
 		
 		case ID_NEXT:
-			//TODO: Implement skill selection menu
 			UI_EPSkillMenu();
 			break;
 
@@ -637,7 +642,7 @@ void UI_EPLevelMenu( void ) {
 	int i;
 	int x, y;
 	static char mapnamebuffer[64];
-	
+	static char mapscorebuffer[MAX_HIGHSCORE_TEXT];
 
 	//initialize menu
 	memset( &epMenuInfo, 0, sizeof(epMenuInfo) );
@@ -780,6 +785,26 @@ void UI_EPLevelMenu( void ) {
 	epMenuInfo.mapname.style         = UI_CENTER|UI_BIGFONT;
 	epMenuInfo.mapname.color         = text_color_normal;
 	Menu_AddItem( &epMenuInfo.menu, &epMenuInfo.mapname );
+
+	//add high score caption
+	epMenuInfo.highScoreCaption.generic.type = MTYPE_TEXT;
+	epMenuInfo.highScoreCaption.generic.flags = QMF_CENTER_JUSTIFY|QMF_INACTIVE;
+	epMenuInfo.highScoreCaption.generic.x = 320;
+	epMenuInfo.highScoreCaption.generic.y = 360;
+	epMenuInfo.highScoreCaption.string = "HIGH SCORE:";
+	epMenuInfo.highScoreCaption.style = UI_CENTER;
+	epMenuInfo.highScoreCaption.color = text_color_normal;
+	Menu_AddItem( &epMenuInfo.menu, &epMenuInfo.highScoreCaption );
+
+	//add high score
+	epMenuInfo.highScore.generic.type = MTYPE_TEXT;
+	epMenuInfo.highScore.generic.flags = QMF_CENTER_JUSTIFY|QMF_INACTIVE;
+	epMenuInfo.highScore.generic.x = 320;
+	epMenuInfo.highScore.generic.y = 378;
+	epMenuInfo.highScore.string = mapscorebuffer;
+	epMenuInfo.highScore.style = UI_CENTER;
+	epMenuInfo.mapname.color = text_color_normal;
+	Menu_AddItem( &epMenuInfo.menu, &epMenuInfo.highScore );
 
 	//add menu to stack
 	UI_PushMenu( &epMenuInfo.menu );

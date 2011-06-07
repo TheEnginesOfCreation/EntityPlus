@@ -1404,3 +1404,5 @@ typedef enum _flag_status {
 
 
 #endif	// __Q_SHARED_H
+
+#define MAX_HIGHSCORE_TEXT	12	//I guess it's safe to assume score never goes higher than 999,999,999,999

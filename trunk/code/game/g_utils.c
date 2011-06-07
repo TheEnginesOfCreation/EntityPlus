@@ -836,6 +836,19 @@ qboolean G_IsTeamGame() {
 
 /*
 ==================
+G_GetCurrentMapName
+returns the bsp name of the currently loaded map
+==================
+*/
+char *G_GetCurrentMapName() {
+	char info[1024];
+
+	trap_GetServerinfo(info, sizeof(info));
+	return Info_ValueForKey( info, "mapname" );
+}
+
+/*
+==================
 G_AddLevelScore
 Adds a number of points to the player's score for this level
 ==================

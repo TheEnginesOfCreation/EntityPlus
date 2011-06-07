@@ -422,6 +422,7 @@ typedef struct {
 #ifdef MISSIONPACK
 	int			portalSequence;
 #endif
+	int			highScore;				//highest score recorded for this level
 } level_locals_t;
 
 //
