@@ -419,8 +419,7 @@ void UI_MainMenu( void ) {
 	s_main.header.generic.x			= MAIN_MENU_MARGIN_LEFT;
 	s_main.header.generic.y			= y;
 	s_main.header.string			= "ENTITYPLUS";
-	s_main.header.color				= color_white;
-	s_main.header.style				= UI_DROPSHADOW;
+	s_main.header.color				= color_black;
 
 	//add menu buttons
 	y += MAIN_MENU_VERTICAL_SPACING;
@@ -431,7 +430,7 @@ void UI_MainMenu( void ) {
 	s_main.singleplayer.generic.id			= ID_SINGLEPLAYER;
 	s_main.singleplayer.generic.callback	= Main_MenuEvent; 
 	s_main.singleplayer.string				= "SINGLE PLAYER";
-	s_main.singleplayer.color				= color_red;
+	s_main.singleplayer.color				= color_white;
 
 	y += MAIN_MENU_VERTICAL_SPACING;
 	s_main.multiplayer.generic.type			= MTYPE_PTEXT;
@@ -441,7 +440,7 @@ void UI_MainMenu( void ) {
 	s_main.multiplayer.generic.id			= ID_MULTIPLAYER;
 	s_main.multiplayer.generic.callback		= Main_MenuEvent; 
 	s_main.multiplayer.string				= "MULTIPLAYER";
-	s_main.multiplayer.color				= color_red;
+	s_main.multiplayer.color				= color_white;
 
 	y += MAIN_MENU_VERTICAL_SPACING;
 	s_main.setup.generic.type				= MTYPE_PTEXT;
@@ -451,7 +450,7 @@ void UI_MainMenu( void ) {
 	s_main.setup.generic.id					= ID_SETUP;
 	s_main.setup.generic.callback			= Main_MenuEvent; 
 	s_main.setup.string						= "SETUP";
-	s_main.setup.color						= color_red;
+	s_main.setup.color						= color_white;
 
 	/*
 	y += MAIN_MENU_VERTICAL_SPACING;
@@ -509,7 +508,7 @@ void UI_MainMenu( void ) {
 	s_main.exit.generic.id					= ID_EXIT;
 	s_main.exit.generic.callback			= Main_MenuEvent; 
 	s_main.exit.string						= "EXIT";
-	s_main.exit.color						= color_red;
+	s_main.exit.color						= color_white;
 
 	//Menu_AddItem( &s_main.menu, &s_main.logo );
 	Menu_AddItem( &s_main.menu,	&s_main.overlay );
