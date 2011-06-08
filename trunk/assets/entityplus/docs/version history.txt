@@ -10,6 +10,7 @@ v0.7 (?? jun 2011)
 	- [Fixed] sv_maxclients is no longer forced to 8 when starting a map through the single player menu.
 	- [Fixed] Player handicap no longer affects single player mode.
 	- [Fixed] Bot connection and loading messages are no longer displayed in the console when running in single player mode.
+	- [Fixed] Single Player menu shows same map name under the levelshot for each map.
 	- [Changed] Running maps in EntityPlus' single player mode now requires g_gametype to be set to 8 instead of 2.
 	- [Changed] In-game pause menu no longer shows inaccessible options.
 	- [Changed] Health no longer degrades to 100 when it is above 100.

@@ -557,7 +557,7 @@ static void EPMenu_LevelshotDraw( void *self ) {
 	x += b->width / 2;
 	y += 4;
 	n = epMenuInfo.page * MAX_MAPSPERPAGE + b->generic.id - ID_PICTURES;
-	n = 0;
+	//n = 0;
 	UI_DrawString( x, y, epMenuInfo.maplist[n], UI_CENTER|UI_SMALLFONT, color_orange );
 
 	x = b->generic.x;
