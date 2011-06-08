@@ -10,6 +10,7 @@ displayContextDef_t cgDC;
 #endif
 
 int forceModelModificationCount = -1;
+int cgLodScaleValue;
 
 void CG_Init( int serverMessageNum, int serverCommandSequence, int clientNum );
 void CG_Shutdown( void );
@@ -163,6 +164,7 @@ vmCvar_t	cg_oldRocket;
 vmCvar_t	cg_oldPlasma;
 vmCvar_t	cg_trueLightning;
 vmCvar_t	cg_letterBoxSize;
+vmCvar_t	cg_lodScale;
 
 #ifdef MISSIONPACK
 vmCvar_t 	cg_redTeamName;
@@ -296,7 +298,8 @@ static cvarTable_t cvarTable[] = { // bk001129
 	{ &cg_oldRocket, "cg_oldRocket", "1", CVAR_ARCHIVE},
 	{ &cg_oldPlasma, "cg_oldPlasma", "1", CVAR_ARCHIVE},
 	{ &cg_trueLightning, "cg_trueLightning", "0.0", CVAR_ARCHIVE},
-	{ &cg_letterBoxSize, "cg_letterBoxSize", "0", CVAR_ARCHIVE  }
+	{ &cg_letterBoxSize, "cg_letterBoxSize", "0", CVAR_ARCHIVE},
+	{ &cg_lodScale, "cg_lodscale", "5", CVAR_ARCHIVE}		//cheat-free backdoor entry to r_lodscale
 //	{ &cg_pmove_fixed, "cg_pmove_fixed", "0", CVAR_USERINFO | CVAR_ARCHIVE }
 };
 
@@ -382,6 +385,14 @@ void CG_UpdateCvars( void ) {
 		forceModelModificationCount = cg_forceModel.modificationCount;
 		CG_ForceModelChange();
 	}
+
+	// if cg_lodScale changed
+	if ( cgLodScaleValue != cg_lodScale.integer ) {
+		//copy the value from cg_lodScale to r_lodscale
+		trap_Cvar_Set("r_lodscale", cg_lodScale.string);
+		cgLodScaleValue = cg_lodScale.integer;
+	}
+
 }
 
 int CG_CrosshairPlayer( void ) {
@@ -1991,6 +2002,8 @@ void CG_Init( int serverMessageNum, int serverCommandSequence, int clientNum ) {
 	CG_ShaderStateChanged();
 
 	trap_S_ClearLoopingSounds( qtrue );
+
+	cgLodScaleValue = cg_lodScale.integer;
 }
 
 /*
