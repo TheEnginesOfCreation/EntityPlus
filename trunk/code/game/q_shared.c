@@ -1279,3 +1279,21 @@ void COM_WriteLevelScore(char *levelname, int score) {
 	trap_FS_Write( s, sizeof(s), f);
 	trap_FS_FCloseFile( f );
 }
+
+/*
+==================
+COM_CalculateLevelScore
+Calculates the player's level score
+==================
+*/
+int COM_CalculateLevelScore(int carnage, int deaths) {
+	int score = 0;
+
+	score += carnage;
+	score += (deaths * SCORE_DEATH);
+	
+	if ( score < 0 )
+		score = 0;
+
+	return score;
+}

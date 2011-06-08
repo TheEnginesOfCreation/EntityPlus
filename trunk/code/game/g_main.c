@@ -490,9 +490,6 @@ void G_InitGame( int levelTime, int randomSeed, int restart ) {
 		trap_Cvar_Set("fraglimit", "0");
 		trap_Cvar_Set("timelimit", "0");
 	}
-
-	//get level's high score
-	level.highScore = COM_LoadLevelScore( G_GetCurrentMapName() );
 }
 
 

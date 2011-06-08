@@ -846,13 +846,3 @@ char *G_GetCurrentMapName() {
 	trap_GetServerinfo(info, sizeof(info));
 	return Info_ValueForKey( info, "mapname" );
 }
-
-/*
-==================
-G_AddLevelScore
-Adds a number of points to the player's score for this level
-==================
-*/
-void G_AddLevelScore( gclient_t *client, int points ) {
-	client->ps.persistant[PERS_LEVEL_SCORE] += points;
-}

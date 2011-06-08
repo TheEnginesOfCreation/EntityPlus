@@ -206,7 +206,7 @@ typedef enum {
 // NOTE: may not have more than 16
 typedef enum {
 	PERS_SCORE,						// !!! MUST NOT CHANGE, SERVER AND GAME BOTH REFERENCE !!!
-	PERS_HITS,						// total points damage inflicted so damage beeps can sound on change
+	PERS_HITS,						// total number of hits inflicted so damage beeps can sound on change
 	PERS_RANK,						// player rank or team rank
 	PERS_TEAM,						// player team
 	PERS_SPAWN_COUNT,				// incremented every respawn
@@ -221,7 +221,7 @@ typedef enum {
 	PERS_ASSIST_COUNT,				// assist awards
 	PERS_GAUNTLET_FRAG_COUNT,		// kills with the guantlet
 	PERS_CAPTURES,					// captures
-	PERS_LEVEL_SCORE				// score for current level
+	PERS_CARNAGE_SCORE				// score for damage dealt. Not exactly the amount of damage dealt in total, because only full kills count.
 } persEnum_t;
 
 

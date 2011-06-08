@@ -238,12 +238,39 @@ static int CG_TeamScoreboard( int y, team_t team, float fade, int maxClients, in
 
 /*
 =================
+CG_DrawSinglePlayerIntermission
+
+Draw the single player intermission screen
+=================
+*/
+void CG_DrawSinglePlayerIntermission( void ) {
+	vec4_t color;
+	int carnage, deaths, score;
+	float skill;
+
+	color[0] = 1;
+	color[1] = 1;
+	color[2] = 1;
+	color[3] = 1;
+
+	carnage = cg.snap->ps.persistant[PERS_CARNAGE_SCORE];
+	deaths = cg.snap->ps.persistant[PERS_KILLED];
+	score = COM_CalculateLevelScore(carnage, deaths);
+
+	CG_DrawStringExt( 64, 64,  va("  Carnage : %i", carnage), color, qtrue, qtrue, GIANTCHAR_WIDTH, GIANTCHAR_HEIGHT, 0 );
+	CG_DrawStringExt( 64, 112, va("   Deaths : %i (%ix)", deaths * SCORE_DEATH, deaths), color, qtrue, qtrue, GIANTCHAR_WIDTH, GIANTCHAR_HEIGHT, 0 );
+	//CG_DrawStringExt( 64, 112, va("Skill mod : %f", skill), color, qtrue, qtrue, GIANTCHAR_WIDTH, GIANTCHAR_HEIGHT, 0 );
+	CG_DrawStringExt( 64, 160, va("    TOTAL : %i", score), color, qtrue, qtrue, GIANTCHAR_WIDTH, GIANTCHAR_HEIGHT, 0 );
+}
+
+/*
+=================
 CG_DrawSinglePlayerObjectives
 
 Draw the single player objectives overlay
 =================
 */
-qboolean CG_DrawSinglePlayerObjectives( void ) {
+void CG_DrawSinglePlayerObjectives( void ) {
 	const char *p;
 	const char *s;
 	vec4_t color;
@@ -290,9 +317,9 @@ qboolean CG_DrawSinglePlayerObjectives( void ) {
 
 	//draw level score
 	CG_DrawBigStringColor( 415, 310, "Score", color);
-	CG_DrawSmallStringColor( 505, 310, va("%i", cg.snap->ps.persistant[PERS_LEVEL_SCORE]), color);	//TODO: align score to the right
-	
-	return qtrue;
+	//TODO: align score to the right
+	//TODO: show calculated score instead of damage dealt
+	CG_DrawSmallStringColor( 505, 310, va("%i", cg.snap->ps.persistant[PERS_CARNAGE_SCORE]), color);	
 }
 
 /*
@@ -318,12 +345,17 @@ qboolean CG_DrawOldScoreboard( void ) {
 	}
 
 	if ( cgs.gametype == GT_ENTITYPLUS ) {
-		if ( cg.predictedPlayerState.pm_type == PM_INTERMISSION ) {
+		if ( cg.predictedPlayerState.pm_type == PM_INTERMISSION )
+		{
+			CG_DrawSinglePlayerIntermission();
 			cg.deferredPlayerLoading = 0;
 			return qfalse;
 		}
-
-		return CG_DrawSinglePlayerObjectives();	//draw objectives screen instead of scores in SP.
+		else 
+		{
+			CG_DrawSinglePlayerObjectives();	//draw objectives screen instead of scores in SP.
+			return qtrue;
+		}
 	}
 
 	// don't draw scoreboard during death while warmup up

@@ -1406,3 +1406,5 @@ typedef enum _flag_status {
 #endif	// __Q_SHARED_H
 
 #define MAX_HIGHSCORE_TEXT	12	//I guess it's safe to assume score never goes higher than 999,999,999,999
+#define SCORE_FREE_BOT	100		//amount of points awarded for killing a bot without specified health
+#define SCORE_DEATH		-50		//amount of points awarded when the player dies in SP

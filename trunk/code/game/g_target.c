@@ -1016,7 +1016,8 @@ void SP_target_script (gentity_t *self) {
 When triggered, registers the player's score as new high score (if it is higher than the current highscore) for the current map
 */
 void target_highscore_use (gentity_t *self, gentity_t *other, gentity_t *activator) {
-	
+	int score, highScore;
+
 	// bots should not be able to activate this
 	if ( IsBot( activator ) )
 		return;
@@ -1025,16 +1026,15 @@ void target_highscore_use (gentity_t *self, gentity_t *other, gentity_t *activat
 	if ( g_gametype.integer != GT_ENTITYPLUS )
 		return;
 
-	G_Printf("Current Highscore: %i\n", level.highScore);
-	G_Printf("Your score: %i\n", activator->client->ps.persistant[PERS_LEVEL_SCORE]);
+	//activator->client->ps.persistant[PERS_CARNAGE_SCORE] = (1 << 15) - 1 ;
 
-	if ( activator->client->ps.persistant[PERS_LEVEL_SCORE] > level.highScore ) {
-		G_Printf("We have a new highscore!\n");
-		COM_WriteLevelScore( G_GetCurrentMapName(), activator->client->ps.persistant[PERS_LEVEL_SCORE] );
-		level.highScore = activator->client->ps.persistant[PERS_LEVEL_SCORE];
-	} else {
-		G_Printf("No new high score\n");
-	}
+	score = COM_CalculateLevelScore(activator->client->ps.persistant[PERS_CARNAGE_SCORE], activator->client->ps.persistant[PERS_KILLED]);
+	highScore = COM_LoadLevelScore( G_GetCurrentMapName() );
+	
+	if ( score > highScore )
+		COM_WriteLevelScore( G_GetCurrentMapName(), score );
+	
+	BeginIntermission();
 }
 
 void SP_target_highscore (gentity_t *self) {
