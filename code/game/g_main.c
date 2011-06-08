@@ -983,7 +983,7 @@ void BeginIntermission( void ) {
 	}
 #else
 	// if single player game
-	if ( g_gametype.integer == GT_ENTITYPLUS ) {
+	if ( g_gametype.integer == GT_SINGLE_PLAYER ) {
 		UpdateTournamentInfo();
 		SpawnModelsOnVictoryPads();
 	}
