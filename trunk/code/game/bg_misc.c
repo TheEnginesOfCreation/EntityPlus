@@ -61,7 +61,7 @@ gitem_t	bg_itemlist[] =
 		"sound/misc/ar2_pkup.wav",
         { "models/powerups/armor/armor_gre.md3", 0, 0, 0},
 		"icons/iconr_green",
-		"Armor",
+		"Light Armor",
 		25,
 		IT_ARMOR,
 		0,
