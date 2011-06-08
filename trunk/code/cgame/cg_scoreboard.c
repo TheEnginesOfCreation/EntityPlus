@@ -245,9 +245,8 @@ Draw the single player intermission screen
 */
 void CG_DrawSinglePlayerIntermission( void ) {
 	vec4_t color;
+	int y;
 	int carnage, deaths, score;
-	float skill;
-
 	color[0] = 1;
 	color[1] = 1;
 	color[2] = 1;
@@ -257,10 +256,14 @@ void CG_DrawSinglePlayerIntermission( void ) {
 	deaths = cg.snap->ps.persistant[PERS_KILLED];
 	score = COM_CalculateLevelScore( cg.snap->ps.persistant );
 
-	CG_DrawStringExt( 64, 64,  va("  Carnage : %i", carnage), color, qtrue, qtrue, GIANTCHAR_WIDTH, GIANTCHAR_HEIGHT, 0 );
-	CG_DrawStringExt( 64, 112, va("   Deaths : %i (%ix)", deaths * SCORE_DEATH, deaths), color, qtrue, qtrue, GIANTCHAR_WIDTH, GIANTCHAR_HEIGHT, 0 );
-	//CG_DrawStringExt( 64, 112, va("Skill mod : %f", skill), color, qtrue, qtrue, GIANTCHAR_WIDTH, GIANTCHAR_HEIGHT, 0 );
-	CG_DrawStringExt( 64, 160, va("    TOTAL : %i", score), color, qtrue, qtrue, GIANTCHAR_WIDTH, GIANTCHAR_HEIGHT, 0 );
+	y = 64;
+	CG_DrawStringExt( 64, y, va("       Carnage : %i", carnage), color, qtrue, qtrue, BIGCHAR_WIDTH, BIGCHAR_HEIGHT, 0 );
+	y += BIGCHAR_HEIGHT;
+	CG_DrawStringExt( 64, y, va("        Deaths : %i (%ix)", deaths * SCORE_DEATH, deaths), color, qtrue, qtrue, BIGCHAR_WIDTH, BIGCHAR_HEIGHT, 0 );
+	//y += BIGCHAR_HEIGHT;
+	//CG_DrawStringExt( 64, y, va("Skill modifier : %i", iSkill), color, qtrue, qtrue, BIGCHAR_WIDTH, BIGCHAR_HEIGHT, 0 );
+	y += BIGCHAR_HEIGHT;
+	CG_DrawStringExt( 64, y, va("         TOTAL : %i", score), color, qtrue, qtrue, BIGCHAR_WIDTH, BIGCHAR_HEIGHT, 0 );
 }
 
 /*
