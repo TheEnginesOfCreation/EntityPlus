@@ -2251,7 +2251,7 @@ static qboolean CG_DrawScoreboard() {
 	}
 
 	// should never happen in Team Arena
-	if (cgs.gametype == GT_ENTITYPLUS && cg.predictedPlayerState.pm_type == PM_INTERMISSION ) {
+	if (cgs.gametype == GT_SINGLE_PLAYER && cg.predictedPlayerState.pm_type == PM_INTERMISSION ) {
 		cg.deferredPlayerLoading = 0;
 		firstTime = qtrue;
 		return qfalse;
@@ -2318,12 +2318,13 @@ static void CG_DrawIntermission( void ) {
 	//	return;
 	//}
 #else
-	if ( cgs.gametype == GT_ENTITYPLUS ) {
+	if ( cgs.gametype == GT_SINGLE_PLAYER ) {
 		CG_DrawCenterString();
 		return;
 	}
 #endif
-	cg.scoreFadeTime = cg.time;
+	if ( cg.scoreFadeTime == 0 || cgs.gametype != GT_ENTITYPLUS )
+		cg.scoreFadeTime = cg.time;
 	cg.scoreBoardShowing = CG_DrawScoreboard();
 }
 

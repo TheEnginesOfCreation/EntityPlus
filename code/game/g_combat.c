@@ -445,6 +445,14 @@ void player_die( gentity_t *self, gentity_t *inflictor, gentity_t *attacker, int
 		return;
 	}
 
+	//if we're in SP mode and player killed a bot, award score for the kill
+	if ( g_gametype.integer == GT_ENTITYPLUS && IsBot( self ) ) {
+		if ( self->parent && self->parent->health )
+			attacker->client->ps.persistant[PERS_CARNAGE_SCORE] += self->parent->health;
+		else
+			attacker->client->ps.persistant[PERS_CARNAGE_SCORE] += SCORE_FREE_BOT;
+	}	
+
 	// check for an almost capture
 	CheckAlmostCapture( self, attacker );
 	// check for a player that almost brought in cubes
@@ -1101,10 +1109,6 @@ void G_Damage( gentity_t *targ, gentity_t *inflictor, gentity_t *attacker,
 			targ->pain (targ, attacker, take);
 		}
 	}
-
-	//if we're in SP mode and player damages a bot, award the amount of damage dealt as points
-	if ( !IsBot(attacker) && IsBot(targ) && g_gametype.integer == GT_ENTITYPLUS )
-		G_AddLevelScore(attacker->client, take);
 }
 
 
