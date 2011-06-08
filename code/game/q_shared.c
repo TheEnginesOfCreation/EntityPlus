@@ -1286,11 +1286,11 @@ COM_CalculateLevelScore
 Calculates the player's level score
 ==================
 */
-int COM_CalculateLevelScore(int carnage, int deaths) {
+int COM_CalculateLevelScore(int persistant[MAX_PERSISTANT]) {
 	int score = 0;
 
-	score += carnage;
-	score += (deaths * SCORE_DEATH);
+	score += persistant[PERS_CARNAGE_SCORE];
+	score += (persistant[PERS_KILLED] * SCORE_DEATH);
 	
 	if ( score < 0 )
 		score = 0;

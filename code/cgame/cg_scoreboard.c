@@ -255,7 +255,7 @@ void CG_DrawSinglePlayerIntermission( void ) {
 
 	carnage = cg.snap->ps.persistant[PERS_CARNAGE_SCORE];
 	deaths = cg.snap->ps.persistant[PERS_KILLED];
-	score = COM_CalculateLevelScore(carnage, deaths);
+	score = COM_CalculateLevelScore( cg.snap->ps.persistant );
 
 	CG_DrawStringExt( 64, 64,  va("  Carnage : %i", carnage), color, qtrue, qtrue, GIANTCHAR_WIDTH, GIANTCHAR_HEIGHT, 0 );
 	CG_DrawStringExt( 64, 112, va("   Deaths : %i (%ix)", deaths * SCORE_DEATH, deaths), color, qtrue, qtrue, GIANTCHAR_WIDTH, GIANTCHAR_HEIGHT, 0 );

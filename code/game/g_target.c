@@ -1028,7 +1028,7 @@ void target_highscore_use (gentity_t *self, gentity_t *other, gentity_t *activat
 
 	//activator->client->ps.persistant[PERS_CARNAGE_SCORE] = (1 << 15) - 1 ;
 
-	score = COM_CalculateLevelScore(activator->client->ps.persistant[PERS_CARNAGE_SCORE], activator->client->ps.persistant[PERS_KILLED]);
+	score = COM_CalculateLevelScore(activator->client->ps.persistant);
 	highScore = COM_LoadLevelScore( G_GetCurrentMapName() );
 	
 	if ( score > highScore )
