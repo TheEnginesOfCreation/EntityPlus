@@ -836,12 +836,16 @@ qboolean G_IsTeamGame() {
 
 /*
 ==================
-G_GetCurrentMapName
-returns the bsp name of the currently loaded map
+G_GetScoringMapName
+returns the bsp name of the map to which high scores should be written
 ==================
 */
-char *G_GetCurrentMapName() {
+char *G_GetScoringMapName() {
 	char info[1024];
+
+	if ( strcmp( va("%s", level.scoreLevelName ), "" ) ) {
+		return level.scoreLevelName;
+	}
 
 	trap_GetServerinfo(info, sizeof(info));
 	return Info_ValueForKey( info, "mapname" );

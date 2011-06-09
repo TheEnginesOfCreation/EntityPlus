@@ -199,17 +199,6 @@ void CG_SetConfigValues( void ) {
 	}
 #endif
 	cg.warmup = atoi( CG_ConfigString( CS_WARMUP ) );
-
-	// load entityplus SP highscore for current level
-	if ( cgs.gametype == GT_ENTITYPLUS ) {
-
-		//cgs.mapname is "maps/xxxx.bsp" and we only need the "xxxx" part of that.
-		for (i = 5; i < strlen(cgs.mapname) - 4; i++ ) {
-			mapname[i-5] = cgs.mapname[i];
-		}
-
-		cg.highScore = COM_LoadLevelScore( mapname );
-	}
 }
 
 /*

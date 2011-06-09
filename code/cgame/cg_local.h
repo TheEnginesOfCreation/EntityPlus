@@ -546,7 +546,6 @@ typedef struct {
 	int				spectatorOffset;										// current offset from start
 	int				spectatorPaintLen; 									// current offset from start
 	int				scoreSoundsPlayed;									// number of sounds played during SP intermission scoreboard
-	int				highScore;											// store highscore here so we have to load from file only once
 
 	// skull trails
 	skulltrail_t	skulltrails[MAX_CLIENTS];
