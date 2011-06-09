@@ -21,6 +21,7 @@ MAIN MENU
 #define ID_MODS						16
 #define ID_EXIT						17
 
+/*
 #define MAIN_BANNER_MODEL				"models/mapobjects/banner/banner5.md3"
 #define MAIN_MENU_MODEL_KEY_MASTER		"models/powerups/keys/key_master.md3"
 #define MAIN_MENU_MODEL_KEY_GOLD		"models/powerups/keys/key_gold.md3"
@@ -34,9 +35,8 @@ MAIN MENU
 #define MAIN_MENU_MODEL_SKULL			"models/gibs/skull.md3"
 #define MAIN_MENU_MODEL_SHOTGUN         "models/weapons2/shotgun/shotgun.md3"
 #define MAIN_MENU_MODEL_ARMOR_GREEN		"models/powerups/armor/armor_green.md3"
+*/
 
-
-#define ART_LOGO						"menu/art/logo"
 #define ART_OVERLAY						"menu/art/mainoverlay"
 #define ART_BACKGROUND					"menu/backgrounds/01"
 
@@ -145,13 +145,10 @@ MainMenu_Cache
 ===============
 */
 void MainMenu_Cache( void ) {
+/*
 	int r;
 	qtime_t tm;
 	int seed;
-	
-	trap_R_RegisterShaderNoMip( ART_LOGO );
-
-	s_main.bannerModel = trap_R_RegisterModel( MAIN_BANNER_MODEL );
 
 	trap_RealTime(&tm);
 	seed = 1;
@@ -234,6 +231,7 @@ void MainMenu_Cache( void ) {
 			s_main.menuModel = trap_R_RegisterModel( MAIN_MENU_MODEL_ARMOR_GREEN );
 			break;	
 	}
+	*/
 }
 
 sfxHandle_t ErrorMessage_Key(int key)
@@ -251,17 +249,17 @@ TTimo: this function is common to the main menu and errorMessage menu
 */
 
 static void Main_MenuDraw( void ) {
+	/*
 	float			adjust;
 	float			x, y, w, h;
 	vec4_t			color = {0, 0, 0.5, 1};
 	refdef_t		refdef2;
 	refEntity_t		ent2;
 	vec3_t			angles2;
-
+	*/
 
 	if (strlen(s_errorMessage.errorMessage))
 	{
-		UI_DrawNamedPic(64, 0, 512, 128, ART_LOGO );
 		UI_DrawProportionalString_AutoWrapped( 320, 192, 600, 20, s_errorMessage.errorMessage, UI_CENTER|UI_SMALLFONT|UI_DROPSHADOW, menu_text_color );
 	}
 	else
