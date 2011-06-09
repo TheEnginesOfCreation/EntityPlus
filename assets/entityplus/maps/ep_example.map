@@ -1,7 +1,7 @@
 // entity 0
 {
 "music" "music\sonic5.wav"
-"message" "Temple escape"
+"message" "Temple Escape"
 "classname" "worldspawn"
 // brush 0
 {
@@ -33365,9 +33365,8 @@ sfx/proto_zzztblu3
 }
 // entity 594
 {
-"script" "scripts\\ep_example.cfg"
 "targetname" "endlevel"
-"classname" "target_script"
+"classname" "target_finish"
 "origin" "-1408 -800 -528"
 }
 // entity 595

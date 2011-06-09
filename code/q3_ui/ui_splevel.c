@@ -916,6 +916,9 @@ UI_SPLevelMenu
 =================
 */
 void UI_SPLevelMenu( void ) {
+	//show EP level menu in case anyone uses the \levelselect console command
+	UI_EPLevelMenu();
+/*
 	int			level;
 	int			trainingLevel;
 	const char	*arenaInfo;
@@ -963,6 +966,7 @@ void UI_SPLevelMenu( void ) {
 	UI_SPLevelMenu_Init();
 	UI_PushMenu( &levelMenuInfo.menu );
 	Menu_SetCursorToItem( &levelMenuInfo.menu, &levelMenuInfo.item_next );
+*/
 }
 
 

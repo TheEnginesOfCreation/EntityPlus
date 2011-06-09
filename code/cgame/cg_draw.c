@@ -2323,6 +2323,7 @@ static void CG_DrawIntermission( void ) {
 		return;
 	}
 #endif
+	//in entityplus sp mode, cg.scoreFadeTime should be set once at the start of intermission so we can time animations in the scoreboard
 	if ( cg.scoreFadeTime == 0 || cgs.gametype != GT_ENTITYPLUS )
 		cg.scoreFadeTime = cg.time;
 	cg.scoreBoardShowing = CG_DrawScoreboard();

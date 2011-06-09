@@ -545,6 +545,8 @@ typedef struct {
 	int				spectatorPaintX2;										// current paint x
 	int				spectatorOffset;										// current offset from start
 	int				spectatorPaintLen; 									// current offset from start
+	int				scoreSoundsPlayed;									// number of sounds played during SP intermission scoreboard
+	int				highScore;											// store highscore here so we have to load from file only once
 
 	// skull trails
 	skulltrail_t	skulltrails[MAX_CLIENTS];
@@ -862,6 +864,10 @@ typedef struct {
 	qhandle_t	objectivesOverlay;
 	qhandle_t	objectivesUpdated;
 	sfxHandle_t	objectivesUpdatedSound;
+
+	// sp intermission scoreboard
+	sfxHandle_t	scoreShow;
+	sfxHandle_t finalScoreShow;
 
 	// medals shown during gameplay
 	qhandle_t	medalImpressive;

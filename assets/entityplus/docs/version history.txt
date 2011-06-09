@@ -1,18 +1,18 @@
 v0.7 (?? jun 2011)
-        - [Added] 2 more main menu models, green armor, shotgun.
 	- [Added] custom pickup sounds for keys and keycards.
 	- [Added] SILENT spawnflag for target_objective.
 	- [Added] cg_letterBoxSize cvar.
 	- [Added] target_script entity which implements the SCRIPT functionality previously available on target_mapchange.
 	- [Added] POWERUPS, FLAGS, WEAPONS and HOLDABLES spawnflags to target_remove_powerups.
-	- [Added] target_highscore entity to record a highscore for a map.
+	- [Added] target_finish entity to finish a level and record a highscore for that level.
 	- [Added] Single Player menu shows the current high score for each level.
-	- [Fixed] sv_maxclients is no longer forced to 8 when starting a map through the single player menu.
-	- [Fixed] Player handicap no longer affects single player mode.
-	- [Fixed] Bot connection and loading messages are no longer displayed in the console when running in single player mode.
+	- [Fixed] sv_maxclients is forced to 8 when starting a map through the single player menu.
+	- [Fixed] Player handicap affects single player mode.
+	- [Fixed] Bot connection and loading messages are displayed in the console when running in single player mode.
 	- [Fixed] Single Player menu shows same map name under the levelshot for each map.
-        - [Changed] Green armor name from "armor" to "light armor".
-        - [Changed] Green armor icon.
+	- [Fixed] The "levelselect" command shows the old Quake 3 level select menu.
+	- [Changed] Green armor name from "armor" to "light armor".
+	- [Changed] Green armor icon.
 	- [Changed] Running maps in EntityPlus' single player mode now requires g_gametype to be set to 8 instead of 2.
 	- [Changed] In-game pause menu no longer shows inaccessible options.
 	- [Changed] Health no longer degrades to 100 when it is above 100.
@@ -21,7 +21,7 @@ v0.7 (?? jun 2011)
 	- [Changed] ".... entered the game" message is no longer displayed for the player in SP mode.
 	- [Changed] Updated skin of green armor.
 	- [Changed] CD Key menu is no longer automatically displayed if no CD key is entered.
-	- [Changed] Removed SCRIPT spawnflag from target_mapchange.
+	- [Changed] Removed SCRIPT and SHOW_INTERMISSION spawnflags from target_mapchange.
 	- [Changed] New main menu (again!)
 
 v0.6.1 (25 may 2011)

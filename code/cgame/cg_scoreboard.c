@@ -238,6 +238,20 @@ static int CG_TeamScoreboard( int y, team_t team, float fade, int maxClients, in
 
 /*
 =================
+CG_GetSkill
+
+Gets the current g_spskill value
+=================
+*/
+int CG_GetSkill( void ) {
+	char skill[64];
+	
+	trap_Cvar_VariableStringBuffer( "g_spskill", skill, sizeof(skill) );
+	return atoi(skill);
+}
+
+/*
+=================
 CG_DrawSinglePlayerIntermission
 
 Draw the single player intermission screen
@@ -245,8 +259,9 @@ Draw the single player intermission screen
 */
 void CG_DrawSinglePlayerIntermission( void ) {
 	vec4_t color;
-	int y;
-	int carnage, deaths, score;
+	int i, y;
+	int carnage, deaths, skill, score;
+
 	color[0] = 1;
 	color[1] = 1;
 	color[2] = 1;
@@ -254,16 +269,62 @@ void CG_DrawSinglePlayerIntermission( void ) {
 
 	carnage = cg.snap->ps.persistant[PERS_CARNAGE_SCORE];
 	deaths = cg.snap->ps.persistant[PERS_KILLED];
-	score = COM_CalculateLevelScore( cg.snap->ps.persistant );
-
+	skill = CG_GetSkill();
+	score = COM_CalculateLevelScore( cg.snap->ps.persistant, skill );
+	
 	y = 64;
-	CG_DrawStringExt( 64, y, va("       Carnage : %i", carnage), color, qtrue, qtrue, BIGCHAR_WIDTH, BIGCHAR_HEIGHT, 0 );
+	if (cg.time < cg.scoreFadeTime + 750)
+		CG_DrawStringExt( 64, y, "       Carnage :", color, qtrue, qtrue, BIGCHAR_WIDTH, BIGCHAR_HEIGHT, 0 );
+	else {
+		if (cg.scoreSoundsPlayed == 0) {
+			trap_S_StartLocalSound( cgs.media.scoreShow, CHAN_LOCAL_SOUND );
+			cg.scoreSoundsPlayed++;
+		}
+		CG_DrawStringExt( 64, y, va("       Carnage : %i", carnage), color, qtrue, qtrue, BIGCHAR_WIDTH, BIGCHAR_HEIGHT, 0 );
+	}
+	
 	y += BIGCHAR_HEIGHT;
-	CG_DrawStringExt( 64, y, va("        Deaths : %i (%ix)", deaths * SCORE_DEATH, deaths), color, qtrue, qtrue, BIGCHAR_WIDTH, BIGCHAR_HEIGHT, 0 );
-	//y += BIGCHAR_HEIGHT;
-	//CG_DrawStringExt( 64, y, va("Skill modifier : %i", iSkill), color, qtrue, qtrue, BIGCHAR_WIDTH, BIGCHAR_HEIGHT, 0 );
+	if (cg.time < cg.scoreFadeTime + 1500)
+		CG_DrawStringExt( 64, y, "        Deaths :", color, qtrue, qtrue, BIGCHAR_WIDTH, BIGCHAR_HEIGHT, 0 );
+	else {
+		if (cg.scoreSoundsPlayed == 1) {
+			trap_S_StartLocalSound( cgs.media.scoreShow, CHAN_LOCAL_SOUND );
+			cg.scoreSoundsPlayed++;
+		}
+		CG_DrawStringExt( 64, y, va("        Deaths : %i (%ix)", deaths * SCORE_DEATH, deaths), color, qtrue, qtrue, BIGCHAR_WIDTH, BIGCHAR_HEIGHT, 0 );
+	}
+	
+
 	y += BIGCHAR_HEIGHT;
-	CG_DrawStringExt( 64, y, va("         TOTAL : %i", score), color, qtrue, qtrue, BIGCHAR_WIDTH, BIGCHAR_HEIGHT, 0 );
+	if (cg.time < cg.scoreFadeTime + 2250)
+		CG_DrawStringExt( 64, y, "Skill modifier :", color, qtrue, qtrue, BIGCHAR_WIDTH, BIGCHAR_HEIGHT, 0 );
+	else {
+		if (cg.scoreSoundsPlayed == 2) {
+			trap_S_StartLocalSound( cgs.media.scoreShow, CHAN_LOCAL_SOUND );
+			cg.scoreSoundsPlayed++;
+		}
+
+		CG_DrawStringExt( 64, y, va("Skill modifier : %i", skill), color, qtrue, qtrue, BIGCHAR_WIDTH, BIGCHAR_HEIGHT, 0 );
+	}
+
+	y += BIGCHAR_HEIGHT;
+	if (cg.time < cg.scoreFadeTime + 3250)	//wait slightly longer before showing final score
+		CG_DrawStringExt( 64, y, "         TOTAL :", color, qtrue, qtrue, BIGCHAR_WIDTH, BIGCHAR_HEIGHT, 0 );
+	else {
+		if (cg.scoreSoundsPlayed == 3) {
+			trap_S_StartLocalSound( cgs.media.scoreShow, CHAN_LOCAL_SOUND );
+			cg.scoreSoundsPlayed++;
+		}
+
+		CG_DrawStringExt( 64, y, va("         TOTAL : %i", score), color, qtrue, qtrue, BIGCHAR_WIDTH, BIGCHAR_HEIGHT, 0 );
+	}
+
+	if (cg.time >= cg.scoreFadeTime + 3250 && score > cg.highScore) {
+		y += BIGCHAR_HEIGHT;
+		color[1] = 0;
+		color[2] = 0;
+		CG_DrawStringExt( 64, y, "NEW HIGHSCORE!!", color, qtrue, qtrue, BIGCHAR_WIDTH, BIGCHAR_HEIGHT, 0 );
+	}
 }
 
 /*
@@ -321,8 +382,7 @@ void CG_DrawSinglePlayerObjectives( void ) {
 	//draw level score
 	CG_DrawBigStringColor( 415, 310, "Score", color);
 	//TODO: align score to the right
-	//TODO: show calculated score instead of damage dealt
-	CG_DrawSmallStringColor( 505, 310, va("%i", cg.snap->ps.persistant[PERS_CARNAGE_SCORE]), color);	
+	CG_DrawSmallStringColor( 505, 310, va("%i", COM_CalculateLevelScore( cg.snap->ps.persistant, CG_GetSkill() )), color);	
 }
 
 /*

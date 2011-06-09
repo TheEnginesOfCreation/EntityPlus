@@ -50,7 +50,7 @@ target : picking up the item will trigger the entity this points to.
 targetname : a target_give entity can point to this for respawn freebies.
 notfree : when set to 1, entity will not spawn in "Free for all" and "Tournament" modes.
 notteam : when set to 1, entity will not spawn in "Teamplay" and "CTF" modes.
-notsingle : when set to 1, entity will not spawn in Single Player mode (bot play mode).
+notsingle : when set to 1, entity will not spawn in Single Player mode.
 notbot : used to make an item invisible for bot attraction. 
 -------- SPAWNFLAGS --------
 SUSPENDED : item will spawn where it was placed in map and won't drop to the floor.
@@ -74,7 +74,7 @@ target : picking up the item will trigger the entity this points to.
 targetname : a target_give entity can point to this for respawn freebies.
 notfree : when set to 1, entity will not spawn in "Free for all" and "Tournament" modes.
 notteam : when set to 1, entity will not spawn in "Teamplay" and "CTF" modes.
-notsingle : when set to 1, entity will not spawn in Single Player mode (bot play mode).
+notsingle : when set to 1, entity will not spawn in Single Player mode.
 notbot : used to make an item invisible for bot attraction.
 -------- SPAWNFLAGS --------
 SUSPENDED : item will spawn where it was placed in map and won't drop to the floor.
@@ -98,7 +98,7 @@ target : picking up the item will trigger the entity this points to.
 targetname : a target_give entity can point to this for respawn freebies.
 notfree : when set to 1, entity will not spawn in "Free for all" and "Tournament" modes.
 notteam : when set to 1, entity will not spawn in "Teamplay" and "CTF" modes.
-notsingle : when set to 1, entity will not spawn in Single Player mode (bot play mode).
+notsingle : when set to 1, entity will not spawn in Single Player mode.
 notbot : used to make an item invisible for bot attraction.
 -------- SPAWNFLAGS --------
 SUSPENDED : item will spawn where it was placed in map and won't drop to the floor.
@@ -122,7 +122,7 @@ target : picking up the item will trigger the entity this points to.
 targetname : a target_give entity can point to this for respawn freebies.
 notfree : when set to 1, entity will not spawn in "Free for all" and "Tournament" modes.
 notteam : when set to 1, entity will not spawn in "Teamplay" and "CTF" modes.
-notsingle : when set to 1, entity will not spawn in Single Player mode (bot play mode).
+notsingle : when set to 1, entity will not spawn in Single Player mode.
 notbot : used to make an item invisible for bot attraction.
 -------- SPAWNFLAGS --------
 SUSPENDED : item will spawn where it was placed in map and won't drop to the floor.
@@ -146,7 +146,7 @@ target : picking up the item will trigger the entity this points to.
 targetname : a target_give entity can point to this for respawn freebies.
 notfree : when set to 1, when set to 1, entity will not spawn in "Free for all" and "Tournament" modes.
 notteam : when set to 1, entity will not spawn in "Teamplay" and "CTF" modes.
-notsingle : when set to 1, entity will not spawn in Single Player mode (bot play mode).
+notsingle : when set to 1, entity will not spawn in Single Player mode.
 notbot : used to make an item invisible for bot attraction.
 -------- SPAWNFLAGS --------
 SUSPENDED : item will spawn where it was placed in map and won't drop to the floor.
@@ -170,7 +170,7 @@ target : picking up the item will trigger the entity this points to.
 targetname : a target_give entity can point to this for respawn freebies.
 notfree : when set to 1, entity will not spawn in "Free for all" and "Tournament" modes.
 notteam : when set to 1, entity will not spawn in "Teamplay" and "CTF" modes.
-notsingle : when set to 1, entity will not spawn in Single Player mode (bot play mode).
+notsingle : when set to 1, entity will not spawn in Single Player mode.
 notbot : used to make an item invisible for bot attraction.
 -------- SPAWNFLAGS --------
 SUSPENDED : item will spawn where it was placed in map and won't drop to the floor.
@@ -194,7 +194,7 @@ target : picking up the item will trigger the entity this points to.
 targetname : a target_give entity can point to this for respawn freebies.
 notfree : when set to 1, entity will not spawn in "Free for all" and "Tournament" modes.
 notteam : when set to 1, entity will not spawn in "Teamplay" and "CTF" modes.
-notsingle : when set to 1, entity will not spawn in Single Player mode (bot play mode).
+notsingle : when set to 1, entity will not spawn in Single Player mode.
 notbot : used to make an item invisible for bot attraction.
 -------- SPAWNFLAGS --------
 SUSPENDED : item will spawn where it was placed in map and won't drop to the floor.
@@ -218,7 +218,7 @@ target : picking up the item will trigger the entity this points to.
 targetname : a target_give entity can point to this for respawn freebies.
 notfree : when set to 1, entity will not spawn in "Free for all" and "Tournament" modes.
 notteam : when set to 1, entity will not spawn in "Teamplay" and "CTF" modes.
-notsingle : when set to 1, entity will not spawn in Single Player mode (bot play mode).
+notsingle : when set to 1, entity will not spawn in Single Player mode.
 notbot : used to make an item invisible for bot attraction.
 -------- SPAWNFLAGS --------
 SUSPENDED : item will spawn where it was placed in map and won't drop to the floor.
@@ -248,7 +248,7 @@ light : constantLight radius of .md3 model included with entity. Has no effect o
 color : constantLight color of .md3 model included with entity. Has no effect on the entity's brushes (default 1 1 1).
 notfree : when set to 1, entity will not spawn in "Free for all" and "Tournament" modes.
 notteam : when set to 1, entity will not spawn in "Teamplay" and "CTF" modes.
-notsingle : when set to 1, entity will not spawn in Single Player mode (bot play mode).
+notsingle : when set to 1, entity will not spawn in Single Player mode.
 -------- Q3MAP2 KEYS --------
 _targetname : Used to attach a misc_model entity to this entity.
 _lightmapscale : Floating point value scaling the resolution of lightmaps on brushes/patches in this entity (default 1.0).
@@ -280,7 +280,7 @@ light : constantLight radius of .md3 model included with entity. Has no effect o
 color : constantLight color of .md3 model included with entity. Has no effect on the entity's brushes (default 1 1 1).
 notfree : when set to 1, entity will not spawn in "Free for all" and "Tournament" modes.
 notteam : when set to 1, entity will not spawn in "Teamplay" and "CTF" modes.
-notsingle : when set to 1, entity will not spawn in Single Player mode (bot play mode).
+notsingle : when set to 1, entity will not spawn in Single Player mode.
 -------- Q3MAP2 KEYS --------
 _targetname : Used to attach a misc_model entity to this entity.
 _lightmapscale : Floating point value scaling the resolution of lightmaps on brushes/patches in this entity (default 1.0).
@@ -322,7 +322,7 @@ model2 : path/name of model to include (eg: models/mapobjects/pipe/pipe02.md3).
 origin : alternate method of setting XYZ origin of .md3 model included with entity (See Notes).
 notfree : when set to 1, entity will not spawn in "Free for all" and "Tournament" modes.
 notteam : when set to 1, entity will not spawn in "Teamplay" and "CTF" modes.
-notsingle : when set to 1, entity will not spawn in Single Player mode (bot play mode).
+notsingle : when set to 1, entity will not spawn in Single Player mode.
 -------- Q3MAP2 KEYS --------
 _targetname : Used to attach a misc_model entity to this entity.
 _lightmapscale : Floating point value scaling the resolution of lightmaps on brushes/patches in this entity (default 1.0).
@@ -361,7 +361,7 @@ model2 : path/name of model to include (eg: models/mapobjects/pipe/pipe02.md3).
 origin : alternate method of setting XYZ origin of .md3 model included with entity (See Notes).
 notfree : when set to 1, entity will not spawn in "Free for all" and "Tournament" modes.
 notteam : when set to 1, entity will not spawn in "Teamplay" and "CTF" modes.
-notsingle : when set to 1, entity will not spawn in Single Player mode (bot play mode).
+notsingle : when set to 1, entity will not spawn in Single Player mode.
 -------- Q3MAP2 KEYS --------
 _targetname : Used to attach a misc_model entity to this entity.
 _lightmapscale : Floating point value scaling the resolution of lightmaps on brushes/patches in this entity (default 1.0).
@@ -418,7 +418,7 @@ light : constantLight radius of .md3 model included with entity. Has no effect o
 color : constantLight color of .md3 model included with entity. Has no effect on the entity's brushes (default 1 1 1).
 notfree : when set to 1, entity will not spawn in "Free for all" and "Tournament" modes.
 notteam : when set to 1, entity will not spawn in "Teamplay" and "CTF" modes.
-notsingle : when set to 1, entity will not spawn in Single Player mode (bot play mode).
+notsingle : when set to 1, entity will not spawn in Single Player mode.
 -------- Q3MAP2 KEYS --------
 _targetname : Used to attach a misc_model entity to this entity.
 _lightmapscale : Floating point value scaling the resolution of lightmaps on brushes/patches in this entity (default 1.0).
@@ -450,7 +450,7 @@ model2 : path/name of model to include (eg: models/mapobjects/pipe/pipe02.md3).
 origin : alternate method of setting XYZ origin of .md3 model included with entity (See Notes).
 notfree : when set to 1, entity will not spawn in "Free for all" and "Tournament" modes.
 notteam : when set to 1, entity will not spawn in "Teamplay" and "CTF" modes.
-notsingle : when set to 1, entity will not spawn in Single Player mode (bot play mode).
+notsingle : when set to 1, entity will not spawn in Single Player mode.
 -------- Q3MAP2 KEYS --------
 _targetname : Used to attach a misc_model entity to this entity.
 _lightmapscale : Floating point value scaling the resolution of lightmaps on brushes/patches in this entity (default 1.0).
@@ -481,7 +481,7 @@ light : constantLight radius of .md3 model included with entity. Has no effect o
 color : constantLight color of .md3 model included with entity. Has no effect on the entity's brushes (default 1 1 1).
 notfree : when set to 1, entity will not spawn in "Free for all" and "Tournament" modes.
 notteam : when set to 1, entity will not spawn in "Teamplay" and "CTF" modes.
-notsingle : when set to 1, entity will not spawn in Single Player mode (bot play mode).
+notsingle : when set to 1, entity will not spawn in Single Player mode.
 -------- Q3MAP2 KEYS --------
 _targetname : Used to attach a misc_model entity to this entity.
 _lightmapscale : Floating point value scaling the resolution of lightmaps on brushes/patches in this entity (default 1.0).
@@ -513,7 +513,7 @@ color : constantLight color of .md3 model included with entity. Has no effect on
 targetname : NOT SUPPORTED BY RENDERER - if set, a func_button or trigger can make entity disappear from the game (See Notes).
 notfree : when set to 1, entity will not spawn in "Free for all" and "Tournament" modes.
 notteam : when set to 1, entity will not spawn in "Teamplay" and "CTF" modes.
-notsingle : when set to 1, entity will not spawn in Single Player mode (bot play mode).
+notsingle : when set to 1, entity will not spawn in Single Player mode.
 -------- Q3MAP2 KEYS --------
 _targetname : Used to attach a misc_model entity to this entity.
 _lightmapscale : Floating point value scaling the resolution of lightmaps on brushes/patches in this entity (default 1.0).
@@ -542,7 +542,7 @@ target : this points to the entities to trigger.
 targetname : a func_button or trigger that points to this will toggle the timer on/off when activated.
 notfree : when set to 1, entity will not spawn in "Free for all" and "Tournament" modes.
 notteam : when set to 1, entity will not spawn in "Teamplay" and "CTF" modes.
-notsingle : when set to 1, entity will not spawn in Single Player mode (bot play mode).
+notsingle : when set to 1, entity will not spawn in Single Player mode.
 -------- SPAWNFLAGS --------
 START_ON : timer will start on in the game and continuously fire its targets.
 -------- NOTES --------
@@ -561,7 +561,7 @@ light : constantLight radius of .md3 model included with entity. Has no effect o
 color : constantLight color of .md3 model included with entity. Has no effect on the entity's brushes (default 1 1 1).
 notfree : when set to 1, entity will not spawn in "Free for all" and "Tournament" modes.
 notteam : when set to 1, entity will not spawn in "Teamplay" and "CTF" modes.
-notsingle : when set to 1, entity will not spawn in Single Player mode (bot play mode).
+notsingle : when set to 1, entity will not spawn in Single Player mode.
 -------- Q3MAP2 KEYS --------
 _targetname : Used to attach a misc_model entity to this entity.
 _lightmapscale : Floating point value scaling the resolution of lightmaps on brushes/patches in this entity (default 1.0).
@@ -599,7 +599,7 @@ target : picking up the item will trigger the entity this points to.
 targetname : a target_give entity can point to this for respawn freebies.
 notfree : when set to 1, entity will not spawn in "Free for all" and "Tournament" modes.
 notteam : when set to 1, entity will not spawn in "Teamplay" and "CTF" modes.
-notsingle : when set to 1, entity will not spawn in Single Player mode (bot play mode).
+notsingle : when set to 1, entity will not spawn in Single Player mode.
 notbot : used to make an item invisible for bot attraction.
 -------- SPAWNFLAGS --------
 SUSPENDED : item will spawn where it was placed in map and won't drop to the floor.
@@ -622,7 +622,7 @@ target : picking up the item will trigger the entity this points to.
 targetname : a target_give entity can point to this for respawn freebies.
 notfree : when set to 1, entity will not spawn in "Free for all" and "Tournament" modes.
 notteam : when set to 1, entity will not spawn in "Teamplay" and "CTF" modes.
-notsingle : when set to 1, entity will not spawn in Single Player mode (bot play mode).
+notsingle : when set to 1, entity will not spawn in Single Player mode.
 notbot : used to make an item invisible for bot attraction.
 -------- SPAWNFLAGS --------
 SUSPENDED : item will spawn where it was placed in map and won't drop to the floor.
@@ -645,7 +645,7 @@ target : picking up the item will trigger the entity this points to.
 targetname : a target_give entity can point to this for respawn freebies.
 notfree : when set to 1, entity will not spawn in "Free for all" and "Tournament" modes.
 notteam : when set to 1, entity will not spawn in "Teamplay" and "CTF" modes.
-notsingle : when set to 1, entity will not spawn in Single Player mode (bot play mode).
+notsingle : when set to 1, entity will not spawn in Single Player mode.
 notbot : used to make an item invisible for bot attraction.
 -------- SPAWNFLAGS --------
 SUSPENDED : item will spawn where it was placed in map and won't drop to the floor.
@@ -668,7 +668,7 @@ target : picking up the item will trigger the entity this points to.
 targetname : a target_give entity can point to this for respawn freebies.
 notfree : when set to 1, entity will not spawn in "Free for all" and "Tournament" modes.
 notteam : when set to 1, entity will not spawn in "Teamplay" and "CTF" modes.
-notsingle : when set to 1, entity will not spawn in Single Player mode (bot play mode).
+notsingle : when set to 1, entity will not spawn in Single Player mode.
 notbot : used to make an item invisible for bot attraction.
 -------- SPAWNFLAGS --------
 SUSPENDED : item will spawn where it was placed in map and won't drop to the floor.
@@ -691,7 +691,7 @@ target : picking up the item will trigger the entity this points to.
 targetname : a target_give entity can point to this for respawn freebies.
 notfree : when set to 1, entity will not spawn in "Free for all" and "Tournament" modes.
 notteam : when set to 1, entity will not spawn in "Teamplay" and "CTF" modes.
-notsingle : when set to 1, entity will not spawn in Single Player mode (bot play mode).
+notsingle : when set to 1, entity will not spawn in Single Player mode.
 notbot : used to make an item invisible for bot attraction.
 -------- SPAWNFLAGS --------
 SUSPENDED : item will spawn where it was placed in map and won't drop to the floor.
@@ -714,7 +714,7 @@ target : picking up the item will trigger the entity this points to.
 targetname : a target_give entity can point to this for respawn freebies.
 notfree : when set to 1, entity will not spawn in "Free for all" and "Tournament" modes.
 notteam : when set to 1, entity will not spawn in "Teamplay" and "CTF" modes.
-notsingle : when set to 1, entity will not spawn in Single Player mode (bot play mode).
+notsingle : when set to 1, entity will not spawn in Single Player mode.
 notbot : used to make an item invisible for bot attraction.
 -------- SPAWNFLAGS --------
 SUSPENDED : item will spawn where it was placed in map and won't drop to the floor.
@@ -737,7 +737,7 @@ target : picking up the item will trigger the entity this points to.
 targetname : a target_give entity can point to this for respawn freebies.
 notfree : when set to 1, entity will not spawn in "Free for all" and "Tournament" modes.
 notteam : when set to 1, entity will not spawn in "Teamplay" and "CTF" modes.
-notsingle : when set to 1, entity will not spawn in Single Player mode (bot play mode).
+notsingle : when set to 1, entity will not spawn in Single Player mode.
 notbot : used to make an item invisible for bot attraction.
 -------- SPAWNFLAGS --------
 SUSPENDED : item will spawn where it was placed in map and won't drop to the floor.
@@ -760,7 +760,7 @@ target : picking up the item will trigger the entity this points to.
 targetname : a target_give entity can point to this for respawn freebies.
 notfree : when set to 1, entity will not spawn in "Free for all" and "Tournament" modes.
 notteam : when set to 1, entity will not spawn in "Teamplay" and "CTF" modes.
-notsingle : when set to 1, entity will not spawn in Single Player mode (bot play mode).
+notsingle : when set to 1, entity will not spawn in Single Player mode.
 notbot : used to make an item invisible for bot attraction.
 -------- SPAWNFLAGS --------
 SUSPENDED : item will spawn where it was placed in map and won't drop to the floor.
@@ -784,7 +784,7 @@ targetname : a target_give entity can point to this for respawn freebies.
 teleportertarget : targeting a spawnpoint entity with this will force the item to teleport the player to this spawnpoint.
 notfree : when set to 1, entity will not spawn in "Free for all" and "Tournament" modes.
 notteam : when set to 1, entity will not spawn in "Teamplay" and "CTF" modes.
-notsingle : when set to 1, entity will not spawn in Single Player mode (bot play mode).
+notsingle : when set to 1, entity will not spawn in Single Player mode.
 notbot : used to make an item invisible for bot attraction.
 -------- SPAWNFLAGS --------
 SUSPENDED : item will spawn where it was placed in map and won't drop to the floor.
@@ -807,7 +807,7 @@ target : picking up the item will trigger the entity this points to.
 targetname : a target_give entity can point to this for respawn freebies.
 notfree : when set to 1, entity will not spawn in "Free for all" and "Tournament" modes.
 notteam : when set to 1, entity will not spawn in "Teamplay" and "CTF" modes.
-notsingle : when set to 1, entity will not spawn in Single Player mode (bot play mode).
+notsingle : when set to 1, entity will not spawn in Single Player mode.
 notbot : used to make an item invisible for bot attraction.
 -------- SPAWNFLAGS --------
 SUSPENDED : item will spawn where it was placed in map and won't drop to the floor.
@@ -840,7 +840,7 @@ Used as a positional target for entities that can use directional pointing. A ta
 targetname : must match the target key of entity that uses this for pointing.
 notfree : when set to 1, entity will not spawn in "Free for all" and "Tournament" modes.
 notteam : when set to 1, entity will not spawn in "Teamplay" and "CTF" modes.
-notsingle : when set to 1, entity will not spawn in Single Player mode (bot play mode).*/
+notsingle : when set to 1, entity will not spawn in Single Player mode.*/
 
 //=============================================================================
 
@@ -850,7 +850,7 @@ Used as a positional target for light entities to create a spotlight effect. A t
 targetname : must match the target key of entity that uses this for pointing.
 notfree : when set to 1, entity will not spawn in "Free for all" and "Tournament" modes.
 notteam : when set to 1, entity will not spawn in "Teamplay" and "CTF" modes.
-notsingle : when set to 1, entity will not spawn in Single Player mode (bot play mode).*/
+notsingle : when set to 1, entity will not spawn in Single Player mode.*/
 
 //=============================================================================
 
@@ -864,7 +864,7 @@ nobots : when set to 1, bots will never use this spawn point to respawn in the g
 nohumans : when set to 1, human players will never use this spawn point to respawn in the game.
 notfree : when set to 1, entity will not spawn in "Free for all" and "Tournament" modes.
 notteam : when set to 1, entity will not spawn in "Teamplay" and "CTF" modes.
-notsingle : when set to 1, entity will not spawn in Single Player mode (bot play mode).
+notsingle : when set to 1, entity will not spawn in Single Player mode.
 -------- SPAWNFLAGS --------
 INITIAL : makes the spawnpoint the initial place for the player to spawn at the beginning of the game.
 DISABLED : the spawn point is in a disabled state when the map is first loaded. It can be enabled by triggering it. See notes.
@@ -893,7 +893,7 @@ nobots : when set to 1, bots will never use this spawn point to respawn in the g
 nohumans : when set to 1, human players will never use this spawn point to respawn in the game.
 notfree : when set to 1, entity will not spawn in "Free for all" and "Tournament" modes.
 notteam : when set to 1, entity will not spawn in "Teamplay" and "CTF" modes.
-notsingle : when set to 1, entity will not spawn in Single Player mode (bot play mode).
+notsingle : when set to 1, entity will not spawn in Single Player mode.
 -------- SPAWNFLAGS --------
 INITIAL : makes the spawnpoint the initial place for the player to spawn at the beginning of the game.
 DISABLED : the spawn point is in a disabled state when the map is first loaded. It can be enabled by triggering it. See notes.
@@ -909,7 +909,7 @@ target : point at another info_waypoint to chain waypoints together
 targetname : target another info_waypoint or a target_botspawn entity at this to make a bot move to this waypoint after reaching the previous waypoint or spawning.
 notfree : when set to 1, entity will not spawn in "Free for all" and "Tournament" modes.
 notteam : when set to 1, entity will not spawn in "Teamplay" and "CTF" modes.
-notsingle : when set to 1, entity will not spawn in Single Player mode (bot play mode).
+notsingle : when set to 1, entity will not spawn in Single Player mode.
 -------- NOTES --------
 Waypoints can be chained together to form a path. A bot that's spawned at a target_botspawn that targets a waypoint which is part of the path will walk along this path. It is possible to make circular paths. When paths aren't circular, the bot will move up and down the path.*/
 
@@ -929,7 +929,7 @@ target : picking up the item will trigger the entity this points to.
 targetname : a target_give entity can point to this for respawn freebies.
 notfree : when set to 1, entity will not spawn in "Free for all" and "Tournament" modes.
 notteam : when set to 1, entity will not spawn in "Teamplay" and "CTF" modes.
-notsingle : when set to 1, entity will not spawn in Single Player mode (bot play mode).
+notsingle : when set to 1, entity will not spawn in Single Player mode.
 notbot : used to make an item invisible for bot attraction.
 -------- SPAWNFLAGS --------
 SUSPENDED : item will spawn where it was placed in map and won't drop to the floor.
@@ -952,7 +952,7 @@ target : picking up the item will trigger the entity this points to.
 targetname : a target_give entity can point to this for respawn freebies.
 notfree : when set to 1, entity will not spawn in "Free for all" and "Tournament" modes.
 notteam : when set to 1, entity will not spawn in "Teamplay" and "CTF" modes.
-notsingle : when set to 1, entity will not spawn in Single Player mode (bot play mode).
+notsingle : when set to 1, entity will not spawn in Single Player mode.
 notbot : used to make an item invisible for bot attraction.
 -------- SPAWNFLAGS --------
 SUSPENDED : item will spawn where it was placed in map and won't drop to the floor.
@@ -975,7 +975,7 @@ target : picking up the item will trigger the entity this points to.
 targetname : a target_give entity can point to this for respawn freebies.
 notfree : when set to 1, entity will not spawn in "Free for all" and "Tournament" modes.
 notteam : when set to 1, entity will not spawn in "Teamplay" and "CTF" modes.
-notsingle : when set to 1, entity will not spawn in Single Player mode (bot play mode).
+notsingle : when set to 1, entity will not spawn in Single Player mode.
 notbot : used to make an item invisible for bot attraction.
 -------- SPAWNFLAGS --------
 SUSPENDED : item will spawn where it was placed in map and won't drop to the floor.
@@ -998,7 +998,7 @@ target : picking up the item will trigger the entity this points to.
 targetname : a target_give entity can point to this for respawn freebies.
 notfree : when set to 1, entity will not spawn in "Free for all" and "Tournament" modes.
 notteam : when set to 1, entity will not spawn in "Teamplay" and "CTF" modes.
-notsingle : when set to 1, entity will not spawn in Single Player mode (bot play mode).
+notsingle : when set to 1, entity will not spawn in Single Player mode.
 notbot : used to make an item invisible for bot attraction.
 -------- SPAWNFLAGS --------
 SUSPENDED : item will spawn where it was placed in map and won't drop to the floor.
@@ -1017,7 +1017,7 @@ Game Function: An invisible entity which attracts a bot to it. Use to move bots 
 weight: non-zero floating point value, most often in the range 0 to 400. (Higher values are allowed but keep in mind that the bot should also be attracted to normal items.  Don't make the weight value too high.
 notfree : when set to 1, entity will not spawn in "Free for all" and "Tournament" modes.
 notteam : when set to 1, entity will not spawn in "Teamplay" and "CTF" modes.
-notsingle : when set to 1, entity will not spawn in Single Player mode (bot play mode).
+notsingle : when set to 1, entity will not spawn in Single Player mode.
 -------- SPAWNFLAGS --------
 SUSPENDED : item will spawn where it was placed in map and won't drop to the floor.
 -------- NOTES --------
@@ -1036,7 +1036,7 @@ target : picking up the item will trigger the entity this points to.
 targetname : a target_give entity can point to this for respawn freebies.
 notfree : when set to 1, entity will not spawn in "Free for all" and "Tournament" modes.
 notteam : when set to 1, entity will not spawn in "Teamplay" and "CTF" modes.
-notsingle : when set to 1, entity will not spawn in Single Player mode (bot play mode).
+notsingle : when set to 1, entity will not spawn in Single Player mode.
 notbot : used to make an item invisible for bot attraction.
 -------- SPAWNFLAGS --------
 SUSPENDED : item will spawn where it was placed in map and won't drop to the floor.
@@ -1060,7 +1060,7 @@ target : picking up the item will trigger the entity this points to.
 targetname : a target_give entity can point to this for respawn freebies.
 notfree : when set to 1, entity will not spawn in "Free for all" and "Tournament" modes.
 notteam : when set to 1, entity will not spawn in "Teamplay" and "CTF" modes.
-notsingle : when set to 1, entity will not spawn in Single Player mode (bot play mode).
+notsingle : when set to 1, entity will not spawn in Single Player mode.
 notbot : used to make an item invisible for bot attraction.
 -------- SPAWNFLAGS --------
 SUSPENDED : item will spawn where it was placed in map and won't drop to the floor.
@@ -1084,7 +1084,7 @@ target : picking up the item will trigger the entity this points to.
 targetname : a target_give entity can point to this for respawn freebies.
 notfree : when set to 1, entity will not spawn in "Free for all" and "Tournament" modes.
 notteam : when set to 1, entity will not spawn in "Teamplay" and "CTF" modes.
-notsingle : when set to 1, entity will not spawn in Single Player mode (bot play mode).
+notsingle : when set to 1, entity will not spawn in Single Player mode.
 notbot : used to make an item invisible for bot attraction.
 -------- SPAWNFLAGS --------
 SUSPENDED : item will spawn where it was placed in map and won't drop to the floor.
@@ -1107,7 +1107,7 @@ team : set this to team items. Teamed items will respawn randomly after team mas
 target : picking up the item will trigger the entity this points to.
 notfree : when set to 1, entity will not spawn in "Free for all" and "Tournament" modes.
 notteam : when set to 1, entity will not spawn in "Teamplay" and "CTF" modes.
-notsingle : when set to 1, entity will not spawn in Single Player mode (bot play mode).
+notsingle : when set to 1, entity will not spawn in Single Player mode.
 notbot : used to make an item invisible for bot attraction.
 -------- SPAWNFLAGS --------
 SUSPENDED : item will spawn where it was placed in map and won't drop to the floor.
@@ -1130,7 +1130,7 @@ team : set this to team items. Teamed items will respawn randomly after team mas
 target : picking up the item will trigger the entity this points to.
 notfree : when set to 1, entity will not spawn in "Free for all" and "Tournament" modes.
 notteam : when set to 1, entity will not spawn in "Teamplay" and "CTF" modes.
-notsingle : when set to 1, entity will not spawn in Single Player mode (bot play mode).
+notsingle : when set to 1, entity will not spawn in Single Player mode.
 notbot : used to make an item invisible for bot attraction.
 -------- SPAWNFLAGS --------
 SUSPENDED : item will spawn where it was placed in map and won't drop to the floor.
@@ -1154,7 +1154,7 @@ target : picking up the item will trigger the entity this points to.
 targetname : a target_give entity can point to this for respawn freebies.
 notfree : when set to 1, entity will not spawn in "Free for all" and "Tournament" modes.
 notteam : when set to 1, entity will not spawn in "Teamplay" and "CTF" modes.
-notsingle : when set to 1, entity will not spawn in Single Player mode (bot play mode).
+notsingle : when set to 1, entity will not spawn in Single Player mode.
 notbot : used to make an item invisible for bot attraction.
 -------- SPAWNFLAGS --------
 SUSPENDED : item will spawn where it was placed in map and won't drop to the floor.
@@ -1178,7 +1178,7 @@ target : picking up the item will trigger the entity this points to.
 targetname : a target_give entity can point to this for respawn freebies.
 notfree : when set to 1, entity will not spawn in "Free for all" and "Tournament" modes.
 notteam : when set to 1, entity will not spawn in "Teamplay" and "CTF" modes.
-notsingle : when set to 1, entity will not spawn in Single Player mode (bot play mode).
+notsingle : when set to 1, entity will not spawn in Single Player mode.
 notbot : used to make an item invisible for bot attraction.
 -------- SPAWNFLAGS --------
 SUSPENDED : item will spawn where it was placed in map and won't drop to the floor.
@@ -1202,7 +1202,7 @@ target : picking up the item will trigger the entity this points to.
 targetname : a target_give entity can point to this for respawn freebies.
 notfree : when set to 1, entity will not spawn in "Free for all" and "Tournament" modes.
 notteam : when set to 1, entity will not spawn in "Teamplay" and "CTF" modes.
-notsingle : when set to 1, entity will not spawn in Single Player mode (bot play mode).
+notsingle : when set to 1, entity will not spawn in Single Player mode.
 notbot : used to make an item invisible for bot attraction.
 -------- SPAWNFLAGS --------
 SUSPENDED : item will spawn where it was placed in map and won't drop to the floor.
@@ -1226,7 +1226,7 @@ target : picking up the item will trigger the entity this points to.
 targetname : a target_give entity can point to this for respawn freebies.
 notfree : when set to 1, entity will not spawn in "Free for all" and "Tournament" modes.
 notteam : when set to 1, entity will not spawn in "Teamplay" and "CTF" modes.
-notsingle : when set to 1, entity will not spawn in Single Player mode (bot play mode).
+notsingle : when set to 1, entity will not spawn in Single Player mode.
 notbot : used to make an item invisible for bot attraction.
 -------- SPAWNFLAGS --------
 SUSPENDED : item will spawn where it was placed in map and won't drop to the floor.
@@ -1249,7 +1249,7 @@ target : picking up the item will trigger the entity this points to.
 targetname : a target_give entity can point to this for respawn freebies.
 notfree : when set to 1, entity will not spawn in "Free for all" and "Tournament" modes.
 notteam : when set to 1, entity will not spawn in "Teamplay" and "CTF" modes.
-notsingle : when set to 1, entity will not spawn in Single Player mode (bot play mode).
+notsingle : when set to 1, entity will not spawn in Single Player mode.
 notbot : used to make an item invisible for bot attraction.
 -------- SPAWNFLAGS --------
 SUSPENDED : item will spawn where it was placed in map and won't drop to the floor.
@@ -1333,7 +1333,7 @@ targetname : a misc_portal_surface portal surface indicator must point to this.
 roll: roll angle of camera. A value of 0 is upside down and 180 is the same as the player's view.
 notfree : when set to 1, entity will not spawn in "Free for all" and "Tournament" modes.
 notteam : when set to 1, entity will not spawn in "Teamplay" and "CTF" modes.
-notsingle : when set to 1, entity will not spawn in Single Player mode (bot play mode).
+notsingle : when set to 1, entity will not spawn in Single Player mode.
 -------- SPAWNFLAGS --------
 SLOWROTATE : makes the portal camera rotate slowly along the roll axis.
 FASTROTATE : makes the portal camera rotate faster along the roll axis.
@@ -1348,7 +1348,7 @@ Portal surface indicator. This will "lock on" the brush face closest to it and i
 target : point this to a misc_portal_camera that "sees" the view you want to display on the portal.
 notfree : when set to 1, entity will not spawn in "Free for all" and "Tournament" modes.
 notteam : when set to 1, entity will not spawn in "Teamplay" and "CTF" modes.
-notsingle : when set to 1, entity will not spawn in Single Player mode (bot play mode).
+notsingle : when set to 1, entity will not spawn in Single Player mode.
 -------- NOTES --------
 The entity must be no farther than 64 units away from the portal surface to lock onto it. To make a mirror, apply the common/mirror shader to the surface, place this entity near it but don't target a misc_portal_camera.*/
 
@@ -1361,7 +1361,7 @@ angle : direction in which player will look when teleported.
 targetname : make the trigger_teleporter point to this.
 notfree : when set to 1, entity will not spawn in "Free for all" and "Tournament" modes.
 notteam : when set to 1, entity will not spawn in "Teamplay" and "CTF" modes.
-notsingle : when set to 1, entity will not spawn in Single Player mode (bot play mode).*/
+notsingle : when set to 1, entity will not spawn in Single Player mode.*/
 
 //=============================================================================
 
@@ -1378,7 +1378,7 @@ speed : speed of func_train while moving to the next path corner. This will over
 wait : number of seconds func_train will pause on path corner before moving to next path corner (default 0 - see Notes).
 notfree : when set to 1, entity will not spawn in "Free for all" and "Tournament" modes.
 notteam : when set to 1, entity will not spawn in "Teamplay" and "CTF" modes.
-notsingle : when set to 1, entity will not spawn in Single Player mode (bot play mode).
+notsingle : when set to 1, entity will not spawn in Single Player mode.
 -------- NOTES --------
 Setting the wait key to -1 will not make the train stop on the path corner, it will simply default to 0.*/
 
@@ -1397,7 +1397,7 @@ target : this points to a target_position entity for aiming the bfg shots.
 random : random aiming variance in degrees from the straight line to the targeted entity (default 0 - see Notes).
 notfree : when set to 1, entity will not spawn in "Free for all" and "Tournament" modes.
 notteam : when set to 1, entity will not spawn in "Teamplay" and "CTF" modes.
-notsingle : when set to 1, entity will not spawn in Single Player mode (bot play mode).
+notsingle : when set to 1, entity will not spawn in Single Player mode.
 -------- NOTES --------
 When the random key is set, its value is used to calculate a maximum angle deviation from the normal trajectory formed by a straight line between the shooter and the aiming entity it targets. The final trajectory will be a random value anywhere between no deviation at all (0) to maximum deviation (value of the random key).
 
@@ -1414,7 +1414,7 @@ target : this points to a target_position entity for aiming the grenades.
 random : random aiming variance in degrees from the straight line to the targeted entity (default 0 - see Notes).
 notfree : when set to 1, entity will not spawn in "Free for all" and "Tournament" modes.
 notteam : when set to 1, entity will not spawn in "Teamplay" and "CTF" modes.
-notsingle : when set to 1, entity will not spawn in Single Player mode (bot play mode).
+notsingle : when set to 1, entity will not spawn in Single Player mode.
 -------- NOTES --------
 When the random key is set, its value is used to calculate a maximum angle deviation from the normal trajectory formed by a straight line between the shooter and the aiming entity it targets. The final trajectory will be a random value anywhere between no deviation at all (0) to maximum deviation (value of the random key).
 
@@ -1431,7 +1431,7 @@ target : this points to a target_position entity for aiming the plasma balls.
 random : random aiming variance in degrees from the straight line to the targeted entity (default 0 - see Notes).
 notfree : when set to 1, entity will not spawn in "Free for all" and "Tournament" modes.
 notteam : when set to 1, entity will not spawn in "Teamplay" and "CTF" modes.
-notsingle : when set to 1, entity will not spawn in Single Player mode (bot play mode).
+notsingle : when set to 1, entity will not spawn in Single Player mode.
 -------- NOTES --------
 When the random key is set, its value is used to calculate a maximum angle deviation from the normal trajectory formed by a straight line between the shooter and the aiming entity it targets. The final trajectory will be a random value anywhere between no deviation at all (0) to maximum deviation (value of the random key).
 
@@ -1448,7 +1448,7 @@ target : this points to a target_position entity for aiming the rockets.
 random : random aiming variance in degrees from the straight line to the targeted entity (default 0 - see Notes).
 notfree : when set to 1, entity will not spawn in "Free for all" and "Tournament" modes.
 notteam : when set to 1, entity will not spawn in "Teamplay" and "CTF" modes.
-notsingle : when set to 1, entity will not spawn in Single Player mode (bot play mode).
+notsingle : when set to 1, entity will not spawn in Single Player mode.
 -------- NOTES --------
 When the random key is set, its value is used to calculate a maximum angle deviation from the normal trajectory formed by a straight line between the shooter and the aiming entity it targets. The final trajectory will be a random value anywhere between no deviation at all (0) to maximum deviation (value of the random key).
 
@@ -1472,7 +1472,7 @@ targetname : activating trigger points to this.
 deathtarget : this points to entities to activate when a bot spawned by the target_botspawn dies.
 notfree : when set to 1, entity will not spawn in "Free for all" and "Tournament" modes.
 notteam : when set to 1, entity will not spawn in "Teamplay" and "CTF" modes.
-notsingle : when set to 1, entity will not spawn in Single Player mode (bot play mode).
+notsingle : when set to 1, entity will not spawn in Single Player mode.
 -------- SPAWNFLAGS --------
 OPPOSING_TEAM : In team games, bots will be spawned for the enemy team instead of the player's own team.
 WP_MACHINEGUN : The bot spawns into the game with a Machinegun.
@@ -1499,7 +1499,7 @@ targetname : activating trigger points to this.
 count : The number of debris pieces to emit (default = 10).
 notfree : when set to 1, entity will not spawn in "Free for all" and "Tournament" modes.
 notteam : when set to 1, entity will not spawn in "Teamplay" and "CTF" modes.
-notsingle : when set to 1, entity will not spawn in Single Player mode (bot play mode).
+notsingle : when set to 1, entity will not spawn in Single Player mode.
 -------- SPAWNFLAGS --------
 LIGHT_DEBRIS : Emit light colored pieces of concrete debris.
 DARK_DEBRIS : Emit dark colored pieces of concrete debris.
@@ -1523,7 +1523,7 @@ delay : legacy key/value pair. Use wait instead.
 random : random time variance in seconds added or subtracted from "wait" delay (default 0 - see Notes).
 notfree : when set to 1, entity will not spawn in "Free for all" and "Tournament" modes.
 notteam : when set to 1, entity will not spawn in "Teamplay" and "CTF" modes.
-notsingle : when set to 1, entity will not spawn in Single Player mode (bot play mode).
+notsingle : when set to 1, entity will not spawn in Single Player mode.
 -------- NOTES --------
 When the random key is set, its value is used to calculate a minimum and a maximum delay. The final time delay will be a random value anywhere between the minimum and maximum values: (min delay = wait - random) (max delay = wait + random).*/
 
@@ -1536,7 +1536,7 @@ targetname : activating trigger points to this.
 target : this points to entities to enable/disable when this entity is triggered
 notfree : when set to 1, entity will not spawn in "Free for all" and "Tournament" modes.
 notteam : when set to 1, entity will not spawn in "Teamplay" and "CTF" modes.
-notsingle : when set to 1, entity will not spawn in Single Player mode (bot play mode).
+notsingle : when set to 1, entity will not spawn in Single Player mode.
 -------- SPAWNFLAGS --------
 RED_ONLY : only red team players can activate trigger.
 BLUE_ONLY : only blue team players can activate trigger.
@@ -1558,7 +1558,7 @@ length : duration of the earthquake in seconds (2 - 32).
 intensity : intensity of the earthquake (1 - 16).
 notfree : when set to 1, entity will not spawn in "Free for all" and "Tournament" modes.
 notteam : when set to 1, entity will not spawn in "Teamplay" and "CTF" modes.
-notsingle : when set to 1, entity will not spawn in Single Player mode (bot play mode).*/
+notsingle : when set to 1, entity will not spawn in Single Player mode.*/
 
 //=============================================================================
 
@@ -1571,7 +1571,7 @@ count : number of particles for particle effect (0 - 255, default 100).
 speed : speed of the particles (default 100).
 notfree : when set to 1, entity will not spawn in "Free for all" and "Tournament" modes.
 notteam : when set to 1, entity will not spawn in "Teamplay" and "CTF" modes.
-notsingle : when set to 1, entity will not spawn in Single Player mode (bot play mode).
+notsingle : when set to 1, entity will not spawn in Single Player mode.
 -------- SPAWNFLAGS --------
 EXPLOSION : Shows an explosion when activated.
 PARTICLES_GRAVITY : Generates particles that are affected by gravity.
@@ -1583,6 +1583,17 @@ Spawnflags can be combined to have the entity show multiple effects when trigger
 
 //=============================================================================
 
+/*QUAKED target_finish (0 .5 0) (-8 -8 -8) (8 8 8)
+When triggered, forces the game to go into the intermission which will show the SP end-level scores, registers the player's score as new high score (if it is higher than the current highscore) for the current map and, when the player clicks during the intermission, ends the game.
+-------- KEYS --------
+targetname : activating trigger points to this.
+-------- NOTES --------
+Before showing the scoring screen, the camera view is moved to the intermission point as defined with a info_player_intermission entity.
+
+The notfree and notteam spawnflags have no effect on this entity because it can only be triggered in g_gametype 8.*/
+
+//=============================================================================
+
 /*QUAKED target_give (0 .5 0) (-8 -8 -8) (8 8 8)
 This is used to give ammo, weapons, health or items to the player who activates it.
 -------- KEYS --------
@@ -1590,7 +1601,7 @@ target : this points to the item(s) to give when activated.
 targetname : activating trigger or spawn entity points to this.
 notfree : when set to 1, entity will not spawn in "Free for all" and "Tournament" modes.
 notteam : when set to 1, entity will not spawn in "Teamplay" and "CTF" modes.
-notsingle : when set to 1, entity will not spawn in Single Player mode (bot play mode).
+notsingle : when set to 1, entity will not spawn in Single Player mode.
 -------- NOTES --------
 There are 2 ways to use this entity.
 a) automatically give items to players when they spawn in the game: make a spawn location entity like info_player_deathmatch or CTF respawn points target this entity, then make it target the item(s) to give to the player upon respawn.
@@ -1605,21 +1616,11 @@ count : amount of gravity to apply (defaults to the value set to g_gravity).
 targetname : activating trigger points to this.
 notfree : when set to 1, entity will not spawn in "Free for all" and "Tournament" modes.
 notteam : when set to 1, entity will not spawn in "Teamplay" and "CTF" modes.
-notsingle : when set to 1, entity will not spawn in Single Player mode (bot play mode).
+notsingle : when set to 1, entity will not spawn in Single Player mode.
 -------- SPAWNFLAGS --------
 GLOBAL : all players are affected instead of only the activator.
 -------- NOTES --------
 The default value for g_gravity is 800. This can be overruled by the server administrator.*/
-
-//=============================================================================
-
-/*QUAKED target_highscore (0 .5 0) (-8 -8 -8) (8 8 8)
-When triggered, registers the player's score as his high score (if it is higher than the current highscore) for the current map
--------- KEYS --------
-targetname : activating trigger points to this.
-notfree : when set to 1, entity will not spawn in "Free for all" and "Tournament" modes.
-notteam : when set to 1, entity will not spawn in "Teamplay" and "CTF" modes.
-notsingle : when set to 1, entity will not spawn in Single Player mode (bot play mode).*/
 
 //=============================================================================
 
@@ -1629,7 +1630,7 @@ This will kill the player who activates the trigger that fires this target.
 targetname : the activating trigger points to this.
 notfree : when set to 1, entity will not spawn in "Free for all" and "Tournament" modes.
 notteam : when set to 1, entity will not spawn in "Teamplay" and "CTF" modes.
-notsingle : when set to 1, entity will not spawn in Single Player mode (bot play mode).*/
+notsingle : when set to 1, entity will not spawn in Single Player mode.*/
 
 //=============================================================================
 
@@ -1641,7 +1642,7 @@ notsingle : when set to 1, entity will not spawn in Single Player mode (bot play
 //targetname : the activating trigger points to this.
 //notfree : when set to 1, entity will not spawn in "Free for all" and "Tournament" modes.
 //notteam : when set to 1, entity will not spawn in "Teamplay" and "CTF" modes.
-//notsingle : when set to 1, entity will not spawn in Single Player mode (bot play mode).
+//notsingle : when set to 1, entity will not spawn in Single Player mode.
 //-------- SPAWNFLAGS --------
 //START_ON : when set, the laser will start on in the game.
 
@@ -1662,7 +1663,7 @@ count : color of the location text displayed in parentheses during team chat. Se
    7 : white
 notfree : when set to 1, entity will not spawn in "Free for all" and "Tournament" modes.
 notteam : when set to 1, entity will not spawn in "Teamplay" and "CTF" modes.
-notsingle : when set to 1, entity will not spawn in Single Player mode (bot play mode).*/
+notsingle : when set to 1, entity will not spawn in Single Player mode.*/
 
 //=============================================================================
 
@@ -1673,7 +1674,7 @@ targetname : activating triggers points to this.
 target : this points to entities to activate when this entity is triggered.
 notfree : when set to 1, entity will not spawn in "Free for all" and "Tournament" modes.
 notteam : when set to 1, entity will not spawn in "Teamplay" and "CTF" modes.
-notsingle : when set to 1, entity will not spawn in Single Player mode (bot play mode).
+notsingle : when set to 1, entity will not spawn in Single Player mode.
 -------- SPAWNFLAGS --------
 RED_ONLY : only red team players can activate trigger.
 BLUE_ONLY : only blue team players can activate trigger.
@@ -1682,16 +1683,14 @@ STAY_ON : a trigger will remain triggered until the target_logic is reset.*/
 
 //=============================================================================
 
-/*QUAKED target_mapchange (0 .5 0) (-8 -8 -8) (8 8 8) SHOW_INTERMISSION
+/*QUAKED target_mapchange (0 .5 0) (-8 -8 -8) (8 8 8)
 Loads the specified map.
 -------- KEYS --------
 mapname : The map to load. When omitted, the current map will be restarted.
 targetname : activating trigger points to this.
 notfree : when set to 1, entity will not spawn in "Free for all" and "Tournament" modes.
 notteam : when set to 1, entity will not spawn in "Teamplay" and "CTF" modes.
-notsingle : when set to 1, entity will not spawn in Single Player mode (bot play mode).
--------- SPAWNFLAGS --------
-SHOW_INTERMISSION : When set, the intermission screen is shown before loading the next map.
+notsingle : when set to 1, entity will not spawn in Single Player mode.
 -------- NOTES --------
 When the map is loaded in single player mode, the target_mapchange entity stores the current health, armor, weapon and ammo stats and holdable items for each player before moving on to the next map. When the new map is loaded, the stored stats are applied to each player again. This means players will have consistent stats throughout map changes.*/
 
@@ -1704,7 +1703,7 @@ targetname : activating trigger points to this.
 message : the objective text.
 notfree : when set to 1, entity will not spawn in "Free for all" and "Tournament" modes.
 notteam : when set to 1, entity will not spawn in "Teamplay" and "CTF" modes.
-notsingle : when set to 1, entity will not spawn in Single Player mode (bot play mode).
+notsingle : when set to 1, entity will not spawn in Single Player mode.
 -------- SPAWNFLAGS --------
 SECONDARY : The secondary objective is set instead of the primary objective.
 SILENT : When set, the player will not be notified that the objectives are updated.*/
@@ -1718,7 +1717,7 @@ speed : the movement speed to apply to the player(s).
 targetname : the activating trigger points to this.
 notfree : when set to 1, entity will not spawn in "Free for all" and "Tournament" modes.
 notteam : when set to 1, entity will not spawn in "Teamplay" and "CTF" modes.
-notsingle : when set to 1, entity will not spawn in Single Player mode (bot play mode).*/
+notsingle : when set to 1, entity will not spawn in Single Player mode.*/
 
 //=============================================================================
 
@@ -1728,7 +1727,7 @@ Aiming target for entities like light, misc_portal_camera and trigger_push (jump
 targetname : the entity that requires an aiming direction points to this.
 notfree : when set to 1, entity will not spawn in "Free for all" and "Tournament" modes.
 notteam : when set to 1, entity will not spawn in "Teamplay" and "CTF" modes.
-notsingle : when set to 1, entity will not spawn in Single Player mode (bot play mode).
+notsingle : when set to 1, entity will not spawn in Single Player mode.
 -------- NOTES --------
 To make a jump pad, place this entity at the highest point of the jump and target it with a trigger_push entity.*/
 
@@ -1741,7 +1740,7 @@ message : text string to print on screen.
 targetname : the activating trigger points to this.
 notfree : when set to 1, entity will not spawn in "Free for all" and "Tournament" modes.
 notteam : when set to 1, entity will not spawn in "Teamplay" and "CTF" modes.
-notsingle : when set to 1, entity will not spawn in Single Player mode (bot play mode).
+notsingle : when set to 1, entity will not spawn in Single Player mode.
 -------- SPAWNFLAGS --------
 REDTEAM : only the red team players will see the message.
 BLUETEAM : only the blue team players will see the message.
@@ -1758,7 +1757,7 @@ targetname : the activating trigger points to this. Push originates from the loc
 target : this points to the aiming entity to which the player will jump.
 notfree : when set to 1, entity will not spawn in "Free for all" and "Tournament" modes.
 notteam : when set to 1, entity will not spawn in "Teamplay" and "CTF" modes.
-notsingle : when set to 1, entity will not spawn in Single Player mode (bot play mode).
+notsingle : when set to 1, entity will not spawn in Single Player mode.
 -------- SPAWNFLAGS --------
 BOUNCEPAD : if set, trigger will play bounce noise instead of beep noise when activated (recommended).
 -------- NOTES --------
@@ -1774,7 +1773,7 @@ target : this points to entities to activate when this entity is triggered.
 count : relay entity will only activate its target if itself has been triggered this many times (default 0)
 notfree : when set to 1, entity will not spawn in "Free for all" and "Tournament" modes.
 notteam : when set to 1, entity will not spawn in "Teamplay" and "CTF" modes.
-notsingle : when set to 1, entity will not spawn in Single Player mode (bot play mode).
+notsingle : when set to 1, entity will not spawn in Single Player mode.
 -------- SPAWNFLAGS --------
 RED_ONLY : only red team players can activate trigger.
 BLUE_ONLY : only red team players can activate trigger.
@@ -1788,7 +1787,7 @@ This takes away all specified items. Must be activated by a button or trigger_mu
 targetname : activating trigger points to this.
 notfree : when set to 1, entity will not spawn in "Free for all" and "Tournament" modes.
 notteam : when set to 1, entity will not spawn in "Teamplay" and "CTF" modes.
-notsingle : when set to 1, entity will not spawn in Single Player mode (bot play mode).
+notsingle : when set to 1, entity will not spawn in Single Player mode.
 -------- SPAWNFLAGS --------
 POWERUPS : Removes all item_* type of powerups except health and armor.
 FLAGS : Returns the flag the activating player is carrying to the base.
@@ -1806,7 +1805,7 @@ targetname : ativating entity points to this.
 count: number of frag points to give to player (default 1).
 notfree : when set to 1, entity will not spawn in "Free for all" and "Tournament" modes.
 notteam : when set to 1, entity will not spawn in "Teamplay" and "CTF" modes.
-notsingle : when set to 1, entity will not spawn in Single Player mode (bot play mode).*/
+notsingle : when set to 1, entity will not spawn in Single Player mode.*/
 
 //=============================================================================
 
@@ -1817,7 +1816,7 @@ targetname : ativating entity points to this.
 script: filename of the script to execute (example: myscript.cfg).
 notfree : when set to 1, entity will not spawn in "Free for all" and "Tournament" modes.
 notteam : when set to 1, entity will not spawn in "Teamplay" and "CTF" modes.
-notsingle : when set to 1, entity will not spawn in Single Player mode (bot play mode).*/
+notsingle : when set to 1, entity will not spawn in Single Player mode.*/
 
 //=============================================================================
 
@@ -1828,7 +1827,7 @@ targetname : ativating entity points to this.
 skill : the skill level to apply. 1 is easiest, 5 is hardest (default = 2).
 notfree : when set to 1, entity will not spawn in "Free for all" and "Tournament" modes.
 notteam : when set to 1, entity will not spawn in "Teamplay" and "CTF" modes.
-notsingle : when set to 1, entity will not spawn in Single Player mode (bot play mode).*/
+notsingle : when set to 1, entity will not spawn in Single Player mode.*/
 
 //=============================================================================
 
@@ -1841,7 +1840,7 @@ random : random time variance in seconds added or subtracted from "wait" delay (
 targetname : the activating button or trigger points to this.
 notfree : when set to 1, entity will not spawn in "Free for all" and "Tournament" modes.
 notteam : when set to 1, entity will not spawn in "Teamplay" and "CTF" modes.
-notsingle : when set to 1, entity will not spawn in Single Player mode (bot play mode).
+notsingle : when set to 1, entity will not spawn in Single Player mode.
 -------- SPAWNFLAGS --------
 LOOPED_ON : sound will loop and initially start on in level (will toggle on/off when triggered).
 LOOPED_OFF : sound will loop and initially start off in level (will toggle on/off when triggered).
@@ -1861,7 +1860,7 @@ targetname : activating trigger points to this.
 target : this must point to a misc_teleporter_dest entity.
 notfree : when set to 1, entity will not spawn in "Free for all" and "Tournament" modes.
 notteam : when set to 1, entity will not spawn in "Teamplay" and "CTF" modes.
-notsingle : when set to 1, entity will not spawn in Single Player mode (bot play mode).*/
+notsingle : when set to 1, entity will not spawn in Single Player mode.*/
 
 //=============================================================================
 
@@ -1926,7 +1925,7 @@ Automatic trigger. It will fire the entities it targets as soon as it spawns in 
 target : this points to the entity to activate.
 notfree : when set to 1, entity will not spawn in "Free for all" and "Tournament" modes.
 notteam : when set to 1, entity will not spawn in "Teamplay" and "CTF" modes.
-notsingle : when set to 1, entity will not spawn in Single Player mode (bot play mode).*/
+notsingle : when set to 1, entity will not spawn in Single Player mode.*/
 
 //=============================================================================
 
@@ -1939,7 +1938,7 @@ nohumans : dying humans do not trigger this entity.
 count : the number of players that must have died before this entity is triggered
 notfree : when set to 1, entity will not spawn in "Free for all" and "Tournament" modes.
 notteam : when set to 1, entity will not spawn in "Teamplay" and "CTF" modes.
-notsingle : when set to 1, entity will not spawn in Single Player mode (bot play mode).
+notsingle : when set to 1, entity will not spawn in Single Player mode.
 -------- SPAWNFLAGS --------
 RED_ONLY : only red team players can activate trigger.
 BLUE_ONLY : only blue team players can activate trigger.
@@ -1960,7 +1959,7 @@ nohumans : humans scoring a frag do not trigger this entity.
 count : the number of frags that must be scored before this entity is triggered
 notfree : when set to 1, entity will not spawn in "Free for all" and "Tournament" modes.
 notteam : when set to 1, entity will not spawn in "Teamplay" and "CTF" modes.
-notsingle : when set to 1, entity will not spawn in Single Player mode (bot play mode).
+notsingle : when set to 1, entity will not spawn in Single Player mode.
 -------- SPAWNFLAGS --------
 RED_ONLY : only red team players can activate trigger.
 BLUE_ONLY : only blue team players can activate trigger.
@@ -1980,7 +1979,7 @@ target : this points to the entity to activate.
 message : message displayed when user triggers lock without the required keys.
 notfree : when set to 1, entity will not spawn in "Free for all" and "Tournament" modes.
 notteam : when set to 1, entity will not spawn in "Teamplay" and "CTF" modes.
-notsingle : when set to 1, entity will not spawn in Single Player mode (bot play mode).
+notsingle : when set to 1, entity will not spawn in Single Player mode.
 -------- SPAWNFLAGS --------
 RED_ONLY : only red team players can activate trigger.
 BLUE_ONLY : only blue team players can activate trigger.
@@ -2003,7 +2002,7 @@ Any player that touches this will be hurt by "dmg" points of damage once per ser
 dmg : number of points of damage inflicted to player per server frame (default 5 - integer values only).
 notfree : when set to 1, entity will not spawn in "Free for all" and "Tournament" modes.
 notteam : when set to 1, entity will not spawn in "Teamplay" and "CTF" modes.
-notsingle : when set to 1, entity will not spawn in Single Player mode (bot play mode).
+notsingle : when set to 1, entity will not spawn in Single Player mode.
 -------- SPAWNFLAGS --------
 SILENT : supresses the sizzling sound while player is being hurt.
 NO_PROTECTION : player will be hurt regardless of protection (see Notes).
@@ -2024,7 +2023,7 @@ nobots : bots cannot trigger this entity.
 nohumans : human players cannot trigger this entity.
 notfree : when set to 1, entity will not spawn in "Free for all" and "Tournament" modes.
 notteam : when set to 1, entity will not spawn in "Teamplay" and "CTF" modes.
-notsingle : when set to 1, entity will not spawn in Single Player mode (bot play mode).
+notsingle : when set to 1, entity will not spawn in Single Player mode.
 -------- NOTES --------
 When the random key is set, its value is used to calculate a minimum and a maximum delay. The final time delay will be a random value anywhere between the minimum and maximum values: (min delay = wait - random) (max delay = wait + random).*/
 
@@ -2036,7 +2035,7 @@ This is used to create jump pads and launch ramps. It MUST point to a target_pos
 target : this points to the target_position to which the player will jump.
 notfree : when set to 1, entity will not spawn in "Free for all" and "Tournament" modes.
 notteam : when set to 1, entity will not spawn in "Teamplay" and "CTF" modes.
-notsingle : when set to 1, entity will not spawn in Single Player mode (bot play mode).
+notsingle : when set to 1, entity will not spawn in Single Player mode.
 -------- NOTES --------
 To make a jump pad or launch ramp, place the target_position/info_notnull entity at the highest point of the jump and target it with this entity.*/
 
@@ -2048,7 +2047,7 @@ Touching this will teleport players to the location of the targeted misc_telepor
 target : this must point to a misc_teleporter_dest entity.
 notfree : when set to 1, entity will not spawn in "Free for all" and "Tournament" modes.
 notteam : when set to 1, entity will not spawn in "Teamplay" and "CTF" modes.
-notsingle : when set to 1, entity will not spawn in Single Player mode (bot play mode).*/
+notsingle : when set to 1, entity will not spawn in Single Player mode.*/
 
 //=============================================================================
 
@@ -2067,7 +2066,7 @@ target : picking up the item will trigger the entity this points to.
 targetname : a target_give entity can point to this for respawn freebies.
 notfree : when set to 1, entity will not spawn in "Free for all" and "Tournament" modes.
 notteam : when set to 1, entity will not spawn in "Teamplay" and "CTF" modes.
-notsingle : when set to 1, entity will not spawn in Single Player mode (bot play mode).
+notsingle : when set to 1, entity will not spawn in Single Player mode.
 notbot : used to make an item invisible for bot attraction.
 -------- SPAWNFLAGS --------
 SUSPENDED : item will spawn where it was placed in map and won't drop to the floor.
@@ -2090,7 +2089,7 @@ target : picking up the item will trigger the entity this points to.
 targetname : a target_give entity can point to this for respawn freebies.
 notfree : when set to 1, entity will not spawn in "Free for all" and "Tournament" modes.
 notteam : when set to 1, entity will not spawn in "Teamplay" and "CTF" modes.
-notsingle : when set to 1, entity will not spawn in Single Player mode (bot play mode).
+notsingle : when set to 1, entity will not spawn in Single Player mode.
 notbot : used to make an item invisible for bot attraction.
 -------- SPAWNFLAGS --------
 SUSPENDED : item will spawn where it was placed in map and won't drop to the floor.
@@ -2113,7 +2112,7 @@ target : picking up the item will trigger the entity this points to.
 targetname : a target_give entity can point to this for respawn freebies.
 notfree : when set to 1, entity will not spawn in "Free for all" and "Tournament" modes.
 notteam : when set to 1, entity will not spawn in "Teamplay" and "CTF" modes.
-notsingle : when set to 1, entity will not spawn in Single Player mode (bot play mode).
+notsingle : when set to 1, entity will not spawn in Single Player mode.
 notbot : used to make an item invisible for bot attraction.
 -------- SPAWNFLAGS --------
 SUSPENDED : item will spawn where it was placed in map and won't drop to the floor.
@@ -2137,7 +2136,7 @@ target : picking up the item will trigger the entity this points to.
 targetname : a target_give entity can point to this for respawn freebies.
 notfree : when set to 1, entity will not spawn in "Free for all" and "Tournament" modes.
 notteam : when set to 1, entity will not spawn in "Teamplay" and "CTF" modes.
-notsingle : when set to 1, entity will not spawn in Single Player mode (bot play mode).
+notsingle : when set to 1, entity will not spawn in Single Player mode.
 notbot : used to make an item invisible for bot attraction.
 -------- SPAWNFLAGS --------
 SUSPENDED : item will spawn where it was placed in map and won't drop to the floor.
@@ -2161,7 +2160,7 @@ target : picking up the item will trigger the entity this points to.
 targetname : a target_give entity can point to this for respawn freebies.
 notfree : when set to 1, entity will not spawn in "Free for all" and "Tournament" modes.
 notteam : when set to 1, entity will not spawn in "Teamplay" and "CTF" modes.
-notsingle : when set to 1, entity will not spawn in Single Player mode (bot play mode).
+notsingle : when set to 1, entity will not spawn in Single Player mode.
 notbot : used to make an item invisible for bot attraction.
 -------- SPAWNFLAGS --------
 SUSPENDED : item will spawn where it was placed in map and won't drop to the floor.
@@ -2185,7 +2184,7 @@ target : picking up the item will trigger the entity this points to.
 targetname : a target_give entity can point to this for respawn freebies.
 notfree : when set to 1, entity will not spawn in "Free for all" and "Tournament" modes.
 notteam : when set to 1, entity will not spawn in "Teamplay" and "CTF" modes.
-notsingle : when set to 1, entity will not spawn in Single Player mode (bot play mode).
+notsingle : when set to 1, entity will not spawn in Single Player mode.
 notbot : used to make an item invisible for bot attraction.
 -------- SPAWNFLAGS --------
 SUSPENDED : item will spawn where it was placed in map and won't drop to the floor.
@@ -2209,7 +2208,7 @@ target : picking up the item will trigger the entity this points to.
 targetname : a target_give entity can point to this for respawn freebies.
 notfree : when set to 1, entity will not spawn in "Free for all" and "Tournament" modes.
 notteam : when set to 1, entity will not spawn in "Teamplay" and "CTF" modes.
-notsingle : when set to 1, entity will not spawn in Single Player mode (bot play mode).
+notsingle : when set to 1, entity will not spawn in Single Player mode.
 notbot : used to make an item invisible for bot attraction.
 -------- SPAWNFLAGS --------
 SUSPENDED : item will spawn where it was placed in map and won't drop to the floor.
@@ -2233,7 +2232,7 @@ target : picking up the item will trigger the entity this points to.
 targetname : a target_give entity can point to this for respawn freebies.
 notfree : when set to 1, entity will not spawn in "Free for all" and "Tournament" modes.
 notteam : when set to 1, entity will not spawn in "Teamplay" and "CTF" modes.
-notsingle : when set to 1, entity will not spawn in Single Player mode (bot play mode).
+notsingle : when set to 1, entity will not spawn in Single Player mode.
 notbot : used to make an item invisible for bot attraction.
 -------- SPAWNFLAGS --------
 SUSPENDED : item will spawn where it was placed in map and won't drop to the floor.
@@ -2257,7 +2256,7 @@ target : picking up the item will trigger the entity this points to.
 targetname : a target_give entity can point to this for respawn freebies.
 notfree : when set to 1, entity will not spawn in "Free for all" and "Tournament" modes.
 notteam : when set to 1, entity will not spawn in "Teamplay" and "CTF" modes.
-notsingle : when set to 1, entity will not spawn in Single Player mode (bot play mode).
+notsingle : when set to 1, entity will not spawn in Single Player mode.
 notbot : used to make an item invisible for bot attraction.
 -------- SPAWNFLAGS --------
 SUSPENDED : item will spawn where it was placed in map and won't drop to the floor.
@@ -2281,7 +2280,7 @@ target : picking up the item will trigger the entity this points to.
 targetname : a target_give entity can point to this for respawn freebies.
 notfree : when set to 1, entity will not spawn in "Free for all" and "Tournament" modes.
 notteam : when set to 1, entity will not spawn in "Teamplay" and "CTF" modes.
-notsingle : when set to 1, entity will not spawn in Single Player mode (bot play mode).
+notsingle : when set to 1, entity will not spawn in Single Player mode.
 notbot : used to make an item invisible for bot attraction.
 -------- SPAWNFLAGS --------
 SUSPENDED : item will spawn where it was placed in map and won't drop to the floor.

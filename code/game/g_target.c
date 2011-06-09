@@ -596,10 +596,8 @@ void SP_target_logic (gentity_t *self) {
 
 //==========================================================
 
-/*QUAKED target_mapchange (.5 .5 .5) (-8 -8 -8) (8 8 8) SHOW_INTERMISSION SCRIPT
+/*QUAKED target_mapchange (.5 .5 .5) (-8 -8 -8) (8 8 8)
 When triggered, loads the specified map. 
-When the SHOW_INTERMISSION spawnflag is set, the intermission screen is displayed before loading the next map.
-Note: the SCRIPT spawnflag is obsolete. Use target_script for this instead. The SCRIPT spawnflag is not defined in entities.def
 */
 void target_mapchange_use (gentity_t *self, gentity_t *other, gentity_t *activator) {
 	char	*cmd;
@@ -609,9 +607,7 @@ void target_mapchange_use (gentity_t *self, gentity_t *other, gentity_t *activat
 		G_UpdateSessionDataForMapChange( activator->client );
 
 	//determine map switch command to use
-	if ( self->spawnflags & 2 )
-		cmd = "exec";		//a cfg script will be executed instead
-	else if ( g_gametype.integer == GT_ENTITYPLUS )
+	if ( g_gametype.integer == GT_ENTITYPLUS )
 		cmd = "spmap";		//stay in single player mode
 	else if ( g_cheats.integer )
 		cmd = "devmap";		//keep cheats enabled
@@ -619,30 +615,14 @@ void target_mapchange_use (gentity_t *self, gentity_t *other, gentity_t *activat
 		cmd = "map";
 
 	//perform map switch/script execution
-	if ( ( self->spawnflags & 1 ) )
-	{
-		if ( self->mapname ) {
-			if ( self->spawnflags & 2 )
-				trap_SendConsoleCommand( EXEC_INSERT, va( "exec %s\n", self->mapname ) ); 
-			else
-				trap_SendConsoleCommand( EXEC_INSERT, va( "nextmap \"%s %s\"\n", cmd, self->mapname ) ); 
-		}
-		
-		BeginIntermission();
-	} else {
-		G_Printf("%s %s\n", cmd, self->mapname);
-		if ( self->mapname )
-			trap_SendConsoleCommand( EXEC_INSERT, va( "%s %s\n", cmd, self->mapname ) ); 
-		else
-			trap_SendConsoleCommand( EXEC_INSERT, "map_restart 0\n" ); //shouldn't happen
-	}
+	if ( self->mapname )
+		trap_SendConsoleCommand( EXEC_INSERT, va( "%s %s\n", cmd, self->mapname ) ); 
+	else
+		trap_SendConsoleCommand( EXEC_INSERT, "map_restart 0\n" ); //shouldn't happen
 }
 
 void SP_target_mapchange (gentity_t *self) {
 	char info[1024];
-
-	if ( self->spawnflags & 2 )
-		G_Printf( va( S_COLOR_YELLOW "WARNING: target_mapchange with SCRIPT spawnflag at %s is obsolete . Use target_script instead.\n", vtos(self->s.origin) ) );
 
 	if ( !self->mapname )
 	{
@@ -1012,23 +992,26 @@ void SP_target_script (gentity_t *self) {
 
 //==========================================================
 
-/*QUAKED target_highscore (.5 .5 .5) (-8 -8 -8) (8 8 8)
-When triggered, registers the player's score as new high score (if it is higher than the current highscore) for the current map
+/*QUAKED target_finish (.5 .5 .5) (-8 -8 -8) (8 8 8)
+When triggered, forces the game to go into the intermission which will show the SP end-level scores, registers the player's score as new 
+high score (if it is higher than the current highscore) for the current map and, when the player clicks during the intermission, ends the
+game.
 */
-void target_highscore_use (gentity_t *self, gentity_t *other, gentity_t *activator) {
+void target_finish_use (gentity_t *self, gentity_t *other, gentity_t *activator) {
 	int score, highScore;
+	float skill;
+
+	// only usable in entity plus mode
+	if ( g_gametype.integer != GT_ENTITYPLUS )
+		return;
 
 	// bots should not be able to activate this
 	if ( IsBot( activator ) )
 		return;
 
-	// only record scores for single player games
-	if ( g_gametype.integer != GT_ENTITYPLUS )
-		return;
-
 	//activator->client->ps.persistant[PERS_CARNAGE_SCORE] = (1 << 15) - 1 ;
-
-	score = COM_CalculateLevelScore(activator->client->ps.persistant);
+	skill = trap_Cvar_VariableValue( "g_spskill" );
+	score = COM_CalculateLevelScore(activator->client->ps.persistant, (int)skill);
 	highScore = COM_LoadLevelScore( G_GetCurrentMapName() );
 	
 	if ( score > highScore )
@@ -1037,6 +1020,12 @@ void target_highscore_use (gentity_t *self, gentity_t *other, gentity_t *activat
 	BeginIntermission();
 }
 
-void SP_target_highscore (gentity_t *self) {
-	self->use = target_highscore_use;
+void SP_target_finish (gentity_t *self) {
+	//free the entity if we're not in GT_ENTITYPLUS gametype
+	if ( g_gametype.integer != GT_ENTITYPLUS ) {
+		G_FreeEntity( self );
+		return;
+	}
+
+	self->use = target_finish_use;
 }
