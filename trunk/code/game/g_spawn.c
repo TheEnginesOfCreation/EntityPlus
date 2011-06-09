@@ -168,7 +168,7 @@ void SP_target_skill (gentity_t *ent);
 void SP_target_earthquake (gentity_t *ent);
 void SP_target_effect (gentity_t *ent);
 void SP_target_script (gentity_t *ent);
-void SP_target_highscore (gentity_t *ent);
+void SP_target_finish (gentity_t *ent);
 
 void SP_light (gentity_t *self);
 void SP_info_null (gentity_t *self);
@@ -263,7 +263,7 @@ spawn_t	spawns[] = {
 	{"target_earthquake", SP_target_earthquake},
 	{"target_effect", SP_target_effect},
 	{"target_script", SP_target_script},
-	{"target_highscore", SP_target_highscore},
+	{"target_finish", SP_target_finish},
 
 	{"light", SP_light},
 	{"path_corner", SP_path_corner},
@@ -444,7 +444,7 @@ void G_SpawnGEntityFromSpawnVars( void ) {
 	}
 
 	// check for "notsingle" flag
-	if ( g_gametype.integer == GT_ENTITYPLUS ) {
+	if ( g_gametype.integer == GT_SINGLE_PLAYER || g_gametype.integer == GT_ENTITYPLUS ) {
 		G_SpawnInt( "notsingle", "0", &i );
 		if ( i ) {
 			G_FreeEntity( ent );

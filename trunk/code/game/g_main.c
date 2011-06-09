@@ -1017,6 +1017,12 @@ void ExitLevel (void) {
 	int		i;
 	gclient_t *cl;
 
+	if (g_gametype.integer == GT_ENTITYPLUS ) {
+		//kill server if we're in SP mode.
+		trap_SendConsoleCommand( EXEC_APPEND, "disconnect\n" );
+		return;
+	}
+
 	//bot interbreeding
 	BotInterbreedEndMatch();
 
@@ -1183,10 +1189,6 @@ void CheckIntermissionExit( void ) {
 	int			i;
 	gclient_t	*cl;
 	int			readyMask;
-
-	if ( g_gametype.integer == GT_ENTITYPLUS ) {
-		return;
-	}
 
 	// see which players are ready
 	ready = 0;
