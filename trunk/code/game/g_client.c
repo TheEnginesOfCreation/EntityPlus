@@ -1124,13 +1124,6 @@ void ClientBegin( int clientNum ) {
 	}
 	G_LogPrintf( "ClientBegin: %i\n", clientNum );
 
-	//code is commented out because it doesn't really seem to be necessary
-	/*
-	//if we're in Single Player and the connecting client is the player, preload bot model assets
-	if ( g_gametype.integer == GT_ENTITYPLUS && !(ent->r.svFlags & SVF_BOT) )
-		PrecacheBotAssets();
-	*/
-
 	// count current clients and rank for scoreboard
 	CalculateRanks();
 }
@@ -1347,6 +1340,18 @@ void ClientSpawn(gentity_t *ent) {
 		//give armor
 		if ( client->sess.sessionArmor )
 			client->ps.stats[STAT_ARMOR] = client->sess.sessionArmor;
+
+		//set carnage score info
+		if ( client->sess.carnageScore )
+			client->ps.persistant[PERS_CARNAGE_SCORE] = client->sess.carnageScore;
+
+		//set number of deaths
+		if ( client->sess.deaths )
+			client->ps.persistant[PERS_KILLED] = client->sess.deaths;
+
+		//set name of level to which scores should be attributed
+		if ( strcmp( va("%s", client->sess.scoreLevelName ), "" ) )
+			strcpy(level.scoreLevelName, client->sess.scoreLevelName);
 	}
 
 	G_SetOrigin( ent, spawn_origin );
@@ -1598,33 +1603,5 @@ void LinkBotSpawnEntity( gentity_t *bot, char parentid[] ) {
 		if ( t->s.number == entityNum ) {
 			bot->parent = t;
 		}
-	}
-}
-
-/*
-===========
-PrecacheBotAssets
-
-Preloads assets for bots that can be spawned into the game.
-The function was called from ClientBegin but commented out because it doesn't seem necessary to do this.
-============
-*/
-void PrecacheBotAssets() {
-	int i;
-	gentity_t *t;
-	gclient_t *client;
-
-	//add bots to the game to load their assets
-	t = NULL;
-	while ( (t = G_Find (t, FOFS(classname), "target_botspawn")) != NULL ) {
-		G_AddCustomBot( t->clientname, t->s.number, t->target );
-	}
-	trap_SendServerCommand( -1, "loaddefered\n" );
-
-	//remove them again so they don't interfere with the game
-	for ( i = 0; i < g_maxclients.integer; i++ ) {
-		client = level.clients + i;
-		if ( IsClientBot( client ) )
-			DropClientSilently( client->ps.clientNum );
 	}
 }

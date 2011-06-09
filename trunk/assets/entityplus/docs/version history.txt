@@ -1,17 +1,16 @@
 v0.7 (?? jun 2011)
-	- [Added] custom pickup sounds for keys and keycards.
+	- [Added] Scoring system which allows players to keep track of high scores for levels.
+	- [Added] target_script entity which implements the SCRIPT functionality previously available on target_mapchange.
+	- [Added] target_finish entity to finish a level and record a highscore for that level.
+	- [Added] POWERUPS, FLAGS, WEAPONS and HOLDABLES spawnflags to target_remove_powerups.
 	- [Added] SILENT spawnflag for target_objective.
 	- [Added] cg_letterBoxSize cvar.
-	- [Added] target_script entity which implements the SCRIPT functionality previously available on target_mapchange.
-	- [Added] POWERUPS, FLAGS, WEAPONS and HOLDABLES spawnflags to target_remove_powerups.
-	- [Added] target_finish entity to finish a level and record a highscore for that level.
-	- [Added] Single Player menu shows the current high score for each level.
+	- [Added] custom pickup sounds for keys and keycards.
 	- [Fixed] sv_maxclients is forced to 8 when starting a map through the single player menu.
 	- [Fixed] Player handicap affects single player mode.
 	- [Fixed] Bot connection and loading messages are displayed in the console when running in single player mode.
 	- [Fixed] Single Player menu shows same map name under the levelshot for each map.
 	- [Fixed] The "levelselect" command shows the old Quake 3 level select menu.
-        - [Changed] protection of armor from .66 to .69.
 	- [Changed] Green armor name from "armor" to "light armor".
 	- [Changed] Green armor icon.
 	- [Changed] Running maps in EntityPlus' single player mode now requires g_gametype to be set to 8 instead of 2.
@@ -90,6 +89,7 @@ v0.4 (25 apr 2011)
 	- [Fixed] target_mapchange incorrectly reads specified mapname.
 	- [Fixed] IMMEDIATELY spawnflag on target_disable doesn't work in some cases.
 	- [Fixed] The RANDOM spawnflag on target_logic causes an entity to always be triggered.
+	- [Changed] protection of armor from .66 to .69.
 	- [Changed] target_botspawn now spawns bots at it's own location and allows customization of the bot to spawn.
 	- [Changed] target_logic can now be targetted by up to 10 entities instead of just 2.
 	- [Changed] target_debrisemitter spews out actual debris models.

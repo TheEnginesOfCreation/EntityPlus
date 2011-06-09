@@ -24,7 +24,7 @@ void G_WriteClientSessionData( gclient_t *client ) {
 	const char	*s;
 	const char	*var;
 
-	s = va("%i %i %i %i %i %i %i %i %i %i %i %i %i %i %i %i %i %i %i %i", 
+	s = va("%i %i %i %i %i %i %i %i %i %i %i %i %i %i %i %i %i %i %i %i %i %i %s", 
 		client->sess.sessionTeam,
 		client->sess.spectatorTime,
 		client->sess.spectatorState,
@@ -44,8 +44,13 @@ void G_WriteClientSessionData( gclient_t *client ) {
 		client->sess.sessionAmmoRG,
 		client->sess.sessionAmmoPG,
 		client->sess.sessionAmmoBFG,
-		client->sess.sessionHoldable
+		client->sess.sessionHoldable,
+		client->sess.carnageScore,
+		client->sess.deaths,
+		client->sess.scoreLevelName
 		);
+
+	G_Printf( "STRING: [%s]\n", s );
 
 	var = va( "session%i", client - level.clients );
 
@@ -71,7 +76,7 @@ void G_ReadSessionData( gclient_t *client ) {
 	var = va( "session%i", client - level.clients );
 	trap_Cvar_VariableStringBuffer( var, s, sizeof(s) );
 
-	sscanf( s, "%i %i %i %i %i %i %i %i %i %i %i %i %i %i %i %i %i %i %i %i",
+	sscanf( s, "%i %i %i %i %i %i %i %i %i %i %i %i %i %i %i %i %i %i %i %i %i %i %s",
 		&sessionTeam,                 // bk010221 - format
 		&client->sess.spectatorTime,
 		&spectatorState,              // bk010221 - format
@@ -91,7 +96,10 @@ void G_ReadSessionData( gclient_t *client ) {
 		&client->sess.sessionAmmoRG,
 		&client->sess.sessionAmmoPG,
 		&client->sess.sessionAmmoBFG,
-		&client->sess.sessionHoldable
+		&client->sess.sessionHoldable,
+		&client->sess.carnageScore,
+		&client->sess.deaths,
+		&client->sess.scoreLevelName
 		);
 
 	// bk001205 - format issues
@@ -183,8 +191,9 @@ void G_UpdateSessionDataForMapChange( gclient_t *client ) {
 	sess->sessionAmmoPG = client->ps.ammo[WP_PLASMAGUN];
 	sess->sessionAmmoBFG = client->ps.ammo[WP_BFG];
 	sess->sessionHoldable = client->ps.stats[STAT_HOLDABLE_ITEM];
-
-	G_WriteClientSessionData( client );
+	sess->carnageScore = client->ps.persistant[PERS_CARNAGE_SCORE];
+	sess->deaths = client->ps.persistant[PERS_KILLED];
+	strcpy(sess->scoreLevelName, G_GetScoringMapName());
 }
 
 /*
@@ -212,6 +221,9 @@ void G_ClearSessionDataForMapChange( gclient_t *client ) {
 	sess->sessionAmmoPG = 0;
 	sess->sessionAmmoBFG = 0;
 	sess->sessionHoldable = 0;
+	sess->carnageScore = 0;
+	sess->deaths = 0;
+	strcpy(sess->scoreLevelName, "" );
 }
 
 /*

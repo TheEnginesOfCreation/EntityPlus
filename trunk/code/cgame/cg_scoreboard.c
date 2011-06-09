@@ -318,13 +318,6 @@ void CG_DrawSinglePlayerIntermission( void ) {
 
 		CG_DrawStringExt( 64, y, va("         TOTAL : %i", score), color, qtrue, qtrue, BIGCHAR_WIDTH, BIGCHAR_HEIGHT, 0 );
 	}
-
-	if (cg.time >= cg.scoreFadeTime + 3250 && score > cg.highScore) {
-		y += BIGCHAR_HEIGHT;
-		color[1] = 0;
-		color[2] = 0;
-		CG_DrawStringExt( 64, y, "NEW HIGHSCORE!!", color, qtrue, qtrue, BIGCHAR_WIDTH, BIGCHAR_HEIGHT, 0 );
-	}
 }
 
 /*

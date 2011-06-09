@@ -607,7 +607,7 @@ void target_mapchange_use (gentity_t *self, gentity_t *other, gentity_t *activat
 		G_UpdateSessionDataForMapChange( activator->client );
 
 	//determine map switch command to use
-	if ( g_gametype.integer == GT_ENTITYPLUS )
+	if ( g_gametype.integer == GT_SINGLE_PLAYER )
 		cmd = "spmap";		//stay in single player mode
 	else if ( g_cheats.integer )
 		cmd = "devmap";		//keep cheats enabled
@@ -1012,10 +1012,10 @@ void target_finish_use (gentity_t *self, gentity_t *other, gentity_t *activator)
 	//activator->client->ps.persistant[PERS_CARNAGE_SCORE] = (1 << 15) - 1 ;
 	skill = trap_Cvar_VariableValue( "g_spskill" );
 	score = COM_CalculateLevelScore(activator->client->ps.persistant, (int)skill);
-	highScore = COM_LoadLevelScore( G_GetCurrentMapName() );
+	highScore = COM_LoadLevelScore( G_GetScoringMapName() );
 	
 	if ( score > highScore )
-		COM_WriteLevelScore( G_GetCurrentMapName(), score );
+		COM_WriteLevelScore( G_GetScoringMapName(), score );
 	
 	BeginIntermission();
 }

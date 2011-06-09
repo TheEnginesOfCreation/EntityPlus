@@ -238,6 +238,9 @@ typedef struct {
 	int			sessionAmmoPG;
 	int			sessionAmmoBFG;
 	int			sessionHoldable;
+	int			carnageScore;
+	int			deaths;
+	char		scoreLevelName[64];
 } clientSession_t;
 
 //
@@ -422,6 +425,7 @@ typedef struct {
 #ifdef MISSIONPACK
 	int			portalSequence;
 #endif
+	char		scoreLevelName[64];
 } level_locals_t;
 
 //
@@ -781,6 +785,7 @@ extern	vmCvar_t	g_enableDust;
 extern	vmCvar_t	g_enableBreath;
 extern	vmCvar_t	g_singlePlayer;
 extern	vmCvar_t	g_proxMineTimeout;
+extern	vmCvar_t	g_scoreLevelName;
 
 void	trap_Printf( const char *fmt );
 void	trap_Error( const char *fmt );
