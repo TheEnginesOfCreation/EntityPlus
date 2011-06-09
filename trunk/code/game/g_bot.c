@@ -967,7 +967,7 @@ void G_InitBots( qboolean restart ) {
 
 	trap_Cvar_Register( &bot_minplayers, "bot_minplayers", "0", CVAR_SERVERINFO );
 
-	if( g_gametype.integer == GT_ENTITYPLUS ) {
+	if ( g_gametype.integer == GT_SINGLE_PLAYER ) {
 		trap_GetServerinfo( serverinfo, sizeof(serverinfo) );
 		Q_strncpyz( map, Info_ValueForKey( serverinfo, "mapname" ), sizeof(map) );
 		arenainfo = G_GetArenaInfoByMap( map );

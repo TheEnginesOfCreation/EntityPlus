@@ -407,7 +407,7 @@ void G_InitGame( int levelTime, int randomSeed, int restart ) {
 
 	level.snd_fry = G_SoundIndex("sound/player/fry.wav");	// FIXME standing in lava / slime
 
-	if ( g_gametype.integer != GT_ENTITYPLUS && g_log.string[0] ) {
+	if ( g_gametype.integer != GT_SINGLE_PLAYER && g_gametype.integer != GT_ENTITYPLUS && g_log.string[0] ) {
 		if ( g_logSync.integer ) {
 			trap_FS_FOpenFile( g_log.string, &level.logFile, FS_APPEND_SYNC );
 		} else {
@@ -472,7 +472,7 @@ void G_InitGame( int levelTime, int randomSeed, int restart ) {
 
 	G_Printf ("-----------------------------------\n");
 
-	if( g_gametype.integer == GT_ENTITYPLUS || trap_Cvar_VariableIntegerValue( "com_buildScript" ) ) {
+	if( g_gametype.integer == GT_SINGLE_PLAYER || trap_Cvar_VariableIntegerValue( "com_buildScript" ) ) {
 		G_ModelIndex( SP_PODIUM_MODEL );
 		G_SoundIndex( "sound/player/gurp1.wav" );
 		G_SoundIndex( "sound/player/gurp2.wav" );
