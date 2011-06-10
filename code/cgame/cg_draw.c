@@ -1582,8 +1582,14 @@ static void CG_DrawPersistantPowerup( void ) {
 static void CG_DrawObjectivesNotification( void ) {
 	qboolean draw = qfalse;
 	
-	if ( cg.objectivesTime == 0 || cg.time >= cg.objectivesTime + OBJECTIVES_TIME )
+	if ( cg.objectivesTime == 0 || cg.time < cg.objectivesTime )
 		return;
+
+	//play sound
+	if ( !cg.objectivesSoundPlayed ) {
+		cg.objectivesSoundPlayed = qtrue;
+		trap_S_StartLocalSound( cgs.media.objectivesUpdatedSound, CHAN_LOCAL_SOUND );
+	}
 
 	//icon blinks
 	if ( cg.time < cg.objectivesTime + 500 )
@@ -2595,7 +2601,7 @@ CG_Draw2D
 =================
 */
 static void CG_Draw2D( void ) {
-	vec4_t colorBlack;
+	vec4_t color;
 #ifdef MISSIONPACK
 	if (cgs.orderPending && cg.time > cgs.orderTime) {
 		CG_CheckOrderPending();
@@ -2606,13 +2612,19 @@ static void CG_Draw2D( void ) {
 		return;
 	}
 
+	if ( cgs.gametype == GT_SINGLE_PLAYER )
+		Com_Printf("g_gametype 2 is no longer supported. Use g_gametype 8 instead");
+
+	if ( !cg.fadeTime )
+		cg.fadeTime = cg.time;
+
 	if ( cg_letterBoxSize.integer ) {
-		colorBlack[0] = 0;
-		colorBlack[1] = 0;
-		colorBlack[2] = 0;
-		colorBlack[3] = 1;
-		CG_FillRect(0, 0, 640, cg_letterBoxSize.value, colorBlack);
-		CG_FillRect(0, 480 - cg_letterBoxSize.value, 640, cg_letterBoxSize.value, colorBlack);
+		color[0] = 0;
+		color[1] = 0;
+		color[2] = 0;
+		color[3] = 1;
+		CG_FillRect(0, 0, 640, cg_letterBoxSize.value, color);
+		CG_FillRect(0, 480 - cg_letterBoxSize.value, 640, cg_letterBoxSize.value, color);
 		return;
 	}
 
@@ -2698,6 +2710,18 @@ static void CG_Draw2D( void ) {
 	cg.scoreBoardShowing = CG_DrawScoreboard();
 	if ( !cg.scoreBoardShowing) {
 		CG_DrawCenterString();
+	}
+
+	//make screen fade in from black at start of game
+	if (cgs.gametype == GT_ENTITYPLUS && cg.time < (cg.fadeTime + BLACKOUT_TIME + FADEIN_TIME)) {
+		color[0] = 0;
+		color[1] = 0;
+		color[2] = 0;
+		if ( cg.time < cg.fadeTime + BLACKOUT_TIME )	//screen remains black for some time, fades in after that
+			color[3] = 1;
+		else
+			color[3] = (FADEIN_TIME - ((cg.time - cg.fadeTime) - BLACKOUT_TIME)) / FADEIN_TIME;
+		CG_FillRect(0, 0, 640, 480, color);
 	}
 }
 

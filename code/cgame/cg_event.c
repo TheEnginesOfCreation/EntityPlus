@@ -1220,8 +1220,11 @@ void CG_EntityEvent( centity_t *cent, vec3_t position ) {
 	case EV_OBJECTIVES_UPDATED:
 		DEBUGNAME("EV_OBJECTIVES_UPDATED");
 		if ( cgs.gametype == GT_ENTITYPLUS ) {
-			cg.objectivesTime = cg.time;
-			trap_S_StartLocalSound( cgs.media.objectivesUpdatedSound, CHAN_LOCAL_SOUND );
+			cg.objectivesSoundPlayed = qfalse;
+			if ( cg.time < cg.fadeTime + BLACKOUT_TIME + FADEIN_TIME ) //if we're in fade-in, delay notification until fade-in is done. 
+				cg.objectivesTime = cg.fadeTime + BLACKOUT_TIME + FADEIN_TIME;
+			else
+				cg.objectivesTime + cg.time;
 		}
 		break;
 
