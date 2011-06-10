@@ -50,8 +50,6 @@ void G_WriteClientSessionData( gclient_t *client ) {
 		client->sess.scoreLevelName
 		);
 
-	G_Printf( "STRING: [%s]\n", s );
-
 	var = va( "session%i", client - level.clients );
 
 	trap_Cvar_Set( var, s );
