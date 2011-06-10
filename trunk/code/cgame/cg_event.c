@@ -1224,7 +1224,7 @@ void CG_EntityEvent( centity_t *cent, vec3_t position ) {
 			if ( cg.time < cg.fadeTime + BLACKOUT_TIME + FADEIN_TIME ) //if we're in fade-in, delay notification until fade-in is done. 
 				cg.objectivesTime = cg.fadeTime + BLACKOUT_TIME + FADEIN_TIME;
 			else
-				cg.objectivesTime + cg.time;
+				cg.objectivesTime = cg.time;
 		}
 		break;
 

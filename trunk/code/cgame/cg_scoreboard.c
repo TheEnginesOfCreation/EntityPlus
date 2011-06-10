@@ -334,7 +334,7 @@ void CG_DrawSinglePlayerObjectives( void ) {
 	int i;
 
 	if ( !cg.showScores )
-		return qfalse;
+		return;
 
 	cg.objectivesTime = 0;	//stop objectives notification from showing
 
