@@ -267,13 +267,16 @@ void CG_DrawSinglePlayerIntermission( void ) {
 	color[2] = 1;
 	color[3] = 1;
 
+	if ( cg.intermissionTime == 0 )
+		cg.intermissionTime = cg.time;
+
 	carnage = cg.snap->ps.persistant[PERS_CARNAGE_SCORE];
 	deaths = cg.snap->ps.persistant[PERS_KILLED];
 	skill = CG_GetSkill();
 	score = COM_CalculateLevelScore( cg.snap->ps.persistant, skill );
 	
 	y = 64;
-	if (cg.time < cg.scoreFadeTime + 750)
+	if (cg.time < cg.intermissionTime + 750)
 		CG_DrawStringExt( 64, y, "       Carnage :", color, qtrue, qtrue, BIGCHAR_WIDTH, BIGCHAR_HEIGHT, 0 );
 	else {
 		if (cg.scoreSoundsPlayed == 0) {
@@ -284,7 +287,7 @@ void CG_DrawSinglePlayerIntermission( void ) {
 	}
 	
 	y += BIGCHAR_HEIGHT;
-	if (cg.time < cg.scoreFadeTime + 1500)
+	if (cg.time < cg.intermissionTime + 1500)
 		CG_DrawStringExt( 64, y, "        Deaths :", color, qtrue, qtrue, BIGCHAR_WIDTH, BIGCHAR_HEIGHT, 0 );
 	else {
 		if (cg.scoreSoundsPlayed == 1) {
@@ -296,7 +299,7 @@ void CG_DrawSinglePlayerIntermission( void ) {
 	
 
 	y += BIGCHAR_HEIGHT;
-	if (cg.time < cg.scoreFadeTime + 2250)
+	if (cg.time < cg.intermissionTime + 2250)
 		CG_DrawStringExt( 64, y, "Skill modifier :", color, qtrue, qtrue, BIGCHAR_WIDTH, BIGCHAR_HEIGHT, 0 );
 	else {
 		if (cg.scoreSoundsPlayed == 2) {
@@ -308,7 +311,7 @@ void CG_DrawSinglePlayerIntermission( void ) {
 	}
 
 	y += BIGCHAR_HEIGHT;
-	if (cg.time < cg.scoreFadeTime + 3250)	//wait slightly longer before showing final score
+	if (cg.time < cg.intermissionTime + 3250)	//wait slightly longer before showing final score
 		CG_DrawStringExt( 64, y, "         TOTAL :", color, qtrue, qtrue, BIGCHAR_WIDTH, BIGCHAR_HEIGHT, 0 );
 	else {
 		if (cg.scoreSoundsPlayed == 3) {
