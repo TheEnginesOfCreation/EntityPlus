@@ -173,6 +173,7 @@ Updates session data prior to a map change that's forced by a target_mapchange e
 */
 void G_UpdateSessionDataForMapChange( gclient_t *client ) {
 	clientSession_t	*sess;
+	char *mapname;
 
 	sess = &client->sess;
 
@@ -191,7 +192,9 @@ void G_UpdateSessionDataForMapChange( gclient_t *client ) {
 	sess->sessionHoldable = client->ps.stats[STAT_HOLDABLE_ITEM];
 	sess->carnageScore = client->ps.persistant[PERS_CARNAGE_SCORE];
 	sess->deaths = client->ps.persistant[PERS_KILLED];
+
 	strcpy(sess->scoreLevelName, G_GetScoringMapName());
+	G_Printf("scoreLevelName: %s\n", sess->scoreLevelName );
 }
 
 /*
