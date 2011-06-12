@@ -2723,6 +2723,28 @@ static void CG_Draw2D( void ) {
 			color[3] = (FADEIN_TIME - ((cg.time - cg.fadeTime) - BLACKOUT_TIME)) / FADEIN_TIME;
 		CG_FillRect(0, 0, 640, 480, color);
 	}
+
+	//draw map message
+	if ( cg.time > cg.fadeTime && cg.time < cg.fadeTime + TITLE_TIME + TITLE_FADEIN_TIME + TITLE_FADEOUT_TIME) {
+		char *s;
+		int len;
+
+		s = CG_ConfigString( CS_MESSAGE );
+		color[0] = 1;
+		color[1] = 1;
+		color[2] = 1;
+		if ( cg.time < cg.fadeTime + TITLE_FADEIN_TIME ){
+			color[3] = (cg.time - cg.fadeTime) / TITLE_FADEIN_TIME;
+		}
+		else if ( cg.time < cg.fadeTime + TITLE_TIME + TITLE_FADEIN_TIME )
+			color[3] = 1;
+		else
+			color[3] = (TITLE_FADEOUT_TIME - ((cg.time - cg.fadeTime) - (TITLE_FADEIN_TIME + TITLE_TIME))) / TITLE_FADEOUT_TIME;
+
+		len = strlen( s );
+		len *= BIGCHAR_WIDTH;
+		CG_DrawBigStringColor( 640 - len - 32, 360, s, color );
+	}
 }
 
 

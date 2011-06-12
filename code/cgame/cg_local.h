@@ -37,8 +37,11 @@
 #define	ATTACKER_HEAD_TIME	10000
 #define	REWARD_TIME			3000
 #define OBJECTIVES_TIME		2500		//time for objectives updated notification to remain on screen
-#define BLACKOUT_TIME		250.000		//time for the screen to remain black at start of game
+#define BLACKOUT_TIME		3000.000	//time for the screen to remain black at start of game
 #define	FADEIN_TIME			1000.000	//amount of time it takes for screen to fade in at start of game
+#define TITLE_TIME			5500		//amount of time the level title stays on screen
+#define TITLE_FADEIN_TIME	1000.000	//amount of time it takes for level title to fade in
+#define TITLE_FADEOUT_TIME	1000.000	//amount of time it takes for level title to fade out
 
 #define	PULSE_SCALE			1.5			// amount to scale up the icons when activating
 
