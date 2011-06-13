@@ -13,7 +13,7 @@ v0.7 (?? jun 2011)
 	- [Fixed] Single Player menu shows same map name under the levelshot for each map.
 	- [Fixed] Bots specified in .arena file are spawned into the game in g_gametype 8.
 	- [Fixed] The "levelselect" command shows the old Quake 3 level select menu.
-	- [Changed] Screen fades in from black directly after level load.
+	- [Changed] Screen fades in or out after level load or when hitting a target_mapchange.
 	- [Changed] Green armor name from "armor" to "light armor".
 	- [Changed] Green armor icon.
 	- [Changed] Running maps in EntityPlus' single player mode now requires g_gametype to be set to 8 instead of 2.
@@ -26,6 +26,7 @@ v0.7 (?? jun 2011)
 	- [Changed] CD Key menu is no longer automatically displayed if no CD key is entered.
 	- [Changed] Removed SCRIPT and SHOW_INTERMISSION spawnflags from target_mapchange.
 	- [Changed] New main menu (again!)
+	- [Changed] New minimalistic loading screen so it doesn't spoil the items in the level.
 
 v0.6.1 (25 may 2011)
 	- [Fixed] Buttons in main menu don't always highlight properly on mouse-over.
