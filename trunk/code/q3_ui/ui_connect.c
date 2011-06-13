@@ -156,6 +156,7 @@ to prevent it from blinking away too rapidly on local or lan games.
 ========================
 */
 void UI_DrawConnectScreen( qboolean overlay ) {
+/*
 	char			*s;
 	uiClientState_t	cstate;
 	char			info[MAX_INFO_VALUE];
@@ -246,6 +247,7 @@ void UI_DrawConnectScreen( qboolean overlay ) {
 	UI_DrawProportionalString( 320, 128, s, UI_CENTER|UI_SMALLFONT|UI_DROPSHADOW, color_white );
 
 	// password required / connection rejected information goes here
+*/
 }
 
 

@@ -1706,11 +1706,9 @@ void Menu_Cache( void )
 	uis.whiteShader = trap_R_RegisterShaderNoMip( "white" );
 	if ( uis.glconfig.hardwareType == GLHW_RAGEPRO ) {
 		// the blend effect turns to shit with the normal 
-		//uis.menuBackShader	= trap_R_RegisterShaderNoMip( "menubackRagePro" );
-		uis.menuBackShader = trap_R_RegisterShaderNoMip( "menu/backgrounds/01.tga" );
+		uis.menuBackShader	= trap_R_RegisterShaderNoMip( "menubackRagePro" );
 	} else {
-		//uis.menuBackShader	= trap_R_RegisterShaderNoMip( "menuback" );
-		uis.menuBackShader = trap_R_RegisterShaderNoMip( "menu/backgrounds/01.tga" );
+		uis.menuBackShader	= trap_R_RegisterShaderNoMip( "menuback" );
 	}
 	uis.menuBackNoLogoShader = trap_R_RegisterShaderNoMip( "menubacknologo" );
 

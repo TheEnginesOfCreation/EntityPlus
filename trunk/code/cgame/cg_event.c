@@ -1221,11 +1221,16 @@ void CG_EntityEvent( centity_t *cent, vec3_t position ) {
 		DEBUGNAME("EV_OBJECTIVES_UPDATED");
 		if ( cgs.gametype == GT_ENTITYPLUS ) {
 			cg.objectivesSoundPlayed = qfalse;
-			if ( cg.time < cg.fadeTime + BLACKOUT_TIME + FADEIN_TIME ) //if we're in fade-in, delay notification until fade-in is done. 
-				cg.objectivesTime = cg.fadeTime + BLACKOUT_TIME + FADEIN_TIME;
+			if ( cg.time < cg.fadeInTime + BLACKOUT_TIME + FADEIN_TIME ) //if we're in fade-in, delay notification until fade-in is done. 
+				cg.objectivesTime = cg.fadeInTime + BLACKOUT_TIME + FADEIN_TIME;
 			else
 				cg.objectivesTime = cg.time;
 		}
+		break;
+
+	case EV_FADEOUT:
+		DEBUGNAME("EV_FADEOUT");
+		cg.fadeOutTime = cg.time;
 		break;
 
 	default:

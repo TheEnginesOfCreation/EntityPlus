@@ -654,8 +654,9 @@ typedef struct {
 	int				intermissionTime;	//for timing the intermission scoreboard in entityplus mode
 	int				scoreSoundsPlayed;	// number of sounds played during SP intermission scoreboard
 
-	// entityplus level start fade-in
-	int				fadeTime;			//for timing the fade in at start
+	// entityplus level start/end fades
+	int				fadeInTime;			//for timing the fade in at start
+	int				fadeOutTime;		//for timing the fade out at map change
 	
 } cg_t;
 
