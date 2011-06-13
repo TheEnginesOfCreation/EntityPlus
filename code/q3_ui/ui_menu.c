@@ -264,6 +264,9 @@ static void Main_MenuDraw( void ) {
 	}
 	else
 	{
+		uiClientState_t	cstate;
+		trap_GetClientState( &cstate );
+
 		UI_DrawNamedPic( 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, ART_BACKGROUND );
 /*
 		// setup the refdef for menu model

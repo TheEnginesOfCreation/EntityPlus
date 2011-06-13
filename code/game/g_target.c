@@ -600,11 +600,17 @@ void SP_target_logic (gentity_t *self) {
 When triggered, loads the specified map. 
 */
 void target_mapchange_use (gentity_t *self, gentity_t *other, gentity_t *activator) {
-	char	*cmd;
-
+	self->nextthink = level.time + FADEOUT_TIME;
+	
 	//store session data to persist health/armor/weapons/ammo to next level (only in SP mode)
 	if ( g_gametype.integer == GT_ENTITYPLUS )
 		G_UpdateSessionDataForMapChange( activator->client );
+	
+	G_TempEntity( self->s.origin, EV_FADEOUT );
+}
+
+void target_mapchange_think (gentity_t *self) {
+	char	*cmd;	
 
 	//determine map switch command to use
 	if ( g_gametype.integer == GT_SINGLE_PLAYER )
@@ -630,6 +636,7 @@ void SP_target_mapchange (gentity_t *self) {
 		self->mapname = Info_ValueForKey( info, "mapname" );
 	}
 	self->use = target_mapchange_use;
+	self->think = target_mapchange_think;
 }
 
 //==========================================================

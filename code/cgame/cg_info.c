@@ -117,6 +117,19 @@ void CG_LoadingClient( int clientNum ) {
 	CG_LoadingString( personality );
 }
 
+void CG_DrawEntityPlusInformation( void ) {
+	int n, x;
+	vec4_t color;
+
+	color[0] = 1;
+	color[1] = 0;
+	color[2] = 0;
+	color[3] = 1;
+
+	for( n = 0; n < loadingPlayerIconCount + loadingItemIconCount; n++ ) {
+		CG_FillRect(10 + (n * 10), 10, 10, 10, color);
+	}
+}
 
 /*
 ====================
@@ -135,6 +148,11 @@ void CG_DrawInformation( void ) {
 	qhandle_t	detail;
 	char		buf[1024];
 
+	if ( cgs.gametype == GT_ENTITYPLUS ) {
+		CG_DrawEntityPlusInformation();	//in Entityplus gametype, show specialized loading screen
+		return;
+	}
+	
 	info = CG_ConfigString( CS_SERVERINFO );
 	sysInfo = CG_ConfigString( CS_SYSTEMINFO );
 
@@ -218,7 +236,7 @@ void CG_DrawInformation( void ) {
 	case GT_FFA:
 		s = "Free For All";
 		break;
-	case GT_ENTITYPLUS:
+	case GT_SINGLE_PLAYER:
 		s = "Single Player";
 		break;
 	case GT_TOURNAMENT:
@@ -241,6 +259,9 @@ void CG_DrawInformation( void ) {
 		s = "Harvester";
 		break;
 #endif
+	case GT_ENTITYPLUS:
+		s = "Single Player";
+		break;
 	default:
 		s = "Unknown Gametype";
 		break;

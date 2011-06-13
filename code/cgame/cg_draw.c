@@ -2615,8 +2615,8 @@ static void CG_Draw2D( void ) {
 	if ( cgs.gametype == GT_SINGLE_PLAYER )
 		Com_Printf("g_gametype 2 is no longer supported. Use g_gametype 8 instead");
 
-	if ( !cg.fadeTime )
-		cg.fadeTime = cg.time;
+	if ( !cg.fadeInTime )
+		cg.fadeInTime = cg.time;
 
 	if ( cg_letterBoxSize.integer ) {
 		color[0] = 0;
@@ -2712,20 +2712,29 @@ static void CG_Draw2D( void ) {
 		CG_DrawCenterString();
 	}
 
-	//make screen fade in from black at start of game
-	if (cgs.gametype == GT_ENTITYPLUS && cg.time < (cg.fadeTime + BLACKOUT_TIME + FADEIN_TIME)) {
+	//make screen fade out to black at map change
+	if (cgs.gametype == GT_ENTITYPLUS && cg.time > cg.fadeOutTime && cg.time < (cg.fadeOutTime + FADEOUT_TIME)) {
 		color[0] = 0;
 		color[1] = 0;
 		color[2] = 0;
-		if ( cg.time < cg.fadeTime + BLACKOUT_TIME )	//screen remains black for some time, fades in after that
+		color[3] = (cg.time - cg.fadeOutTime) / FADEOUT_TIME;
+		CG_FillRect(0, 0, 640, 480, color);
+	}
+
+	//make screen fade in from black at start of game
+	if (cgs.gametype == GT_ENTITYPLUS && cg.time < (cg.fadeInTime + BLACKOUT_TIME + FADEIN_TIME)) {
+		color[0] = 0;
+		color[1] = 0;
+		color[2] = 0;
+		if ( cg.time < cg.fadeInTime + BLACKOUT_TIME )	//screen remains black for some time, fades in after that
 			color[3] = 1;
 		else
-			color[3] = (FADEIN_TIME - ((cg.time - cg.fadeTime) - BLACKOUT_TIME)) / FADEIN_TIME;
+			color[3] = (FADEIN_TIME - ((cg.time - cg.fadeInTime) - BLACKOUT_TIME)) / FADEIN_TIME;
 		CG_FillRect(0, 0, 640, 480, color);
 	}
 
 	//draw map message
-	if ( cg.time > cg.fadeTime && cg.time < cg.fadeTime + TITLE_TIME + TITLE_FADEIN_TIME + TITLE_FADEOUT_TIME) {
+	if ( cg.time > cg.fadeInTime && cg.time < cg.fadeInTime + TITLE_TIME + TITLE_FADEIN_TIME + TITLE_FADEOUT_TIME) {
 		char *s;
 		int len;
 
@@ -2733,13 +2742,13 @@ static void CG_Draw2D( void ) {
 		color[0] = 1;
 		color[1] = 1;
 		color[2] = 1;
-		if ( cg.time < cg.fadeTime + TITLE_FADEIN_TIME ){
-			color[3] = (cg.time - cg.fadeTime) / TITLE_FADEIN_TIME;
+		if ( cg.time < cg.fadeInTime + TITLE_FADEIN_TIME ){
+			color[3] = (cg.time - cg.fadeInTime) / TITLE_FADEIN_TIME;
 		}
-		else if ( cg.time < cg.fadeTime + TITLE_TIME + TITLE_FADEIN_TIME )
+		else if ( cg.time < cg.fadeInTime + TITLE_TIME + TITLE_FADEIN_TIME )
 			color[3] = 1;
 		else
-			color[3] = (TITLE_FADEOUT_TIME - ((cg.time - cg.fadeTime) - (TITLE_FADEIN_TIME + TITLE_TIME))) / TITLE_FADEOUT_TIME;
+			color[3] = (TITLE_FADEOUT_TIME - ((cg.time - cg.fadeInTime) - (TITLE_FADEIN_TIME + TITLE_TIME))) / TITLE_FADEOUT_TIME;
 
 		len = strlen( s );
 		len *= BIGCHAR_WIDTH;
