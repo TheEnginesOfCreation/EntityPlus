@@ -657,7 +657,8 @@ typedef struct {
 	// entityplus level start/end fades
 	int				fadeInTime;			//for timing the fade in at start
 	int				fadeOutTime;		//for timing the fade out at map change
-	
+	qboolean		footstepSuppressed; //hack to suppress initial footstep after first spawn
+
 } cg_t;
 
 
