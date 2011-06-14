@@ -270,7 +270,7 @@ void CG_DrawSinglePlayerIntermission( void ) {
 	if ( cg.intermissionTime == 0 )
 		cg.intermissionTime = cg.time;
 
-	carnage = cg.snap->ps.persistant[PERS_CARNAGE_SCORE];
+	carnage = cg.snap->ps.persistant[PERS_SCORE];
 	deaths = cg.snap->ps.persistant[PERS_KILLED];
 	skill = CG_GetSkill();
 	score = COM_CalculateLevelScore( cg.snap->ps.persistant, skill );
@@ -358,27 +358,13 @@ void CG_DrawSinglePlayerObjectives( void ) {
 	//draw secondary objective
 	CG_DrawSmallStringColor( 80, 255, s, color); //TODO: if secondary objective is more than 60 chars, wrap to next line
 
-	//draw kills counter
-	for ( i = 0 ; i < cg.numScores ; i++ ) {
-		if ( cg.scores[i].client == cg.snap->ps.clientNum ) {
-			CG_DrawBigStringColor( 195, 310, va("%i", cg.scores[i].score), color );
-			break;
-		}
-	}
-
 	//draw deaths counter
-	CG_DrawBigStringColor( 250, 310, "Deaths", color);
-	for ( i = 0 ; i < cg.numScores ; i++ ) {
-		if ( cg.scores[i].client == cg.snap->ps.clientNum ) {
-			CG_DrawBigStringColor( 360, 310, va("%i", cg.snap->ps.persistant[PERS_KILLED]), color );
-			break;
-		}
-	}
+	CG_DrawBigStringColor( 85, 310, "Deaths", color);
+	CG_DrawBigStringColor( 195, 310, va("%i", cg.snap->ps.persistant[PERS_KILLED]), color );
 
 	//draw level score
-	CG_DrawBigStringColor( 415, 310, "Score", color);
-	//TODO: align score to the right
-	CG_DrawSmallStringColor( 505, 310, va("%i", COM_CalculateLevelScore( cg.snap->ps.persistant, CG_GetSkill() )), color);	
+	CG_DrawBigStringColor( 250, 310, "Score", color);
+	CG_DrawBigStringColor( 360, 310, va("%i", COM_CalculateLevelScore( cg.snap->ps.persistant, CG_GetSkill() )), color);	
 }
 
 /*

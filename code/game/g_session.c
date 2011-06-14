@@ -190,11 +190,10 @@ void G_UpdateSessionDataForMapChange( gclient_t *client ) {
 	sess->sessionAmmoPG = client->ps.ammo[WP_PLASMAGUN];
 	sess->sessionAmmoBFG = client->ps.ammo[WP_BFG];
 	sess->sessionHoldable = client->ps.stats[STAT_HOLDABLE_ITEM];
-	sess->carnageScore = client->ps.persistant[PERS_CARNAGE_SCORE];
+	sess->carnageScore = client->ps.persistant[PERS_SCORE];
 	sess->deaths = client->ps.persistant[PERS_KILLED];
 
 	strcpy(sess->scoreLevelName, G_GetScoringMapName());
-	G_Printf("scoreLevelName: %s\n", sess->scoreLevelName );
 }
 
 /*

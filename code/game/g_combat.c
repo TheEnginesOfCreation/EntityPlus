@@ -37,10 +37,14 @@ void AddScore( gentity_t *ent, vec3_t origin, int score ) {
 	if ( level.warmupTime ) {
 		return;
 	}
-	// show score plum if not in single player mode
-	if ( g_gametype.integer != GT_ENTITYPLUS )
-		ScorePlum(ent, origin, score);
-	//
+	
+	// PERS_SCORE is used differently in EntityPlus mode
+	if ( g_gametype.integer == GT_ENTITYPLUS )
+		return;
+
+	// show score plum
+	ScorePlum(ent, origin, score);
+
 	ent->client->ps.persistant[PERS_SCORE] += score;
 	if ( g_gametype.integer == GT_TEAM )
 		level.teamScores[ ent->client->ps.persistant[PERS_TEAM] ] += score;
@@ -448,9 +452,9 @@ void player_die( gentity_t *self, gentity_t *inflictor, gentity_t *attacker, int
 	//if we're in SP mode and player killed a bot, award score for the kill
 	if ( g_gametype.integer == GT_ENTITYPLUS && IsBot( self ) ) {
 		if ( self->parent && self->parent->health )
-			attacker->client->ps.persistant[PERS_CARNAGE_SCORE] += self->parent->health;
+			attacker->client->ps.persistant[PERS_SCORE] += self->parent->health;
 		else
-			attacker->client->ps.persistant[PERS_CARNAGE_SCORE] += SCORE_FREE_BOT;
+			attacker->client->ps.persistant[PERS_SCORE] += SCORE_FREE_BOT;
 	}	
 
 	// check for an almost capture

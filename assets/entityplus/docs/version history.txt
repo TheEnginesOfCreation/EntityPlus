@@ -25,6 +25,8 @@ v0.7 (?? jun 2011)
 	- [Changed] Updated skin of green armor.
 	- [Changed] CD Key menu is no longer automatically displayed if no CD key is entered.
 	- [Changed] Removed SCRIPT and SHOW_INTERMISSION spawnflags from target_mapchange.
+	- [Changed] Number of kills is no longer tracked on the objectives overlay.
+	- [Changed] Bots should no longer taunt in single player mode.
 	- [Changed] New main menu (again!)
 	- [Changed] New minimalistic loading screen so it doesn't spoil the items in the level.
 
