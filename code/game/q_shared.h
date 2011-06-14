@@ -1434,4 +1434,4 @@ typedef enum _flag_status {
 #define SCORE_ACCURACY	.5		//part of the full score that accuracy will apply to
 #define SCORE_SKILL		.5		//g_spskill is multiplied with this number before multiplying the total score
 
-#define FADEOUT_TIME	1000.000	//amount of time it takes for screen to fade out at map change
+#define FADEOUT_TIME	500.000	//amount of time it takes for screen to fade out at map change. Needed by both server and client
