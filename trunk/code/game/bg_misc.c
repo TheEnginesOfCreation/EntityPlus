@@ -55,20 +55,6 @@ gitem_t	bg_itemlist[] =
 		""
 	},
 
-/*QUAKED item_armor_vest (.3 .3 1) (-16 -16 -16) (16 16 16) suspended*/
-	{
-		"item_armor_vest", 
-		"sound/misc/ar2_pkup.wav",
-        { "models/powerups/armor/armor_gre.md3", 0, 0, 0},
-		"icons/iconr_green",
-		"Light Armor",
-		25,
-		IT_ARMOR,
-		0,
-		"",
-		""
-	},
-
 /*QUAKED item_armor_combat (.3 .3 1) (-16 -16 -16) (16 16 16) suspended*/
 	{
 		"item_armor_combat", 
@@ -446,110 +432,6 @@ gitem_t	bg_itemlist[] =
 		"",
 		"sound/items/use_medkit.wav"
 	},
-/*QUAKED holdable_key_red (.2 .2 .2) (-16 -16 -16) (16 16 16) suspended*/
-	{
-		"holdable_key_red", 
-		"sound/items/keycard_03.wav",
-        { "models/powerups/keys/keycard-r.md3", 0, 0, 0},
-		"icons/key_red",
-		"Red keycard",
-		60,
-		IT_HOLDABLE,
-		HI_KEY_RED,
-		"",
-		""
-	},
-/*QUAKED holdable_key_green (.2 .2 .2) (-16 -16 -16) (16 16 16) suspended*/
-	{
-		"holdable_key_green", 
-		"sound/items/keycard_03.wav",
-        { "models/powerups/keys/keycard-g.md3", 0, 0, 0},
-		"icons/key_green",
-		"Green keycard",
-		60,
-		IT_HOLDABLE,
-		HI_KEY_GREEN,
-		"",
-		""
-	},
-/*QUAKED holdable_key_blue (.2 .2 .2) (-16 -16 -16) (16 16 16) suspended*/
-	{
-		"holdable_key_blue", 
-		"sound/items/keycard_03.wav",
-        { "models/powerups/keys/keycard-b.md3", 0, 0, 0},
-		"icons/key_blue",
-		"Blue keycard",
-		60,
-		IT_HOLDABLE,
-		HI_KEY_BLUE,
-		"",
-		""
-	},
-/*QUAKED holdable_key_yellow (.2 .2 .2) (-16 -16 -16) (16 16 16) suspended*/
-	{
-		"holdable_key_yellow", 
-		"sound/items/keycard_03.wav",
-        { "models/powerups/keys/keycard-y.md3", 0, 0, 0},
-		"icons/key_yellow",
-		"Yellow keycard",
-		60,
-		IT_HOLDABLE,
-		HI_KEY_YELLOW,
-		"",
-		""
-	},
-/*QUAKED holdable_key_master (.2 .2 .2) (-16 -16 -16) (16 16 16) suspended*/
-	{
-		"holdable_key_master", 
-		"sound/items/key_01+02.wav",
-        { "models/powerups/keys/key_master.md3", 0, 0, 0},
-		"icons/key_master",
-		"Master key",
-		60,
-		IT_HOLDABLE,
-		HI_KEY_MASTER,
-		"",
-		""
-	},
-/*QUAKED holdable_key_gold (.2 .2 .2) (-16 -16 -16) (16 16 16) suspended*/
-	{
-		"holdable_key_gold", 
-		"sound/items/key_01+02.wav",
-        { "models/powerups/keys/key_gold.md3", 0, 0, 0},
-		"icons/key_gold",
-		"Gold key",
-		60,
-		IT_HOLDABLE,
-		HI_KEY_GOLD,
-		"",
-		""
-	},
-/*QUAKED holdable_key_silver (.2 .2 .2) (-16 -16 -16) (16 16 16) suspended*/
-	{
-		"holdable_key_silver", 
-		"sound/items/key_01+02.wav",
-        { "models/powerups/keys/key_silver.md3", 0, 0, 0},
-		"icons/key_silver",
-		"Silver key",
-		60,
-		IT_HOLDABLE,
-		HI_KEY_SILVER,
-		"",
-		""
-	},
-/*QUAKED holdable_key_iron (.2 .2 .2) (-16 -16 -16) (16 16 16) suspended*/
-	{
-		"holdable_key_iron", 
-		"sound/items/key_01+02.wav",
-        { "models/powerups/keys/key_iron.md3", 0, 0, 0},
-		"icons/key_iron",
-		"Iron key",
-		60,
-		IT_HOLDABLE,
-		HI_KEY_IRON,
-		"",
-		""
-	},
 
 	//
 	// POWERUP ITEMS
@@ -636,20 +518,6 @@ gitem_t	bg_itemlist[] =
 		PW_FLIGHT,
 		"",
 		"sound/items/flight.wav"
-	},
-
-/*QUAKED info_player_backpack (.3 .3 1) (-16 -16 -16) (16 16 16) */
-	{
-		"info_player_backpack", 
-		"sound/misc/w_pkup.wav",				//TODO: Make dedicated sound?
-        { "models/powerups/backpack/backpack.md3", 0, 0, 0},
-		"icons/icon_backpack",
-		"Backpack",	
-		0,
-		IT_BACKPACK,
-		1,
-		"",
-		""
 	},
 
 /*QUAKED team_CTF_redflag (1 0 0) (-16 -16 -16) (16 16 16) 
@@ -913,6 +781,140 @@ Only in One Flag CTF games*/
 		"sound/weapons/vulcan/wvulwind.wav"
 	},
 #endif
+
+	/*QUAKED item_armor_vest (.3 .3 1) (-16 -16 -16) (16 16 16) suspended*/
+	{
+		"item_armor_vest", 
+		"sound/misc/ar2_pkup.wav",
+        { "models/powerups/armor/armor_gre.md3", 0, 0, 0},
+		"icons/iconr_green",
+		"Light Armor",
+		25,
+		IT_ARMOR,
+		0,
+		"",
+		""
+	},
+
+	/*QUAKED info_player_backpack (.3 .3 1) (-16 -16 -16) (16 16 16) */
+	{
+		"info_player_backpack", 
+		"sound/misc/w_pkup.wav",				//TODO: Make dedicated sound?
+        { "models/powerups/backpack/backpack.md3", 0, 0, 0},
+		"icons/icon_backpack",
+		"Backpack",	
+		0,
+		IT_BACKPACK,
+		1,
+		"",
+		""
+	},
+
+	/*QUAKED holdable_key_red (.2 .2 .2) (-16 -16 -16) (16 16 16) suspended*/
+	{
+		"holdable_key_red", 
+		"sound/items/keycard_03.wav",
+        { "models/powerups/keys/keycard-r.md3", 0, 0, 0},
+		"icons/key_red",
+		"Red keycard",
+		60,
+		IT_HOLDABLE,
+		HI_KEY_RED,
+		"",
+		""
+	},
+/*QUAKED holdable_key_green (.2 .2 .2) (-16 -16 -16) (16 16 16) suspended*/
+	{
+		"holdable_key_green", 
+		"sound/items/keycard_03.wav",
+        { "models/powerups/keys/keycard-g.md3", 0, 0, 0},
+		"icons/key_green",
+		"Green keycard",
+		60,
+		IT_HOLDABLE,
+		HI_KEY_GREEN,
+		"",
+		""
+	},
+/*QUAKED holdable_key_blue (.2 .2 .2) (-16 -16 -16) (16 16 16) suspended*/
+	{
+		"holdable_key_blue", 
+		"sound/items/keycard_03.wav",
+        { "models/powerups/keys/keycard-b.md3", 0, 0, 0},
+		"icons/key_blue",
+		"Blue keycard",
+		60,
+		IT_HOLDABLE,
+		HI_KEY_BLUE,
+		"",
+		""
+	},
+/*QUAKED holdable_key_yellow (.2 .2 .2) (-16 -16 -16) (16 16 16) suspended*/
+	{
+		"holdable_key_yellow", 
+		"sound/items/keycard_03.wav",
+        { "models/powerups/keys/keycard-y.md3", 0, 0, 0},
+		"icons/key_yellow",
+		"Yellow keycard",
+		60,
+		IT_HOLDABLE,
+		HI_KEY_YELLOW,
+		"",
+		""
+	},
+/*QUAKED holdable_key_master (.2 .2 .2) (-16 -16 -16) (16 16 16) suspended*/
+	{
+		"holdable_key_master", 
+		"sound/items/key_01+02.wav",
+        { "models/powerups/keys/key_master.md3", 0, 0, 0},
+		"icons/key_master",
+		"Master key",
+		60,
+		IT_HOLDABLE,
+		HI_KEY_MASTER,
+		"",
+		""
+	},
+/*QUAKED holdable_key_gold (.2 .2 .2) (-16 -16 -16) (16 16 16) suspended*/
+	{
+		"holdable_key_gold", 
+		"sound/items/key_01+02.wav",
+        { "models/powerups/keys/key_gold.md3", 0, 0, 0},
+		"icons/key_gold",
+		"Gold key",
+		60,
+		IT_HOLDABLE,
+		HI_KEY_GOLD,
+		"",
+		""
+	},
+/*QUAKED holdable_key_silver (.2 .2 .2) (-16 -16 -16) (16 16 16) suspended*/
+	{
+		"holdable_key_silver", 
+		"sound/items/key_01+02.wav",
+        { "models/powerups/keys/key_silver.md3", 0, 0, 0},
+		"icons/key_silver",
+		"Silver key",
+		60,
+		IT_HOLDABLE,
+		HI_KEY_SILVER,
+		"",
+		""
+	},
+/*QUAKED holdable_key_iron (.2 .2 .2) (-16 -16 -16) (16 16 16) suspended*/
+	{
+		"holdable_key_iron", 
+		"sound/items/key_01+02.wav",
+        { "models/powerups/keys/key_iron.md3", 0, 0, 0},
+		"icons/key_iron",
+		"Iron key",
+		60,
+		IT_HOLDABLE,
+		HI_KEY_IRON,
+		"",
+		""
+	},
+
 
 	// end of list marker
 	{NULL}
