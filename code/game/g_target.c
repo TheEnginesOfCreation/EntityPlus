@@ -987,17 +987,20 @@ void SP_target_effect (gentity_t *self) {
 When triggered, executes the specified script.
 */
 void target_script_use (gentity_t *self, gentity_t *other, gentity_t *activator) {
-	//int noprint = trap_Cvar_VariableIntegerValue( "cl_noprint" );
+
+	//store the current value of cl_noprint so we can retrieve it in the _think function. Count variable is used for no specific reason.
+	self->count = trap_Cvar_VariableIntegerValue( "cl_noprint" );
 
 	//set cl_noprint to 1 while executing script so the "execing xxx.cfg" message isn't displayed
-	//trap_Cvar_Set( "cl_noprint", "1" );
-
-	G_Printf("script: [%s]\n", self->script);
-
+	trap_Cvar_Set( "cl_noprint", "1" );
 	trap_SendConsoleCommand( EXEC_INSERT, va( "exec %s\n", self->script ) ); 
 
+	self->nextthink = level.time + 300;
+}
+
+void target_script_think (gentity_t *self) {
 	//restore cl_noprint to its former value
-	//trap_Cvar_Set( "cl_noprint", va("%i", noprint ) );
+	trap_Cvar_Set( "cl_noprint", va("%i", self->count ) );
 }
 
 void SP_target_script (gentity_t *self) {
@@ -1007,6 +1010,7 @@ void SP_target_script (gentity_t *self) {
 		G_FreeEntity( self );
 	}
 	self->use = target_script_use;
+	self->think = target_script_think;
 }
 
 //==========================================================

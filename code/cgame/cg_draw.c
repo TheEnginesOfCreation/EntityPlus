@@ -2595,13 +2595,77 @@ void CG_DrawTimedMenus() {
 	}
 }
 #endif
+
+/*
+=================
+CG_DrawFade
+
+Draws fade-in with map title or fade-out
+=================
+*/
+static void CG_DrawFade( void ) {
+	vec4_t color;
+
+	// draw letterbox borders
+	if ( cg_letterBoxSize.integer ) {
+		color[0] = 0;
+		color[1] = 0;
+		color[2] = 0;
+		color[3] = 1;
+		CG_FillRect(0, 0, 640, cg_letterBoxSize.value, color);
+		CG_FillRect(0, 480 - cg_letterBoxSize.value, 640, cg_letterBoxSize.value, color);
+	}
+
+	// make screen fade out to black at map change
+	if (cgs.gametype == GT_ENTITYPLUS && cg.time > cg.fadeOutTime && cg.time < (cg.fadeOutTime + FADEOUT_TIME)) {
+		color[0] = 0;
+		color[1] = 0;
+		color[2] = 0;
+		color[3] = (cg.time - cg.fadeOutTime) / FADEOUT_TIME;
+		CG_FillRect(0, 0, 640, 480, color);
+	}
+
+	// make screen fade in from black at start of game
+	if (cgs.gametype == GT_ENTITYPLUS && cg.time < (cg.fadeInTime + BLACKOUT_TIME + FADEIN_TIME)) {
+		color[0] = 0;
+		color[1] = 0;
+		color[2] = 0;
+		if ( cg.time < cg.fadeInTime + BLACKOUT_TIME )	//screen remains black for some time, fades in after that
+			color[3] = 1;
+		else
+			color[3] = (FADEIN_TIME - ((cg.time - cg.fadeInTime) - BLACKOUT_TIME)) / FADEIN_TIME;
+		CG_FillRect(0, 0, 640, 480, color);
+	}
+
+	// draw map message
+	if ( cg.time > cg.fadeInTime && cg.time < cg.fadeInTime + TITLE_TIME + TITLE_FADEIN_TIME + TITLE_FADEOUT_TIME) {
+		const char *s;
+		int len;
+
+		s = CG_ConfigString( CS_MESSAGE );
+		color[0] = 1;
+		color[1] = 1;
+		color[2] = 1;
+		if ( cg.time < cg.fadeInTime + TITLE_FADEIN_TIME ){
+			color[3] = (cg.time - cg.fadeInTime) / TITLE_FADEIN_TIME;
+		}
+		else if ( cg.time < cg.fadeInTime + TITLE_TIME + TITLE_FADEIN_TIME )
+			color[3] = 1;
+		else
+			color[3] = (TITLE_FADEOUT_TIME - ((cg.time - cg.fadeInTime) - (TITLE_FADEIN_TIME + TITLE_TIME))) / TITLE_FADEOUT_TIME;
+
+		len = strlen( s );
+		len *= BIGCHAR_WIDTH;
+		CG_DrawBigStringColor( 640 - len - 32, 360, s, color );
+	}
+}
+
 /*
 =================
 CG_Draw2D
 =================
 */
 static void CG_Draw2D( void ) {
-	vec4_t color;
 	const char *overlay;
 #ifdef MISSIONPACK
 	if (cgs.orderPending && cg.time > cgs.orderTime) {
@@ -2623,16 +2687,6 @@ static void CG_Draw2D( void ) {
 
 	if ( !cg.fadeInTime )
 		cg.fadeInTime = cg.time;
-
-	if ( cg_letterBoxSize.integer ) {
-		color[0] = 0;
-		color[1] = 0;
-		color[2] = 0;
-		color[3] = 1;
-		CG_FillRect(0, 0, 640, cg_letterBoxSize.value, color);
-		CG_FillRect(0, 480 - cg_letterBoxSize.value, 640, cg_letterBoxSize.value, color);
-		return;
-	}
 
 	if ( cg_draw2D.integer == 0 ) {
 		return;
@@ -2717,49 +2771,6 @@ static void CG_Draw2D( void ) {
 	if ( !cg.scoreBoardShowing) {
 		CG_DrawCenterString();
 	}
-
-	//make screen fade out to black at map change
-	if (cgs.gametype == GT_ENTITYPLUS && cg.time > cg.fadeOutTime && cg.time < (cg.fadeOutTime + FADEOUT_TIME)) {
-		color[0] = 0;
-		color[1] = 0;
-		color[2] = 0;
-		color[3] = (cg.time - cg.fadeOutTime) / FADEOUT_TIME;
-		CG_FillRect(0, 0, 640, 480, color);
-	}
-
-	//make screen fade in from black at start of game
-	if (cgs.gametype == GT_ENTITYPLUS && cg.time < (cg.fadeInTime + BLACKOUT_TIME + FADEIN_TIME)) {
-		color[0] = 0;
-		color[1] = 0;
-		color[2] = 0;
-		if ( cg.time < cg.fadeInTime + BLACKOUT_TIME )	//screen remains black for some time, fades in after that
-			color[3] = 1;
-		else
-			color[3] = (FADEIN_TIME - ((cg.time - cg.fadeInTime) - BLACKOUT_TIME)) / FADEIN_TIME;
-		CG_FillRect(0, 0, 640, 480, color);
-	}
-
-	//draw map message
-	if ( cg.time > cg.fadeInTime && cg.time < cg.fadeInTime + TITLE_TIME + TITLE_FADEIN_TIME + TITLE_FADEOUT_TIME) {
-		const char *s;
-		int len;
-
-		s = CG_ConfigString( CS_MESSAGE );
-		color[0] = 1;
-		color[1] = 1;
-		color[2] = 1;
-		if ( cg.time < cg.fadeInTime + TITLE_FADEIN_TIME ){
-			color[3] = (cg.time - cg.fadeInTime) / TITLE_FADEIN_TIME;
-		}
-		else if ( cg.time < cg.fadeInTime + TITLE_TIME + TITLE_FADEIN_TIME )
-			color[3] = 1;
-		else
-			color[3] = (TITLE_FADEOUT_TIME - ((cg.time - cg.fadeInTime) - (TITLE_FADEIN_TIME + TITLE_TIME))) / TITLE_FADEOUT_TIME;
-
-		len = strlen( s );
-		len *= BIGCHAR_WIDTH;
-		CG_DrawBigStringColor( 640 - len - 32, 360, s, color );
-	}
 }
 
 
@@ -2832,4 +2843,7 @@ void CG_DrawActive( stereoFrame_t stereoView ) {
 
 	// draw status bar and other floating elements
  	CG_Draw2D();
+
+	// draw fade-in/out
+	CG_DrawFade();
 }
