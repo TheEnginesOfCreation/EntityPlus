@@ -102,6 +102,7 @@ field_t fields[] = {
 	{"teleporterTarget", FOFS(teleporterTarget), F_LSTRING},
 	{"deathTarget", FOFS(deathTarget), F_LSTRING},
 	{"skill", FOFS(skill), F_FLOAT},
+	{"overlay", FOFS(overlay), F_LSTRING},
 
 	{NULL}
 };

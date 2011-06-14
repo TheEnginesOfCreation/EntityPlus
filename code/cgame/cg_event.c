@@ -1257,6 +1257,11 @@ void CG_EntityEvent( centity_t *cent, vec3_t position ) {
 		cg.fadeOutTime = cg.time;
 		break;
 
+	case EV_OVERLAY:
+		DEBUGNAME("EV_OVERLAY");
+		CG_RegisterOverlay();
+		break;
+
 	default:
 		DEBUGNAME("UNKNOWN");
 		CG_Error( "Unknown event: %i", event );

@@ -109,9 +109,6 @@ struct gentity_s {
 	char		*targetShaderName;
 	char		*targetShaderNewName;
 	gentity_t	*target_ent;
-	char		*clientname;			// name of the bot to spawn for target_botspawn
-	char		*mapname;				// name of the map to switch to for target_mapchange
-	char		*script;				// name of the script to execute for target_script
 
 	float		speed;
 	vec3_t		movedir;
@@ -163,10 +160,16 @@ struct gentity_s {
 
 	gitem_t		*item;			// for bonus items
 
+	//entityplus variables
+	char		*clientname;			// name of the bot to spawn for target_botspawn
+	char		*mapname;				// name of the map to switch to for target_mapchange
+	char		*script;				// name of the script to execute for target_script
+
 	char		*teleporterTarget;		// forces a client to be teleported to the entity with this targetname when using holdable_teleporter. Also used as key for holdable_teleporter itself.
 	int			backpackContents[WP_NUM_WEAPONS - 1];
 	char		*deathTarget;	// target to trigger when bot from target_botspawn dies
 	float		skill; // skill level set by target_skill
+	char		*overlay; // reference to overlay texture for target_effect
 };
 
 
