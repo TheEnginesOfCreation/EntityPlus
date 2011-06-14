@@ -1343,7 +1343,7 @@ void ClientSpawn(gentity_t *ent) {
 
 		//set carnage score info
 		if ( client->sess.carnageScore )
-			client->ps.persistant[PERS_CARNAGE_SCORE] = client->sess.carnageScore;
+			client->ps.persistant[PERS_SCORE] = client->sess.carnageScore;
 
 		//set number of deaths
 		if ( client->sess.deaths )

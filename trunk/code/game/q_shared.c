@@ -1289,7 +1289,7 @@ Calculates the player's level score
 int COM_CalculateLevelScore(int persistant[MAX_PERSISTANT], int skill) {
 	int score = 0;
 
-	score += persistant[PERS_CARNAGE_SCORE];
+	score += persistant[PERS_SCORE];
 	score += (persistant[PERS_KILLED] * SCORE_DEATH);
 	
 	score *= skill;
