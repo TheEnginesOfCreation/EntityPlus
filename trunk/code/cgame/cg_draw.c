@@ -2602,6 +2602,7 @@ CG_Draw2D
 */
 static void CG_Draw2D( void ) {
 	vec4_t color;
+	const char *overlay;
 #ifdef MISSIONPACK
 	if (cgs.orderPending && cg.time > cgs.orderTime) {
 		CG_CheckOrderPending();
@@ -2614,6 +2615,11 @@ static void CG_Draw2D( void ) {
 
 	if ( cgs.gametype == GT_SINGLE_PLAYER )
 		Com_Printf("g_gametype 2 is no longer supported. Use g_gametype 8 instead");
+
+	// draw overlay set by target_effect
+	overlay = CG_ConfigString( CS_OVERLAY );
+	if ( strlen(overlay) && cgs.media.effectOverlay )
+		CG_DrawPic( 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, cgs.media.effectOverlay );
 
 	if ( !cg.fadeInTime )
 		cg.fadeInTime = cg.time;

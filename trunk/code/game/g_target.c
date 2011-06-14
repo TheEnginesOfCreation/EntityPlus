@@ -873,7 +873,7 @@ void SP_target_earthquake (gentity_t *self) {
 
 //==========================================================
 
-/*QUAKED target_effect (.5 .5 .5) (-8 -8 -8) (8 8 8) EXPLOSION PARTICLES_GRAVITY PARTICLES_LINEAR PARTICLES_LINEAR_UP PARTICLES_LINEAR_DOWN
+/*QUAKED target_effect (.5 .5 .5) (-8 -8 -8) (8 8 8) EXPLOSION PARTICLES_GRAVITY PARTICLES_LINEAR PARTICLES_LINEAR_UP PARTICLES_LINEAR_DOWN OVERLAY
 shows animated environmental effect
 The EXPLOSION spawnflag will cause the entity to show an explosion
 The PARTICLES_GRAVITY spawnflag will cause the entity to show particles which are affected by gravity and drop to the ground
@@ -884,24 +884,15 @@ speed key takes int (0 - 255)
 */
 
 void target_effect_use (gentity_t *self, gentity_t *other, gentity_t *activator) {
-	gentity_t	*ent;
 	gentity_t	*ent2;
 	gentity_t	*ent3;
 	gentity_t	*ent4;
 	gentity_t	*ent5;
 
-	//set default values
-	if ( !self->count )
-		self->count = 100;
-	else if (self->count > 255)
-		self->count = 255;
-
-	if ( !self->speed )
-		self->speed = 100;
 
 	//explosion
 	if ( self->spawnflags & 1 ) {
-		ent = G_TempEntity( self->s.origin, EV_EXPLOSION );
+		G_TempEntity( self->s.origin, EV_EXPLOSION );
 	}
 
 	//particles_gravity
@@ -935,6 +926,18 @@ void target_effect_use (gentity_t *self, gentity_t *other, gentity_t *activator)
 		ent5->s.eventParm = self->count; //eventParm is used to determine the number of particles
 		ent5->s.generic1 = self->speed; //generic1 is used to determine the speed of the particles
 	}
+
+	//overlay
+	if ( self->spawnflags & 32 ) {
+		if ( self->overlay ) {
+			trap_SetConfigstring( CS_OVERLAY, self->overlay );
+		} else {
+			trap_SetConfigstring( CS_OVERLAY, "" );
+		}
+		
+		//send event to player which will register the asset so it may subsequently be drawn each frame.
+		G_TempEntity( self->s.origin, EV_OVERLAY );
+	}
 }
 
 void SP_target_effect (gentity_t *self) {
@@ -960,6 +963,15 @@ void SP_target_effect (gentity_t *self) {
 	if (b > 255) b = 255;
 	
 	self->s.constantLight = r + (g << 8) + (b << 16);
+
+	//set default values
+	if ( !self->count )
+		self->count = 100;
+	else if (self->count > 255)
+		self->count = 255;
+
+	if ( !self->speed )
+		self->speed = 100;
 
 	//preload assets if necessary
 	if ( self->spawnflags & 1 ) {

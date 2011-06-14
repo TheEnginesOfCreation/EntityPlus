@@ -1562,13 +1562,14 @@ notsingle : when set to 1, entity will not spawn in Single Player mode.*/
 
 //=============================================================================
 
-/*QUAKED target_effect (0 .7 .7) (-8 -8 -8) (8 8 8) EXPLOSION PARTICLES_GRAVITY PARTICLES_LINEAR PARTICLES_LINEAR_UP PARTICLES_LINEAR_DOWN
-shows animated environmental effect
+/*QUAKED target_effect (0 .7 .7) (-8 -8 -8) (8 8 8) EXPLOSION PARTICLES_GRAVITY PARTICLES_LINEAR PARTICLES_LINEAR_UP PARTICLES_LINEAR_DOWN OVERLAY
+shows animated environmental effects or overlay
 -------- KEYS --------
 targetname : activating trigger points to this.
 color : color of the particles for particle effect (default 1.0 1.0 1.0).
 count : number of particles for particle effect (0 - 255, default 100).
 speed : speed of the particles (default 100).
+overlay : specifies an image to overlay over the screen. Leave empty to remove existing overlay.
 notfree : when set to 1, entity will not spawn in "Free for all" and "Tournament" modes.
 notteam : when set to 1, entity will not spawn in "Teamplay" and "CTF" modes.
 notsingle : when set to 1, entity will not spawn in Single Player mode.
@@ -1578,6 +1579,7 @@ PARTICLES_GRAVITY : Generates particles that are affected by gravity.
 PARTICLES_LINEAR : Generates particles that are not affected by gravity.
 PARTICLES_LINEAR_UP : Generates particles that are not affected by gravity that only move upwards.
 PARTICLES_LINEAR_DOWN : Generates particles that are not affected by gravity that only move downwards.
+OVERLAY : Applies the specified overlay to the screen.
 -------- NOTES --------
 Spawnflags can be combined to have the entity show multiple effects when triggered.*/
 

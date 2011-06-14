@@ -879,6 +879,9 @@ typedef struct {
 	qhandle_t	objectivesUpdated;
 	sfxHandle_t	objectivesUpdatedSound;
 
+	// target_effect overlay
+	qhandle_t	effectOverlay;
+
 	// sp intermission scoreboard
 	sfxHandle_t	scoreShow;
 	sfxHandle_t finalScoreShow;
@@ -1280,7 +1283,7 @@ void CG_SetScoreSelection(void *menu);
 score_t *CG_GetSelectedScore();
 void CG_BuildSpectatorString();
 qboolean CG_IsTeamGame();
-
+void CG_RegisterOverlay( void );
 
 //
 // cg_view.c

@@ -791,6 +791,23 @@ static void CG_RegisterSounds( void ) {
 
 //===================================================================================
 
+/*
+=================
+CG_RegisterOverlay
+
+Registers the graphic for the target_effect overlay.
+=================
+*/
+void CG_RegisterOverlay( void ) {
+	const char *overlay;
+
+	overlay = CG_ConfigString( CS_OVERLAY );
+	if ( strlen(overlay) ) {
+		cgs.media.effectOverlay = trap_R_RegisterShaderNoMip( overlay );
+	} else {
+		cgs.media.effectOverlay = NULL;
+	}
+}
 
 /*
 =================
