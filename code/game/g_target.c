@@ -1005,7 +1005,7 @@ high score (if it is higher than the current highscore) for the current map and,
 game.
 */
 void target_finish_use (gentity_t *self, gentity_t *other, gentity_t *activator) {
-	int score, highScore;
+	int accuracy, score, highScore;
 	float skill;
 
 	// only usable in entity plus mode
@@ -1018,7 +1018,11 @@ void target_finish_use (gentity_t *self, gentity_t *other, gentity_t *activator)
 
 	//activator->client->ps.persistant[PERS_CARNAGE_SCORE] = (1 << 15) - 1 ;
 	skill = trap_Cvar_VariableValue( "g_spskill" );
-	score = COM_CalculateLevelScore(activator->client->ps.persistant, (int)skill);
+	if ( activator->client->accuracy_shots > 0 )
+		accuracy = (activator->client->accuracy_hits / activator->client->accuracy_shots) * 100;
+	else
+		accuracy = 0;
+	score = COM_CalculateLevelScore(activator->client->ps.persistant, accuracy, (int)skill);
 	highScore = COM_LoadLevelScore( G_GetScoringMapName() );
 	
 	if ( score > highScore )

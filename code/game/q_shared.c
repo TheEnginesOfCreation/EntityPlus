@@ -1282,17 +1282,32 @@ void COM_WriteLevelScore(char *levelname, int score) {
 
 /*
 ==================
+COM_AccuracyToScore
+Calculates the score based on accuracy
+==================
+*/
+int COM_AccuracyToScore(int accuracy, int score) {
+	return ((score * SCORE_ACCURACY) / 100) * accuracy;
+}
+
+
+/*
+==================
 COM_CalculateLevelScore
 Calculates the player's level score
 ==================
 */
-int COM_CalculateLevelScore(int persistant[MAX_PERSISTANT], int skill) {
+int COM_CalculateLevelScore(int persistant[MAX_PERSISTANT], int accuracy, int skill) {
 	int score = 0;
 
 	score += persistant[PERS_SCORE];
 	score += (persistant[PERS_KILLED] * SCORE_DEATH);
 	
-	score *= skill;
+	//accuracy is the percentage of 50% of the player's score. 
+	//For example, a player with 150 score and 60% accuracy will have a final score of 245
+	score += COM_AccuracyToScore(accuracy, score);
+
+	score *= (skill * SCORE_SKILL);
 
 	if ( score < 0 )
 		score = 0;
