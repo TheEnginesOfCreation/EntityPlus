@@ -252,6 +252,24 @@ int CG_GetSkill( void ) {
 
 /*
 =================
+CG_GetAccuracy
+
+Gets the current g_spskill value
+=================
+*/
+int CG_GetAccuracy( void ) {
+	int i;
+	for ( i = 0 ; i < cg.numScores ; i++ ) {
+		if ( cg.scores[i].client == cg.snap->ps.clientNum ) {
+			return cg.scores[i].accuracy;
+		}
+	}
+
+	return 0;
+}
+
+/*
+=================
 CG_DrawSinglePlayerIntermission
 
 Draw the single player intermission screen
@@ -260,7 +278,7 @@ Draw the single player intermission screen
 void CG_DrawSinglePlayerIntermission( void ) {
 	vec4_t color;
 	int i, y;
-	int carnage, deaths, skill, score;
+	int carnage, deaths, accuracy, accuracyScore, skill, score;
 
 	color[0] = 1;
 	color[1] = 1;
@@ -272,9 +290,11 @@ void CG_DrawSinglePlayerIntermission( void ) {
 
 	carnage = cg.snap->ps.persistant[PERS_SCORE];
 	deaths = cg.snap->ps.persistant[PERS_KILLED];
+	accuracy = CG_GetAccuracy();
+	accuracyScore = COM_AccuracyToScore(accuracy, score);
 	skill = CG_GetSkill();
-	score = COM_CalculateLevelScore( cg.snap->ps.persistant, skill );
-	
+	score = COM_CalculateLevelScore( cg.snap->ps.persistant, accuracy, skill );
+
 	y = 64;
 	if (cg.time < cg.intermissionTime + 750)
 		CG_DrawStringExt( 64, y, "       Carnage :", color, qtrue, qtrue, BIGCHAR_WIDTH, BIGCHAR_HEIGHT, 0 );
@@ -296,25 +316,35 @@ void CG_DrawSinglePlayerIntermission( void ) {
 		}
 		CG_DrawStringExt( 64, y, va("        Deaths : %i (%ix)", deaths * SCORE_DEATH, deaths), color, qtrue, qtrue, BIGCHAR_WIDTH, BIGCHAR_HEIGHT, 0 );
 	}
-	
 
 	y += BIGCHAR_HEIGHT;
 	if (cg.time < cg.intermissionTime + 2250)
-		CG_DrawStringExt( 64, y, "Skill modifier :", color, qtrue, qtrue, BIGCHAR_WIDTH, BIGCHAR_HEIGHT, 0 );
+		CG_DrawStringExt( 64, y, "      Accuracy :", color, qtrue, qtrue, BIGCHAR_WIDTH, BIGCHAR_HEIGHT, 0 );
 	else {
 		if (cg.scoreSoundsPlayed == 2) {
 			trap_S_StartLocalSound( cgs.media.scoreShow, CHAN_LOCAL_SOUND );
 			cg.scoreSoundsPlayed++;
 		}
-
-		CG_DrawStringExt( 64, y, va("Skill modifier : %i", skill), color, qtrue, qtrue, BIGCHAR_WIDTH, BIGCHAR_HEIGHT, 0 );
+		CG_DrawStringExt( 64, y, va("      Accuracy : %i (%i%%)", accuracyScore, accuracy), color, qtrue, qtrue, BIGCHAR_WIDTH, BIGCHAR_HEIGHT, 0 );		
 	}
 
 	y += BIGCHAR_HEIGHT;
-	if (cg.time < cg.intermissionTime + 3250)	//wait slightly longer before showing final score
-		CG_DrawStringExt( 64, y, "         TOTAL :", color, qtrue, qtrue, BIGCHAR_WIDTH, BIGCHAR_HEIGHT, 0 );
+	if (cg.time < cg.intermissionTime + 3000)
+		CG_DrawStringExt( 64, y, "Skill modifier :", color, qtrue, qtrue, BIGCHAR_WIDTH, BIGCHAR_HEIGHT, 0 );
 	else {
 		if (cg.scoreSoundsPlayed == 3) {
+			trap_S_StartLocalSound( cgs.media.scoreShow, CHAN_LOCAL_SOUND );
+			cg.scoreSoundsPlayed++;
+		}
+
+		CG_DrawStringExt( 64, y, va("Skill modifier : %1.1f", (skill * SCORE_SKILL)), color, qtrue, qtrue, BIGCHAR_WIDTH, BIGCHAR_HEIGHT, 0 );
+	}
+
+	y += BIGCHAR_HEIGHT;
+	if (cg.time < cg.intermissionTime + 4000)	//wait slightly longer before showing final score
+		CG_DrawStringExt( 64, y, "         TOTAL :", color, qtrue, qtrue, BIGCHAR_WIDTH, BIGCHAR_HEIGHT, 0 );
+	else {
+		if (cg.scoreSoundsPlayed == 4) {
 			trap_S_StartLocalSound( cgs.media.scoreShow, CHAN_LOCAL_SOUND );
 			cg.scoreSoundsPlayed++;
 		}
@@ -364,7 +394,7 @@ void CG_DrawSinglePlayerObjectives( void ) {
 
 	//draw level score
 	CG_DrawBigStringColor( 250, 310, "Score", color);
-	CG_DrawBigStringColor( 360, 310, va("%i", COM_CalculateLevelScore( cg.snap->ps.persistant, CG_GetSkill() )), color);	
+	CG_DrawBigStringColor( 360, 310, va("%i", COM_CalculateLevelScore( cg.snap->ps.persistant, CG_GetAccuracy(), CG_GetSkill() )), color);	
 }
 
 /*

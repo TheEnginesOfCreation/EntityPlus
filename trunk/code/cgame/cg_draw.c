@@ -2735,7 +2735,7 @@ static void CG_Draw2D( void ) {
 
 	//draw map message
 	if ( cg.time > cg.fadeInTime && cg.time < cg.fadeInTime + TITLE_TIME + TITLE_FADEIN_TIME + TITLE_FADEOUT_TIME) {
-		char *s;
+		const char *s;
 		int len;
 
 		s = CG_ConfigString( CS_MESSAGE );
@@ -2827,6 +2827,3 @@ void CG_DrawActive( stereoFrame_t stereoView ) {
 	// draw status bar and other floating elements
  	CG_Draw2D();
 }
-
-
-
