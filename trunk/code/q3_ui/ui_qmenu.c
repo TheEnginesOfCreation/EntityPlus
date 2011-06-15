@@ -29,6 +29,7 @@ vec4_t color_lightOrange    = {1.00f, 0.68f, 0.00f, 1.00f };
 vec4_t color_orange	    = {1.00f, 0.43f, 0.00f, 1.00f};
 vec4_t color_red	    = {1.00f, 0.00f, 0.00f, 1.00f};
 vec4_t color_dim	    = {0.00f, 0.00f, 0.00f, 0.25f};
+vec4_t color_ochre		= {1.00f, 0.72f, 0.27f, 1.00f};
 
 // current color scheme
 vec4_t pulse_color          = {1.00f, 1.00f, 1.00f, 1.00f};

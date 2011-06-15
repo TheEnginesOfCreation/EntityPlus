@@ -42,6 +42,7 @@ MAIN MENU
 
 #define MAIN_MENU_VERTICAL_SPACING	34
 #define MAIN_MENU_MARGIN_LEFT		48
+#define MAIN_MENU_MARGIN_TOP		296
 
 
 
@@ -145,93 +146,6 @@ MainMenu_Cache
 ===============
 */
 void MainMenu_Cache( void ) {
-/*
-	int r;
-	qtime_t tm;
-	int seed;
-
-	trap_RealTime(&tm);
-	seed = 1;
-	seed = seed * 31 + tm.tm_sec;
-	seed = seed * 31 + tm.tm_min;
-	seed = seed * 31 + tm.tm_hour;
-	seed = seed * 31 + tm.tm_mday;
-	srand( seed );
-	
-	r = rand() % MM_NUM_MENUMODELS;
-
-	//set default origin
-	s_main.menuModelOrigin[0] = 100;	//depth on the 2D menu plane
-	s_main.menuModelOrigin[1] = -5;	//X on the 2D menu plane
-	s_main.menuModelOrigin[2] = -10;	//Y on the 2D menu plane
-
-	//set default angles
-	VectorSet( s_main.menuModelAngles, 0, 0, 0 );
-
-	//if gibs are disabled and the skull was selected for the menu model, select a different menu model
-	if (trap_Cvar_VariableValue( "cg_gibs" ) == 0)
-		while (r == MM_SKULL)
-			r = rand() % MM_NUM_MENUMODELS;
-
-	switch ( r ) {
-		default:
-		case MM_KEY_MASTER:
-			s_main.menuModel = trap_R_RegisterModel( MAIN_MENU_MODEL_KEY_MASTER );
-			break;
-		case MM_KEY_GOLD:
-			s_main.menuModel = trap_R_RegisterModel( MAIN_MENU_MODEL_KEY_GOLD );
-			break;
-		case MM_KEY_SILVER:
-			s_main.menuModel = trap_R_RegisterModel( MAIN_MENU_MODEL_KEY_SILVER );
-			break;
-		case MM_KEY_RED:
-			s_main.menuModelOrigin[0] = 150;
-			VectorSet( s_main.menuModelAngles, 0, 0, 15 );
-			s_main.menuModel = trap_R_RegisterModel( MAIN_MENU_MODEL_KEY_RED );
-			break;
-		case MM_KEY_BLUE:
-			s_main.menuModelOrigin[0] = 150;
-			VectorSet( s_main.menuModelAngles, 15, 0, -15 );
-			s_main.menuModel = trap_R_RegisterModel( MAIN_MENU_MODEL_KEY_BLUE );
-			break;
-		case MM_BACKPACK:
-			s_main.menuModelOrigin[0] = 150;
-			VectorSet( s_main.menuModelAngles, 15, 0, -15 );
-			s_main.menuModel = trap_R_RegisterModel( MAIN_MENU_MODEL_BACKPACK );
-			break;
-		case MM_ROCKET_LAUNCHER:
-			s_main.menuModelOrigin[0] = 150;
-			s_main.menuModelOrigin[2] = 0;
-			VectorSet( s_main.menuModelAngles, -15, 0, 15 );
-			s_main.menuModel = trap_R_RegisterModel( MAIN_MENU_MODEL_ROCKET_LAUNCHER );
-			break;
-		case MM_ARMOR_RED:
-			s_main.menuModelOrigin[0] = 175;
-			s_main.menuModel = trap_R_RegisterModel( MAIN_MENU_MODEL_ARMOR_RED );
-			break;
-		case MM_AMMO_MG:
-			s_main.menuModelOrigin[0] = 200;
-			s_main.menuModelOrigin[2] = 0;
-			VectorSet( s_main.menuModelAngles, 0, 0, 15 );
-			s_main.menuModel = trap_R_RegisterModel( MAIN_MENU_MODEL_AMMO_MG );
-			break;
-		case MM_SKULL:
-			s_main.menuModelOrigin[2] = 0;
-			VectorSet( s_main.menuModelAngles, 0, 0, 10 );
-			s_main.menuModel = trap_R_RegisterModel( MAIN_MENU_MODEL_SKULL );
-			break;
-		case MM_SHOTGUN:
-			s_main.menuModelOrigin[0] = 150;
-			s_main.menuModelOrigin[2] = 0;
-			VectorSet( s_main.menuModelAngles, -15, 0, 15 );
-			s_main.menuModel = trap_R_RegisterModel( MAIN_MENU_MODEL_SHOTGUN );
-			break;
-		case MM_ARMOR_GREEN:
-			s_main.menuModelOrigin[0] = 175;
-			s_main.menuModel = trap_R_RegisterModel( MAIN_MENU_MODEL_ARMOR_GREEN );
-			break;	
-	}
-	*/
 }
 
 sfxHandle_t ErrorMessage_Key(int key)
@@ -249,14 +163,9 @@ TTimo: this function is common to the main menu and errorMessage menu
 */
 
 static void Main_MenuDraw( void ) {
-	/*
-	float			adjust;
-	float			x, y, w, h;
-	vec4_t			color = {0, 0, 0.5, 1};
-	refdef_t		refdef2;
-	refEntity_t		ent2;
-	vec3_t			angles2;
-	*/
+	int xoff, yoff, seed;
+	qtime_t tm;
+	uiClientState_t	cstate;
 
 	if (strlen(s_errorMessage.errorMessage))
 	{
@@ -264,64 +173,10 @@ static void Main_MenuDraw( void ) {
 	}
 	else
 	{
-		uiClientState_t	cstate;
 		trap_GetClientState( &cstate );
-
 		UI_DrawNamedPic( 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, ART_BACKGROUND );
-/*
-		// setup the refdef for menu model
-		memset( &refdef2, 0, sizeof( refdef2 ) );
-
-		refdef2.rdflags = RDF_NOWORLDMODEL;
-
-		AxisClear( refdef2.viewaxis );
-
-		x = 200;
-		y = 135;
-		w = 440;
-		h = 345;
-		UI_AdjustFrom640( &x, &y, &w, &h );
-		refdef2.x = x;
-		refdef2.y = y;
-		refdef2.width = w;
-		refdef2.height = h;
-
-		refdef2.fov_x = 30;
-		refdef2.fov_y = 19.6875;
-
-		refdef2.time = uis.realtime;
-
-		// add the menu model
-
-		memset( &ent2, 0, sizeof(ent2) );
-
-		adjust = uis.realtime / 20;		//makes it rotate
-		VectorCopy(s_main.menuModelAngles, angles2);
-		angles2[1] += adjust;
-		AnglesToAxis( angles2, ent2.axis );
-		ent2.hModel = s_main.menuModel;
-		VectorCopy( s_main.menuModelOrigin, ent2.origin );
-		VectorCopy( s_main.menuModelOrigin, ent2.lightingOrigin );
-		ent2.renderfx = RF_LIGHTING_ORIGIN | RF_NOSHADOW;
-		VectorCopy( ent2.origin, ent2.oldorigin );
-
-		trap_R_AddRefEntityToScene( &ent2 );
-
-		trap_R_RenderScene( &refdef2 );
-*/
-		// standard menu drawing
 		Menu_Draw( &s_main.menu );		
 	}
-
-	/*
-	if (uis.demoversion) {
-		UI_DrawProportionalString( 320, 372, "DEMO      FOR MATURE AUDIENCES      DEMO", UI_CENTER|UI_SMALLFONT, color );
-		UI_DrawString( 320, 400, "Quake III Arena(c) 1999-2000, Id Software, Inc.  All Rights Reserved", UI_CENTER|UI_SMALLFONT, color );
-	} else {
-		UI_DrawString( 320, 430, "Get more EntityPlus info at http://code.google.com/p/entityplus", UI_CENTER|UI_SMALLFONT, color );
-		UI_DrawString( 320, 450, "Quake III Arena(c) 1999-2000, Id Software, Inc.  All Rights Reserved", UI_CENTER|UI_SMALLFONT, color );
-	}
-	*/
 }
 
 
@@ -363,22 +218,8 @@ and that local cinematics are killed
 */
 void UI_MainMenu( void ) {
 	int		y;
-	qboolean teamArena = qfalse;
-	int		style = UI_CENTER | UI_DROPSHADOW;
 
 	trap_Cvar_Set( "sv_killserver", "1" );
-
-	/*
-	if( !uis.demoversion && !ui_cdkeychecked.integer ) {
-		char	key[17];
-
-		trap_GetCDKey( key, sizeof(key) );
-		if( trap_VerifyCDKey( key, NULL ) == qfalse ) {
-			UI_CDKeyMenu();
-			return;
-		}
-	}
-	*/
 	
 	memset( &s_main, 0, sizeof(mainmenu_t) );
 	memset( &s_errorMessage, 0, sizeof(errorMessage_t) );
@@ -406,18 +247,7 @@ void UI_MainMenu( void ) {
 	s_main.menu.wrapAround = qtrue;
 	s_main.menu.showlogo = qfalse;
 
-	//add logo
-	/*
-	s_main.logo.generic.type  = MTYPE_BITMAP;
-	s_main.logo.generic.name  = ART_LOGO;
-	s_main.logo.generic.flags = QMF_INACTIVE|QMF_CENTER_JUSTIFY;
-	s_main.logo.generic.x	   = 320;
-	s_main.logo.generic.y	   = 0;
-	s_main.logo.width  			= 512;
-	s_main.logo.height  	   = 128;
-	*/
-
-	y = 296;
+	y = MAIN_MENU_MARGIN_TOP;
 
 	//add overlay
 	s_main.overlay.generic.type		= MTYPE_BITMAP;
@@ -433,7 +263,7 @@ void UI_MainMenu( void ) {
 	s_main.header.generic.x			= MAIN_MENU_MARGIN_LEFT;
 	s_main.header.generic.y			= y;
 	s_main.header.string			= "ENTITYPLUS";
-	s_main.header.color				= color_black;
+	s_main.header.color				= color_ochre;
 
 	//add menu buttons
 	y += MAIN_MENU_VERTICAL_SPACING;
@@ -466,54 +296,6 @@ void UI_MainMenu( void ) {
 	s_main.setup.string						= "SETUP";
 	s_main.setup.color						= color_white;
 
-	/*
-	y += MAIN_MENU_VERTICAL_SPACING;
-	s_main.demos.generic.type				= MTYPE_PTEXT;
-	s_main.demos.generic.flags				= QMF_PULSEIFFOCUS;
-	s_main.demos.generic.x					= MAIN_MENU_MARGIN_LEFT;
-	s_main.demos.generic.y					= y;
-	s_main.demos.generic.id					= ID_DEMOS;
-	s_main.demos.generic.callback			= Main_MenuEvent; 
-	s_main.demos.string						= "DEMOS";
-	s_main.demos.color						= color_red;
-	s_main.demos.style						= UI_DROPSHADOW;
-
-	y += MAIN_MENU_VERTICAL_SPACING;
-	s_main.cinematics.generic.type			= MTYPE_PTEXT;
-	s_main.cinematics.generic.flags			= QMF_PULSEIFFOCUS;
-	s_main.cinematics.generic.x				= MAIN_MENU_MARGIN_LEFT;
-	s_main.cinematics.generic.y				= y;
-	s_main.cinematics.generic.id			= ID_CINEMATICS;
-	s_main.cinematics.generic.callback		= Main_MenuEvent; 
-	s_main.cinematics.string				= "CINEMATICS";
-	s_main.cinematics.color					= color_red;
-	s_main.cinematics.style					= UI_DROPSHADOW;
-
-	if (UI_TeamArenaExists()) {
-		teamArena = qtrue;
-		y += MAIN_MENU_VERTICAL_SPACING;
-		s_main.teamArena.generic.type			= MTYPE_PTEXT;
-		s_main.teamArena.generic.flags			= QMF_PULSEIFFOCUS;
-		s_main.teamArena.generic.x				= MAIN_MENU_MARGIN_LEFT;
-		s_main.teamArena.generic.y				= y;
-		s_main.teamArena.generic.id				= ID_TEAMARENA;
-		s_main.teamArena.generic.callback		= Main_MenuEvent; 
-		s_main.teamArena.string					= "TEAM ARENA";
-		s_main.teamArena.color					= color_red;
-		s_main.teamArena.style					= UI_DROPSHADOW;
-	}
-
-	y += MAIN_MENU_VERTICAL_SPACING;
-	s_main.mods.generic.type			= MTYPE_PTEXT;
-	s_main.mods.generic.flags			= QMF_PULSEIFFOCUS;
-	s_main.mods.generic.x				= MAIN_MENU_MARGIN_LEFT;
-	s_main.mods.generic.y				= y;
-	s_main.mods.generic.id				= ID_MODS;
-	s_main.mods.generic.callback		= Main_MenuEvent; 
-	s_main.mods.string					= "MODS";
-	s_main.mods.color					= color_red;
-	s_main.mods.style					= UI_DROPSHADOW;
-*/
 	y += MAIN_MENU_VERTICAL_SPACING;
 	s_main.exit.generic.type				= MTYPE_PTEXT;
 	s_main.exit.generic.flags				= QMF_PULSEIFFOCUS;
@@ -524,18 +306,11 @@ void UI_MainMenu( void ) {
 	s_main.exit.string						= "EXIT";
 	s_main.exit.color						= color_white;
 
-	//Menu_AddItem( &s_main.menu, &s_main.logo );
 	Menu_AddItem( &s_main.menu,	&s_main.overlay );
 	Menu_AddItem( &s_main.menu,	&s_main.header );
 	Menu_AddItem( &s_main.menu,	&s_main.singleplayer );
 	Menu_AddItem( &s_main.menu,	&s_main.multiplayer );
 	Menu_AddItem( &s_main.menu,	&s_main.setup );
-	/*
-	Menu_AddItem( &s_main.menu,	&s_main.demos );
-	Menu_AddItem( &s_main.menu,	&s_main.cinematics );
-	if (teamArena) Menu_AddItem( &s_main.menu, &s_main.teamArena );
-	Menu_AddItem( &s_main.menu,	&s_main.mods );
-	*/
 	Menu_AddItem( &s_main.menu,	&s_main.exit );             
 
 	trap_Key_SetCatcher( KEYCATCH_UI );
