@@ -1,6 +1,5 @@
 // entity 0
 {
-"music" "music\sonic5.wav"
 "message" "Temple Escape"
 "classname" "worldspawn"
 // brush 0

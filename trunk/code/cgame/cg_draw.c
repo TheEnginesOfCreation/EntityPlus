@@ -2616,6 +2616,9 @@ static void CG_DrawFade( void ) {
 		CG_FillRect(0, 480 - cg_letterBoxSize.value, 640, cg_letterBoxSize.value, color);
 	}
 
+	if ( cgs.gametype != GT_ENTITYPLUS )
+		return;
+
 	// make screen fade out to black at map change
 	if (cgs.gametype == GT_ENTITYPLUS && cg.time > cg.fadeOutTime && cg.time < (cg.fadeOutTime + FADEOUT_TIME)) {
 		color[0] = 0;
@@ -2685,7 +2688,7 @@ static void CG_Draw2D( void ) {
 	if ( strlen(overlay) && cgs.media.effectOverlay )
 		CG_DrawPic( 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, cgs.media.effectOverlay );
 
-	if ( !cg.fadeInTime )
+	if ( !cg.fadeInTime && cgs.gametype == GT_ENTITYPLUS )
 		cg.fadeInTime = cg.time;
 
 	if ( cg_draw2D.integer == 0 ) {
