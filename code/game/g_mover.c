@@ -1485,7 +1485,6 @@ void Break_Breakable(gentity_t *ent, gentity_t *other) {
 		spawnflags = ent->spawnflags;
 	}
 
-	//TODO: make func_breakable play a sound when it's broken?
 	G_FreeEntity( ent );
 
 	//spray out debris

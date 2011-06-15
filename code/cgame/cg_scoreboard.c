@@ -291,9 +291,9 @@ void CG_DrawSinglePlayerIntermission( void ) {
 	carnage = cg.snap->ps.persistant[PERS_SCORE];
 	deaths = cg.snap->ps.persistant[PERS_KILLED];
 	accuracy = CG_GetAccuracy();
-	accuracyScore = COM_AccuracyToScore(accuracy, score);
+	accuracyScore = COM_AccuracyToScore(accuracy, COM_CalculateLevelScore( cg.snap->ps.persistant, accuracy, skill, qfalse ));
 	skill = CG_GetSkill();
-	score = COM_CalculateLevelScore( cg.snap->ps.persistant, accuracy, skill );
+	score = COM_CalculateLevelScore( cg.snap->ps.persistant, accuracy, skill, qtrue );
 
 	y = 64;
 	if (cg.time < cg.intermissionTime + 750)
@@ -394,7 +394,7 @@ void CG_DrawSinglePlayerObjectives( void ) {
 
 	//draw level score
 	CG_DrawBigStringColor( 250, 310, "Score", color);
-	CG_DrawBigStringColor( 360, 310, va("%i", COM_CalculateLevelScore( cg.snap->ps.persistant, CG_GetAccuracy(), CG_GetSkill() )), color);	
+	CG_DrawBigStringColor( 360, 310, va("%i", COM_CalculateLevelScore( cg.snap->ps.persistant, CG_GetAccuracy(), CG_GetSkill(), qtrue )), color);	
 }
 
 /*

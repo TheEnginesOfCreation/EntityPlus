@@ -1297,17 +1297,20 @@ COM_CalculateLevelScore
 Calculates the player's level score
 ==================
 */
-int COM_CalculateLevelScore(int persistant[MAX_PERSISTANT], int accuracy, int skill) {
+int COM_CalculateLevelScore(int persistant[MAX_PERSISTANT], int accuracy, int skill, qboolean modifiers) {
 	int score = 0;
 
 	score += persistant[PERS_SCORE];
 	score += (persistant[PERS_KILLED] * SCORE_DEATH);
 	
-	//accuracy is the percentage of 50% of the player's score. 
-	//For example, a player with 150 score and 60% accuracy will have a final score of 245
-	score += COM_AccuracyToScore(accuracy, score);
+	if ( modifiers ) {
+		//accuracy is the percentage of 50% of the player's score. 
+		//For example, a player with 150 score and 60% accuracy will have a final score of 245
+		score += COM_AccuracyToScore(accuracy, score);
 
-	score *= (skill * SCORE_SKILL);
+		//skill modifier
+		score *= (skill * SCORE_SKILL);
+	}
 
 	if ( score < 0 )
 		score = 0;

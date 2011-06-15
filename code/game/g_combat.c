@@ -848,7 +848,6 @@ void G_Damage( gentity_t *targ, gentity_t *inflictor, gentity_t *attacker,
 	}
 
 	//in single player bots cannot harm other bots
-	//TODO: adapt bot AI so they don't initiate attacks on each other
 	if ( g_gametype.integer == GT_ENTITYPLUS && IsBot( targ ) && attacker && IsBot( attacker ) )
 		return;
 

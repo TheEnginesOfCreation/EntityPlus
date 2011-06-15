@@ -995,6 +995,7 @@ void target_script_use (gentity_t *self, gentity_t *other, gentity_t *activator)
 	trap_Cvar_Set( "cl_noprint", "1" );
 	trap_SendConsoleCommand( EXEC_INSERT, va( "exec %s\n", self->script ) ); 
 
+	//we wait 300ms before returning cl_noprint to its former value, otherwise cl_noprint is reset too soon.
 	self->nextthink = level.time + 300;
 }
 
@@ -1038,7 +1039,7 @@ void target_finish_use (gentity_t *self, gentity_t *other, gentity_t *activator)
 		accuracy = (activator->client->accuracy_hits / activator->client->accuracy_shots) * 100;
 	else
 		accuracy = 0;
-	score = COM_CalculateLevelScore(activator->client->ps.persistant, accuracy, (int)skill);
+	score = COM_CalculateLevelScore(activator->client->ps.persistant, accuracy, (int)skill, qtrue);
 	highScore = COM_LoadLevelScore( G_GetScoringMapName() );
 	
 	if ( score > highScore )
