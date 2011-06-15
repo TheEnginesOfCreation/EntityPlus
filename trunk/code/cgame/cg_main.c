@@ -805,7 +805,7 @@ void CG_RegisterOverlay( void ) {
 	if ( strlen(overlay) ) {
 		cgs.media.effectOverlay = trap_R_RegisterShaderNoMip( overlay );
 	} else {
-		cgs.media.effectOverlay;
+		cgs.media.effectOverlay = 0;
 	}
 }
 
