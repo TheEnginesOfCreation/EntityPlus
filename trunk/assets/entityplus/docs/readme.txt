@@ -33,7 +33,8 @@ for use with GtkRadiant 1.5 yet.
 
 Configuring Radiant to use the entityplus folder as working folder can be done by going to "File" > "Project Settings", 
 then under "Select mod" pick the option "Custom Quake III modification" and enter "entityplus" as value for the fs_game 
-input field. Click "ok" to apply the settings. 
+input field. Click "ok" to apply the settings. A more in-depth explanation for this is included in the manual that
+accompanies the mod.
 
 The mod can be started by using the "EntityPlus.bat" file found in your Quake III Arena installation folder. In EntityPlus,
 the single player menu will list all the maps that are compatible with entityplus' single player mode.
