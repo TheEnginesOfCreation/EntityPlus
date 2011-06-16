@@ -1,3 +1,8 @@
+v0.8 (?? ?? 2011)
+        - [Added] New sound that plays when score is being added up.
+
+
+
 v0.7 (16 jun 2011)
 	- [Added] Scoring system which allows players to keep track of high scores for levels.
 	- [Added] target_script entity which implements the SCRIPT functionality previously available on target_mapchange.
