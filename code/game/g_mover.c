@@ -1310,7 +1310,8 @@ void Reached_Train( gentity_t *ent ) {
 
 	// if there is a "wait" value on the target, don't start moving yet
 	if ( next->wait ) {
-		ent->nextthink = level.time + next->wait * 1000;
+		if ( next->wait > 0 )
+			ent->nextthink = level.time + next->wait * 1000;
 		ent->think = Think_BeginMoving;
 		ent->s.pos.trType = TR_STATIONARY;
 	}
@@ -1397,6 +1398,18 @@ The train spawns at the first target it is pointing at.
 "color"		constantLight color
 "light"		constantLight radius
 */
+void Use_Train (gentity_t *ent, gentity_t *other, gentity_t *activator) {
+	G_Printf("trType: %i\n", ent->s.pos.trType);
+	if (ent->s.pos.trType == TR_STATIONARY) {
+		ent->s.pos.trType = TR_LINEAR_STOP;
+		Think_BeginMoving( ent );
+	}
+	//else {
+	//	ent->nextthink = 0;
+	//	ent->s.pos.trType = TR_STATIONARY;
+	//}
+}
+
 void SP_func_train (gentity_t *self) {
 	VectorClear (self->s.angles);
 
@@ -1427,6 +1440,7 @@ void SP_func_train (gentity_t *self) {
 	// a chance to spawn
 	self->nextthink = level.time + FRAMETIME;
 	self->think = Think_SetupTrainTargets;
+	self->use = Use_Train;
 }
 
 /*

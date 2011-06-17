@@ -1,6 +1,6 @@
-v0.8 (?? ?? 2011)
-        - [Added] New sound that plays when score is being added up.
-
+v0.8 (?? ??? 2011)
+	- [Added] New sound that plays when score is being added up.
+	- [Added] path_corner entities can have a wait key of -1 which will halt the train until the train is triggered again.
 
 
 v0.7 (16 jun 2011)
@@ -38,8 +38,10 @@ v0.7 (16 jun 2011)
 	- [Changed] New main menu (again!)
 	- [Changed] New minimalistic loading screen so it doesn't spoil the items in the level.
 
+
 v0.6.1 (25 may 2011)
 	- [Fixed] Buttons in main menu don't always highlight properly on mouse-over.
+
 
 v0.6 (25 may 2011)
 	- [Added] info_waypoint entity to plot patrolling routes for bots.
@@ -64,10 +66,12 @@ v0.6 (25 may 2011)
 	- [Changed] Enemies spawning into or out of the game no longer show the teleportation effect.
 	- [Changed] Main menu looks a bit different now.
 
+
 v0.5.1 (9 may 2011)
 	- [Fixed] Added missing example map roq video to pak0.pk3
 	- [Fixed] Missing texture in ep_example map
 	- [Fixed] Startup batch file does not properly set sv_maxclients
+
 
 v0.5 (8 may 2011)
 	- [Added] health key to target_botspawn in entities.def.
@@ -87,6 +91,7 @@ v0.5 (8 may 2011)
 	- [Changed] Shaders and icons for skeleton keys have been updated
 	- [Changed] Awards (humiliation/impressive/excellent) are no longer rewarded in single player mode for improved game immersion.
 	- [Changed] Improved description of target_logic in entities.def
+
 
 v0.4 (25 apr 2011)
 	- [Added] Dying in single player causes the player to drop a backpack which can be picked up to restore the player's weapons/ammo/holdables.
@@ -128,7 +133,6 @@ v0.4 (25 apr 2011)
 	- [Changed] The announcer voice no longer announced fraglimit or timelimit warnings and lead changes in single player.
 	
 	
-
 v0.3 (12 apr 2011)
 	- [Added] IMMEDIATELY spawnflag for target_disable.
 	- [Added] mapname key for target_mapchange.
@@ -157,7 +161,7 @@ v0.3 (12 apr 2011)
 	- [Changed] Bots defined in arena files are no longer announced when in single player mode (g_gametype 2)
 	- [Changed] EntityPlus startup batch file now loads entityplus example map in single player mode
 	
-
+	
 v0.2 (25 mar 2011)
 	- [Added] shooter_bfg
 	- [Added] target_botspawn
@@ -169,6 +173,7 @@ v0.2 (25 mar 2011)
 	- [Changed] func_bobbing can move along multiple axes.
 	- [Changed] Removed RED_ONLY/BLUE_ONLY spawnflags from target_intermission and target_gravity.
 	- [Changed] Added target_disable, target_botspawn and item_armor_vest example to entityplus example map.
+
 
 v0.1 (11 mar 2011)
 	- [Added] func_breakable
