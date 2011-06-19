@@ -1,6 +1,7 @@
 v0.8 (?? ??? 2011)
 	- [Added] New sound that plays when score is being added up.
 	- [Added] path_corner entities can have a wait key of -1 which will halt the train until the train is triggered again.
+	- [Fixed] constantlight on func_ entities sets color values as int instead of float (thanks ZTurtleMan)
 
 
 v0.7 (16 jun 2011)

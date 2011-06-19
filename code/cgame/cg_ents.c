@@ -124,13 +124,13 @@ static void CG_EntityEffects( centity_t *cent ) {
 		int		i, r, g, b;
 
 		cl = cent->currentState.constantLight;
-		r = cl & 255;
-		g = ( cl >> 8 ) & 255;
-		b = ( cl >> 16 ) & 255;
-		i = ( ( cl >> 24 ) & 255 ) * 4;
+
 		//entityplus: trap_R_AddLightToScene takes rgb values from 0.0 - 1.0, not 0 - 255. Appears to be a bug in vQ3 SDK code.
-		trap_R_AddLightToScene( cent->lerpOrigin, i, r / 255, g / 255, b / 255 );
-		//trap_R_AddLightToScene( cent->lerpOrigin, i, r, g, b );
+		r = (float) (cl & 0xFF) / 255.0;
+		g = (float) ((cl >> 8) & 0xFF) / 255.0;
+		b = (float) ((cl >> 16) & 0xFF) / 255.0;
+		i = (float) ((cl >> 24) & 0xFF) * 4.0;
+		trap_R_AddLightToScene( cent->lerpOrigin, i, r, g, b );
 	}
 
 }
