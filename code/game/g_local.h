@@ -104,7 +104,6 @@ struct gentity_s {
 	float		angle;			// set in editor, -1 = up, -2 = down
 	char		*target;
 	char		*targetname;
-	int			logicEntities[MAX_LOGIC_ENTITIES];	//keeping track of entities targeting a target_logic
 	char		*team;
 	char		*targetShaderName;
 	char		*targetShaderNewName;
@@ -164,12 +163,15 @@ struct gentity_s {
 	char		*clientname;			// name of the bot to spawn for target_botspawn
 	char		*mapname;				// name of the map to switch to for target_mapchange
 	char		*script;				// name of the script to execute for target_script
-
 	char		*teleporterTarget;		// forces a client to be teleported to the entity with this targetname when using holdable_teleporter. Also used as key for holdable_teleporter itself.
+	int			logicEntities[MAX_LOGIC_ENTITIES];	//keeping track of entities targeting a target_logic
+	char		*target2;	//second target
 	int			backpackContents[WP_NUM_WEAPONS - 1];
 	char		*deathTarget;	// target to trigger when bot from target_botspawn dies
 	float		skill; // skill level set by target_skill
 	char		*overlay; // reference to overlay texture for target_effect
+	char		*key;	// key for target_modify to change
+	char		*value; // value for target_modify to change to
 };
 
 
