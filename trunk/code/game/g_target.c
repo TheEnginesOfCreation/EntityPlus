@@ -407,6 +407,13 @@ void target_relay_use (gentity_t *self, gentity_t *other, gentity_t *activator) 
 		if ( ent && ent->use ) {
 			ent->use( ent, self, activator );
 		}
+
+		if ( self->target2 ) {
+			ent = G_PickTarget( self->target2 );
+			if ( ent && ent->use ) {
+				ent->use( ent, self, activator );
+			}
+		}
 		return;
 	}
 
@@ -414,7 +421,7 @@ void target_relay_use (gentity_t *self, gentity_t *other, gentity_t *activator) 
 		self->count = 1;
 	}
 
-	if (!self->damage)
+	if (!self->damage)		//damage is used to keep track of the number of times the target_relay was triggered
 		self->damage = 1;
 	else
 		self->damage++;
@@ -1056,4 +1063,133 @@ void SP_target_finish (gentity_t *self) {
 	}
 
 	self->use = target_finish_use;
+}
+
+//==========================================================
+
+/*QUAKED target_modify (.5 .5 .5) (-8 -8 -8) (8 8 8)
+When triggered, modifies the value of the specified key on the entities the target_modify targets
+*/
+void modify_entity ( char *key, char *value, gentity_t *ent ) {
+	if ( !strcmp( key, "spawnflags") ) {
+		ent->spawnflags = atoi(value);
+		return;
+	}
+
+	if ( !strcmp( key, "message") ) {
+		ent->message = value;
+		return;
+	}
+
+	if ( !strcmp( key, "target") ) {
+		ent->target = value;
+		return;
+	}
+
+	if ( !strcmp( key, "targetname") ) {
+		ent->targetname = value;
+		return;
+	}
+
+	if ( !strcmp( key, "targetshadername") ) {
+		ent->targetShaderName = value;
+		return;
+	}
+
+	if ( !strcmp( key, "targetnewshadername") ) {
+		ent->targetShaderNewName = value;
+		return;
+	}
+
+	if ( !strcmp( key, "angle") ) {
+		ent->angle = atof(value);
+		return;
+	}
+
+	if ( !strcmp( key, "speed") ) {
+		ent->speed = atof(value);
+		return;
+	}
+
+	if ( !strcmp( key, "health") ) {
+		ent->health = atoi(value);
+		return;
+	}
+
+	if ( !strcmp( key, "count") ) {
+		ent->count = atoi(value);
+		return;
+	}
+
+	if ( !strcmp( key, "wait") ) {
+		ent->wait = atof(value);
+		return;
+	}
+
+	if ( !strcmp( key, "clientname") ) {
+		ent->clientname = value;
+		return;
+	}
+
+	if ( !strcmp( key, "mapname") ) {
+		ent->mapname = value;
+		return;
+	}
+
+	if ( !strcmp( key, "script") ) {
+		ent->script = value;
+		return;
+	}
+	
+	if ( !strcmp( key, "teleportertarget") ) {
+		ent->teleporterTarget = value;
+		return;
+	}
+
+	if ( !strcmp( key, "target2") ) {
+		ent->target2 = value;
+		return;
+	}
+
+	if ( !strcmp( key, "deathtarget") ) {
+		ent->deathTarget = value;
+		return;
+	}
+
+	if ( !strcmp( key, "skill") ) {
+		ent->skill = atof(value);
+		return;
+	}
+	
+	if ( !strcmp( key, "overlay") ) {
+		ent->overlay = value;
+		return;
+	}
+
+	if ( !strcmp( key, "key") ) {
+		ent->key = value;
+		return;
+	}
+
+	if ( !strcmp( key, "value") ) {
+		ent->value = value;
+		return;
+	}
+}
+
+void target_modify_use (gentity_t *self, gentity_t *other, gentity_t *activator) {
+	gentity_t *t;
+
+	t = NULL;
+	while ( (t = G_Find (t, FOFS(targetname), self->target)) != NULL ) {
+		modify_entity(self->key, self->value, t);
+		if ( !self->inuse ) {
+			G_Printf("entity was removed while using targets\n");
+			return;
+		}
+	}
+}
+
+void SP_target_modify (gentity_t *self) {
+	self->use = target_modify_use;
 }

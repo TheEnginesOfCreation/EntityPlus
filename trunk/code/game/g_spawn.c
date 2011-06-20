@@ -103,7 +103,9 @@ field_t fields[] = {
 	{"deathTarget", FOFS(deathTarget), F_LSTRING},
 	{"skill", FOFS(skill), F_FLOAT},
 	{"overlay", FOFS(overlay), F_LSTRING},
-
+	{"target2", FOFS(target), F_LSTRING},
+	{"key", FOFS(key), F_LSTRING},
+	{"value", FOFS(value), F_LSTRING},
 	{NULL}
 };
 
@@ -170,6 +172,7 @@ void SP_target_earthquake (gentity_t *ent);
 void SP_target_effect (gentity_t *ent);
 void SP_target_script (gentity_t *ent);
 void SP_target_finish (gentity_t *ent);
+void SP_target_modify (gentity_t *ent);
 
 void SP_light (gentity_t *self);
 void SP_info_null (gentity_t *self);
@@ -265,6 +268,7 @@ spawn_t	spawns[] = {
 	{"target_effect", SP_target_effect},
 	{"target_script", SP_target_script},
 	{"target_finish", SP_target_finish},
+	{"target_modify", SP_target_modify},
 
 	{"light", SP_light},
 	{"path_corner", SP_path_corner},

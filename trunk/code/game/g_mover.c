@@ -1399,7 +1399,6 @@ The train spawns at the first target it is pointing at.
 "light"		constantLight radius
 */
 void Use_Train (gentity_t *ent, gentity_t *other, gentity_t *activator) {
-	G_Printf("trType: %i\n", ent->s.pos.trType);
 	if (ent->s.pos.trType == TR_STATIONARY) {
 		ent->s.pos.trType = TR_LINEAR_STOP;
 		Think_BeginMoving( ent );
