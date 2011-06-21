@@ -1,11 +1,11 @@
 v0.8 (?? ??? 2011)
-        - [Added] Stone debris
-	- [Added] target_modify entity
+	- [Added] target_modify entity.
 	- [Added] All entites that use the target key to trigger other entities can trigger a second targetname through the target2 key.
 	- [Added] path_corner entities can have a wait key of -1 which will halt the train until the train is triggered again.
+	- [Added] STONE_DEBRIS spawnflag to target_debrisemitter and func_breakable.
 	- [Added] New sound that plays when score is being added up.
-        - [Fixed] Bug fix.
-	- [Fixed] constantlight on func_ entities sets color values as int instead of float (thanks ZTurtleMan)
+	- [Fixed] Constantlight on func_ entities sets color values as int instead of float (thanks ZTurtleMan).
+	- [Fixed] Added missing GLASS_DEBRIS spawnflag on func_breakable in entities.def.
 
 
 v0.7 (16 jun 2011)
