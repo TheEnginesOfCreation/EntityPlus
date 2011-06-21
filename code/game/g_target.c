@@ -1070,6 +1070,47 @@ void SP_target_finish (gentity_t *self) {
 /*QUAKED target_modify (.5 .5 .5) (-8 -8 -8) (8 8 8)
 When triggered, modifies the value of the specified key on the entities the target_modify targets
 */
+void modify_rewire_traintargets( gentity_t *ent ) {
+	gentity_t		*path, *next, *start;
+
+	Think_SetupTrainTargets( ent );
+/*
+	ent->nextTrain = G_Find( NULL, FOFS(targetname), ent->target );
+	if ( !ent->nextTrain ) {
+		G_Printf( "func_train at %s with an unfound target\n",
+			vtos(ent->r.absmin) );
+		return;
+	}
+
+	start = NULL;
+	for ( path = ent->nextTrain ; path != start ; path = next ) {
+		if ( !start ) {
+			start = path;
+		}
+
+		if ( !path->target ) {
+			G_Printf( "Train corner at %s without a target\n", vtos(path->s.origin) );
+			return;
+		}
+
+		// find a path_corner among the targets
+		// there may also be other targets that get fired when the corner
+		// is reached
+		next = NULL;
+		do {
+			next = G_Find( next, FOFS(targetname), path->target );
+			if ( !next ) {
+				G_Printf( "Train corner at %s without a target path_corner\n",
+					vtos(path->s.origin) );
+				return;
+			}
+		} while ( strcmp( next->classname, "path_corner" ) );
+
+		path->nextTrain = next;
+	}
+	*/
+}
+
 void modify_entity ( char *key, char *value, gentity_t *ent ) {
 	if ( !strcmp( key, "spawnflags") ) {
 		ent->spawnflags = atoi(value);
@@ -1083,11 +1124,15 @@ void modify_entity ( char *key, char *value, gentity_t *ent ) {
 
 	if ( !strcmp( key, "target") ) {
 		ent->target = value;
+		if ( !strcmp( ent->classname, "path_corner" ) )
+			modify_rewire_traintargets( ent );
 		return;
 	}
 
 	if ( !strcmp( key, "targetname") ) {
 		ent->targetname = value;
+		if ( !strcmp( ent->classname, "path_corner" ) )
+			modify_rewire_traintargets( ent );
 		return;
 	}
 

@@ -1330,8 +1330,10 @@ void Think_SetupTrainTargets( gentity_t *ent ) {
 
 	ent->nextTrain = G_Find( NULL, FOFS(targetname), ent->target );
 	if ( !ent->nextTrain ) {
-		G_Printf( "func_train at %s with an unfound target\n",
-			vtos(ent->r.absmin) );
+		if ( !strcmp( ent->classname, "func_train" ) )
+			G_Printf( "func_train at %s with an unfound target\n", vtos(ent->r.absmin) );
+		else //path_corner
+			G_Printf( "Train corner at %s without a target\n", ent->s.origin );
 		return;
 	}
 
@@ -1360,11 +1362,13 @@ void Think_SetupTrainTargets( gentity_t *ent ) {
 			}
 		} while ( strcmp( next->classname, "path_corner" ) );
 
+		//G_Printf("%s -> %s\n", path->targetname, next->targetname);
 		path->nextTrain = next;
 	}
 
 	// start the train moving from the first corner
-	Reached_Train( ent );
+	if ( !strcmp( ent->classname, "func_train" ) )
+		Reached_Train( ent );
 }
 
 
