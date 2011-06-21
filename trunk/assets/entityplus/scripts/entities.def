@@ -2381,6 +2381,7 @@ Only used for the world.
 -------- KEYS --------
 message : text to print at user logon. Used for name of level.
 music : path/name of looping .wav file used for level's music (eg. music/sonic5.wav).
+scoreboardmusic : path/name of looping .wav file used for level's scoreboard music (eg. music/win.wav).
 _ambient OR ambient : Adds a constant value to overall lighting. Use is not recommended. Ambient light will have a tendency to flatten out variations in light and shade.
 _color : RGB value for ambient light color (default is 0 0 0).
 gravity : gravity of level (default is normal gravity: 800).

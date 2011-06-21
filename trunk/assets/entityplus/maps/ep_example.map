@@ -2,6 +2,7 @@
 {
 "message" "Temple Escape"
 "classname" "worldspawn"
+"scoreboardmusic" "music\win.wav"
 // brush 0
 {
 ( 1378 -1164 -158 ) ( 1370 -1164 -158 ) ( 1370 -1170 -158 ) common/clip 0 0 0 0.500000 0.500000 0 0 0
