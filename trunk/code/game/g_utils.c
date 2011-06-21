@@ -246,7 +246,7 @@ void G_UseTargets( gentity_t *ent, gentity_t *activator ) {
 
 		//find all entities with matching targetname2
 		t = NULL;
-		while ( (t = G_Find (t, FOFS(targetname), ent->target)) != NULL ) {
+		while ( (t = G_Find (t, FOFS(targetname2), ent->target)) != NULL ) {
 			if ( t == ent ) {
 				G_Printf ("WARNING: Entity used itself.\n");
 			} else {
