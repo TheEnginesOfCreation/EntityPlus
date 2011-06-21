@@ -1261,6 +1261,18 @@ void CG_StartMusic( void ) {
 
 	trap_S_StartBackgroundTrack( parm1, parm2 );
 }
+
+void CG_StartScoreboardMusic( void ) {
+	char	*s;
+	char	parm1[MAX_QPATH], parm2[MAX_QPATH];
+
+	// start the background music
+	s = (char *)CG_ConfigString( CS_SCOREBOARDMUSIC );
+	Q_strncpyz( parm1, COM_Parse( &s ), sizeof( parm1 ) );
+	Q_strncpyz( parm2, COM_Parse( &s ), sizeof( parm2 ) );
+
+	trap_S_StartBackgroundTrack( parm1, parm2 );
+}
 #ifdef MISSIONPACK
 char *CG_GetMenuBuffer(const char *filename) {
 	int	len;

@@ -1,7 +1,8 @@
 v0.8 (?? ??? 2011)
 	- [Added] target_modify entity.
-	- [Added] All entites that use the target key to trigger other entities can trigger a second targetname through the target2 key.
+	- [Added] All entites that use the target key to activate other entities can trigger a second targetname through the target2 key.
 	- [Added] path_corner entities can have a wait key of -1 which will halt the train until the train is triggered again.
+	- [Added] scoreboardmusic key to worldspawn entity.
 	- [Added] STONE_DEBRIS spawnflag to target_debrisemitter and func_breakable.
 	- [Added] New sound that plays when score is being added up.
 	- [Fixed] Constantlight on func_ entities sets color values as int instead of float (thanks ZTurtleMan).
