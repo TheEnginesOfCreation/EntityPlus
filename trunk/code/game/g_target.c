@@ -1155,6 +1155,11 @@ void modify_entity ( char *key, char *value, gentity_t *ent ) {
 		return;
 	}
 
+	if ( !strcmp( key, "targetname2") ) {
+		ent->targetname2 = value;
+		return;
+	}
+
 	if ( !strcmp( key, "deathtarget") ) {
 		ent->deathTarget = value;
 		return;

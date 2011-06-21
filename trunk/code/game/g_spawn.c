@@ -103,7 +103,8 @@ field_t fields[] = {
 	{"deathTarget", FOFS(deathTarget), F_LSTRING},
 	{"skill", FOFS(skill), F_FLOAT},
 	{"overlay", FOFS(overlay), F_LSTRING},
-	{"target2", FOFS(target), F_LSTRING},
+	{"target2", FOFS(target2), F_LSTRING},
+	{"targetname2", FOFS(targetname2), F_LSTRING},
 	{"key", FOFS(key), F_LSTRING},
 	{"value", FOFS(value), F_LSTRING},
 	{NULL}

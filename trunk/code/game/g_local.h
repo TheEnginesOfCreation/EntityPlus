@@ -166,6 +166,7 @@ struct gentity_s {
 	char		*teleporterTarget;		// forces a client to be teleported to the entity with this targetname when using holdable_teleporter. Also used as key for holdable_teleporter itself.
 	int			logicEntities[MAX_LOGIC_ENTITIES];	//keeping track of entities targeting a target_logic
 	char		*target2;	//second target
+	char		*targetname2; //second targetname
 	int			backpackContents[WP_NUM_WEAPONS - 1];
 	char		*deathTarget;	// target to trigger when bot from target_botspawn dies
 	float		skill; // skill level set by target_skill

@@ -1,6 +1,7 @@
 v0.8 (?? ??? 2011)
 	- [Added] target_modify entity.
-	- [Added] All entites that use the target key to activate other entities can trigger a second targetname through the target2 key.
+	- [Added] Added target2 key to a number of entities.
+	- [Added] Added targetname2 key to a number of entities.
 	- [Added] path_corner entities can have a wait key of -1 which will halt the train until the train is triggered again.
 	- [Added] scoreboardmusic key to worldspawn entity.
 	- [Added] STONE_DEBRIS spawnflag to target_debrisemitter and func_breakable.
@@ -130,7 +131,7 @@ v0.4 (25 apr 2011)
 	- [Changed] Bots no longer chat in single player mode.
 	- [Changed] "You fragged ... " messages no longer shown in single player mode.
 	- [Changed] Obituaries ("... was fragged by ...") messages are no longer shown in single player mode.
-	- [Changed] "... conneced" messages no longer shown in SP mode when connecting player is a bot.
+	- [Changed] "... connected" messages no longer shown in SP mode when connecting player is a bot.
 	- [Changed] join and team change messages no longer shown in SP mode when joining/changing player is a bot.
 	- [Changed] Fraglimit and timelimit are forced to 0 in single player mode.
 	- [Changed] Removed non-essential information from HUD in single player mode.
