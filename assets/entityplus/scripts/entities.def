@@ -49,6 +49,7 @@ team : set this to team items. Teamed items will respawn randomly after team mas
 target : picking up the item will trigger the entity this points to.
 target2 : picking up the item will trigger the entity this points to.
 targetname : a target_give entity can point to this for respawn freebies.
+targetname2 : a target_give entity can point to this for respawn freebies.
 notfree : when set to 1, entity will not spawn in "Free for all" and "Tournament" modes.
 notteam : when set to 1, entity will not spawn in "Teamplay" and "CTF" modes.
 notsingle : when set to 1, entity will not spawn in Single Player mode.
@@ -74,6 +75,7 @@ team : set this to team items. Teamed items will respawn randomly after team mas
 target : picking up the item will trigger the entity this points to.
 target2 : picking up the item will trigger the entity this points to.
 targetname : a target_give entity can point to this for respawn freebies.
+targetname2 : a target_give entity can point to this for respawn freebies.
 notfree : when set to 1, entity will not spawn in "Free for all" and "Tournament" modes.
 notteam : when set to 1, entity will not spawn in "Teamplay" and "CTF" modes.
 notsingle : when set to 1, entity will not spawn in Single Player mode.
@@ -99,6 +101,7 @@ team : set this to team items. Teamed items will respawn randomly after team mas
 target : picking up the item will trigger the entity this points to.
 target2 : picking up the item will trigger the entity this points to.
 targetname : a target_give entity can point to this for respawn freebies.
+targetname2 : a target_give entity can point to this for respawn freebies.
 notfree : when set to 1, entity will not spawn in "Free for all" and "Tournament" modes.
 notteam : when set to 1, entity will not spawn in "Teamplay" and "CTF" modes.
 notsingle : when set to 1, entity will not spawn in Single Player mode.
@@ -124,6 +127,7 @@ team : set this to team items. Teamed items will respawn randomly after team mas
 target : picking up the item will trigger the entity this points to.
 target2 : picking up the item will trigger the entity this points to.
 targetname : a target_give entity can point to this for respawn freebies.
+targetname2 : a target_give entity can point to this for respawn freebies.
 notfree : when set to 1, entity will not spawn in "Free for all" and "Tournament" modes.
 notteam : when set to 1, entity will not spawn in "Teamplay" and "CTF" modes.
 notsingle : when set to 1, entity will not spawn in Single Player mode.
@@ -149,6 +153,7 @@ team : set this to team items. Teamed items will respawn randomly after team mas
 target : picking up the item will trigger the entity this points to.
 target2 : picking up the item will trigger the entity this points to.
 targetname : a target_give entity can point to this for respawn freebies.
+targetname2 : a target_give entity can point to this for respawn freebies.
 notfree : when set to 1, when set to 1, entity will not spawn in "Free for all" and "Tournament" modes.
 notteam : when set to 1, entity will not spawn in "Teamplay" and "CTF" modes.
 notsingle : when set to 1, entity will not spawn in Single Player mode.
@@ -174,6 +179,7 @@ team : set this to team items. Teamed items will respawn randomly after team mas
 target : picking up the item will trigger the entity this points to.
 target2 : picking up the item will trigger the entity this points to.
 targetname : a target_give entity can point to this for respawn freebies.
+targetname2 : a target_give entity can point to this for respawn freebies.
 notfree : when set to 1, entity will not spawn in "Free for all" and "Tournament" modes.
 notteam : when set to 1, entity will not spawn in "Teamplay" and "CTF" modes.
 notsingle : when set to 1, entity will not spawn in Single Player mode.
@@ -199,6 +205,7 @@ team : set this to team items. Teamed items will respawn randomly after team mas
 target : picking up the item will trigger the entity this points to.
 target2 : picking up the item will trigger the entity this points to.
 targetname : a target_give entity can point to this for respawn freebies.
+targetname2 : a target_give entity can point to this for respawn freebies.
 notfree : when set to 1, entity will not spawn in "Free for all" and "Tournament" modes.
 notteam : when set to 1, entity will not spawn in "Teamplay" and "CTF" modes.
 notsingle : when set to 1, entity will not spawn in Single Player mode.
@@ -224,6 +231,7 @@ team : set this to team items. Teamed items will respawn randomly after team mas
 target : picking up the item will trigger the entity this points to.
 target2 : picking up the item will trigger the entity this points to.
 targetname : a target_give entity can point to this for respawn freebies.
+targetname2 : a target_give entity can point to this for respawn freebies.
 notfree : when set to 1, entity will not spawn in "Free for all" and "Tournament" modes.
 notteam : when set to 1, entity will not spawn in "Teamplay" and "CTF" modes.
 notsingle : when set to 1, entity will not spawn in Single Player mode.
@@ -361,6 +369,7 @@ speed : determines how fast the door moves (default 100).
 wait : number of seconds before door returns (default 2, -1 = return immediately, -2 return only when triggered again)
 lip : lip remaining at end of move (default 8)
 targetname : if set, a func_button or trigger is required to activate the door.
+targetname2 : if set, a func_button or trigger is required to activate the door.
 health : (default 0) if set to any non-zero value, the button must take damage (any amount) to activate.
 dmg : damage to inflict on player when he blocks operation of door (default 4). Door will reverse direction when blocked unless CRUSHER spawnflag is set.
 team: assign the same team name to multiple doors that should operate together (see Notes).
@@ -455,6 +464,7 @@ lip : lip remaining at end of move (default 16). Has no effect if "height" is se
 height : if set, this will determine the total amount of vertical travel of the plat.
 dmg : damage to inflict on player when he blocks operation of plat (default 4). Plat will reverse direction when blocked.
 targetname : if set, the trigger that points to this will raise the plat each time it fires. The plat raises and comes back down a second later if no player is on it.
+targetname2 : if set, the trigger that points to this will raise the plat each time it fires. The plat raises and comes back down a second later if no player is on it.
 light : constantLight radius of .md3 model included with entity. Has no effect on the entity's brushes (default 0).
 color : constantLight color of .md3 model included with entity. Has no effect on the entity's brushes (default 1 1 1).
 model2 : path/name of model to include (eg: models/mapobjects/pipe/pipe02.md3).
@@ -552,6 +562,7 @@ random : random time variance in seconds added or subtracted from "wait" delay (
 target : this points to the entities to trigger.
 target2 : this points to the entities to trigger.
 targetname : a func_button or trigger that points to this will toggle the timer on/off when activated.
+targetname2 : a func_button or trigger that points to this will toggle the timer on/off when activated.
 notfree : when set to 1, entity will not spawn in "Free for all" and "Tournament" modes.
 notteam : when set to 1, entity will not spawn in "Teamplay" and "CTF" modes.
 notsingle : when set to 1, entity will not spawn in Single Player mode.
@@ -610,6 +621,7 @@ team : set this to team items. Teamed items will respawn randomly after team mas
 target : picking up the item will trigger the entity this points to.
 target2 : picking up the item will trigger the entity this points to.
 targetname : a target_give entity can point to this for respawn freebies.
+targetname2 : a target_give entity can point to this for respawn freebies.
 notfree : when set to 1, entity will not spawn in "Free for all" and "Tournament" modes.
 notteam : when set to 1, entity will not spawn in "Teamplay" and "CTF" modes.
 notsingle : when set to 1, entity will not spawn in Single Player mode.
@@ -634,6 +646,7 @@ team : set this to team items. Teamed items will respawn randomly after team mas
 target : picking up the item will trigger the entity this points to.
 target2 : picking up the item will trigger the entity this points to.
 targetname : a target_give entity can point to this for respawn freebies.
+targetname2 : a target_give entity can point to this for respawn freebies.
 notfree : when set to 1, entity will not spawn in "Free for all" and "Tournament" modes.
 notteam : when set to 1, entity will not spawn in "Teamplay" and "CTF" modes.
 notsingle : when set to 1, entity will not spawn in Single Player mode.
@@ -658,6 +671,7 @@ team : set this to team items. Teamed items will respawn randomly after team mas
 target : picking up the item will trigger the entity this points to.
 target2 : picking up the item will trigger the entity this points to.
 targetname : a target_give entity can point to this for respawn freebies.
+targetname2 : a target_give entity can point to this for respawn freebies.
 notfree : when set to 1, entity will not spawn in "Free for all" and "Tournament" modes.
 notteam : when set to 1, entity will not spawn in "Teamplay" and "CTF" modes.
 notsingle : when set to 1, entity will not spawn in Single Player mode.
@@ -682,6 +696,7 @@ team : set this to team items. Teamed items will respawn randomly after team mas
 target : picking up the item will trigger the entity this points to.
 target2 : picking up the item will trigger the entity this points to.
 targetname : a target_give entity can point to this for respawn freebies.
+targetname2 : a target_give entity can point to this for respawn freebies.
 notfree : when set to 1, entity will not spawn in "Free for all" and "Tournament" modes.
 notteam : when set to 1, entity will not spawn in "Teamplay" and "CTF" modes.
 notsingle : when set to 1, entity will not spawn in Single Player mode.
@@ -706,6 +721,7 @@ team : set this to team items. Teamed items will respawn randomly after team mas
 target : picking up the item will trigger the entity this points to.
 target2 : picking up the item will trigger the entity this points to.
 targetname : a target_give entity can point to this for respawn freebies.
+targetname2 : a target_give entity can point to this for respawn freebies.
 notfree : when set to 1, entity will not spawn in "Free for all" and "Tournament" modes.
 notteam : when set to 1, entity will not spawn in "Teamplay" and "CTF" modes.
 notsingle : when set to 1, entity will not spawn in Single Player mode.
@@ -730,6 +746,7 @@ team : set this to team items. Teamed items will respawn randomly after team mas
 target : picking up the item will trigger the entity this points to.
 target2 : picking up the item will trigger the entity this points to.
 targetname : a target_give entity can point to this for respawn freebies.
+targetname2 : a target_give entity can point to this for respawn freebies.
 notfree : when set to 1, entity will not spawn in "Free for all" and "Tournament" modes.
 notteam : when set to 1, entity will not spawn in "Teamplay" and "CTF" modes.
 notsingle : when set to 1, entity will not spawn in Single Player mode.
@@ -754,6 +771,7 @@ team : set this to team items. Teamed items will respawn randomly after team mas
 target : picking up the item will trigger the entity this points to.
 target2 : picking up the item will trigger the entity this points to.
 targetname : a target_give entity can point to this for respawn freebies.
+targetname2 : a target_give entity can point to this for respawn freebies.
 notfree : when set to 1, entity will not spawn in "Free for all" and "Tournament" modes.
 notteam : when set to 1, entity will not spawn in "Teamplay" and "CTF" modes.
 notsingle : when set to 1, entity will not spawn in Single Player mode.
@@ -778,6 +796,7 @@ team : set this to team items. Teamed items will respawn randomly after team mas
 target : picking up the item will trigger the entity this points to.
 target2 : picking up the item will trigger the entity this points to.
 targetname : a target_give entity can point to this for respawn freebies.
+targetname2 : a target_give entity can point to this for respawn freebies.
 notfree : when set to 1, entity will not spawn in "Free for all" and "Tournament" modes.
 notteam : when set to 1, entity will not spawn in "Teamplay" and "CTF" modes.
 notsingle : when set to 1, entity will not spawn in Single Player mode.
@@ -802,6 +821,7 @@ team : set this to team items. Teamed items will respawn randomly after team mas
 target : picking up the item will trigger the entity this points to.
 target2 : picking up the item will trigger the entity this points to.
 targetname : a target_give entity can point to this for respawn freebies.
+targetname2 : a target_give entity can point to this for respawn freebies.
 teleportertarget : targeting a spawnpoint entity with this will force the item to teleport the player to this spawnpoint.
 notfree : when set to 1, entity will not spawn in "Free for all" and "Tournament" modes.
 notteam : when set to 1, entity will not spawn in "Teamplay" and "CTF" modes.
@@ -827,6 +847,7 @@ team : set this to team items. Teamed items will respawn randomly after team mas
 target : picking up the item will trigger the entity this points to.
 target2 : picking up the item will trigger the entity this points to.
 targetname : a target_give entity can point to this for respawn freebies.
+targetname2 : a target_give entity can point to this for respawn freebies.
 notfree : when set to 1, entity will not spawn in "Free for all" and "Tournament" modes.
 notteam : when set to 1, entity will not spawn in "Teamplay" and "CTF" modes.
 notsingle : when set to 1, entity will not spawn in Single Player mode.
@@ -952,6 +973,7 @@ team : set this to team items. Teamed items will respawn randomly after team mas
 target : picking up the item will trigger the entity this points to.
 target2 : picking up the item will trigger the entity this points to.
 targetname : a target_give entity can point to this for respawn freebies.
+targetname2 : a target_give entity can point to this for respawn freebies.
 notfree : when set to 1, entity will not spawn in "Free for all" and "Tournament" modes.
 notteam : when set to 1, entity will not spawn in "Teamplay" and "CTF" modes.
 notsingle : when set to 1, entity will not spawn in Single Player mode.
@@ -976,6 +998,7 @@ team : set this to team items. Teamed items will respawn randomly after team mas
 target : picking up the item will trigger the entity this points to.
 target2 : picking up the item will trigger the entity this points to.
 targetname : a target_give entity can point to this for respawn freebies.
+targetname2 : a target_give entity can point to this for respawn freebies.
 notfree : when set to 1, entity will not spawn in "Free for all" and "Tournament" modes.
 notteam : when set to 1, entity will not spawn in "Teamplay" and "CTF" modes.
 notsingle : when set to 1, entity will not spawn in Single Player mode.
@@ -1000,6 +1023,7 @@ team : set this to team items. Teamed items will respawn randomly after team mas
 target : picking up the item will trigger the entity this points to.
 target2 : picking up the item will trigger the entity this points to.
 targetname : a target_give entity can point to this for respawn freebies.
+targetname2 : a target_give entity can point to this for respawn freebies.
 notfree : when set to 1, entity will not spawn in "Free for all" and "Tournament" modes.
 notteam : when set to 1, entity will not spawn in "Teamplay" and "CTF" modes.
 notsingle : when set to 1, entity will not spawn in Single Player mode.
@@ -1024,6 +1048,7 @@ team : set this to team items. Teamed items will respawn randomly after team mas
 target : picking up the item will trigger the entity this points to.
 target2 : picking up the item will trigger the entity this points to.
 targetname : a target_give entity can point to this for respawn freebies.
+targetname2 : a target_give entity can point to this for respawn freebies.
 notfree : when set to 1, entity will not spawn in "Free for all" and "Tournament" modes.
 notteam : when set to 1, entity will not spawn in "Teamplay" and "CTF" modes.
 notsingle : when set to 1, entity will not spawn in Single Player mode.
@@ -1063,6 +1088,7 @@ team : set this to team items. Teamed items will respawn randomly after team mas
 target : picking up the item will trigger the entity this points to.
 target2 : picking up the item will trigger the entity this points to.
 targetname : a target_give entity can point to this for respawn freebies.
+targetname2 : a target_give entity can point to this for respawn freebies.
 notfree : when set to 1, entity will not spawn in "Free for all" and "Tournament" modes.
 notteam : when set to 1, entity will not spawn in "Teamplay" and "CTF" modes.
 notsingle : when set to 1, entity will not spawn in Single Player mode.
@@ -1088,6 +1114,7 @@ team : set this to team items. Teamed items will respawn randomly after team mas
 target : picking up the item will trigger the entity this points to.
 target2 : picking up the item will trigger the entity this points to.
 targetname : a target_give entity can point to this for respawn freebies.
+targetname2 : a target_give entity can point to this for respawn freebies.
 notfree : when set to 1, entity will not spawn in "Free for all" and "Tournament" modes.
 notteam : when set to 1, entity will not spawn in "Teamplay" and "CTF" modes.
 notsingle : when set to 1, entity will not spawn in Single Player mode.
@@ -1113,6 +1140,7 @@ team : set this to team items. Teamed items will respawn randomly after team mas
 target : picking up the item will trigger the entity this points to.
 target2 : picking up the item will trigger the entity this points to.
 targetname : a target_give entity can point to this for respawn freebies.
+targetname2 : a target_give entity can point to this for respawn freebies.
 notfree : when set to 1, entity will not spawn in "Free for all" and "Tournament" modes.
 notteam : when set to 1, entity will not spawn in "Teamplay" and "CTF" modes.
 notsingle : when set to 1, entity will not spawn in Single Player mode.
@@ -1186,6 +1214,7 @@ team : set this to team items. Teamed items will respawn randomly after team mas
 target : picking up the item will trigger the entity this points to.
 target2 : picking up the item will trigger the entity this points to.
 targetname : a target_give entity can point to this for respawn freebies.
+targetname2 : a target_give entity can point to this for respawn freebies.
 notfree : when set to 1, entity will not spawn in "Free for all" and "Tournament" modes.
 notteam : when set to 1, entity will not spawn in "Teamplay" and "CTF" modes.
 notsingle : when set to 1, entity will not spawn in Single Player mode.
@@ -1211,6 +1240,7 @@ team : set this to team items. Teamed items will respawn randomly after team mas
 target : picking up the item will trigger the entity this points to.
 target2 : picking up the item will trigger the entity this points to.
 targetname : a target_give entity can point to this for respawn freebies.
+targetname2 : a target_give entity can point to this for respawn freebies.
 notfree : when set to 1, entity will not spawn in "Free for all" and "Tournament" modes.
 notteam : when set to 1, entity will not spawn in "Teamplay" and "CTF" modes.
 notsingle : when set to 1, entity will not spawn in Single Player mode.
@@ -1236,6 +1266,7 @@ team : set this to team items. Teamed items will respawn randomly after team mas
 target : picking up the item will trigger the entity this points to.
 target2 : picking up the item will trigger the entity this points to.
 targetname : a target_give entity can point to this for respawn freebies.
+targetname2 : a target_give entity can point to this for respawn freebies.
 notfree : when set to 1, entity will not spawn in "Free for all" and "Tournament" modes.
 notteam : when set to 1, entity will not spawn in "Teamplay" and "CTF" modes.
 notsingle : when set to 1, entity will not spawn in Single Player mode.
@@ -1261,6 +1292,7 @@ team : set this to team items. Teamed items will respawn randomly after team mas
 target : picking up the item will trigger the entity this points to.
 target2 : picking up the item will trigger the entity this points to.
 targetname : a target_give entity can point to this for respawn freebies.
+targetname2 : a target_give entity can point to this for respawn freebies.
 notfree : when set to 1, entity will not spawn in "Free for all" and "Tournament" modes.
 notteam : when set to 1, entity will not spawn in "Teamplay" and "CTF" modes.
 notsingle : when set to 1, entity will not spawn in Single Player mode.
@@ -1285,6 +1317,7 @@ team : set this to team items. Teamed items will respawn randomly after team mas
 target : picking up the item will trigger the entity this points to.
 target2 : picking up the item will trigger the entity this points to.
 targetname : a target_give entity can point to this for respawn freebies.
+targetname2 : a target_give entity can point to this for respawn freebies.
 notfree : when set to 1, entity will not spawn in "Free for all" and "Tournament" modes.
 notteam : when set to 1, entity will not spawn in "Teamplay" and "CTF" modes.
 notsingle : when set to 1, entity will not spawn in Single Player mode.
@@ -1431,6 +1464,7 @@ This will shoot a bfg projectile each time it's triggered. Aiming is done by set
 -------- KEYS --------
 angles: this sets the pitch and yaw aiming angles of shooter (default 0 0). The roll angle does not apply.
 targetname : activating trigger points to this.
+targetname2 : activating trigger points to this.
 target : this points to a target_position entity for aiming the bfg shots.
 random : random aiming variance in degrees from the straight line to the targeted entity (default 0 - see Notes).
 notfree : when set to 1, entity will not spawn in "Free for all" and "Tournament" modes.
@@ -1448,6 +1482,7 @@ This will shoot a grenade each time it's triggered. Aiming is done by setting th
 -------- KEYS --------
 angles: this sets the pitch and yaw aiming angles of shooter (default 0 0). The roll angle does not apply.
 targetname : activating trigger points to this.
+targetname2 : activating trigger points to this.
 target : this points to a target_position entity for aiming the grenades.
 random : random aiming variance in degrees from the straight line to the targeted entity (default 0 - see Notes).
 notfree : when set to 1, entity will not spawn in "Free for all" and "Tournament" modes.
@@ -1465,6 +1500,7 @@ This will shoot a plasma ball each time it's triggered. Aiming is done by settin
 -------- KEYS --------
 angles: this sets the pitch and yaw aiming angles of shooter (default 0 0). The roll angle does not apply.
 targetname : activating trigger points to this.
+targetname2 : activating trigger points to this.
 target : this points to a target_position entity for aiming the plasma balls.
 random : random aiming variance in degrees from the straight line to the targeted entity (default 0 - see Notes).
 notfree : when set to 1, entity will not spawn in "Free for all" and "Tournament" modes.
@@ -1482,6 +1518,7 @@ This will shoot a rocket each time it's triggered. Aiming is done by setting the
 -------- KEYS --------
 angles: this sets the pitch and yaw aiming angles of shooter (default 0 0). The roll angle does not apply.
 targetname : activating trigger points to this.
+targetname2 : activating trigger points to this.
 target : this points to a target_position entity for aiming the rockets.
 random : random aiming variance in degrees from the straight line to the targeted entity (default 0 - see Notes).
 notfree : when set to 1, entity will not spawn in "Free for all" and "Tournament" modes.
@@ -1507,6 +1544,7 @@ health : the amount of health the bot will have when it spawns into the game (de
 skill : sets the relative skill level of the bot (default = 0).
 target : this points to a info_waypoint entity to which the bot should patrol after spawning.
 targetname : activating trigger points to this.
+targetname2 : activating trigger points to this.
 deathtarget : this points to entities to activate when a bot spawned by the target_botspawn dies.
 notfree : when set to 1, entity will not spawn in "Free for all" and "Tournament" modes.
 notteam : when set to 1, entity will not spawn in "Teamplay" and "CTF" modes.
@@ -1534,6 +1572,7 @@ Note that the Radiant level editor will not display targetting paths for the dea
 Emits debris with thick smoke trails when triggered.
 -------- KEYS --------
 targetname : activating trigger points to this.
+targetname2 : activating trigger points to this.
 count : The number of debris pieces to emit (default = 10).
 notfree : when set to 1, entity will not spawn in "Free for all" and "Tournament" modes.
 notteam : when set to 1, entity will not spawn in "Teamplay" and "CTF" modes.
@@ -1556,6 +1595,7 @@ The various spawnflags cannot be combined. If multiple spawnflags are selected, 
 Time delay trigger intermediary. Like a target_relay, this can only be fired by other triggers which will cause it in turn to fire its own targets.
 -------- KEYS --------
 targetname : activating trigger points to this.
+targetname2 : activating trigger points to this.
 target : this points to entities to activate when this entity is triggered.
 target2 : this points to entities to activate when this entity is triggered.
 wait : delay in seconds from when this gets triggered to when it fires its own targets (default 1).
@@ -1573,6 +1613,7 @@ When the random key is set, its value is used to calculate a minimum and a maxim
 Targets any trigger_ entity to disable or enable that entity.
 -------- KEYS --------
 targetname : activating trigger points to this.
+targetname2 : activating trigger points to this.
 target : this points to entities to enable/disable when this entity is triggered
 notfree : when set to 1, entity will not spawn in "Free for all" and "Tournament" modes.
 notteam : when set to 1, entity will not spawn in "Teamplay" and "CTF" modes.
@@ -1594,6 +1635,7 @@ per entity type and are untested.*/
 Starts an earthquake that shakes the screen
 -------- KEYS --------
 targetname : activating trigger points to this.
+targetname2 : activating trigger points to this.
 length : duration of the earthquake in seconds (2 - 32).
 intensity : intensity of the earthquake (1 - 16).
 notfree : when set to 1, entity will not spawn in "Free for all" and "Tournament" modes.
@@ -1606,6 +1648,7 @@ notsingle : when set to 1, entity will not spawn in Single Player mode.*/
 shows animated environmental effects or overlay
 -------- KEYS --------
 targetname : activating trigger points to this.
+targetname2 : activating trigger points to this.
 color : color of the particles for particle effect (default 1.0 1.0 1.0).
 count : number of particles for particle effect (0 - 255, default 100).
 speed : speed of the particles (default 100).
@@ -1629,6 +1672,7 @@ Spawnflags can be combined to have the entity show multiple effects when trigger
 When triggered, forces the game to go into the intermission which will show the SP end-level scores, registers the player's score as new high score (if it is higher than the current highscore) for the current map and, when the player clicks during the intermission, ends the game.
 -------- KEYS --------
 targetname : activating trigger points to this.
+targetname2 : activating trigger points to this.
 -------- NOTES --------
 Before showing the scoring screen, the camera view is moved to the intermission point as defined with a info_player_intermission entity.
 
@@ -1641,6 +1685,7 @@ This is used to give ammo, weapons, health or items to the player who activates 
 -------- KEYS --------
 target : this points to the item(s) to give when activated.
 targetname : activating trigger or spawn entity points to this.
+targetname2 : activating trigger or spawn entity points to this.
 notfree : when set to 1, entity will not spawn in "Free for all" and "Tournament" modes.
 notteam : when set to 1, entity will not spawn in "Teamplay" and "CTF" modes.
 notsingle : when set to 1, entity will not spawn in Single Player mode.
@@ -1656,6 +1701,7 @@ Changes gravity when triggered.
 -------- KEYS --------
 count : amount of gravity to apply (defaults to the value set to g_gravity).
 targetname : activating trigger points to this.
+targetname2 : activating trigger points to this.
 notfree : when set to 1, entity will not spawn in "Free for all" and "Tournament" modes.
 notteam : when set to 1, entity will not spawn in "Teamplay" and "CTF" modes.
 notsingle : when set to 1, entity will not spawn in Single Player mode.
@@ -1670,6 +1716,7 @@ The default value for g_gravity is 800. This can be overruled by the server admi
 This will kill the player who activates the trigger that fires this target.
 -------- KEYS --------
 targetname : the activating trigger points to this.
+targetname2 : activating trigger points to this.
 notfree : when set to 1, entity will not spawn in "Free for all" and "Tournament" modes.
 notteam : when set to 1, entity will not spawn in "Teamplay" and "CTF" modes.
 notsingle : when set to 1, entity will not spawn in Single Player mode.*/
@@ -1713,6 +1760,7 @@ notsingle : when set to 1, entity will not spawn in Single Player mode.*/
 This enitity will be activated when all triggers targeting this entity have been triggered. 
 -------- KEYS --------
 targetname : activating triggers points to this.
+targetname2 : activating trigger points to this.
 target : this points to entities to activate when this entity is triggered.
 target2 : this points to entities to activate when this entity is triggered.
 notfree : when set to 1, entity will not spawn in "Free for all" and "Tournament" modes.
@@ -1731,6 +1779,7 @@ Loads the specified map.
 -------- KEYS --------
 mapname : The map to load. When omitted, the current map will be restarted.
 targetname : activating trigger points to this.
+targetname2 : activating trigger points to this.
 notfree : when set to 1, entity will not spawn in "Free for all" and "Tournament" modes.
 notteam : when set to 1, entity will not spawn in "Teamplay" and "CTF" modes.
 notsingle : when set to 1, entity will not spawn in Single Player mode.
@@ -1744,13 +1793,14 @@ modifies the value of a specific key on a targeted entity.
 -------- KEYS --------
 target : this points to entities to modify when this entity is triggered.
 targetname : activating trigger points to this.
+targetname2 : activating trigger points to this.
 key : the key to modify on the target entity.
 value : the value to set for the key on the target entity.
 notfree : when set to 1, entity will not spawn in "Free for all" and "Tournament" modes.
 notteam : when set to 1, entity will not spawn in "Teamplay" and "CTF" modes.
 notsingle : when set to 1, entity will not spawn in Single Player mode.
 -------- NOTES --------
-The following keys can be modified: angle, clientname, count, deathtarget, health, key, mapname, message, overlay, script, target, target2, targetname, targetshadername, teleportertarget, spawnflags, speed, skill, value, wait.*/
+The following keys can be modified: angle, clientname, count, deathtarget, health, key, mapname, message, overlay, script, target, target2, targetname, targetname2, targetshadername, teleportertarget, spawnflags, speed, skill, value, wait.*/
 
 
 //=============================================================================
@@ -1759,6 +1809,7 @@ The following keys can be modified: angle, clientname, count, deathtarget, healt
 Sets the primary or secondary objective for a player.
 -------- KEYS --------
 targetname : activating trigger points to this.
+targetname2 : activating trigger points to this.
 message : the objective text.
 notfree : when set to 1, entity will not spawn in "Free for all" and "Tournament" modes.
 notteam : when set to 1, entity will not spawn in "Teamplay" and "CTF" modes.
@@ -1774,6 +1825,7 @@ Sets the movement speed for player(s). Defaults to the speed set through the g_s
 -------- KEYS --------
 speed : the movement speed to apply to the player(s).
 targetname : the activating trigger points to this.
+targetname2 : the activating trigger points to this.
 notfree : when set to 1, entity will not spawn in "Free for all" and "Tournament" modes.
 notteam : when set to 1, entity will not spawn in "Teamplay" and "CTF" modes.
 notsingle : when set to 1, entity will not spawn in Single Player mode.*/
@@ -1797,6 +1849,7 @@ This will print a message on the center of the screen when triggered. By default
 -------- KEYS --------
 message : text string to print on screen.
 targetname : the activating trigger points to this.
+targetname2 : the activating trigger points to this.
 notfree : when set to 1, entity will not spawn in "Free for all" and "Tournament" modes.
 notteam : when set to 1, entity will not spawn in "Teamplay" and "CTF" modes.
 notsingle : when set to 1, entity will not spawn in Single Player mode.
@@ -1828,6 +1881,7 @@ To make a jump pad or launch ramp, create a trigger_multiple where the jump must
 This can only be activated by other triggers which will cause it in turn to activate its own targets.
 -------- KEYS --------
 targetname : activating trigger points to this.
+targetname2 : activating trigger points to this.
 target : this points to entities to activate when this entity is triggered.
 target2 : this points to entities to activate when this entity is triggered.
 count : relay entity will only activate its target if itself has been triggered this many times (default 0)
@@ -1845,6 +1899,7 @@ RANDOM : one one of the targeted entities will be triggered at random.*/
 This takes away all specified items. Must be activated by a button or trigger_multiple entity. The player that activates the trigger will lose any of the specified item(s) currently in his possession.
 -------- KEYS --------
 targetname : activating trigger points to this.
+targetname2 : activating trigger points to this.
 notfree : when set to 1, entity will not spawn in "Free for all" and "Tournament" modes.
 notteam : when set to 1, entity will not spawn in "Teamplay" and "CTF" modes.
 notsingle : when set to 1, entity will not spawn in Single Player mode.
@@ -1862,6 +1917,7 @@ If no spawnflags are selected, the target_remove_powerups entity reverts to its 
 This is used to automatically give frag points to the player who activates this. A spawn location entity like info_player_* or CTF respawn points can target this entity to give points to the player when he spawns in the game. Or a trigger can also be used to activate this. The activator of the trigger will get the points. In EntityPlus' Single Player mode, the score will be added to the player's "carnage" score.
 -------- KEYS --------
 targetname : ativating entity points to this.
+targetname2 : activating trigger points to this.
 count: number of frag points to give to player (default 1).
 notfree : when set to 1, entity will not spawn in "Free for all" and "Tournament" modes.
 notteam : when set to 1, entity will not spawn in "Teamplay" and "CTF" modes.
@@ -1873,6 +1929,7 @@ notsingle : when set to 1, entity will not spawn in Single Player mode.*/
 When activated the entity executes the specified script file.
 -------- KEYS --------
 targetname : ativating entity points to this.
+targetname2 : activating trigger points to this.
 script: filename of the script to execute (example: myscript.cfg).
 notfree : when set to 1, entity will not spawn in "Free for all" and "Tournament" modes.
 notteam : when set to 1, entity will not spawn in "Teamplay" and "CTF" modes.
@@ -1884,6 +1941,7 @@ notsingle : when set to 1, entity will not spawn in Single Player mode.*/
 Sets the skill level for the next map that will be loaded.
 -------- KEYS --------
 targetname : ativating entity points to this.
+targetname2 : activating trigger points to this.
 skill : the skill level to apply. 1 is easiest, 5 is hardest (default = 2).
 notfree : when set to 1, entity will not spawn in "Free for all" and "Tournament" modes.
 notteam : when set to 1, entity will not spawn in "Teamplay" and "CTF" modes.
@@ -1898,6 +1956,7 @@ noise : path/name of .wav file to play (eg. sound/world/growl1.wav - see Notes).
 wait : delay in seconds between each time the sound is played ("random" key must be set - see Notes).
 random : random time variance in seconds added or subtracted from "wait" delay ("wait" key must be set - see Notes).
 targetname : the activating button or trigger points to this.
+targetname2 : the activating button or trigger points to this.
 notfree : when set to 1, entity will not spawn in "Free for all" and "Tournament" modes.
 notteam : when set to 1, entity will not spawn in "Teamplay" and "CTF" modes.
 notsingle : when set to 1, entity will not spawn in Single Player mode.
@@ -1917,6 +1976,7 @@ The combination of the "wait" and "random" keys can be used to play non-looping 
 Activating this will teleport players to the location of the targeted misc_teleporter_dest entity. Unlike trigger_teleport, this entity must be activated by a trigger and does NOT allow client prediction of events.
 -------- KEYS --------
 targetname : activating trigger points to this.
+targetname2 : activating trigger points to this.
 target : this must point to a misc_teleporter_dest entity.
 notfree : when set to 1, entity will not spawn in "Free for all" and "Tournament" modes.
 notteam : when set to 1, entity will not spawn in "Teamplay" and "CTF" modes.
@@ -2086,6 +2146,7 @@ Variable size repeatable trigger. It will fire the entities it targets when touc
 target : this points to the entity to activate.
 target2 : this points to the entity to activate.
 targetname : activating trigger points to this.
+targetname2 : activating trigger points to this.
 wait : time in seconds until trigger becomes re-triggerable after it's been touched (default 0.2, -1 = trigger once).
 random : random time variance in seconds added or subtracted from "wait" delay (default 0 - see Notes).
 nobots : bots cannot trigger this entity.
@@ -2134,6 +2195,7 @@ team : set this to team items. Teamed items will respawn randomly after team mas
 target : picking up the item will trigger the entity this points to.
 target2 : picking up the item will trigger the entity this points to.
 targetname : a target_give entity can point to this for respawn freebies.
+targetname2 : a target_give entity can point to this for respawn freebies.
 notfree : when set to 1, entity will not spawn in "Free for all" and "Tournament" modes.
 notteam : when set to 1, entity will not spawn in "Teamplay" and "CTF" modes.
 notsingle : when set to 1, entity will not spawn in Single Player mode.
@@ -2158,6 +2220,7 @@ team : set this to team items. Teamed items will respawn randomly after team mas
 target : picking up the item will trigger the entity this points to.
 target2 : picking up the item will trigger the entity this points to.
 targetname : a target_give entity can point to this for respawn freebies.
+targetname2 : a target_give entity can point to this for respawn freebies.
 notfree : when set to 1, entity will not spawn in "Free for all" and "Tournament" modes.
 notteam : when set to 1, entity will not spawn in "Teamplay" and "CTF" modes.
 notsingle : when set to 1, entity will not spawn in Single Player mode.
@@ -2182,6 +2245,7 @@ team : set this to team items. Teamed items will respawn randomly after team mas
 target : picking up the item will trigger the entity this points to.
 target2 : picking up the item will trigger the entity this points to.
 targetname : a target_give entity can point to this for respawn freebies.
+targetname2 : a target_give entity can point to this for respawn freebies.
 notfree : when set to 1, entity will not spawn in "Free for all" and "Tournament" modes.
 notteam : when set to 1, entity will not spawn in "Teamplay" and "CTF" modes.
 notsingle : when set to 1, entity will not spawn in Single Player mode.
@@ -2207,6 +2271,7 @@ team : set this to team items. Teamed items will respawn randomly after team mas
 target : picking up the item will trigger the entity this points to.
 target2 : picking up the item will trigger the entity this points to.
 targetname : a target_give entity can point to this for respawn freebies.
+targetname2 : a target_give entity can point to this for respawn freebies.
 notfree : when set to 1, entity will not spawn in "Free for all" and "Tournament" modes.
 notteam : when set to 1, entity will not spawn in "Teamplay" and "CTF" modes.
 notsingle : when set to 1, entity will not spawn in Single Player mode.
@@ -2232,6 +2297,7 @@ team : set this to team items. Teamed items will respawn randomly after team mas
 target : picking up the item will trigger the entity this points to.
 target2 : picking up the item will trigger the entity this points to.
 targetname : a target_give entity can point to this for respawn freebies.
+targetname2 : a target_give entity can point to this for respawn freebies.
 notfree : when set to 1, entity will not spawn in "Free for all" and "Tournament" modes.
 notteam : when set to 1, entity will not spawn in "Teamplay" and "CTF" modes.
 notsingle : when set to 1, entity will not spawn in Single Player mode.
@@ -2257,6 +2323,7 @@ team : set this to team items. Teamed items will respawn randomly after team mas
 target : picking up the item will trigger the entity this points to.
 target2 : picking up the item will trigger the entity this points to.
 targetname : a target_give entity can point to this for respawn freebies.
+targetname2 : a target_give entity can point to this for respawn freebies.
 notfree : when set to 1, entity will not spawn in "Free for all" and "Tournament" modes.
 notteam : when set to 1, entity will not spawn in "Teamplay" and "CTF" modes.
 notsingle : when set to 1, entity will not spawn in Single Player mode.
@@ -2282,6 +2349,7 @@ team : set this to team items. Teamed items will respawn randomly after team mas
 target : picking up the item will trigger the entity this points to.
 target2 : picking up the item will trigger the entity this points to.
 targetname : a target_give entity can point to this for respawn freebies.
+targetname2 : a target_give entity can point to this for respawn freebies.
 notfree : when set to 1, entity will not spawn in "Free for all" and "Tournament" modes.
 notteam : when set to 1, entity will not spawn in "Teamplay" and "CTF" modes.
 notsingle : when set to 1, entity will not spawn in Single Player mode.
@@ -2307,6 +2375,7 @@ team : set this to team items. Teamed items will respawn randomly after team mas
 target : picking up the item will trigger the entity this points to.
 target2 : picking up the item will trigger the entity this points to.
 targetname : a target_give entity can point to this for respawn freebies.
+targetname2 : a target_give entity can point to this for respawn freebies.
 notfree : when set to 1, entity will not spawn in "Free for all" and "Tournament" modes.
 notteam : when set to 1, entity will not spawn in "Teamplay" and "CTF" modes.
 notsingle : when set to 1, entity will not spawn in Single Player mode.
@@ -2332,6 +2401,7 @@ team : set this to team items. Teamed items will respawn randomly after team mas
 target : picking up the item will trigger the entity this points to.
 target2 : picking up the item will trigger the entity this points to.
 targetname : a target_give entity can point to this for respawn freebies.
+targetname2 : a target_give entity can point to this for respawn freebies.
 notfree : when set to 1, entity will not spawn in "Free for all" and "Tournament" modes.
 notteam : when set to 1, entity will not spawn in "Teamplay" and "CTF" modes.
 notsingle : when set to 1, entity will not spawn in Single Player mode.
@@ -2357,6 +2427,7 @@ team : set this to team items. Teamed items will respawn randomly after team mas
 target : picking up the item will trigger the entity this points to.
 target2 : picking up the item will trigger the entity this points to.
 targetname : a target_give entity can point to this for respawn freebies.
+targetname2 : a target_give entity can point to this for respawn freebies.
 notfree : when set to 1, entity will not spawn in "Free for all" and "Tournament" modes.
 notteam : when set to 1, entity will not spawn in "Teamplay" and "CTF" modes.
 notsingle : when set to 1, entity will not spawn in Single Player mode.
