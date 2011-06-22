@@ -1085,6 +1085,11 @@ void modify_entity ( char *key, char *value, gentity_t *ent ) {
 		ent->target = value;
 		if ( !strcmp( ent->classname, "path_corner" ) )
 			Think_SetupTrainTargets( ent );
+		
+		if ( strstr( ent->classname, "shooter_" ) ) {
+			InitShooter( ent, ent->s.weapon );
+		}
+
 		return;
 	}
 
