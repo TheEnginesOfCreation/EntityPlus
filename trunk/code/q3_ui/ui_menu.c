@@ -18,6 +18,7 @@ MAIN MENU
 
 #define ART_OVERLAY						"menu/art/mainoverlay"
 #define ART_BACKGROUND					"menu/backgrounds/01"
+#define ART_BACKGROUND2					"menu/backgrounds/02"
 
 #define MAIN_MENU_VERTICAL_SPACING	34
 #define MAIN_MENU_MARGIN_LEFT		48
@@ -45,6 +46,8 @@ typedef struct {
 	qhandle_t		menuModel;
 	vec3_t			menuModelOrigin;
 	vec3_t			menuModelAngles;
+
+	int				backgroundDelay;
 } mainmenu_t;
 
 
@@ -121,9 +124,8 @@ TTimo: this function is common to the main menu and errorMessage menu
 */
 
 static void Main_MenuDraw( void ) {
-	int xoff, yoff, seed;
 	qtime_t tm;
-	uiClientState_t	cstate;
+	int seed;
 
 	if (strlen(s_errorMessage.errorMessage))
 	{
@@ -131,8 +133,32 @@ static void Main_MenuDraw( void ) {
 	}
 	else
 	{
-		trap_GetClientState( &cstate );
-		UI_DrawNamedPic( 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, ART_BACKGROUND );
+		int t;
+		
+		if ( !s_main.backgroundDelay )
+			s_main.backgroundDelay = 5000;
+
+		t = uis.realtime % s_main.backgroundDelay;
+		if ( t < 32 || (t > 60 && t < 92) || (t > 150 && t < 200) || (t > 240 && t < 270) )
+		{
+			UI_DrawNamedPic( 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, ART_BACKGROUND2 );
+		}
+		else
+			UI_DrawNamedPic( 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, ART_BACKGROUND );
+
+		//determine delay until next lighting strike
+		if ( t == 270 ) {
+			trap_RealTime(&tm);
+			seed = 1;
+			seed = seed * 31 + tm.tm_sec;
+			seed = seed * 31 + tm.tm_min;
+			seed = seed * 31 + tm.tm_hour;
+			seed = seed * 31 + tm.tm_mday;
+			srand( seed );
+			
+			s_main.backgroundDelay = 5000 + (1500 - (rand() % 3000));	//delay somewhere between 3500 and 6500 ms
+		}
+
 		Menu_Draw( &s_main.menu );		
 	}
 }
