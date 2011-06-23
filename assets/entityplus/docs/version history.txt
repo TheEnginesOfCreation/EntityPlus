@@ -8,6 +8,8 @@ v0.8 (?? ??? 2011)
 	- [Added] New sound that plays when score is being added up.
 	- [Fixed] Constantlight on func_ entities sets color values as int instead of float (thanks ZTurtleMan).
 	- [Fixed] Added missing GLASS_DEBRIS spawnflag on func_breakable in entities.def.
+	- [Changed] From this release forward, multiplayer modes are officially no longer supported.
+	- [Changed] Removed multiplayer option from main menu.
 
 
 v0.7 (16 jun 2011)
