@@ -6,11 +6,15 @@ v0.8 (?? ??? 2011)
 	- [Added] scoreboardmusic key to worldspawn entity.
 	- [Added] STONE_DEBRIS spawnflag to target_debrisemitter and func_breakable.
 	- [Added] New sound that plays when score is being added up.
-	- [Fixed] Constantlight on func_ entities sets color values as int instead of float (thanks ZTurtleMan).
-	- [Fixed] Added missing GLASS_DEBRIS spawnflag on func_breakable in entities.def.
 	- [Changed] From this release forward, multiplayer modes are officially no longer supported.
 	- [Changed] Removed multiplayer option from main menu.
 
+
+v0.7.1 (24 jun 2011)
+	- [Fixed] target_finish entity ignores accuracy when calculating final score.
+	- [Fixed] Constantlight on func_ entities sets color values as int instead of float (thanks ZTurtleMan).
+	- [Fixed] Added missing GLASS_DEBRIS spawnflag on func_breakable in entities.def.
+	
 
 v0.7 (16 jun 2011)
 	- [Added] Scoring system which allows players to keep track of high scores for levels.
