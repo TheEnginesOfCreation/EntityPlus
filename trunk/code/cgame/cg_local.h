@@ -42,6 +42,8 @@
 #define TITLE_TIME			5500		//amount of time the level title stays on screen
 #define TITLE_FADEIN_TIME	1000.000	//amount of time it takes for level title to fade in
 #define TITLE_FADEOUT_TIME	1000.000	//amount of time it takes for level title to fade out
+#define SCOREB_TIME			750			//amount of time between each scoreboard item is displayed
+#define SCOREB_TIME_LAST	250			//amount of EXTRA time between last scoreboard item and total score
 
 #define	PULSE_SCALE			1.5			// amount to scale up the icons when activating
 
