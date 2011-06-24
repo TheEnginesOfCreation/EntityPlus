@@ -1043,7 +1043,7 @@ void target_finish_use (gentity_t *self, gentity_t *other, gentity_t *activator)
 	//activator->client->ps.persistant[PERS_CARNAGE_SCORE] = (1 << 15) - 1 ;
 	skill = trap_Cvar_VariableValue( "g_spskill" );
 	if ( activator->client->accuracy_shots > 0 )
-		accuracy = (activator->client->accuracy_hits / activator->client->accuracy_shots) * 100;
+		accuracy = ((float)activator->client->accuracy_hits / (float)activator->client->accuracy_shots) * 100;
 	else
 		accuracy = 0;
 	score = COM_CalculateLevelScore(activator->client->ps.persistant, accuracy, (int)skill, qtrue);
