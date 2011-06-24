@@ -24,7 +24,7 @@ void G_WriteClientSessionData( gclient_t *client ) {
 	const char	*s;
 	const char	*var;
 
-	s = va("%i %i %i %i %i %i %i %i %i %i %i %i %i %i %i %i %i %i %i %i %i %i %s", 
+	s = va("%i %i %i %i %i %i %i %i %i %i %i %i %i %i %i %i %i %i %i %i %i %i %s %i", 
 		client->sess.sessionTeam,
 		client->sess.spectatorTime,
 		client->sess.spectatorState,
@@ -47,7 +47,8 @@ void G_WriteClientSessionData( gclient_t *client ) {
 		client->sess.sessionHoldable,
 		client->sess.carnageScore,
 		client->sess.deaths,
-		client->sess.scoreLevelName
+		client->sess.scoreLevelName,
+		client->sess.secrets
 		);
 
 	var = va( "session%i", client - level.clients );
@@ -74,7 +75,7 @@ void G_ReadSessionData( gclient_t *client ) {
 	var = va( "session%i", client - level.clients );
 	trap_Cvar_VariableStringBuffer( var, s, sizeof(s) );
 
-	sscanf( s, "%i %i %i %i %i %i %i %i %i %i %i %i %i %i %i %i %i %i %i %i %i %i %s",
+	sscanf( s, "%i %i %i %i %i %i %i %i %i %i %i %i %i %i %i %i %i %i %i %i %i %i %s %i",
 		&sessionTeam,                 // bk010221 - format
 		&client->sess.spectatorTime,
 		&spectatorState,              // bk010221 - format
@@ -97,7 +98,8 @@ void G_ReadSessionData( gclient_t *client ) {
 		&client->sess.sessionHoldable,
 		&client->sess.carnageScore,
 		&client->sess.deaths,
-		&client->sess.scoreLevelName
+		&client->sess.scoreLevelName,
+		&client->sess.secrets
 		);
 
 	// bk001205 - format issues
@@ -192,6 +194,7 @@ void G_UpdateSessionDataForMapChange( gclient_t *client ) {
 	sess->sessionHoldable = client->ps.stats[STAT_HOLDABLE_ITEM];
 	sess->carnageScore = client->ps.persistant[PERS_SCORE];
 	sess->deaths = client->ps.persistant[PERS_KILLED];
+	sess->secrets = client->ps.persistant[PERS_SECRETS];
 
 	strcpy(sess->scoreLevelName, G_GetScoringMapName());
 }
@@ -223,6 +226,7 @@ void G_ClearSessionDataForMapChange( gclient_t *client ) {
 	sess->sessionHoldable = 0;
 	sess->carnageScore = 0;
 	sess->deaths = 0;
+	sess->secrets = 0;
 	strcpy(sess->scoreLevelName, "" );
 }
 
