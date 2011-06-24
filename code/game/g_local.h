@@ -247,6 +247,7 @@ typedef struct {
 	int			carnageScore;
 	int			deaths;
 	char		scoreLevelName[64];
+	int			secrets;
 } clientSession_t;
 
 //
@@ -432,6 +433,7 @@ typedef struct {
 	int			portalSequence;
 #endif
 	char		scoreLevelName[64];
+	int			secretCount;			// number of target_secret entities in map
 } level_locals_t;
 
 //

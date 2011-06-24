@@ -1129,7 +1129,9 @@ typedef enum {
 	PERS_DEFEND_COUNT,				// defend awards
 	PERS_ASSIST_COUNT,				// assist awards
 	PERS_GAUNTLET_FRAG_COUNT,		// kills with the guantlet
-	PERS_CAPTURES					// captures
+	PERS_CAPTURES,					// captures
+	// entityplus
+	PERS_SECRETS					// first 7 bits is number of secrets found, 7 bits after that is total number of secrets in level(s)
 } persEnum_t;
 
 // playerState_t is the information needed by both the client and server
@@ -1431,6 +1433,7 @@ typedef enum _flag_status {
 #define MAX_HIGHSCORE_TEXT	12	//I guess it's safe to assume score never goes higher than 999,999,999,999
 #define SCORE_FREE_BOT	100		//amount of points awarded for killing a bot without specified health
 #define SCORE_DEATH		-50		//amount of points awarded when the player dies in SP
+#define SCORE_SECRET	50		//amount of points awarded when the player finds a secret
 #define SCORE_ACCURACY	.5		//part of the full score that accuracy will apply to
 #define SCORE_SKILL		.5		//g_spskill is multiplied with this number before multiplying the total score
 

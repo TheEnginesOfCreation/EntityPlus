@@ -1031,6 +1031,7 @@ game.
 void target_finish_use (gentity_t *self, gentity_t *other, gentity_t *activator) {
 	int accuracy, score, highScore;
 	float skill;
+	int secretFound, secretCount;
 
 	// only usable in entity plus mode
 	if ( g_gametype.integer != GT_ENTITYPLUS )
@@ -1040,7 +1041,6 @@ void target_finish_use (gentity_t *self, gentity_t *other, gentity_t *activator)
 	if ( IsBot( activator ) )
 		return;
 
-	//activator->client->ps.persistant[PERS_CARNAGE_SCORE] = (1 << 15) - 1 ;
 	skill = trap_Cvar_VariableValue( "g_spskill" );
 	if ( activator->client->accuracy_shots > 0 )
 		accuracy = ((float)activator->client->accuracy_hits / (float)activator->client->accuracy_shots) * 100;
@@ -1052,6 +1052,12 @@ void target_finish_use (gentity_t *self, gentity_t *other, gentity_t *activator)
 	if ( score > highScore )
 		COM_WriteLevelScore( G_GetScoringMapName(), score );
 	
+	//set number of secrets to persistant so it can be displayed in the client side scoreboard. If user persistant secretcount already
+	//contains a secretcount from a previous level, add that to the secretcount of this level.
+	secretFound = (activator->client->ps.persistant[PERS_SECRETS] & 0x7F);
+	secretCount = ((activator->client->ps.persistant[PERS_SECRETS] >> 7) & 0x7F) + level.secretCount;
+	activator->client->ps.persistant[PERS_SECRETS] = secretFound + (secretCount << 7);
+
 	BeginIntermission();
 }
 
@@ -1206,4 +1212,32 @@ void target_modify_use (gentity_t *self, gentity_t *other, gentity_t *activator)
 
 void SP_target_modify (gentity_t *self) {
 	self->use = target_modify_use;
+}
+
+//==========================================================
+
+/*QUAKED target_secret (.5 .5 .5) (-8 -8 -8) (8 8 8) SILENT
+When triggered, marks the secret as 'found'
+*/
+
+void target_secret_use (gentity_t *self, gentity_t *other, gentity_t *activator) {
+	activator->client->ps.persistant[PERS_SECRETS]++;
+
+	if ( !(self->spawnflags & 1) ) {
+		if ( self->message )
+			trap_SendServerCommand( -1, va("cp \"%s\"", self->message ));
+		else
+			trap_SendServerCommand( -1, va("cp \"%s\"", "You found a secret!" ));
+	}
+
+	//remove the entity so it cannot be triggered again
+	G_FreeEntity( self );
+}
+
+void SP_target_secret (gentity_t *self) {
+	
+	//register the secret
+	level.secretCount++;
+
+	self->use = target_secret_use;
 }

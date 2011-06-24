@@ -1,5 +1,6 @@
 v0.8 (?? ??? 2011)
 	- [Added] target_modify entity.
+	- [Added] target_secret entity.
 	- [Added] Added target2 key to a number of entities.
 	- [Added] Added targetname2 key to a number of entities.
 	- [Added] path_corner entities can have a wait key of -1 which will halt the train until the train is triggered again.

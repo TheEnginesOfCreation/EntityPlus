@@ -278,7 +278,7 @@ Draw the single player intermission screen
 void CG_DrawSinglePlayerIntermission( void ) {
 	vec4_t color;
 	int i, y;
-	int carnage, deaths, accuracy, accuracyScore, skill, score;
+	int carnage, deaths, accuracy, accuracyScore, secrets, secretsCount, secretsScore, skill, score;
 	int index;
 
 	color[0] = 1;
@@ -295,9 +295,13 @@ void CG_DrawSinglePlayerIntermission( void ) {
 	deaths = cg.snap->ps.persistant[PERS_KILLED];
 	accuracy = CG_GetAccuracy();
 	accuracyScore = COM_AccuracyToScore(accuracy, COM_CalculateLevelScore( cg.snap->ps.persistant, accuracy, skill, qfalse ));
+	secrets = (cg.snap->ps.persistant[PERS_SECRETS] & 0x7F);
+	secretsCount = ((cg.snap->ps.persistant[PERS_SECRETS] >> 7) & 0x7F);
+	secretsScore = secrets * SCORE_SECRET;
 	skill = CG_GetSkill();
 	score = COM_CalculateLevelScore( cg.snap->ps.persistant, accuracy, skill, qtrue );
 
+	//carnage score
 	y = 64;
 	index = 1;
 	if (cg.time < cg.intermissionTime + (SCOREB_TIME * index))
@@ -310,6 +314,7 @@ void CG_DrawSinglePlayerIntermission( void ) {
 		CG_DrawStringExt( 64, y, va("       Carnage : %i", carnage), color, qtrue, qtrue, BIGCHAR_WIDTH, BIGCHAR_HEIGHT, 0 );
 	}
 	
+	//deaths score
 	y += BIGCHAR_HEIGHT;
 	index++;
 	if (cg.time < cg.intermissionTime + (SCOREB_TIME * index))
@@ -322,6 +327,7 @@ void CG_DrawSinglePlayerIntermission( void ) {
 		CG_DrawStringExt( 64, y, va("        Deaths : %i (%ix)", deaths * SCORE_DEATH, deaths), color, qtrue, qtrue, BIGCHAR_WIDTH, BIGCHAR_HEIGHT, 0 );
 	}
 
+	//accuracy score
 	y += BIGCHAR_HEIGHT;
 	index++;
 	if (cg.time < cg.intermissionTime + (SCOREB_TIME * index))
@@ -334,6 +340,20 @@ void CG_DrawSinglePlayerIntermission( void ) {
 		CG_DrawStringExt( 64, y, va("      Accuracy : %i (%i%%)", accuracyScore, accuracy), color, qtrue, qtrue, BIGCHAR_WIDTH, BIGCHAR_HEIGHT, 0 );		
 	}
 
+	//secrets score
+	y += BIGCHAR_HEIGHT;
+	index++;
+	if (cg.time < cg.intermissionTime + (SCOREB_TIME * index))
+		CG_DrawStringExt( 64, y, "       Secrets :", color, qtrue, qtrue, BIGCHAR_WIDTH, BIGCHAR_HEIGHT, 0 );
+	else {
+		if (cg.scoreSoundsPlayed == index - 1) {
+			trap_S_StartLocalSound( cgs.media.scoreShow, CHAN_LOCAL_SOUND );
+			cg.scoreSoundsPlayed++;
+		}
+		CG_DrawStringExt( 64, y, va("       Secrets : %i (%i/%i)", secretsScore, secrets, secretsCount), color, qtrue, qtrue, BIGCHAR_WIDTH, BIGCHAR_HEIGHT, 0 );		
+	}
+
+	//skill modifier
 	y += BIGCHAR_HEIGHT;
 	index++;
 	if (cg.time < cg.intermissionTime + (SCOREB_TIME * index))
@@ -347,6 +367,7 @@ void CG_DrawSinglePlayerIntermission( void ) {
 		CG_DrawStringExt( 64, y, va("Skill modifier : %1.1f", (skill * SCORE_SKILL)), color, qtrue, qtrue, BIGCHAR_WIDTH, BIGCHAR_HEIGHT, 0 );
 	}
 
+	//total score
 	y += BIGCHAR_HEIGHT;
 	index++;
 	if (cg.time < cg.intermissionTime + (SCOREB_TIME * index) + SCOREB_TIME_LAST)	//wait slightly longer before showing final score

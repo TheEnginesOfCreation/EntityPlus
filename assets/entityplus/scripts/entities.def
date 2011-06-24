@@ -1937,6 +1937,22 @@ notsingle : when set to 1, entity will not spawn in Single Player mode.*/
 
 //=============================================================================
 
+/*QUAKED target_secret (0 .5 0) (-8 -8 -8) (8 8 8) SILENT
+When activated, counts the secret as being found. Finding a secret adds 50 points to the player's final score.
+-------- KEYS --------
+targetname : ativating entity points to this.
+targetname2 : activating trigger points to this.
+message : text string to print on screen when secret is found. When omitted it defaults to "You found a secret!"
+notfree : when set to 1, entity will not spawn in "Free for all" and "Tournament" modes.
+notteam : when set to 1, entity will not spawn in "Teamplay" and "CTF" modes.
+notsingle : when set to 1, entity will not spawn in Single Player mode.
+-------- SPAWNFLAGS --------
+SILENT : No message is printed to the screen when the secret is found.
+-------- NOTES --------
+You may have no more than 64 target_secrets in your map(s). When multiple maps are linked together using target_mapchange, this limit of 64 counts across all linked maps.*/
+
+//=============================================================================
+
 /*QUAKED target_skill (0 .5 0) (-8 -8 -8) (8 8 8)
 Sets the skill level for the next map that will be loaded.
 -------- KEYS --------

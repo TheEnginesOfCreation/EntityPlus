@@ -1352,6 +1352,10 @@ void ClientSpawn(gentity_t *ent) {
 		//set name of level to which scores should be attributed
 		if ( strcmp( va("%s", client->sess.scoreLevelName ), "" ) )
 			strcpy(level.scoreLevelName, client->sess.scoreLevelName);
+
+		//set secrets
+		if ( client->sess.secrets )
+			client->ps.persistant[PERS_SECRETS] = client->sess.secrets;
 	}
 
 	G_SetOrigin( ent, spawn_origin );
