@@ -279,6 +279,7 @@ void CG_DrawSinglePlayerIntermission( void ) {
 	vec4_t color;
 	int i, y;
 	int carnage, deaths, accuracy, accuracyScore, skill, score;
+	int index;
 
 	color[0] = 1;
 	color[1] = 1;
@@ -298,10 +299,11 @@ void CG_DrawSinglePlayerIntermission( void ) {
 	score = COM_CalculateLevelScore( cg.snap->ps.persistant, accuracy, skill, qtrue );
 
 	y = 64;
-	if (cg.time < cg.intermissionTime + 750)
+	index = 1;
+	if (cg.time < cg.intermissionTime + (SCOREB_TIME * index))
 		CG_DrawStringExt( 64, y, "       Carnage :", color, qtrue, qtrue, BIGCHAR_WIDTH, BIGCHAR_HEIGHT, 0 );
 	else {
-		if (cg.scoreSoundsPlayed == 0) {
+		if (cg.scoreSoundsPlayed == index - 1) {
 			trap_S_StartLocalSound( cgs.media.scoreShow, CHAN_LOCAL_SOUND );
 			cg.scoreSoundsPlayed++;
 		}
@@ -309,10 +311,11 @@ void CG_DrawSinglePlayerIntermission( void ) {
 	}
 	
 	y += BIGCHAR_HEIGHT;
-	if (cg.time < cg.intermissionTime + 1500)
+	index++;
+	if (cg.time < cg.intermissionTime + (SCOREB_TIME * index))
 		CG_DrawStringExt( 64, y, "        Deaths :", color, qtrue, qtrue, BIGCHAR_WIDTH, BIGCHAR_HEIGHT, 0 );
 	else {
-		if (cg.scoreSoundsPlayed == 1) {
+		if (cg.scoreSoundsPlayed == index - 1) {
 			trap_S_StartLocalSound( cgs.media.scoreShow, CHAN_LOCAL_SOUND );
 			cg.scoreSoundsPlayed++;
 		}
@@ -320,10 +323,11 @@ void CG_DrawSinglePlayerIntermission( void ) {
 	}
 
 	y += BIGCHAR_HEIGHT;
-	if (cg.time < cg.intermissionTime + 2250)
+	index++;
+	if (cg.time < cg.intermissionTime + (SCOREB_TIME * index))
 		CG_DrawStringExt( 64, y, "      Accuracy :", color, qtrue, qtrue, BIGCHAR_WIDTH, BIGCHAR_HEIGHT, 0 );
 	else {
-		if (cg.scoreSoundsPlayed == 2) {
+		if (cg.scoreSoundsPlayed == index - 1) {
 			trap_S_StartLocalSound( cgs.media.scoreShow, CHAN_LOCAL_SOUND );
 			cg.scoreSoundsPlayed++;
 		}
@@ -331,10 +335,11 @@ void CG_DrawSinglePlayerIntermission( void ) {
 	}
 
 	y += BIGCHAR_HEIGHT;
-	if (cg.time < cg.intermissionTime + 3000)
+	index++;
+	if (cg.time < cg.intermissionTime + (SCOREB_TIME * index))
 		CG_DrawStringExt( 64, y, "Skill modifier :", color, qtrue, qtrue, BIGCHAR_WIDTH, BIGCHAR_HEIGHT, 0 );
 	else {
-		if (cg.scoreSoundsPlayed == 3) {
+		if (cg.scoreSoundsPlayed == index - 1) {
 			trap_S_StartLocalSound( cgs.media.scoreShow, CHAN_LOCAL_SOUND );
 			cg.scoreSoundsPlayed++;
 		}
@@ -343,10 +348,11 @@ void CG_DrawSinglePlayerIntermission( void ) {
 	}
 
 	y += BIGCHAR_HEIGHT;
-	if (cg.time < cg.intermissionTime + 4000)	//wait slightly longer before showing final score
+	index++;
+	if (cg.time < cg.intermissionTime + (SCOREB_TIME * index) + SCOREB_TIME_LAST)	//wait slightly longer before showing final score
 		CG_DrawStringExt( 64, y, "         TOTAL :", color, qtrue, qtrue, BIGCHAR_WIDTH, BIGCHAR_HEIGHT, 0 );
 	else {
-		if (cg.scoreSoundsPlayed == 4) {
+		if (cg.scoreSoundsPlayed == index - 1) {
 			trap_S_StartLocalSound( cgs.media.scoreShow, CHAN_LOCAL_SOUND );
 			cg.scoreSoundsPlayed++;
 		}
