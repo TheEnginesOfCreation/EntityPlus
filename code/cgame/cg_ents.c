@@ -121,7 +121,7 @@ static void CG_EntityEffects( centity_t *cent ) {
 	// constant light glow
 	if ( cent->currentState.constantLight ) {
 		int		cl;
-		int		i, r, g, b;
+		float		i, r, g, b;
 
 		cl = cent->currentState.constantLight;
 
