@@ -285,10 +285,8 @@ void CG_DrawSinglePlayerIntermission( void ) {
 	color[2] = 1;
 	color[3] = 1;
 
-	if ( cg.intermissionTime == 0 ) {
+	if ( cg.intermissionTime == 0 )
 		cg.intermissionTime = cg.time;
-		CG_StartScoreboardMusic();
-	}
 
 	carnage = cg.snap->ps.persistant[PERS_SCORE];
 	deaths = cg.snap->ps.persistant[PERS_KILLED];

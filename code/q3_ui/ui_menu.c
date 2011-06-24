@@ -13,16 +13,36 @@ MAIN MENU
 
 
 #define ID_SINGLEPLAYER				10
+#define ID_MULTIPLAYER				11
 #define ID_SETUP					12
+#define ID_DEMOS					13
+#define ID_CINEMATICS				14
+#define ID_TEAMARENA				15
+#define ID_MODS						16
 #define ID_EXIT						17
+
+/*
+#define MAIN_BANNER_MODEL				"models/mapobjects/banner/banner5.md3"
+#define MAIN_MENU_MODEL_KEY_MASTER		"models/powerups/keys/key_master.md3"
+#define MAIN_MENU_MODEL_KEY_GOLD		"models/powerups/keys/key_gold.md3"
+#define MAIN_MENU_MODEL_KEY_SILVER		"models/powerups/keys/key_silver.md3"
+#define MAIN_MENU_MODEL_KEY_RED			"models/powerups/keys/keycard-r.md3"
+#define MAIN_MENU_MODEL_KEY_BLUE		"models/powerups/keys/keycard-b.md3"
+#define MAIN_MENU_MODEL_BACKPACK		"models/powerups/backpack/backpack.md3"
+#define MAIN_MENU_MODEL_ROCKET_LAUNCHER	"models/weapons2/rocketl/rocketl.md3"
+#define MAIN_MENU_MODEL_ARMOR_RED		"models/powerups/armor/armor_red.md3"
+#define MAIN_MENU_MODEL_AMMO_MG			"models/powerups/ammo/machinegunam.md3"
+#define MAIN_MENU_MODEL_SKULL			"models/gibs/skull.md3"
+#define MAIN_MENU_MODEL_SHOTGUN         "models/weapons2/shotgun/shotgun.md3"
+#define MAIN_MENU_MODEL_ARMOR_GREEN		"models/powerups/armor/armor_green.md3"
+*/
 
 #define ART_OVERLAY						"menu/art/mainoverlay"
 #define ART_BACKGROUND					"menu/backgrounds/01"
-#define ART_BACKGROUND2					"menu/backgrounds/02"
 
 #define MAIN_MENU_VERTICAL_SPACING	34
 #define MAIN_MENU_MARGIN_LEFT		48
-#define MAIN_MENU_MARGIN_TOP		310
+#define MAIN_MENU_MARGIN_TOP		296
 
 
 
@@ -46,8 +66,6 @@ typedef struct {
 	qhandle_t		menuModel;
 	vec3_t			menuModelOrigin;
 	vec3_t			menuModelAngles;
-
-	int				backgroundDelay;
 } mainmenu_t;
 
 
@@ -90,8 +108,29 @@ void Main_MenuEvent (void* ptr, int event) {
 		UI_EPLevelMenu();
 		break;
 
+	case ID_MULTIPLAYER:
+		UI_ArenaServersMenu();
+		break;
+
 	case ID_SETUP:
 		UI_SetupMenu();
+		break;
+
+	case ID_DEMOS:
+		UI_DemosMenu();
+		break;
+
+	case ID_CINEMATICS:
+		UI_CinematicsMenu();
+		break;
+
+	case ID_MODS:
+		UI_ModsMenu();
+		break;
+
+	case ID_TEAMARENA:
+		trap_Cvar_Set( "fs_game", "missionpack");
+		trap_Cmd_ExecuteText( EXEC_APPEND, "vid_restart;" );
 		break;
 
 	case ID_EXIT:
@@ -124,8 +163,9 @@ TTimo: this function is common to the main menu and errorMessage menu
 */
 
 static void Main_MenuDraw( void ) {
+	int xoff, yoff, seed;
 	qtime_t tm;
-	int seed;
+	uiClientState_t	cstate;
 
 	if (strlen(s_errorMessage.errorMessage))
 	{
@@ -133,32 +173,8 @@ static void Main_MenuDraw( void ) {
 	}
 	else
 	{
-		int t;
-		
-		if ( !s_main.backgroundDelay )
-			s_main.backgroundDelay = 5000;
-
-		t = uis.realtime % s_main.backgroundDelay;
-		if ( t < 32 || (t > 60 && t < 92) || (t > 150 && t < 200) || (t > 240 && t < 270) )
-		{
-			UI_DrawNamedPic( 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, ART_BACKGROUND2 );
-		}
-		else
-			UI_DrawNamedPic( 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, ART_BACKGROUND );
-
-		//determine delay until next lighting strike
-		if ( t == 270 ) {
-			trap_RealTime(&tm);
-			seed = 1;
-			seed = seed * 31 + tm.tm_sec;
-			seed = seed * 31 + tm.tm_min;
-			seed = seed * 31 + tm.tm_hour;
-			seed = seed * 31 + tm.tm_mday;
-			srand( seed );
-			
-			s_main.backgroundDelay = 5000 + (1500 - (rand() % 3000));	//delay somewhere between 3500 and 6500 ms
-		}
-
+		trap_GetClientState( &cstate );
+		UI_DrawNamedPic( 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, ART_BACKGROUND );
 		Menu_Draw( &s_main.menu );		
 	}
 }
@@ -261,6 +277,16 @@ void UI_MainMenu( void ) {
 	s_main.singleplayer.color				= color_white;
 
 	y += MAIN_MENU_VERTICAL_SPACING;
+	s_main.multiplayer.generic.type			= MTYPE_PTEXT;
+	s_main.multiplayer.generic.flags		= QMF_PULSEIFFOCUS;
+	s_main.multiplayer.generic.x			= MAIN_MENU_MARGIN_LEFT;
+	s_main.multiplayer.generic.y			= y;
+	s_main.multiplayer.generic.id			= ID_MULTIPLAYER;
+	s_main.multiplayer.generic.callback		= Main_MenuEvent; 
+	s_main.multiplayer.string				= "MULTIPLAYER";
+	s_main.multiplayer.color				= color_white;
+
+	y += MAIN_MENU_VERTICAL_SPACING;
 	s_main.setup.generic.type				= MTYPE_PTEXT;
 	s_main.setup.generic.flags				= QMF_PULSEIFFOCUS;
 	s_main.setup.generic.x					= MAIN_MENU_MARGIN_LEFT;
@@ -283,6 +309,7 @@ void UI_MainMenu( void ) {
 	Menu_AddItem( &s_main.menu,	&s_main.overlay );
 	Menu_AddItem( &s_main.menu,	&s_main.header );
 	Menu_AddItem( &s_main.menu,	&s_main.singleplayer );
+	Menu_AddItem( &s_main.menu,	&s_main.multiplayer );
 	Menu_AddItem( &s_main.menu,	&s_main.setup );
 	Menu_AddItem( &s_main.menu,	&s_main.exit );             
 

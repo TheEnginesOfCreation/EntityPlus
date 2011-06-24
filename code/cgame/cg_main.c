@@ -868,8 +868,8 @@ static void CG_RegisterGraphics( void ) {
 	cgs.media.objectivesUpdated = trap_R_RegisterShaderNoMip( "menu/objectives/updated.tga" );
 	cgs.media.objectivesUpdatedSound = trap_S_RegisterSound( "sound/misc/objective_update_01.wav", qfalse );
 
-	cgs.media.scoreShow = trap_S_RegisterSound( "sound/menu/score/scoreshow.wav", qfalse );
-	cgs.media.finalScoreShow = trap_S_RegisterSound( "sound/menu/score/scoreshowfinal.wav", qfalse );
+	cgs.media.scoreShow = trap_S_RegisterSound( "sound/weapons/machinegun/machgf1b.wav", qfalse );
+	cgs.media.finalScoreShow = trap_S_RegisterSound( "sound/weapons/machinegun/machgf1b.wav", qfalse );
 
 	cgs.media.smokePuffShader = trap_R_RegisterShader( "smokePuff" );
 	cgs.media.smokePuffRageProShader = trap_R_RegisterShader( "smokePuffRagePro" );
@@ -1038,12 +1038,6 @@ static void CG_RegisterGraphics( void ) {
 	cgs.media.debrisglasslarge3 = trap_R_RegisterModel( "models/debris/glass_3_large.md3" );
 	cgs.media.debrisglasslarge4 = trap_R_RegisterModel( "models/debris/glass_4_large.md3" );
 	cgs.media.debrisglasslarge5 = trap_R_RegisterModel( "models/debris/glass_5_large.md3" );
-	
-	cgs.media.debrisstone1 = trap_R_RegisterModel( "models/debris/stone_1.md3" );
-	cgs.media.debrisstone2 = trap_R_RegisterModel( "models/debris/stone_2.md3" );
-	cgs.media.debrisstone3 = trap_R_RegisterModel( "models/debris/stone_3.md3" );
-	cgs.media.debrisstone4 = trap_R_RegisterModel( "models/debris/stone_4.md3" );
-	cgs.media.debrisstone5 = trap_R_RegisterModel( "models/debris/stone_5.md3" );
 
 	cgs.media.sparkShader = trap_R_RegisterShaderNoMip("spark");
 	
@@ -1256,18 +1250,6 @@ void CG_StartMusic( void ) {
 
 	// start the background music
 	s = (char *)CG_ConfigString( CS_MUSIC );
-	Q_strncpyz( parm1, COM_Parse( &s ), sizeof( parm1 ) );
-	Q_strncpyz( parm2, COM_Parse( &s ), sizeof( parm2 ) );
-
-	trap_S_StartBackgroundTrack( parm1, parm2 );
-}
-
-void CG_StartScoreboardMusic( void ) {
-	char	*s;
-	char	parm1[MAX_QPATH], parm2[MAX_QPATH];
-
-	// start the background music
-	s = (char *)CG_ConfigString( CS_SCOREBOARDMUSIC );
 	Q_strncpyz( parm1, COM_Parse( &s ), sizeof( parm1 ) );
 	Q_strncpyz( parm2, COM_Parse( &s ), sizeof( parm2 ) );
 

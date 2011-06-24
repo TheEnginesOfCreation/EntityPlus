@@ -1310,8 +1310,7 @@ void Reached_Train( gentity_t *ent ) {
 
 	// if there is a "wait" value on the target, don't start moving yet
 	if ( next->wait ) {
-		if ( next->wait > 0 )
-			ent->nextthink = level.time + next->wait * 1000;
+		ent->nextthink = level.time + next->wait * 1000;
 		ent->think = Think_BeginMoving;
 		ent->s.pos.trType = TR_STATIONARY;
 	}
@@ -1330,10 +1329,8 @@ void Think_SetupTrainTargets( gentity_t *ent ) {
 
 	ent->nextTrain = G_Find( NULL, FOFS(targetname), ent->target );
 	if ( !ent->nextTrain ) {
-		if ( !strcmp( ent->classname, "func_train" ) )
-			G_Printf( "func_train at %s with an unfound target\n", vtos(ent->r.absmin) );
-		else //path_corner
-			G_Printf( "Train corner at %s without a target\n", ent->s.origin );
+		G_Printf( "func_train at %s with an unfound target\n",
+			vtos(ent->r.absmin) );
 		return;
 	}
 
@@ -1362,13 +1359,11 @@ void Think_SetupTrainTargets( gentity_t *ent ) {
 			}
 		} while ( strcmp( next->classname, "path_corner" ) );
 
-		//G_Printf("%s -> %s\n", path->targetname, next->targetname);
 		path->nextTrain = next;
 	}
 
 	// start the train moving from the first corner
-	if ( !strcmp( ent->classname, "func_train" ) )
-		Reached_Train( ent );
+	Reached_Train( ent );
 }
 
 
@@ -1402,17 +1397,6 @@ The train spawns at the first target it is pointing at.
 "color"		constantLight color
 "light"		constantLight radius
 */
-void Use_Train (gentity_t *ent, gentity_t *other, gentity_t *activator) {
-	if (ent->s.pos.trType == TR_STATIONARY) {
-		ent->s.pos.trType = TR_LINEAR_STOP;
-		Think_BeginMoving( ent );
-	}
-	//else {
-	//	ent->nextthink = 0;
-	//	ent->s.pos.trType = TR_STATIONARY;
-	//}
-}
-
 void SP_func_train (gentity_t *self) {
 	VectorClear (self->s.angles);
 
@@ -1443,7 +1427,6 @@ void SP_func_train (gentity_t *self) {
 	// a chance to spawn
 	self->nextthink = level.time + FRAMETIME;
 	self->think = Think_SetupTrainTargets;
-	self->use = Use_Train;
 }
 
 /*

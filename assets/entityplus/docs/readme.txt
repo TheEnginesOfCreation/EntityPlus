@@ -91,10 +91,8 @@ Debris and backpack models		: DaEngineer
 Custom sound effects			: Patrick "Scout" Schotte
 				
 								  
-Green armor skin and stone		
-debris models.					: gooball
+Green armor skin and icon		: gooball
 								  [http://quake3world.com/forum/memberlist.php?mode=viewprofile&u=30967]
-								  
 
 Testing, feedback and logo		: EmeraldTiger
 								  [http://emeraldproductions.weebly.com/]

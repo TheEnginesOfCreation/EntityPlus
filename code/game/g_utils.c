@@ -225,75 +225,22 @@ void G_UseTargets( gentity_t *ent, gentity_t *activator ) {
 		trap_SetConfigstring(CS_SHADERSTATE, BuildShaderStateConfig());
 	}
 
-	// use ent->target
-	if ( ent->target ) {
-
-		//find all entities with matching targetname
-		t = NULL;
-		while ( (t = G_Find (t, FOFS(targetname), ent->target)) != NULL ) {
-			if ( t == ent ) {
-				G_Printf ("WARNING: Entity used itself.\n");
-			} else {
-				if ( t->use ) {
-					t->use (t, ent, activator);
-				}
-			}
-			if ( !ent->inuse ) {
-				G_Printf("entity was removed while using targets\n");
-				return;
-			}
-		}
-
-		//find all entities with matching targetname2
-		t = NULL;
-		while ( (t = G_Find (t, FOFS(targetname2), ent->target)) != NULL ) {
-			if ( t == ent ) {
-				G_Printf ("WARNING: Entity used itself.\n");
-			} else {
-				if ( t->use ) {
-					t->use (t, ent, activator);
-				}
-			}
-			if ( !ent->inuse ) {
-				G_Printf("entity was removed while using targets\n");
-				return;
-			}
-		}
+	if ( !ent->target ) {
+		return;
 	}
 
-	// use ent->target2
-	if ( ent->target2 ) {
-		
-		//find all entities with matching targetname
-		t = NULL;
-		while ( (t = G_Find (t, FOFS(targetname), ent->target2)) != NULL ) {
-			if ( t == ent ) {
-				G_Printf ("WARNING: Entity used itself.\n");
-			} else {
-				if ( t->use ) {
-					t->use (t, ent, activator);
-				}
-			}
-			if ( !ent->inuse ) {
-				G_Printf("entity was removed while using targets\n");
-				return;
+	t = NULL;
+	while ( (t = G_Find (t, FOFS(targetname), ent->target)) != NULL ) {
+		if ( t == ent ) {
+			G_Printf ("WARNING: Entity used itself.\n");
+		} else {
+			if ( t->use ) {
+				t->use (t, ent, activator);
 			}
 		}
-
-		//find all entities with matching targetname2
-		t = NULL;
-		while ( (t = G_Find (t, FOFS(targetname2), ent->target2)) != NULL ) {
-			if ( t == ent ) {
-				G_Printf ("WARNING: Entity used itself.\n");
-			} else {
-				if ( t->use ) {
-					t->use (t, ent, activator);
-				}
-			}
-			if ( !ent->inuse ) {
-				G_Printf("entity was removed while using targets\n");
-				return;
-			}
+		if ( !ent->inuse ) {
+			G_Printf("entity was removed while using targets\n");
+			return;
 		}
 	}
 }
@@ -869,9 +816,6 @@ int PickDebrisType( int spawnflags ) {
 	
 	if ( spawnflags & 64 )
 		return EV_EMIT_DEBRIS_GLASS;
-		
-	if ( spawnflags & 128 )
-		return EV_EMIT_DEBRIS_STONE;	
 
 	//if no compatible spawnflags supplied, return EV_EMIT_DEBRIS_LIGHT
 	return EV_EMIT_DEBRIS_LIGHT;
