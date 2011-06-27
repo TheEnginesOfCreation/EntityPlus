@@ -1062,8 +1062,6 @@ void target_finish_use (gentity_t *self, gentity_t *other, gentity_t *activator)
 	// get high score
 	highScore = COM_LoadLevelScore( G_GetScoringMapName() );
 	
-	G_Printf("score: %i\n", score);
-
 	if ( score > highScore )
 		COM_WriteLevelScore( G_GetScoringMapName(), score );
 
