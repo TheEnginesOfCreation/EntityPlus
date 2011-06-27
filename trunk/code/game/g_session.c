@@ -176,6 +176,7 @@ Updates session data prior to a map change that's forced by a target_mapchange e
 void G_UpdateSessionDataForMapChange( gclient_t *client ) {
 	clientSession_t	*sess;
 	char *mapname;
+	int secretFound, secretCount;
 
 	sess = &client->sess;
 
@@ -194,7 +195,10 @@ void G_UpdateSessionDataForMapChange( gclient_t *client ) {
 	sess->sessionHoldable = client->ps.stats[STAT_HOLDABLE_ITEM];
 	sess->carnageScore = client->ps.persistant[PERS_SCORE];
 	sess->deaths = client->ps.persistant[PERS_KILLED];
-	sess->secrets = client->ps.persistant[PERS_SECRETS];
+
+	secretFound = (client->ps.persistant[PERS_SECRETS] & 0x7F);
+	secretCount = level.secretCount;
+	sess->secrets = secretFound + (secretCount << 7);
 
 	strcpy(sess->scoreLevelName, G_GetScoringMapName());
 }
