@@ -1114,9 +1114,6 @@ void ClientBegin( int clientNum ) {
 	// set info that persisted after mapchange
 	G_UpdateClientWithSessionData( ent );
 
-	// clear map change session data
-	G_ClearSessionDataForMapChange( ent->client );
-
 	if ( client->sess.sessionTeam != TEAM_SPECTATOR ) {
 		// send event
 		if ( g_gametype.integer != GT_ENTITYPLUS ) {
