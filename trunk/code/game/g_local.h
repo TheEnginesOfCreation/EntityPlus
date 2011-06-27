@@ -248,6 +248,8 @@ typedef struct {
 	int			deaths;
 	char		scoreLevelName[64];
 	int			secrets;
+	int			accuracyShots;
+	int			accuracyHits;
 } clientSession_t;
 
 //

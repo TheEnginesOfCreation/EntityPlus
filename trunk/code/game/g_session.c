@@ -24,7 +24,7 @@ void G_WriteClientSessionData( gclient_t *client ) {
 	const char	*s;
 	const char	*var;
 
-	s = va("%i %i %i %i %i %i %i %i %i %i %i %i %i %i %i %i %i %i %i %i %i %i %s %i", 
+	s = va("%i %i %i %i %i %i %i %i %i %i %i %i %i %i %i %i %i %i %i %i %i %i %s %i %i %i", 
 		client->sess.sessionTeam,
 		client->sess.spectatorTime,
 		client->sess.spectatorState,
@@ -48,7 +48,9 @@ void G_WriteClientSessionData( gclient_t *client ) {
 		client->sess.carnageScore,
 		client->sess.deaths,
 		client->sess.scoreLevelName,
-		client->sess.secrets
+		client->sess.secrets,
+		client->sess.accuracyShots,
+		client->sess.accuracyHits
 		);
 
 	var = va( "session%i", client - level.clients );
@@ -75,7 +77,7 @@ void G_ReadSessionData( gclient_t *client ) {
 	var = va( "session%i", client - level.clients );
 	trap_Cvar_VariableStringBuffer( var, s, sizeof(s) );
 
-	sscanf( s, "%i %i %i %i %i %i %i %i %i %i %i %i %i %i %i %i %i %i %i %i %i %i %s %i",
+	sscanf( s, "%i %i %i %i %i %i %i %i %i %i %i %i %i %i %i %i %i %i %i %i %i %i %s %i %i %i",
 		&sessionTeam,                 // bk010221 - format
 		&client->sess.spectatorTime,
 		&spectatorState,              // bk010221 - format
@@ -99,7 +101,9 @@ void G_ReadSessionData( gclient_t *client ) {
 		&client->sess.carnageScore,
 		&client->sess.deaths,
 		&client->sess.scoreLevelName,
-		&client->sess.secrets
+		&client->sess.secrets,
+		&client->sess.accuracyShots,
+		&client->sess.accuracyHits
 		);
 
 	// bk001205 - format issues
@@ -184,7 +188,10 @@ void G_UpdateSessionDataForMapChange( gclient_t *client ) {
 	sess->sessionArmor = client->ps.stats[STAT_ARMOR];
 	sess->sessionWeapons = client->ps.stats[STAT_WEAPONS];
 	sess->sessionWeapon = client->ps.weapon;
-	sess->sessionAmmoMG = client->ps.ammo[WP_MACHINEGUN];
+	if ( client->ps.ammo[WP_MACHINEGUN] )
+		sess->sessionAmmoMG = client->ps.ammo[WP_MACHINEGUN];
+	else
+		sess->sessionAmmoMG = -1;		//-1 means no ammo for machinegun, to overrule the spawning with 100 ammo
 	sess->sessionAmmoSG = client->ps.ammo[WP_SHOTGUN];
 	sess->sessionAmmoGL = client->ps.ammo[WP_GRENADE_LAUNCHER];
 	sess->sessionAmmoRL = client->ps.ammo[WP_ROCKET_LAUNCHER];
@@ -199,6 +206,9 @@ void G_UpdateSessionDataForMapChange( gclient_t *client ) {
 	secretFound = (client->ps.persistant[PERS_SECRETS] & 0x7F);
 	secretCount = level.secretCount;
 	sess->secrets = secretFound + (secretCount << 7);
+
+	sess->accuracyShots = client->accuracy_shots;
+	sess->accuracyHits = client->accuracy_hits;
 
 	strcpy(sess->scoreLevelName, G_GetScoringMapName());
 }
@@ -231,7 +241,70 @@ void G_ClearSessionDataForMapChange( gclient_t *client ) {
 	sess->carnageScore = 0;
 	sess->deaths = 0;
 	sess->secrets = 0;
+	sess->accuracyShots = 0;
+	sess->accuracyHits = 0;
 	strcpy(sess->scoreLevelName, "" );
+}
+
+/*
+==================
+G_UpdateClientWithSessionData
+
+Updates a client entity with the data that's stored in that client's session data
+==================
+*/
+void G_UpdateClientWithSessionData( gentity_t *ent) {
+	//give weapons
+	if ( ent->client->sess.sessionWeapons )
+		ent->client->ps.stats[STAT_WEAPONS] = ent->client->sess.sessionWeapons;
+
+	//give ammo
+	if ( ent->client->sess.sessionAmmoMG == -1 ) 
+		ent->client->ps.ammo[WP_MACHINEGUN] = 0;
+	else if ( ent->client->sess.sessionAmmoMG )	//if MG ammo is 0, do nothing because player spawns with 100 ammo
+		ent->client->ps.ammo[WP_MACHINEGUN] = ent->client->sess.sessionAmmoMG;
+	if ( ent->client->sess.sessionAmmoSG ) ent->client->ps.ammo[WP_SHOTGUN] = ent->client->sess.sessionAmmoSG;
+	if ( ent->client->sess.sessionAmmoGL ) ent->client->ps.ammo[WP_GRENADE_LAUNCHER] = ent->client->sess.sessionAmmoGL;
+	if ( ent->client->sess.sessionAmmoRL ) ent->client->ps.ammo[WP_ROCKET_LAUNCHER] = ent->client->sess.sessionAmmoRL;
+	if ( ent->client->sess.sessionAmmoLG ) ent->client->ps.ammo[WP_LIGHTNING] = ent->client->sess.sessionAmmoLG;
+	if ( ent->client->sess.sessionAmmoRG ) ent->client->ps.ammo[WP_RAILGUN] = ent->client->sess.sessionAmmoRG;
+	if ( ent->client->sess.sessionAmmoPG ) ent->client->ps.ammo[WP_PLASMAGUN] = ent->client->sess.sessionAmmoPG;
+	if ( ent->client->sess.sessionAmmoBFG ) ent->client->ps.ammo[WP_BFG] = ent->client->sess.sessionAmmoBFG;
+
+	//give holdables
+	if ( ent->client->sess.sessionHoldable ) 
+		ent->client->ps.stats[STAT_HOLDABLE_ITEM] = ent->client->sess.sessionHoldable;
+
+	//give health
+	if ( ent->client->sess.sessionHealth ) 
+		ent->health = ent->client->ps.stats[STAT_HEALTH] = ent->client->sess.sessionHealth;
+
+	//give armor
+	if ( ent->client->sess.sessionArmor )
+		ent->client->ps.stats[STAT_ARMOR] = ent->client->sess.sessionArmor;
+
+	//set carnage score info
+	if ( ent->client->sess.carnageScore )
+		ent->client->ps.persistant[PERS_SCORE] = ent->client->sess.carnageScore;
+
+	//set number of deaths
+	if ( ent->client->sess.deaths )
+		ent->client->ps.persistant[PERS_KILLED] = ent->client->sess.deaths;
+
+	//set name of level to which scores should be attributed
+	if ( strcmp( va("%s", ent->client->sess.scoreLevelName ), "" ) )
+		strcpy(level.scoreLevelName, ent->client->sess.scoreLevelName);
+
+	//set secrets
+	if ( ent->client->sess.secrets )
+		ent->client->ps.persistant[PERS_SECRETS] = ent->client->sess.secrets;
+
+	//set accuracy
+	if ( ent->client->sess.accuracyShots )
+		ent->client->accuracy_shots = ent->client->sess.accuracyShots;
+	
+	if ( ent->client->sess.accuracyHits )
+		ent->client->accuracy_hits = ent->client->sess.accuracyHits;
 }
 
 /*
