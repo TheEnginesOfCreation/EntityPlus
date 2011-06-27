@@ -86,11 +86,6 @@ typedef struct
 #define ID_ATTACK		26
 #define ID_WEAPPREV		27
 #define ID_WEAPNEXT		28
-#define ID_GESTURE		29
-#define ID_CHAT			30
-#define ID_CHAT2		31
-#define ID_CHAT3		32
-#define ID_CHAT4		33
 
 // all others
 #define ID_FREELOOK		34
@@ -125,9 +120,7 @@ typedef struct
 #define ANIM_WEAPON9	20
 #define ANIM_WEAPON10	21
 #define ANIM_ATTACK		22
-#define ANIM_GESTURE	23
 #define ANIM_DIE		24
-#define ANIM_CHAT		25
 
 typedef struct
 {
@@ -207,7 +200,7 @@ static vec4_t controls_binding_color  = {1.00f, 0.43f, 0.00f, 1.00f}; // bk: Win
 
 static bind_t g_bindings[] = 
 {
-	{"+scores",			"show scores",		ID_SHOWSCORES,	ANIM_IDLE,		K_TAB,			-1,		-1, -1},
+	{"+scores",			"show objectives",	ID_SHOWSCORES,	ANIM_IDLE,		K_TAB,			-1,		-1, -1},
 	{"+button2",		"use item",			ID_USEITEM,		ANIM_IDLE,		K_ENTER,		-1,		-1, -1},
 	{"+speed", 			"run / walk",		ID_SPEED,		ANIM_RUN,		K_SHIFT,		-1,		-1,	-1},
 	{"+forward", 		"walk forward",		ID_FORWARD,		ANIM_WALK,		K_UPARROW,		-1,		-1, -1},
@@ -236,11 +229,6 @@ static bind_t g_bindings[] =
 	{"+attack", 		"attack",			ID_ATTACK,		ANIM_ATTACK,	K_CTRL,			-1,		-1, -1},
 	{"weapprev",		"prev weapon",		ID_WEAPPREV,	ANIM_IDLE,		'[',			-1,		-1, -1},
 	{"weapnext", 		"next weapon",		ID_WEAPNEXT,	ANIM_IDLE,		']',			-1,		-1, -1},
-	{"+button3", 		"gesture",			ID_GESTURE,		ANIM_GESTURE,	K_MOUSE3,		-1,		-1, -1},
-	{"messagemode", 	"chat",				ID_CHAT,		ANIM_CHAT,		't',			-1,		-1, -1},
-	{"messagemode2", 	"chat - team",		ID_CHAT2,		ANIM_CHAT,		-1,				-1,		-1, -1},
-	{"messagemode3", 	"chat - target",	ID_CHAT3,		ANIM_CHAT,		-1,				-1,		-1, -1},
-	{"messagemode4", 	"chat - attacker",	ID_CHAT4,		ANIM_CHAT,		-1,				-1,		-1, -1},
 	{(char*)NULL,		(char*)NULL,		0,				0,				-1,				-1,		-1,	-1},
 };
 
@@ -308,11 +296,6 @@ static menucommon_s *g_looking_controls[] = {
 static menucommon_s *g_misc_controls[] = {
 	(menucommon_s *)&s_controls.showscores, 
 	(menucommon_s *)&s_controls.useitem,
-	(menucommon_s *)&s_controls.gesture,
-	(menucommon_s *)&s_controls.chat,
-	(menucommon_s *)&s_controls.chat2,
-	(menucommon_s *)&s_controls.chat3,
-	(menucommon_s *)&s_controls.chat4,
 	NULL,
 };
 
@@ -504,18 +487,10 @@ static void Controls_UpdateModel( int anim ) {
 		s_controls.playerTorso = TORSO_ATTACK;
 		break;
 
-	case ANIM_GESTURE:
-		s_controls.playerTorso = TORSO_GESTURE;
-		break;
-
 	case ANIM_DIE:
 		s_controls.playerLegs = BOTH_DEATH1;
 		s_controls.playerTorso = BOTH_DEATH1;
 		s_controls.playerWeapon = WP_NONE;
-		break;
-
-	case ANIM_CHAT:
-		s_controls.playerChat = qtrue;
 		break;
 
 	default:
@@ -1485,36 +1460,6 @@ static void Controls_MenuInit( void )
 	s_controls.sensitivity.maxvalue		     = 30;
 	s_controls.sensitivity.generic.statusbar = Controls_StatusBar;
 
-	s_controls.gesture.generic.type	     = MTYPE_ACTION;
-	s_controls.gesture.generic.flags     = QMF_LEFT_JUSTIFY|QMF_PULSEIFFOCUS|QMF_GRAYED|QMF_HIDDEN;
-	s_controls.gesture.generic.callback  = Controls_ActionEvent;
-	s_controls.gesture.generic.ownerdraw = Controls_DrawKeyBinding;
-	s_controls.gesture.generic.id        = ID_GESTURE;
-
-	s_controls.chat.generic.type	  = MTYPE_ACTION;
-	s_controls.chat.generic.flags     = QMF_LEFT_JUSTIFY|QMF_PULSEIFFOCUS|QMF_GRAYED|QMF_HIDDEN;
-	s_controls.chat.generic.callback  = Controls_ActionEvent;
-	s_controls.chat.generic.ownerdraw = Controls_DrawKeyBinding;
-	s_controls.chat.generic.id        = ID_CHAT;
-
-	s_controls.chat2.generic.type	   = MTYPE_ACTION;
-	s_controls.chat2.generic.flags     = QMF_LEFT_JUSTIFY|QMF_PULSEIFFOCUS|QMF_GRAYED|QMF_HIDDEN;
-	s_controls.chat2.generic.callback  = Controls_ActionEvent;
-	s_controls.chat2.generic.ownerdraw = Controls_DrawKeyBinding;
-	s_controls.chat2.generic.id        = ID_CHAT2;
-
-	s_controls.chat3.generic.type	   = MTYPE_ACTION;
-	s_controls.chat3.generic.flags     = QMF_LEFT_JUSTIFY|QMF_PULSEIFFOCUS|QMF_GRAYED|QMF_HIDDEN;
-	s_controls.chat3.generic.callback  = Controls_ActionEvent;
-	s_controls.chat3.generic.ownerdraw = Controls_DrawKeyBinding;
-	s_controls.chat3.generic.id        = ID_CHAT3;
-
-	s_controls.chat4.generic.type	   = MTYPE_ACTION;
-	s_controls.chat4.generic.flags     = QMF_LEFT_JUSTIFY|QMF_PULSEIFFOCUS|QMF_GRAYED|QMF_HIDDEN;
-	s_controls.chat4.generic.callback  = Controls_ActionEvent;
-	s_controls.chat4.generic.ownerdraw = Controls_DrawKeyBinding;
-	s_controls.chat4.generic.id        = ID_CHAT4;
-
 	s_controls.joyenable.generic.type      = MTYPE_RADIOBUTTON;
 	s_controls.joyenable.generic.flags	   = QMF_SMALLFONT;
 	s_controls.joyenable.generic.x	       = SCREEN_WIDTH/2;
@@ -1592,11 +1537,6 @@ static void Controls_MenuInit( void )
 
 	Menu_AddItem( &s_controls.menu, &s_controls.showscores );
 	Menu_AddItem( &s_controls.menu, &s_controls.useitem );
-	Menu_AddItem( &s_controls.menu, &s_controls.gesture );
-	Menu_AddItem( &s_controls.menu, &s_controls.chat );
-	Menu_AddItem( &s_controls.menu, &s_controls.chat2 );
-	Menu_AddItem( &s_controls.menu, &s_controls.chat3 );
-	Menu_AddItem( &s_controls.menu, &s_controls.chat4 );
 
 	Menu_AddItem( &s_controls.menu, &s_controls.back );
 

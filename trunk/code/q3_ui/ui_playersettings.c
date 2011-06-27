@@ -18,7 +18,6 @@
 #define ART_FX_YELLOW		"menu/art/fx_yel"
 
 #define ID_NAME			10
-#define ID_HANDICAP		11
 #define ID_EFFECTS		12
 #define ID_BACK			13
 #define ID_MODEL		14
@@ -35,7 +34,6 @@ typedef struct {
 	menubitmap_s		player;
 
 	menufield_s			name;
-	menulist_s			handicap;
 	menulist_s			effects;
 
 	menubitmap_s		back;
@@ -53,31 +51,6 @@ static playersettings_t	s_playersettings;
 
 static int gamecodetoui[] = {4,2,3,0,5,1,6};
 static int uitogamecode[] = {4,6,2,3,1,5,7};
-
-static const char *handicap_items[] = {
-	"None",
-	"95",
-	"90",
-	"85",
-	"80",
-	"75",
-	"70",
-	"65",
-	"60",
-	"55",
-	"50",
-	"45",
-	"40",
-	"35",
-	"30",
-	"25",
-	"20",
-	"15",
-	"10",
-	"5",
-	0
-};
-
 
 /*
 =================
@@ -153,32 +126,6 @@ static void PlayerSettings_DrawName( void *self ) {
 
 /*
 =================
-PlayerSettings_DrawHandicap
-=================
-*/
-static void PlayerSettings_DrawHandicap( void *self ) {
-	menulist_s		*item;
-	qboolean		focus;
-	int				style;
-	float			*color;
-
-	item = (menulist_s *)self;
-	focus = (item->generic.parent->cursor == item->generic.menuPosition);
-
-	style = UI_LEFT|UI_SMALLFONT;
-	color = text_color_normal;
-	if( focus ) {
-		style |= UI_PULSE;
-		color = text_color_highlight;
-	}
-
-	UI_DrawProportionalString( item->generic.x, item->generic.y, "Handicap", style, color );
-	UI_DrawProportionalString( item->generic.x + 64, item->generic.y + PROP_HEIGHT, handicap_items[item->curvalue], style, color );
-}
-
-
-/*
-=================
 PlayerSettings_DrawEffects
 =================
 */
@@ -240,9 +187,6 @@ static void PlayerSettings_SaveChanges( void ) {
 	// name
 	trap_Cvar_Set( "name", s_playersettings.name.field.buffer );
 
-	// handicap
-	trap_Cvar_SetValue( "handicap", 100 - s_playersettings.handicap.curvalue * 5 );
-
 	// effects color
 	trap_Cvar_SetValue( "color1", uitogamecode[s_playersettings.effects.curvalue] );
 }
@@ -290,10 +234,6 @@ static void PlayerSettings_SetMenuItems( void ) {
 
 	UI_PlayerInfo_SetModel( &s_playersettings.playerinfo, UI_Cvar_VariableString( "model" ) );
 	UI_PlayerInfo_SetInfo( &s_playersettings.playerinfo, LEGS_IDLE, TORSO_STAND, viewangles, vec3_origin, WP_MACHINEGUN, qfalse );
-
-	// handicap
-	h = Com_Clamp( 5, 100, trap_Cvar_VariableValue("handicap") );
-	s_playersettings.handicap.curvalue = 20 - h / 5;
 }
 
 
@@ -308,9 +248,6 @@ static void PlayerSettings_MenuEvent( void* ptr, int event ) {
 	}
 
 	switch( ((menucommon_s*)ptr)->id ) {
-	case ID_HANDICAP:
-		trap_Cvar_Set( "handicap", va( "%i", 100 - 25 * s_playersettings.handicap.curvalue ) );
-		break;
 
 	case ID_MODEL:
 		PlayerSettings_SaveChanges();
@@ -378,19 +315,6 @@ static void PlayerSettings_MenuInit( void ) {
 	s_playersettings.name.generic.bottom		= y + 2 * PROP_HEIGHT;
 
 	y += 3 * PROP_HEIGHT;
-	s_playersettings.handicap.generic.type		= MTYPE_SPINCONTROL;
-	s_playersettings.handicap.generic.flags		= QMF_NODEFAULTINIT;
-	s_playersettings.handicap.generic.id		= ID_HANDICAP;
-	s_playersettings.handicap.generic.ownerdraw	= PlayerSettings_DrawHandicap;
-	s_playersettings.handicap.generic.x			= 192;
-	s_playersettings.handicap.generic.y			= y;
-	s_playersettings.handicap.generic.left		= 192 - 8;
-	s_playersettings.handicap.generic.top		= y - 8;
-	s_playersettings.handicap.generic.right		= 192 + 200;
-	s_playersettings.handicap.generic.bottom	= y + 2 * PROP_HEIGHT;
-	s_playersettings.handicap.numitems			= 20;
-
-	y += 3 * PROP_HEIGHT;
 	s_playersettings.effects.generic.type		= MTYPE_SPINCONTROL;
 	s_playersettings.effects.generic.flags		= QMF_NODEFAULTINIT;
 	s_playersettings.effects.generic.id			= ID_EFFECTS;
@@ -445,7 +369,6 @@ static void PlayerSettings_MenuInit( void ) {
 	Menu_AddItem( &s_playersettings.menu, &s_playersettings.framer );
 
 	Menu_AddItem( &s_playersettings.menu, &s_playersettings.name );
-	Menu_AddItem( &s_playersettings.menu, &s_playersettings.handicap );
 	Menu_AddItem( &s_playersettings.menu, &s_playersettings.effects );
 	Menu_AddItem( &s_playersettings.menu, &s_playersettings.model );
 	Menu_AddItem( &s_playersettings.menu, &s_playersettings.back );

@@ -25,11 +25,8 @@ GAME OPTIONS MENU
 #define ID_EJECTINGBRASS		130
 #define ID_WALLMARKS			131
 #define ID_DYNAMICLIGHTS		132
-#define ID_IDENTIFYTARGET		133
 #define ID_SYNCEVERYFRAME		134
 #define ID_FORCEMODEL			135
-#define ID_DRAWTEAMOVERLAY		136
-#define ID_ALLOWDOWNLOAD			137
 #define ID_BACK					138
 
 #define	NUM_CROSSHAIRS			10
@@ -47,12 +44,9 @@ typedef struct {
 	menuradiobutton_s	brass;
 	menuradiobutton_s	wallmarks;
 	menuradiobutton_s	dynamiclights;
-	menuradiobutton_s	identifytarget;
 	menuradiobutton_s	highqualitysky;
 	menuradiobutton_s	synceveryframe;
 	menuradiobutton_s	forcemodel;
-	menulist_s			drawteamoverlay;
-	menuradiobutton_s	allowdownload;
 	menubitmap_s		back;
 
 	qhandle_t			crosshairShader[NUM_CROSSHAIRS];
@@ -60,27 +54,15 @@ typedef struct {
 
 static preferences_t s_preferences;
 
-static const char *teamoverlay_names[] =
-{
-	"off",
-	"upper right",
-	"lower right",
-	"lower left",
-	0
-};
-
 static void Preferences_SetMenuItems( void ) {
 	s_preferences.crosshair.curvalue		= (int)trap_Cvar_VariableValue( "cg_drawCrosshair" ) % NUM_CROSSHAIRS;
 	s_preferences.simpleitems.curvalue		= trap_Cvar_VariableValue( "cg_simpleItems" ) != 0;
 	s_preferences.brass.curvalue			= trap_Cvar_VariableValue( "cg_brassTime" ) != 0;
 	s_preferences.wallmarks.curvalue		= trap_Cvar_VariableValue( "cg_marks" ) != 0;
-	s_preferences.identifytarget.curvalue	= trap_Cvar_VariableValue( "cg_drawCrosshairNames" ) != 0;
 	s_preferences.dynamiclights.curvalue	= trap_Cvar_VariableValue( "r_dynamiclight" ) != 0;
 	s_preferences.highqualitysky.curvalue	= trap_Cvar_VariableValue ( "r_fastsky" ) == 0;
 	s_preferences.synceveryframe.curvalue	= trap_Cvar_VariableValue( "r_finish" ) != 0;
 	s_preferences.forcemodel.curvalue		= trap_Cvar_VariableValue( "cg_forcemodel" ) != 0;
-	s_preferences.drawteamoverlay.curvalue	= Com_Clamp( 0, 3, trap_Cvar_VariableValue( "cg_drawTeamOverlay" ) );
-	s_preferences.allowdownload.curvalue	= trap_Cvar_VariableValue( "cl_allowDownload" ) != 0;
 }
 
 
@@ -121,25 +103,12 @@ static void Preferences_Event( void* ptr, int notification ) {
 		trap_Cvar_SetValue( "r_dynamiclight", s_preferences.dynamiclights.curvalue );
 		break;		
 
-	case ID_IDENTIFYTARGET:
-		trap_Cvar_SetValue( "cg_drawCrosshairNames", s_preferences.identifytarget.curvalue );
-		break;
-
 	case ID_SYNCEVERYFRAME:
 		trap_Cvar_SetValue( "r_finish", s_preferences.synceveryframe.curvalue );
 		break;
 
 	case ID_FORCEMODEL:
 		trap_Cvar_SetValue( "cg_forcemodel", s_preferences.forcemodel.curvalue );
-		break;
-
-	case ID_DRAWTEAMOVERLAY:
-		trap_Cvar_SetValue( "cg_drawTeamOverlay", s_preferences.drawteamoverlay.curvalue );
-		break;
-
-	case ID_ALLOWDOWNLOAD:
-		trap_Cvar_SetValue( "cl_allowDownload", s_preferences.allowdownload.curvalue );
-		trap_Cvar_SetValue( "sv_allowDownload", s_preferences.allowdownload.curvalue );
 		break;
 
 	case ID_BACK:
@@ -282,15 +251,6 @@ static void Preferences_MenuInit( void ) {
 	s_preferences.dynamiclights.generic.y	      = y;
 
 	y += BIGCHAR_HEIGHT+2;
-	s_preferences.identifytarget.generic.type     = MTYPE_RADIOBUTTON;
-	s_preferences.identifytarget.generic.name	  = "Identify Target:";
-	s_preferences.identifytarget.generic.flags    = QMF_PULSEIFFOCUS|QMF_SMALLFONT;
-	s_preferences.identifytarget.generic.callback = Preferences_Event;
-	s_preferences.identifytarget.generic.id       = ID_IDENTIFYTARGET;
-	s_preferences.identifytarget.generic.x	      = PREFERENCES_X_POS;
-	s_preferences.identifytarget.generic.y	      = y;
-
-	y += BIGCHAR_HEIGHT+2;
 	s_preferences.highqualitysky.generic.type     = MTYPE_RADIOBUTTON;
 	s_preferences.highqualitysky.generic.name	  = "High Quality Sky:";
 	s_preferences.highqualitysky.generic.flags	  = QMF_PULSEIFFOCUS|QMF_SMALLFONT;
@@ -318,25 +278,6 @@ static void Preferences_MenuInit( void ) {
 	s_preferences.forcemodel.generic.y	      = y;
 
 	y += BIGCHAR_HEIGHT+2;
-	s_preferences.drawteamoverlay.generic.type     = MTYPE_SPINCONTROL;
-	s_preferences.drawteamoverlay.generic.name	   = "Draw Team Overlay:";
-	s_preferences.drawteamoverlay.generic.flags	   = QMF_PULSEIFFOCUS|QMF_SMALLFONT;
-	s_preferences.drawteamoverlay.generic.callback = Preferences_Event;
-	s_preferences.drawteamoverlay.generic.id       = ID_DRAWTEAMOVERLAY;
-	s_preferences.drawteamoverlay.generic.x	       = PREFERENCES_X_POS;
-	s_preferences.drawteamoverlay.generic.y	       = y;
-	s_preferences.drawteamoverlay.itemnames			= teamoverlay_names;
-
-	y += BIGCHAR_HEIGHT+2;
-	s_preferences.allowdownload.generic.type     = MTYPE_RADIOBUTTON;
-	s_preferences.allowdownload.generic.name	   = "Automatic Downloading:";
-	s_preferences.allowdownload.generic.flags	   = QMF_PULSEIFFOCUS|QMF_SMALLFONT;
-	s_preferences.allowdownload.generic.callback = Preferences_Event;
-	s_preferences.allowdownload.generic.id       = ID_ALLOWDOWNLOAD;
-	s_preferences.allowdownload.generic.x	       = PREFERENCES_X_POS;
-	s_preferences.allowdownload.generic.y	       = y;
-
-	y += BIGCHAR_HEIGHT+2;
 	s_preferences.back.generic.type	    = MTYPE_BITMAP;
 	s_preferences.back.generic.name     = ART_BACK0;
 	s_preferences.back.generic.flags    = QMF_LEFT_JUSTIFY|QMF_PULSEIFFOCUS;
@@ -357,12 +298,9 @@ static void Preferences_MenuInit( void ) {
 	Menu_AddItem( &s_preferences.menu, &s_preferences.wallmarks );
 	Menu_AddItem( &s_preferences.menu, &s_preferences.brass );
 	Menu_AddItem( &s_preferences.menu, &s_preferences.dynamiclights );
-	Menu_AddItem( &s_preferences.menu, &s_preferences.identifytarget );
 	Menu_AddItem( &s_preferences.menu, &s_preferences.highqualitysky );
 	Menu_AddItem( &s_preferences.menu, &s_preferences.synceveryframe );
 	Menu_AddItem( &s_preferences.menu, &s_preferences.forcemodel );
-	Menu_AddItem( &s_preferences.menu, &s_preferences.drawteamoverlay );
-	Menu_AddItem( &s_preferences.menu, &s_preferences.allowdownload );
 
 	Menu_AddItem( &s_preferences.menu, &s_preferences.back );
 
