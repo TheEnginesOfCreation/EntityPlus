@@ -1302,7 +1302,8 @@ int COM_CalculateLevelScore(int persistant[MAX_PERSISTANT], int accuracy, int sk
 
 	score += persistant[PERS_SCORE];
 	score += (persistant[PERS_KILLED] * SCORE_DEATH);
-	
+	score += (persistant[PERS_SECRETS] & 0x7F) * SCORE_SECRET;
+
 	if ( modifiers ) {
 		//accuracy is the percentage of 50% of the player's score. 
 		//For example, a player with 150 score and 60% accuracy will have a final score of 245

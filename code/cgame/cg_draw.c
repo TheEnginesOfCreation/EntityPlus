@@ -2605,6 +2605,14 @@ Draws fade-in with map title or fade-out
 */
 static void CG_DrawFade( void ) {
 	vec4_t color;
+	int blackoutTime = BLACKOUT_TIME;
+	const char *s;
+
+	// get map message
+	s = CG_ConfigString( CS_MESSAGE );
+
+	if ( strlen(s) == 0 )
+		blackoutTime = 0;	//if we're not displaying the level's title, don't wait with the fade-in
 
 	// draw letterbox borders
 	if ( cg_letterBoxSize.integer ) {
@@ -2629,23 +2637,22 @@ static void CG_DrawFade( void ) {
 	}
 
 	// make screen fade in from black at start of game
-	if (cgs.gametype == GT_ENTITYPLUS && cg.time < (cg.fadeInTime + BLACKOUT_TIME + FADEIN_TIME)) {
+	if (cgs.gametype == GT_ENTITYPLUS && cg.time < (cg.fadeInTime + blackoutTime + FADEIN_TIME)) {
 		color[0] = 0;
 		color[1] = 0;
 		color[2] = 0;
-		if ( cg.time < cg.fadeInTime + BLACKOUT_TIME )	//screen remains black for some time, fades in after that
+		if ( cg.time < cg.fadeInTime + blackoutTime )	//screen remains black for some time, fades in after that
 			color[3] = 1;
 		else
-			color[3] = (FADEIN_TIME - ((cg.time - cg.fadeInTime) - BLACKOUT_TIME)) / FADEIN_TIME;
+			color[3] = (FADEIN_TIME - ((cg.time - cg.fadeInTime) - blackoutTime)) / FADEIN_TIME;
 		CG_FillRect(0, 0, 640, 480, color);
 	}
 
 	// draw map message
 	if ( cg.time > cg.fadeInTime && cg.time < cg.fadeInTime + TITLE_TIME + TITLE_FADEIN_TIME + TITLE_FADEOUT_TIME) {
-		const char *s;
 		int len;
 
-		s = CG_ConfigString( CS_MESSAGE );
+		
 		color[0] = 1;
 		color[1] = 1;
 		color[2] = 1;
