@@ -2688,7 +2688,7 @@ static void CG_Draw2D( void ) {
 	}
 
 	if ( cgs.gametype == GT_SINGLE_PLAYER )
-		Com_Printf("g_gametype 2 is no longer supported. Use g_gametype 8 instead");
+		CG_DrawSmallString( 0, 0, "g_gametype 2 is no longer supported. Use g_gametype 8 instead", 1 );
 
 	// draw overlay set by target_effect
 	overlay = CG_ConfigString( CS_OVERLAY );
