@@ -1041,23 +1041,31 @@ void target_finish_use (gentity_t *self, gentity_t *other, gentity_t *activator)
 	if ( IsBot( activator ) )
 		return;
 
+	// get skill
 	skill = trap_Cvar_VariableValue( "g_spskill" );
+
+	// get accuracy
 	if ( activator->client->accuracy_shots > 0 )
 		accuracy = ((float)activator->client->accuracy_hits / (float)activator->client->accuracy_shots) * 100;
 	else
 		accuracy = 0;
-	score = COM_CalculateLevelScore(activator->client->ps.persistant, accuracy, (int)skill, qtrue);
-	highScore = COM_LoadLevelScore( G_GetScoringMapName() );
-	
-	if ( score > highScore )
-		COM_WriteLevelScore( G_GetScoringMapName(), score );
-	
+
 	//set number of secrets to persistant so it can be displayed in the client side scoreboard. If user persistant secretcount already
 	//contains a secretcount from a previous level, add that to the secretcount of this level.
 	secretFound = (activator->client->ps.persistant[PERS_SECRETS] & 0x7F);
 	secretCount = ((activator->client->ps.persistant[PERS_SECRETS] >> 7) & 0x7F) + level.secretCount;
-	G_Printf("oldCount: %i\nnewCount: %i", ((activator->client->ps.persistant[PERS_SECRETS] >> 7) & 0x7F), level.secretCount);
 	activator->client->ps.persistant[PERS_SECRETS] = secretFound + (secretCount << 7);
+
+	// calculate player's score
+	score = COM_CalculateLevelScore(activator->client->ps.persistant, accuracy, (int)skill, qtrue);
+
+	// get high score
+	highScore = COM_LoadLevelScore( G_GetScoringMapName() );
+	
+	G_Printf("score: %i\n", score);
+
+	if ( score > highScore )
+		COM_WriteLevelScore( G_GetScoringMapName(), score );
 
 	BeginIntermission();
 }
@@ -1222,8 +1230,6 @@ When triggered, marks the secret as 'found'
 */
 
 void target_secret_use (gentity_t *self, gentity_t *other, gentity_t *activator) {
-	G_Printf("Teehee\n");
-
 	activator->client->ps.persistant[PERS_SECRETS]++;
 
 	if ( !(self->spawnflags & 1) ) {
