@@ -1111,6 +1111,12 @@ void ClientBegin( int clientNum ) {
 	// locate ent at a spawn point
 	ClientSpawn( ent );
 
+	// set info that persisted after mapchange
+	G_UpdateClientWithSessionData( ent );
+
+	// clear map change session data
+	G_ClearSessionDataForMapChange( ent->client );
+
 	if ( client->sess.sessionTeam != TEAM_SPECTATOR ) {
 		// send event
 		if ( g_gametype.integer != GT_ENTITYPLUS ) {
@@ -1290,72 +1296,26 @@ void ClientSpawn(gentity_t *ent) {
 		SetupCustomBot( ent );
 	} else {
 		//give weapons
-		if ( client->sess.sessionWeapons )
-			client->ps.stats[STAT_WEAPONS] = client->sess.sessionWeapons;
-		else
-		{
-			client->ps.stats[STAT_WEAPONS] = ( 1 << WP_MACHINEGUN );
-			client->ps.stats[STAT_WEAPONS] |= ( 1 << WP_GAUNTLET );
-		}
+		client->ps.stats[STAT_WEAPONS] = ( 1 << WP_MACHINEGUN );
+		client->ps.stats[STAT_WEAPONS] |= ( 1 << WP_GAUNTLET );
 
 		//give ammo
 		client->ps.ammo[WP_GAUNTLET] = -1;
 		client->ps.ammo[WP_GRAPPLING_HOOK] = -1;
 
-		if ( client->sess.sessionAmmoMG )
-			client->ps.ammo[WP_MACHINEGUN] = client->sess.sessionAmmoMG;
-		else {
-			if ( g_gametype.integer == GT_TEAM ) {
-				client->ps.ammo[WP_MACHINEGUN] = 50;
-			} else {
-				client->ps.ammo[WP_MACHINEGUN] = 100;
-			}
+		if ( g_gametype.integer == GT_TEAM ) {
+			client->ps.ammo[WP_MACHINEGUN] = 50;
+		} else {
+			client->ps.ammo[WP_MACHINEGUN] = 100;
 		}
-
-		if ( client->sess.sessionAmmoSG ) client->ps.ammo[WP_SHOTGUN] = client->sess.sessionAmmoSG;
-		if ( client->sess.sessionAmmoGL ) client->ps.ammo[WP_GRENADE_LAUNCHER] = client->sess.sessionAmmoGL;
-		if ( client->sess.sessionAmmoRL ) client->ps.ammo[WP_ROCKET_LAUNCHER] = client->sess.sessionAmmoRL;
-		if ( client->sess.sessionAmmoLG ) client->ps.ammo[WP_LIGHTNING] = client->sess.sessionAmmoLG;
-		if ( client->sess.sessionAmmoRG ) client->ps.ammo[WP_RAILGUN] = client->sess.sessionAmmoRG;
-		if ( client->sess.sessionAmmoPG ) client->ps.ammo[WP_PLASMAGUN] = client->sess.sessionAmmoPG;
-		if ( client->sess.sessionAmmoBFG ) client->ps.ammo[WP_BFG] = client->sess.sessionAmmoBFG;
-
-
-		//give holdables
-		if ( client->sess.sessionHoldable ) 
-			client->ps.stats[STAT_HOLDABLE_ITEM] = client->sess.sessionHoldable;
 
 		//give health
-		if ( client->sess.sessionHealth ) 
-			ent->health = client->ps.stats[STAT_HEALTH] = client->sess.sessionHealth;
-		else {
-			if (g_gametype.integer != GT_ENTITYPLUS) {
-				// health will count down towards max_health
-				ent->health = client->ps.stats[STAT_HEALTH] = client->ps.stats[STAT_MAX_HEALTH] + 25;
-			} else {
-				ent->health = client->ps.stats[STAT_HEALTH] = 100;
-			}
+		if (g_gametype.integer != GT_ENTITYPLUS) {
+			// health will count down towards max_health
+			ent->health = client->ps.stats[STAT_HEALTH] = client->ps.stats[STAT_MAX_HEALTH] + 25;
+		} else {
+			ent->health = client->ps.stats[STAT_HEALTH] = 100;
 		}
-
-		//give armor
-		if ( client->sess.sessionArmor )
-			client->ps.stats[STAT_ARMOR] = client->sess.sessionArmor;
-
-		//set carnage score info
-		if ( client->sess.carnageScore )
-			client->ps.persistant[PERS_SCORE] = client->sess.carnageScore;
-
-		//set number of deaths
-		if ( client->sess.deaths )
-			client->ps.persistant[PERS_KILLED] = client->sess.deaths;
-
-		//set name of level to which scores should be attributed
-		if ( strcmp( va("%s", client->sess.scoreLevelName ), "" ) )
-			strcpy(level.scoreLevelName, client->sess.scoreLevelName);
-
-		//set secrets
-		if ( client->sess.secrets )
-			client->ps.persistant[PERS_SECRETS] = client->sess.secrets;
 	}
 
 	G_SetOrigin( ent, spawn_origin );
@@ -1429,9 +1389,6 @@ void ClientSpawn(gentity_t *ent) {
 
 	// clear entity state values
 	BG_PlayerStateToEntityState( &client->ps, &ent->s, qtrue );
-
-	// clear map change session data
-	G_ClearSessionDataForMapChange( client );
 }
 
 
