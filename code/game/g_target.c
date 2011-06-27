@@ -1056,6 +1056,7 @@ void target_finish_use (gentity_t *self, gentity_t *other, gentity_t *activator)
 	//contains a secretcount from a previous level, add that to the secretcount of this level.
 	secretFound = (activator->client->ps.persistant[PERS_SECRETS] & 0x7F);
 	secretCount = ((activator->client->ps.persistant[PERS_SECRETS] >> 7) & 0x7F) + level.secretCount;
+	G_Printf("oldCount: %i\nnewCount: %i", ((activator->client->ps.persistant[PERS_SECRETS] >> 7) & 0x7F), level.secretCount);
 	activator->client->ps.persistant[PERS_SECRETS] = secretFound + (secretCount << 7);
 
 	BeginIntermission();
@@ -1221,6 +1222,8 @@ When triggered, marks the secret as 'found'
 */
 
 void target_secret_use (gentity_t *self, gentity_t *other, gentity_t *activator) {
+	G_Printf("Teehee\n");
+
 	activator->client->ps.persistant[PERS_SECRETS]++;
 
 	if ( !(self->spawnflags & 1) ) {

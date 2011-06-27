@@ -174,6 +174,7 @@ void SP_target_effect (gentity_t *ent);
 void SP_target_script (gentity_t *ent);
 void SP_target_finish (gentity_t *ent);
 void SP_target_modify (gentity_t *ent);
+void SP_target_secret (gentity_t *ent);
 
 void SP_light (gentity_t *self);
 void SP_info_null (gentity_t *self);
@@ -270,6 +271,7 @@ spawn_t	spawns[] = {
 	{"target_script", SP_target_script},
 	{"target_finish", SP_target_finish},
 	{"target_modify", SP_target_modify},
+	{"target_secret", SP_target_secret},
 
 	{"light", SP_light},
 	{"path_corner", SP_path_corner},
