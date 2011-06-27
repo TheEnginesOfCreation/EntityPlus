@@ -305,6 +305,10 @@ void G_UpdateClientWithSessionData( gentity_t *ent) {
 	
 	if ( ent->client->sess.accuracyHits )
 		ent->client->accuracy_hits = ent->client->sess.accuracyHits;
+
+	
+	// clear map change session data
+	G_ClearSessionDataForMapChange( ent->client );
 }
 
 /*
