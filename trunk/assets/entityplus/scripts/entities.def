@@ -1406,6 +1406,7 @@ Targets any trigger_ entity to disable or enable that entity.
 targetname : activating trigger points to this.
 targetname2 : activating trigger points to this.
 target : this points to entities to enable/disable when this entity is triggered
+target2 : this points to entities to enable/disable when this entity is triggered
 -------- SPAWNFLAGS --------
 ALWAYS_DISABLE : The targeted entity will always be disabled.
 ALWAYS_ENABLE : The targeted entity will always be enabled.
