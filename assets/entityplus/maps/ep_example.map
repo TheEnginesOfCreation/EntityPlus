@@ -32584,7 +32584,7 @@ gothic_trim/pitted_rust3
 }
 // entity 546
 {
-"classname" "target_disable"
+"classname" "target_unlink"
 "origin" "1232 -120 184"
 "targetname" "obj2"
 "target" "alarm1"
@@ -32689,7 +32689,7 @@ gothic_trim/pitted_rust3
 "target" "hurt"
 "targetname" "lavadoor"
 "origin" "-88 -880 16"
-"classname" "target_disable"
+"classname" "target_unlink"
 }
 // entity 555
 {
