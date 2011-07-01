@@ -441,11 +441,13 @@ Target this entity with a misc_model to have the model attached to the entity (s
 
 //=============================================================================
 
-/*QUAKED func_rotating (0 .5 .8) ? - - X_AXIS Y_AXIS Z_AXIS
+/*QUAKED func_rotating (0 .5 .8) ? - - X_AXIS Y_AXIS Z_AXIS START_OFF
 Solid entity that rotates continuously. Rotates on one or multiple axes and requires an origin brush. It will always start on in the game and is not targetable.
 -------- KEYS --------
 speed : determines how fast entity rotates (default 100).
 noise : path/name of .wav file to play. Use looping sounds only (eg. sound/world/drone6.wav).
+targetname : activating trigger points to this.
+targetname2 : activating trigger points to this.
 model2 : path/name of model to include (eg: models/mapobjects/bitch/fembotbig.md3).
 origin : alternate method of setting XYZ origin of entity's rotation axis and .md3 model included with entity (default "0 0 0" - See Notes).
 light : constantLight radius of .md3 model included with entity. Has no effect on the entity's brushes (default 0).
@@ -464,8 +466,11 @@ _shader OR shader : Path to the metashader used to assign textures to the terrai
 X_AXIS : entity will rotate along the X axis.
 Y_AXIS : entity will rotate along the Y axis.
 Z_AXIS : entity will rotate along the Z axis.
+START_OFF : The entity will initially not rotate.
 -------- NOTES --------
 You need to have an origin brush as part of this entity. The center of that brush will be the point through which the rotation axis passes. Setting the origin key is simply an alternate method to using an origin brush. You can check the X_AXIS, Y_AXIS or Z_AXIS boxes to determine along which axes rotation should occur. If no boxes are checked the entity will rotate along the Z axis. When using the model2 key, the origin point of the model will correspond to the origin point defined by either the origin brush or the origin coordinate value.
+
+The entity's rotation can be stopped and resumed by targetting the func_rotating with a trigger.
 
 Target this entity with a misc_model to have the model attached to the entity (set the model's "target" key to the same value as this entity's "targetname").*/
 

@@ -1,6 +1,8 @@
 v0.8 (?? ??? 2011)
 	- [Added] target_modify entity.
 	- [Added] target_secret entity.
+	- [Added] func_rotating can be started/stopped by targeting it with a trigger.
+	- [Added] START_OFF spawnflag to func_rotating.
 	- [Added] Added target2 key to a number of entities.
 	- [Added] Added targetname2 key to a number of entities.
 	- [Added] scoreboardmusic key to worldspawn entity.
