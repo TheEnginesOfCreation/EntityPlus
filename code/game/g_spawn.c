@@ -164,7 +164,7 @@ void SP_target_logic (gentity_t *ent);
 void SP_target_gravity (gentity_t *ent);
 void SP_target_mapchange (gentity_t *ent);
 void SP_target_botspawn (gentity_t *ent);
-void SP_target_disable (gentity_t *ent);
+void SP_target_unlink (gentity_t *ent);
 void SP_target_playerspeed (gentity_t *ent);
 void SP_target_debrisemitter (gentity_t *ent);
 void SP_target_objective (gentity_t *ent);
@@ -261,7 +261,8 @@ spawn_t	spawns[] = {
 	{"target_gravity", SP_target_gravity},
 	{"target_mapchange", SP_target_mapchange},
 	{"target_botspawn", SP_target_botspawn},
-	{"target_disable", SP_target_disable},
+	{"target_disable", SP_target_unlink},		//legacy code for pre-0.8 maps
+	{"target_unlink", SP_target_unlink},
 	{"target_playerspeed", SP_target_playerspeed},
 	{"target_debrisemitter", SP_target_debrisemitter},
 	{"target_objective", SP_target_objective},
