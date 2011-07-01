@@ -346,16 +346,14 @@ void G_UseDeathTargets( gentity_t *ent, gentity_t *activator ) {
 
 /*
 ==============================
-G_ToggleTargetsEnabled
+G_ToggleTargetsLinked
 
-"activator" should be set to the entity that initiated the firing.
-
-Search for (string)targetname in all entities that
-match (string)self.target and link or unlink them from the world
+Search for targetname(2) in all entities that
+match ent.target(2) and link or unlink them from the world
 
 ==============================
 */
-void G_ToggleTargetsEnabled( gentity_t *ent ) {
+void G_ToggleTargetsLinked( gentity_t *ent ) {
 	gentity_t		*t;
 	
 	if ( !ent ) {

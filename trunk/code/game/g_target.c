@@ -726,34 +726,25 @@ void SP_target_botspawn (gentity_t *self) {
 
 //==========================================================
 
-/*QUAKED target_disable (.5 .5 .5) (-8 -8 -8) (8 8 8) RED_ONLY BLUE_ONLY ALWAYS_DISABLE ALWAYS_ENABLE IMMEDIATELY
+/*QUAKED target_disable (.5 .5 .5) (-8 -8 -8) (8 8 8) - - ALWAYS_UNLINK ALWAYS_LINK IMMEDIATELY
 links or unlinks entities from the world, effectively enabling or disabling triggers
 */
-void target_disable_use (gentity_t *self, gentity_t *other, gentity_t *activator) {
-	if ( ( self->spawnflags & 1 ) && activator->client 
-		&& activator->client->sess.sessionTeam != TEAM_RED ) {
-		return;
-	}
-	if ( ( self->spawnflags & 2 ) && activator->client 
-		&& activator->client->sess.sessionTeam != TEAM_BLUE ) {
-		return;
-	}
-
-	G_ToggleTargetsEnabled ( self );
+void target_unlink_use (gentity_t *self, gentity_t *other, gentity_t *activator) {
+	G_ToggleTargetsLinked( self );
 }
 
 //used for immediately spawnflag
-void target_disable_think (gentity_t *self) {
+void target_unlink_think (gentity_t *self) {
 	self->nextthink = 0;
-	G_ToggleTargetsEnabled ( self );
+	G_ToggleTargetsLinked( self );
 }
 
-void SP_target_disable (gentity_t *self) {
-	self->use = target_disable_use;
+void SP_target_unlink (gentity_t *self) {
+	self->use = target_unlink_use;
 	
 	if ( ( self->spawnflags & 16 ) ) {
-		self->nextthink = level.time + 300;
-		self->think = target_disable_think;
+		self->nextthink = level.time + FRAMETIME;	//unlink entities next frame so they can spawn first
+		self->think = target_unlink_think;
 	}
 }
 

@@ -12,6 +12,7 @@ v0.8 (?? ??? 2011)
 	- [Added] Lightning effect to main menu background.
 	- [Fixed] Accuracy does not persist across map changes.
 	- [Changed] From this release forward, multiplayer modes are officially no longer supported.
+	- [Changed] target_disable is renamed to target_unlink.
 	- [Changed] Removed multiplayer option from main menu.
 	- [Changed] Shortened fade-in at start of level if no message key was set for the map's worldspawn entity.
 	- [Changed] Removed some multiplayer related settings to the setup menu.

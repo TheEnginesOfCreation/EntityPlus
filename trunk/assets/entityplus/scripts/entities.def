@@ -1405,24 +1405,6 @@ When the random key is set, its value is used to calculate a minimum and a maxim
 
 //=============================================================================
 
-/*QUAKED target_disable (0 .7 .7) (-8 -8 -8) (8 8 8) - - ALWAYS_DISABLE ALWAYS_ENABLE IMMEDIATELY
-Targets any trigger_ entity to disable or enable that entity.
--------- KEYS --------
-targetname : activating trigger points to this.
-targetname2 : activating trigger points to this.
-target : this points to entities to enable/disable when this entity is triggered
-target2 : this points to entities to enable/disable when this entity is triggered
--------- SPAWNFLAGS --------
-ALWAYS_DISABLE : The targeted entity will always be disabled.
-ALWAYS_ENABLE : The targeted entity will always be enabled.
-IMMEDIATELY : The target_disable will enable/disable it's targeted entities when it is spawned.
--------- NOTES --------
-By default the target_disable entity works as a toggle, so enabled entities will be disabled and disabled entities will be enabled.
-Disabled trigger_ entities will stop firing their targets when disabled. It is possible to target other entities as well, but the results vary
-per entity type and are untested.*/
-
-//=============================================================================
-
 /*QUAKED target_earthquake (0 .7 .7) (-8 -8 -8) (8 8 8) 
 Starts an earthquake that shakes the screen
 -------- KEYS --------
@@ -1718,6 +1700,22 @@ Activating this will teleport players to the location of the targeted misc_telep
 targetname : activating trigger points to this.
 targetname2 : activating trigger points to this.
 target : this must point to a misc_teleporter_dest entity.*/
+
+//=============================================================================
+
+/*QUAKED target_unlink (0 .7 .7) (-8 -8 -8) (8 8 8) - - ALWAYS_UNLINK ALWAYS_LINK IMMEDIATELY
+Target entity will be linked or unlinked from the world. This basically means that the entity is removed from the world or put back into the world again. Unlinked entities can not be interacted with anymore. Not by the player or other entities (except for target_unlink).
+-------- KEYS --------
+targetname : activating trigger points to this.
+targetname2 : activating trigger points to this.
+target : this points to entities to enable/disable when this entity is triggered
+target2 : this points to entities to enable/disable when this entity is triggered
+-------- SPAWNFLAGS --------
+ALWAYS_UNLINK : The targeted entity will always be unlinked from the world.
+ALWAYS_LINK : The targeted entity will always be linked to the world.
+IMMEDIATELY : The target_unlink will link/unlink its targeted entities when it is spawned.
+-------- NOTES --------
+By default the target_unlink entity works as a toggle, so entities linked to the world will be unlinked and entities not linked to the world will be linked.*/
 
 //=============================================================================
 
