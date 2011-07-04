@@ -271,6 +271,10 @@ void G_UpdateClientWithSessionData( gentity_t *ent) {
 	if ( ent->client->sess.sessionAmmoPG ) ent->client->ps.ammo[WP_PLASMAGUN] = ent->client->sess.sessionAmmoPG;
 	if ( ent->client->sess.sessionAmmoBFG ) ent->client->ps.ammo[WP_BFG] = ent->client->sess.sessionAmmoBFG;
 
+	//select weapon
+	if ( ent->client->sess.sessionWeapon )
+		ent->client->ps.weapon = ent->client->sess.sessionWeapon;
+
 	//give holdables
 	if ( ent->client->sess.sessionHoldable ) 
 		ent->client->ps.stats[STAT_HOLDABLE_ITEM] = ent->client->sess.sessionHoldable;
