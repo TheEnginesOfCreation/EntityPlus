@@ -1620,7 +1620,7 @@ RANDOM : one one of the targeted entities will be triggered at random.*/
 //=============================================================================
 
 /*QUAKED target_remove_powerups (0 .7 .7) (-8 -8 -8) (8 8 8) POWERUPS - WEAPONS HOLDABLES
-This takes away all specified items. Must be activated by a button or trigger_multiple entity. The player that activates the trigger will lose any of the specified item(s) currently in his possession.
+This takes away all specified items. The player that activates the trigger will lose any of the specified item(s) currently in his possession. Can be targeted by a spawnpoint.
 -------- KEYS --------
 targetname : activating trigger points to this.
 targetname2 : activating trigger points to this.

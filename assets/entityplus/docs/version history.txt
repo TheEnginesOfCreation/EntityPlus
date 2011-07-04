@@ -11,6 +11,7 @@ v0.8 (?? ??? 2011)
 	- [Added] New sound that plays when score is being added up.
 	- [Added] Lightning effect to main menu background.
 	- [Fixed] Accuracy does not persist across map changes.
+	- [Fixed] Players respawning at a spawnpoint targeting a target_remove_powerups that removes all weapons end up holding a Gauntlet.
 	- [Changed] From this release forward, multiplayer modes are officially no longer supported.
 	- [Changed] target_disable is renamed to target_unlink.
 	- [Changed] Shortened fade-in at start of level if no message key was set for the map's worldspawn entity.
