@@ -1324,9 +1324,7 @@ void ClientSpawn(gentity_t *ent) {
 	trap_GetUsercmd( client - level.clients, &ent->client->pers.cmd );
 	SetClientViewAngle( ent, spawn_angles );
 
-	if ( ent->client->sess.sessionTeam == TEAM_SPECTATOR ) {
-
-	} else {
+	if ( ent->client->sess.sessionTeam != TEAM_SPECTATOR ) {
 		G_KillBox( ent );
 		trap_LinkEntity (ent);
 
@@ -1355,10 +1353,7 @@ void ClientSpawn(gentity_t *ent) {
 		G_UseTargets( spawnPoint, ent );
 
 		// select the highest weapon number available, after any spawn given items have fired
-		if ( client->sess.sessionWeapon )
-			client->ps.weapon = client->sess.sessionWeapon;
-		else {
-			client->ps.weapon = 1;
+		if (client->ps.stats[STAT_WEAPONS] > WP_NONE) {
 			for ( i = WP_NUM_WEAPONS - 1 ; i > 0 ; i-- ) {
 				if ( client->ps.stats[STAT_WEAPONS] & ( 1 << i ) ) {
 					client->ps.weapon = i;
