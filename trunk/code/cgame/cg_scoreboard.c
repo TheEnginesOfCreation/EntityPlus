@@ -278,7 +278,7 @@ Draw the single player intermission screen
 void CG_DrawSinglePlayerIntermission( void ) {
 	vec4_t color;
 	int i, y;
-	int carnage, deaths, accuracy, accuracyScore, secrets, secretsCount, secretsScore, skill, score;
+	int carnage, deaths, accuracy, secrets, secretsCount, secretsScore, skill, score;
 	int index;
 
 	color[0] = 1;
@@ -291,15 +291,14 @@ void CG_DrawSinglePlayerIntermission( void ) {
 		CG_StartScoreboardMusic();
 	}
 
-	carnage = cg.snap->ps.persistant[PERS_SCORE];
-	deaths = cg.snap->ps.persistant[PERS_KILLED];
 	accuracy = CG_GetAccuracy();
-	accuracyScore = COM_AccuracyToScore(accuracy, COM_CalculateLevelScore( cg.snap->ps.persistant, accuracy, skill, qfalse ));
+	carnage = cg.snap->ps.persistant[PERS_SCORE] + COM_AccuracyToScore(accuracy, cg.snap->ps.persistant[PERS_SCORE]);
+	deaths = cg.snap->ps.persistant[PERS_KILLED];
 	secrets = (cg.snap->ps.persistant[PERS_SECRETS] & 0x7F);
 	secretsCount = ((cg.snap->ps.persistant[PERS_SECRETS] >> 7) & 0x7F);
 	secretsScore = secrets * SCORE_SECRET;
 	skill = CG_GetSkill();
-	score = COM_CalculateLevelScore( cg.snap->ps.persistant, accuracy, skill, qtrue );
+	score = COM_CalculateLevelScore( cg.snap->ps.persistant, accuracy, skill );
 
 	//carnage score
 	y = 64;
@@ -311,7 +310,7 @@ void CG_DrawSinglePlayerIntermission( void ) {
 			trap_S_StartLocalSound( cgs.media.scoreShow, CHAN_LOCAL_SOUND );
 			cg.scoreSoundsPlayed++;
 		}
-		CG_DrawStringExt( 64, y, va("       Carnage : %i", carnage), color, qtrue, qtrue, BIGCHAR_WIDTH, BIGCHAR_HEIGHT, 0 );
+		CG_DrawStringExt( 64, y, va("       Carnage : %i (%i%%)", carnage, accuracy), color, qtrue, qtrue, BIGCHAR_WIDTH, BIGCHAR_HEIGHT, 0 );
 	}
 	
 	//deaths score
@@ -325,19 +324,6 @@ void CG_DrawSinglePlayerIntermission( void ) {
 			cg.scoreSoundsPlayed++;
 		}
 		CG_DrawStringExt( 64, y, va("        Deaths : %i (%ix)", deaths * SCORE_DEATH, deaths), color, qtrue, qtrue, BIGCHAR_WIDTH, BIGCHAR_HEIGHT, 0 );
-	}
-
-	//accuracy score
-	y += BIGCHAR_HEIGHT;
-	index++;
-	if (cg.time < cg.intermissionTime + (SCOREB_TIME * index))
-		CG_DrawStringExt( 64, y, "      Accuracy :", color, qtrue, qtrue, BIGCHAR_WIDTH, BIGCHAR_HEIGHT, 0 );
-	else {
-		if (cg.scoreSoundsPlayed == index - 1) {
-			trap_S_StartLocalSound( cgs.media.scoreShow, CHAN_LOCAL_SOUND );
-			cg.scoreSoundsPlayed++;
-		}
-		CG_DrawStringExt( 64, y, va("      Accuracy : %i (%i%%)", accuracyScore, accuracy), color, qtrue, qtrue, BIGCHAR_WIDTH, BIGCHAR_HEIGHT, 0 );		
 	}
 
 	//secrets score
@@ -423,7 +409,7 @@ void CG_DrawSinglePlayerObjectives( void ) {
 
 	//draw level score
 	CG_DrawBigStringColor( 250, 310, "Score", color);
-	CG_DrawBigStringColor( 360, 310, va("%i", COM_CalculateLevelScore( cg.snap->ps.persistant, CG_GetAccuracy(), CG_GetSkill(), qtrue )), color);	
+	CG_DrawBigStringColor( 360, 310, va("%i", COM_CalculateLevelScore( cg.snap->ps.persistant, CG_GetAccuracy(), CG_GetSkill() )), color);	
 }
 
 /*

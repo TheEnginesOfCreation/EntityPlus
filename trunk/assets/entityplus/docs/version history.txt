@@ -15,7 +15,8 @@ v0.8 (?? ??? 2011)
 	- [Changed] From this release forward, multiplayer modes are officially no longer supported.
 	- [Changed] target_disable is renamed to target_unlink.
 	- [Changed] Shortened fade-in at start of level if no message key was set for the map's worldspawn entity.
-	- [Changed] Removed team related entities from entities.def.
+	- [Changed] Accuracy is no longer a seperate item in scoreboard and only applies to carnage score.
+	- [Changed] Removed team related entities and spawnflags from entities.def.
 	- [Changed] Removed FLAGS spawnflag from target_remove_powerups.
 	- [Changed] Removed multiplayer option from main menu.
 	- [Changed] Removed some multiplayer related settings to the setup menu.
