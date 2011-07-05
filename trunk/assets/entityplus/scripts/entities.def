@@ -1549,7 +1549,7 @@ The following keys can be modified: angle, clientname, count, deathtarget, healt
 //=============================================================================
 
 /*QUAKED target_objective (0 .5 0) (-8 -8 -8) (8 8 8) SECONDARY SILENT
-Sets the primary or secondary objective for a player.
+Sets the primary or secondary objective for a player. Objective text should be no more than 120 characters. Objective texts are wrapped to a new line after 60 characters.
 -------- KEYS --------
 targetname : activating trigger points to this.
 targetname2 : activating trigger points to this.
