@@ -398,10 +398,14 @@ void CG_DrawSinglePlayerObjectives( void ) {
 	CG_DrawPic( (SCREEN_WIDTH - 512) / 2, (SCREEN_HEIGHT - 256) / 2, 512, 256, cgs.media.objectivesOverlay );
 	
 	//draw primary objective
-	CG_DrawSmallStringColor( 80, 175, p, color); //TODO: if primary objective is more than 60 chars, wrap to next line
+	CG_DrawSmallStringColor( 80, 175, va("%.60s", p), color);
+	if ( strlen(p) > 60 )
+		CG_DrawSmallStringColor( 80, 175 + SMALLCHAR_HEIGHT, va("%.60s", &p[60]), color);
 
 	//draw secondary objective
-	CG_DrawSmallStringColor( 80, 255, s, color); //TODO: if secondary objective is more than 60 chars, wrap to next line
+	CG_DrawSmallStringColor( 80, 255, va("%.60s", s), color);
+	if ( strlen(s) > 60 )
+		CG_DrawSmallStringColor( 80, 255 + SMALLCHAR_HEIGHT, va("%.60s", &s[60]), color);
 
 	//draw deaths counter
 	CG_DrawBigStringColor( 85, 310, "Deaths", color);
