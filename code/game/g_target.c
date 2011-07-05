@@ -1048,7 +1048,7 @@ void target_finish_use (gentity_t *self, gentity_t *other, gentity_t *activator)
 	activator->client->ps.persistant[PERS_SECRETS] = secretFound + (secretCount << 7);
 
 	// calculate player's score
-	score = COM_CalculateLevelScore(activator->client->ps.persistant, accuracy, (int)skill, qtrue);
+	score = COM_CalculateLevelScore(activator->client->ps.persistant, accuracy, (int)skill);
 
 	// get high score
 	highScore = COM_LoadLevelScore( G_GetScoringMapName() );

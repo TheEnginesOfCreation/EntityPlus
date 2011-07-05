@@ -1340,7 +1340,7 @@ TARGET_* ENTITIES
 
 //=============================================================================
 
-/*QUAKED target_botspawn (0 .7 .7) (-16 -16 -24) (16 16 32) OPPOSING_TEAM WP_MACHINEGUN WP_SHOTGUN WP_GRENADE_LAUNCHER WP_ROCKET_LAUNCHER WP_LIGHTNING WP_RAILGUN WP_PLASMAGUN WP_BFG
+/*QUAKED target_botspawn (0 .7 .7) (-16 -16 -24) (16 16 32) - WP_MACHINEGUN WP_SHOTGUN WP_GRENADE_LAUNCHER WP_ROCKET_LAUNCHER WP_LIGHTNING WP_RAILGUN WP_PLASMAGUN WP_BFG
 Spawns a bot into the game at the location of the target_botspawn entity.
 -------- KEYS --------
 angle : direction in which bot will look when spawning in the game.
@@ -1352,7 +1352,6 @@ targetname : activating trigger points to this.
 targetname2 : activating trigger points to this.
 deathtarget : this points to entities to activate when a bot spawned by the target_botspawn dies.
 -------- SPAWNFLAGS --------
-OPPOSING_TEAM : In team games, bots will be spawned for the enemy team instead of the player's own team.
 WP_MACHINEGUN : The bot spawns into the game with a Machinegun.
 WP_SHOTGUN	  : The bot spawns into the game with a Shotgun.
 WP_GRENADE_LAUNCHER : The bot spawns into the game with a Grenade Launcher.
@@ -1579,16 +1578,12 @@ To make a jump pad, place this entity at the highest point of the jump and targe
 
 //=============================================================================
 
-/*QUAKED target_print (0 .5 0) (-8 -8 -8) (8 8 8) REDTEAM BLUETEAM PRIVATE
+/*QUAKED target_print (0 .5 0) (-8 -8 -8) (8 8 8) - - -
 This will print a message on the center of the screen when triggered. By default, all the clients will see the message.
 -------- KEYS --------
 message : text string to print on screen.
 targetname : the activating trigger points to this.
-targetname2 : the activating trigger points to this.
--------- SPAWNFLAGS --------
-REDTEAM : only the red team players will see the message.
-BLUETEAM : only the blue team players will see the message.
-PRIVATE : only the player that activates the target will see the message.*/
+targetname2 : the activating trigger points to this.*/
 
 //=============================================================================
 
@@ -1673,7 +1668,7 @@ skill : the skill level to apply. 1 is easiest, 5 is hardest (default = 2).*/
 
 //=============================================================================
 
-/*QUAKED target_speaker (0 .7 .7) (-8 -8 -8) (8 8 8) LOOPED_ON LOOPED_OFF GLOBAL ACTIVATOR
+/*QUAKED target_speaker (0 .7 .7) (-8 -8 -8) (8 8 8) LOOPED_ON LOOPED_OFF GLOBAL -
 Sound generating entity that plays .wav files. Normal non-looping sounds play each time the target_speaker is triggered. Looping sounds can be set to play by themselves (no activating trigger) or be toggled on/off by a trigger.
 -------- KEYS --------
 noise : path/name of .wav file to play (eg. sound/world/growl1.wav - see Notes).
@@ -1685,7 +1680,6 @@ targetname2 : the activating button or trigger points to this.
 LOOPED_ON : sound will loop and initially start on in level (will toggle on/off when triggered).
 LOOPED_OFF : sound will loop and initially start off in level (will toggle on/off when triggered).
 GLOBAL : sound will play full volume throughout the level.
-ACTIVATOR : sound will play only for the player that activated the target.
 -------- NOTES --------
 The path portion value of the "noise" key can be replaced by the implicit folder character "*" for triggered sounds that belong to a particular player model. For example, if you want to create a "bottomless pit" in which the player screams and dies when he falls into, you would place a trigger_multiple over the floor of the pit and target a target_speaker with it. Then, you would set the "noise" key to "*falling1.wav". The * character means the current player model's sound folder. So if your current player model is Visor, * = sound/player/visor, if your current player model is Sarge, * = sound/player/sarge, etc. This cool feature provides an excellent way to create "player-specific" triggered sounds in your levels.
 
