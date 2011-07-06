@@ -296,8 +296,9 @@ void G_UpdateClientWithSessionData( gentity_t *ent) {
 		ent->client->ps.persistant[PERS_KILLED] = ent->client->sess.deaths;
 
 	//set name of level to which scores should be attributed
-	if ( strcmp( va("%s", ent->client->sess.scoreLevelName ), "" ) )
+	if ( strcmp( va("%s", ent->client->sess.scoreLevelName ), "0" ) ) {
 		strcpy(level.scoreLevelName, ent->client->sess.scoreLevelName);
+	}
 
 	//set secrets
 	if ( ent->client->sess.secrets )
