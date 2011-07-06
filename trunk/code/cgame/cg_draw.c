@@ -1585,12 +1585,6 @@ static void CG_DrawObjectivesNotification( void ) {
 	if ( cg.objectivesTime == 0 || cg.time < cg.objectivesTime )
 		return;
 
-	//play sound
-	if ( !cg.objectivesSoundPlayed ) {
-		cg.objectivesSoundPlayed = qtrue;
-		trap_S_StartLocalSound( cgs.media.objectivesUpdatedSound, CHAN_LOCAL_SOUND );
-	}
-
 	//icon blinks
 	if ( cg.time < cg.objectivesTime + 500 )
 		draw = qtrue;
@@ -2698,7 +2692,22 @@ static void CG_Draw2D( void ) {
 	if ( !cg.fadeInTime && cgs.gametype == GT_ENTITYPLUS )
 		cg.fadeInTime = cg.time;
 
-	if ( cg_draw2D.integer == 0 ) {
+	// set intermission time and start scoreboard music if we're in intermission
+	// this is done here so score board music plays properly even if cg_draw2d is set to 0
+	if ( cg.intermissionTime == 0 && cg.snap->ps.pm_type == PM_INTERMISSION ) {
+		cg.intermissionTime = cg.time;
+		CG_StartScoreboardMusic();
+	}
+
+	// play objectives notification sound if necessary
+	if ( cg.objectivesTime != 0 && cg.time >= cg.objectivesTime ) {
+		if ( !cg.objectivesSoundPlayed ) {
+			cg.objectivesSoundPlayed = qtrue;
+			trap_S_StartLocalSound( cgs.media.objectivesUpdatedSound, CHAN_LOCAL_SOUND );
+		}
+	}
+	
+	if ( cg_draw2D.integer == 0) {
 		return;
 	}
 
