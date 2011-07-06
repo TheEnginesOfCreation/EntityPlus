@@ -14,6 +14,7 @@ v0.8 (?? ??? 2011)
 	- [Fixed] Players respawning at a spawnpoint targeting a target_remove_powerups that removes all weapons end up holding a Gauntlet.
 	- [Fixed] Objective texts of more than 60 characters run outside of the objectives overlay.
 	- [Fixed] Objectives updated notification sound does not play if cg_draw2d is set to 0.
+	- [Fixed] Highscores are saved to incorrect file when target_mapchange was used.
 	- [Changed] From this release forward, multiplayer modes are officially no longer supported.
 	- [Changed] target_disable is renamed to target_unlink.
 	- [Changed] Shortened fade-in at start of level if no message key was set for the map's worldspawn entity.

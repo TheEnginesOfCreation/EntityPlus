@@ -257,7 +257,7 @@ void UI_MainMenu( void ) {
 	s_main.singleplayer.generic.y			= y;
 	s_main.singleplayer.generic.id			= ID_SINGLEPLAYER;
 	s_main.singleplayer.generic.callback	= Main_MenuEvent; 
-	s_main.singleplayer.string				= "SINGLE PLAYER";
+	s_main.singleplayer.string				= "NEW GAME";
 	s_main.singleplayer.color				= color_white;
 
 	y += MAIN_MENU_VERTICAL_SPACING;
