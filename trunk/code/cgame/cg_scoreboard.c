@@ -355,7 +355,7 @@ void CG_DrawSinglePlayerIntermission( void ) {
 		CG_DrawStringExt( 64, y, "         TOTAL :", color, qtrue, qtrue, BIGCHAR_WIDTH, BIGCHAR_HEIGHT, 0 );
 	else {
 		if (cg.scoreSoundsPlayed == index - 1) {
-			trap_S_StartLocalSound( cgs.media.scoreShow, CHAN_LOCAL_SOUND );
+			trap_S_StartLocalSound( cgs.media.finalScoreShow, CHAN_LOCAL_SOUND );
 			cg.scoreSoundsPlayed++;
 		}
 

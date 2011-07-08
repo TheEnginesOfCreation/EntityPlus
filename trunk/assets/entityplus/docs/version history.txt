@@ -1,4 +1,4 @@
-v0.8 (?? ??? 2011)
+v0.8 (08 jul 2011)
 	- [Added] target_modify entity.
 	- [Added] target_secret entity.
 	- [Added] func_rotating can be started/stopped by targeting it with a trigger.
@@ -8,7 +8,7 @@ v0.8 (?? ??? 2011)
 	- [Added] scoreboardmusic key to worldspawn entity.
 	- [Added] path_corner entities can have a wait key of -1 which will halt the train until the train is triggered again.
 	- [Added] STONE_DEBRIS spawnflag to target_debrisemitter and func_breakable.
-	- [Added] New sound that plays when score is being added up in scoreboard.
+	- [Added] Explosion sound when score is being added up in scoreboard.
 	- [Added] Lightning effect to main menu background.
 	- [Fixed] Accuracy does not persist across map changes.
 	- [Fixed] Players respawning at a spawnpoint targeting a target_remove_powerups that removes all weapons end up holding a Gauntlet.

@@ -656,7 +656,7 @@ void UI_EPLevelMenu( void ) {
 	epMenuInfo.banner.generic.type  = MTYPE_BTEXT;
 	epMenuInfo.banner.generic.x	   = 320;
 	epMenuInfo.banner.generic.y	   = 16;
-	epMenuInfo.banner.string        = "SINGLE PLAYER";
+	epMenuInfo.banner.string        = "NEW GAME";
 	epMenuInfo.banner.color         = color_white;
 	epMenuInfo.banner.style         = UI_CENTER;
 	Menu_AddItem( &epMenuInfo.menu, &epMenuInfo.banner );
