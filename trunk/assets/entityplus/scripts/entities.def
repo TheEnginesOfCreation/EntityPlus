@@ -1495,21 +1495,6 @@ targetname2 : activating trigger points to this.*/
 
 //=============================================================================
 
-/*QUAKED target_location (0 .5 0) (-8 -8 -8) (8 8 8)
-Location marker used by bots and players for team orders and team chat in the course of Teamplay games. The closest target_location in sight is used for the location. If none is in sight, the closest in distance is used.
--------- KEYS --------
-message :  name of the location (text string). Displayed in parentheses in front of all team chat and order messages.
-count : color of the location text displayed in parentheses during team chat. Set to 0-7 for color.
-   0 : white (default)
-   1 : red
-   2 : green
-   3 : yellow
-   4 : blue
-   5 : cyan
-   6 : magenta
-   7 : white*/
-//=============================================================================
-
 /*QUAKED target_logic (0 .5 0) (-8 -8 -8) (8 8 8) - - RANDOM STAY_ON
 This enitity will be activated when all triggers targeting this entity have been triggered. 
 -------- KEYS --------
