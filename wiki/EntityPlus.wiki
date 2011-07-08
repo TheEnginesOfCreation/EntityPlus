@@ -1,1 +1,71 @@
-For an overview of all features in EntityPlus, download the level designer manual here: https://code.google.com/p/entityplus/downloads/list
+===!EntityPlus Features===
+
+For an overview of all features in !EntityPlus, download the level designer manual here: https://code.google.com/p/entityplus/downloads/list
+
+===Additional info about the v0.8 release===
+
+Here's the full list of changes:
+
+  * `[`Added] target_modify entity.
+  * `[`Added] target_secret entity.
+  * `[`Added] func_rotating can be started/stopped by targeting it with a trigger.
+  * `[`Added] START_OFF spawnflag to func_rotating.
+  * `[`Added] Added target2 key to a number of entities.
+  * `[`Added] Added targetname2 key to a number of entities.
+  * `[`Added] scoreboardmusic key to worldspawn entity.
+  * `[`Added] path_corner entities can have a wait key of -1 which will halt the train until the train is triggered again.
+  * `[`Added] STONE_DEBRIS spawnflag to target_debrisemitter and func_breakable.
+  * `[`Added] Explosion sound when score is being added up in scoreboard.
+  * `[`Added] Lightning effect to main menu background.
+  * `[`Fixed] Accuracy does not persist across map changes.
+  * `[`Fixed] Players respawning at a spawnpoint targeting a target_remove_powerups that removes all weapons end up holding a Gauntlet.
+  * `[`Fixed] Objective texts of more than 60 characters run outside of the objectives overlay.
+  * `[`Fixed] Objectives updated notification sound does not play if cg_draw2d is set to 0.
+  * `[`Fixed] Highscores are saved to incorrect file when target_mapchange was used.
+  * `[`Fixed] Added missing spawnflags to info_player_start in entities.def.
+  * `[`Changed] From this release forward, multiplayer modes are officially no longer supported.
+  * `[`Changed] target_disable is renamed to target_unlink.
+  * `[`Changed] Shortened fade-in at start of level if no message key was set for the map's worldspawn entity.
+  * `[`Changed] Accuracy is no longer a seperate item in scoreboard and only applies to carnage score.
+  * `[`Removed team related entities and spawnflags from entities.def.
+  * `[`Changed] Removed FLAGS spawnflag from target_remove_powerups.
+  * `[`Changed] Removed multiplayer option from main menu.
+  * `[`Changed] Removed some multiplayer related settings to the setup menu.
+
+
+The most important changes:
+
+
+*Multiplayer is no longer supported*
+
+Multiplayer game modes are no longer supported. Technically they're still there, in full working order, but a number of the new entityplus entities simply don't work well in multiplayer scenarios. To remove all responsibility of having to support that as well, multiplayer is officially out. It also frees up the possibility of re-using multiplayer related structs in the code which are hardcoded into the engine as well, so in the future, the technical functionality of multiplayer may be gone or degraded as well.
+
+
+*Saving highscores*
+
+It appears saving high scores got broken somewhere between the 0.6 and 0.7.1 releases but I should have it fixed for good now. The game would always save the high score to a file named "0.epgame" which is obviously incorrect.
+
+
+*target_modify*
+
+The new target_modify entity can be used to change key/value pairs (properties) of entities run-time. This makes it possible, for instance, to have a func_train target a path_corner sequence but, after pressing a button that triggers the target_modify, have the path_corners target a different sequence of path_corners so the train will move through a different path. Another example is to change the target of a trigger or button.
+
+
+*target_secret*
+
+There's also the target_secret entity now, which allows you to put secrets into your map. Finding a secret earns the player bonus points which will be displayed on the scoreboard.
+
+
+*target2 and targetname2*
+
+All entities that can trigger a different entity or be triggered by another entity can use the target2 and targetname2 keys as well. These's are similar to the target and targetname keys. It allows you to set up a trigger that activates two other entities with different targetnames, or have an entity that can be triggered by two triggers with different targetnames. target/targetname2 and target2/targetname combinations are possible, so an entity with target2 "t1" will activate an entity with a matching targetname, just like an entity with targetname2 "t2" will be activated by an entity with a matching target.
+
+
+*toggling func_trains and func_rotatings*
+
+path_corner entities can now have a wait key of -1, so that the train stops moving when it reaches that path_corner. The train starts moving again when it's triggered. A func_rotating can also be triggered to make it stop or resume moving.
+
+
+*target_disable* _important for mappers!_
+
+target_disable has been renamed to target_unlink, so change the value for the classname key on any target_disable entities you have in your map.
