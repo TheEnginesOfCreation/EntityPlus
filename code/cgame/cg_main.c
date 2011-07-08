@@ -868,8 +868,10 @@ static void CG_RegisterGraphics( void ) {
 	cgs.media.objectivesUpdated = trap_R_RegisterShaderNoMip( "menu/objectives/updated.tga" );
 	cgs.media.objectivesUpdatedSound = trap_S_RegisterSound( "sound/misc/objective_update_01.wav", qfalse );
 
-	cgs.media.scoreShow = trap_S_RegisterSound( "sound/menu/score/scoreshow.wav", qfalse );
-	cgs.media.finalScoreShow = trap_S_RegisterSound( "sound/menu/score/scoreshowfinal.wav", qfalse );
+	//cgs.media.scoreShow = trap_S_RegisterSound( "sound/menu/score/scoreshow.wav", qfalse );
+	//cgs.media.finalScoreShow = trap_S_RegisterSound( "sound/menu/score/scoreshowfinal.wav", qfalse );
+	cgs.media.scoreShow = trap_S_RegisterSound( "sound/weapons/rocket/rocklx1a.wav", qfalse );
+	cgs.media.finalScoreShow = trap_S_RegisterSound( "sound/weapons/rocket/rocklx1a.wav", qfalse );
 
 	cgs.media.smokePuffShader = trap_R_RegisterShader( "smokePuff" );
 	cgs.media.smokePuffRageProShader = trap_R_RegisterShader( "smokePuffRagePro" );
