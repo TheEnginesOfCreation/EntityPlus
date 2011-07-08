@@ -1,0 +1,803 @@
+#include "ui/menudef.h"
+
+// team menu
+// 
+// defines from ui_shared.h
+
+{
+  assetGlobalDef {
+    	cursor "ui/assets/3_cursor2"			// cursor	
+    	gradientBar "ui/assets/gradientbar2.tga"	// gradient bar
+    	fadeClamp 1.0					// sets the fadeup alpha
+	fadeCycle 1					// how often fade happens in milliseconds
+	fadeAmount 0.1					// amount to adjust alpha per cycle
+
+	shadowX  5					// x amount for shadow offset
+	shadowY  5					// y amount for shadow offset
+	shadowColor 0.1 0.1 0.1 0.25			// shadow color
+
+   	font "fonts/font" 16				// font
+    	smallFont "fonts/smallfont" 12			// font
+    	bigFont "fonts/bigfont" 20			// font
+
+
+  }
+
+
+//	POWERUP AREA	//
+
+menuDef {
+	name "powerup area"
+	fullScreen MENU_FALSE
+	visible MENU_TRUE
+	rect 570 220 50 100
+
+	itemDef {
+	name "powerupArea"
+	rect 0 0 40 40
+    	visible 1
+	decoration
+	ownerdraw CG_AREA_POWERUP
+	special 4			// spacing
+	align HUD_VERTICAL
+	}
+
+
+}
+
+
+
+//	SELECTED PLAYER		//
+							   
+menuDef {
+    	name "SelectedPlayer"
+    	fullScreen MENU_FALSE
+    	visible 1
+	rect 2 363 180 64 
+	ownerdrawflag CG_SHOW_ANYTEAMGAME
+	
+	
+	itemDef {
+	name "b"
+    	rect 2 4 170 57
+	style 4
+	visible 1
+	}
+
+	itemDef {
+	name "b"
+	rect 2 4 172 60
+	visible 1
+	textscale .17
+	textaligny 10
+	textalignx 0
+	forecolor 1 1 1 1
+	ownerdrawflag CG_SHOW_TEAMINFO
+	ownerdraw CG_TEAMINFO
+	}
+
+	itemDef {
+   	name "b"
+	rect 4 3 32 32
+    	visible 1
+	ownerdrawflag CG_SHOW_NOTEAMINFO
+	ownerdraw CG_SELECTEDPLAYER_HEAD
+	}
+
+
+itemDef {
+      	name "b"
+        rect 75 35 22 11
+	visible 1
+	style 1
+	textscale .25
+	decoration
+	addColorRange -999 25 1 0 0 1
+	addColorRange 26 100 1 .75 0 1
+	addColorRange 101 999 1 1 1 1
+	ownerdrawflag CG_SHOW_NOTEAMINFO
+	ownerdraw CG_SELECTEDPLAYER_HEALTH
+	}
+
+	itemDef {
+      	name "b"
+        rect 50 48 22 11
+	visible 1
+	style 3
+	decoration
+	background "ui/assets/statusbar/selectedarmor.tga"
+	addColorRange -999 25 1 0 0 1
+	addColorRange 26 100 1 .75 0 1
+	addColorRange 101 999 1 1 1 1
+	ownerdrawflag CG_SHOW_NOTEAMINFO
+	ownerdraw CG_SELECTEDPLAYER_ARMOR
+	}
+
+	itemDef {
+      	name "b"
+        rect 75 48 22 11
+	visible 1
+	textstyle 3
+	style 1
+	textscale .25
+	decoration
+	addColorRange -999 25 1 0 0 1
+	addColorRange 26 100 1 .75 0 1
+	addColorRange 101 999 1 1 1 1
+	ownerdrawflag CG_SHOW_NOTEAMINFO
+	ownerdraw CG_SELECTEDPLAYER_ARMOR
+	}
+
+
+	itemDef {
+      	name "b"
+        rect 35 3 35 15
+	textscale 0.25
+	textstyle 3
+	forecolor 1 1 1 1
+	visible 1
+	decoration
+	ownerdrawflag CG_SHOW_NOTEAMINFO
+	ownerdraw CG_SELECTEDPLAYER_NAME
+	}
+
+
+
+	itemDef {
+      	name "b"
+        rect 35 15 45 15
+	textstyle 3
+	textscale 0.25
+	forecolor 1 1 1 1
+	visible 1
+	decoration
+	ownerdrawflag CG_SHOW_NOTEAMINFO
+	ownerdraw CG_SELECTEDPLAYER_LOCATION
+	}
+
+	itemDef {
+      	name "b"
+        rect 7 40 16 16
+	visible 1
+	decoration
+	ownerdrawflag CG_SHOW_NOTEAMINFO
+	ownerdraw CG_SELECTEDPLAYER_STATUS
+	}
+
+	itemDef {
+      	name "b"
+        rect 30 40 16 16
+	visible 1
+	decoration
+	ownerdrawflag CG_SHOW_NOTEAMINFO
+	ownerdraw CG_SELECTEDPLAYER_POWERUP
+	}
+
+	itemDef {
+      	name "b"
+        rect 100 33 24 24
+	visible 1
+	decoration
+	ownerdrawflag CG_SHOW_NOTEAMINFO
+	ownerdraw CG_SELECTEDPLAYER_WEAPON
+	}
+
+	itemDef {
+	name "statusscreen"
+	visible 1
+	style 3
+	background "menuscreen2"
+	rect 2 4 170 57
+	}
+
+itemDef {
+      	name "sback"
+        rect 0 0 256 64
+	visible 1
+	style 3
+	decoration
+	background "ui/assets/selectedstatus.tga"
+	} 
+
+	}
+
+
+
+//	PLAYER STATUS	//
+
+menuDef {
+    	name "playerStatus"
+    	fullScreen MENU_FALSE
+    	visible MENU_TRUE
+    	rect 0 416 128 64
+
+	itemDef {
+      	name "playerStatusRect"
+	style 4
+	rect 12 13 116 48
+	visible 1
+	}
+	itemDef {
+	name "playerRect"
+	rect 12 13 116 48
+	style 3
+	background hudalert_good
+	visible 1
+	ownerdrawflag CG_SHOW_IF_PLAYER_HAS_FLAG            
+	}
+
+	itemDef {
+      	name "playeritem"
+        rect 27 25 22 22 
+	visible 1
+	decoration
+	ownerdraw CG_PLAYER_ITEM  
+	}
+
+	itemDef {
+      	name "CTFPOWERUP"
+        rect 54 25 22 22
+	visible 1
+	decoration
+	ownerdraw CG_CTF_POWERUP	
+	}
+
+	itemDef {
+      	name "flag"
+        rect 85 15 40 40
+	visible 1
+	decoration
+	ownerdraw CG_PLAYER_HASFLAG 
+	}
+
+	itemDef {
+      	name "skulls"
+        rect 72 10 48 34
+	visible 1
+	decoration
+	textaligny 12
+	textalignx 0
+	textscale 0.333
+	textstyle 3
+	ownerdraw CG_HARVESTER_SKULLS
+	}
+
+	itemDef {
+	name "statusscreen"
+	visible 1
+	style 3
+	background "menuscreen2"
+	rect 12 13 116 48
+	}
+	}
+
+
+//	AMMO	//
+
+menuDef {
+    	name "Ammo"
+    	fullScreen MENU_FALSE
+    	visible MENU_TRUE
+    	rect 128 416 128 64
+	
+
+	itemDef {
+	name "ammoRect"
+	visible 1
+	style 4
+	rect 3 13 122 48
+	}
+	
+	itemDef {
+     	name "a"
+	rect 85 25 30 30 
+	visible 1
+	decoration
+	ownerdraw CG_PLAYER_AMMO_ICON2D
+	}
+
+
+	itemDef {
+ 	name "a"
+	rect 10 43 63 12
+	visible 1
+	textstyle 3
+	decoration
+	textscale .75
+	forecolor 1 1 1 1
+	ownerdraw CG_PLAYER_AMMO_VALUE
+	addColorRange -999 5 1 0 0 1
+	addColorRange 6 999 1 .75 0 1
+	}
+
+	itemDef {
+	name "statusscreen"
+	visible 1
+	style 3
+	background "menuscreen2"
+	rect 3 13 122 48
+	}
+	}
+
+
+
+
+
+
+//	PLAYER	//
+
+menuDef {
+    	name "Player"
+    	fullScreen MENU_FALSE
+    	visible MENU_TRUE
+   	rect 256 416 128 64
+
+
+	itemDef {
+	name "playerRect"
+	rect 0 2 128 60
+	style 4
+	visible 1
+	}
+
+	itemDef {
+	name "playerRect"
+	rect 0 2 128 60
+	style 3
+	background hudalert
+	visible 1
+	ownerdrawflag CG_SHOW_HEALTHCRITICAL            
+	}
+
+
+	itemDef {
+      	name "healthok"
+        rect 12 42 63 12
+	visible 1
+	decoration
+	textstyle 3
+	forecolor 1 1 1 1
+	textscale .75
+	ownerdraw CG_PLAYER_HEALTH
+	addColorRange -999 25 1 0 0 1
+	addColorRange 26 100 1 .75 0 1
+	addColorRange 101 999 1 1 1 1
+	}
+
+	itemDef {
+	name "statusscreen"
+	visible 1
+	style 3
+	background "menuscreen2"
+	rect 0 2 128 60
+	}
+
+	itemDef {
+      	name "b"
+	rect 70 10 45 45
+	visible 1
+    	decoration
+	ownerdraw CG_PLAYER_HEAD 
+	}
+  	}
+
+
+
+
+
+
+
+//	ARMOR	//
+
+menuDef {
+    	name "Armor"
+    	fullScreen MENU_FALSE
+    	visible MENU_TRUE	
+    	rect 384 416 128 64
+
+
+	itemDef {
+	name "armorRect"
+	rect 0 13 125 48
+	visible 1
+	style 4
+	}
+
+	itemDef {
+     	name "armor"
+	rect 10 7 30 30 
+	visible 1
+   	decoration
+	ownerdraw CG_PLAYER_ARMOR_ICON2D
+	}
+
+
+	itemDef {
+      	name "armor2"
+        rect 55 43 63 12
+	visible 1
+	decoration
+	textstyle 3	
+	textscale .75
+	ownerdraw CG_PLAYER_ARMOR_VALUE 
+	addColorRange -999 25 .67 0 0 1
+	addColorRange 26 100  1 .75 0 1
+	addColorRange 101 999 .75 .75 .75 1
+	}
+
+	itemDef {
+	name "statusscreen"
+	visible 1
+	style 3
+	background "menuscreen2"
+	rect 0 13 125 48
+	}
+ 	}
+
+
+//	PLAYERSCORE	//
+
+menuDef {
+    	name "PlayerScore"
+    	fullScreen MENU_FALSE
+    	visible MENU_TRUE
+    	rect 512 416 128 64
+	ownerdrawflag CG_SHOW_ANYTEAMGAME               
+
+
+	itemDef {
+	name "playerScoreRect"
+	visible 1
+	rect 0 13 126 48
+	style 4
+	}
+
+	itemDef {
+	name "playerRect"
+	rect 0 13 63 48
+	style 3
+	background hudalert_blue
+	visible 1
+	ownerdrawflag CG_SHOW_BLUE_TEAM_HAS_REDFLAG
+	}
+
+itemDef {
+	name "playerRect"
+	rect 63 13 63 48 
+	style 3
+	background hudalert_red
+	visible 1
+	ownerdrawflag CG_SHOW_RED_TEAM_HAS_BLUEFLAG            
+	}
+
+
+	itemDef {
+	name "f"
+	rect 30 22 16 16
+	visible 1
+	bordercolor 1 1 1 .75
+	decoration	
+	style 3
+	background "ui/assets/bluechip.tga"
+	}
+itemDef {
+	name "f"
+	rect 30 22 16 16
+	visible 1
+	bordercolor 1 1 1 .75
+	decoration	
+	style 3
+	ownerdrawflag CG_SHOW_HARVESTER                 
+	background "icons/skull_blue.tga"
+	}
+
+	itemDef {
+     	name "blueflag"
+        rect 30 22 16 16
+	visible 1
+	decoration    
+	ownerdrawflag CG_SHOW_CTF                    	
+	ownerdraw CG_BLUE_FLAGSTATUS
+	}
+
+
+itemDef {
+     	name "oneflagstatus"
+        rect 30 40 16 16
+	visible 1
+	decoration                	
+	ownerdraw CG_ONEFLAG_STATUS 
+	}
+
+
+	itemDef {
+      	name "r"
+        rect 35 21 30 15
+	textstyle 3
+	visible 1
+	decoration
+	forecolor .25 .25 1 1
+	textscale 0.25
+	ownerdraw CG_BLUE_SCORE
+	}
+
+	itemDef {
+	name "f"
+	rect 77 22 16 16
+	visible 1
+	bordercolor 1 1 1 1
+	decoration	
+	style 3
+	background "ui/assets/redchip.tga"
+	}
+
+	itemDef {
+	name "f"
+	rect 77 22 16 16
+	visible 1
+	bordercolor 1 1 1 1
+	decoration	
+	style 3
+	ownerdrawflag CG_SHOW_HARVESTER                 
+	background "icons/skull_red.tga"
+	}
+
+	itemDef {
+      	name "f"
+        rect 77 22 16 16
+	visible 1
+	decoration
+	ownerdrawflag CG_SHOW_CTF                       
+	ownerdraw CG_RED_FLAGSTATUS
+	}
+
+	itemDef {
+      	name "r"
+        rect 87 21 30 15
+	textstyle 3
+	visible 1
+	decoration
+	forecolor 1 0 0 1
+	textscale 0.25
+	ownerdraw CG_RED_SCORE
+	}
+
+	itemDef {
+	name "statusscreen"
+	visible 1
+	style 3
+	background "menuscreen2"
+	rect 0 13 126 48
+	}
+
+	itemDef {
+      	name "playerScore"
+	type 4
+        rect 8 36 40 12
+	visible 1
+	textstyle 3
+    	decoration
+	forecolor 1 1 1 1
+	textscale .25
+	ownerdraw CG_CAPFRAGLIMIT
+	}
+
+
+
+	itemDef {
+      	name "playerScore"
+	style 0
+        rect 60 43 65 12
+	visible 1
+	textstyle 3
+    	decoration
+	forecolor 1 1 1 1
+	textscale .25
+	ownerdraw CG_PLAYER_SCORE
+	}
+  	}
+
+
+//	PLAYERSCORE	//
+
+menuDef {
+    	name "PlayerScore"
+    	fullScreen MENU_FALSE
+    	visible MENU_TRUE
+    	rect 512 416 128 64
+	ownerdrawflag CG_SHOW_ANYNONTEAMGAME            
+
+	itemDef {
+	name "playerScoreRect"
+	visible 1
+	rect 0 13 126 48
+	style 4
+	}
+
+	itemDef {
+	name "statusscreen"
+	visible 1
+	style 3
+	background "menuscreen2"
+	rect 0 13 126 48
+	}
+	
+	itemDef {
+      	name "playerScore"
+        rect 8 32 40 12
+	visible 1
+	textstyle 3
+    	decoration
+	forecolor 1 1 1 1
+	textscale .25
+	text "FragLimit:"
+	ownerdraw CG_CAPFRAGLIMIT 
+	}
+	itemDef {
+      	name "playerScore"
+	style 0
+        rect 10 45 65 12
+	visible 1
+	textstyle 3
+	text "1st:"
+	ownerdraw CG_1STPLACE 
+    	decoration
+	forecolor .25 .25 1 1
+	textscale .25
+	}
+	itemDef {
+      	name "playerScore"
+	style 0
+        rect 70 45 65 12
+	visible 1
+	textstyle 3
+	text "2nd:"
+	ownerdraw CG_2NDPLACE
+    	decoration
+	forecolor 1 0 0 1
+	textscale .25
+	}
+
+
+	itemDef {
+      	name "playerScore"
+	style 0
+        rect 10 58 40 0
+	visible 1
+	textstyle 3
+	text "Score:"
+    	decoration
+	forecolor 1 1 1 1
+	textscale .25
+	ownerdraw CG_PLAYER_SCORE
+	}
+  	}
+
+
+//	LOCATION	//
+
+menuDef {
+    	name "location"
+    	fullScreen MENU_FALSE
+	visible MENU_TRUE
+    	rect 463 395 256 32
+	ownerdrawflag CG_SHOW_ANYTEAMGAME
+
+
+	itemDef {
+	name "locationRect"
+	visible MENU_TRUE
+	rect 2 6 170 26
+	style 4	
+	}
+itemDef {
+      	name "playerStatus"
+        rect 16 10 16 16
+	visible 1
+	decoration
+	ownerdraw CG_PLAYER_STATUS
+	}
+
+	itemDef {
+     	name "playerlocation"
+        rect 37 7 16 16    
+	visible 1
+	textstyle 3
+	decoration
+	textscale .25	
+	ownerdraw CG_PLAYER_LOCATION 
+	}
+itemDef {
+      	name "lback"
+        rect 0 0 256 32
+	visible 1
+	style 3
+	decoration
+	background "ui/assets/locationstatus.tga"
+	} 
+	}
+
+
+
+//	STATUSBAR //
+
+menuDef {
+    	name "statusbar"
+    	fullScreen 0
+    	visible 1
+   	rect 0 416 640 64
+	
+
+itemDef {
+      	name "statusbar"
+        rect 0 0 640 64
+	style 3
+	background "ui/assets/statusbar_full.tga"
+	visible 1
+	decoration
+	forecolor 1 1 1 1
+	backcolor 1 1 1 1
+	}
+	}
+
+
+
+
+
+
+  menuDef {
+    name "voiceMenu"
+    fullScreen MENU_FALSE
+    visible MENU_FALSE
+	rect 5 5 100 100
+	
+
+	itemDef {
+      		name "voiceMenuRect"
+		style 4
+		rect 2 2 50 50
+		visible 1
+		}
+
+	itemDef {
+		name "b"
+		rect 2 2 50 50
+    		visible 1
+		decoration
+		ownerdraw CG_VOICE_HEAD
+		}
+	
+	itemDef {
+		name "b"
+		rect 2 2 50 50
+		style WINDOW_STYLE_SHADER
+		background "menuscreen2"
+    		visible 1
+		decoration
+		}
+
+	itemDef {
+		name "voiceWindow"
+		visible 1
+		style 3
+		background "ui/assets/voice_window.tga"
+		rect 0 0 54 54
+		}
+
+
+	itemDef {
+		name "b"
+		rect 2 55 50 12
+    		visible 1
+		decoration
+		textscale .25
+		textalign 0
+		textalignx 0
+		textaligny 12
+		ownerdraw CG_VOICE_NAME 
+		}
+
+
+  }
+
+
