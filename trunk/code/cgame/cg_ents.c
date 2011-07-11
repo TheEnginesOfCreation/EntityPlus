@@ -107,7 +107,7 @@ static void CG_EntityEffects( centity_t *cent ) {
 	CG_SetEntitySoundPosition( cent );
 
 	// add loop sound
-	if ( cent->currentState.loopSound ) {
+	if ( cent->currentState.loopSound) {
 		if (cent->currentState.eType != ET_SPEAKER) {
 			trap_S_AddLoopingSound( cent->currentState.number, cent->lerpOrigin, vec3_origin, 
 				cgs.gameSounds[ cent->currentState.loopSound ] );
@@ -116,7 +116,10 @@ static void CG_EntityEffects( centity_t *cent ) {
 				cgs.gameSounds[ cent->currentState.loopSound ] );
 		}
 	}
-
+	else {
+		trap_S_StopLoopingSound(cent->currentState.number);
+	}
+	
 
 	// constant light glow
 	if ( cent->currentState.constantLight ) {
