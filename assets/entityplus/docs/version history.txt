@@ -1,3 +1,6 @@
+BETA 1 (?? ??? 2011)
+	- [Fixed] Looping target_speakers do not stop playing their sound when triggered
+
 v0.8 (08 jul 2011)
 	- [Added] target_modify entity.
 	- [Added] target_secret entity.
