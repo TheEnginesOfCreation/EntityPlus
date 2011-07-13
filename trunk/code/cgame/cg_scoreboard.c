@@ -370,14 +370,14 @@ CG_DrawSinglePlayerObjectives
 Draw the single player objectives overlay
 =================
 */
-void CG_DrawSinglePlayerObjectives( void ) {
+qboolean CG_DrawSinglePlayerObjectives( void ) {
 	const char *p;
 	const char *s;
 	vec4_t color;
 	int i;
 
 	if ( !cg.showScores )
-		return;
+		return qfalse;
 
 	cg.objectivesTime = 0;	//stop objectives notification from showing
 
@@ -409,6 +409,8 @@ void CG_DrawSinglePlayerObjectives( void ) {
 	//draw level score
 	CG_DrawBigStringColor( 250, 310, "Score", color);
 	CG_DrawBigStringColor( 360, 310, va("%i", COM_CalculateLevelScore( cg.snap->ps.persistant, CG_GetAccuracy(), CG_GetSkill() )), color);	
+
+	return qtrue;
 }
 
 /*
@@ -442,8 +444,7 @@ qboolean CG_DrawOldScoreboard( void ) {
 		}
 		else 
 		{
-			CG_DrawSinglePlayerObjectives();	//draw objectives screen instead of scores in SP.
-			return qtrue;
+			return CG_DrawSinglePlayerObjectives();	//draw objectives screen instead of scores in SP.
 		}
 	}
 
