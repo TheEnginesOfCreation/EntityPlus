@@ -1,8 +1,22 @@
-===!EntityPlus Features===
+=!EntityPlus Features=
 
 For an overview of all features in !EntityPlus, download the level designer manual here: https://code.google.com/p/entityplus/downloads/list
 
-===Additional info about the v0.8 release===
+==Additional info about the v0.8.1 release==
+
+Here's the full list of changes:
+
+  * `[`Fixed] Looping target_speakers do not stop playing their sound when triggered.
+  * `[`Fixed] Center print messages (such as target_print message) are not displayed.
+
+Most important changes:
+
+*target_speaker changes*
+
+In the original Quake 3 Arena, it was impossible to toggle target_speaker entities off when they had either the LOOPING_ON or LOOPING_OFF spawnflags set. Once a looping target_speaker was playing its sound, it couldn't stop anymore. In !EntityPlus, a target_speaker can be toggled off again by triggering it with another entity.
+
+
+==Additional info about the v0.8 release==
 
 Here's the full list of changes:
 
