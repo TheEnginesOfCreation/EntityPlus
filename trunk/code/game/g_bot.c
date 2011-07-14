@@ -1016,9 +1016,16 @@ G_AddSinglePlayerBot
 ====================
 */
 
-void G_AddCustomBot( char *name, int parentEntityNum, char* waypoint ) {
+void G_AddCustomBot( char *name, int parentEntityNum, char* waypoint, float relSkill ) {
 	float skill = trap_Cvar_VariableValue( "g_spSkill" );
 	int noprint = trap_Cvar_VariableIntegerValue( "cl_noprint" );
+
+	//apply relative skill level to bot's general skill level
+	skill += relSkill;
+	if (skill < 1)
+		skill = 1;
+	if (skill > 5)
+		skill = 5;
 
 	//set cl_noprint to 1 while adding bots in SP mode so that their loading message don't appear
 	if (g_gametype.integer == GT_ENTITYPLUS)

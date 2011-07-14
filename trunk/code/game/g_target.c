@@ -683,36 +683,7 @@ The entity specified with deathtarget will be activated when the spawned bot die
 Use the skill key to specify the skill level for the bot relative to the g_spskill level. This is only applied to the amount of damage it deals.
 */
 void target_botspawn_use (gentity_t *self, gentity_t *other, gentity_t *activator) {
-	char *team;
-	int teamnum;
-	float skill;
-
-	switch (activator->client->sess.sessionTeam) {
-		case TEAM_BLUE:
-			if (( self->spawnflags & 1 )) {
-				team = "red";
-				teamnum = TEAM_RED;
-			} else {
-				team = "blue";
-				teamnum = TEAM_BLUE;
-			}
-			break;
-		case TEAM_RED:
-			if (( self->spawnflags & 1 )) {
-				team = "blue";
-				teamnum = TEAM_BLUE;
-			} else {
-				team = "red";
-				teamnum = TEAM_RED;
-			}
-			break;
-		default:
-			team = "free";
-			teamnum = TEAM_FREE;
-			break;
-	}
-
-	G_AddCustomBot( self->clientname, self->s.number, self->target );
+	G_AddCustomBot( self->clientname, self->s.number, self->target, self->skill );
 }
 
 void SP_target_botspawn (gentity_t *self) {
