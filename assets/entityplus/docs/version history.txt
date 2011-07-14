@@ -1,3 +1,6 @@
+BETA1 (?? ??? 2011)
+	- [Changed] Using the skill key on target_botspawn now actually influences the general AI skill level of that bot.
+
 v0.8.1 (13 jul 2011)
 	- [Fixed] Looping target_speakers do not stop playing their sound when triggered.
 	- [Fixed] Center print messages (such as target_print message) are not displayed.
