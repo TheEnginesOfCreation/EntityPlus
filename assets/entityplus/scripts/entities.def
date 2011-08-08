@@ -1710,37 +1710,37 @@ target2 : this points to the entity to activate.*/
 //=============================================================================
 
 /*QUAKED trigger_death (.5 .5 .5) (-8 -8 -8) (8 8 8) - - TRIGGER_ONCE
-Triggered when a player dies.
+Triggered when the player or a bot dies.
 -------- KEYS --------
 target : this points to the entity to activate.
 target2 : this points to the entity to activate.
 nobots : dying bots do not trigger this entity.
-nohumans : dying humans do not trigger this entity.
-count : the number of players that must have died before this entity is triggered*/
+nohumans : the player's death does not trigger this entity.
+count : the number of deaths that must have occurred before the entity activates its targets.
 -------- SPAWNFLAGS --------
-TRIGGER_ONCE : The trigger will only fire once
+TRIGGER_ONCE : The trigger will only fire once.
 -------- NOTES --------
-When the count key is set, the trigger_death must effectively be triggered [count] number of times before it actually fires its targets. The trigger_death entity is considered to be triggered only when a player that matches the entity's nobots/nohumans configuration has died. Note that the count specifies a total number of deaths, not a per-player count.
+When the count key is set, the trigger_death must effectively be triggered [count] number of times before it actually fires its targets. The trigger_death entity is considered to be triggered only when the player or bot that has died matches the entity's nobots/nohumans configuration. Note that the count specifies a total number of deaths, not a per-player/bot count.
 
-This entity will be triggered through any means of death, including cratering, suicide and environmental hazards such as lava, slime, drowning or trigger_hurt entities. The dying player is seen as the activator of the trigger.*/
+This entity will be triggered through any means of death, including cratering, suicide and environmental hazards such as lava, slime, drowning or trigger_hurt entities. The dying player or bot is seen as the activator of the trigger.*/
 
 //=============================================================================
 
 /*QUAKED trigger_frag (.5 .5 .5) (-8 -8 -8) (8 8 8) - - TRIGGER_ONCE NO_SUICIDE
-Triggered when a player scores a frag.
+Triggered when the player or a bot scores a frag.
 -------- KEYS --------
 target : this points to the entity to activate.
 target2 : this points to the entity to activate.
 nobots : bots scoring a frag do not trigger this entity.
-nohumans : humans scoring a frag do not trigger this entity.
-count : the number of frags that must be scored before this entity is triggered
+nohumans : the player scoring a frag does not trigger this entity.
+count : the number of frags that must be scored before this entity is triggered.
 -------- SPAWNFLAGS --------
 TRIGGER_ONCE : The trigger will only fire once
-NO_SUICIDE : The trigger does not respond to players blowing themselves up.
+NO_SUICIDE : The trigger does not respond to the player or bots blowing themselves up.
 -------- NOTES --------
-When the count key is set, the trigger_frag must effectively be triggered [count] number of times before it actually fires its targets. The trigger_frag entity is considered to be triggered only when a player that matches the entity's nobots/nohumans configuration has scored a frag. Note that the count specifies a total number of frags, not a per-player count.
+When the count key is set, the trigger_frag must effectively be triggered [count] number of times before it actually fires its targets. The trigger_frag entity is considered to be triggered only when the player or bot that scored a frag matches the entity's nobots/nohumans configuration. Note that the count specifies a total number of frags, not a per-player/bot count.
 
-This entity will be triggered only when a player kills another player. The player scoring the frag is seen as the activator of the trigger*/
+This entity will be triggered only when the player or a bot makes a frag. The player or bot scoring the frag is seen as the activator of the trigger.*/
 
 //=============================================================================
 
