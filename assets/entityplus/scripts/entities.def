@@ -770,6 +770,17 @@ INFO_* ENTITIES
 
 //=============================================================================
 
+/*QUAKED info_backpack (0 .5 0) (-16 -16 -16) (16 16 16)
+When a backpack falls into a nodrop brush it is teleported to the nearest info_backpack entity. The backpack will fall to the floor after being teleported to the info_backpack entity. It will not be suspended.
+-------- NOTES --------
+Note that the backpack's origin (which is the exact center of the backpack model) must enter the nodrop brush before it registers as a hit.
+
+When no info_backpack entities are present in the map, the backpack will be removed from the game when it hits the nodrop brush.
+-------- MODEL FOR RADIANT ONLY - DO NOT SET THIS AS A KEY --------
+model="models/powerups/backpack/backpack.md3"*/
+
+//=============================================================================
+
 /*QUAKED info_camp (0 .5 0) (-8 -8 -8) (8 8 8)
 This atttracts bots which have a camping preference in their AI characteristics. It should be placed at least 32 units away from any brush surface.
 -------- KEYS --------

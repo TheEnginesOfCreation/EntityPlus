@@ -1102,6 +1102,46 @@ void G_BounceItem( gentity_t *ent, trace_t *trace ) {
 	ent->s.pos.trTime = level.time;
 }
 
+/*
+================
+RespawnBackpack
+
+When a backpack falls into a nodrop area, it will be teleported towards the nearest info_backpack entity.
+Returns false if no info_backpack entity to teleport to was found or supplied entity was not a backpack. Otherwise returns true.
+================
+*/
+qboolean TeleportBackpack( gentity_t *backpack ) {
+	gentity_t	*spot;
+	vec3_t		from, delta;
+	float		dist, nearestDist;
+	gentity_t	*nearestSpot;
+
+	if ( backpack->item->giType != IT_BACKPACK )
+		return qfalse;
+
+	VectorCopy(backpack->s.origin, from);
+	nearestDist = 999999;
+	nearestSpot = NULL;
+	spot = NULL;
+
+	while ((spot = G_Find (spot, FOFS(classname), "info_backpack")) != NULL) {
+
+		VectorSubtract( spot->s.origin, from, delta );
+		dist = VectorLength( delta );
+		if ( dist < nearestDist ) {
+			nearestDist = dist;
+			nearestSpot = spot;
+		}
+	}
+
+	if (nearestSpot != NULL) {
+		G_SetOrigin(backpack, nearestSpot->s.origin);
+		backpack->s.pos.trType = TR_GRAVITY;
+		return qtrue;
+	}
+
+	return qfalse;
+}
 
 /*
 ================
@@ -1114,6 +1154,7 @@ void G_RunItem( gentity_t *ent ) {
 	trace_t		tr;
 	int			contents;
 	int			mask;
+
 
 	// if groundentity has been set to -1, it may have been pushed off an edge
 	if ( ent->s.groundEntityNum == -1 ) {
@@ -1161,7 +1202,7 @@ void G_RunItem( gentity_t *ent ) {
 	if ( contents & CONTENTS_NODROP ) {
 		if (ent->item && ent->item->giType == IT_TEAM) {
 			Team_FreeEntity(ent);
-		} else {
+		} if ( !TeleportBackpack( ent ) ) {
 			G_FreeEntity( ent );
 		}
 		return;

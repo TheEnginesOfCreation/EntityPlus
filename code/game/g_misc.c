@@ -23,6 +23,12 @@ Used as a waypoint target for bot patrolling
 void SP_info_waypoint( gentity_t *self ) {
 }
 
+/*QUAKED info_backpack (0 0.5 0) ?
+Used as a teleportation target for backpacks that fall into a nodrop brush
+*/
+void SP_info_backpack( gentity_t *self ) {
+}
+
 /*QUAKED info_null (0 0.5 0) (-4 -4 -4) (4 4 4)
 Used as a positional target for calculations in the utilities (spotlights, etc), but removed during gameplay.
 */
