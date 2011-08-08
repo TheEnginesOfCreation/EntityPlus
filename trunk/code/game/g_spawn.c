@@ -124,6 +124,7 @@ void SP_info_secondplace(gentity_t *ent);
 void SP_info_thirdplace(gentity_t *ent);
 void SP_info_podium(gentity_t *ent);
 void SP_info_waypoint( gentity_t *self );
+void SP_info_backpack( gentity_t *self );
 
 void SP_func_plat (gentity_t *ent);
 void SP_func_static (gentity_t *ent);
@@ -215,6 +216,7 @@ spawn_t	spawns[] = {
 	{"info_notnull", SP_info_notnull},		// use target_position instead
 	{"info_camp", SP_info_camp},
 	{"info_waypoint", SP_info_waypoint},
+	{"info_backpack", SP_info_backpack},
 
 	{"func_plat", SP_func_plat},
 	{"func_button", SP_func_button},

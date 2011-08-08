@@ -796,9 +796,9 @@ Only in One Flag CTF games*/
 		""
 	},
 
-	/*QUAKED info_player_backpack (.3 .3 1) (-16 -16 -16) (16 16 16) */
+	/*QUAKED item_backpack (.3 .3 1) (-16 -16 -16) (16 16 16) */
 	{
-		"info_player_backpack", 
+		"item_backpack", 
 		"sound/misc/w_pkup.wav",				//TODO: Make dedicated sound?
         { "models/powerups/backpack/backpack.md3", 0, 0, 0},
 		"icons/icon_backpack",
