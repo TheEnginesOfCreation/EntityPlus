@@ -1,6 +1,9 @@
 BETA1 (?? ??? 2011)
 	- [Added] info_backpack entity which can be used with nodrop brushes to teleport a backpack from an unreachable location to a safe location.
+	- [Fixed] Spawning a bot with only a Gauntlet results in the bot spawning with a MG and console errors when the bot attacks.
+	- [Fixed] Picking up a Gauntlet after it has been removed results in the Gauntlet being unusable.
 	- [Changed] Using the skill key on target_botspawn now actually influences the general AI skill level of that bot.
+	- [Changed] Picking up a weapon if no weapons are currently held will automatically switch to that weapon.
 
 v0.8.1 (13 jul 2011)
 	- [Fixed] Looping target_speakers do not stop playing their sound when triggered.
