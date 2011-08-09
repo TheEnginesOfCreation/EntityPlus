@@ -1502,7 +1502,7 @@ void SetupCustomBot( gentity_t *bot ) {
 	
 
 	//give bot weapons
-	bot->client->ps.stats[STAT_WEAPONS] = WP_GAUNTLET;
+	bot->client->ps.stats[STAT_WEAPONS] = ( 1 << WP_GAUNTLET );
 	if ( bot->parent->spawnflags & 2 )
 		bot->client->ps.stats[STAT_WEAPONS] |= ( 1 << WP_MACHINEGUN );
 	if ( bot->parent->spawnflags & 4 )
