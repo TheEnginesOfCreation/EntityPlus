@@ -308,12 +308,17 @@ int Pickup_Weapon (gentity_t *ent, gentity_t *other) {
 
 	// add the weapon
 	other->client->ps.stats[STAT_WEAPONS] |= ( 1 << ent->item->giTag );
-
 	Add_Ammo( other, ent->item->giTag, quantity );
 
-	if (ent->item->giTag == WP_GRAPPLING_HOOK)
+	if (ent->item->giTag == WP_GRAPPLING_HOOK || ent->item->giTag == WP_GAUNTLET)
 		other->client->ps.ammo[ent->item->giTag] = -1; // unlimited ammo
 
+	//if weapon just picked up is the only weapon the player has, bring it up (even if weapon autoswitch is disabled)
+	if (other->client->ps.stats[STAT_WEAPONS] == ( 1 << ent->item->giTag )) {
+		other->client->ps.weapon = ent->item->giTag;
+		other->client->ps.weaponstate = WEAPON_READY;
+	}
+		
 	// team deathmatch has slow weapon respawns
 	if ( g_gametype.integer == GT_TEAM ) {
 		return g_weaponTeamRespawn.integer;
