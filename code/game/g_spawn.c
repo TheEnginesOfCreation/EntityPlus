@@ -107,6 +107,7 @@ field_t fields[] = {
 	{"targetname2", FOFS(targetname2), F_LSTRING},
 	{"key", FOFS(key), F_LSTRING},
 	{"value", FOFS(value), F_LSTRING},
+	{"armor", FOFS(armor), F_INT},
 	{NULL}
 };
 
@@ -176,6 +177,7 @@ void SP_target_script (gentity_t *ent);
 void SP_target_finish (gentity_t *ent);
 void SP_target_modify (gentity_t *ent);
 void SP_target_secret (gentity_t *ent);
+void SP_target_playerstats (gentity_t *ent);
 
 void SP_light (gentity_t *self);
 void SP_info_null (gentity_t *self);
@@ -275,6 +277,7 @@ spawn_t	spawns[] = {
 	{"target_finish", SP_target_finish},
 	{"target_modify", SP_target_modify},
 	{"target_secret", SP_target_secret},
+	{"target_playerstats", SP_target_playerstats},
 
 	{"light", SP_light},
 	{"path_corner", SP_path_corner},
