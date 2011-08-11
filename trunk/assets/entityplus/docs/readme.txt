@@ -102,6 +102,9 @@ Testing, feedback and logo		: EmeraldTiger
 Testing and feedback			: tigger.on
 								  [http://tig.onemoremonkey.com]
 								  
+Feedback and suggestions		: AEon
+								  [http://aeons.poweredbylasers.com]
+								  
 Support and general enthusiasm	: The entire Quake3World LEM community
 								  [http://quake3world.com/forum/viewforum.php?f=10]
 
