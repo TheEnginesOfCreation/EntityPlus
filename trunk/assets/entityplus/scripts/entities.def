@@ -1522,7 +1522,7 @@ targetname2 : activating trigger points to this.
 key : the key to modify on the target entity.
 value : the value to set for the key on the target entity.
 -------- NOTES --------
-The following keys can be modified: angle, clientname, count, deathtarget, health, key, mapname, message, overlay, script, target, target2, targetname, targetname2, targetshadername, teleportertarget, spawnflags, speed, skill, value, wait.*/
+The following keys can be modified: angle, clientname, count, deathtarget, health, key, mapname, message, overlay, script, target, target2, targetname, targetname2, targetshadername, teleportertarget, spawnflags, speed, skill, value, wait, armor.*/
 
 
 //=============================================================================
@@ -1545,6 +1545,20 @@ Sets the movement speed for player(s). Defaults to the speed set through the g_s
 speed : the movement speed to apply to the player(s).
 targetname : the activating trigger points to this.
 targetname2 : the activating trigger points to this.*/
+
+//=============================================================================
+
+/*QUAKED target_playerstats (0 .5 0) (-8 -8 -8) (8 8 8) ONLY_WHEN_LOWER NO_HEALTH NO_ARMOR
+Sets the health and/or armor for a player
+-------- KEYS --------
+health : the amount of health to give the player
+armor : the amount of armor to give the player
+targetname : the activating trigger points to this.
+targetname2 : the activating trigger points to this.
+-------- SPAWNFLAGS --------
+ONLY_WHEN_LOWER : Only sets the player's health/armor if it is lower than the specified amount of health/armor.
+NO_HEALTH : The player's health is never set by this entity.
+NO_ARMOR : The player's armor is never set by this entity.*/
 
 //=============================================================================
 

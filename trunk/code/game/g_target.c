@@ -1155,6 +1155,11 @@ void modify_entity ( char *key, char *value, gentity_t *ent ) {
 		return;
 	}
 
+	if ( !strcmp( key, "armor") ) {
+		ent->armor = atoi(value);
+		return;
+	}
+
 	if ( !strcmp( key, "key") ) {
 		ent->key = value;
 		return;
@@ -1209,4 +1214,25 @@ void SP_target_secret (gentity_t *self) {
 	level.secretCount++;
 
 	self->use = target_secret_use;
+}
+
+//==========================================================
+
+/*QUAKED target_playerstats (.5 .5 .5) (-8 -8 -8) (8 8 8) ONLY_WHEN_LOWER NO_HEALTH NO_ARMOR
+When triggered, sets to the players health/armor to the specified amounts
+*/
+
+void target_playerstats_use (gentity_t *self, gentity_t *other, gentity_t *activator) {
+	if ( IsBot(activator) )		//do not allow bots to trigger this entity
+		return;
+
+	if ((activator->client->ps.stats[STAT_HEALTH] < self->health || !(self->spawnflags & 1)) && !(self->spawnflags & 2))
+		activator->health = activator->client->ps.stats[STAT_HEALTH] = self->health;
+
+	if ((activator->client->ps.stats[STAT_ARMOR] < self->armor || !(self->spawnflags & 1)) && !(self->spawnflags & 4))
+		activator->client->ps.stats[STAT_ARMOR] = self->armor;
+}
+
+void SP_target_playerstats (gentity_t *self) {
+	self->use = target_playerstats_use;
 }

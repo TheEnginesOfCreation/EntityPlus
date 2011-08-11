@@ -173,6 +173,7 @@ struct gentity_s {
 	char		*overlay; // reference to overlay texture for target_effect
 	char		*key;	// key for target_modify to change
 	char		*value; // value for target_modify to change to
+	int			armor; // armor for the target_playerstats entity
 };
 
 
