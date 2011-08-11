@@ -805,23 +805,6 @@ targetname : must match the target key of entity that uses this for pointing.*/
 
 //=============================================================================
 
-/*QUAKED info_player_deathmatch (1 0 1) (-16 -16 -24) (16 16 32) INITIAL DISABLED
-Normal player spawning location for Q3A levels.
--------- KEYS --------
-angle : direction in which player will look when spawning in the game. Does not apply to bots.
-target : this can point at a target_give entity for respawn freebies.
-target2 : this can point at a target_give entity for respawn freebies.
-count : number of times this spawnpoint can be used to spawn a player. Omit or set to 0 to set no limit.
-nobots : when set to 1, bots will never use this spawn point to respawn in the game.
-nohumans : when set to 1, human players will never use this spawn point to respawn in the game.
--------- SPAWNFLAGS --------
-INITIAL : makes the spawnpoint the initial place for the player to spawn at the beginning of the game.
-DISABLED : the spawn point is in a disabled state when the map is first loaded. It can be enabled by triggering it. See notes.
--------- NOTES --------
-Targetting an info_player_deathmatch spawnpoint with a trigger will enable or disable the spawnpoint. Spawnpoints are by default enabled unless the DISABLED spawnflag is set. Note that a spawnpoint that is disabled because it reached its [count] number of spawns is not enabled by triggering it.*/
-
-//=============================================================================
-
 /*QUAKED info_player_intermission (1 0 1) (-16 -16 -16) (16 16 16)
 Camera for intermission screen between matches. This also automatically generates the podium for bot arena matches (see Notes). Can be aimed by setting the "angles" key or targeting an pointing to an aiming entity. Use only one per level.
 -------- KEYS --------
@@ -833,7 +816,7 @@ In genuine bot arena matches, the podium for the 1st, 2nd and 3rd place players 
 //=============================================================================
 
 /*QUAKED info_player_start (1 0 0) (-16 -16 -24) (16 16 32) INITIAL DISABLED
-Player spawn location. It works in Quake III Arena, but it is not used in the Id maps. Use info_player_deathmatch instead.
+Player spawn location.
 -------- KEYS --------
 angle : direction in which player will look when spawning in the game. Does not apply to bots.
 target : this can point at a target_give entity for respawn freebies.
