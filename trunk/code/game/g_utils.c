@@ -370,16 +370,17 @@ void G_ToggleTargetsLinked( gentity_t *ent ) {
 			if ( t == ent ) {
 				G_Printf ("WARNING: Entity targets itself.\n");
 			} else {
-				if ( ( ent->spawnflags & 4 ) && !t->r.linked )	
-					trap_LinkEntity( t ); //always_disable spawnflag is set, so link entity to the world
-				else if ( ( ent->spawnflags & 8 ) && t->r.linked )
-					trap_UnlinkEntity( t );	//always_enable spawnflag is set, so unlink entity from the world
-				else
+				if ( ent->spawnflags & 4 ) {
+					if ( t->r.linked ) { trap_UnlinkEntity( t ); }	//always_unlink spawnflag is set, so unlink entity to the world
+				} else if ( ent->spawnflags & 8 ) {
+					if ( !t->r.linked ) { trap_LinkEntity( t ); }	//always_link spawnflag is set, so link entity from the world
+				} else {
 					//no spawnflag is set, so toggle
 					if ( t->r.linked )
 						trap_UnlinkEntity( t );
 					else
 						trap_LinkEntity( t );
+				}
 			}
 			if ( !ent->inuse ) {
 				G_Printf("entity was removed while using targets\n");
@@ -392,16 +393,17 @@ void G_ToggleTargetsLinked( gentity_t *ent ) {
 			if ( t == ent ) {
 				G_Printf ("WARNING: Entity targets itself.\n");
 			} else {
-				if ( ( ent->spawnflags & 4 ) && !t->r.linked )	
-					trap_LinkEntity( t ); //always_disable spawnflag is set, so link entity to the world
-				else if ( ( ent->spawnflags & 8 ) && t->r.linked )
-					trap_UnlinkEntity( t );	//always_enable spawnflag is set, so unlink entity from the world
-				else
+				if ( ent->spawnflags & 4 ) {
+					if ( t->r.linked ) { trap_UnlinkEntity( t ); }	//always_unlink spawnflag is set, so unlink entity to the world
+				} else if ( ent->spawnflags & 8 ) {
+					if ( !t->r.linked ) { trap_LinkEntity( t ); }	//always_link spawnflag is set, so link entity from the world
+				} else {
 					//no spawnflag is set, so toggle
 					if ( t->r.linked )
 						trap_UnlinkEntity( t );
 					else
 						trap_LinkEntity( t );
+				}
 			}
 			if ( !ent->inuse ) {
 				G_Printf("entity was removed while using targets\n");
@@ -416,16 +418,17 @@ void G_ToggleTargetsLinked( gentity_t *ent ) {
 			if ( t == ent ) {
 				G_Printf ("WARNING: Entity targets itself.\n");
 			} else {
-				if ( ( ent->spawnflags & 4 ) && !t->r.linked )	
-					trap_LinkEntity( t ); //always_disable spawnflag is set, so link entity to the world
-				else if ( ( ent->spawnflags & 8 ) && t->r.linked )
-					trap_UnlinkEntity( t );	//always_enable spawnflag is set, so unlink entity from the world
-				else
+				if ( ent->spawnflags & 4 ) {
+					if ( t->r.linked ) { trap_UnlinkEntity( t ); }	//always_unlink spawnflag is set, so unlink entity to the world
+				} else if ( ent->spawnflags & 8 ) {
+					if ( !t->r.linked ) { trap_LinkEntity( t ); }	//always_link spawnflag is set, so link entity from the world
+				} else {
 					//no spawnflag is set, so toggle
 					if ( t->r.linked )
 						trap_UnlinkEntity( t );
 					else
 						trap_LinkEntity( t );
+				}
 			}
 			if ( !ent->inuse ) {
 				G_Printf("entity was removed while using targets\n");
@@ -438,16 +441,17 @@ void G_ToggleTargetsLinked( gentity_t *ent ) {
 			if ( t == ent ) {
 				G_Printf ("WARNING: Entity targets itself.\n");
 			} else {
-				if ( ( ent->spawnflags & 4 ) && !t->r.linked )	
-					trap_LinkEntity( t ); //always_disable spawnflag is set, so link entity to the world
-				else if ( ( ent->spawnflags & 8 ) && t->r.linked )
-					trap_UnlinkEntity( t );	//always_enable spawnflag is set, so unlink entity from the world
-				else
+				if ( ent->spawnflags & 4 ) {
+					if ( t->r.linked ) { trap_UnlinkEntity( t ); }	//always_unlink spawnflag is set, so unlink entity to the world
+				} else if ( ent->spawnflags & 8 ) {
+					if ( !t->r.linked ) { trap_LinkEntity( t ); }	//always_link spawnflag is set, so link entity from the world
+				} else {
 					//no spawnflag is set, so toggle
 					if ( t->r.linked )
 						trap_UnlinkEntity( t );
 					else
 						trap_LinkEntity( t );
+				}
 			}
 			if ( !ent->inuse ) {
 				G_Printf("entity was removed while using targets\n");

@@ -714,7 +714,7 @@ void SP_target_unlink (gentity_t *self) {
 	self->use = target_unlink_use;
 	
 	if ( ( self->spawnflags & 16 ) ) {
-		self->nextthink = level.time + FRAMETIME;	//unlink entities next frame so they can spawn first
+		self->nextthink = level.time + FRAMETIME * 2;	//unlink entities next frame so they can spawn first
 		self->think = target_unlink_think;
 	}
 }
