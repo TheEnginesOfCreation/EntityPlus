@@ -3,6 +3,9 @@ BETA1 (?? ??? 2011)
 	- [Added] target_playerstats entity which can set a player's health and armor.
 	- [Fixed] Spawning a bot with only a Gauntlet results in the bot spawning with a MG and console errors when the bot attacks.
 	- [Fixed] Picking up a Gauntlet after it has been removed results in the Gauntlet being unusable.
+	- [Fixed] target_unlink with IMMEDIATELY spawnflag won't unlink entities that spawn on second frame (such as movers).
+	- [Fixed] target_unlink ALWAYS_UNLINK and ALWAYS_LINK spawnflags have opposite effect.
+	- [Fixed] target_unlink toggles unlinked entities if ALWAYS_UNLINK is set and linked entities if ALWAYS_LINK is set.
 	- [Changed] Using the skill key on target_botspawn now actually influences the general AI skill level of that bot.
 	- [Changed] Picking up a weapon if no weapons are currently held will automatically switch to that weapon.
 	- [Changed] Removed info_player_deathmatch from entities.def
