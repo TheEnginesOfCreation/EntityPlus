@@ -1,12 +1,12 @@
 // Copyright (C) 1999-2000 Id Software, Inc.
 //
 /*
-=======================================================================
-
-MAIN MENU
-
-=======================================================================
-*/
+ =======================================================================
+ 
+ MAIN MENU
+ 
+ =======================================================================
+ */
 
 
 #include "ui_local.h"
@@ -28,7 +28,7 @@ MAIN MENU
 
 typedef struct {
 	menuframework_s	menu;
-
+	
 	menutext_s		singleplayer;
 	menutext_s		multiplayer;
 	menutext_s		setup;
@@ -37,16 +37,16 @@ typedef struct {
 	menutext_s		teamArena;
 	menutext_s		mods;
 	menutext_s		exit;
-
+	
 	menutext_s		header;
 	menubitmap_s	logo;
 	menubitmap_s	overlay;
-
+	
 	qhandle_t		bannerModel;
 	qhandle_t		menuModel;
 	vec3_t			menuModelOrigin;
 	vec3_t			menuModelAngles;
-
+	
 	int				backgroundDelay;
 } mainmenu_t;
 
@@ -61,10 +61,10 @@ typedef struct {
 static errorMessage_t s_errorMessage;
 
 /*
-=================
-MainMenu_ExitAction
-=================
-*/
+ =================
+ MainMenu_ExitAction
+ =================
+ */
 static void MainMenu_ExitAction( qboolean result ) {
 	if( !result ) {
 		return;
@@ -76,37 +76,40 @@ static void MainMenu_ExitAction( qboolean result ) {
 
 
 /*
-=================
-Main_MenuEvent
-=================
-*/
+ =================
+ Main_MenuEvent
+ =================
+ */
 void Main_MenuEvent (void* ptr, int event) {
 	if( event != QM_ACTIVATED ) {
 		return;
 	}
-
+	
 	switch( ((menucommon_s*)ptr)->id ) {
-	case ID_SINGLEPLAYER:
-		UI_EPLevelMenu();
-		break;
-
-	case ID_SETUP:
-		UI_SetupMenu();
-		break;
-
-	case ID_EXIT:
-		UI_ConfirmMenu( "EXIT GAME?", NULL, MainMenu_ExitAction );
-		break;
+		case ID_SINGLEPLAYER:
+			UI_EPLevelMenu();
+			break;
+			
+		case ID_SETUP:
+			UI_SetupMenu();
+			break;
+			
+		case ID_EXIT:
+			UI_ConfirmMenu( "EXIT GAME?", NULL, MainMenu_ExitAction );
+			break;
 	}
 }
 
 
 /*
-===============
-MainMenu_Cache
-===============
-*/
+ ===============
+ MainMenu_Cache
+ ===============
+ */
 void MainMenu_Cache( void ) {
+#if 0
+	trap_S_RegisterSound("music music/entityplus.wav", qfalse);
+#endif	
 }
 
 sfxHandle_t ErrorMessage_Key(int key)
@@ -117,16 +120,16 @@ sfxHandle_t ErrorMessage_Key(int key)
 }
 
 /*
-===============
-Main_MenuDraw
-TTimo: this function is common to the main menu and errorMessage menu
-===============
-*/
+ ===============
+ Main_MenuDraw
+ TTimo: this function is common to the main menu and errorMessage menu
+ ===============
+ */
 
 static void Main_MenuDraw( void ) {
 	qtime_t tm;
 	int seed;
-
+	
 	if (strlen(s_errorMessage.errorMessage))
 	{
 		UI_DrawProportionalString_AutoWrapped( 320, 192, 600, 20, s_errorMessage.errorMessage, UI_CENTER|UI_SMALLFONT|UI_DROPSHADOW, menu_text_color );
@@ -137,7 +140,7 @@ static void Main_MenuDraw( void ) {
 		
 		if ( !s_main.backgroundDelay )
 			s_main.backgroundDelay = 5000;
-
+		
 		t = uis.realtime % s_main.backgroundDelay;
 		if ( t < 32 || (t > 60 && t < 92) || (t > 150 && t < 200) || (t > 240 && t < 270) )
 		{
@@ -145,7 +148,7 @@ static void Main_MenuDraw( void ) {
 		}
 		else
 			UI_DrawNamedPic( 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, ART_BACKGROUND );
-
+		
 		//determine delay until next lighting strike
 		if ( t == 270 ) {
 			trap_RealTime(&tm);
@@ -158,56 +161,63 @@ static void Main_MenuDraw( void ) {
 			
 			s_main.backgroundDelay = 5000 + (1500 - (rand() % 3000));	//delay somewhere between 3500 and 6500 ms
 		}
-
+		
 		Menu_Draw( &s_main.menu );		
 	}
+	
+#if 1
+	if (uis.startTitleMusic) {
+		trap_S_StartBackgroundTrack("music/entityplus.wav", "");
+		uis.startTitleMusic = qfalse;
+	}
+#endif	
 }
 
 
 /*
-===============
-UI_TeamArenaExists
-===============
-*/
+ ===============
+ UI_TeamArenaExists
+ ===============
+ */
 static qboolean UI_TeamArenaExists( void ) {
 	int		numdirs;
 	char	dirlist[2048];
 	char	*dirptr;
-  char  *descptr;
+	char  *descptr;
 	int		i;
 	int		dirlen;
-
+	
 	numdirs = trap_FS_GetFileList( "$modlist", "", dirlist, sizeof(dirlist) );
 	dirptr  = dirlist;
 	for( i = 0; i < numdirs; i++ ) {
 		dirlen = strlen( dirptr ) + 1;
-    descptr = dirptr + dirlen;
+		descptr = dirptr + dirlen;
 		if (Q_stricmp(dirptr, "missionpack") == 0) {
 			return qtrue;
 		}
-    dirptr += dirlen + strlen(descptr) + 1;
+		dirptr += dirlen + strlen(descptr) + 1;
 	}
 	return qfalse;
 }
 
 
 /*
-===============
-UI_MainMenu
-
-The main menu only comes up when not in a game,
-so make sure that the attract loop server is down
-and that local cinematics are killed
-===============
-*/
+ ===============
+ UI_MainMenu
+ 
+ The main menu only comes up when not in a game,
+ so make sure that the attract loop server is down
+ and that local cinematics are killed
+ ===============
+ */
 void UI_MainMenu( void ) {
 	int		y;
-
+	
 	trap_Cvar_Set( "sv_killserver", "1" );
 	
 	memset( &s_main, 0, sizeof(mainmenu_t) );
 	memset( &s_errorMessage, 0, sizeof(errorMessage_t) );
-
+	
 	// com_errorMessage would need that too
 	MainMenu_Cache();
 	
@@ -219,7 +229,7 @@ void UI_MainMenu( void ) {
 		s_errorMessage.menu.fullscreen = qtrue;
 		s_errorMessage.menu.wrapAround = qtrue;
 		s_errorMessage.menu.showlogo = qfalse;		
-
+		
 		trap_Key_SetCatcher( KEYCATCH_UI );
 		uis.menusp = 0;
 		UI_PushMenu ( &s_errorMessage.menu );
@@ -230,9 +240,9 @@ void UI_MainMenu( void ) {
 	s_main.menu.fullscreen = qtrue;
 	s_main.menu.wrapAround = qtrue;
 	s_main.menu.showlogo = qfalse;
-
+	
 	y = MAIN_MENU_MARGIN_TOP;
-
+	
 	//add overlay
 	s_main.overlay.generic.type		= MTYPE_BITMAP;
 	s_main.overlay.generic.name		= ART_OVERLAY;
@@ -241,14 +251,14 @@ void UI_MainMenu( void ) {
 	s_main.overlay.generic.y		= y - 48;
 	s_main.overlay.width  			= 256;
 	s_main.overlay.height			= 256;
-
+	
 	//add header
 	s_main.header.generic.type		= MTYPE_PTEXT;
 	s_main.header.generic.x			= MAIN_MENU_MARGIN_LEFT;
 	s_main.header.generic.y			= y;
 	s_main.header.string			= "ENTITYPLUS";
 	s_main.header.color				= color_ochre;
-
+	
 	//add menu buttons
 	y += MAIN_MENU_VERTICAL_SPACING;
 	s_main.singleplayer.generic.type		= MTYPE_PTEXT;
@@ -259,7 +269,7 @@ void UI_MainMenu( void ) {
 	s_main.singleplayer.generic.callback	= Main_MenuEvent; 
 	s_main.singleplayer.string				= "NEW GAME";
 	s_main.singleplayer.color				= color_white;
-
+	
 	y += MAIN_MENU_VERTICAL_SPACING;
 	s_main.setup.generic.type				= MTYPE_PTEXT;
 	s_main.setup.generic.flags				= QMF_PULSEIFFOCUS;
@@ -269,7 +279,7 @@ void UI_MainMenu( void ) {
 	s_main.setup.generic.callback			= Main_MenuEvent; 
 	s_main.setup.string						= "SETUP";
 	s_main.setup.color						= color_white;
-
+	
 	y += MAIN_MENU_VERTICAL_SPACING;
 	s_main.exit.generic.type				= MTYPE_PTEXT;
 	s_main.exit.generic.flags				= QMF_PULSEIFFOCUS;
@@ -279,15 +289,19 @@ void UI_MainMenu( void ) {
 	s_main.exit.generic.callback			= Main_MenuEvent; 
 	s_main.exit.string						= "EXIT";
 	s_main.exit.color						= color_white;
-
+	
 	Menu_AddItem( &s_main.menu,	&s_main.overlay );
 	Menu_AddItem( &s_main.menu,	&s_main.header );
 	Menu_AddItem( &s_main.menu,	&s_main.singleplayer );
 	Menu_AddItem( &s_main.menu,	&s_main.setup );
 	Menu_AddItem( &s_main.menu,	&s_main.exit );             
-
+	
 	trap_Key_SetCatcher( KEYCATCH_UI );
 	uis.menusp = 0;
 	UI_PushMenu ( &s_main.menu );
-		
+#if 1
+	//trap_S_StartBackgroundTrack("music/entityplus.wav", "");
+	uis.startTitleMusic = qtrue;
+#endif	
+	
 }
