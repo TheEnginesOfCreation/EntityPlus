@@ -446,8 +446,8 @@ Solid entity that rotates continuously. Rotates on one or multiple axes and requ
 -------- KEYS --------
 speed : determines how fast entity rotates (default 100).
 noise : path/name of .wav file to play. Use looping sounds only (eg. sound/world/drone6.wav).
-targetname : activating trigger points to this.
-targetname2 : activating trigger points to this.
+targetname : activating entity points to this.
+targetname2 : activating entity points to this.
 model2 : path/name of model to include (eg: models/mapobjects/bitch/fembotbig.md3).
 origin : alternate method of setting XYZ origin of entity's rotation axis and .md3 model included with entity (default "0 0 0" - See Notes).
 light : constantLight radius of .md3 model included with entity. Has no effect on the entity's brushes (default 0).
@@ -1274,8 +1274,8 @@ SHOOTER_* ENTITIES
 This will shoot a bfg projectile each time it's triggered. Aiming is done by setting the "angles" key or by targeting an info_notnull or target_position entity.
 -------- KEYS --------
 angles: this sets the pitch and yaw aiming angles of shooter (default 0 0). The roll angle does not apply.
-targetname : activating trigger points to this.
-targetname2 : activating trigger points to this.
+targetname : activating entity points to this.
+targetname2 : activating entity points to this.
 target : this points to a target_position entity for aiming the bfg shots.
 random : random aiming variance in degrees from the straight line to the targeted entity (default 0 - see Notes).
 -------- NOTES --------
@@ -1289,8 +1289,8 @@ Both the setting "angles" key or "targeting a target_position" methods can be us
 This will shoot a grenade each time it's triggered. Aiming is done by setting the "angles" key or by targeting an info_notnull or target_position entity.
 -------- KEYS --------
 angles: this sets the pitch and yaw aiming angles of shooter (default 0 0). The roll angle does not apply.
-targetname : activating trigger points to this.
-targetname2 : activating trigger points to this.
+targetname : activating entity points to this.
+targetname2 : activating entity points to this.
 target : this points to a target_position entity for aiming the grenades.
 random : random aiming variance in degrees from the straight line to the targeted entity (default 0 - see Notes).
 -------- NOTES --------
@@ -1304,8 +1304,8 @@ Both the setting "angles" key or "targeting a target_position" methods can be us
 This will shoot a plasma ball each time it's triggered. Aiming is done by setting the "angles" key or by targeting an info_notnull or target_position entity.
 -------- KEYS --------
 angles: this sets the pitch and yaw aiming angles of shooter (default 0 0). The roll angle does not apply.
-targetname : activating trigger points to this.
-targetname2 : activating trigger points to this.
+targetname : activating entity points to this.
+targetname2 : activating entity points to this.
 target : this points to a target_position entity for aiming the plasma balls.
 random : random aiming variance in degrees from the straight line to the targeted entity (default 0 - see Notes).
 -------- NOTES --------
@@ -1319,8 +1319,8 @@ Both the setting "angles" key or "targeting a target_position" methods can be us
 This will shoot a rocket each time it's triggered. Aiming is done by setting the "angles" key or by targeting an info_notnull or target_position entity.
 -------- KEYS --------
 angles: this sets the pitch and yaw aiming angles of shooter (default 0 0). The roll angle does not apply.
-targetname : activating trigger points to this.
-targetname2 : activating trigger points to this.
+targetname : activating entity points to this.
+targetname2 : activating entity points to this.
 target : this points to a target_position entity for aiming the rockets.
 random : random aiming variance in degrees from the straight line to the targeted entity (default 0 - see Notes).
 -------- NOTES --------
@@ -1342,8 +1342,8 @@ clientname : the name of the bot to spawn (default = "Sarge").
 health : the amount of health the bot will have when it spawns into the game (default = 125).
 skill : sets the relative skill level of the bot (default = 0).
 target : this points to a info_waypoint entity to which the bot should patrol after spawning.
-targetname : activating trigger points to this.
-targetname2 : activating trigger points to this.
+targetname : activating entity points to this.
+targetname2 : activating entity points to this.
 deathtarget : this points to entities to activate when a bot spawned by the target_botspawn dies.
 -------- SPAWNFLAGS --------
 WP_MACHINEGUN : The bot spawns into the game with a Machinegun.
@@ -1366,8 +1366,8 @@ Note that the Radiant level editor will not display targetting paths for the dea
 /*QUAKED target_debrisemitter (0 .7 .7) (-8 -8 -8) (8 8 8) LIGHT_DEBRIS DARK_DEBRIS LIGHT_LARGE_DEBRIS DARK_LARGE_DEBRIS WOOD_DEBRIS FLESH_DEBRIS GLASS_DEBRIS STONE_DEBRIS
 Emits debris with thick smoke trails when triggered.
 -------- KEYS --------
-targetname : activating trigger points to this.
-targetname2 : activating trigger points to this.
+targetname : activating entity points to this.
+targetname2 : activating entity points to this.
 count : The number of debris pieces to emit (default = 10).
 -------- SPAWNFLAGS --------
 LIGHT_DEBRIS : Emit light colored pieces of concrete debris.
@@ -1386,8 +1386,8 @@ The various spawnflags cannot be combined. If multiple spawnflags are selected, 
 /*QUAKED target_delay (0 .7 .7) (-8 -8 -8) (8 8 8)
 Time delay trigger intermediary. Like a target_relay, this can only be fired by other triggers which will cause it in turn to fire its own targets.
 -------- KEYS --------
-targetname : activating trigger points to this.
-targetname2 : activating trigger points to this.
+targetname : activating entity points to this.
+targetname2 : activating entity points to this.
 target : this points to entities to activate when this entity is triggered.
 target2 : this points to entities to activate when this entity is triggered.
 wait : delay in seconds from when this gets triggered to when it fires its own targets (default 1).
@@ -1401,8 +1401,8 @@ When the random key is set, its value is used to calculate a minimum and a maxim
 /*QUAKED target_earthquake (0 .7 .7) (-8 -8 -8) (8 8 8) 
 Starts an earthquake that shakes the screen
 -------- KEYS --------
-targetname : activating trigger points to this.
-targetname2 : activating trigger points to this.
+targetname : activating entity points to this.
+targetname2 : activating entity points to this.
 length : duration of the earthquake in seconds (2 - 32).
 intensity : intensity of the earthquake (1 - 16).*/
 
@@ -1411,8 +1411,8 @@ intensity : intensity of the earthquake (1 - 16).*/
 /*QUAKED target_effect (0 .7 .7) (-8 -8 -8) (8 8 8) EXPLOSION PARTICLES_GRAVITY PARTICLES_LINEAR PARTICLES_LINEAR_UP PARTICLES_LINEAR_DOWN OVERLAY
 shows animated environmental effects or overlay
 -------- KEYS --------
-targetname : activating trigger points to this.
-targetname2 : activating trigger points to this.
+targetname : activating entity points to this.
+targetname2 : activating entity points to this.
 color : color of the particles for particle effect (default 1.0 1.0 1.0).
 count : number of particles for particle effect (0 - 255, default 100).
 speed : speed of the particles (default 100).
@@ -1432,8 +1432,8 @@ Spawnflags can be combined to have the entity show multiple effects when trigger
 /*QUAKED target_finish (0 .5 0) (-8 -8 -8) (8 8 8)
 When triggered, forces the game to go into the intermission which will show the SP end-level scores, registers the player's score as new high score (if it is higher than the current highscore) for the current map and, when the player clicks during the intermission, ends the game.
 -------- KEYS --------
-targetname : activating trigger points to this.
-targetname2 : activating trigger points to this.
+targetname : activating entity points to this.
+targetname2 : activating entity points to this.
 -------- NOTES --------
 Before showing the scoring screen, the camera view is moved to the intermission point as defined with a info_player_intermission entity.
 
@@ -1458,8 +1458,8 @@ b) give items to players during the game: make a trigger_multiple target this en
 Changes gravity when triggered.
 -------- KEYS --------
 count : amount of gravity to apply (defaults to the value set to g_gravity).
-targetname : activating trigger points to this.
-targetname2 : activating trigger points to this.
+targetname : activating entity points to this.
+targetname2 : activating entity points to this.
 -------- SPAWNFLAGS --------
 GLOBAL : all players are affected instead of only the activator.
 -------- NOTES --------
@@ -1470,8 +1470,8 @@ The default value for g_gravity is 800. This can be overruled by the server admi
 /*QUAKED target_kill (0 .5 0) (-8 -8 -8) (8 8 8)
 This will kill the player who activates the trigger that fires this target.
 -------- KEYS --------
-targetname : the activating trigger points to this.
-targetname2 : activating trigger points to this.*/
+targetname : the activating entity points to this.
+targetname2 : activating entity points to this.*/
 
 //=============================================================================
 
@@ -1480,7 +1480,7 @@ targetname2 : activating trigger points to this.*/
 //-------- KEYS --------
 //angles: alternate "pitch, yaw, roll" angles method of aiming laser (default 0 0 0).
 //target : point this to a target_position entity to set the laser's aiming direction.
-//targetname : the activating trigger points to this.
+//targetname : the activating entity points to this.
 //notfree : when set to 1, entity will not spawn in "Free for all" and "Tournament" modes.
 //notteam : when set to 1, entity will not spawn in "Teamplay" and "CTF" modes.
 //notsingle : when set to 1, entity will not spawn in Single Player mode.
@@ -1493,7 +1493,7 @@ targetname2 : activating trigger points to this.*/
 This enitity will be activated when all triggers targeting this entity have been triggered. 
 -------- KEYS --------
 targetname : activating triggers points to this.
-targetname2 : activating trigger points to this.
+targetname2 : activating entity points to this.
 target : this points to entities to activate when this entity is triggered.
 target2 : this points to entities to activate when this entity is triggered.
 -------- SPAWNFLAGS --------
@@ -1506,8 +1506,8 @@ STAY_ON : a trigger will remain triggered until the target_logic is reset.*/
 Loads the specified map.
 -------- KEYS --------
 mapname : The map to load. When omitted, the current map will be restarted.
-targetname : activating trigger points to this.
-targetname2 : activating trigger points to this.
+targetname : activating entity points to this.
+targetname2 : activating entity points to this.
 -------- NOTES --------
 When the map is loaded in single player mode, the target_mapchange entity stores the current health, armor, weapon and ammo stats and holdable items for each player before moving on to the next map. When the new map is loaded, the stored stats are applied to each player again. This means players will have consistent stats throughout map changes.*/
 
@@ -1517,8 +1517,8 @@ When the map is loaded in single player mode, the target_mapchange entity stores
 modifies the value of a specific key on a targeted entity.
 -------- KEYS --------
 target : this points to entities to modify when this entity is triggered.
-targetname : activating trigger points to this.
-targetname2 : activating trigger points to this.
+targetname : activating entity points to this.
+targetname2 : activating entity points to this.
 key : the key to modify on the target entity.
 value : the value to set for the key on the target entity.
 -------- NOTES --------
@@ -1530,8 +1530,8 @@ The following keys can be modified: angle, clientname, count, deathtarget, healt
 /*QUAKED target_objective (0 .5 0) (-8 -8 -8) (8 8 8) SECONDARY SILENT
 Sets the primary or secondary objective for a player. Objective text should be no more than 120 characters. Objective texts are wrapped to a new line after 60 characters.
 -------- KEYS --------
-targetname : activating trigger points to this.
-targetname2 : activating trigger points to this.
+targetname : activating entity points to this.
+targetname2 : activating entity points to this.
 message : the objective text.
 -------- SPAWNFLAGS --------
 SECONDARY : The secondary objective is set instead of the primary objective.
@@ -1543,8 +1543,8 @@ SILENT : When set, the player will not be notified that the objectives are updat
 Sets the movement speed for player(s). Defaults to the speed set through the g_speed cvar (320 by default).
 -------- KEYS --------
 speed : the movement speed to apply to the player(s).
-targetname : the activating trigger points to this.
-targetname2 : the activating trigger points to this.*/
+targetname : the activating entity points to this.
+targetname2 : the activating entity points to this.*/
 
 //=============================================================================
 
@@ -1553,8 +1553,8 @@ Sets the health and/or armor for a player
 -------- KEYS --------
 health : the amount of health to give the player
 armor : the amount of armor to give the player
-targetname : the activating trigger points to this.
-targetname2 : the activating trigger points to this.
+targetname : the activating entity points to this.
+targetname2 : the activating entity points to this.
 -------- SPAWNFLAGS --------
 ONLY_WHEN_LOWER : Only sets the player's health/armor if it is lower than the specified amount of health/armor.
 NO_HEALTH : The player's health is never set by this entity.
@@ -1575,8 +1575,8 @@ To make a jump pad, place this entity at the highest point of the jump and targe
 This will print a message on the center of the screen when triggered. By default, all the clients will see the message.
 -------- KEYS --------
 message : text string to print on screen.
-targetname : the activating trigger points to this.
-targetname2 : the activating trigger points to this.*/
+targetname : the activating entity points to this.
+targetname2 : the activating entity points to this.*/
 
 //=============================================================================
 
@@ -1585,7 +1585,7 @@ This can be used to create jump pads and launch ramps. The direction of push can
 -------- KEYS --------
 angles: this sets the pitch and yaw aiming angles of push entity (default 0 0). The roll angle does not apply.
 speed : speed of push (default 1000). Has no effect if entity targets an aiming entity.
-targetname : the activating trigger points to this. Push originates from the location of the trigger.
+targetname : the activating entity points to this. Push originates from the location of the trigger.
 target : this points to the aiming entity to which the player will jump.
 -------- SPAWNFLAGS --------
 BOUNCEPAD : if set, trigger will play bounce noise instead of beep noise when activated (recommended).
@@ -1597,8 +1597,8 @@ To make a jump pad or launch ramp, create a trigger_multiple where the jump must
 /*QUAKED target_relay (0 .7 .7) (-8 -8 -8) (8 8 8) - - RANDOM
 This can only be activated by other triggers which will cause it in turn to activate its own targets.
 -------- KEYS --------
-targetname : activating trigger points to this.
-targetname2 : activating trigger points to this.
+targetname : activating entity points to this.
+targetname2 : activating entity points to this.
 target : this points to entities to activate when this entity is triggered.
 target2 : this points to entities to activate when this entity is triggered.
 count : relay entity will only activate its target if itself has been triggered this many times (default 0)
@@ -1610,8 +1610,8 @@ RANDOM : one one of the targeted entities will be triggered at random.*/
 /*QUAKED target_remove_powerups (0 .7 .7) (-8 -8 -8) (8 8 8) POWERUPS - WEAPONS HOLDABLES
 This takes away all specified items. The player that activates the trigger will lose any of the specified item(s) currently in his possession. Can be targeted by a spawnpoint.
 -------- KEYS --------
-targetname : activating trigger points to this.
-targetname2 : activating trigger points to this.
+targetname : activating entity points to this.
+targetname2 : activating entity points to this.
 -------- SPAWNFLAGS --------
 POWERUPS : Removes all item_* type of powerups except health and armor.
 WEAPONS : Removes all weapons and ammo.
@@ -1625,7 +1625,7 @@ If no spawnflags are selected, the target_remove_powerups entity reverts to its 
 This is used to automatically give frag points to the player who activates this. A spawn location entity like info_player_* or CTF respawn points can target this entity to give points to the player when he spawns in the game. Or a trigger can also be used to activate this. The activator of the trigger will get the points. In EntityPlus' Single Player mode, the score will be added to the player's "carnage" score.
 -------- KEYS --------
 targetname : ativating entity points to this.
-targetname2 : activating trigger points to this.
+targetname2 : activating entity points to this.
 count: number of frag points to give to player (default 1).*/
 
 //=============================================================================
@@ -1634,7 +1634,7 @@ count: number of frag points to give to player (default 1).*/
 When activated the entity executes the specified script file.
 -------- KEYS --------
 targetname : ativating entity points to this.
-targetname2 : activating trigger points to this.
+targetname2 : activating entity points to this.
 script: filename of the script to execute (example: myscript.cfg).*/
 
 //=============================================================================
@@ -1643,7 +1643,7 @@ script: filename of the script to execute (example: myscript.cfg).*/
 When activated, counts the secret as being found. Finding a secret adds 50 points to the player's final score.
 -------- KEYS --------
 targetname : ativating entity points to this.
-targetname2 : activating trigger points to this.
+targetname2 : activating entity points to this.
 message : text string to print on screen when secret is found. When omitted it defaults to "You found a secret!"
 -------- SPAWNFLAGS --------
 SILENT : No message is printed to the screen when the secret is found.
@@ -1655,8 +1655,8 @@ You may have no more than 64 target_secrets in your map(s). When multiple maps a
 /*QUAKED target_skill (0 .5 0) (-8 -8 -8) (8 8 8)
 Sets the skill level for the next map that will be loaded.
 -------- KEYS --------
-targetname : ativating entity points to this.
-targetname2 : activating trigger points to this.
+targetname : activating entity points to this.
+targetname2 : activating entity points to this.
 skill : the skill level to apply. 1 is easiest, 5 is hardest (default = 2).*/
 
 //=============================================================================
@@ -1683,8 +1683,8 @@ The combination of the "wait" and "random" keys can be used to play non-looping 
 /*QUAKED target_teleporter (0 .5 0) (-8 -8 -8) (8 8 8)
 Activating this will teleport players to the location of the targeted misc_teleporter_dest entity. Unlike trigger_teleport, this entity must be activated by a trigger and does NOT allow client prediction of events.
 -------- KEYS --------
-targetname : activating trigger points to this.
-targetname2 : activating trigger points to this.
+targetname : activating entity points to this.
+targetname2 : activating entity points to this.
 target : this must point to a misc_teleporter_dest entity.*/
 
 //=============================================================================
@@ -1692,8 +1692,8 @@ target : this must point to a misc_teleporter_dest entity.*/
 /*QUAKED target_unlink (0 .7 .7) (-8 -8 -8) (8 8 8) - - ALWAYS_UNLINK ALWAYS_LINK IMMEDIATELY
 Target entity will be linked or unlinked from the world. This basically means that the entity is removed from the world or put back into the world again. Unlinked entities can not be interacted with anymore. Not by the player or other entities (except for target_unlink).
 -------- KEYS --------
-targetname : activating trigger points to this.
-targetname2 : activating trigger points to this.
+targetname : activating entity points to this.
+targetname2 : activating entity points to this.
 target : this points to entities to enable/disable when this entity is triggered
 target2 : this points to entities to enable/disable when this entity is triggered
 -------- SPAWNFLAGS --------
@@ -1790,8 +1790,8 @@ Variable size repeatable trigger. It will fire the entities it targets when touc
 -------- KEYS --------
 target : this points to the entity to activate.
 target2 : this points to the entity to activate.
-targetname : activating trigger points to this.
-targetname2 : activating trigger points to this.
+targetname : activating entity points to this.
+targetname2 : activating entity points to this.
 wait : time in seconds until trigger becomes re-triggerable after it's been touched (default 0.2, -1 = trigger once).
 random : random time variance in seconds added or subtracted from "wait" delay (default 0 - see Notes).
 nobots : bots cannot trigger this entity.
