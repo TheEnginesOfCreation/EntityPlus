@@ -107,9 +107,9 @@ MainMenu_Cache
 ===============
 */
 void MainMenu_Cache( void ) {
-#if 0
-	trap_S_RegisterSound("music music/sonic4.wav", qfalse);
-#endif	
+//#if 0
+//	trap_S_RegisterSound("music music/sonic4.wav", qfalse);
+//#endif	
 }
 
 sfxHandle_t ErrorMessage_Key(int key)
@@ -165,12 +165,10 @@ static void Main_MenuDraw( void ) {
 		Menu_Draw( &s_main.menu );		
 	}
 
-#if 1
 	if (uis.startTitleMusic) {
-		trap_S_StartBackgroundTrack("music/sonic4.wav", "");
+		trap_S_StartBackgroundTrack("music/fla22k_03.wav", "");
 		uis.startTitleMusic = qfalse;
 	}
-#endif	
 }
 
 
@@ -299,9 +297,6 @@ void UI_MainMenu( void ) {
 	trap_Key_SetCatcher( KEYCATCH_UI );
 	uis.menusp = 0;
 	UI_PushMenu ( &s_main.menu );
-#if 1
-	//trap_S_StartBackgroundTrack("music/sonic4.wav", "");
-	uis.startTitleMusic = qtrue;
-#endif	
-		
+
+	uis.startTitleMusic = qtrue;	
 }

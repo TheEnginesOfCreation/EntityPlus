@@ -65,10 +65,8 @@ CREDITS
 Project lead and programming	: Eraser
 								  [http://www.theenginesofcreation.com]
 
-Additional programming and
-programming support				: ^misantropia^
-								  [https://github.com/bnoordhuis]
-	
+Additional programming and		: ^misantropia^
+programming support				  [https://github.com/bnoordhuis]
 
 Additional programming			: Kaz
 								  [http://student.cs.appstate.edu/freemancw]
@@ -89,14 +87,12 @@ Debris and backpack models		: DaEngineer
 								  [http://victorkarp.wordpress.com]
 
 Custom sound effects			: Patrick "Scout" Schotte
-				
 								  
-Green armor skin and stone		
-debris models.					: gooball
-								  [http://quake3world.com/forum/memberlist.php?mode=viewprofile&u=30967]
+Stone debris nodels and 		: gooball
+additional programming			  [http://quake3world.com/forum/memberlist.php?mode=viewprofile&u=30967]
+					  
 								  
-
-Testing, feedback and logo		: EmeraldTiger
+Testing and feedback 			: EmeraldTiger
 								  [http://emeraldproductions.weebly.com/]
 
 Testing and feedback			: tigger.on
