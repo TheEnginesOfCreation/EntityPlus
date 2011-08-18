@@ -88,7 +88,7 @@ Debris and backpack models		: DaEngineer
 
 Custom sound effects			: Patrick "Scout" Schotte
 								  
-Stone debris nodels and 		: gooball
+Stone debris models and 		: gooball
 additional programming			  [http://quake3world.com/forum/memberlist.php?mode=viewprofile&u=30967]
 					  
 								  
@@ -115,7 +115,7 @@ CONTACT
 Contact Eraser at eraesr@gmail.com or visit The Engines of Creation at http://www.theenginesofcreation.com.
 To follow the project or get the source code, go to https://code.google.com/p/entityplus.
 If you want to follow discussions surrounding the mod or leave your own input, visit the 
-discussion thread in the Quake3World Level Editing & Modelling forums at http://quake3world.com/forum/viewtopic.php?f=10&t=45510,
+discussion thread in the Quake3World Level Editing & Modeling forums at http://quake3world.com/forum/viewtopic.php?f=10&t=45510,
 or report an issue at the Google Code page.
 
 
