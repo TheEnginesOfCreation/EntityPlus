@@ -174,13 +174,15 @@ void Bullet_Fire (gentity_t *ent, float spread, int damage ) {
 		if ( traceEnt->takedamage && traceEnt->client ) {
 			tent = G_TempEntity( tr.endpos, EV_BULLET_HIT_FLESH );
 			tent->s.eventParm = traceEnt->s.number;
-			if( LogAccuracyHit( traceEnt, ent ) ) {
-				ent->client->accuracy_hits++;
-			}
 		} else {
 			tent = G_TempEntity( tr.endpos, EV_BULLET_HIT_WALL );
 			tent->s.eventParm = DirToByte( tr.plane.normal );
 		}
+
+		if( LogAccuracyHit( traceEnt, ent ) ) {
+			ent->client->accuracy_hits++;
+		}
+
 		tent->s.otherEntityNum = ent->s.number;
 
 		if ( traceEnt->takedamage) {
@@ -287,7 +289,7 @@ qboolean ShotgunPellet( vec3_t start, vec3_t end, gentity_t *ent ) {
 				}
 			}
 #else
-			G_Damage( traceEnt, ent, ent, forward, tr.endpos,	damage, 0, MOD_SHOTGUN);
+			G_Damage( traceEnt, ent, ent, forward, tr.endpos, damage, 0, MOD_SHOTGUN);
 				if( LogAccuracyHit( traceEnt, ent ) ) {
 					return qtrue;
 				}
@@ -657,12 +659,13 @@ void Weapon_LightningFire( gentity_t *ent ) {
 			tent->s.otherEntityNum = traceEnt->s.number;
 			tent->s.eventParm = DirToByte( tr.plane.normal );
 			tent->s.weapon = ent->s.weapon;
-			if( LogAccuracyHit( traceEnt, ent ) ) {
-				ent->client->accuracy_hits++;
-			}
 		} else if ( !( tr.surfaceFlags & SURF_NOIMPACT ) ) {
 			tent = G_TempEntity( tr.endpos, EV_MISSILE_MISS );
 			tent->s.eventParm = DirToByte( tr.plane.normal );
+		}
+
+		if( LogAccuracyHit( traceEnt, ent ) ) {
+			ent->client->accuracy_hits++;
 		}
 
 		break;
@@ -725,6 +728,11 @@ LogAccuracyHit
 ===============
 */
 qboolean LogAccuracyHit( gentity_t *target, gentity_t *attacker ) {
+
+	if ( !strcmp(target->classname, "func_breakable") ) {
+		return qtrue;
+	}
+
 	if( !target->takedamage ) {
 		return qfalse;
 	}
