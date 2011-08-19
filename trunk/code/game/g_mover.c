@@ -1530,7 +1530,53 @@ void SP_func_breakable( gentity_t *ent ) {
 	ent->clipmask = MASK_SOLID;
 }
 
-/*e
+/*
+===============================================================================
+
+CONVEYOR
+
+===============================================================================
+*/
+
+void Touch_Conveyor( gentity_t *self, gentity_t *other, trace_t *trace ) {
+	vec3_t dir;
+
+	//This keeps accelerating the player. But setting ps.velocity[0] = 64 makes walking up/down the conveyor belt impossible because it forces the velocity to a fixed nr
+	/*
+	other->client->ps.velocity[0] += 64;
+	*/
+
+	//This solution is based on http://www.quakewiki.net/archives/code3arena/tutorials/tutorial11.shtml but still suffers from the same problem as the solution above.
+	/*
+	dir[0] = 1;
+	dir[1] = 0;
+	dir[2] = 0;
+	VectorScale(dir, 64, other->client->ps.velocity);
+	VectorCopy(dir, other->movedir); 
+	*/
+}
+
+
+/*QUAKED func_conveyor (0 .5 .8) ? 
+A bmodel that will move the player in a certain direction like a conveyor belt
+"model2"	.md3 model to also draw
+"color"		constantLight color
+"light"		constantLight radius
+*/
+void SP_func_conveyor( gentity_t *ent ) {
+	ent->touch = Touch_Conveyor;
+
+	if (!VectorCompare (ent->s.angles, vec3_origin))
+		G_SetMovedir (ent->s.angles, ent->movedir);
+
+	trap_SetBrushModel( ent, ent->model );
+	ent->r.contents = CONTENTS_TRIGGER;		// replaces the -1 from trap_SetBrushModel
+	ent->r.svFlags = SVF_NOCLIENT;
+	
+	trap_LinkEntity (ent);
+}
+
+/*
 ===============================================================================
 
 ROTATING
