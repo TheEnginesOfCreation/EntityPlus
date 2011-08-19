@@ -345,6 +345,9 @@ PM_CheckJump
 =============
 */
 static qboolean PM_CheckJump( void ) {
+	if ( pm->ps->speed == 0)
+		return qfalse;
+
 	if ( pm->ps->pm_flags & PMF_RESPAWNED ) {
 		return qfalse;		// don't allow jump until all buttons are up
 	}
@@ -1269,7 +1272,7 @@ static void PM_CheckDuck (void)
 		return;
 	}
 
-	if (pm->cmd.upmove < 0)
+	if (pm->cmd.upmove < 0 && pm->ps->speed != 0)
 	{	// duck
 		pm->ps->pm_flags |= PMF_DUCKED;
 	}
@@ -1395,7 +1398,7 @@ static void PM_Footsteps( void ) {
 	if ( ( ( old + 64 ) ^ ( pm->ps->bobCycle + 64 ) ) & 128 ) {
 		if ( pm->waterlevel == 0 ) {
 			// on ground will only play sounds if running
-			if ( footstep && !pm->noFootsteps ) {
+			if ( footstep && !pm->noFootsteps && pm->ps->speed > 0 ) {
 				PM_AddEvent( PM_FootstepForSurface() );
 			}
 		} else if ( pm->waterlevel == 1 ) {
