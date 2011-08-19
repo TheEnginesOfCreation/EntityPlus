@@ -731,6 +731,11 @@ void target_playerspeed_use (gentity_t *self, gentity_t *other, gentity_t *activ
 		self->speed = g_speed.value;
 	}
 
+	if ( self->speed == -1 )
+		other->client->ps.pm_type = PM_FREEZE;
+	else
+		other->client->ps.pm_type = PM_NORMAL;
+
 	activator->speed = self->speed;	//this doesn't actually change the player's speed. This value is read in ClientThink_real (g_active.c) again.
 }
 
