@@ -158,7 +158,7 @@ static void CG_ParseWarmup( void ) {
 
 	if ( warmup == 0 && cg.warmup ) {
 
-	} else if ( warmup > 0 && cg.warmup <= 0 ) {
+	} else if ( warmup > 0 && cg.warmup <= 0 && cgs.gametype != GT_ENTITYPLUS ) {
 #ifdef MISSIONPACK
 		if (cgs.gametype >= GT_CTF && cgs.gametype <= GT_HARVESTER) {
 			trap_S_StartLocalSound( cgs.media.countPrepareTeamSound, CHAN_ANNOUNCER );
