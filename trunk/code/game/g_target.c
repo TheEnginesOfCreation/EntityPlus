@@ -731,7 +731,7 @@ void target_playerspeed_use (gentity_t *self, gentity_t *other, gentity_t *activ
 		self->speed = g_speed.value;
 	}
 
-	activator->speed = self->speed;	//this doesn't actually change the player's speed. This value is read in ClientThink_real (active.c) again.
+	activator->speed = self->speed;	//this doesn't actually change the player's speed. This value is read in ClientThink_real (g_active.c) again.
 }
 
 void SP_target_playerspeed (gentity_t *self) {
