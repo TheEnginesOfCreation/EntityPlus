@@ -627,7 +627,7 @@ void target_mapchange_think (gentity_t *self) {
 	else
 		cmd = "map";
 
-	//perform map switch/script execution
+	//perform map switch
 	if ( self->mapname )
 		trap_SendConsoleCommand( EXEC_INSERT, va( "%s %s\n", cmd, self->mapname ) ); 
 	else

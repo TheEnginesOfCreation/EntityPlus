@@ -2524,8 +2524,12 @@ static void CG_DrawWarmup( void ) {
 		cg.warmup = 0;
 		sec = 0;
 	}
-	s = va( "Starts in: %i", sec + 1 );
-	if ( sec != cg.warmupCount ) {
+	if ( cgs.gametype != GT_ENTITYPLUS ) {
+		s = va( "Starts in: %i", sec + 1 );
+	} else {
+		s = "Restarting...";
+	}
+	if ( sec != cg.warmupCount && cgs.gametype != GT_ENTITYPLUS ) {
 		cg.warmupCount = sec;
 		switch ( sec ) {
 		case 0:
@@ -2542,23 +2546,27 @@ static void CG_DrawWarmup( void ) {
 		}
 	}
 	scale = 0.45f;
-	switch ( cg.warmupCount ) {
-	case 0:
-		cw = 28;
-		scale = 0.54f;
-		break;
-	case 1:
-		cw = 24;
-		scale = 0.51f;
-		break;
-	case 2:
-		cw = 20;
-		scale = 0.48f;
-		break;
-	default:
+	if (cgs.gametype != GT_ENTITYPLUS) {
+		switch ( cg.warmupCount ) {
+			case 0:
+				cw = 28;
+				scale = 0.54f;
+				break;
+			case 1:
+				cw = 24;
+				scale = 0.51f;
+				break;
+			case 2:
+				cw = 20;
+				scale = 0.48f;
+				break;
+			default:
+				cw = 16;
+				scale = 0.45f;
+				break;
+		}
+	} else {
 		cw = 16;
-		scale = 0.45f;
-		break;
 	}
 
 #ifdef MISSIONPACK
