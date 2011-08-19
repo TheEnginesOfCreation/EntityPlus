@@ -10,7 +10,7 @@ BETA1 (?? ??? 2011)
 	- [Changed] Shots at a func_breakable are now counted as hits and thus will positively affect accuracy instead of negatively
 	- [Changed] Using the skill key on target_botspawn now actually influences the general AI skill level of that bot.
 	- [Changed] Picking up a weapon if no weapons are currently held will automatically switch to that weapon.
-	- [Changed] Setting a speed of 0 for target_playerspeed will freeze the player in his spot, unable to jump or duck as well.
+	- [Changed] Setting a speed of -1 for target_playerspeed will freeze the player in his spot, unable to jump or duck as well.
 	- [Changed] Countdown is no longer displayed when issueing a map_restart.
 	- [Changed] Removed info_player_deathmatch from entities.def
 

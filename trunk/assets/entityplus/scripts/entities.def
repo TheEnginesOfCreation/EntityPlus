@@ -1546,7 +1546,7 @@ speed : the movement speed to apply to the player(s).
 targetname : the activating entity points to this.
 targetname2 : the activating entity points to this.
 -------- NOTES --------
-Setting a speed value of 0 will freeze the player in his current spot. He will be unable to move, jump or duck.*/
+Setting a speed value of -1 will freeze the player in his current spot. He will be unable to move, jump or duck. Omit the speed key or set its value to 0 to restore the default player speed.*/
 
 //=============================================================================
 
