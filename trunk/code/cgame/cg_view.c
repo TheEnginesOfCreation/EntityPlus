@@ -356,9 +356,6 @@ static void CG_OffsetFirstPersonView( void ) {
 	// make sure the bob is visible even at low speeds
 	speed = cg.xyspeed > 200 ? cg.xyspeed : 200;
 
-	if (cg.xyspeed == 0)
-		speed = 0;		//if player's speed is 0, don't show any view bobbing
-
 	delta = cg.bobfracsin * cg_bobpitch.value * speed;
 	if (cg.predictedPlayerState.pm_flags & PMF_DUCKED)
 		delta *= 3;		// crouching

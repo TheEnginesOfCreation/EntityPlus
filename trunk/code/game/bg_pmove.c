@@ -345,8 +345,6 @@ PM_CheckJump
 =============
 */
 static qboolean PM_CheckJump( void ) {
-	if ( pm->ps->speed == 0)
-		return qfalse;
 
 	if ( pm->ps->pm_flags & PMF_RESPAWNED ) {
 		return qfalse;		// don't allow jump until all buttons are up
@@ -1272,7 +1270,7 @@ static void PM_CheckDuck (void)
 		return;
 	}
 
-	if (pm->cmd.upmove < 0 && pm->ps->speed != 0)
+	if (pm->cmd.upmove < 0 && pm->ps->pm_type != PM_FREEZE)
 	{	// duck
 		pm->ps->pm_flags |= PMF_DUCKED;
 	}
@@ -1398,7 +1396,7 @@ static void PM_Footsteps( void ) {
 	if ( ( ( old + 64 ) ^ ( pm->ps->bobCycle + 64 ) ) & 128 ) {
 		if ( pm->waterlevel == 0 ) {
 			// on ground will only play sounds if running
-			if ( footstep && !pm->noFootsteps && pm->ps->speed > 0 ) {
+			if ( footstep && !pm->noFootsteps ) {
 				PM_AddEvent( PM_FootstepForSurface() );
 			}
 		} else if ( pm->waterlevel == 1 ) {
@@ -2023,6 +2021,7 @@ void PmoveSingle (pmove_t *pmove) {
 	}
 
 	if (pm->ps->pm_type == PM_FREEZE) {
+		PM_CheckDuck();	//to make the player stand up, otherwise he'll be in a crouched position
 		return;		// no movement at all
 	}
 
