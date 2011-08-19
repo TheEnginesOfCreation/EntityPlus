@@ -830,6 +830,8 @@ void ClientThink_real( gentity_t *ent ) {
 	// set speed
 	if ( !ent->speed )
 		client->ps.speed = g_speed.value;
+	else if ( ent->speed == -1 )
+		client->ps.speed = 0;
 	else
 		client->ps.speed = ent->speed;			//ent->speed holds a modified speed value that's set by a target_playerspeed
 
