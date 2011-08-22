@@ -7,6 +7,7 @@ BETA1 (?? ??? 2011)
 	- [Fixed] target_unlink with IMMEDIATELY spawnflag won't unlink entities that spawn on second frame (such as movers).
 	- [Fixed] target_unlink ALWAYS_UNLINK and ALWAYS_LINK spawnflags have opposite effect.
 	- [Fixed] target_unlink toggles unlinked entities if ALWAYS_UNLINK is set and linked entities if ALWAYS_LINK is set.
+	- [Fixed] target_score doesn't add any score when triggered.
 	- [Changed] Shots at a func_breakable are now counted as hits and thus will positively affect accuracy instead of negatively
 	- [Changed] Using the skill key on target_botspawn now actually influences the general AI skill level of that bot.
 	- [Changed] Picking up a weapon if no weapons are currently held will automatically switch to that weapon.
