@@ -13,6 +13,9 @@ ScorePlum
 void ScorePlum( gentity_t *ent, vec3_t origin, int score ) {
 	gentity_t *plum;
 
+	if (g_gametype.integer == GT_ENTITYPLUS) 
+		return;	//no score plums in entityplus gametype
+
 	plum = G_TempEntity( origin, EV_SCOREPLUM );
 	// only send this temp entity to a single client
 	plum->r.svFlags |= SVF_SINGLECLIENT;
@@ -38,14 +41,12 @@ void AddScore( gentity_t *ent, vec3_t origin, int score ) {
 		return;
 	}
 	
-	// PERS_SCORE is used differently in EntityPlus mode
-	if ( g_gametype.integer == GT_ENTITYPLUS )
-		return;
-
 	// show score plum
 	ScorePlum(ent, origin, score);
 
-	ent->client->ps.persistant[PERS_SCORE] += score;
+	if (ent->client->ps.persistant[PERS_SCORE] += score >= 0 || g_gametype.integer != GT_ENTITYPLUS)	//don't let score drop below 0 in entityplus mode
+		ent->client->ps.persistant[PERS_SCORE] += score;
+
 	if ( g_gametype.integer == GT_TEAM )
 		level.teamScores[ ent->client->ps.persistant[PERS_TEAM] ] += score;
 	CalculateRanks();

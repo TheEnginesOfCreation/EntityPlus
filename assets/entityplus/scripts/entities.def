@@ -1628,7 +1628,7 @@ This is used to automatically give frag points to the player who activates this.
 -------- KEYS --------
 targetname : ativating entity points to this.
 targetname2 : activating entity points to this.
-count: number of frag points to give to player (default 1).*/
+count: number of points to add to player's carnage score (default 1).*/
 
 //=============================================================================
 
