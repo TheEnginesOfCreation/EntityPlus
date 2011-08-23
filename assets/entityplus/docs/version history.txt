@@ -2,6 +2,7 @@ BETA1 (?? ??? 2011)
 	- [Added] Background music plays in main menu.
 	- [Added] info_backpack entity which can be used with nodrop brushes to teleport a backpack from an unreachable location to a safe location.
 	- [Added] target_playerstats entity which can set a player's health and armor.
+	- [Added] START_UNLINKED spawnflag for func_static.
 	- [Fixed] Spawning a bot with only a Gauntlet results in the bot spawning with a MG and console errors when the bot attacks.
 	- [Fixed] Picking up a Gauntlet after it has been removed results in the Gauntlet being unusable.
 	- [Fixed] target_unlink with IMMEDIATELY spawnflag won't unlink entities that spawn on second frame (such as movers).
