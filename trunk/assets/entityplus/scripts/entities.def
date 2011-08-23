@@ -476,7 +476,7 @@ Target this entity with a misc_model to have the model attached to the entity (s
 
 //=============================================================================
 
-/*QUAKED func_static (0 .5 .8) ?
+/*QUAKED func_static (0 .5 .8) ? START_UNLINKED
 Static non-solid bspmodel. Can be used for conditional walls and models.
 -------- KEYS --------
 model2 : path/name of model to include (eg: models/mapobjects/bitch/fembotbig.md3).
@@ -494,6 +494,8 @@ _celshader : Sets the cel shader used for this geometry. Note: omit the "texture
 _indexmap OR alphamap : Path/name for the art file used to guide the mapping of textures on the terrain surface.
 _layers OR layers : Integer value is the number unique root shaders that will be use on the terrain.
 _shader OR shader : Path to the metashader used to assign textures to the terrain entity. Note: Omit the "textures/" prefix.
+-------- SPAWNFLAGS --------
+START_UNLINKED : The entity will be unlinked from the world directly after spawning. Use target_unlink to link it back into the world.
 -------- NOTES --------
 When using the model2 key, the origin point of the model will correspond to the origin point defined by either the origin brush or the origin coordinate value. If a model is included with a targeted func_static, the brush(es) of the entity will be removed from the game but the .md3 model won't: it will automatically be moved to the (0 0 0) world origin so you should NOT include an .md3 model to a targeted func_static.
 

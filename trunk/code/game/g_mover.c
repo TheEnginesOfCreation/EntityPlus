@@ -1455,7 +1455,7 @@ STATIC
 */
 
 
-/*QUAKED func_static (0 .5 .8) ?
+/*QUAKED func_static (0 .5 .8) ? START_UNLINKED
 A bmodel that just sits there, doing nothing.  Can be used for conditional walls and models.
 "model2"	.md3 model to also draw
 "color"		constantLight color
@@ -1466,6 +1466,10 @@ void SP_func_static( gentity_t *ent ) {
 	InitMover( ent );
 	VectorCopy( ent->s.origin, ent->s.pos.trBase );
 	VectorCopy( ent->s.origin, ent->r.currentOrigin );
+
+	if ( ent->spawnflags & 1 ) {
+		trap_UnlinkEntity( ent );
+	}
 }
 
 
