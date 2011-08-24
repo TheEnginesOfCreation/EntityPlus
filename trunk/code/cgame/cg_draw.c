@@ -1926,6 +1926,89 @@ void CG_CenterPrint( const char *str, int y, int charWidth ) {
 	}
 }
 
+/*
+==============
+CG_SubtitlePrint
+
+Called for subtitle messages that should stay at the bottom of the screen for a few moments
+==============
+*/
+void CG_SubtitlePrint( const char *str ) {
+	char	*s;
+
+	Q_strncpyz( cg.subtitlePrint, str, sizeof(cg.subtitlePrint) );
+
+	cg.subtitlePrintTime = cg.time;
+	cg.subtitlePrintCharWidth = SMALLCHAR_WIDTH;
+
+	// count the number of lines for centering
+	cg.subtitlePrintLines = 1;
+	s = cg.subtitlePrint;
+	while( *s ) {
+		if (*s == '\n')
+			cg.subtitlePrintLines++;
+		s++;
+	}
+	cg.subtitlePrintY = SCREEN_HEIGHT - (SMALLCHAR_HEIGHT * (cg.subtitlePrintLines + 3));
+}
+
+/*
+=====================
+CG_DrawSubtitleString
+=====================
+*/
+static void CG_DrawSubtitleString( void ) {
+	char	*start;
+	int		l;
+	int		x, y, w;
+	float	*color;
+
+	if ( !cg.subtitlePrintTime ) {
+		return;
+	}
+
+	color = CG_FadeColor( cg.subtitlePrintTime, 1000 * cg_subtitletime.value );
+	if ( !color ) {
+		return;
+	}
+
+	trap_R_SetColor( color );
+
+	start = cg.subtitlePrint;
+
+	y = cg.subtitlePrintY - cg.subtitlePrintLines * SMALLCHAR_HEIGHT / 2;
+
+	while ( 1 ) {
+		char linebuffer[1024];
+
+		for ( l = 0; l < 50; l++ ) {
+			if ( !start[l] || start[l] == '\n' ) {
+				break;
+			}
+			linebuffer[l] = start[l];
+		}
+		linebuffer[l] = 0;
+
+		w = cg.subtitlePrintCharWidth * CG_DrawStrlen( linebuffer );
+
+		x = ( SCREEN_WIDTH - w ) / 2;
+
+		CG_DrawStringExt( x, y, linebuffer, color, qfalse, qtrue,
+			cg.subtitlePrintCharWidth, (int)(cg.subtitlePrintCharWidth * 1.5), 0 );
+
+		y += cg.subtitlePrintCharWidth * 1.5;
+
+		while ( *start && ( *start != '\n' ) ) {
+			start++;
+		}
+		if ( !*start ) {
+			break;
+		}
+		start++;
+	}
+
+	trap_R_SetColor( NULL );
+}
 
 /*
 ===================
@@ -1940,12 +2023,22 @@ static void CG_DrawCenterString( void ) {
   int h;
 #endif
 	float	*color;
+	int length;
 
 	if ( !cg.centerPrintTime ) {
 		return;
 	}
 
-	color = CG_FadeColor( cg.centerPrintTime, 1000 * cg_centertime.value );
+	if ( cg_centertime.value == -1 )
+	{
+		length = strlen(cg.centerPrint) / 15; //text stays on screen 1 second for every 15 characters
+		if (length == 0)
+			length = 1;
+		color = CG_FadeColor( cg.centerPrintTime, length );	
+	}
+	else
+		color = CG_FadeColor( cg.centerPrintTime, 1000 * cg_centertime.value );
+	
 	if ( !color ) {
 		return;
 	}
@@ -2320,6 +2413,7 @@ static void CG_DrawIntermission( void ) {
 #else
 	if ( cgs.gametype == GT_SINGLE_PLAYER ) {
 		CG_DrawCenterString();
+		CG_DrawSubtitleString();
 		return;
 	}
 #endif
@@ -2797,6 +2891,7 @@ static void CG_Draw2D( void ) {
 	cg.scoreBoardShowing = CG_DrawScoreboard();
 	if ( !cg.scoreBoardShowing) {
 		CG_DrawCenterString();
+		CG_DrawSubtitleString();
 	}
 }
 

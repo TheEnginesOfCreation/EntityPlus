@@ -1575,12 +1575,14 @@ To make a jump pad, place this entity at the highest point of the jump and targe
 
 //=============================================================================
 
-/*QUAKED target_print (0 .5 0) (-8 -8 -8) (8 8 8) - - -
-This will print a message on the center of the screen when triggered. By default, all the clients will see the message.
+/*QUAKED target_print (0 .5 0) (-8 -8 -8) (8 8 8) - - - SUBTITLE
+This will print a message on the screen when triggered.
 -------- KEYS --------
 message : text string to print on screen.
 targetname : the activating entity points to this.
-targetname2 : the activating entity points to this.*/
+targetname2 : the activating entity points to this.
+-------- SPAWNFLAGS --------
+SUBTITLE : The message will be printed at the bottom of the screen in a smaller font.*/
 
 //=============================================================================
 

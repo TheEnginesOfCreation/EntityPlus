@@ -980,6 +980,11 @@ static void CG_ServerCommand( void ) {
 		return;
 	}
 
+	if ( !strcmp( cmd, "sp" ) ) {
+		CG_SubtitlePrint( CG_Argv(1) );
+		return;
+	}
+
 	if ( !strcmp( cmd, "print" ) ) {
 		
 		//if the message to print is about a client being dropped after a silent drop, suppress the drop message
