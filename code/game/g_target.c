@@ -151,7 +151,7 @@ void SP_target_score( gentity_t *ent ) {
 
 //==========================================================
 
-/*QUAKED target_print (1 0 0) (-8 -8 -8) (8 8 8) redteam blueteam private
+/*QUAKED target_print (1 0 0) (-8 -8 -8) (8 8 8) redteam blueteam private subtitle
 "message"	text to print
 If "private", only the activator gets the message.  If no checks, all clients get the message.
 */
@@ -171,7 +171,10 @@ void Use_Target_Print (gentity_t *ent, gentity_t *other, gentity_t *activator) {
 		return;
 	}
 
-	trap_SendServerCommand( -1, va("cp \"%s\"", ent->message ));
+	if ( ent->spawnflags & 8 )
+		trap_SendServerCommand( -1, va("sp \"%s\"", ent->message ));
+	else
+		trap_SendServerCommand( -1, va("cp \"%s\"", ent->message ));
 }
 
 void SP_target_print( gentity_t *ent ) {

@@ -661,6 +661,13 @@ typedef struct {
 	int				fadeOutTime;		//for timing the fade out at map change
 	qboolean		footstepSuppressed; //hack to suppress initial footstep after first spawn
 
+	// entityplus subtitles
+	int				subtitlePrintTime;
+	int				subtitlePrintCharWidth;
+	int				subtitlePrintY;
+	char			subtitlePrint[1024];
+	int				subtitlePrintLines;
+
 } cg_t;
 
 
@@ -1161,6 +1168,7 @@ extern	itemInfo_t		cg_items[MAX_ITEMS];
 extern	markPoly_t		cg_markPolys[MAX_MARK_POLYS];
 
 extern	vmCvar_t		cg_centertime;
+extern	vmCvar_t		cg_subtitletime;
 extern	vmCvar_t		cg_runpitch;
 extern	vmCvar_t		cg_runroll;
 extern	vmCvar_t		cg_bobup;
