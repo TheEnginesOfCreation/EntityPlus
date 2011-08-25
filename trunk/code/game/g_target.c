@@ -612,9 +612,11 @@ When triggered, loads the specified map.
 void target_mapchange_use (gentity_t *self, gentity_t *other, gentity_t *activator) {
 	self->nextthink = level.time + FADEOUT_TIME;
 	
-	//store session data to persist health/armor/weapons/ammo to next level (only in SP mode)
-	if ( g_gametype.integer == GT_ENTITYPLUS )
-		G_UpdateSessionDataForMapChange( activator->client );
+	//store session data to persist health/armor/weapons/ammo and variables to next level (only in SP mode)
+	if ( g_gametype.integer == GT_ENTITYPLUS ) {
+		G_UpdateClientSessionDataForMapChange( activator->client );
+		G_UpdateGlobalSessionDataForMapChange();
+	}
 	
 	G_TempEntity( self->s.origin, EV_FADEOUT );
 }
@@ -717,7 +719,7 @@ void SP_target_unlink (gentity_t *self) {
 	self->use = target_unlink_use;
 	
 	if ( ( self->spawnflags & 16 ) ) {
-		self->nextthink = level.time + FRAMETIME * 2;	//unlink entities next frame so they can spawn first
+		self->nextthink = level.time + FRAMETIME * 3;	//unlink entities next frame so they can spawn first
 		self->think = target_unlink_think;
 	}
 }
@@ -1243,4 +1245,60 @@ void target_playerstats_use (gentity_t *self, gentity_t *other, gentity_t *activ
 
 void SP_target_playerstats (gentity_t *self) {
 	self->use = target_playerstats_use;
+}
+
+//==========================================================
+
+/*QUAKED target_variable (.5 .5 .5) (-8 -8 -8) (8 8 8) COMPARE_EQUALS COMPARE_NOT_EQUALS IMMEDIATELY
+When triggered, this writes a variable with a specified value to memory or compares the value of that variable
+*/
+
+void target_variable_use (gentity_t *self, gentity_t *other, gentity_t *activator) {
+	char buf[MAX_INFO_STRING];
+	char variableInfo[MAX_INFO_STRING];
+	char *value;
+
+	if ( self->spawnflags & 1 || self->spawnflags & 2)
+	{
+		trap_GetConfigstring(CS_TARGET_VARIABLE, buf, sizeof(buf));
+		value = Info_ValueForKey(buf, self->key);
+		if ( (self->spawnflags & 1) && !strcmp(value, self->value) )
+			G_UseTargets (self, activator);
+		
+		if ( (self->spawnflags & 2) && strcmp(value, self->value) )
+			G_UseTargets (self, activator);
+		
+		return;
+	}
+	
+	variableInfo[0] = '\0';
+	Info_SetValueForKey(variableInfo, self->key, self->value);
+	trap_SetConfigstring( CS_TARGET_VARIABLE, variableInfo );
+}
+
+//used for immediately spawnflag
+void target_variable_think (gentity_t *self) {
+	self->nextthink = 0;
+	target_variable_use( self, NULL, self );
+}
+
+void SP_target_variable (gentity_t *self) {
+	if ( !self->key ) {
+		G_Printf("ERROR: target_variable without key at %s\n", vtos(self->s.origin));
+		trap_UnlinkEntity( self );
+		return;
+	}
+
+	if ( !self->key ) {
+		G_Printf("ERROR: target_variable without value at %s\n", vtos(self->s.origin));
+		trap_UnlinkEntity( self );
+		return;
+	}
+	
+	self->use = target_variable_use;
+
+	if ( ( self->spawnflags & 4 ) ) {
+		self->nextthink = level.time + FRAMETIME * 3;	//trigger entities next frame so they can spawn first
+		self->think = target_variable_think;
+	}
 }

@@ -172,12 +172,30 @@ void G_InitSessionData( gclient_t *client, char *userinfo ) {
 
 /*
 ==================
-G_UpdateSessionDataForMapChange
+G_UpdateGlobalSessionDataForMapChange
 
 Updates session data prior to a map change that's forced by a target_mapchange entity
 ==================
 */
-void G_UpdateSessionDataForMapChange( gclient_t *client ) {
+void G_UpdateGlobalSessionDataForMapChange() {
+	char	buf[MAX_INFO_STRING];
+
+	trap_GetConfigstring(CS_TARGET_VARIABLE, buf, sizeof(buf));
+
+	if ( !buf || strlen(buf) == 0)
+		strcpy(buf, "-");
+
+	trap_Cvar_Set( "epsession", va("%s", buf) );
+}
+
+/*
+==================
+G_UpdateClientSessionDataForMapChange
+
+Updates session data for a client prior to a map change that's forced by a target_mapchange entity
+==================
+*/
+void G_UpdateClientSessionDataForMapChange( gclient_t *client ) {
 	clientSession_t	*sess;
 	char *mapname;
 	int secretFound, secretCount;
@@ -324,17 +342,29 @@ G_InitWorldSession
 */
 void G_InitWorldSession( void ) {
 	char	s[MAX_STRING_CHARS];
-	int			gt;
+	int		gt;
+	char	buf[MAX_INFO_STRING];
 
+	//restore session from vQ3 session data
 	trap_Cvar_VariableStringBuffer( "session", s, sizeof(s) );
 	gt = atoi( s );
-	
-	// if the gametype changed since the last session, don't use any
-	// client sessions
-	if ( g_gametype.integer != gt ) {
-		level.newSession = qtrue;
-		G_Printf( "Gametype changed, clearing session data.\n" );
-	}
+
+	// if the gametype changed since the last session, don't use any client sessions
+    if ( g_gametype.integer != gt ) {
+            level.newSession = qtrue;
+            G_Printf( "Gametype changed, clearing session data.\n" );
+    }
+
+	//restore session from additional ep session data
+	trap_Cvar_VariableStringBuffer( "epsession", s, sizeof(s) );
+	sscanf( s, "%s", &buf );
+
+	//G_Printf("epsession: %s\n", s);
+
+	trap_SetConfigstring( CS_TARGET_VARIABLE, buf );
+
+	//clear epsession data so it only persists when it's set by target_mapchange
+	trap_Cvar_Set( "epsession", "" );
 }
 
 /*
@@ -344,13 +374,13 @@ G_WriteSessionData
 ==================
 */
 void G_WriteSessionData( void ) {
-	int		i;
+        int             i;
 
-	trap_Cvar_Set( "session", va("%i", g_gametype.integer) );
+        trap_Cvar_Set( "session", va("%i", g_gametype.integer) );
 
-	for ( i = 0 ; i < level.maxclients ; i++ ) {
-		if ( level.clients[i].pers.connected == CON_CONNECTED ) {
-			G_WriteClientSessionData( &level.clients[i] );
-		}
-	}
+        for ( i = 0 ; i < level.maxclients ; i++ ) {
+                if ( level.clients[i].pers.connected == CON_CONNECTED ) {
+                        G_WriteClientSessionData( &level.clients[i] );
+                }
+        }
 }

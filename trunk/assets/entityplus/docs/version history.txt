@@ -2,6 +2,7 @@ BETA1 (?? ??? 2011)
 	- [Added] Background music plays in main menu.
 	- [Added] info_backpack entity which can be used with nodrop brushes to teleport a backpack from an unreachable location to a safe location.
 	- [Added] target_playerstats entity which can set a player's health and armor.
+	- [Added] target_variable entity which can set or read and compare variables that persist across map changes.
 	- [Added] START_UNLINKED spawnflag for func_static.
 	- [Added] SUBTITLE spawnflag for target_print.
 	- [Added] cg_subtitletime cvar to set the amount of time subtitles stay in the screen.
