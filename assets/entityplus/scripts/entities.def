@@ -1700,14 +1700,34 @@ Target entity will be linked or unlinked from the world. This basically means th
 -------- KEYS --------
 targetname : activating entity points to this.
 targetname2 : activating entity points to this.
-target : this points to entities to enable/disable when this entity is triggered
-target2 : this points to entities to enable/disable when this entity is triggered
+target : this points to entities to link/unlink when this entity is triggered
+target2 : this points to entities to link/unlink when this entity is triggered
 -------- SPAWNFLAGS --------
 ALWAYS_UNLINK : The targeted entity will always be unlinked from the world.
 ALWAYS_LINK : The targeted entity will always be linked to the world.
 IMMEDIATELY : The target_unlink will link/unlink its targeted entities when it is spawned.
 -------- NOTES --------
 By default the target_unlink entity works as a toggle, so entities linked to the world will be unlinked and entities not linked to the world will be linked.*/
+
+//=============================================================================
+
+/*QUAKED target_variable (0 .7 .7) (-8 -8 -8) (8 8 8) COMPARE_EQUALS COMPARE_NOT_EQUALS IMMEDIATELY
+Writes or compares the value of a specified variable and activates its target based on whether or not the value compares to the specified value.
+-------- KEYS --------
+targetname : activating entity points to this.
+targetname2 : activating entity points to this.
+target : this points to entities to activate when this entity is triggered.
+target2 : this points to entities to activate when this entity is triggered.
+key : The name of the variable to read or write.
+value : The value that will be written or compared to.
+-------- SPAWNFLAGS --------
+COMPARE_EQUALS : The entity reads the specified variable and triggers its targets if the specified value matches the value stored in the variable.
+COMPARE_NOT_EQUALS : The entity reads the specified variable and triggers its targets if the specified value does not match the value stored in the variable.
+IMMEDIATELY : The entity will be activated when it is spawned.
+-------- NOTES --------
+When neither COMPARE_EQUALS or COMPARE_NOT_EQUALS have been set, the entity will write the specified value to the specified variable.
+
+Written variables will persists across mapchanges if the map changes was initialized by the target_mapchange entity.*/
 
 //=============================================================================
 
