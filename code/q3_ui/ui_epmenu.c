@@ -250,7 +250,7 @@ void UI_EPSkillMenu( void ) {
 	epSkillInfo.item_skill1.generic.y			= 170;
 	epSkillInfo.item_skill1.generic.callback	= EPSkill_MenuEvent;
 	epSkillInfo.item_skill1.generic.id			= ID_SKILL1;
-	epSkillInfo.item_skill1.string				= "I Can Win";
+	epSkillInfo.item_skill1.string				= "Very Easy"; // seems more single player-ish
 	epSkillInfo.item_skill1.color				= color_red;
 	epSkillInfo.item_skill1.style				= UI_CENTER;
 	Menu_AddItem( &epSkillInfo.menu, &epSkillInfo.item_skill1 );
@@ -261,7 +261,7 @@ void UI_EPSkillMenu( void ) {
 	epSkillInfo.item_skill2.generic.y			= 198;
 	epSkillInfo.item_skill2.generic.callback	= EPSkill_MenuEvent;
 	epSkillInfo.item_skill2.generic.id			= ID_SKILL2;
-	epSkillInfo.item_skill2.string				= "Bring It On";
+	epSkillInfo.item_skill2.string				= "Easy";
 	epSkillInfo.item_skill2.color				= color_red;
 	epSkillInfo.item_skill2.style				= UI_CENTER;
 	Menu_AddItem( &epSkillInfo.menu, &epSkillInfo.item_skill2 );
@@ -272,7 +272,7 @@ void UI_EPSkillMenu( void ) {
 	epSkillInfo.item_skill3.generic.y			= 227;
 	epSkillInfo.item_skill3.generic.callback	= EPSkill_MenuEvent;
 	epSkillInfo.item_skill3.generic.id			= ID_SKILL3;
-	epSkillInfo.item_skill3.string				= "Hurt Me Plenty";
+	epSkillInfo.item_skill3.string				= "Medium";
 	epSkillInfo.item_skill3.color				= color_red;
 	epSkillInfo.item_skill3.style				= UI_CENTER;
 	Menu_AddItem( &epSkillInfo.menu, &epSkillInfo.item_skill3 );
@@ -283,7 +283,7 @@ void UI_EPSkillMenu( void ) {
 	epSkillInfo.item_skill4.generic.y			= 255;
 	epSkillInfo.item_skill4.generic.callback	= EPSkill_MenuEvent;
 	epSkillInfo.item_skill4.generic.id			= ID_SKILL4;
-	epSkillInfo.item_skill4.string				= "Hardcore";
+	epSkillInfo.item_skill4.string				= "Hard";
 	epSkillInfo.item_skill4.color				= color_red;
 	epSkillInfo.item_skill4.style				= UI_CENTER;
 	Menu_AddItem( &epSkillInfo.menu, &epSkillInfo.item_skill4 );
@@ -294,7 +294,7 @@ void UI_EPSkillMenu( void ) {
 	epSkillInfo.item_skill5.generic.y			= 283;
 	epSkillInfo.item_skill5.generic.callback	= EPSkill_MenuEvent;
 	epSkillInfo.item_skill5.generic.id			= ID_SKILL5;
-	epSkillInfo.item_skill5.string				= "NIGHTMARE!";
+	epSkillInfo.item_skill5.string				= "Very Hard";
 	epSkillInfo.item_skill5.color				= color_red;
 	epSkillInfo.item_skill5.style				= UI_CENTER;
 	Menu_AddItem( &epSkillInfo.menu, &epSkillInfo.item_skill5 );
