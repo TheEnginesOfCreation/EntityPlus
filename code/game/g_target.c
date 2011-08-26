@@ -103,7 +103,7 @@ void SP_target_remove_powerups( gentity_t *ent ) {
 
 //==========================================================
 
-/*QUAKED target_delay (1 0 0) (-8 -8 -8) (8 8 8)
+/*QUAKED target_delay (1 0 0) (-8 -8 -8) (8 8 8) TOGGLE
 "wait" seconds to pause before firing targets.
 "random" delay variance, total delay = delay +/- random seconds
 */
@@ -112,9 +112,13 @@ void Think_Target_Delay( gentity_t *ent ) {
 }
 
 void Use_Target_Delay( gentity_t *ent, gentity_t *other, gentity_t *activator ) {
-	ent->nextthink = level.time + ( ent->wait + ent->random * crandom() ) * 1000;
-	ent->think = Think_Target_Delay;
-	ent->activator = activator;
+	if ( ent->nextthink && (ent->spawnflags & 1) ) {
+		ent->nextthing = 0;
+	} else {
+		ent->nextthink = level.time + ( ent->wait + ent->random * crandom() ) * 1000;
+		ent->think = Think_Target_Delay;
+		ent->activator = activator;
+	}
 }
 
 void SP_target_delay( gentity_t *ent ) {
