@@ -250,7 +250,7 @@ void UI_EPSkillMenu( void ) {
 	epSkillInfo.item_skill1.generic.y			= 170;
 	epSkillInfo.item_skill1.generic.callback	= EPSkill_MenuEvent;
 	epSkillInfo.item_skill1.generic.id			= ID_SKILL1;
-	epSkillInfo.item_skill1.string				= "Very Easy"; // seems more single player-ish
+	epSkillInfo.item_skill1.string				= "Beginner"; // seems more single player-ish
 	epSkillInfo.item_skill1.color				= color_red;
 	epSkillInfo.item_skill1.style				= UI_CENTER;
 	Menu_AddItem( &epSkillInfo.menu, &epSkillInfo.item_skill1 );
@@ -294,7 +294,7 @@ void UI_EPSkillMenu( void ) {
 	epSkillInfo.item_skill5.generic.y			= 283;
 	epSkillInfo.item_skill5.generic.callback	= EPSkill_MenuEvent;
 	epSkillInfo.item_skill5.generic.id			= ID_SKILL5;
-	epSkillInfo.item_skill5.string				= "Very Hard";
+	epSkillInfo.item_skill5.string				= "Nightmare";
 	epSkillInfo.item_skill5.color				= color_red;
 	epSkillInfo.item_skill5.style				= UI_CENTER;
 	Menu_AddItem( &epSkillInfo.menu, &epSkillInfo.item_skill5 );

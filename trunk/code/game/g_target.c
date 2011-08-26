@@ -108,12 +108,13 @@ void SP_target_remove_powerups( gentity_t *ent ) {
 "random" delay variance, total delay = delay +/- random seconds
 */
 void Think_Target_Delay( gentity_t *ent ) {
+	ent->nextthink = 0;
 	G_UseTargets( ent, ent->activator );
 }
 
 void Use_Target_Delay( gentity_t *ent, gentity_t *other, gentity_t *activator ) {
 	if ( ent->nextthink && (ent->spawnflags & 1) ) {
-		ent->nextthing = 0;
+		ent->nextthink = 0;
 	} else {
 		ent->nextthink = level.time + ( ent->wait + ent->random * crandom() ) * 1000;
 		ent->think = Think_Target_Delay;
