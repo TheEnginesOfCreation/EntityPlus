@@ -483,6 +483,11 @@ qboolean	ConsoleCommand( void ) {
 		return qtrue;
 	}
 
+	if (Q_stricmp (cmd, "epversion") == 0) {
+		G_Printf("EntityPlus version: %s\n", EPVERSION);
+		return qtrue;
+	}
+
 	return qfalse;
 }
 

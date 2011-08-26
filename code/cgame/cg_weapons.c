@@ -1360,7 +1360,7 @@ void CG_AddViewWeapon( playerState_t *ps ) {
 		return;
 	}
 
-	if ( ps->pm_type == PM_INTERMISSION ) {
+	if ( ps->pm_type == PM_INTERMISSION || ps->pm_type == PM_CUTSCENE ) {
 		return;
 	}
 
@@ -1370,8 +1370,6 @@ void CG_AddViewWeapon( playerState_t *ps ) {
 		return;
 	}
 
-
-	// allow the gun to be completely removed
 	if ( !cg_drawGun.integer ) {
 		vec3_t		origin;
 

@@ -735,18 +735,16 @@ void SP_target_unlink (gentity_t *self) {
 Sets the movement speed for player(s). Defaults to the speed set through the g_speed cvar (320 by default).
 */
 void target_playerspeed_use (gentity_t *self, gentity_t *other, gentity_t *activator) {
-	int i;
-
 	if ( !self->speed ) {
 		self->speed = g_speed.value;
 	}
 
 	if ( self->speed == -1 )
-		other->client->ps.pm_type = PM_FREEZE;
-	else
-		other->client->ps.pm_type = PM_NORMAL;
-
-	activator->speed = self->speed;	//this doesn't actually change the player's speed. This value is read in ClientThink_real (g_active.c) again.
+		activator->client->ps.pm_type = PM_FREEZE;
+	else {
+		activator->client->ps.pm_type = PM_NORMAL;
+		activator->speed = self->speed;	//this doesn't actually change the player's speed. This value is read in ClientThink_real (g_active.c) again.
+	}
 }
 
 void SP_target_playerspeed (gentity_t *self) {
@@ -1289,14 +1287,14 @@ void target_variable_think (gentity_t *self) {
 
 void SP_target_variable (gentity_t *self) {
 	if ( !self->key ) {
-		G_Printf("ERROR: target_variable without key at %s\n", vtos(self->s.origin));
-		trap_UnlinkEntity( self );
+		G_Printf("WARNING: target_variable without key at %s\n", vtos(self->s.origin));
+		G_FreeEntity( self );
 		return;
 	}
 
 	if ( !self->key ) {
-		G_Printf("ERROR: target_variable without value at %s\n", vtos(self->s.origin));
-		trap_UnlinkEntity( self );
+		G_Printf("WARNING: target_variable without value at %s\n", vtos(self->s.origin));
+		G_FreeEntity( self );
 		return;
 	}
 	
@@ -1306,4 +1304,66 @@ void SP_target_variable (gentity_t *self) {
 		self->nextthink = level.time + FRAMETIME * 3;	//trigger entities next frame so they can spawn first
 		self->think = target_variable_think;
 	}
+}
+
+//==========================================================
+
+/*QUAKED target_cutscene (.5 .5 .5) (-8 -8 -8) (8 8 8) HALT_AI
+When triggered, starts a cutscene.
+HALT_AI: Prevents bots from moving and shooting while the cutscene is playing
+*/
+void target_cutscene_use (gentity_t *self, gentity_t *other, gentity_t *activator) {
+	int i;
+
+	//bots shouldn't be able to activate this entity
+	if ( IsBot( activator ) )
+		return;
+
+	//if the entity doesnt target camera, return
+	if ( !self->nextTrain ) {
+		G_Printf("WARNING: %s at %s does not target an info_camera", self->classname, vtos(self->s.origin));
+		G_FreeEntity( self );
+		return;
+	}
+
+	//set the target_cutscene's origin and angles to those of the player so we know where the player was when the cutscene ends
+	VectorCopy( activator->client->ps.origin, self->s.origin );
+	G_SetOrigin( self, self->s.origin );
+	VectorCopy( activator->client->ps.viewangles, self->s.angles );
+
+	//unlink the player from the world so he becomes non-solid, as the player will physically be in the position of the camera
+	trap_UnlinkEntity( activator );
+
+	//prevent bots from moving/shooting while playing the cutscene
+	if ( self->spawnflags & 1 ) {
+		for ( i = 0 ; i < level.maxclients ; i++ ) {
+			if ( level.clients[i].pers.connected != CON_DISCONNECTED && level.clients[i].ps.pm_type != PM_DEAD )
+				level.clients[i].ps.pm_type = PM_CUTSCENE;
+		}
+	}
+
+	//activate the first camera
+	self->nextTrain->use( self->nextTrain, other, activator );
+}
+
+void target_cutscene_think (gentity_t *self) {
+	G_LinkCameras( self );
+}
+
+void SP_target_cutscene (gentity_t *self) {
+	//entity should only spawn in entity plus gamemode
+	if ( g_gametype.integer != GT_ENTITYPLUS ) {
+		G_FreeEntity( self );
+		return;
+	}
+
+	if ( !self->target && !self->target2 ) {
+		G_Printf("WARNING: %s without a target or target2 at %s\n", self->classname, vtos(self->s.origin));
+		G_FreeEntity( self );
+		return;
+	}
+
+	self->nextthink = level.time + FRAMETIME * 3;
+	self->think = target_cutscene_think;
+	self->use = target_cutscene_use;
 }

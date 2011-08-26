@@ -57,6 +57,95 @@ void SP_light( gentity_t *self ) {
 	G_FreeEntity( self );
 }
 
+/*QUAKED info_camera (0 0.5 0) (-4 -4 -4) (4 4 4)
+Used as a positional and viewangles target for in-game cutscenes.
+*/
+void Use_Camera (gentity_t *self, gentity_t *other, gentity_t *activator) {
+	gentity_t	*viewTarget;
+	gentity_t	*tmp;
+	vec3_t		dir;
+	qboolean	found;
+
+	found = qfalse;
+
+	//note: if 'target' refers to a target_position and an info_camera and G_PickTarget picks the info_camera, 
+	//the code assumes that 'target' is not used for viewangle targeting
+	if ( self->target ) {
+		tmp = G_PickTarget( self->target );	
+		if ( strcmp( tmp->classname, "info_camera" ) ) {
+			viewTarget = tmp;
+			found = qtrue;
+		}
+	}
+	
+	//note: if 'target2' refers to a target_position and an info_camera and G_PickTarget picks the info_camera, 
+	//the code assumes that 'target2' is not used for viewangle targeting
+	if ( self->target2 ) {
+		tmp = G_PickTarget( self->target2 );
+		if ( strcmp( tmp->classname, "info_camera" ) ) {
+			viewTarget = tmp;
+			found = qtrue;
+		}
+	}
+
+	if ( found ) {
+		VectorSubtract( viewTarget->s.origin, self->s.origin, dir );
+		vectoangles( dir, self->s.angles );
+	}
+
+	VectorCopy( self->s.origin, activator->s.origin );
+	VectorCopy( self->s.origin, activator->client->ps.origin );
+	VectorCopy( self->s.angles, activator->client->ps.viewangles);
+	VectorCopy( activator->client->ps.origin, activator->r.currentOrigin );
+	activator->client->ps.pm_type = PM_CUTSCENE;
+	activator->client->ps.eFlags ^= EF_TELEPORT_BIT;
+
+	self->activator = activator;
+	self->nextthink = level.time + (self->wait * 1000);
+}
+
+void Think_Camera (gentity_t *self) {
+	int i;
+
+	if ( self->nextTrain ) {
+		//jump to next camera
+		self->nextTrain->use( self->nextTrain, self->activator, self->activator );
+	} else {
+		//return player to original position and give back normal control
+		VectorCopy( self->parent->s.origin, self->activator->s.origin );
+		VectorCopy( self->parent->s.origin, self->activator->client->ps.origin );
+		VectorCopy( self->parent->s.angles, self->activator->client->ps.viewangles);
+		VectorCopy( self->activator->client->ps.origin, self->activator->r.currentOrigin );
+		self->activator->client->ps.pm_type = PM_NORMAL;
+		self->activator->client->ps.eFlags ^= EF_TELEPORT_BIT;
+
+		//give movement control back to bots
+		if ( self->parent->spawnflags & 1 ) {
+			for ( i = 0 ; i < level.maxclients ; i++ ) {
+				if ( level.clients[i].pers.connected != CON_DISCONNECTED && level.clients[i].ps.pm_type != PM_DEAD )
+					level.clients[i].ps.pm_type = PM_NORMAL;
+			}
+		}
+
+		//link the player back into the world
+		trap_LinkEntity( self->activator );
+
+	}
+}
+
+void SP_info_camera( gentity_t *self ) {
+	if ( g_gametype.integer != GT_ENTITYPLUS ) {
+		G_FreeEntity( self );
+		return;
+	}
+
+	G_SpawnFloat( "wait", "1", &self->wait );
+
+	self->use = Use_Camera;
+	self->think = Think_Camera;
+	G_SetOrigin( self, self->s.origin );
+}
+
 
 
 /*

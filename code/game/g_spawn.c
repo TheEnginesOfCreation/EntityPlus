@@ -180,11 +180,13 @@ void SP_target_modify (gentity_t *ent);
 void SP_target_secret (gentity_t *ent);
 void SP_target_playerstats (gentity_t *ent);
 void SP_target_variable (gentity_t *ent);
+void SP_target_cutscene (gentity_t *ent);
 
 void SP_light (gentity_t *self);
 void SP_info_null (gentity_t *self);
 void SP_info_notnull (gentity_t *self);
 void SP_info_camp (gentity_t *self);
+void SP_info_camera (gentity_t *self);
 void SP_path_corner (gentity_t *self);
 
 void SP_misc_teleporter_dest (gentity_t *self);
@@ -221,6 +223,7 @@ spawn_t	spawns[] = {
 	{"info_camp", SP_info_camp},
 	{"info_waypoint", SP_info_waypoint},
 	{"info_backpack", SP_info_backpack},
+	{"info_camera", SP_info_camera},
 
 	{"func_plat", SP_func_plat},
 	{"func_button", SP_func_button},
@@ -282,6 +285,7 @@ spawn_t	spawns[] = {
 	{"target_secret", SP_target_secret},
 	{"target_playerstats", SP_target_playerstats},
 	{"target_variable", SP_target_variable},
+	{"target_cutscene", SP_target_cutscene},
 
 	{"light", SP_light},
 	{"path_corner", SP_path_corner},
