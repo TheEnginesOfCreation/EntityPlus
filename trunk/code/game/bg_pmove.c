@@ -1270,7 +1270,7 @@ static void PM_CheckDuck (void)
 		return;
 	}
 
-	if (pm->cmd.upmove < 0 && pm->ps->pm_type != PM_FREEZE)
+	if (pm->cmd.upmove < 0 && pm->ps->pm_type != PM_FREEZE && pm->ps->pm_type != PM_CUTSCENE)
 	{	// duck
 		pm->ps->pm_flags |= PMF_DUCKED;
 	}
@@ -1789,7 +1789,7 @@ void PM_UpdateViewAngles( playerState_t *ps, const usercmd_t *cmd ) {
 	short		temp;
 	int		i;
 
-	if ( ps->pm_type == PM_INTERMISSION || ps->pm_type == PM_SPINTERMISSION) {
+	if ( ps->pm_type == PM_INTERMISSION || ps->pm_type == PM_SPINTERMISSION || ps->pm_type == PM_CUTSCENE ) {
 		return;		// no view changes at all
 	}
 
@@ -2020,7 +2020,7 @@ void PmoveSingle (pmove_t *pmove) {
 		return;
 	}
 
-	if (pm->ps->pm_type == PM_FREEZE) {
+	if (pm->ps->pm_type == PM_FREEZE || pm->ps->pm_type == PM_CUTSCENE) {
 		PM_CheckDuck();	//to make the player stand up, otherwise he'll be in a crouched position
 		return;		// no movement at all
 	}

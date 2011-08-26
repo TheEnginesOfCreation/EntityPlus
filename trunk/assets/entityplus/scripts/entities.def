@@ -783,6 +783,22 @@ model="models/powerups/backpack/backpack.md3"*/
 
 //=============================================================================
 
+/*QUAKED info_camera (0 .5 0) (-8 -8 -8) (8 8 8)
+Functions as a positional entity for camera views during cutscenes initialized by a target_cutscene entity.
+-------- KEYS --------
+targetname : activating entity points to this.
+targetname2 : activating entity points to this.
+target : this points to the next camera to jump to in the cutscene.
+target2 : this points to an info_notnull or target_position entity to aim the view of the camera.
+wait : number of seconds this camera will hold the view (default 1).
+angles: alternate "pitch, yaw, roll" angles method of aiming cutscene camera (default 0 0 0).
+-------- NOTES --------
+If the info_camera does not target another info_camera entity, the cutscene will end after the wait period and the player will regain control over his character.
+
+Instead of using the angles key to aim the camera, the info_camera can also target an info_notnull or target_position entity. The camera will be aimed at this entity. Do note that if the target key is used to target to another info_camera, the target2 key must be used for aiming this camera (or vice versa).*/
+
+//=============================================================================
+
 /*QUAKED info_camp (0 .5 0) (-8 -8 -8) (8 8 8)
 This atttracts bots which have a camping preference in their AI characteristics. It should be placed at least 32 units away from any brush surface.
 -------- KEYS --------
@@ -1362,6 +1378,20 @@ By default bots spawn with only the gauntlet as weapon. Use spawnflags to custom
 Setting the skill key works like a modifier on top of the current skill level. So a skill value of 1 means the bot is one skill level tougher than the current skill setting. A skill value of -2 means the bot is two skill levels lower than the current setting. A bot's relative skill level never drops below 1 but may rise above 5. Floating point values (like 1.3) are allowed.
 
 Note that the Radiant level editor will not display targetting paths for the deathtarget key.*/
+
+//=============================================================================
+
+/*QUAKED target_cutscene (0 .5 0) (-8 -8 -8) (8 8 8) HALT_AI
+Starts a cutscene. Moves player view to the info_camera it targets.
+-------- KEYS --------
+target : this points to an info_camera entity to which the camera view should go.
+target2 : this points to an info_camera entity to which the camera view should go.
+targetname : activating entity points to this.
+targetname2 : activating entity points to this.
+-------- SPAWNFLAGS --------
+HALT_AI : Freezes all enemies in place while the cutscene is running.
+-------- NOTES --------
+Note that the player disappears from the map during the cutscene. This means that the player itself can never be shown during the cutscene.*/
 
 //=============================================================================
 

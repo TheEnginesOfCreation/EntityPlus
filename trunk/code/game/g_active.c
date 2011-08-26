@@ -819,7 +819,7 @@ void ClientThink_real( gentity_t *ent ) {
 		client->ps.pm_type = PM_NOCLIP;
 	} else if ( client->ps.stats[STAT_HEALTH] <= 0 ) {
 		client->ps.pm_type = PM_DEAD;
-	} else {
+	} else if ( client->ps.pm_type != PM_FREEZE && client->ps.pm_type != PM_CUTSCENE ) {
 		client->ps.pm_type = PM_NORMAL;
 	}
 
@@ -834,7 +834,6 @@ void ClientThink_real( gentity_t *ent ) {
 		client->ps.speed = 0;
 	else
 		client->ps.speed = ent->speed;			//ent->speed holds a modified speed value that's set by a target_playerspeed
-
 #ifdef MISSIONPACK
 	if( bg_itemlist[client->ps.stats[STAT_PERSISTANT_POWERUP]].giTag == PW_SCOUT ) {
 		client->ps.speed *= 1.5;

@@ -3,6 +3,7 @@ BETA1 (?? ??? 2011)
 	- [Added] info_backpack entity which can be used with nodrop brushes to teleport a backpack from an unreachable location to a safe location.
 	- [Added] target_playerstats entity which can set a player's health and armor.
 	- [Added] target_variable entity which can set or read and compare variables that persist across map changes.
+	- [Added] target_cutscene and info_camera for creating cutscenes.
 	- [Added] START_UNLINKED spawnflag for func_static.
 	- [Added] SUBTITLE spawnflag for target_print.
 	- [Added] TOGGLE spawnflag for target_delay.

@@ -2783,6 +2783,9 @@ static void CG_Draw2D( void ) {
 		return;
 	}
 
+	if ( cg.snap->ps.pm_type == PM_CUTSCENE )
+		return;
+
 	if ( cgs.gametype == GT_SINGLE_PLAYER )
 		CG_DrawSmallString( 0, 0, "g_gametype 2 is no longer supported. Use g_gametype 8 instead", 1 );
 

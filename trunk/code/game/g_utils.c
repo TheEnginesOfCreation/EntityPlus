@@ -978,3 +978,100 @@ char *G_GetScoringMapName() {
 	trap_GetServerinfo(info, sizeof(info));
 	return Info_ValueForKey( info, "mapname" );
 }
+
+/*
+==================
+G_LinkCameras
+Links all cutscene cameras for a cutscene together (with the target_cutscene entity being the first entity in the chain)
+Note that if a camera accidently targets two cameras, it links the first camera it finds.
+==================
+*/
+void G_LinkCameras( gentity_t *ent ) {
+	gentity_t		*t;
+	gentity_t		*parent;
+	
+	// if no entity was passed or the passed entity is not a target_cutscene and not an info_camera, do not link
+	if ( !ent || (strcmp(ent->classname, "target_cutscene") && strcmp(ent->classname, "info_camera")) )
+		return;
+
+	if ( !strcmp(ent->classname, "target_cutscene") )
+		parent = ent;			//if entity is a target_cutscene, the nextTrain target should set the target_cutscene as its parent
+	else
+		parent = ent->parent;	//if entity is an info_camera, the nextTrain target should set the info_camera's parent as parent
+
+	// ent->target
+	if ( ent->target ) {
+
+		//find all entities with matching targetname
+		t = NULL;
+		while ( (t = G_Find (t, FOFS(targetname), ent->target)) != NULL ) {
+			if ( t == ent ) {
+				G_Printf ("WARNING: Entity targets itself.\n");
+			} else if ( !strcmp(t->classname, "info_camera") ) {
+				ent->nextTrain = t;
+				t->parent = parent;
+				G_LinkCameras( t );
+				return;
+			}
+			if ( !ent->inuse ) {
+				G_Printf("entity was removed while finding targets\n");
+				return;
+			}
+		}
+
+		//find all entities with matching targetname2
+		t = NULL;
+		while ( (t = G_Find (t, FOFS(targetname2), ent->target)) != NULL ) {
+			if ( t == ent ) {
+				G_Printf ("WARNING: Entity targets itself.\n");
+			} else if ( !strcmp(t->classname, "info_camera") ) {
+				ent->nextTrain = t;
+				t->parent = parent;
+				G_LinkCameras( t );
+				return;
+			}
+			if ( !ent->inuse ) {
+				G_Printf("entity was removed while finding targets\n");
+				return;
+			}
+		}
+	}
+
+	// ent->target2
+	if ( ent->target2 ) {
+		
+		//find all entities with matching targetname
+		t = NULL;
+		while ( (t = G_Find (t, FOFS(targetname), ent->target2)) != NULL ) {
+			if ( t == ent ) {
+				G_Printf ("WARNING: Entity targets itself.\n");
+			} else if ( !strcmp(t->classname, "info_camera") ) {
+				ent->nextTrain = t;
+				t->parent = parent;
+				G_LinkCameras( t );
+				return;
+			}
+			if ( !ent->inuse ) {
+				G_Printf("entity was removed while finding targets\n");
+				return;
+			}
+		}
+
+		//find all entities with matching targetname2
+		t = NULL;
+		while ( (t = G_Find (t, FOFS(targetname2), ent->target2)) != NULL ) {
+			if ( t == ent ) {
+				G_Printf ("WARNING: Entity targets itself.\n");
+			} else if ( !strcmp(t->classname, "info_camera") ) {
+				ent->nextTrain = t;
+				t->parent = parent;
+				G_LinkCameras( t );
+				return;
+			}
+			if ( !ent->inuse ) {
+				G_Printf("entity was removed while targeting targets\n");
+				return;
+			}
+		}
+	}
+}
