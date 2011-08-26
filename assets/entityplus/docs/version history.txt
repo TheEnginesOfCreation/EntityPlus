@@ -21,6 +21,7 @@ BETA1 (?? ??? 2011)
 	- [Changed] Setting a speed of -1 for target_playerspeed will freeze the player in his spot, unable to jump or duck as well.
 	- [Changed] Countdown is no longer displayed when issueing a map_restart.
 	- [Changed] Removed info_player_deathmatch from entities.def
+	- [Changed] Renamed the skill levels.
 
 v0.8.1 (13 jul 2011)
 	- [Fixed] Looping target_speakers do not stop playing their sound when triggered.
