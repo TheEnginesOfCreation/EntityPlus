@@ -328,8 +328,25 @@ void G_UseDeathTargets( gentity_t *ent, gentity_t *activator ) {
 		return;
 	}
 
+	//search for entities with mathcing targetname
 	t = NULL;
 	while ( (t = G_Find (t, FOFS(targetname), ent->deathTarget)) != NULL ) {
+		if ( t == ent ) {
+			G_Printf ("WARNING: Entity used itself.\n");
+		} else {
+			if ( t->use ) {
+				t->use (t, ent, activator);
+			}
+		}
+		if ( !ent->inuse ) {
+			G_Printf("entity was removed while using targets\n");
+			return;
+		}
+	}
+
+	//search for entities with matching targetname2
+	t = NULL;
+	while ( (t = G_Find (t, FOFS(targetname2), ent->deathTarget)) != NULL ) {
 		if ( t == ent ) {
 			G_Printf ("WARNING: Entity used itself.\n");
 		} else {
