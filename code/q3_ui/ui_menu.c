@@ -30,12 +30,7 @@ typedef struct {
 	menuframework_s	menu;
 
 	menutext_s		singleplayer;
-	menutext_s		multiplayer;
 	menutext_s		setup;
-	menutext_s		demos;
-	menutext_s		cinematics;
-	menutext_s		teamArena;
-	menutext_s		mods;
 	menutext_s		exit;
 
 	menutext_s		header;
