@@ -300,7 +300,7 @@ static cvarTable_t cvarTable[] = { // bk001129
 	{ &cg_oldRocket, "cg_oldRocket", "1", CVAR_ARCHIVE},
 	{ &cg_oldPlasma, "cg_oldPlasma", "1", CVAR_ARCHIVE},
 	{ &cg_trueLightning, "cg_trueLightning", "0.0", CVAR_ARCHIVE},
-	{ &cg_letterBoxSize, "cg_letterBoxSize", "0", CVAR_ARCHIVE},
+	{ &cg_letterBoxSize, "cg_letterBoxSize", "80", CVAR_ARCHIVE},
 	{ &cg_lodScale, "cg_lodscale", "5", CVAR_ARCHIVE}		//cheat-free backdoor entry to r_lodscale
 //	{ &cg_pmove_fixed, "cg_pmove_fixed", "0", CVAR_USERINFO | CVAR_ARCHIVE }
 };
