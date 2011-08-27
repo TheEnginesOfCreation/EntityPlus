@@ -2712,16 +2712,16 @@ static void CG_DrawFade( void ) {
 		blackoutTime = 0;	//if we're not displaying the level's title, don't wait with the fade-in
 
 	// draw letterbox borders
-	if ( cg_letterBoxSize.integer || cg.snap->ps.pm_type == PM_CUTSCENE ) {
+	if ( cg.snap->ps.pm_type == PM_CUTSCENE ) {
 		letterboxSize = cg_letterBoxSize.value;
-		if ( letterboxSize == 0 && cg.snap->ps.pm_type == PM_CUTSCENE )
+		if (letterboxSize == 0)
 			letterboxSize = 80;
 		color[0] = 0;
 		color[1] = 0;
 		color[2] = 0;
 		color[3] = 1;
 		CG_FillRect(0, 0, 640, letterboxSize, color);
-		CG_FillRect(0, 480 - letterboxSize, 640, letterboxSize, color);
+		CG_FillRect(0, 480 -letterboxSize, 640, letterboxSize, color);
 	}
 
 	if ( cgs.gametype != GT_ENTITYPLUS )
