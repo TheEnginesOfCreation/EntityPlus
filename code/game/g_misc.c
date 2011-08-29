@@ -61,45 +61,10 @@ void SP_light( gentity_t *self ) {
 Used as a positional and viewangles target for in-game cutscenes.
 */
 void Use_Camera (gentity_t *self, gentity_t *other, gentity_t *activator) {
-	gentity_t	*viewTarget;
-	gentity_t	*tmp;
-	vec3_t		dir;
-	qboolean	found;
-
-	found = qfalse;
-
-	//note: if 'target' refers to a target_position and an info_camera and G_PickTarget picks the info_camera, 
-	//the code assumes that 'target' is not used for viewangle targeting
-	if ( self->target ) {
-		tmp = G_PickTarget( self->target );	
-		if ( strcmp( tmp->classname, "info_camera" ) ) {
-			viewTarget = tmp;
-			found = qtrue;
-		}
-	}
-	
-	//note: if 'target2' refers to a target_position and an info_camera and G_PickTarget picks the info_camera, 
-	//the code assumes that 'target2' is not used for viewangle targeting
-	if ( self->target2 ) {
-		tmp = G_PickTarget( self->target2 );
-		if ( strcmp( tmp->classname, "info_camera" ) ) {
-			viewTarget = tmp;
-			found = qtrue;
-		}
-	}
-
-	if ( found ) {
-		VectorSubtract( viewTarget->s.origin, self->s.origin, dir );
-		vectoangles( dir, self->s.angles );
-	}
-
-	VectorCopy( self->s.origin, activator->s.origin );
-	VectorCopy( self->s.origin, activator->client->ps.origin );
-	VectorCopy( self->s.angles, activator->client->ps.viewangles);
-	VectorCopy( activator->client->ps.origin, activator->r.currentOrigin );
+	activator->client->cutsceneCam = self;
+	self->last_move_time = level.time;
 	activator->client->ps.pm_type = PM_CUTSCENE;
 	activator->client->ps.eFlags ^= EF_TELEPORT_BIT;
-
 	self->activator = activator;
 	self->nextthink = level.time + (self->wait * 1000);
 }

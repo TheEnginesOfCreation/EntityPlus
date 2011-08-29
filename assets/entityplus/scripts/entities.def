@@ -783,7 +783,7 @@ model="models/powerups/backpack/backpack.md3"*/
 
 //=============================================================================
 
-/*QUAKED info_camera (0 .5 0) (-8 -8 -8) (8 8 8)
+/*QUAKED info_camera (0 .5 0) (-8 -8 -8) (8 8 8) PAN
 Functions as a positional entity for camera views during cutscenes initialized by a target_cutscene entity.
 -------- KEYS --------
 targetname : activating entity points to this.
@@ -792,6 +792,8 @@ target : this points to the next camera to jump to in the cutscene.
 target2 : this points to an info_notnull or target_position entity to aim the view of the camera.
 wait : number of seconds this camera will hold the view (default 1).
 angles: alternate "pitch, yaw, roll" angles method of aiming cutscene camera (default 0 0 0).
+-------- SPAWNFLAGS --------
+PAN : Instead of jumping to the next camera position, the camera view pans linearly to the next camera position.
 -------- NOTES --------
 If the info_camera does not target another info_camera entity, the cutscene will end after the wait period and the player will regain control over his character.
 

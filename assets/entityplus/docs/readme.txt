@@ -90,7 +90,9 @@ Custom sound effects			: Patrick "Scout" Schotte
 								  
 Stone debris models and 		: gooball
 additional programming			  [http://quake3world.com/forum/memberlist.php?mode=viewprofile&u=30967]
-					  
+		
+Feedback and suggestions		: AEon
+								  [http://aeons.poweredbylasers.com]			  
 								  
 Testing and feedback 			: EmeraldTiger
 								  [http://emeraldproductions.weebly.com/]
@@ -98,8 +100,8 @@ Testing and feedback 			: EmeraldTiger
 Testing and feedback			: tigger.on
 								  [http://tig.onemoremonkey.com]
 								  
-Feedback and suggestions		: AEon
-								  [http://aeons.poweredbylasers.com]
+Testing and feedback			: deqer
+								  [http://quake3world.com/forum/memberlist.php?mode=viewprofile&u=28001]
 								  
 Support and general enthusiasm	: The entire Quake3World LEM community
 								  [http://quake3world.com/forum/viewforum.php?f=10]

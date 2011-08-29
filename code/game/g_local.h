@@ -346,6 +346,8 @@ struct gclient_s {
 #endif
 
 	char		*areabits;
+
+	gentity_t	*cutsceneCam;		//current entityplus cutscene camera
 };
 
 
