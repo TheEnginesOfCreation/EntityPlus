@@ -1004,8 +1004,12 @@ Note that if a camera accidently targets two cameras, it links the first camera 
 ==================
 */
 void G_LinkCameras( gentity_t *ent ) {
-	gentity_t		*t;
-	gentity_t		*parent;
+	gentity_t	*t;
+	gentity_t	*parent;
+	qboolean	viewTargetFound;
+	gentity_t	*viewTarget;
+	gentity_t	*tmp;
+	vec3_t		dir;
 	
 	// if no entity was passed or the passed entity is not a target_cutscene and not an info_camera, do not link
 	if ( !ent || (strcmp(ent->classname, "target_cutscene") && strcmp(ent->classname, "info_camera")) )
@@ -1014,7 +1018,38 @@ void G_LinkCameras( gentity_t *ent ) {
 	if ( !strcmp(ent->classname, "target_cutscene") )
 		parent = ent;			//if entity is a target_cutscene, the nextTrain target should set the target_cutscene as its parent
 	else
+	{
 		parent = ent->parent;	//if entity is an info_camera, the nextTrain target should set the info_camera's parent as parent
+
+		
+		//find the viewtarget for this camera (a target_position or info_notnull)
+		viewTargetFound = qfalse;
+
+		//note: if 'target' refers to a target_position and an info_camera and G_PickTarget picks the info_camera, 
+		//the code assumes that 'target' is not used for viewangle targeting
+		if ( ent->target ) {
+			tmp = G_PickTarget( ent->target );	
+			if ( strcmp( tmp->classname, "info_camera" ) ) {
+				viewTarget = tmp;
+				viewTargetFound = qtrue;
+			}
+		}
+		
+		//note: if 'target2' refers to a target_position and an info_camera and G_PickTarget picks the info_camera, 
+		//the code assumes that 'target2' is not used for viewangle targeting
+		if ( ent->target2 ) {
+			tmp = G_PickTarget( ent->target2 );
+			if ( strcmp( tmp->classname, "info_camera" ) ) {
+				viewTarget = tmp;
+				viewTargetFound = qtrue;
+			}
+		}
+
+		if ( viewTargetFound ) {
+			VectorSubtract( viewTarget->s.origin, ent->s.origin, dir );
+			vectoangles( dir, ent->s.angles );
+		}
+	}
 
 	// ent->target
 	if ( ent->target ) {
