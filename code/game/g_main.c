@@ -1700,73 +1700,6 @@ void G_RunThink (gentity_t *ent) {
 	ent->think (ent);
 }
 
-/*
-=============
-G_RunCutscene
-
-Runs cutscene code for this frame
-=============
-*/
-void G_RunCutscene( int levelTime ) {
-	int i;
-	gentity_t *currentCam;
-	gentity_t *nextCam;
-	int	wait;
-	vec3_t newOrigin, newAngles;
-	int timePassed;
-	float progress;
-	float diff;
-
-	for ( i = 0 ; i < level.maxclients ; i++ ) {
-		if ( level.clients[i].pers.connected != CON_DISCONNECTED && level.clients[i].ps.pm_type == PM_CUTSCENE ) {
-			
-			//get source and target camera
-			currentCam = level.clients[i].cutsceneCam;
-			nextCam = level.clients[i].cutsceneCam->nextTrain;
-
-			if ( !nextCam || !(currentCam->spawnflags & 1) )
-			{
-				VectorCopy( currentCam->s.origin, level.clients[i].ps.origin );
-				VectorCopy( currentCam->s.angles, level.clients[i].ps.viewangles);
-				return;
-			}
-					
-			//determine how long the current camera pan has taken
-			timePassed = levelTime - currentCam->last_move_time;
-			progress = timePassed / (currentCam->wait * 1000);
-
-			//calculate new origin
-			VectorCopy( currentCam->s.origin, newOrigin );
-			diff = nextCam->s.origin[0] - newOrigin[0];
-			newOrigin[0] += diff * progress;
-
-			diff = nextCam->s.origin[1] - newOrigin[1];
-			newOrigin[1] += diff * progress;
-			
-			diff = nextCam->s.origin[2] - newOrigin[2];
-			newOrigin[2] += diff * progress;
-
-			VectorCopy( newOrigin, level.clients[i].ps.origin );
-			
-			//calculate new angles
-			VectorCopy( currentCam->s.angles, newAngles);
-			diff = nextCam->s.angles[0] - newAngles[0];
-			newAngles[0] += diff * progress;
-
-			diff = nextCam->s.angles[1] - newAngles[1];
-			newAngles[1] += diff * progress;
-			
-			diff = nextCam->s.angles[2] - newAngles[2];
-			newAngles[2] += diff * progress;
-
-			VectorCopy( newAngles, level.clients[i].ps.viewangles);
-
-			//VectorCopy( currentCam->s.origin, level.clients[i].ps.origin );
-			//VectorCopy( currentCam->s.angles, level.clients[i].ps.viewangles);
-			return;
-		}
-	}
-}
 
 /*
 ================
@@ -1894,6 +1827,4 @@ end = trap_Milliseconds();
 		}
 		trap_Cvar_Set("g_listEntity", "0");
 	}
-
-	G_RunCutscene( levelTime );
 }
