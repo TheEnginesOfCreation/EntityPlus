@@ -583,6 +583,74 @@ static void CG_DamageBlendBlob( void ) {
 }
 
 
+CG_CalcCutsceneViewValues( playerState_t *ps ) {
+	const char *cutsceneData;
+	char buf[MAX_INFO_STRING];
+	float wait;
+	int start_time;
+	vec3_t destOrigin, destAngles;
+	vec3_t newOrigin, newAngles;
+	int timePassed;
+	float progress;
+	float diff;
+	int doPan;
+
+	cutsceneData = CG_ConfigString( CS_CUTSCENE );
+
+	doPan = atoi(Info_ValueForKey(cutsceneData, "n"));
+	start_time = atoi(Info_ValueForKey(cutsceneData, "t"));
+	wait = atof(Info_ValueForKey(cutsceneData, "w"));
+	newOrigin[0] = atof(Info_ValueForKey(cutsceneData, "o00"));
+	newOrigin[1] = atof(Info_ValueForKey(cutsceneData, "o01"));
+	newOrigin[2] = atof(Info_ValueForKey(cutsceneData, "o02"));
+	newAngles[0] = atof(Info_ValueForKey(cutsceneData, "a00"));
+	newAngles[1] = atof(Info_ValueForKey(cutsceneData, "a01"));
+	newAngles[2] = atof(Info_ValueForKey(cutsceneData, "a02"));
+
+	if ( doPan ) {
+		destOrigin[0] = atof(Info_ValueForKey(cutsceneData, "o10"));
+		destOrigin[1] = atof(Info_ValueForKey(cutsceneData, "o11"));
+		destOrigin[2] = atof(Info_ValueForKey(cutsceneData, "o12"));
+		destAngles[0] = atof(Info_ValueForKey(cutsceneData, "a10"));
+		destAngles[1] = atof(Info_ValueForKey(cutsceneData, "a11"));
+		destAngles[2] = atof(Info_ValueForKey(cutsceneData, "a12"));
+
+		//determine how long the current camera pan has taken
+		timePassed = cg.time - start_time;
+		progress = timePassed / (wait * 1000);
+
+		//calculate new origin
+		diff = destOrigin[0] - newOrigin[0];
+		newOrigin[0] += diff * progress;
+
+		diff = destOrigin[1] - newOrigin[1];
+		newOrigin[1] += diff * progress;
+		
+		diff = destOrigin[2] - newOrigin[2];
+		newOrigin[2] += diff * progress;
+
+		VectorCopy( newOrigin, cg.refdef.vieworg );
+
+		//calculate new angles
+		diff = destAngles[0] - newAngles[0];
+		newAngles[0] += diff * progress;
+
+		diff = destAngles[1] - newAngles[1];
+		newAngles[1] += diff * progress;
+		
+		diff = destAngles[2] - newAngles[2];
+		newAngles[2] += diff * progress;
+
+		VectorCopy( newAngles, cg.refdefViewAngles );
+	} else {
+		VectorCopy( newOrigin, cg.refdef.vieworg );
+		VectorCopy( newAngles, cg.refdefViewAngles );
+	}
+	//VectorCopy( ps->origin, cg.refdef.vieworg );
+	//VectorCopy( ps->viewangles, cg.refdefViewAngles );
+	AnglesToAxis( cg.refdefViewAngles, cg.refdef.viewaxis );
+}
+
 /*
 ===============
 CG_CalcViewValues
@@ -619,9 +687,7 @@ static int CG_CalcViewValues( void ) {
 */
 	//cutscene view
 	if ( ps->pm_type == PM_CUTSCENE ) {
-		VectorCopy( ps->origin, cg.refdef.vieworg );
-		VectorCopy( ps->viewangles, cg.refdefViewAngles );
-		AnglesToAxis( cg.refdefViewAngles, cg.refdef.viewaxis );
+		CG_CalcCutsceneViewValues( ps );
 		return CG_CalcFov();
 	}
 

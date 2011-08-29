@@ -61,10 +61,33 @@ void SP_light( gentity_t *self ) {
 Used as a positional and viewangles target for in-game cutscenes.
 */
 void Use_Camera (gentity_t *self, gentity_t *other, gentity_t *activator) {
-	activator->client->cutsceneCam = self;
-	self->last_move_time = level.time;
+	char variableInfo[MAX_INFO_STRING];
+
+	//make camera movement info available for client 
+	variableInfo[0] = '\0';
+	Info_SetValueForKey(variableInfo, "w", va("%f", self->wait));
+	Info_SetValueForKey(variableInfo, "t", va("%i", level.time));
+	Info_SetValueForKey(variableInfo, "o00", va("%f", self->s.origin[0]));
+	Info_SetValueForKey(variableInfo, "o01", va("%f", self->s.origin[1]));
+	Info_SetValueForKey(variableInfo, "o02", va("%f", self->s.origin[2]));
+	Info_SetValueForKey(variableInfo, "a00", va("%f", self->s.angles[0]));
+	Info_SetValueForKey(variableInfo, "a01", va("%f", self->s.angles[1]));
+	Info_SetValueForKey(variableInfo, "a02", va("%f", self->s.angles[2]));
+	if ( self->nextTrain && (self->spawnflags & 1) ) {
+		Info_SetValueForKey(variableInfo, "n", "1");	//1 means panning camera motion
+		Info_SetValueForKey(variableInfo, "o10", va("%f", self->nextTrain->s.origin[0]));
+		Info_SetValueForKey(variableInfo, "o11", va("%f", self->nextTrain->s.origin[1]));
+		Info_SetValueForKey(variableInfo, "o12", va("%f", self->nextTrain->s.origin[2]));
+		Info_SetValueForKey(variableInfo, "a10", va("%f", self->nextTrain->s.angles[0]));
+		Info_SetValueForKey(variableInfo, "a11", va("%f", self->nextTrain->s.angles[1]));
+		Info_SetValueForKey(variableInfo, "a12", va("%f", self->nextTrain->s.angles[2]));
+	} else {
+		Info_SetValueForKey(variableInfo, "p", "0");	//0 means no camera motion
+	}
+	//G_Printf("%s\n", variableInfo);
+	trap_SetConfigstring( CS_CUTSCENE, variableInfo );
+
 	activator->client->ps.pm_type = PM_CUTSCENE;
-	activator->client->ps.eFlags ^= EF_TELEPORT_BIT;
 	self->activator = activator;
 	self->nextthink = level.time + (self->wait * 1000);
 }
@@ -76,14 +99,9 @@ void Think_Camera (gentity_t *self) {
 		//jump to next camera
 		self->nextTrain->use( self->nextTrain, self->activator, self->activator );
 	} else {
-		//return player to original position and give back normal control
-		VectorCopy( self->parent->s.origin, self->activator->s.origin );
-		VectorCopy( self->parent->s.origin, self->activator->client->ps.origin );
-		VectorCopy( self->parent->s.angles, self->activator->client->ps.viewangles);
-		VectorCopy( self->activator->client->ps.origin, self->activator->r.currentOrigin );
+		//cutscene should end so give player normal control
 		self->activator->client->ps.pm_type = PM_NORMAL;
-		self->activator->client->ps.eFlags ^= EF_TELEPORT_BIT;
-
+		
 		//give movement control back to bots
 		if ( self->parent->spawnflags & 1 ) {
 			for ( i = 0 ; i < level.maxclients ; i++ ) {
@@ -94,7 +112,6 @@ void Think_Camera (gentity_t *self) {
 
 		//link the player back into the world
 		trap_LinkEntity( self->activator );
-
 	}
 }
 

@@ -1326,11 +1326,6 @@ void target_cutscene_use (gentity_t *self, gentity_t *other, gentity_t *activato
 		return;
 	}
 
-	//set the target_cutscene's origin and angles to those of the player so we know where the player was when the cutscene ends
-	VectorCopy( activator->client->ps.origin, self->s.origin );
-	G_SetOrigin( self, self->s.origin );
-	VectorCopy( activator->client->ps.viewangles, self->s.angles );
-
 	//unlink the player from the world so he becomes non-solid, as the player will physically be in the position of the camera
 	trap_UnlinkEntity( activator );
 
@@ -1341,6 +1336,11 @@ void target_cutscene_use (gentity_t *self, gentity_t *other, gentity_t *activato
 				level.clients[i].ps.pm_type = PM_CUTSCENE;
 		}
 	}
+
+	//set player's velocity to 0 so he stops right in his tracks (without this the player slides slightly forward when the cutscene ends)
+	activator->client->ps.velocity[0] = 0;
+	activator->client->ps.velocity[1] = 0;
+	activator->client->ps.velocity[2] = 0;
 
 	//activate the first camera
 	self->nextTrain->use( self->nextTrain, other, activator );
