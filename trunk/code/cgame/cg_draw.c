@@ -1962,12 +1962,17 @@ static void CG_DrawSubtitleString( void ) {
 	int		l;
 	int		x, y, w;
 	float	*color;
+	float	t;
 
 	if ( !cg.subtitlePrintTime ) {
 		return;
 	}
 
-	color = CG_FadeColor( cg.subtitlePrintTime, 1000 * cg_subtitletime.value );
+	t = cg_subtitletime.value;
+	if ( t == -1 )
+		t = CG_DrawStrlen( cg.subtitlePrint ) / 15;
+
+	color = CG_FadeColor( cg.subtitlePrintTime, 1000 * t );
 	if ( !color ) {
 		return;
 	}
@@ -1981,7 +1986,7 @@ static void CG_DrawSubtitleString( void ) {
 	while ( 1 ) {
 		char linebuffer[1024];
 
-		for ( l = 0; l < 50; l++ ) {
+		for ( l = 0; l < 70; l++ ) {
 			if ( !start[l] || start[l] == '\n' ) {
 				break;
 			}

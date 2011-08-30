@@ -336,8 +336,6 @@ startsound : if set, overrides the sound to play when the door starts moving.
 endsound : if set, overrides the sound to play when the door has stopped moving.
 light : constantLight radius of .md3 model included with entity. Has no effect on the entity's brushes (default 0).
 color : constantLight color of .md3 model included with entity. Has no effect on the entity's brushes (default 1 1 1).
-model2 : path/name of model to include (eg: models/mapobjects/pipe/pipe02.md3).
-origin : alternate method of setting XYZ origin of .md3 model included with entity (See Notes).
 -------- Q3MAP2 KEYS --------
 _targetname : Used to attach a misc_model entity to this entity.
 _lightmapscale : Floating point value scaling the resolution of lightmaps on brushes/patches in this entity (default 1.0).
@@ -361,13 +359,14 @@ Setting the startsound or endsound keys overrides the default sound played when 
 //=============================================================================
 
 /*QUAKED func_door_rotating (0 .5 .8) START_OPEN CRUSHER REVERSE X_AXIS Y_AXIS
-A rotating door.
+Rotating door entity. By default, the door will activate when player walks close to it or when damage is inflicted to it.
 -------- KEYS --------
-model2	.md3 model to also draw
-distance	how many degrees the door will open
-speed	 	how fast the door will open (degrees/second)
-color		constantLight color
-light		constantLight radius
+distance : determines how many degrees the door will rotate.
+speed : determines how fast the door moves (degrees/second).
+light : constantLight radius of .md3 model included with entity. Has no effect on the entity's brushes (default 0).
+color : constantLight color of .md3 model included with entity. Has no effect on the entity's brushes (default 1 1 1).
+model2 : path/name of model to include (eg: models/mapobjects/pipe/pipe02.md3).
+origin : alternate method of setting XYZ origin of .md3 model included with entity (See Notes).
 -------- SPAWNFLAGS --------
 START_OPEN : the door will spawn in the open state and operate in reverse.
 CRUSHER : door will not reverse direction when blocked and will keep damaging player until he dies or gets out of the way.
@@ -375,10 +374,9 @@ REVERSE : opens the door in the other direction.
 X_AXIS : open on the x axis instead of the x axis
 Y_AXIS : open on the y axis instead of the x axis
 -------- NOTES --------
-You need to have an origin brush as part of this entity.  The center of that brush will be
-the point around which it is rotated. It will rotate around the Z axis by default.  You can
-check either the X_AXIS or Y_AXIS box to change that.
-*/
+You need to have an origin brush as part of this entity. The center of that brush will be the point through which the rotation axis passes. Setting the origin key is simply an alternate method to using an origin brush. You can check the X_AXIS, Y_AXIS or Z_AXIS boxes to determine along which axes rotation should occur. If no boxes are checked the entity will rotate along the Z axis. When using the model2 key, the origin point of the model will correspond to the origin point defined by either the origin brush or the origin coordinate value.
+
+It will rotate around the Z axis by default. You can check either the X_AXIS or Y_AXIS box to change that.*/
 
 //=============================================================================
 
