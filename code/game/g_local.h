@@ -182,6 +182,8 @@ struct gentity_s {
 	char		*key;	// key for target_modify to change
 	char		*value; // value for target_modify to change to
 	int			armor; // armor for the target_playerstats entity
+	vec3_t		orgOrigin; // origin of entity (player) when cutscene starts
+	vec3_t		orgAngles; // view angles entity (player) when cutscene starts
 };
 
 
