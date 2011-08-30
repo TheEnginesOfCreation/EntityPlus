@@ -108,6 +108,9 @@ field_t fields[] = {
 	{"key", FOFS(key), F_LSTRING},
 	{"value", FOFS(value), F_LSTRING},
 	{"armor", FOFS(armor), F_INT},
+	
+	{"distance", FOFS(distance), F_FLOAT},
+	
 	{NULL}
 };
 
@@ -204,6 +207,8 @@ void SP_team_CTF_blueplayer( gentity_t *ent );
 
 void SP_team_CTF_redspawn( gentity_t *ent );
 void SP_team_CTF_bluespawn( gentity_t *ent );
+
+void SP_func_door_rotating( gentity_t *ent );
 
 #ifdef MISSIONPACK
 void SP_team_blueobelisk( gentity_t *ent );
@@ -305,6 +310,8 @@ spawn_t	spawns[] = {
 
 	{"team_CTF_redspawn", SP_team_CTF_redspawn},
 	{"team_CTF_bluespawn", SP_team_CTF_bluespawn},
+	
+	{"func_door_rotating", SP_func_door_rotating},
 
 #ifdef MISSIONPACK
 	{"team_redobelisk", SP_team_redobelisk},

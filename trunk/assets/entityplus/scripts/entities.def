@@ -360,6 +360,29 @@ Setting the startsound or endsound keys overrides the default sound played when 
 
 //=============================================================================
 
+/*QUAKED func_door_rotating (0 .5 .8) START_OPEN CRUSHER REVERSE X_AXIS Y_AXIS
+A rotating door.
+-------- KEYS --------
+model2	.md3 model to also draw
+distance	how many degrees the door will open
+speed	 	how fast the door will open (degrees/second)
+color		constantLight color
+light		constantLight radius
+-------- SPAWNFLAGS --------
+START_OPEN : the door will spawn in the open state and operate in reverse.
+CRUSHER : door will not reverse direction when blocked and will keep damaging player until he dies or gets out of the way.
+REVERSE : opens the door in the other direction.
+X_AXIS : open on the x axis instead of the x axis
+Y_AXIS : open on the y axis instead of the x axis
+-------- NOTES --------
+You need to have an origin brush as part of this entity.  The center of that brush will be
+the point around which it is rotated. It will rotate around the Z axis by default.  You can
+check either the X_AXIS or Y_AXIS box to change that.
+*/
+
+//=============================================================================
+
+
 /*QUAKED func_group (0 .5 .8) ?
 This is not an entity as such. It is strictly an editor utility to group world brushes and patches together for convenience (selecting, moving, copying, etc). You cannot group entities with this.
 -------- OLD TERRAIN KEYS (note: obsolete with Q3Map2) --------
