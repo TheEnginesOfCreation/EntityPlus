@@ -39,7 +39,12 @@ typedef enum {
 	MOVER_POS1,
 	MOVER_POS2,
 	MOVER_1TO2,
-	MOVER_2TO1
+	MOVER_2TO1,
+	
+	ROTATOR_POS1,
+	ROTATOR_POS2,
+	ROTATOR_1TO2,
+	ROTATOR_2TO1
 } moverState_t;
 
 #define SP_PODIUM_MODEL		"models/mapobjects/podium/podium4.md3"
@@ -159,6 +164,8 @@ struct gentity_s {
 	float		random;
 
 	gitem_t		*item;			// for bonus items
+	
+	float		distance;
 
 	//entityplus variables
 	char		*clientname;			// name of the bot to spawn for target_botspawn
