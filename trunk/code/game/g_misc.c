@@ -67,22 +67,26 @@ void Use_Camera (gentity_t *self, gentity_t *other, gentity_t *activator) {
 	variableInfo[0] = '\0';
 	Info_SetValueForKey(variableInfo, "w", va("%f", self->wait));
 	Info_SetValueForKey(variableInfo, "t", va("%i", level.time));
-	Info_SetValueForKey(variableInfo, "o00", va("%f", self->s.origin[0]));
-	Info_SetValueForKey(variableInfo, "o01", va("%f", self->s.origin[1]));
-	Info_SetValueForKey(variableInfo, "o02", va("%f", self->s.origin[2]));
-	Info_SetValueForKey(variableInfo, "a00", va("%f", self->s.angles[0]));
-	Info_SetValueForKey(variableInfo, "a01", va("%f", self->s.angles[1]));
-	Info_SetValueForKey(variableInfo, "a02", va("%f", self->s.angles[2]));
+
+	//add origin and viewangles of source camera
+	Info_SetValueForKey(variableInfo, "o10", va("%f", self->s.origin[0]));
+	Info_SetValueForKey(variableInfo, "o11", va("%f", self->s.origin[1]));
+	Info_SetValueForKey(variableInfo, "o12", va("%f", self->s.origin[2]));
+	Info_SetValueForKey(variableInfo, "a10", va("%f", self->s.angles[0]));
+	Info_SetValueForKey(variableInfo, "a11", va("%f", self->s.angles[1]));
+	Info_SetValueForKey(variableInfo, "a12", va("%f", self->s.angles[2]));
+	
 	if ( self->nextTrain && (self->spawnflags & 1) ) {
-		Info_SetValueForKey(variableInfo, "n", "1");	//1 means panning camera motion
-		Info_SetValueForKey(variableInfo, "o10", va("%f", self->nextTrain->s.origin[0]));
-		Info_SetValueForKey(variableInfo, "o11", va("%f", self->nextTrain->s.origin[1]));
-		Info_SetValueForKey(variableInfo, "o12", va("%f", self->nextTrain->s.origin[2]));
-		Info_SetValueForKey(variableInfo, "a10", va("%f", self->nextTrain->s.angles[0]));
-		Info_SetValueForKey(variableInfo, "a11", va("%f", self->nextTrain->s.angles[1]));
-		Info_SetValueForKey(variableInfo, "a12", va("%f", self->nextTrain->s.angles[2]));
+		//add origin and viewangles of target camera
+		Info_SetValueForKey(variableInfo, "m", "1");	//1 means panning camera motion
+		Info_SetValueForKey(variableInfo, "o20", va("%f", self->nextTrain->s.origin[0]));
+		Info_SetValueForKey(variableInfo, "o21", va("%f", self->nextTrain->s.origin[1]));
+		Info_SetValueForKey(variableInfo, "o22", va("%f", self->nextTrain->s.origin[2]));
+		Info_SetValueForKey(variableInfo, "a20", va("%f", self->nextTrain->s.angles[0]));
+		Info_SetValueForKey(variableInfo, "a21", va("%f", self->nextTrain->s.angles[1]));
+		Info_SetValueForKey(variableInfo, "a22", va("%f", self->nextTrain->s.angles[2]));
 	} else {
-		Info_SetValueForKey(variableInfo, "p", "0");	//0 means no camera motion
+		Info_SetValueForKey(variableInfo, "m", "0");	//0 means no camera motion
 	}
 	//G_Printf("%s\n", variableInfo);
 	trap_SetConfigstring( CS_CUTSCENE, variableInfo );
@@ -101,6 +105,10 @@ void Think_Camera (gentity_t *self) {
 	} else {
 		//cutscene should end so give player normal control
 		self->activator->client->ps.pm_type = PM_NORMAL;
+
+		//move player back to original location
+		VectorCopy(self->activator->orgOrigin, self->activator->client->ps.origin);
+		VectorCopy(self->activator->orgAngles, self->activator->client->ps.viewangles);
 		
 		//give movement control back to bots
 		if ( self->parent->spawnflags & 1 ) {

@@ -597,23 +597,23 @@ CG_CalcCutsceneViewValues( playerState_t *ps ) {
 
 	cutsceneData = CG_ConfigString( CS_CUTSCENE );
 
-	doPan = atoi(Info_ValueForKey(cutsceneData, "n"));
+	doPan = atoi(Info_ValueForKey(cutsceneData, "m"));
 	start_time = atoi(Info_ValueForKey(cutsceneData, "t"));
 	wait = atof(Info_ValueForKey(cutsceneData, "w"));
-	newOrigin[0] = atof(Info_ValueForKey(cutsceneData, "o00"));
-	newOrigin[1] = atof(Info_ValueForKey(cutsceneData, "o01"));
-	newOrigin[2] = atof(Info_ValueForKey(cutsceneData, "o02"));
-	newAngles[0] = atof(Info_ValueForKey(cutsceneData, "a00"));
-	newAngles[1] = atof(Info_ValueForKey(cutsceneData, "a01"));
-	newAngles[2] = atof(Info_ValueForKey(cutsceneData, "a02"));
+	newOrigin[0] = atof(Info_ValueForKey(cutsceneData, "o10"));
+	newOrigin[1] = atof(Info_ValueForKey(cutsceneData, "o11"));
+	newOrigin[2] = atof(Info_ValueForKey(cutsceneData, "o12"));
+	newAngles[0] = atof(Info_ValueForKey(cutsceneData, "a10"));
+	newAngles[1] = atof(Info_ValueForKey(cutsceneData, "a11"));
+	newAngles[2] = atof(Info_ValueForKey(cutsceneData, "a12"));
 
 	if ( doPan ) {
-		destOrigin[0] = atof(Info_ValueForKey(cutsceneData, "o10"));
-		destOrigin[1] = atof(Info_ValueForKey(cutsceneData, "o11"));
-		destOrigin[2] = atof(Info_ValueForKey(cutsceneData, "o12"));
-		destAngles[0] = atof(Info_ValueForKey(cutsceneData, "a10"));
-		destAngles[1] = atof(Info_ValueForKey(cutsceneData, "a11"));
-		destAngles[2] = atof(Info_ValueForKey(cutsceneData, "a12"));
+		destOrigin[0] = atof(Info_ValueForKey(cutsceneData, "o20"));
+		destOrigin[1] = atof(Info_ValueForKey(cutsceneData, "o21"));
+		destOrigin[2] = atof(Info_ValueForKey(cutsceneData, "o22"));
+		destAngles[0] = atof(Info_ValueForKey(cutsceneData, "a20"));
+		destAngles[1] = atof(Info_ValueForKey(cutsceneData, "a21"));
+		destAngles[2] = atof(Info_ValueForKey(cutsceneData, "a22"));
 
 		//determine how long the current camera pan has taken
 		timePassed = cg.time - start_time;

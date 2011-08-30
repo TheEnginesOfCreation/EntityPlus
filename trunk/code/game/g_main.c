@@ -1700,6 +1700,81 @@ void G_RunThink (gentity_t *ent) {
 	ent->think (ent);
 }
 
+/*
+=============
+G_RunCutscene
+
+Runs cutscene code for this frame. While the actual camera view is handled client side, the client is moved along serverside as well
+so that the client is in the same VIS area as the camera is.
+=============
+*/
+void G_RunCutscene( int levelTime ) {
+//	gclient_s *client;
+	char cutsceneData[MAX_INFO_STRING];
+	float wait;
+	int start_time;
+	vec3_t destOrigin, destAngles;
+	vec3_t newOrigin, newAngles;
+	int timePassed;
+	float progress;
+	float diff;
+	int doPan;
+	int i;
+
+	trap_GetConfigstring( CS_CUTSCENE, cutsceneData, sizeof(cutsceneData) );
+
+	doPan = atoi(Info_ValueForKey(cutsceneData, "n"));
+	start_time = atoi(Info_ValueForKey(cutsceneData, "t"));
+	wait = atof(Info_ValueForKey(cutsceneData, "w"));
+	newOrigin[0] = atof(Info_ValueForKey(cutsceneData, "o10"));
+	newOrigin[1] = atof(Info_ValueForKey(cutsceneData, "o11"));
+	newOrigin[2] = atof(Info_ValueForKey(cutsceneData, "o12"));
+	newAngles[0] = atof(Info_ValueForKey(cutsceneData, "a10"));
+	newAngles[1] = atof(Info_ValueForKey(cutsceneData, "a11"));
+	newAngles[2] = atof(Info_ValueForKey(cutsceneData, "a12"));
+
+	if ( doPan ) {
+		destOrigin[0] = atof(Info_ValueForKey(cutsceneData, "o20"));
+		destOrigin[1] = atof(Info_ValueForKey(cutsceneData, "o21"));
+		destOrigin[2] = atof(Info_ValueForKey(cutsceneData, "o22"));
+		destAngles[0] = atof(Info_ValueForKey(cutsceneData, "a20"));
+		destAngles[1] = atof(Info_ValueForKey(cutsceneData, "a21"));
+		destAngles[2] = atof(Info_ValueForKey(cutsceneData, "a22"));
+
+		//determine how long the current camera pan has taken
+		timePassed = levelTime - start_time;
+		progress = timePassed / (wait * 1000);
+
+		//calculate new origin
+		diff = destOrigin[0] - newOrigin[0];
+		newOrigin[0] += diff * progress;
+
+		diff = destOrigin[1] - newOrigin[1];
+		newOrigin[1] += diff * progress;
+		
+		diff = destOrigin[2] - newOrigin[2];
+		newOrigin[2] += diff * progress;
+
+		//calculate new angles
+		diff = destAngles[0] - newAngles[0];
+		newAngles[0] += diff * progress;
+
+		diff = destAngles[1] - newAngles[1];
+		newAngles[1] += diff * progress;
+		
+		diff = destAngles[2] - newAngles[2];
+		newAngles[2] += diff * progress;
+	}
+
+	for ( i = 0 ; i < level.maxclients ; i++ ) {
+		//client = level.clients[i];
+		if ( level.clients[i].pers.connected != CON_DISCONNECTED && level.clients[i].ps.pm_type == PM_CUTSCENE /*&& !IsClientBot( level.clients[i] )*/ ) {
+			VectorCopy( newOrigin, level.clients[i].ps.origin );
+			VectorCopy( newAngles, level.clients[i].ps.viewangles );
+			return;
+		}
+	}
+}
 
 /*
 ================
@@ -1712,7 +1787,7 @@ void G_RunFrame( int levelTime ) {
 	int			i;
 	gentity_t	*ent;
 	int			msec;
-int start, end;
+	int start, end;
 
 	// if we are waiting for the level to restart, do nothing
 	if ( level.restarted ) {
@@ -1790,9 +1865,9 @@ int start, end;
 
 		G_RunThink( ent );
 	}
-end = trap_Milliseconds();
+	end = trap_Milliseconds();
 
-start = trap_Milliseconds();
+	start = trap_Milliseconds();
 	// perform final fixups on the players
 	ent = &g_entities[0];
 	for (i=0 ; i < level.maxclients ; i++, ent++ ) {
@@ -1800,7 +1875,7 @@ start = trap_Milliseconds();
 			ClientEndFrame( ent );
 		}
 	}
-end = trap_Milliseconds();
+	end = trap_Milliseconds();
 
 	// see if it is time to do a tournement restart
 	CheckTournament();
@@ -1827,4 +1902,7 @@ end = trap_Milliseconds();
 		}
 		trap_Cvar_Set("g_listEntity", "0");
 	}
+
+	//cutscene
+	G_RunCutscene( levelTime );
 }
