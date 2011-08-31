@@ -7,8 +7,9 @@ BETA1 (?? ??? 2011)
 	- [Added] target_variable entity which can set or read and compare variables that persist across map changes.
 	- [Added] target_cutscene and info_camera for creating cutscenes.
 	- [Added] START_UNLINKED spawnflag for func_static.
-	- [Added] SUBTITLE spawnflag for target_print.
 	- [Added] TOGGLE spawnflag for target_delay.
+	- [Added] START_DELAYED spawnflag and count key for func_timer.
+	- [Added] SUBTITLE spawnflag for target_print.
 	- [Added] cg_drawsubtitles cvar to enable/disable subtitles (also available in game options menu).
 	- [Fixed] Spawning a bot with only a Gauntlet results in the bot spawning with a MG and console errors when the bot attacks.
 	- [Fixed] Picking up a Gauntlet after it has been removed results in the Gauntlet being unusable.
