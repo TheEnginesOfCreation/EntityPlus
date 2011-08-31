@@ -1241,9 +1241,18 @@ check either the X_AXIS or Y_AXIS box to change that.
 */
 
 void SP_func_door_rotating ( gentity_t *ent ) {
-	ent->sound1to2 = ent->sound2to1 = G_SoundIndex("sound/movers/doors/dr1_strt.wav");
-	ent->soundPos1 = ent->soundPos2 = G_SoundIndex("sound/movers/doors/dr1_end.wav");
+	char  *startsound;
+	char  *endsound;
 
+	startsound = endsound = NULL;
+	G_SpawnString("startsound", "sound/movers/doors/dr1_strt.wav", &startsound);
+	G_SpawnString("endsound", "sound/movers/doors/dr1_end.wav", &endsound);
+
+	ent->sound1to2 = ent->sound2to1 = G_SoundIndex(startsound);
+	ent->soundPos1 = ent->soundPos2 = G_SoundIndex(endsound);
+
+	// default damage of 2 points
+	G_SpawnInt( "dmg", "2", &ent->damage );
 	ent->blocked = Blocked_Door;
 
 	// default speed of 120

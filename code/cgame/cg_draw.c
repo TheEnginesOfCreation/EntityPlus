@@ -1972,6 +1972,9 @@ static void CG_DrawSubtitleString( void ) {
 	if ( t == -1 )
 		t = CG_DrawStrlen( cg.subtitlePrint ) / 15;
 
+	if (t < 1)
+		t = 1;
+
 	color = CG_FadeColor( cg.subtitlePrintTime, 1000 * t );
 	if ( !color ) {
 		return;
