@@ -2701,22 +2701,14 @@ void CG_DrawTimedMenus() {
 
 /*
 =================
-CG_DrawFade
+CG_DrawLetterbox
 
-Draws fade-in with map title or fade-out
+Draws letterbox bars at top and bottom of screen
 =================
 */
-static void CG_DrawFade( void ) {
-	vec4_t color;
-	int blackoutTime = BLACKOUT_TIME;
-	const char *s;
+static void CG_DrawLetterbox( void ) {
 	float letterboxSize;
-
-	// get map message
-	s = CG_ConfigString( CS_MESSAGE );
-
-	if ( strlen(s) == 0 )
-		blackoutTime = 0;	//if we're not displaying the level's title, don't wait with the fade-in
+	vec4_t color;
 
 	// draw letterbox borders
 	if ( cg.snap->ps.pm_type == PM_CUTSCENE ) {
@@ -2728,8 +2720,65 @@ static void CG_DrawFade( void ) {
 		color[2] = 0;
 		color[3] = 1;
 		CG_FillRect(0, 0, 640, letterboxSize, color);
-		CG_FillRect(0, 480 -letterboxSize, 640, letterboxSize, color);
+		CG_FillRect(0, 480 - letterboxSize, 640, letterboxSize, color);
 	}
+}
+
+/*
+=================
+CG_Fade
+
+Initializes a fade
+=================
+*/
+static void CG_Fade( int duration, vec4_t startColor, vec4_t endColor ) {
+	cg.fadeStartTime = cg.time;
+	cg.fadeDuration = duration;
+	Vector4Copy(startColor, cg.fadeStartColor);
+	Vector4Copy(endColor, cg.fadeEndColor);
+}
+
+/*
+=================
+CG_DrawFade
+
+Draws fade in or fade out
+=================
+*/
+static void CG_DrawFade( void ) {
+	vec4_t	colorDiff;
+	int		timePassed;
+	float	progress;
+	float	colorValue;
+
+	//calculate how far we are into the fade
+	timePassed = cg.time - cg.fadeStartTime;
+	progress = timePassed / cg.fadeDuration;
+
+	Vector4Subtract(cg.fadeStartColor, cg.fadeEndColor, colorDiff);
+	Vector4Scale(colorDiff, progress, colorDiff);
+	Vector4Add(cg.fadeStartColor, colorDiff, colorDiff);
+	//Com_Printf("%f %f %f %f\n", colorDiff[0], colorDiff[1], colorDiff[2], colorDiff[3]);
+	CG_FillRect(0, 0, 640, 480, colorDiff);
+}
+
+/*
+=================
+CG_DrawFadeOld
+
+Draws fade-in with map title or fade-out
+=================
+*/
+static void CG_DrawFadeOld( void ) {
+	vec4_t color;
+	int blackoutTime = BLACKOUT_TIME;
+	const char *s;
+
+	// get map message
+	s = CG_ConfigString( CS_MESSAGE );
+
+	if ( strlen(s) == 0 )
+		blackoutTime = 0;	//if we're not displaying the level's title, don't wait with the fade-in
 
 	if ( cgs.gametype != GT_ENTITYPLUS )
 		return;
@@ -2903,7 +2952,7 @@ static void CG_Draw2D( void ) {
 
 	// don't draw center string if scoreboard is up
 	cg.scoreBoardShowing = CG_DrawScoreboard();
-	if ( !cg.scoreBoardShowing) {
+	if ( !cg.scoreBoardShowing ) {
 		CG_DrawCenterString();
 		CG_DrawSubtitleString();
 	}
@@ -2927,6 +2976,20 @@ Perform all drawing needed to completely fill the screen
 void CG_DrawActive( stereoFrame_t stereoView ) {
 	float		separation;
 	vec3_t		baseOrg;
+	vec4_t		one;
+	vec4_t		two;
+
+	one[0] = 100;
+	one[1] = 200; 
+	one[2] = 255;
+	one[3] = 0;
+
+	one[0] = 100;
+	one[1] = 200; 
+	one[2] = 255;
+	one[3] = 525;
+
+	//CG_Fade(10, one, two);
 
 	// optionally draw the info screen instead
 	if ( !cg.snap ) {
@@ -2980,6 +3043,12 @@ void CG_DrawActive( stereoFrame_t stereoView ) {
 	// draw status bar and other floating elements
  	CG_Draw2D();
 
-	// draw fade-in/out
-	CG_DrawFade();
+	// draw letterbox bars for cutscenes
+	CG_DrawLetterbox();
+
+	// draw generic fade-in/out
+	//CG_DrawFade();
+
+	// draw level start/end fade-in/out
+	CG_DrawFadeOld();
 }

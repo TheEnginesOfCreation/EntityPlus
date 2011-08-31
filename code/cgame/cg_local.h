@@ -648,7 +648,7 @@ typedef struct {
 	char			testModelName[MAX_QPATH];
 	qboolean		testGun;
 
-	// objectives
+	// entityplus objectives
 	int				objectivesTime;
 	qboolean		objectivesSoundPlayed;
 
@@ -660,6 +660,12 @@ typedef struct {
 	int				fadeInTime;			//for timing the fade in at start
 	int				fadeOutTime;		//for timing the fade out at map change
 	qboolean		footstepSuppressed; //hack to suppress initial footstep after first spawn
+	
+	// entityplus generic fades
+	int				fadeStartTime;		//starting time for the fade
+	int				fadeDuration;		//duration of the fade
+	vec4_t			fadeStartColor;		//color at the start of fade (r, g, b, a)
+	vec4_t			fadeEndColor;		//color at the end of fade (r, g, b, a)
 
 	// entityplus subtitles
 	int				subtitlePrintTime;
