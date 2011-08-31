@@ -667,6 +667,7 @@ typedef struct {
 	int				subtitlePrintY;
 	char			subtitlePrint[1024];
 	int				subtitlePrintLines;
+	float			subtitlePrintDuration;
 
 } cg_t;
 
@@ -1168,7 +1169,7 @@ extern	itemInfo_t		cg_items[MAX_ITEMS];
 extern	markPoly_t		cg_markPolys[MAX_MARK_POLYS];
 
 extern	vmCvar_t		cg_centertime;
-extern	vmCvar_t		cg_subtitletime;
+extern	vmCvar_t		cg_drawsubtitles;
 extern	vmCvar_t		cg_runpitch;
 extern	vmCvar_t		cg_runroll;
 extern	vmCvar_t		cg_bobup;
@@ -1361,6 +1362,7 @@ extern  char teamChat2[256];
 void CG_AddLagometerFrameInfo( void );
 void CG_AddLagometerSnapshotInfo( snapshot_t *snap );
 void CG_CenterPrint( const char *str, int y, int charWidth );
+void CG_SubtitlePrint( const char *str, float duration );
 void CG_DrawHead( float x, float y, float w, float h, int clientNum, vec3_t headAngles );
 void CG_DrawActive( stereoFrame_t stereoView );
 void CG_DrawFlagModel( float x, float y, float w, float h, int team, qboolean force2D );

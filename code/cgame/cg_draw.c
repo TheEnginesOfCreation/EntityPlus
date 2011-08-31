@@ -1933,12 +1933,13 @@ CG_SubtitlePrint
 Called for subtitle messages that should stay at the bottom of the screen for a few moments
 ==============
 */
-void CG_SubtitlePrint( const char *str ) {
+void CG_SubtitlePrint( const char *str, float duration ) {
 	char	*s;
 
 	Q_strncpyz( cg.subtitlePrint, str, sizeof(cg.subtitlePrint) );
 
 	cg.subtitlePrintTime = cg.time;
+	cg.subtitlePrintDuration = duration;
 	cg.subtitlePrintCharWidth = SMALLCHAR_WIDTH;
 
 	// count the number of lines for centering
@@ -1962,20 +1963,18 @@ static void CG_DrawSubtitleString( void ) {
 	int		l;
 	int		x, y, w;
 	float	*color;
-	float	t;
 
-	if ( !cg.subtitlePrintTime ) {
+	if ( !cg.subtitlePrintTime || !cg_drawsubtitles.value ) {
 		return;
 	}
 
-	t = cg_subtitletime.value;
-	if ( t == -1 )
-		t = CG_DrawStrlen( cg.subtitlePrint ) / 15;
+	if ( cg.subtitlePrintDuration == 0 ) {
+		cg.subtitlePrintDuration = CG_DrawStrlen( cg.subtitlePrint ) / 15;
+		if (cg.subtitlePrintDuration < 1)
+			cg.subtitlePrintDuration = 1;
+	}
 
-	if (t < 1)
-		t = 1;
-
-	color = CG_FadeColor( cg.subtitlePrintTime, 1000 * t );
+	color = CG_FadeColor( cg.subtitlePrintTime, 1000 * cg.subtitlePrintDuration );
 	if ( !color ) {
 		return;
 	}

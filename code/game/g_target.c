@@ -177,13 +177,17 @@ void Use_Target_Print (gentity_t *ent, gentity_t *other, gentity_t *activator) {
 	}
 
 	if ( ent->spawnflags & 8 )
-		trap_SendServerCommand( -1, va("sp \"%s\"", ent->message ));
+		trap_SendServerCommand( -1, va("sp \"%s\" %f", ent->message, ent->wait ));
 	else
-		trap_SendServerCommand( -1, va("cp \"%s\"", ent->message ));
+		trap_SendServerCommand( -1, va("cp \"%s\" %f", ent->message, ent->wait ));
 }
 
 void SP_target_print( gentity_t *ent ) {
 	ent->use = Use_Target_Print;
+	
+	if ( !ent->wait ) {
+		ent->wait = -1;
+	}
 }
 
 
@@ -208,7 +212,7 @@ void Use_Target_Speaker (gentity_t *ent, gentity_t *other, gentity_t *activator)
 			ent->s.loopSound = 0;	// turn it off
 		else
 			ent->s.loopSound = ent->noise_index;	// start it
-	}else {	// normal sound
+	} else {	// normal sound
 		if ( ent->spawnflags & 8 ) {
 			G_AddEvent( activator, EV_GENERAL_SOUND, ent->noise_index );
 		} else if (ent->spawnflags & 4) {

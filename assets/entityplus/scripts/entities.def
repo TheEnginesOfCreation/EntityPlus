@@ -1642,10 +1642,13 @@ To make a jump pad, place this entity at the highest point of the jump and targe
 This will print a message on the screen when triggered.
 -------- KEYS --------
 message : text string to print on screen.
+wait : amount of time the message should stay on-screen (defaults to 0, only works for subtitles).
 targetname : the activating entity points to this.
 targetname2 : the activating entity points to this.
 -------- SPAWNFLAGS --------
-SUBTITLE : The message will be printed at the bottom of the screen in a smaller font.*/
+SUBTITLE : The message will be printed at the bottom of the screen in a smaller font.
+-------- NOTES --------
+When the SUBTITLE spawnflag is set and no wait key has been specified, the game will calculate the wait key by itself. It does this by dividing the number of characters in the message by 15. Messages less than 15 characters long will remain on-screen for 1 second.*/
 
 //=============================================================================
 

@@ -981,7 +981,7 @@ static void CG_ServerCommand( void ) {
 	}
 
 	if ( !strcmp( cmd, "sp" ) ) {
-		CG_SubtitlePrint( CG_Argv(1) );
+		CG_SubtitlePrint( CG_Argv(1), atof(CG_Argv(2)) );
 		return;
 	}
 
