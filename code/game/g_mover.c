@@ -613,7 +613,6 @@ Reached_BinaryMover
 ================
 */
 void Reached_BinaryMover( gentity_t *ent ) {
-
 	// stop the looping sound
 	ent->s.loopSound = ent->soundLoop;
 
@@ -628,7 +627,6 @@ void Reached_BinaryMover( gentity_t *ent ) {
 
 		// return to pos1 after a delay
 		ent->think = ReturnToPos1;
-
 		if ( ent->wait != -2000)
 			ent->nextthink = level.time + ent->wait;
 
@@ -661,7 +659,8 @@ void Reached_BinaryMover( gentity_t *ent ) {
 
 		// return to apos1 after a delay
 		ent->think = ReturnToApos1;
-		ent->nextthink = level.time + ent->wait;
+		if ( ent->wait != -2000)
+			ent->nextthink = level.time + ent->wait;
 
 		// fire targets
 		if ( !ent->activator ) {
