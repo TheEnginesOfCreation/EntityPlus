@@ -1286,11 +1286,8 @@ void SP_func_door_rotating ( gentity_t *ent ) {
 	if ( ent->spawnflags & 8 )
 		VectorNegate ( ent->movedir, ent->movedir );
 
-	// default distance of 90 degrees. This is something the mapper should not
-	// leave out, so we'll tell him if he does.
+	// default distance of 90 degrees.
 	if ( !ent->distance ) {
-		G_Printf("%s at %s with no distance set.\n",
-		ent->classname, vtos(ent->s.origin));
 		ent->distance = 90.0;
 	}
 	
