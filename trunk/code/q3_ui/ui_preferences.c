@@ -27,7 +27,9 @@ GAME OPTIONS MENU
 #define ID_DYNAMICLIGHTS		132
 #define ID_SYNCEVERYFRAME		134
 #define ID_FORCEMODEL			135
+#define ID_SUBTITLES			136
 #define ID_BACK					138
+
 
 #define	NUM_CROSSHAIRS			10
 
@@ -47,6 +49,7 @@ typedef struct {
 	menuradiobutton_s	highqualitysky;
 	menuradiobutton_s	synceveryframe;
 	menuradiobutton_s	forcemodel;
+	menuradiobutton_s	subtitles;
 	menubitmap_s		back;
 
 	qhandle_t			crosshairShader[NUM_CROSSHAIRS];
@@ -63,6 +66,7 @@ static void Preferences_SetMenuItems( void ) {
 	s_preferences.highqualitysky.curvalue	= trap_Cvar_VariableValue ( "r_fastsky" ) == 0;
 	s_preferences.synceveryframe.curvalue	= trap_Cvar_VariableValue( "r_finish" ) != 0;
 	s_preferences.forcemodel.curvalue		= trap_Cvar_VariableValue( "cg_forcemodel" ) != 0;
+	s_preferences.subtitles.curvalue		= trap_Cvar_VariableValue( "cg_drawsubtitles" ) != 0;
 }
 
 
@@ -109,6 +113,10 @@ static void Preferences_Event( void* ptr, int notification ) {
 
 	case ID_FORCEMODEL:
 		trap_Cvar_SetValue( "cg_forcemodel", s_preferences.forcemodel.curvalue );
+		break;
+
+	case ID_SUBTITLES:
+		trap_Cvar_SetValue( "cg_drawsubtitles", s_preferences.subtitles.curvalue );
 		break;
 
 	case ID_BACK:
@@ -278,6 +286,15 @@ static void Preferences_MenuInit( void ) {
 	s_preferences.forcemodel.generic.y	      = y;
 
 	y += BIGCHAR_HEIGHT+2;
+	s_preferences.subtitles.generic.type     = MTYPE_RADIOBUTTON;
+	s_preferences.subtitles.generic.name	 = "Show subtitles:";
+	s_preferences.subtitles.generic.flags	 = QMF_PULSEIFFOCUS|QMF_SMALLFONT;
+	s_preferences.subtitles.generic.callback = Preferences_Event;
+	s_preferences.subtitles.generic.id       = ID_SUBTITLES;
+	s_preferences.subtitles.generic.x	     = PREFERENCES_X_POS;
+	s_preferences.subtitles.generic.y	     = y;
+
+	y += BIGCHAR_HEIGHT+2;
 	s_preferences.back.generic.type	    = MTYPE_BITMAP;
 	s_preferences.back.generic.name     = ART_BACK0;
 	s_preferences.back.generic.flags    = QMF_LEFT_JUSTIFY|QMF_PULSEIFFOCUS;
@@ -301,6 +318,7 @@ static void Preferences_MenuInit( void ) {
 	Menu_AddItem( &s_preferences.menu, &s_preferences.highqualitysky );
 	Menu_AddItem( &s_preferences.menu, &s_preferences.synceveryframe );
 	Menu_AddItem( &s_preferences.menu, &s_preferences.forcemodel );
+	Menu_AddItem( &s_preferences.menu, &s_preferences.subtitles );
 
 	Menu_AddItem( &s_preferences.menu, &s_preferences.back );
 
