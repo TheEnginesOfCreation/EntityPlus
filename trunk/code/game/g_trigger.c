@@ -407,7 +407,7 @@ timer
 */
 
 
-/*QUAKED func_timer (0.3 0.1 0.6) (-8 -8 -8) (8 8 8) START_ON
+/*QUAKED func_timer (0.3 0.1 0.6) (-8 -8 -8) (8 8 8) START_ON START_DELAYED
 This should be renamed trigger_timer...
 Repeatedly fires its targets.
 Can be turned on or off by using.
@@ -416,13 +416,24 @@ Can be turned on or off by using.
 "random"		wait variance, default is 0
 so, the basic time between firing is a random time between
 (wait - random) and (wait + random)
+START_DELAYED	When entity is turned on, the timer will activate its target after the wait period instead of immediately
 
 */
 void func_timer_think( gentity_t *self ) {
 	G_UseTargets (self, self->activator);
 
+	// increase timer's damage value to indicate it has been used once more
+	if ( self->count && self->damage < self->count )
+		self->damage++;
+
 	// set time before next firing
-	self->nextthink = level.time + 1000 * ( self->wait + crandom() * self->random );
+	if ( !self->count || self->damage < self->count )
+		self->nextthink = level.time + 1000 * ( self->wait + crandom() * self->random );
+	else {
+		//timer has activated its targets [count] number of times, so turn it off and reset its trigger counter (damage)
+		self->nextthink = 0;	
+		self->damage = 0;
+	}
 }
 
 void func_timer_use( gentity_t *self, gentity_t *other, gentity_t *activator ) {
@@ -435,7 +446,10 @@ void func_timer_use( gentity_t *self, gentity_t *other, gentity_t *activator ) {
 	}
 
 	// turn it on
-	func_timer_think (self);
+	if ( self->spawnflags & 2 )
+		self->nextthink = level.time + 1000 * ( self->wait + crandom() * self->random );
+	else
+		func_timer_think (self);
 }
 
 void SP_func_timer( gentity_t *self ) {
@@ -454,6 +468,9 @@ void SP_func_timer( gentity_t *self ) {
 		self->nextthink = level.time + FRAMETIME;
 		self->activator = self;
 	}
+
+	G_SpawnInt( "count", "0", &self->count);
+	self->damage = 0; //damage is used to keep track of the number of times this timer has activated its targets.
 
 	self->r.svFlags = SVF_NOCLIENT;
 }
