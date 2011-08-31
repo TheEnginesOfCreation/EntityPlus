@@ -361,7 +361,7 @@ Setting the startsound or endsound keys overrides the default sound played when 
 /*QUAKED func_door_rotating (0 .5 .8) START_OPEN CRUSHER REVERSE X_AXIS Y_AXIS
 Rotating door entity. By default, the door will activate when player walks close to it or when damage is inflicted to it.
 -------- KEYS --------
-distance : determines how many degrees the door will rotate.
+distance : determines how many degrees the door will rotate (default 90).
 speed : determines how fast the door moves (degrees/second).
 wait : number of seconds before door returns (default 2, -1 = return immediately, -2 return only when triggered again)
 targetname : if set, a func_button or trigger is required to activate the door.
