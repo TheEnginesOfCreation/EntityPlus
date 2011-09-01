@@ -619,6 +619,9 @@ void SP_target_logic (gentity_t *self) {
 When triggered, loads the specified map. 
 */
 void target_mapchange_use (gentity_t *self, gentity_t *other, gentity_t *activator) {
+	vec4_t startColor, endColor;
+	int i;
+	
 	self->nextthink = level.time + FADEOUT_TIME;
 	
 	//store session data to persist health/armor/weapons/ammo and variables to next level (only in SP mode)
@@ -626,8 +629,14 @@ void target_mapchange_use (gentity_t *self, gentity_t *other, gentity_t *activat
 		G_UpdateClientSessionDataForMapChange( activator->client );
 		G_UpdateGlobalSessionDataForMapChange();
 	}
-	
-	G_TempEntity( self->s.origin, EV_FADEOUT );
+
+	for (i = 0; i < 4; i++) {
+		startColor[i] = 0;
+		endColor[i] = 0;
+	}
+	endColor[3] = 1;
+
+	G_Fade(FADEOUT_TIME / 1000, startColor, endColor);
 }
 
 void target_mapchange_think (gentity_t *self) {

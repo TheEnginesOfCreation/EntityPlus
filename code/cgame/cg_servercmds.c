@@ -985,6 +985,25 @@ static void CG_ServerCommand( void ) {
 		return;
 	}
 
+	if ( !strcmp( cmd, "fade" ) ) {
+		vec4_t color0, color1;
+		float duration;
+
+		duration = atof(CG_Argv(1));
+		
+		color0[0] = atof( CG_Argv(2) );
+		color0[1] = atof( CG_Argv(3) );
+		color0[2] = atof( CG_Argv(4) );
+		color0[3] = atof( CG_Argv(5) );
+		color1[0] = atof( CG_Argv(6) );
+		color1[1] = atof( CG_Argv(7) );
+		color1[2] = atof( CG_Argv(8) );
+		color1[3] = atof( CG_Argv(9) );
+		CG_Fade( duration, color0, color1 );
+		//Com_Printf("%f %f %f\n%f %f %f\n%f %f %f", duration, r0, g0, b0, a0, r1, g1, b1, a1);
+		return;
+	}
+
 	if ( !strcmp( cmd, "print" ) ) {
 		
 		//if the message to print is about a client being dropped after a silent drop, suppress the drop message

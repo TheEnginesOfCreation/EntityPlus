@@ -1127,3 +1127,18 @@ void G_LinkCameras( gentity_t *ent ) {
 		}
 	}
 }
+
+/*
+==================
+G_Fade
+Tells clients to initiate a fade effect
+==================
+*/
+void G_Fade( float duration, vec4_t startColor, vec4_t endColor ) {
+	trap_SendServerCommand( -1, 
+		va(
+			"fade \"%f\" \"%f\" \"%f\" \"%f\" \"%f\" \"%f\" \"%f\" \"%f\" \"%f\"", 
+			duration, startColor[0], startColor[1], startColor[2], startColor[3], endColor[0], endColor[1], endColor[2], endColor[3]
+		)
+	);
+}

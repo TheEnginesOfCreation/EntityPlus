@@ -2815,7 +2815,10 @@ Initializes a fade
 */
 void CG_Fade( float duration, vec4_t startColor, vec4_t endColor ) {
 	cg.fadeStartTime = cg.time;
-	cg.fadeDuration = duration * 1000;
+	if (duration < 0)
+		cg.fadeDuration = 0;
+	else
+		cg.fadeDuration = duration * 1000;
 	Vector4Copy(startColor, cg.fadeStartColor);
 	Vector4Copy(endColor, cg.fadeEndColor);
 }
@@ -2850,7 +2853,10 @@ void CG_DrawFade( void ) {
 
 	//calculate how far we are into the fade
 	timePassed = cg.time - cg.fadeStartTime;
-	progress = timePassed / cg.fadeDuration;
+	if ( cg.fadeDuration == 0 )
+		progress = 1;
+	else
+		progress = timePassed / cg.fadeDuration;
 
 	//calculate the new colors
 	Vector4Subtract(cg.fadeStartColor, cg.fadeEndColor, colorDiff);
@@ -2859,31 +2865,6 @@ void CG_DrawFade( void ) {
 
 	//draw the fade color over the screen
 	CG_FillRect(0, 0, 640, 480, colorDiff);
-}
-
-/*
-=================
-CG_DrawFadeOld
-
-Draws fade-in with map title or fade-out
-=================
-*/
-static void CG_DrawFadeOut( void ) {
-	vec4_t color;
-
-	//TODO: Rewrite this method to have it make use of CG_Fade( ... ). Maybe CG_FadeLevelStart() can be expanded with logic for this.
-
-	if ( cgs.gametype != GT_ENTITYPLUS )
-		return;
-
-	// make screen fade out to black at map change
-	if (cgs.gametype == GT_ENTITYPLUS && cg.time > cg.fadeOutTime && cg.time < (cg.fadeOutTime + FADEOUT_TIME)) {
-		color[0] = 0;
-		color[1] = 0;
-		color[2] = 0;
-		color[3] = (cg.time - cg.fadeOutTime) / FADEOUT_TIME;
-		CG_FillRect(0, 0, 640, 480, color);
-	}	
 }
 
 /*
@@ -3095,9 +3076,6 @@ void CG_DrawActive( stereoFrame_t stereoView ) {
 
 	// draw fade-in/out
 	CG_DrawFade();
-
-	// draw level end fade out
-	CG_DrawFadeOut();
 
 	// draw level message (do it here because we want it done on top of the fade)
 	CG_MessageLevelStart();
