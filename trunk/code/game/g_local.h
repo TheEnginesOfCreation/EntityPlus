@@ -506,6 +506,7 @@ void	G_UseTargets (gentity_t *ent, gentity_t *activator);
 void	G_UseDeathTargets (gentity_t *ent, gentity_t *activator);
 void	G_SetMovedir ( vec3_t angles, vec3_t movedir);
 char	*G_GetScoringMapName();
+void	G_Fade( float duration, vec4_t startColor, vec4_t endColor );
 
 void	G_InitGentity( gentity_t *e );
 gentity_t	*G_Spawn (void);

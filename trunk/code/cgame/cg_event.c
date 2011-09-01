@@ -1257,11 +1257,6 @@ void CG_EntityEvent( centity_t *cent, vec3_t position ) {
 		}
 		break;
 
-	case EV_FADEOUT:
-		DEBUGNAME("EV_FADEOUT");
-		cg.fadeOutTime = cg.time;
-		break;
-
 	case EV_OVERLAY:
 		DEBUGNAME("EV_OVERLAY");
 		CG_RegisterOverlay();

@@ -655,6 +655,9 @@ typedef struct {
 	char			testModelName[MAX_QPATH];
 	qboolean		testGun;
 
+	//entityplus
+	qboolean		footstepSuppressed; //hack to suppress initial footstep after first spawn
+
 	// entityplus objectives
 	int				objectivesTime;
 	qboolean		objectivesSoundPlayed;
@@ -663,10 +666,6 @@ typedef struct {
 	int				intermissionTime;	//for timing the intermission scoreboard in entityplus mode
 	int				scoreSoundsPlayed;	// number of sounds played during SP intermission scoreboard
 
-	// entityplus level start/end fades
-	int				fadeOutTime;		//for timing the fade out at map change
-	qboolean		footstepSuppressed; //hack to suppress initial footstep after first spawn
-	
 	// entityplus generic fades
 	levelFadeStatus_t	levelFadeStatus;	//status for level fade in and -out
 	int					levelStartTime;		//cg.time value for when the client loaded cgame
