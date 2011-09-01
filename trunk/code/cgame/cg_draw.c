@@ -2729,15 +2729,93 @@ static void CG_DrawLetterbox( void ) {
 
 /*
 =================
+CG_FadeLevelStart
+
+Handles the fade at the start of a map
+=================
+*/
+void CG_FadeLevelStart( void ) {
+	vec4_t colorStart;
+	vec4_t colorEnd;
+	int i;
+	const char *s;
+
+	//calculate the fade
+	if ( cg.levelFadeStatus == LFS_LEVELLOADED ) {
+		for (i = 0; i < 4; i++ ) {
+			colorStart[i] = 0;
+		}
+
+		s = CG_ConfigString( CS_MESSAGE );
+
+		if ( strlen(s) == 0 ) {			//there is no message so don't do a blackout
+			cg.levelFadeStatus = LFS_FADEIN;
+			Vector4Copy(colorStart, colorEnd);
+			colorStart[3] = 1;
+			CG_Fade( (FADEIN_TIME / 1000), colorStart, colorEnd );
+		} else {
+			cg.levelFadeStatus = LFS_BLACKOUT;
+			colorStart[3] = 1;
+			Vector4Copy(colorStart, colorEnd);
+			CG_Fade( (BLACKOUT_TIME / 1000), colorStart, colorEnd );
+		}
+	} else if ( cg.levelFadeStatus == LFS_BLACKOUT && cg.fadeStartTime + cg.fadeDuration < cg.time ) {
+		for (i = 0; i < 4; i++ ) {
+			colorStart[i] = 0;
+		}
+
+		cg.levelFadeStatus = LFS_FADEIN;
+		Vector4Copy(colorStart, colorEnd);
+		colorStart[3] = 1;
+		CG_Fade( (FADEIN_TIME / 1000), colorStart, colorEnd );
+	}
+}
+
+/*
+=================
+CG_MessageLevelStart
+
+Draws the level's message to the screen at the start of the level
+=================
+*/
+void CG_MessageLevelStart( void ) {
+	const char *s;
+	vec4_t color;
+
+	if ( cg.time < cg.levelStartTime + TITLE_TIME + TITLE_FADEIN_TIME + TITLE_FADEOUT_TIME) {
+		int len;
+
+		s = CG_ConfigString( CS_MESSAGE );
+		len = strlen( s );
+		if ( len == 0 )
+			return;
+
+		color[0] = 1;
+		color[1] = 1;
+		color[2] = 1;
+		if ( cg.time < cg.levelStartTime + TITLE_FADEIN_TIME ){
+			color[3] = (cg.time - cg.levelStartTime) / TITLE_FADEIN_TIME;
+		}
+		else if ( cg.time < cg.levelStartTime + TITLE_TIME + TITLE_FADEIN_TIME )
+			color[3] = 1;
+		else
+			color[3] = (TITLE_FADEOUT_TIME - ((cg.time - cg.levelStartTime) - (TITLE_FADEIN_TIME + TITLE_TIME))) / TITLE_FADEOUT_TIME;
+
+		len *= BIGCHAR_WIDTH;
+		CG_DrawBigStringColor( 640 - len - 32, 360, s, color );
+	}
+}
+
+/*
+=================
 CG_Fade
 
 Initializes a fade
 =================
 */
-static void CG_Fade( int duration, vec4_t startColor, vec4_t endColor ) {
+void CG_Fade( float duration, vec4_t startColor, vec4_t endColor ) {
 	cg.fadeStartTime = cg.time;
-	cg.fadeDuration = duration;
-	Com_Printf("%f %f %f %f\n", startColor[0], startColor[1], startColor[2], startColor[3]);
+	cg.fadeDuration = duration * 1000;
 	Vector4Copy(startColor, cg.fadeStartColor);
 	Vector4Copy(endColor, cg.fadeEndColor);
 }
@@ -2749,23 +2827,37 @@ CG_DrawFade
 Draws fade in or fade out
 =================
 */
-static void CG_DrawFade( void ) {
+void CG_DrawFade( void ) {
 	vec4_t	colorDiff;
 	int		timePassed;
 	float	progress;
 	float	colorValue;
 
+	//if no start color was defined, do nothing
 	if (!cg.fadeStartColor)
 		return;
+
+	if (cg.fadeStartTime + cg.fadeDuration < cg.time) {
+		//time has progressed beyond the duration of the fade
+
+		if (cg.fadeEndColor[3] == 0)	//end of the fade is fully transparent, so don't bother calling CG_FillRect
+			return;
+
+		//simply draw the end color now
+		CG_FillRect(0, 0, 640, 480, cg.fadeEndColor);
+		return;
+	}
 
 	//calculate how far we are into the fade
 	timePassed = cg.time - cg.fadeStartTime;
 	progress = timePassed / cg.fadeDuration;
 
+	//calculate the new colors
 	Vector4Subtract(cg.fadeStartColor, cg.fadeEndColor, colorDiff);
 	Vector4Scale(colorDiff, progress, colorDiff);
-	Vector4Add(cg.fadeStartColor, colorDiff, colorDiff);
-	//Com_Printf("%f %f %f %f\n", colorDiff[0], colorDiff[1], colorDiff[2], colorDiff[3]);
+	Vector4Subtract(cg.fadeStartColor, colorDiff, colorDiff);
+
+	//draw the fade color over the screen
 	CG_FillRect(0, 0, 640, 480, colorDiff);
 }
 
@@ -2776,16 +2868,10 @@ CG_DrawFadeOld
 Draws fade-in with map title or fade-out
 =================
 */
-static void CG_DrawFadeOld( void ) {
+static void CG_DrawFadeOut( void ) {
 	vec4_t color;
-	int blackoutTime = BLACKOUT_TIME;
-	const char *s;
 
-	// get map message
-	s = CG_ConfigString( CS_MESSAGE );
-
-	if ( strlen(s) == 0 )
-		blackoutTime = 0;	//if we're not displaying the level's title, don't wait with the fade-in
+	//TODO: Rewrite this method to have it make use of CG_Fade( ... ). Maybe CG_FadeLevelStart() can be expanded with logic for this.
 
 	if ( cgs.gametype != GT_ENTITYPLUS )
 		return;
@@ -2797,40 +2883,7 @@ static void CG_DrawFadeOld( void ) {
 		color[2] = 0;
 		color[3] = (cg.time - cg.fadeOutTime) / FADEOUT_TIME;
 		CG_FillRect(0, 0, 640, 480, color);
-	}
-
-	// make screen fade in from black at start of game
-	if (cgs.gametype == GT_ENTITYPLUS && cg.time < (cg.fadeInTime + blackoutTime + FADEIN_TIME)) {
-		color[0] = 0;
-		color[1] = 0;
-		color[2] = 0;
-		if ( cg.time < cg.fadeInTime + blackoutTime )	//screen remains black for some time, fades in after that
-			color[3] = 1;
-		else
-			color[3] = (FADEIN_TIME - ((cg.time - cg.fadeInTime) - blackoutTime)) / FADEIN_TIME;
-		CG_FillRect(0, 0, 640, 480, color);
-	}
-
-	// draw map message
-	if ( cg.time > cg.fadeInTime && cg.time < cg.fadeInTime + TITLE_TIME + TITLE_FADEIN_TIME + TITLE_FADEOUT_TIME) {
-		int len;
-
-		
-		color[0] = 1;
-		color[1] = 1;
-		color[2] = 1;
-		if ( cg.time < cg.fadeInTime + TITLE_FADEIN_TIME ){
-			color[3] = (cg.time - cg.fadeInTime) / TITLE_FADEIN_TIME;
-		}
-		else if ( cg.time < cg.fadeInTime + TITLE_TIME + TITLE_FADEIN_TIME )
-			color[3] = 1;
-		else
-			color[3] = (TITLE_FADEOUT_TIME - ((cg.time - cg.fadeInTime) - (TITLE_FADEIN_TIME + TITLE_TIME))) / TITLE_FADEOUT_TIME;
-
-		len = strlen( s );
-		len *= BIGCHAR_WIDTH;
-		CG_DrawBigStringColor( 640 - len - 32, 360, s, color );
-	}
+	}	
 }
 
 /*
@@ -2861,8 +2914,9 @@ static void CG_Draw2D( void ) {
 	if ( strlen(overlay) && cgs.media.effectOverlay )
 		CG_DrawPic( 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, cgs.media.effectOverlay );
 
-	if ( !cg.fadeInTime && cgs.gametype == GT_ENTITYPLUS )
-		cg.fadeInTime = cg.time;
+	if ( !cg.levelStartTime && cgs.gametype == GT_ENTITYPLUS ){
+		cg.levelStartTime = cg.time;
+	}
 
 	// set intermission time and start scoreboard music if we're in intermission
 	// this is done here so score board music plays properly even if cg_draw2d is set to 0
@@ -2983,21 +3037,6 @@ Perform all drawing needed to completely fill the screen
 void CG_DrawActive( stereoFrame_t stereoView ) {
 	float		separation;
 	vec3_t		baseOrg;
-	vec4_t		one;
-	vec4_t		two;
-
-	one[0] = 10;
-	one[1] = 10; 
-	one[2] = 10;
-	one[3] = 255;
-
-	one[0] = 0;
-	one[1] = 0; 
-	one[2] = 0;
-	one[3] = 0;
-
-	//if (!cg.fadeDuration)
-	//	CG_Fade(10, one, two);
 
 	// optionally draw the info screen instead
 	if ( !cg.snap ) {
@@ -3051,12 +3090,18 @@ void CG_DrawActive( stereoFrame_t stereoView ) {
 	// draw status bar and other floating elements
  	CG_Draw2D();
 
+	// initialize the fade in at level start
+	CG_FadeLevelStart();
+
+	// draw fade-in/out
+	CG_DrawFade();
+
+	// draw level end fade out
+	CG_DrawFadeOut();
+
+	// draw level message (do it here because we want it done on top of the fade)
+	CG_MessageLevelStart();
+
 	// draw letterbox bars for cutscenes
 	CG_DrawLetterbox();
-
-	// draw generic fade-in/out
-	//CG_DrawFade();
-
-	// draw level start/end fade-in/out
-	CG_DrawFadeOld();
 }
