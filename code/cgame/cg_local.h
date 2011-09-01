@@ -101,6 +101,13 @@ typedef enum {
 	IMPACTSOUND_FLESH
 } impactSound_t;
 
+typedef enum {
+	LFS_LEVELLOADED,		//the level has just been loaded
+	LFS_BLACKOUT,			//busy with the blackout
+	LFS_FADEIN,				//busy with the fade in
+	LFS_IDLE				//not doing any map change related fades
+} levelFadeStatus_t;
+
 //=================================================
 
 // player entities need to track more information
@@ -657,15 +664,16 @@ typedef struct {
 	int				scoreSoundsPlayed;	// number of sounds played during SP intermission scoreboard
 
 	// entityplus level start/end fades
-	int				fadeInTime;			//for timing the fade in at start
 	int				fadeOutTime;		//for timing the fade out at map change
 	qboolean		footstepSuppressed; //hack to suppress initial footstep after first spawn
 	
 	// entityplus generic fades
-	int				fadeStartTime;		//starting time for the fade
-	int				fadeDuration;		//duration of the fade
-	vec4_t			fadeStartColor;		//color at the start of fade (r, g, b, a)
-	vec4_t			fadeEndColor;		//color at the end of fade (r, g, b, a)
+	levelFadeStatus_t	levelFadeStatus;	//status for level fade in and -out
+	int					levelStartTime;		//cg.time value for when the client loaded cgame
+	int					fadeStartTime;		//starting time for the fade
+	float				fadeDuration;		//duration of the fade
+	vec4_t				fadeStartColor;		//color at the start of fade (r, g, b, a)
+	vec4_t				fadeEndColor;		//color at the end of fade (r, g, b, a)
 
 	// entityplus subtitles
 	int				subtitlePrintTime;
@@ -1366,6 +1374,8 @@ extern  char systemChat[256];
 extern  char teamChat1[256];
 extern  char teamChat2[256];
 
+void CG_Fade( float duration, vec4_t startColor, vec4_t endColor );
+void CG_DrawFade( void );
 void CG_AddLagometerFrameInfo( void );
 void CG_AddLagometerSnapshotInfo( snapshot_t *snap );
 void CG_CenterPrint( const char *str, int y, int charWidth );
