@@ -1465,6 +1465,9 @@ static void CG_DrawHoldableItem( void ) {
 	float	yoffset;
 	float	xoffset;
 
+	if ( !cg_drawHoldableItems.integer )
+		return;
+
 	//draw usable item
 	value = GetHoldableListIndex(GetPlayerHoldable(cg.snap->ps.stats[STAT_HOLDABLE_ITEM]));
 
@@ -2734,6 +2737,7 @@ Initializes a fade
 static void CG_Fade( int duration, vec4_t startColor, vec4_t endColor ) {
 	cg.fadeStartTime = cg.time;
 	cg.fadeDuration = duration;
+	Com_Printf("%f %f %f %f\n", startColor[0], startColor[1], startColor[2], startColor[3]);
 	Vector4Copy(startColor, cg.fadeStartColor);
 	Vector4Copy(endColor, cg.fadeEndColor);
 }
@@ -2750,6 +2754,9 @@ static void CG_DrawFade( void ) {
 	int		timePassed;
 	float	progress;
 	float	colorValue;
+
+	if (!cg.fadeStartColor)
+		return;
 
 	//calculate how far we are into the fade
 	timePassed = cg.time - cg.fadeStartTime;
@@ -2979,17 +2986,18 @@ void CG_DrawActive( stereoFrame_t stereoView ) {
 	vec4_t		one;
 	vec4_t		two;
 
-	one[0] = 100;
-	one[1] = 200; 
-	one[2] = 255;
+	one[0] = 10;
+	one[1] = 10; 
+	one[2] = 10;
+	one[3] = 255;
+
+	one[0] = 0;
+	one[1] = 0; 
+	one[2] = 0;
 	one[3] = 0;
 
-	one[0] = 100;
-	one[1] = 200; 
-	one[2] = 255;
-	one[3] = 525;
-
-	//CG_Fade(10, one, two);
+	//if (!cg.fadeDuration)
+	//	CG_Fade(10, one, two);
 
 	// optionally draw the info screen instead
 	if ( !cg.snap ) {
