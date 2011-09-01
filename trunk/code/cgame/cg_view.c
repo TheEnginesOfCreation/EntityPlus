@@ -583,7 +583,7 @@ static void CG_DamageBlendBlob( void ) {
 }
 
 
-CG_CalcCutsceneViewValues( playerState_t *ps ) {
+static void CG_CalcCutsceneViewValues( playerState_t *ps ) {
 	const char *cutsceneData;
 	char buf[MAX_INFO_STRING];
 	float wait;
