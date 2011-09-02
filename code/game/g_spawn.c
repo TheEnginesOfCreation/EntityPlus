@@ -639,6 +639,9 @@ void SP_worldspawn( void ) {
 	G_SpawnString( "scoreboardmusic", "", &s );
 	trap_SetConfigstring( CS_SCOREBOARDMUSIC, s );
 
+	G_SpawnString( "deathmusic", "", &s );
+	trap_SetConfigstring( CS_DEATHMUSIC, s );
+
 	G_SpawnString( "message", "", &s );
 	trap_SetConfigstring( CS_MESSAGE, s );				// map specific message
 
