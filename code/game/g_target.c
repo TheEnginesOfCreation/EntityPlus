@@ -710,10 +710,25 @@ void target_botspawn_use (gentity_t *self, gentity_t *other, gentity_t *activato
 }
 
 void SP_target_botspawn (gentity_t *self) {
+	float healthMultiplier = 1;
+	float skill = trap_Cvar_VariableValue( "g_spSkill" );
+
 	if ( !self->clientname || !strcmp(self->clientname, "") )
 		self->clientname = "sarge";
 
 	G_SpawnFloat( "skill", "0", &self->skill );
+
+	//determine bot's health based on current and relative skill level
+	if ( !self->health )
+		self->health = 100;
+
+	skill += self->skill;
+	if ( skill < 1 )
+		skill = 1;
+
+	//bot's health will be 20% less for each skill level under level 3 and 20% more for each skill level above level 3
+	healthMultiplier = 1 + ((skill - 3) * 0.2);
+	self->health *= healthMultiplier;
 
 	self->use = target_botspawn_use;
 }
