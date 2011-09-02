@@ -664,7 +664,11 @@ typedef struct {
 
 	// entityplus intermission
 	int				intermissionTime;	//for timing the intermission scoreboard in entityplus mode
-	int				scoreSoundsPlayed;	// number of sounds played during SP intermission scoreboard
+	int				scoreSoundsPlayed;	//number of sounds played during SP intermission scoreboard
+
+	// entityplus death
+	qboolean		deathmusicStarted; //true when a background track has been started for the player's death
+	qboolean		musicStarted;	   //true when the normal background track has been started
 
 	// entityplus generic fades
 	levelFadeStatus_t	levelFadeStatus;	//status for level fade in and -out
@@ -914,6 +918,9 @@ typedef struct {
 	// sp intermission scoreboard
 	sfxHandle_t	scoreShow;
 	sfxHandle_t finalScoreShow;
+
+	// death view image
+	qhandle_t	deathImage;
 
 	// medals shown during gameplay
 	qhandle_t	medalImpressive;

@@ -1128,6 +1128,7 @@ void G_LinkCameras( gentity_t *ent ) {
 	}
 }
 
+
 /*
 ==================
 G_Fade
@@ -1141,4 +1142,24 @@ void G_Fade( float duration, vec4_t startColor, vec4_t endColor ) {
 			duration, startColor[0], startColor[1], startColor[2], startColor[3], endColor[0], endColor[1], endColor[2], endColor[3]
 		)
 	);
+}
+
+/*
+==================
+G_FadeOut
+Fades out to black
+==================
+*/
+void G_FadeOut( float duration ) {
+	trap_SendServerCommand( -1, va("fade \"%f\" \"0\" \"0\" \"0\" \"0\" \"0\" \"0\" \"0\" \"1\"", duration) );
+}
+
+/*
+==================
+G_FadeIn
+Fades in from black
+==================
+*/
+void G_FadeIn( float duration ) {
+	trap_SendServerCommand( -1, va("fade \"%f\" \"0\" \"0\" \"0\" \"1\" \"0\" \"0\" \"0\" \"0\"", duration) );
 }

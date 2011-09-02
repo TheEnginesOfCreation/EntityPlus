@@ -872,6 +872,8 @@ static void CG_RegisterGraphics( void ) {
 	cgs.media.objectivesUpdated = trap_R_RegisterShaderNoMip( "menu/objectives/updated.tga" );
 	cgs.media.objectivesUpdatedSound = trap_S_RegisterSound( "sound/misc/objective_update_01.wav", qfalse );
 
+	cgs.media.deathImage = trap_R_RegisterShaderNoMip( "menu/art/level_complete5" );
+
 	cgs.media.scoreShow = trap_S_RegisterSound( "sound/weapons/rocket/rocklx1a.wav", qfalse );
 	cgs.media.finalScoreShow = trap_S_RegisterSound( "sound/weapons/rocket/rocklx1a.wav", qfalse );
 
@@ -1264,6 +1266,7 @@ void CG_StartMusic( void ) {
 	Q_strncpyz( parm2, COM_Parse( &s ), sizeof( parm2 ) );
 
 	trap_S_StartBackgroundTrack( parm1, parm2 );
+	cg.musicStarted = qtrue;
 }
 
 void CG_StartScoreboardMusic( void ) {
@@ -1277,6 +1280,30 @@ void CG_StartScoreboardMusic( void ) {
 
 	trap_S_StartBackgroundTrack( parm1, parm2 );
 }
+
+void CG_StartDeathMusic( void ) {
+	char	*s;
+	char	parm1[MAX_QPATH], parm2[MAX_QPATH];
+
+	// start the background music
+	s = (char *)CG_ConfigString( CS_DEATHMUSIC );
+	Q_strncpyz( parm1, COM_Parse( &s ), sizeof( parm1 ) );
+	Q_strncpyz( parm2, COM_Parse( &s ), sizeof( parm2 ) );
+
+	trap_S_StartBackgroundTrack( parm1, parm2 );
+	cg.deathmusicStarted = qtrue;
+	cg.musicStarted = qfalse;
+}
+
+void CG_StopDeathMusic( void ) {
+	trap_S_StopBackgroundTrack();
+	cg.deathmusicStarted = qfalse;
+	if (!cg.musicStarted) {
+		cg.musicStarted = qtrue;
+		CG_StartMusic();
+	}
+}
+
 #ifdef MISSIONPACK
 char *CG_GetMenuBuffer(const char *filename) {
 	int	len;

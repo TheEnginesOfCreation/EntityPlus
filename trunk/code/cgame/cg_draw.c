@@ -2709,6 +2709,19 @@ CG_DrawLetterbox
 Draws letterbox bars at top and bottom of screen
 =================
 */
+static void CG_DrawDeathMessage( void ) {
+	CG_DrawBigString((640 - (BIGCHAR_WIDTH * strlen( "You died." ))) / 2, 150, "You died.", 1.0);
+	CG_DrawSmallString((640 - (SMALLCHAR_WIDTH * strlen( "Press any key to resurrect." ))) / 2, 480 - BIGCHAR_HEIGHT, "Press any key to resurrect.", 1.0);
+	CG_DrawPic( 256, 170, 128, 128, cgs.media.deathImage );
+}
+
+/*
+=================
+CG_DrawLetterbox
+
+Draws letterbox bars at top and bottom of screen
+=================
+*/
 static void CG_DrawLetterbox( void ) {
 	float letterboxSize;
 	vec4_t color;
@@ -2906,6 +2919,12 @@ static void CG_Draw2D( void ) {
 		CG_StartScoreboardMusic();
 	}
 
+	if ( cg.snap->ps.pm_type == PM_DEAD && !cg.deathmusicStarted ) {
+		CG_StartDeathMusic();
+	} else if (cg.deathmusicStarted) {
+		CG_StopDeathMusic();
+	}
+
 	// play objectives notification sound if necessary
 	if ( cg.objectivesTime != 0 && cg.time >= cg.objectivesTime ) {
 		if ( !cg.objectivesSoundPlayed ) {
@@ -3082,4 +3101,9 @@ void CG_DrawActive( stereoFrame_t stereoView ) {
 
 	// draw letterbox bars for cutscenes
 	CG_DrawLetterbox();
+
+	// if player is dead, draw death message
+	if (cgs.gametype == GT_ENTITYPLUS && cg.snap->ps.pm_type == PM_DEAD ) {
+		CG_DrawDeathMessage();
+	}
 }

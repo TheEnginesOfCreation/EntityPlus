@@ -589,6 +589,8 @@ void respawn( gentity_t *ent ) {
 	// add a teleportation effect
 	tent = G_TempEntity( ent->client->ps.origin, EV_PLAYER_TELEPORT_IN );
 	tent->s.clientNum = ent->s.clientNum;
+
+	G_FadeIn( 0.5 );
 }
 
 /*
