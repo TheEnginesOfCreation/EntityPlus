@@ -1266,7 +1266,6 @@ void CG_StartMusic( void ) {
 	Q_strncpyz( parm2, COM_Parse( &s ), sizeof( parm2 ) );
 
 	trap_S_StartBackgroundTrack( parm1, parm2 );
-	cg.musicStarted = qtrue;
 }
 
 void CG_StartScoreboardMusic( void ) {
@@ -1292,16 +1291,12 @@ void CG_StartDeathMusic( void ) {
 
 	trap_S_StartBackgroundTrack( parm1, parm2 );
 	cg.deathmusicStarted = qtrue;
-	cg.musicStarted = qfalse;
 }
 
 void CG_StopDeathMusic( void ) {
 	trap_S_StopBackgroundTrack();
 	cg.deathmusicStarted = qfalse;
-	if (!cg.musicStarted) {
-		cg.musicStarted = qtrue;
-		CG_StartMusic();
-	}
+	CG_StartMusic();
 }
 
 #ifdef MISSIONPACK

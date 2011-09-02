@@ -2427,6 +2427,15 @@ static void CG_DrawIntermission( void ) {
 		return;
 	}
 #endif
+	if ( cgs.gametype == GT_ENTITYPLUS ) {
+		// set intermission time and start scoreboard music if we're in intermission
+		if ( cg.intermissionTime == 0 && cg.snap->ps.pm_type == PM_INTERMISSION ) {
+			cg.intermissionTime = cg.time;
+			cg.scoreSoundsPlayed = 0;
+			CG_StartScoreboardMusic();
+		}
+	}
+
 	//in entityplus sp mode, cg.scoreFadeTime should be set once at the start of intermission so we can time animations in the scoreboard
 	if ( cg.scoreFadeTime == 0 || cgs.gametype != GT_ENTITYPLUS )
 		cg.scoreFadeTime = cg.time;
@@ -2882,16 +2891,34 @@ void CG_DrawFade( void ) {
 
 /*
 =================
+CG_DrawOverlay
+=================
+*/
+static void CG_DrawOverlay( void ) {
+	const char *overlay;
+
+	// draw overlay set by target_effect
+	overlay = CG_ConfigString( CS_OVERLAY );
+	if ( strlen(overlay) && cgs.media.effectOverlay )
+		CG_DrawPic( 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, cgs.media.effectOverlay );
+}
+
+
+/*
+=================
 CG_Draw2D
 =================
 */
 static void CG_Draw2D( void ) {
-	const char *overlay;
 #ifdef MISSIONPACK
 	if (cgs.orderPending && cg.time > cgs.orderTime) {
 		CG_CheckOrderPending();
 	}
 #endif
+	if ( cgs.gametype == GT_SINGLE_PLAYER )
+		CG_DrawSmallString( 0, 0, "g_gametype 2 is no longer supported. Use g_gametype 8 instead", 1 );
+	
+
 	// if we are taking a levelshot for the menu, don't draw anything
 	if ( cg.levelShot ) {
 		return;
@@ -2899,39 +2926,6 @@ static void CG_Draw2D( void ) {
 
 	if ( cg.snap->ps.pm_type == PM_CUTSCENE )
 		return;
-
-	if ( cgs.gametype == GT_SINGLE_PLAYER )
-		CG_DrawSmallString( 0, 0, "g_gametype 2 is no longer supported. Use g_gametype 8 instead", 1 );
-
-	// draw overlay set by target_effect
-	overlay = CG_ConfigString( CS_OVERLAY );
-	if ( strlen(overlay) && cgs.media.effectOverlay )
-		CG_DrawPic( 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, cgs.media.effectOverlay );
-
-	if ( !cg.levelStartTime && cgs.gametype == GT_ENTITYPLUS ){
-		cg.levelStartTime = cg.time;
-	}
-
-	// set intermission time and start scoreboard music if we're in intermission
-	// this is done here so score board music plays properly even if cg_draw2d is set to 0
-	if ( cg.intermissionTime == 0 && cg.snap->ps.pm_type == PM_INTERMISSION ) {
-		cg.intermissionTime = cg.time;
-		CG_StartScoreboardMusic();
-	}
-
-	if ( cg.snap->ps.pm_type == PM_DEAD && !cg.deathmusicStarted ) {
-		CG_StartDeathMusic();
-	} else if (cg.deathmusicStarted) {
-		CG_StopDeathMusic();
-	}
-
-	// play objectives notification sound if necessary
-	if ( cg.objectivesTime != 0 && cg.time >= cg.objectivesTime ) {
-		if ( !cg.objectivesSoundPlayed ) {
-			cg.objectivesSoundPlayed = qtrue;
-			trap_S_StartLocalSound( cgs.media.objectivesUpdatedSound, CHAN_LOCAL_SOUND );
-		}
-	}
 	
 	if ( cg_draw2D.integer == 0) {
 		return;
@@ -3038,6 +3032,11 @@ void CG_DrawActive( stereoFrame_t stereoView ) {
 	float		separation;
 	vec3_t		baseOrg;
 
+	// register the time at which the player entered the game
+	if ( !cg.levelStartTime && cgs.gametype == GT_ENTITYPLUS ) {
+		cg.levelStartTime = cg.time;
+	}
+
 	// optionally draw the info screen instead
 	if ( !cg.snap ) {
 		CG_DrawInformation();
@@ -3087,6 +3086,12 @@ void CG_DrawActive( stereoFrame_t stereoView ) {
 		VectorCopy( baseOrg, cg.refdef.vieworg );
 	}
 
+	// draw end game intermission scoreboard
+//	CG_DrawIntermission();
+
+	// draw overlay for target_effect
+	CG_DrawOverlay();
+
 	// draw status bar and other floating elements
  	CG_Draw2D();
 
@@ -3102,8 +3107,23 @@ void CG_DrawActive( stereoFrame_t stereoView ) {
 	// draw letterbox bars for cutscenes
 	CG_DrawLetterbox();
 
+	// play objectives notification sound if necessary
+	if ( cg.objectivesTime != 0 && cg.time >= cg.objectivesTime ) {
+		if ( !cg.objectivesSoundPlayed ) {
+			cg.objectivesSoundPlayed = qtrue;
+			trap_S_StartLocalSound( cgs.media.objectivesUpdatedSound, CHAN_LOCAL_SOUND );
+		}
+	}
+
 	// if player is dead, draw death message
 	if (cgs.gametype == GT_ENTITYPLUS && cg.snap->ps.pm_type == PM_DEAD ) {
 		CG_DrawDeathMessage();
+
+		if ( !cg.deathmusicStarted )
+			CG_StartDeathMusic();
 	}
+
+		if (cgs.gametype == GT_ENTITYPLUS && cg.snap->ps.pm_type != PM_DEAD && cg.deathmusicStarted ) {
+			CG_StopDeathMusic();
+		}
 }
