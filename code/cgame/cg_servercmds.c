@@ -1004,6 +1004,16 @@ static void CG_ServerCommand( void ) {
 		return;
 	}
 
+	if ( !strcmp( cmd, "ou" ) ) {
+		//objectives are updated
+		cg.objectivesSoundPlayed = qfalse;
+		if ( cg.time < cg.levelStartTime + BLACKOUT_TIME + FADEIN_TIME ) //if we're in fade-in, delay notification until fade-in is done. 
+			cg.objectivesTime = cg.levelStartTime + BLACKOUT_TIME + FADEIN_TIME;
+		else
+			cg.objectivesTime = cg.time;
+		return;
+	}
+
 	if ( !strcmp( cmd, "print" ) ) {
 		
 		//if the message to print is about a client being dropped after a silent drop, suppress the drop message

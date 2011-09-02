@@ -1246,17 +1246,6 @@ void CG_EntityEvent( centity_t *cent, vec3_t position ) {
 		CG_ParticlesFromEntityState( cent->lerpOrigin, PT_LINEAR_DOWN, es );
 		break;
 
-	case EV_OBJECTIVES_UPDATED:
-		DEBUGNAME("EV_OBJECTIVES_UPDATED");
-		if ( cgs.gametype == GT_ENTITYPLUS ) {
-			cg.objectivesSoundPlayed = qfalse;
-			if ( cg.time < cg.levelStartTime + BLACKOUT_TIME + FADEIN_TIME ) //if we're in fade-in, delay notification until fade-in is done. 
-				cg.objectivesTime = cg.levelStartTime + BLACKOUT_TIME + FADEIN_TIME;
-			else
-				cg.objectivesTime = cg.time;
-		}
-		break;
-
 	case EV_OVERLAY:
 		DEBUGNAME("EV_OVERLAY");
 		CG_RegisterOverlay();

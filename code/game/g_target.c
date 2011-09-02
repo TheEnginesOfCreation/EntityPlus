@@ -806,7 +806,8 @@ void target_objective_use (gentity_t *self, gentity_t *other, gentity_t *activat
 		trap_SetConfigstring( CS_PRIMARYOBJECTIVE, self->message );
 
 	if ( !(self->spawnflags & 2) )
-		G_TempEntity( self->s.origin, EV_OBJECTIVES_UPDATED );
+		trap_SendServerCommand( -1, "ou" );
+		//G_TempEntity( self->s.origin, EV_OBJECTIVES_UPDATED );
 }
 
 void SP_target_objective (gentity_t *self) {
