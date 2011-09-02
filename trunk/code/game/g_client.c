@@ -1520,11 +1520,9 @@ void SetupCustomBot( gentity_t *bot ) {
 	if ( bot->parent->spawnflags & 256 )
 		bot->client->ps.stats[STAT_WEAPONS] |= ( 1 << WP_BFG );
 
+	G_Printf("BOT HEALTH: %i\n", bot->parent->health);
 	//set bot's health (it doesn't degrade automatically)
-	if ( bot->parent->health && bot->parent->health > 0) {
-		bot->health = bot->client->ps.stats[STAT_HEALTH] = bot->client->ps.stats[STAT_MAX_HEALTH] = bot->parent->health;
-	} else
-		bot->health = bot->client->ps.stats[STAT_HEALTH] = bot->client->ps.stats[STAT_MAX_HEALTH] + 25;
+	bot->health = bot->client->ps.stats[STAT_HEALTH] = bot->client->ps.stats[STAT_MAX_HEALTH] = bot->parent->health;
 
 	//use targets of target_botspawn
 	if ( bot->parent->target )

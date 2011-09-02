@@ -1392,7 +1392,7 @@ Spawns a bot into the game at the location of the target_botspawn entity.
 -------- KEYS --------
 angle : direction in which bot will look when spawning in the game.
 clientname : the name of the bot to spawn (default = "Sarge").
-health : the amount of health the bot will have when it spawns into the game (default = 125).
+health : the amount of health the bot will have when it spawns into the game (default = 100).
 skill : sets the relative skill level of the bot (default = 0).
 target : this points to a info_waypoint entity to which the bot should patrol after spawning.
 targetname : activating entity points to this.

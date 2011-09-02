@@ -454,8 +454,6 @@ void player_die( gentity_t *self, gentity_t *inflictor, gentity_t *attacker, int
 	if ( g_gametype.integer == GT_ENTITYPLUS && IsBot( self ) ) {
 		if ( self->parent && self->parent->health )
 			attacker->client->ps.persistant[PERS_SCORE] += self->parent->health;
-		else
-			attacker->client->ps.persistant[PERS_SCORE] += SCORE_FREE_BOT;
 	}	
 
 	// check for an almost capture
