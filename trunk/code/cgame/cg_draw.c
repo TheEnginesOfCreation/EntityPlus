@@ -3123,7 +3123,7 @@ void CG_DrawActive( stereoFrame_t stereoView ) {
 			CG_StartDeathMusic();
 	}
 
-		if (cgs.gametype == GT_ENTITYPLUS && cg.snap->ps.pm_type != PM_DEAD && cg.deathmusicStarted ) {
-			CG_StopDeathMusic();
-		}
+	if (cgs.gametype == GT_ENTITYPLUS && cg.snap->ps.pm_type != PM_DEAD && cg.deathmusicStarted ) {
+		CG_StopDeathMusic();
+	}
 }
