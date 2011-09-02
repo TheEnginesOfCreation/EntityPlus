@@ -26,6 +26,7 @@ BETA1 (?? ??? 2011)
 	- [Changed] Countdown is no longer displayed when issueing a map_restart.
 	- [Changed] Default health value for target_botspawn was changed from 125 to 100.
 	- [Changed] Bot health is higher/lower depending on skill level.
+	- [Changed] Picking up weapon for which you already have ammo adds normal amount of ammo instead of just 1.
 	- [Changed] Removed info_player_deathmatch from entities.def
 	- [Changed] Renamed the skill levels.
 
