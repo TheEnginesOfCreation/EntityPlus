@@ -12,6 +12,7 @@ BETA1 (?? ??? 2011)
 	- [Added] SUBTITLE spawnflag for target_print.
 	- [Added] cg_drawsubtitles cvar to enable/disable subtitles (also available in game options menu).
 	- [Added] cg_drawHoldableItems cvar to enable/disable drawing of holdable item icons (teleporter/medkit/keys)
+	- [Added] deathmusic key to worldspawn entity.
 	- [Fixed] Spawning a bot with only a Gauntlet results in the bot spawning with a MG and console errors when the bot attacks.
 	- [Fixed] Picking up a Gauntlet after it has been removed results in the Gauntlet being unusable.
 	- [Fixed] target_unlink with IMMEDIATELY spawnflag won't unlink entities that spawn on second frame (such as movers).
