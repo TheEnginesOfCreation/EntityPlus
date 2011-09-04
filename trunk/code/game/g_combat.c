@@ -692,7 +692,8 @@ void player_die( gentity_t *self, gentity_t *inflictor, gentity_t *attacker, int
 	if ( self->parent )
 		G_UseDeathTargets( self->parent, self );
 
-	G_FadeOut( 1.0 );
+	if ( !IsBot( self ) )
+		G_FadeOut( 1.0 );
 }
 
 

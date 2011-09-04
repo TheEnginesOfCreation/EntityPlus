@@ -2720,7 +2720,7 @@ Draws letterbox bars at top and bottom of screen
 */
 static void CG_DrawDeathMessage( void ) {
 	CG_DrawBigString((640 - (BIGCHAR_WIDTH * strlen( "You died." ))) / 2, 150, "You died.", 1.0);
-	CG_DrawSmallString((640 - (SMALLCHAR_WIDTH * strlen( "Press any key to respawn." ))) / 2, 480 - BIGCHAR_HEIGHT, "Press any key to respawn.", 1.0);
+	CG_DrawSmallString((640 - (SMALLCHAR_WIDTH * strlen( "Press any key to respawn." ))) / 2, 480 - (BIGCHAR_HEIGHT * 2), "Press any key to respawn.", 1.0);
 	CG_DrawPic( 256, 170, 128, 128, cgs.media.deathImage );
 }
 
