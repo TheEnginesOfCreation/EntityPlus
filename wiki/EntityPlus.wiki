@@ -2,6 +2,79 @@
 
 For an overview of all features in !EntityPlus, download the level designer manual here: https://code.google.com/p/entityplus/downloads/list
 
+==Additional info about the beta1 release==
+
+Here's the full list of changes:
+
+  * `[`Added] func_door_rotating entity.
+  * `[`Added] New credits to exit menu.
+  * `[`Added] Background music plays in main menu.
+  * `[`Added] info_backpack entity which can be used with nodrop brushes to teleport a backpack from an unreachable location to a safe location.
+  * `[`Added] target_playerstats entity which can set a player's health and armor.
+  * `[`Added] target_variable entity which can set or read and compare variables that persist across map changes.
+  * `[`Added] target_cutscene and info_camera for creating cutscenes.
+  * `[`Added] START_UNLINKED spawnflag for func_static.
+  * `[`Added] TOGGLE spawnflag for target_delay.
+  * `[`Added] START_DELAYED spawnflag and count key for func_timer.
+  * `[`Added] SUBTITLE spawnflag for target_print.
+  * `[`Added] cg_drawsubtitles cvar to enable/disable subtitles (also available in game options menu).
+  * `[`Added] cg_drawHoldableItems cvar to enable/disable drawing of holdable item icons (teleporter/medkit/keys)
+  * `[`Added] deathmusic key to worldspawn entity.
+  * `[`Fixed] Spawning a bot with only a Gauntlet results in the bot spawning with a MG and console errors when the bot attacks.
+  * `[`Fixed] Picking up a Gauntlet after it has been removed results in the Gauntlet being unusable.
+  * `[`Fixed] target_unlink with IMMEDIATELY spawnflag won't unlink entities that spawn on second frame (such as movers).
+  * `[`Fixed] target_unlink ALWAYS_UNLINK and ALWAYS_LINK spawnflags have opposite effect.
+  * `[`Fixed] target_unlink toggles unlinked entities if ALWAYS_UNLINK is set and linked entities if ALWAYS_LINK is set.
+  * `[`Fixed] target_score doesn't add any score when triggered.
+  * `[`Fixed] deathtarget key on target_botspawn does not activate entities with matching targetname2.
+  * `[`Changed] Shots at a func_breakable are now counted as hits and thus will positively affect accuracy instead of negatively
+  * `[`Changed] Using the skill key on target_botspawn now actually influences the general AI skill level of that bot.
+  * `[`Changed] Picking up a weapon if no weapons are currently held will automatically switch to that weapon.
+  * `[`Changed] Setting a speed of -1 for target_playerspeed will freeze the player in his spot, unable to jump or duck as well.
+  * `[`Changed] Countdown is no longer displayed when issueing a map_restart.
+  * `[`Changed] Default health value for target_botspawn was changed from 125 to 100.
+  * `[`Changed] Bot health is higher/lower depending on skill level.
+  * `[`Changed] Picking up weapon for which you already have ammo adds normal amount of ammo instead of just 1.
+  * `[`Changed] Removed info_player_deathmatch from entities.def
+  * `[`Changed] Renamed the skill levels.
+
+Most important changes:
+
+*Cutscenes*
+
+Cutscenes can be made using the target_cutscene and info_camera entities. Refer to the related sections in the manual for additional info on the subject.
+
+*Subtitles*
+
+Subtitles can be enabled/disabled through the games option menu. Level designers can enable the "SUBTITLE" spawnflag on target_print entities, so that the text of the entity will be displayed as subtitle. This is useful when supplying subtitles for spoken dialogue.
+
+*info_backpack entity*
+
+A known problem for level designers was players dying in lava, slime, the void or other similar hazards. The backpack that is spawned upon the player's death would become irretrievable. Info_backpack entities can be placed in the map so that the backpack teleports to the nearest info_backpack entity whenever it hits a brush that is textured with the common/nodrop texture.
+
+*target_variable entity*
+
+The target_variable entity can be used to create variables and assign values to them. The target_variable entity can read these variables as well and activate other entities depending on the value of the variable.
+
+*deathmusic key for worldspawn entity*
+
+From beta 1 onward, whenever the player dies the screen will fade to black and a "You died" message will be displayed. Music can be played while the player is dead. By default, no music is played, but by setting the deathmusic key the level designer can specify the music file that should be played while the player is dead.
+
+*info_player_deathmatch entity removed*
+
+The info_player_deathmatch entity was removed from the entities.def file. This means that it is no longer available in Radiant. Any maps that are already using such entities will still function correctly but will show up incorrectly in Radiant. It is preferable to replace all info_player_deathmatch entities with info_player_start entities.
+
+*Changes to spawning bots*
+
+Before the beta 1 release, target_botspawn entities that have no health key defined would spawn bots with 125 health. From this release onwards, bots are spawned with 100 health by default.
+Also, the amount of health bots are spawned with is not directly influenced by the skill level the player is playing at. When playing at the medium difficulty setting, bots will spawn with the specified amount of health. At higher difficulty levels, bots spawn with more health (20% extra for skill 4 or 40% extra for skill 5). At lower skill levels, bots spawn with less health (20% less for skill 2 or 40% less for skill 1). 
+Finally, using the skill key on target_botspawn does not only influence the amount of damage a bot deals, it also influence the health it will spawn with and the actual AI level of the bot (though for AI level 5 is the maximum).
+
+*Ammo pickup*
+
+!EntityPlus now uses the Team Deathmatch ammo pickup system which means that if a player picks up a weapon after picking up an ammo box, the weapon will add the full complement of ammo to the player's inventory (similar to picking up an ammo box). Before the beta 1 release, players would receive only 1 ammo for the picked up weapon if they already had ammo for the weapon.
+
+
 ==Additional info about the v0.8.1 release==
 
 Here's the full list of changes:
