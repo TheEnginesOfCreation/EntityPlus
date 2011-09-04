@@ -1,4 +1,4 @@
-BETA1 (?? ??? 2011)
+BETA1 (04 sep 2011)
     - [Added] func_door_rotating entity.
     - [Added] New credits to exit menu.
 	- [Added] Background music plays in main menu.
