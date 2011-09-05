@@ -54,7 +54,7 @@ A known problem for level designers was players dying in lava, slime, the void o
 
 *target_variable entity*
 
-The target_variable entity can be used to create variables and assign values to them. The target_variable entity can read these variables as well and activate other entities depending on the value of the variable.
+The target_variable entity can be used to create variables and assign values to them. The target_variable entity can read these variables as well and activate other entities depending on the value of the variable. Any variables that are written to memory will persist across mapchanges (when the mapchange is initialized by a target_mapchange entity). This allows level designers to open a door in one map while the switch to open it is in another map!
 
 *deathmusic key for worldspawn entity*
 
