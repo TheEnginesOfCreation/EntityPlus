@@ -1220,7 +1220,7 @@ void SP_func_door (gentity_t *ent) {
 
 }
 
-/*QUAKED func_door_rotating (0 .5 .8) START_OPEN CRUSHER REVERSE TOGGLE X_AXIS Y_AXIS
+/*QUAKED func_door_rotating (0 .5 .8) START_OPEN - CRUSHER REVERSE Z_AXIS X_AXIS
 This is the rotating door... just as the name suggests it's a door that rotates
 START_OPEN	the door to moves to its destination when spawned, and operate in reverse.
 REVERSE		if you want the door to open in the other direction, use this switch.
@@ -1230,7 +1230,7 @@ Y_AXIS		open on the Y-axis instead of the Z-axis
   
 You need to have an origin brush as part of this entity.  The center of that brush will be
 the point around which it is rotated. It will rotate around the Z axis by default.  You can
-check either the X_AXIS or Y_AXIS box to change that.
+check either the Z_AXIS or X_AXIS box to change that.
 
 "model2"	.md3 model to also draw
 "distance"	how many degrees the door will open
@@ -1273,9 +1273,9 @@ void SP_func_door_rotating ( gentity_t *ent ) {
 	VectorClear( ent->movedir );
 	VectorClear( ent->s.angles );
 	
-	if ( ent->spawnflags & 32 ) {
+	if ( ent->spawnflags & 16 ) {
 		ent->movedir[2] = 1.0;
-	} else if ( ent->spawnflags & 64 ) {
+	} else if ( ent->spawnflags & 32 ) {
 		ent->movedir[0] = 1.0;
 	} else {
 		ent->movedir[1] = 1.0;
