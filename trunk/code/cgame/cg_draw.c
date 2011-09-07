@@ -1585,6 +1585,9 @@ static void CG_DrawPersistantPowerup( void ) {
 static void CG_DrawObjectivesNotification( void ) {
 	qboolean draw = qfalse;
 	
+	if ( !cg_draw2D.integer )
+		return;
+
 	if ( cg.objectivesTime == 0 || cg.time < cg.objectivesTime )
 		return;
 
@@ -2973,7 +2976,6 @@ static void CG_Draw2D( void ) {
 			//CG_DrawPersistantPowerup();
 #endif
 			CG_DrawReward();
-			CG_DrawObjectivesNotification();
 		}
     
 		if ( CG_IsTeamGame() ) {
@@ -3086,9 +3088,6 @@ void CG_DrawActive( stereoFrame_t stereoView ) {
 		VectorCopy( baseOrg, cg.refdef.vieworg );
 	}
 
-	// draw end game intermission scoreboard
-//	CG_DrawIntermission();
-
 	// draw overlay for target_effect
 	CG_DrawOverlay();
 
@@ -3126,4 +3125,7 @@ void CG_DrawActive( stereoFrame_t stereoView ) {
 	if (cgs.gametype == GT_ENTITYPLUS && cg.snap->ps.pm_type != PM_DEAD && cg.deathmusicStarted ) {
 		CG_StopDeathMusic();
 	}
+
+	//draw objectives notification
+	CG_DrawObjectivesNotification();
 }
