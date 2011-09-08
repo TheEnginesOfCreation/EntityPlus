@@ -742,6 +742,13 @@ static void PM_WalkMove( void ) {
 	if ( pm->ps->pm_flags & PMF_DUCKED ) {
 		if ( wishspeed > pm->ps->speed * pm_duckScale ) {
 			wishspeed = pm->ps->speed * pm_duckScale;
+
+			//if player's speed is lowered by target_playerspeed, we can get excessively low movement speeds, so set a mimimum movement speed
+			if ( wishspeed < 80 )		//80 is g_speed's default value (320) * pm_duckScale (0.25)
+				wishspeed = 80;
+
+			if ( wishspeed > pm->ps->speed )	//we don't want the crouch movement speed to be higher than the player's normal movement speed
+				wishspeed = pm->ps->speed;
 		}
 	}
 
