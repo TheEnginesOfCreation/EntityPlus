@@ -3011,7 +3011,6 @@ static void CG_Draw2D( void ) {
 	cg.scoreBoardShowing = CG_DrawScoreboard();
 	if ( !cg.scoreBoardShowing ) {
 		CG_DrawCenterString();
-		CG_DrawSubtitleString();
 	}
 }
 
@@ -3105,6 +3104,9 @@ void CG_DrawActive( stereoFrame_t stereoView ) {
 
 	// draw letterbox bars for cutscenes
 	CG_DrawLetterbox();
+
+	// draw subtitles. This is done here so they appear on top of any letterboxes, fades and overlays.
+	CG_DrawSubtitleString();
 
 	// play objectives notification sound if necessary
 	if ( cg.objectivesTime != 0 && cg.time >= cg.objectivesTime ) {
