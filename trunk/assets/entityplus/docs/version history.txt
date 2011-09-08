@@ -3,6 +3,7 @@ v1.0 (?? ??? 2011)
 	- [Fixed] Using SUBTITLE spawnflag on target_print displays value of wait key instead of message.
 	- [Fixed] Subtitles are not visible during cutscenes.
 	- [Fixed] Crouching becomes useless due to extreme low speeds when being affected by a target_playerspeed that lowers the player's speed.
+	- [Fixed] Camera activates triggers, doors and plats when moving through them during cutscenes.
 	- [Changed] Objectives notification is drawn on top of letterbox, fades and overlays.
 
 BETA1 (04 sep 2011)
