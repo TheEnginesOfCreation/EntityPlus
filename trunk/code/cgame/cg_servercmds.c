@@ -981,7 +981,12 @@ static void CG_ServerCommand( void ) {
 	}
 
 	if ( !strcmp( cmd, "sp" ) ) {
-		CG_SubtitlePrint( CG_Argv(1), atof(CG_Argv(2)) );
+		const char *arg;
+		float f;
+
+		f = atof(CG_Argv(2));
+		arg = CG_Argv(1);
+		CG_SubtitlePrint( arg, f );
 		return;
 	}
 
