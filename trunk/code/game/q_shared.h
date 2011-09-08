@@ -1436,7 +1436,7 @@ typedef enum _flag_status {
 #define MAX_HIGHSCORE_TEXT	12	//I guess it's safe to assume score never goes higher than 999,999,999,999
 #define SCORE_DEATH		-50		//amount of points awarded when the player dies in SP
 #define SCORE_SECRET	50		//amount of points awarded when the player finds a secret
-#define SCORE_ACCURACY	.5		//part of the full score that accuracy will apply to
-#define SCORE_SKILL		.5		//g_spskill is multiplied with this number before multiplying the total score
+#define SCORE_ACCURACY	.5		//part of the carnage score that accuracy will apply to
+#define SCORE_SKILL		.1		//skill based multiplier. Multiplier is increased with this value for each difficulty level above skill 1.
 
 #define FADEOUT_TIME	500.000	//amount of time it takes for screen to fade out at map change. Needed by both server and client
