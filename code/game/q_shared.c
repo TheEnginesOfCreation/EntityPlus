@@ -1313,7 +1313,7 @@ int COM_CalculateLevelScore(int persistant[MAX_PERSISTANT], int accuracy, int sk
 	score += (persistant[PERS_SECRETS] & 0x7F) * SCORE_SECRET;
 
 	//skill modifier
-	score *= (skill * SCORE_SKILL);
+	score *= ((skill - 1) * SCORE_SKILL) + 1;
 
 	if ( score < 0 )
 		score = 0;

@@ -345,7 +345,7 @@ void CG_DrawSinglePlayerIntermission( void ) {
 			cg.scoreSoundsPlayed++;
 		}
 
-		CG_DrawStringExt( 64, y, va("Skill modifier : %1.1f", (skill * SCORE_SKILL)), color, qtrue, qtrue, BIGCHAR_WIDTH, BIGCHAR_HEIGHT, 0 );
+		CG_DrawStringExt( 64, y, va("Skill modifier : %1.1f", ((skill - 1) * SCORE_SKILL) + 1), color, qtrue, qtrue, BIGCHAR_WIDTH, BIGCHAR_HEIGHT, 0 );
 	}
 
 	//total score
