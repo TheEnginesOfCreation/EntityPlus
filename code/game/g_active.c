@@ -230,7 +230,7 @@ void	G_TouchTriggers( gentity_t *ent ) {
 	vec3_t		mins, maxs;
 	static vec3_t	range = { 40, 40, 52 };
 
-	if ( !ent->client ) {
+	if ( !ent->client || ent->client->ps.pm_type == PM_CUTSCENE ) {
 		return;
 	}
 
