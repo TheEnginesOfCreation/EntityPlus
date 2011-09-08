@@ -177,17 +177,15 @@ void Use_Target_Print (gentity_t *ent, gentity_t *other, gentity_t *activator) {
 	}
 
 	if ( ent->spawnflags & 8 )
-		trap_SendServerCommand( -1, va("sp \"%s\" %f", ent->message, ent->wait ));
+		trap_SendServerCommand( -1, va("sp \"%s\" \"%f\"", ent->message, ent->wait) );
 	else
-		trap_SendServerCommand( -1, va("cp \"%s\" %f", ent->message, ent->wait ));
+		trap_SendServerCommand( -1, va("cp \"%s\"", ent->message) );
 }
 
 void SP_target_print( gentity_t *ent ) {
+	G_SpawnFloat( "wait", "-1", &ent->wait );
+
 	ent->use = Use_Target_Print;
-	
-	if ( !ent->wait ) {
-		ent->wait = -1;
-	}
 }
 
 
