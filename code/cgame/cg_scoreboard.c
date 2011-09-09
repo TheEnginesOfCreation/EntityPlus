@@ -410,6 +410,10 @@ qboolean CG_DrawSinglePlayerObjectives( void ) {
 	CG_DrawBigStringColor( 250, 310, "Score", color);
 	CG_DrawBigStringColor( 360, 310, va("%i", COM_CalculateLevelScore( cg.snap->ps.persistant, CG_GetAccuracy(), CG_GetSkill() )), color);	
 
+	if ( ++cg.deferredPlayerLoading > 10 ) {
+		CG_LoadDeferredPlayers();
+	}
+
 	return qtrue;
 }
 

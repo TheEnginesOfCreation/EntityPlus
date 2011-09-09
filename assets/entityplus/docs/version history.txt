@@ -4,6 +4,7 @@ v1.0 (?? ??? 2011)
 	- [Fixed] Subtitles are not visible during cutscenes.
 	- [Fixed] Crouching becomes useless due to extreme low speeds when being affected by a target_playerspeed that lowers the player's speed.
 	- [Fixed] Camera activates triggers, doors and plats when moving through them during cutscenes.
+	- [Fixed] Deferred models aren't loaded when the objectives overlay is displayed.
 	- [Changed] Objectives notification is drawn on top of letterbox, fades and overlays.
 	- [Changed] Skill based score modifier runs from 1.0 (easiest skill) to 1.4 (hardest skill) now.
 
