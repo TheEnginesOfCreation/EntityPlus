@@ -60,7 +60,10 @@ typedef struct {
 	menutext_s		highScoreCaption;
 	menutext_s		highScore;
 
+	menutext_s		versionWarnings[MAX_MAPSPERPAGE];
+
 	char			maplist[MAX_SERVERMAPS][MAX_NAMELENGTH];
+	char			mapversions[MAX_SERVERMAPS][MAX_NAMELENGTH];
 	int				page;
 	int				currentmap;
 	int				nummaps;
@@ -464,8 +467,9 @@ static void EPMenu_GametypeFilter( void ) {
 		if ( !show )
 			continue;
 
-		Q_strncpyz( epMenuInfo.maplist[epMenuInfo.nummaps], Info_ValueForKey( info, "map"), MAX_NAMELENGTH );
+		Q_strncpyz( epMenuInfo.maplist[epMenuInfo.nummaps], Info_ValueForKey( info, "map" ), MAX_NAMELENGTH );
 		Q_strupr( epMenuInfo.maplist[epMenuInfo.nummaps] );
+		Q_strncpyz( epMenuInfo.mapversions[epMenuInfo.nummaps], Info_ValueForKey( info, "minversion" ), MAX_NAMELENGTH);
 		epMenuInfo.mapGamebits[epMenuInfo.nummaps] = GT_ENTITYPLUS;
 		epMenuInfo.nummaps++;
 	}
@@ -811,4 +815,35 @@ void UI_EPLevelMenu( void ) {
 
 	//filter the levels to show
 	EPMenu_GametypeFilter();
+
+	for ( i = 0; i < MAX_MAPSPERPAGE; i++)
+	{
+		x =	(i % MAX_MAPCOLS) * (128+8) + 188;
+		y = (i / MAX_MAPROWS) * (128+8) + 96;
+
+		if ( strlen(epMenuInfo.maplist[epMenuInfo.nummaps]) > 0 && !EPMenu_VersionAccepted( epMenuInfo.mapversions[i] ) ) {
+			epMenuInfo.versionWarnings[i].generic.type = MTYPE_TEXT;
+			epMenuInfo.versionWarnings[i].generic.flags = QMF_CENTER_JUSTIFY|QMF_INACTIVE;
+			epMenuInfo.versionWarnings[i].generic.x = x;
+			epMenuInfo.versionWarnings[i].generic.y = y;
+			epMenuInfo.versionWarnings[i].string = va("%s", epMenuInfo.mapversions[i]);
+			epMenuInfo.versionWarnings[i].style = UI_LEFT;
+			epMenuInfo.versionWarnings[i].color = color_yellow;//text_color_normal;
+			Menu_AddItem( &epMenuInfo.menu, &epMenuInfo.versionWarnings[i] );
+		}
+	}
+}
+
+/*
+===============
+EPMenu_VersionAccepted
+
+Returns true if the mod version supports the features used in the map
+===============
+*/
+qboolean EPMenu_VersionAccepted( char *version ) {
+	if ( strlen( version ) > 0 && Q_stricmp(version, "1.0" ) != 0 )
+		return qfalse;
+	else
+		return qtrue;
 }
