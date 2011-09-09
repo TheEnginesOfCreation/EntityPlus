@@ -459,7 +459,7 @@ static int CG_CalcFov( void ) {
 	float	f;
 	int		inwater;
 
-	if ( cg.predictedPlayerState.pm_type == PM_INTERMISSION ) {
+	if ( cg.predictedPlayerState.pm_type == PM_INTERMISSION || cg.predictedPlayerState.pm_type == PM_CUTSCENE ) {
 		// if in intermission, use a fixed value
 		fov_x = 90;
 	} else {
@@ -703,7 +703,6 @@ static int CG_CalcViewValues( void ) {
 	cg.bobfracsin = fabs( sin( ( ps->bobCycle & 127 ) / 127.0 * M_PI ) );
 	cg.xyspeed = sqrt( ps->velocity[0] * ps->velocity[0] +
 		ps->velocity[1] * ps->velocity[1] );
-
 
 	VectorCopy( ps->origin, cg.refdef.vieworg );
 	VectorCopy( ps->viewangles, cg.refdefViewAngles );
