@@ -1,4 +1,5 @@
 v1.0 (?? ??? 2011)
+	- [Added] g_debugCameras cvar to log info_camera debugging info to console.
 	- [Fixed] func_door_rotating spawnflags are incorrect.
 	- [Fixed] Using SUBTITLE spawnflag on target_print displays value of wait key instead of message.
 	- [Fixed] Subtitles are not visible during cutscenes.
