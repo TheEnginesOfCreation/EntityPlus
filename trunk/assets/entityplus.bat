@@ -1,1 +1,1 @@
-quake3.exe +set fs_game entityplus
+quake3.exe +set fs_game entityplus +seta g_gametype 8
