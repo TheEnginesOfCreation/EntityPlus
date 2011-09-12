@@ -101,7 +101,7 @@ Testing and feedback			: tigger.on
 								  [http://tig.onemoremonkey.com]
 								  
 Testing and feedback			: deqer
-								  [http://quake3world.com/forum/memberlist.php?mode=viewprofile&u=28001]
+								  [http://www.ryanbriscall.com/portfolio/games/level-design/]
 								  
 Support and general enthusiasm	: The entire Quake3World LEM community
 								  [http://quake3world.com/forum/viewforum.php?f=10]

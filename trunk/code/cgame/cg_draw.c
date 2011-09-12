@@ -1464,6 +1464,8 @@ static void CG_DrawHoldableItem( void ) {
 	int		value;
 	float	yoffset;
 	float	xoffset;
+	vec4_t	color;
+	int		i;
 
 	if ( !cg_drawHoldableItems.integer )
 		return;
@@ -1475,8 +1477,12 @@ static void CG_DrawHoldableItem( void ) {
 		CG_RegisterItemVisuals( value );
 		CG_DrawPic( 640-ICON_SIZE, (SCREEN_HEIGHT-ICON_SIZE)/2, ICON_SIZE, ICON_SIZE, cg_items[ value ].icon );
 	}
-
+	
 	//draw keys
+	for ( i = 0; i < 4; i++ )
+		color[i] = 1;
+	trap_R_SetColor( color );		//must do this otherwise colors for key icons are distorted if health drops below 25 (see issue 132)
+
 	yoffset = ICON_SIZE;
 	xoffset = ICON_SIZE/2;
 

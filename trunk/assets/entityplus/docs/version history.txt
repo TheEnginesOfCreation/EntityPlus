@@ -6,6 +6,7 @@ v1.0 (?? ??? 2011)
 	- [Fixed] Camera activates triggers, doors and plats when moving through them during cutscenes.
 	- [Fixed] Deferred models aren't loaded when the objectives overlay is displayed.
 	- [Fixed] func_timer's random value defaults to 1 instead of 0.
+	- [Fixed] Colors of key icons get distorted when health drops below 25.
 	- [Changed] Objectives notification is drawn on top of letterbox, fades and overlays.
 	- [Changed] Skill based score modifier runs from 1.0 (easiest skill) to 1.4 (hardest skill) now.
 	- [Changed] Cutscenes run at a fixed FOV of 90.
