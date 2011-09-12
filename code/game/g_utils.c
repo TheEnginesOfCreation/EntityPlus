@@ -1049,6 +1049,12 @@ void G_LinkCameras( gentity_t *ent ) {
 			VectorSubtract( viewTarget->s.origin, ent->s.origin, dir );
 			vectoangles( dir, ent->s.angles );
 		}
+
+		//camera debugging
+		if ( g_debugCameras.integer ) {
+			G_Printf("----g_debugCameras----\n cutscene: %i\n origin %s\n angles %s\n wait: %f\n pan: %i\n target: %s\n target2: %s\n targetname: %s\n targetname2: %s\n", 
+				parent->s.number, vtos(ent->s.origin), vtos(ent->s.angles), ent->wait, (ent->spawnflags & 1), ent->target, ent->target2, ent->targetname, ent->targetname2);
+		}
 	}
 
 	// ent->target
