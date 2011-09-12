@@ -74,7 +74,7 @@ cr_line credits[] = { // edit this as necessary for your credits
 { "Patrick 'Scout' Schotte", UI_CENTER|UI_SMALLFONT, &color_white },
 { "", UI_CENTER|UI_SMALLFONT, &color_blue },
 { "", UI_CENTER|UI_SMALLFONT, &color_blue },
-{ "Thanks go out to the Entire", UI_CENTER|UI_SMALLFONT, &color_white },
+{ "Thanks go out to the entire", UI_CENTER|UI_SMALLFONT, &color_white },
 { "Quake3World LEM Community", UI_CENTER|UI_SMALLFONT, &color_white },
 { "", UI_CENTER|UI_SMALLFONT, &color_blue },
 { "", UI_CENTER|UI_SMALLFONT, &color_blue },
