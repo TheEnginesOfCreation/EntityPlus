@@ -4,6 +4,7 @@ v1.0 (?? ??? 2011)
 	- [Fixed] Subtitles are not visible during cutscenes.
 	- [Fixed] Crouching becomes useless due to extreme low speeds when being affected by a target_playerspeed that lowers the player's speed.
 	- [Fixed] Camera activates triggers, doors and plats when moving through them during cutscenes.
+	- [Fixed] Player spawns with gauntlet and machinegun with 0 ammo when going through a target_mapchange without having any weapons.
 	- [Fixed] Deferred models aren't loaded when the objectives overlay is displayed.
 	- [Fixed] func_timer's random value defaults to 1 instead of 0.
 	- [Fixed] Colors of key icons get distorted when health drops below 25.
