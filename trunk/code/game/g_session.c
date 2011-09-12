@@ -204,7 +204,10 @@ void G_UpdateClientSessionDataForMapChange( gclient_t *client ) {
 
 	sess->sessionHealth = client->ps.stats[STAT_HEALTH];
 	sess->sessionArmor = client->ps.stats[STAT_ARMOR];
-	sess->sessionWeapons = client->ps.stats[STAT_WEAPONS];
+	if ( client->ps.stats[STAT_WEAPONS] )
+		sess->sessionWeapons = client->ps.stats[STAT_WEAPONS];
+	else
+		sess->sessionWeapons = -1;		//-1 means no weapons
 	sess->sessionWeapon = client->ps.weapon;
 	if ( client->ps.ammo[WP_MACHINEGUN] )
 		sess->sessionAmmoMG = client->ps.ammo[WP_MACHINEGUN];
@@ -272,9 +275,15 @@ Updates a client entity with the data that's stored in that client's session dat
 ==================
 */
 void G_UpdateClientWithSessionData( gentity_t *ent) {
+
 	//give weapons
-	if ( ent->client->sess.sessionWeapons )
+	if ( ent->client->sess.sessionWeapons > 0 )
 		ent->client->ps.stats[STAT_WEAPONS] = ent->client->sess.sessionWeapons;
+	else if ( ent->client->sess.sessionWeapons < 0 )
+	{
+		ent->client->ps.stats[STAT_WEAPONS] = 0;
+		ent->client->ps.weapon = 0;
+	}
 
 	//give ammo
 	if ( ent->client->sess.sessionAmmoMG == -1 ) 

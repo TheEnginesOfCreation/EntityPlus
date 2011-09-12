@@ -1333,7 +1333,6 @@ void ClientSpawn(gentity_t *ent) {
 		// force the base weapon up
 		client->ps.weapon = WP_MACHINEGUN;
 		client->ps.weaponstate = WEAPON_READY;
-
 	}
 
 	// don't allow full run speed for a bit
