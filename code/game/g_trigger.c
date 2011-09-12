@@ -453,7 +453,7 @@ void func_timer_use( gentity_t *self, gentity_t *other, gentity_t *activator ) {
 }
 
 void SP_func_timer( gentity_t *self ) {
-	G_SpawnFloat( "random", "1", &self->random);
+	G_SpawnFloat( "random", "0", &self->random);
 	G_SpawnFloat( "wait", "1", &self->wait );
 
 	self->use = func_timer_use;
