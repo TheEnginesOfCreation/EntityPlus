@@ -60,7 +60,9 @@ typedef struct {
 	menutext_s		highScoreCaption;
 	menutext_s		highScore;
 
+	menutext_s		versionWarningsRequires[MAX_MAPSPERPAGE];
 	menutext_s		versionWarnings[MAX_MAPSPERPAGE];
+	menutext_s		versionWarningsVersion[MAX_MAPSPERPAGE];
 
 	char			maplist[MAX_SERVERMAPS][MAX_NAMELENGTH];
 	char			mapversions[MAX_SERVERMAPS][MAX_NAMELENGTH];
@@ -389,6 +391,14 @@ static void EPMenu_Update( void ) {
 
 	top = epMenuInfo.page*MAX_MAPSPERPAGE;
 
+	// clear version warnings
+	for (i=0; i<MAX_MAPSPERPAGE; i++) {
+		epMenuInfo.versionWarningsRequires[i].string = "";
+		epMenuInfo.versionWarningsVersion[i].string = "";
+		epMenuInfo.versionWarnings[i].string = "";
+	}
+
+
 	for (i=0; i<MAX_MAPSPERPAGE; i++)
 	{
 		if (top+i >= epMenuInfo.nummaps)
@@ -403,6 +413,13 @@ static void EPMenu_Update( void ) {
 		// reset
 		epMenuInfo.mapbuttons[i].generic.flags |= QMF_PULSEIFFOCUS;
 		epMenuInfo.mapbuttons[i].generic.flags &= ~QMF_INACTIVE;
+
+		// update version warning
+		if ( !EPMenu_VersionAccepted( epMenuInfo.mapversions[top+i] ) ) {
+			epMenuInfo.versionWarningsRequires[i].string = "Requires";
+			epMenuInfo.versionWarningsVersion[i].string = "version";
+			epMenuInfo.versionWarnings[i].string = epMenuInfo.mapversions[top+i];
+		}
 	}
 
 	for (; i<MAX_MAPSPERPAGE; i++)
@@ -644,6 +661,7 @@ Builds the EntityPlus Single Player menu
 */
 void UI_EPLevelMenu( void ) {
 	int i;
+	int top;
 	int x, y;
 	static char mapnamebuffer[64];
 	static char mapscorebuffer[MAX_HIGHSCORE_TEXT];
@@ -711,7 +729,6 @@ void UI_EPLevelMenu( void ) {
 	epMenuInfo.next.focuspic				= ART_NEXT1;
 	Menu_AddItem( &epMenuInfo.menu, &epMenuInfo.next );
 
-
 	//add map selectors
 	for ( i = 0; i < MAX_MAPSPERPAGE; i++)
 	{
@@ -744,6 +761,30 @@ void UI_EPLevelMenu( void ) {
 		epMenuInfo.mapbuttons[i].generic.bottom		= y + 128;
 		epMenuInfo.mapbuttons[i].focuspic			= ART_SELECT;
 		Menu_AddItem( &epMenuInfo.menu, &epMenuInfo.mapbuttons[i] );
+
+		epMenuInfo.versionWarningsRequires[i].generic.type = MTYPE_TEXT;
+		epMenuInfo.versionWarningsRequires[i].generic.flags = QMF_CENTER_JUSTIFY|QMF_INACTIVE;
+		epMenuInfo.versionWarningsRequires[i].generic.x = x;
+		epMenuInfo.versionWarningsRequires[i].generic.y = y;
+		epMenuInfo.versionWarningsRequires[i].style = UI_LEFT;
+		epMenuInfo.versionWarningsRequires[i].color = color_yellow;
+		Menu_AddItem( &epMenuInfo.menu, &epMenuInfo.versionWarningsRequires[i] );
+
+		epMenuInfo.versionWarningsVersion[i].generic.type = MTYPE_TEXT;
+		epMenuInfo.versionWarningsVersion[i].generic.flags = QMF_CENTER_JUSTIFY|QMF_INACTIVE;
+		epMenuInfo.versionWarningsVersion[i].generic.x = x;
+		epMenuInfo.versionWarningsVersion[i].generic.y = y + 16;
+		epMenuInfo.versionWarningsVersion[i].style = UI_LEFT;
+		epMenuInfo.versionWarningsVersion[i].color = color_yellow;
+		Menu_AddItem( &epMenuInfo.menu, &epMenuInfo.versionWarningsVersion[i] );
+
+		epMenuInfo.versionWarnings[i].generic.type = MTYPE_TEXT;
+		epMenuInfo.versionWarnings[i].generic.flags = QMF_CENTER_JUSTIFY|QMF_INACTIVE;
+		epMenuInfo.versionWarnings[i].generic.x = x;
+		epMenuInfo.versionWarnings[i].generic.y = y + 32;
+		epMenuInfo.versionWarnings[i].style = UI_LEFT;
+		epMenuInfo.versionWarnings[i].color = color_yellow;
+		Menu_AddItem( &epMenuInfo.menu, &epMenuInfo.versionWarnings[i] );
 	}
 
 	//add next/prev page buttons
@@ -815,23 +856,6 @@ void UI_EPLevelMenu( void ) {
 
 	//filter the levels to show
 	EPMenu_GametypeFilter();
-
-	for ( i = 0; i < MAX_MAPSPERPAGE; i++)
-	{
-		x =	(i % MAX_MAPCOLS) * (128+8) + 188;
-		y = (i / MAX_MAPROWS) * (128+8) + 96;
-
-		if ( strlen(epMenuInfo.maplist[epMenuInfo.nummaps]) > 0 && !EPMenu_VersionAccepted( epMenuInfo.mapversions[i] ) ) {
-			epMenuInfo.versionWarnings[i].generic.type = MTYPE_TEXT;
-			epMenuInfo.versionWarnings[i].generic.flags = QMF_CENTER_JUSTIFY|QMF_INACTIVE;
-			epMenuInfo.versionWarnings[i].generic.x = x;
-			epMenuInfo.versionWarnings[i].generic.y = y;
-			epMenuInfo.versionWarnings[i].string = va("%s", epMenuInfo.mapversions[i]);
-			epMenuInfo.versionWarnings[i].style = UI_LEFT;
-			epMenuInfo.versionWarnings[i].color = color_yellow;//text_color_normal;
-			Menu_AddItem( &epMenuInfo.menu, &epMenuInfo.versionWarnings[i] );
-		}
-	}
 }
 
 /*
