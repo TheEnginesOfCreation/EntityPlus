@@ -445,6 +445,7 @@ typedef struct {
 #ifdef MISSIONPACK
 	int			portalSequence;
 #endif
+	gentity_t	*player;				// refers to the player in SP mode. Provides quick access to the player entity
 	char		scoreLevelName[64];
 	int			secretCount;			// number of target_secret entities in map
 } level_locals_t;

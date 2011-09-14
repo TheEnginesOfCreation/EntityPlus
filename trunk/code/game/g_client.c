@@ -993,6 +993,9 @@ char *ClientConnect( int clientNum, qboolean firstTime, qboolean isBot ) {
 	char		userinfo[MAX_INFO_STRING];
 	gentity_t	*ent;
 
+	if ( g_gametype.integer == GT_ENTITYPLUS && level.player )
+		return "Server is running a single player gametype.";
+
 	ent = &g_entities[ clientNum ];
 
 	trap_GetUserinfo( clientNum, userinfo, sizeof( userinfo ) );
@@ -1066,6 +1069,10 @@ char *ClientConnect( int clientNum, qboolean firstTime, qboolean isBot ) {
 //	client->areabits = areabits;
 //	if ( !client->areabits )
 //		client->areabits = G_Alloc( (trap_AAS_PointReachabilityAreaIndex( NULL ) + 7) / 8 );
+
+	if ( !isBot && !level.player ) {
+		level.player = ent;
+	}
 
 	return NULL;
 }

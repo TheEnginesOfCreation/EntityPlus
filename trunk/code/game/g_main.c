@@ -1722,6 +1722,9 @@ void G_RunCutscene( int levelTime ) {
 	float diff;
 	int doPan;
 	int i;
+	
+	if ( !level.player || level.player->client->ps.pm_type != PM_CUTSCENE )
+		return;
 
 	trap_GetConfigstring( CS_CUTSCENE, cutsceneData, sizeof(cutsceneData) );
 
@@ -1768,14 +1771,8 @@ void G_RunCutscene( int levelTime ) {
 		newAngles[2] += diff * progress;
 	}
 
-	for ( i = 0 ; i < level.maxclients ; i++ ) {
-		//client = level.clients[i];
-		if ( level.clients[i].pers.connected != CON_DISCONNECTED && level.clients[i].ps.pm_type == PM_CUTSCENE /*&& !IsClientBot( level.clients[i] )*/ ) {
-			VectorCopy( newOrigin, level.clients[i].ps.origin );
-			VectorCopy( newAngles, level.clients[i].ps.viewangles );
-			return;
-		}
-	}
+	VectorCopy( newOrigin, level.player->client->ps.origin );
+	VectorCopy( newAngles, level.player->client->ps.viewangles );
 }
 
 /*
