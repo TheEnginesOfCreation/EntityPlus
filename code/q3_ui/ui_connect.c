@@ -156,9 +156,16 @@ to prevent it from blinking away too rapidly on local or lan games.
 ========================
 */
 void UI_DrawConnectScreen( qboolean overlay ) {
+	uiClientState_t	cstate;
+
 	UI_DrawString( 8, 8, "Loading...", UI_SMALLFONT, color_white );
 	UI_SetColor( color_white );
 	UI_DrawHandlePic( 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, uis.menuBackNoLogoShader );
+
+	trap_GetClientState( &cstate );
+	if ( cstate.connState < CA_CONNECTED ) {
+		UI_DrawProportionalString_AutoWrapped( 320, 192, 630, 20, cstate.messageString, UI_CENTER|UI_SMALLFONT|UI_DROPSHADOW, menu_text_color );
+	}
 /*
 	char			*s;
 	uiClientState_t	cstate;
