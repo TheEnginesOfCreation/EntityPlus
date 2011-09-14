@@ -299,7 +299,7 @@ static void CG_OffsetFirstPersonView( void ) {
 	vec3_t			predictedVelocity;
 	int				timeDelta;
 	
-	if ( cg.snap->ps.pm_type == PM_INTERMISSION ) {
+	if ( cg.snap->ps.pm_type == PM_INTERMISSION || cg.snap->ps.pm_type == PM_CUTSCENE ) {
 		return;
 	}
 
