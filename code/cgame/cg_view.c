@@ -583,7 +583,7 @@ static void CG_DamageBlendBlob( void ) {
 }
 
 
-static void CG_CalcCutsceneViewValues( playerState_t *ps ) {
+static void CG_CalcCutsceneViewValues( ) {
 	const char *cutsceneData;
 	char buf[MAX_INFO_STRING];
 	float wait;
@@ -646,8 +646,7 @@ static void CG_CalcCutsceneViewValues( playerState_t *ps ) {
 		VectorCopy( newOrigin, cg.refdef.vieworg );
 		VectorCopy( newAngles, cg.refdefViewAngles );
 	}
-	//VectorCopy( ps->origin, cg.refdef.vieworg );
-	//VectorCopy( ps->viewangles, cg.refdefViewAngles );
+
 	AnglesToAxis( cg.refdefViewAngles, cg.refdef.viewaxis );
 }
 
@@ -687,7 +686,7 @@ static int CG_CalcViewValues( void ) {
 */
 	//cutscene view
 	if ( ps->pm_type == PM_CUTSCENE ) {
-		CG_CalcCutsceneViewValues( ps );
+		CG_CalcCutsceneViewValues();
 		return CG_CalcFov();
 	}
 
