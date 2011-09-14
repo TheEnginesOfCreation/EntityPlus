@@ -4,6 +4,7 @@ v1.0 (?? ??? 2011)
 	- [Fixed] func_door_rotating spawnflags are incorrect.
 	- [Fixed] Using SUBTITLE spawnflag on target_print displays value of wait key instead of message.
 	- [Fixed] Subtitles are not visible during cutscenes.
+	- [Fixed] Lightning gun continues firing during cutscenes.
 	- [Fixed] Crouching becomes useless due to extreme low speeds when being affected by a target_playerspeed that lowers the player's speed.
 	- [Fixed] Camera activates triggers, doors and plats when moving through them during cutscenes.
 	- [Fixed] Player spawns with gauntlet and machinegun with 0 ammo when going through a target_mapchange without having any weapons.
