@@ -2738,11 +2738,15 @@ static void CG_DrawDeathMessage( void ) {
 CG_DrawLetterbox
 
 Draws letterbox bars at top and bottom of screen
+cg_letterBoxSize determines the size of the black bars. Default is 80, -1 removes letterbox effect and 0 auto reverts to the default.
 =================
 */
 static void CG_DrawLetterbox( void ) {
 	float letterboxSize;
 	vec4_t color;
+
+	if ( cg_letterBoxSize.value == -1 )		//draw no letterbox
+		return;
 
 	// draw letterbox borders
 	if ( cg.snap->ps.pm_type == PM_CUTSCENE ) {
