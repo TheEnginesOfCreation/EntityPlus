@@ -32369,7 +32369,7 @@ gothic_trim/pitted_rust3
 "spawnflags" "2"
 "angle" "270"
 "origin" "1632 456 -40"
-"classname" "info_player_deathmatch"
+"classname" "info_player_start"
 }
 // entity 514
 {
