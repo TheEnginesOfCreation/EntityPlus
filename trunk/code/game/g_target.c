@@ -1360,9 +1360,8 @@ void target_cutscene_use (gentity_t *self, gentity_t *other, gentity_t *activato
 	activator->client->ps.velocity[1] = 0;
 	activator->client->ps.velocity[2] = 0;
 
-	//set player's orgOrigin and orgAngles so we can move the player back to its original location when the cutscene ends
+	//set player's orgOrigin so we can move the player back to its original location when the cutscene ends
 	VectorCopy(activator->client->ps.origin, activator->orgOrigin);
-	VectorCopy(activator->client->ps.viewangles, activator->orgAngles);
 
 	//activate the first camera
 	self->nextTrain->use( self->nextTrain, other, activator );
