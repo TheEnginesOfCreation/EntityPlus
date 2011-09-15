@@ -2745,14 +2745,12 @@ static void CG_DrawLetterbox( void ) {
 	float letterboxSize;
 	vec4_t color;
 
-	if ( cg_letterBoxSize.value == -1 )		//draw no letterbox
+	if ( cg_letterBoxSize.value == 0 )		//draw no letterbox
 		return;
 
 	// draw letterbox borders
 	if ( cg.snap->ps.pm_type == PM_CUTSCENE ) {
 		letterboxSize = cg_letterBoxSize.value;
-		if (letterboxSize == 0)
-			letterboxSize = 80;
 		color[0] = 0;
 		color[1] = 0;
 		color[2] = 0;
