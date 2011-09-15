@@ -108,8 +108,7 @@ void Think_Camera (gentity_t *self) {
 
 		//move player back to original location
 		VectorCopy(self->activator->orgOrigin, self->activator->client->ps.origin);
-		VectorCopy(self->activator->orgAngles, self->activator->client->ps.viewangles);
-		
+	
 		//give movement control back to bots
 		if ( self->parent->spawnflags & 1 ) {
 			for ( i = 0 ; i < level.maxclients ; i++ ) {

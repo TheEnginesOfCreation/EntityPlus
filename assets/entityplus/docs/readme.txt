@@ -76,6 +76,9 @@ Additional programming			: cyr
 								  
 Programming support				: Perle			
 								  [http://www.q3rally.com]
+								  
+Programming support				: themuffinman
+								  [http://quake3world.com/forum/memberlist.php?mode=viewprofile&u=28606]
 
 Keycard models					: Obsidian
 								  [http://www.robotrenegade.com]
@@ -91,7 +94,7 @@ Custom sound effects			: Patrick "Scout" Schotte
 Stone debris models and 		: gooball
 additional programming			  [http://quake3world.com/forum/memberlist.php?mode=viewprofile&u=30967]
 		
-Feedback and suggestions		: AEon
+Testing and feedback			: AEon
 								  [http://aeons.poweredbylasers.com]			  
 								  
 Testing and feedback 			: EmeraldTiger

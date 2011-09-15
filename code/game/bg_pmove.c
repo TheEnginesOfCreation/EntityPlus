@@ -1796,7 +1796,18 @@ void PM_UpdateViewAngles( playerState_t *ps, const usercmd_t *cmd ) {
 	short		temp;
 	int		i;
 
-	if ( ps->pm_type == PM_INTERMISSION || ps->pm_type == PM_SPINTERMISSION || ps->pm_type == PM_CUTSCENE ) {
+	if ( ps->pm_type == PM_CUTSCENE ) {		//prevent player from looking around
+      // set the delta angle
+      for (i=0 ; i<3 ; i++) {
+         int      cmdAngle;
+
+         cmdAngle = ANGLE2SHORT(pm->ps->viewangles[i]);
+         pm->ps->delta_angles[i] = cmdAngle - pm->cmd.angles[i];
+      }
+      return;
+   }
+
+	if ( ps->pm_type == PM_INTERMISSION || ps->pm_type == PM_SPINTERMISSION ) {
 		return;		// no view changes at all
 	}
 

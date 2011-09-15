@@ -51,6 +51,7 @@ cr_line credits[] = { // edit this as necessary for your credits
 { "Programming Support", UI_CENTER|UI_BIGFONT, &color_ochre },
 { "^misantropia^", UI_CENTER|UI_SMALLFONT, &color_white },
 { "Perle", UI_CENTER|UI_SMALLFONT, &color_white },
+{ "themuffinman", UI_CENTER|UI_SMALLFONT, &color_white },
 { "", UI_CENTER|UI_SMALLFONT, &color_blue },
 { "Testing & Feedback", UI_CENTER|UI_BIGFONT, &color_ochre },
 { "AEon", UI_CENTER|UI_SMALLFONT, &color_white },
