@@ -78,6 +78,10 @@ cr_line credits[] = { // edit this as necessary for your credits
 { "Quake3World LEM Community", UI_CENTER|UI_SMALLFONT, &color_white },
 { "", UI_CENTER|UI_SMALLFONT, &color_blue },
 { "", UI_CENTER|UI_SMALLFONT, &color_blue },
+{ "Quake III Arena(c) 1999-2000, Id Software, Inc.", UI_CENTER|UI_SMALLFONT, &color_white },
+{ "All Rights Reserved", UI_CENTER|UI_SMALLFONT, &color_white },
+{ "", UI_CENTER|UI_SMALLFONT, &color_blue },
+{ "", UI_CENTER|UI_SMALLFONT, &color_blue },
 { "Click to Exit", UI_CENTER|UI_SMALLFONT, &color_red },
 
 
