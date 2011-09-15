@@ -1734,17 +1734,11 @@ void G_RunCutscene( int levelTime ) {
 	newOrigin[0] = atof(Info_ValueForKey(cutsceneData, "o10"));
 	newOrigin[1] = atof(Info_ValueForKey(cutsceneData, "o11"));
 	newOrigin[2] = atof(Info_ValueForKey(cutsceneData, "o12"));
-	newAngles[0] = atof(Info_ValueForKey(cutsceneData, "a10"));
-	newAngles[1] = atof(Info_ValueForKey(cutsceneData, "a11"));
-	newAngles[2] = atof(Info_ValueForKey(cutsceneData, "a12"));
 
 	if ( doPan ) {
 		destOrigin[0] = atof(Info_ValueForKey(cutsceneData, "o20"));
 		destOrigin[1] = atof(Info_ValueForKey(cutsceneData, "o21"));
 		destOrigin[2] = atof(Info_ValueForKey(cutsceneData, "o22"));
-		destAngles[0] = atof(Info_ValueForKey(cutsceneData, "a20"));
-		destAngles[1] = atof(Info_ValueForKey(cutsceneData, "a21"));
-		destAngles[2] = atof(Info_ValueForKey(cutsceneData, "a22"));
 
 		//determine how long the current camera pan has taken
 		timePassed = levelTime - start_time;
@@ -1759,20 +1753,9 @@ void G_RunCutscene( int levelTime ) {
 		
 		diff = destOrigin[2] - newOrigin[2];
 		newOrigin[2] += diff * progress;
-
-		//calculate new angles
-		diff = destAngles[0] - newAngles[0];
-		newAngles[0] += diff * progress;
-
-		diff = destAngles[1] - newAngles[1];
-		newAngles[1] += diff * progress;
-		
-		diff = destAngles[2] - newAngles[2];
-		newAngles[2] += diff * progress;
 	}
 
 	VectorCopy( newOrigin, level.player->client->ps.origin );
-	VectorCopy( newAngles, level.player->client->ps.viewangles );
 }
 
 /*
