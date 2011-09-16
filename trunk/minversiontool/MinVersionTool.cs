@@ -186,6 +186,8 @@ namespace mvt
 				return Versions.UnableToDetect;
 			}
 
+			//TODO: Here it should check if this entity uses features that are not part of the [currentVersion] release. If so, it should bump up the version number.
+
 			return currentVersion;
 		}
 
