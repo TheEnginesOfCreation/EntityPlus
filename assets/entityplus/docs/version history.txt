@@ -13,6 +13,7 @@ v1.0 (?? ??? 2011)
 	- [Fixed] func_timer's random value defaults to 1 instead of 0.
 	- [Fixed] Colors of key icons get distorted when health drops below 25.
 	- [Fixed] When a connection error occurs a blank screen without error message is shown.
+	- [Fixed] Game crashes when no active spawnpoints are found.
 	- [Fixed] Replaced info_player_deathmatch entitiy in example map with an info_player_start entity.
 	- [Changed] Objectives notification is drawn on top of letterbox, fades and overlays.
 	- [Changed] Skill based score modifier runs from 1.0 (easiest skill) to 1.4 (hardest skill) now.
