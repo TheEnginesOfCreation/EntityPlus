@@ -15,6 +15,7 @@ v1.0 (?? ??? 2011)
 	- [Fixed] When a connection error occurs a blank screen without error message is shown.
 	- [Fixed] Game crashes when no active spawnpoints are found.
 	- [Fixed] Replaced info_player_deathmatch entitiy in example map with an info_player_start entity.
+	- [Fixed] Credits roll doesn't overrule s_musicvolume setting anymore.
 	- [Changed] Objectives notification is drawn on top of letterbox, fades and overlays.
 	- [Changed] Skill based score modifier runs from 1.0 (easiest skill) to 1.4 (hardest skill) now.
 	- [Changed] Cutscenes run at a fixed FOV of 90.

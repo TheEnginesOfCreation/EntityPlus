@@ -18,7 +18,6 @@ typedef struct {
 static creditsmenu_t	s_credits;
 
 int starttime; 
-float mvolume; 
                
 
 // change this to change the background colour on credits
@@ -105,8 +104,7 @@ static sfxHandle_t UI_CreditMenu_Key( int key ) {
 		return 0;
 	}
 
-	trap_Cmd_ExecuteText( EXEC_APPEND, 
-                         va("s_musicvolume %f; quit\n", mvolume));
+	trap_Cmd_ExecuteText( EXEC_APPEND, "quit\n" );
 	return 0;
 }
 
@@ -174,8 +172,7 @@ static void ScrollingCredits_Draw(void)
     {
       if(y < -16) 
       {
-        trap_Cmd_ExecuteText( EXEC_APPEND, 
-                         va("s_musicvolume %f; quit\n", mvolume));
+        trap_Cmd_ExecuteText( EXEC_APPEND, "quit\n" );
         break; 
       }
       break;
@@ -213,6 +210,7 @@ UI_CreditMenu
 ===============
 */
 void UI_CreditMenu( void ) {
+	float mvolume;
 	memset( &s_credits, 0 ,sizeof(s_credits) );
 
 	s_credits.menu.draw = ScrollingCredits_Draw;
@@ -222,9 +220,8 @@ void UI_CreditMenu( void ) {
 
 	starttime = uis.realtime; 
 	mvolume = trap_Cvar_VariableValue( "s_musicvolume" );
-	if(mvolume < 0.5)
-		trap_Cmd_ExecuteText( EXEC_APPEND, "s_musicvolume 0.5\n" );
-	trap_Cmd_ExecuteText( EXEC_APPEND, "music music/fla22k_02\n" );
+	if (mvolume > 0)
+		trap_Cmd_ExecuteText( EXEC_APPEND, "music music/fla22k_02\n" );
 
 	// load the background shader
 #ifdef BACKGROUND_SHADER
