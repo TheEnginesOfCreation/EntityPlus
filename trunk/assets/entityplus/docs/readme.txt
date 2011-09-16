@@ -89,10 +89,15 @@ Skeleton key models				: Hipshot
 Debris and backpack models		: DaEngineer
 								  [http://victorkarp.wordpress.com]
 
-Custom sound effects			: Patrick "Scout" Schotte
-								  
 Stone debris models and 		: gooball
 additional programming			  [http://quake3world.com/forum/memberlist.php?mode=viewprofile&u=30967]
+
+
+Custom sound effects			: Patrick "Scout" Schotte
+
+
+Objectives overlay art			: Noruen
+								  [http://quake3world.com/forum/memberlist.php?mode=viewprofile&u=28238]
 		
 Testing and feedback			: AEon
 								  [http://aeons.poweredbylasers.com]			  

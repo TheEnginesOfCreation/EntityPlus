@@ -384,7 +384,7 @@ qboolean CG_DrawSinglePlayerObjectives( void ) {
 	color[0] = 0.3;
 	color[1] = 1;
 	color[2] = 0;
-	color[3] = 1;
+	color[3] = 0.75;
 
 	p = CG_ConfigString( CS_PRIMARYOBJECTIVE );
 	s = CG_ConfigString( CS_SECONDARYOBJECTIVE );
@@ -393,22 +393,22 @@ qboolean CG_DrawSinglePlayerObjectives( void ) {
 	CG_DrawPic( (SCREEN_WIDTH - 512) / 2, (SCREEN_HEIGHT - 256) / 2, 512, 256, cgs.media.objectivesOverlay );
 	
 	//draw primary objective
-	CG_DrawSmallStringColor( 80, 175, va("%.60s", p), color);
+	CG_DrawSmallStringColor( 88, 183, va("%.60s", p), color);
 	if ( strlen(p) > 60 )
-		CG_DrawSmallStringColor( 80, 175 + SMALLCHAR_HEIGHT, va("%.60s", &p[60]), color);
+		CG_DrawSmallStringColor( 88, 183 + SMALLCHAR_HEIGHT, va("%.60s", &p[60]), color);
 
 	//draw secondary objective
-	CG_DrawSmallStringColor( 80, 255, va("%.60s", s), color);
+	CG_DrawSmallStringColor( 88, 263, va("%.60s", s), color);
 	if ( strlen(s) > 60 )
-		CG_DrawSmallStringColor( 80, 255 + SMALLCHAR_HEIGHT, va("%.60s", &s[60]), color);
+		CG_DrawSmallStringColor( 88, 263 + SMALLCHAR_HEIGHT, va("%.60s", &s[60]), color);
 
 	//draw deaths counter
-	CG_DrawBigStringColor( 85, 310, "Deaths", color);
-	CG_DrawBigStringColor( 195, 310, va("%i", cg.snap->ps.persistant[PERS_KILLED]), color );
+	CG_DrawSmallStringColor( 85, 310, "DEATHS", color);
+	CG_DrawSmallStringColor( 150, 310, va("%i", cg.snap->ps.persistant[PERS_KILLED]), color );
 
 	//draw level score
-	CG_DrawBigStringColor( 250, 310, "Score", color);
-	CG_DrawBigStringColor( 360, 310, va("%i", COM_CalculateLevelScore( cg.snap->ps.persistant, CG_GetAccuracy(), CG_GetSkill() )), color);	
+	CG_DrawSmallStringColor( 250, 310, "SCORE", color);
+	CG_DrawSmallStringColor( 305, 310, va("%i", COM_CalculateLevelScore( cg.snap->ps.persistant, CG_GetAccuracy(), CG_GetSkill() )), color);	
 
 	if ( ++cg.deferredPlayerLoading > 10 ) {
 		CG_LoadDeferredPlayers();

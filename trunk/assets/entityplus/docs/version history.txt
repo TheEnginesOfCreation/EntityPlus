@@ -19,6 +19,7 @@ v1.0 (?? ??? 2011)
 	- [Changed] Cutscenes run at a fixed FOV of 90.
 	- [Changed] It is no longer possible for a second player to connect to the server.
 	- [Changed] Setting cg_letterBoxSize to 0 completely removes letterbox effect.
+	- [Changed] New objectives overlay.
 
 BETA1 (04 sep 2011)
     - [Added] func_door_rotating entity.
