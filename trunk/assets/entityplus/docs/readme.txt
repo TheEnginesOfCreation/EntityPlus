@@ -111,6 +111,12 @@ Testing and feedback			: tigger.on
 Testing and feedback			: deqer
 								  [http://www.ryanbriscall.com/portfolio/games/level-design/]
 								  
+Testing and feedback			: Ouija
+								  [http://quake3world.com/forum/memberlist.php?mode=viewprofile&u=32714]
+								  
+Testing and feedback			: nick lol
+								  [http://quake3world.com/forum/memberlist.php?mode=viewprofile&u=32102]
+								  
 Support and general enthusiasm	: The entire Quake3World LEM community
 								  [http://quake3world.com/forum/viewforum.php?f=10]
 
