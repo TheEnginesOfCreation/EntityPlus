@@ -126,6 +126,9 @@ gentity_t *SelectNearestDeathmatchSpawnPoint( vec3_t from ) {
 		}
 	}
 
+	if ( !nearestSpot )
+		G_Error("Couldn't find a spawn point");
+
 	return nearestSpot;
 }
 
