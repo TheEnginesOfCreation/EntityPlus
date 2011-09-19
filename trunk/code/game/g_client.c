@@ -996,7 +996,7 @@ char *ClientConnect( int clientNum, qboolean firstTime, qboolean isBot ) {
 	char		userinfo[MAX_INFO_STRING];
 	gentity_t	*ent;
 
-	if ( g_gametype.integer == GT_ENTITYPLUS && level.player )
+	if ( !isBot && g_gametype.integer == GT_ENTITYPLUS && level.player )
 		return "Server is running a single player gametype.";
 
 	ent = &g_entities[ clientNum ];
