@@ -117,6 +117,9 @@ Testing and feedback			: Ouija
 Testing and feedback			: nick lol
 								  [http://quake3world.com/forum/memberlist.php?mode=viewprofile&u=32102]
 								  
+Testing and feedback			: ZTurtleMan
+								  [http://ztm.x10hosting.com/ta/]
+								  
 Support and general enthusiasm	: The entire Quake3World LEM community
 								  [http://quake3world.com/forum/viewforum.php?f=10]
 

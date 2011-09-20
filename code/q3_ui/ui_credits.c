@@ -77,6 +77,7 @@ cr_line credits[] = { // edit this as necessary for your credits
 { "deqer", UI_CENTER|UI_SMALLFONT, &color_white },
 { "nick lol", UI_CENTER|UI_SMALLFONT, &color_white },
 { "Ouija", UI_CENTER|UI_SMALLFONT, &color_white },
+{ "ZTurtleMan", UI_CENTER|UI_SMALLFONT, &color_white },
 { "", UI_CENTER|UI_SMALLFONT, &color_blue },
 { "", UI_CENTER|UI_SMALLFONT, &color_blue },
 { "Thanks go out to the entire", UI_CENTER|UI_SMALLFONT, &color_white },
