@@ -877,6 +877,8 @@ target2 : this can point at a target_give entity for respawn freebies.
 count : number of times this spawnpoint can be used to spawn a player. Omit or set to 0 to set no limit.
 nobots : when set to 1, bots will never use this spawn point to respawn in the game.
 nohumans : when set to 1, human players will never use this spawn point to respawn in the game.
+targetname : activating entity points to this. When info_player_start is triggered it is either disabled or enabled. See notes.
+targetname2 : activating entity points to this. When info_player_start is triggered it is either disabled or enabled. See notes.
 -------- SPAWNFLAGS --------
 INITIAL : makes the spawnpoint the initial place for the player to spawn at the beginning of the game.
 DISABLED : the spawn point is in a disabled state when the map is first loaded. It can be enabled by triggering it. See notes.
