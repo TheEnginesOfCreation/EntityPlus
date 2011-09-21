@@ -381,13 +381,10 @@ qboolean CG_DrawSinglePlayerObjectives( void ) {
 
 	cg.objectivesTime = 0;	//stop objectives notification from showing
 
-	color[0] = 0.3;
+	color[0] = 1;
 	color[1] = 1;
-	color[2] = 0;
-	//color[0] = 1;
-	//color[1] = 1;
-	//color[2] = 1;
-	color[3] = 0.6;
+	color[2] = 1;
+	color[3] = 0.75;
 
 
 	p = CG_ConfigString( CS_PRIMARYOBJECTIVE );
