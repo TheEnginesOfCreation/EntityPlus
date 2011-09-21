@@ -798,11 +798,37 @@ void ClientUserinfoChanged( int clientNum ) {
 	char	redTeam[MAX_INFO_STRING];
 	char	blueTeam[MAX_INFO_STRING];
 	char	userinfo[MAX_INFO_STRING];
+	char	forcedPlayerModel[MAX_INFO_STRING];
+	char	forcedPlayerHeadModel[MAX_INFO_STRING];
+	qboolean setUserInfo = qfalse;
 
 	ent = g_entities + clientNum;
 	client = ent->client;
 
 	trap_GetUserinfo( clientNum, userinfo, sizeof( userinfo ) );
+
+	// forcing player model (if done through worldspawn)
+	if ( g_gametype.integer == GT_ENTITYPLUS && !IsBot( ent )) {
+		trap_GetConfigstring( CS_PLAYERMODEL, forcedPlayerModel, sizeof(forcedPlayerModel) );
+		trap_GetConfigstring( CS_PLAYERHEADMODEL, forcedPlayerHeadModel, sizeof(forcedPlayerHeadModel) );
+
+		if ( forcedPlayerModel && strlen(forcedPlayerModel) ) {
+			Info_SetValueForKey( userinfo, "model", forcedPlayerModel );
+			if ( !forcedPlayerHeadModel || !strlen(forcedPlayerHeadModel) ) {
+				strcpy(forcedPlayerHeadModel, forcedPlayerModel);
+			}
+			setUserInfo = qtrue;
+		}
+
+		if ( forcedPlayerHeadModel && strlen(forcedPlayerHeadModel) ) {
+			Info_SetValueForKey( userinfo, "headmodel", forcedPlayerHeadModel );
+			setUserInfo = qtrue;
+		}
+
+		if ( setUserInfo ) {
+			trap_SetUserinfo( clientNum, userinfo );
+		}
+	}
 
 	// check for malformed or illegal info strings
 	if ( !Info_Validate(userinfo) ) {
@@ -962,6 +988,7 @@ void ClientUserinfoChanged( int clientNum ) {
 			client->pers.maxHealth, client->sess.wins, client->sess.losses, teamTask, teamLeader);
 	}
 
+
 	trap_SetConfigstring( CS_PLAYERS+clientNum, s );
 
 	// this is not the userinfo, more like the configstring actually
@@ -1002,7 +1029,7 @@ char *ClientConnect( int clientNum, qboolean firstTime, qboolean isBot ) {
 	ent = &g_entities[ clientNum ];
 
 	trap_GetUserinfo( clientNum, userinfo, sizeof( userinfo ) );
-
+	
  	// IP filtering
  	// https://zerowing.idsoftware.com/bugzilla/show_bug.cgi?id=500
  	// recommanding PB based IP / GUID banning, the builtin system is pretty limited
@@ -1110,7 +1137,7 @@ void ClientBegin( int clientNum ) {
 	client->pers.connected = CON_CONNECTED;
 	client->pers.enterTime = level.time;
 	client->pers.teamState.state = TEAM_BEGIN;
-
+	
 	// save eflags around this, because changing teams will
 	// cause this to happen with a valid entity, and we
 	// want to make sure the teleport bit is set right

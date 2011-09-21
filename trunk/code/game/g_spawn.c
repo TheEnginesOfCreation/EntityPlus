@@ -642,6 +642,12 @@ void SP_worldspawn( void ) {
 	G_SpawnString( "deathmusic", "", &s );
 	trap_SetConfigstring( CS_DEATHMUSIC, s );
 
+	G_SpawnString( "playermodel", "", &s );
+	trap_SetConfigstring( CS_PLAYERMODEL, s );
+
+	G_SpawnString( "playerheadmodel", "", &s );
+	trap_SetConfigstring( CS_PLAYERHEADMODEL, s );
+
 	G_SpawnString( "message", "", &s );
 	trap_SetConfigstring( CS_MESSAGE, s );				// map specific message
 
