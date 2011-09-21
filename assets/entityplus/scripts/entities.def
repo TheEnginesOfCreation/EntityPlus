@@ -1370,7 +1370,7 @@ Both the setting "angles" key or "targeting a target_position" methods can be us
 
 //=============================================================================
 
-/*QUAKED shooter_rocket (1 0 .5) (-8 -8 -8) (8 8 8)
+/*QUAKED shooter_rocket (1 0 .5) (-8 -8 -8) (8 8 8) 
 This will shoot a rocket each time it's triggered. Aiming is done by setting the "angles" key or by targeting an info_notnull or target_position entity.
 -------- KEYS --------
 angles: this sets the pitch and yaw aiming angles of shooter (default 0 0). The roll angle does not apply.
@@ -2148,6 +2148,8 @@ message : text to print at user logon. Used for name of level.
 music : path/name of looping .wav file used for level's music (eg. music/sonic5.wav).
 scoreboardmusic : path/name of looping .wav file used for level's scoreboard music (eg. music/win.wav).
 deathmusic :  path/name of looping .wav file used when player is dead (eg. music/loss.wav).
+playermodel : the player's model is forced to this player model (eg. sarge or visor/gorre).
+playerheadmodel: the player's headmodel is forced to this head model (eg. sarge or visor/gorre). See notes.
 _ambient OR ambient : Adds a constant value to overall lighting. Use is not recommended. Ambient light will have a tendency to flatten out variations in light and shade.
 _color : RGB value for ambient light color (default is 0 0 0).
 gravity : gravity of level (default is normal gravity: 800).
@@ -2168,4 +2170,6 @@ _celshader : Sets the cel shader used for this geometry. Note: omit the "texture
 -------- Q3MAP2 TERRAIN KEYS --------
 _indexmap OR alphamap : Path/name for the art file used to guide the mapping of textures on the terrain surface.
 _layers OR layers : Integer value is the number unique root shaders that will be use on the terrain.
-_shader OR shader : Path to the metashader used to assign textures to the terrain entity. Note: Omit the "textures/" prefix.*/
+_shader OR shader : Path to the metashader used to assign textures to the terrain entity. Note: Omit the "textures/" prefix.
+-------- NOTES --------
+When a playermodel is specified without specifying a headmodel, the player's headmodel will be forced to the model specified with the playermodel key.*/
