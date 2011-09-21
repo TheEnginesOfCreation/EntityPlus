@@ -1325,7 +1325,7 @@ SHOOTER_* ENTITIES
 
 //=============================================================================
 
-/*QUAKED shooter_bfg (1 0 .5) (-8 -8 -8) (8 8 8)
+/*QUAKED shooter_bfg (1 0 .5) (-8 -8 -8) (8 8 8) TARGET_PLAYER
 This will shoot a bfg projectile each time it's triggered. Aiming is done by setting the "angles" key or by targeting an info_notnull or target_position entity.
 -------- KEYS --------
 angles: this sets the pitch and yaw aiming angles of shooter (default 0 0). The roll angle does not apply.
@@ -1333,6 +1333,9 @@ targetname : activating entity points to this.
 targetname2 : activating entity points to this.
 target : this points to a target_position entity for aiming the bfg shots.
 random : random aiming variance in degrees from the straight line to the targeted entity (default 0 - see Notes).
+dmg : amount of damage a bfg projectile will deal (default 100).
+-------- SPAWNFLAGS --------
+TARGET_PLAYER : The shooter will always aim directly at the player.
 -------- NOTES --------
 When the random key is set, its value is used to calculate a maximum angle deviation from the normal trajectory formed by a straight line between the shooter and the aiming entity it targets. The final trajectory will be a random value anywhere between no deviation at all (0) to maximum deviation (value of the random key).
 
@@ -1340,7 +1343,7 @@ Both the setting "angles" key or "targeting a target_position" methods can be us
 
 //=============================================================================
 
-/*QUAKED shooter_grenade (1 0 .5) (-8 -8 -8) (8 8 8)
+/*QUAKED shooter_grenade (1 0 .5) (-8 -8 -8) (8 8 8) TARGET_PLAYER
 This will shoot a grenade each time it's triggered. Aiming is done by setting the "angles" key or by targeting an info_notnull or target_position entity.
 -------- KEYS --------
 angles: this sets the pitch and yaw aiming angles of shooter (default 0 0). The roll angle does not apply.
@@ -1348,6 +1351,9 @@ targetname : activating entity points to this.
 targetname2 : activating entity points to this.
 target : this points to a target_position entity for aiming the grenades.
 random : random aiming variance in degrees from the straight line to the targeted entity (default 0 - see Notes).
+dmg : amount of damage a grenade will deal (default 100).
+-------- SPAWNFLAGS --------
+TARGET_PLAYER : The shooter will always aim directly at the player.
 -------- NOTES --------
 When the random key is set, its value is used to calculate a maximum angle deviation from the normal trajectory formed by a straight line between the shooter and the aiming entity it targets. The final trajectory will be a random value anywhere between no deviation at all (0) to maximum deviation (value of the random key).
 
@@ -1355,7 +1361,7 @@ Both the setting "angles" key or "targeting a target_position" methods can be us
 
 //=============================================================================
 
-/*QUAKED shooter_plasma (1 0 .5) (-8 -8 -8) (8 8 8)
+/*QUAKED shooter_plasma (1 0 .5) (-8 -8 -8) (8 8 8) TARGET_PLAYER
 This will shoot a plasma ball each time it's triggered. Aiming is done by setting the "angles" key or by targeting an info_notnull or target_position entity.
 -------- KEYS --------
 angles: this sets the pitch and yaw aiming angles of shooter (default 0 0). The roll angle does not apply.
@@ -1363,6 +1369,9 @@ targetname : activating entity points to this.
 targetname2 : activating entity points to this.
 target : this points to a target_position entity for aiming the plasma balls.
 random : random aiming variance in degrees from the straight line to the targeted entity (default 0 - see Notes).
+dmg : amount of damage a plasma ball will deal (default 20).
+-------- SPAWNFLAGS --------
+TARGET_PLAYER : The shooter will always aim directly at the player.
 -------- NOTES --------
 When the random key is set, its value is used to calculate a maximum angle deviation from the normal trajectory formed by a straight line between the shooter and the aiming entity it targets. The final trajectory will be a random value anywhere between no deviation at all (0) to maximum deviation (value of the random key).
 
@@ -1370,7 +1379,7 @@ Both the setting "angles" key or "targeting a target_position" methods can be us
 
 //=============================================================================
 
-/*QUAKED shooter_rocket (1 0 .5) (-8 -8 -8) (8 8 8) 
+/*QUAKED shooter_rocket (1 0 .5) (-8 -8 -8) (8 8 8) TARGET_PLAYER
 This will shoot a rocket each time it's triggered. Aiming is done by setting the "angles" key or by targeting an info_notnull or target_position entity.
 -------- KEYS --------
 angles: this sets the pitch and yaw aiming angles of shooter (default 0 0). The roll angle does not apply.
@@ -1378,6 +1387,9 @@ targetname : activating entity points to this.
 targetname2 : activating entity points to this.
 target : this points to a target_position entity for aiming the rockets.
 random : random aiming variance in degrees from the straight line to the targeted entity (default 0 - see Notes).
+dmg : amount of damage a rocket will deal (default 100).
+-------- SPAWNFLAGS --------
+TARGET_PLAYER : The shooter will always aim directly at the player.
 -------- NOTES --------
 When the random key is set, its value is used to calculate a maximum angle deviation from the normal trajectory formed by a straight line between the shooter and the aiming entity it targets. The final trajectory will be a random value anywhere between no deviation at all (0) to maximum deviation (value of the random key).
 

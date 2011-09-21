@@ -2,6 +2,8 @@ v1.0 (?? ??? 2011)
 	- [Added] g_debugCameras cvar to log info_camera debugging info to console.
 	- [Added] optional minversion key to arena files.
 	- [Added] playermodel and playerheadmodel keys to worldspawn entity.
+	- [Added] TARGET_PLAYER spawnflag to shooter_ entities
+	- [Added] dmg key to shooter_ entities.
 	- [Fixed] func_door_rotating spawnflags are incorrect.
 	- [Fixed] Using SUBTITLE spawnflag on target_print displays value of wait key instead of message.
 	- [Fixed] Subtitles are not visible during cutscenes.
