@@ -374,7 +374,7 @@ qboolean CG_DrawSinglePlayerObjectives( void ) {
 	const char *p;
 	const char *s;
 	vec4_t color;
-	int i;
+	int i, objlen, score;
 
 	if ( !cg.showScores )
 		return qfalse;
@@ -384,7 +384,11 @@ qboolean CG_DrawSinglePlayerObjectives( void ) {
 	color[0] = 0.3;
 	color[1] = 1;
 	color[2] = 0;
-	color[3] = 0.75;
+	//color[0] = 1;
+	//color[1] = 1;
+	//color[2] = 1;
+	color[3] = 0.6;
+
 
 	p = CG_ConfigString( CS_PRIMARYOBJECTIVE );
 	s = CG_ConfigString( CS_SECONDARYOBJECTIVE );
@@ -393,22 +397,35 @@ qboolean CG_DrawSinglePlayerObjectives( void ) {
 	CG_DrawPic( (SCREEN_WIDTH - 512) / 2, (SCREEN_HEIGHT - 256) / 2, 512, 256, cgs.media.objectivesOverlay );
 	
 	//draw primary objective
-	CG_DrawSmallStringColor( 88, 183, va("%.60s", p), color);
-	if ( strlen(p) > 60 )
-		CG_DrawSmallStringColor( 88, 183 + SMALLCHAR_HEIGHT, va("%.60s", &p[60]), color);
+	objlen = strlen(p);
+	for (i = 0; i < 5; i++) {
+		if ( objlen < (i * 60) + 1)
+			break;
+		
+		CG_DrawSmallStringColor( 80, 144 + (SMALLCHAR_HEIGHT * i), va("%.60s", &p[i * 60]), color);
+	}
 
 	//draw secondary objective
-	CG_DrawSmallStringColor( 88, 263, va("%.60s", s), color);
-	if ( strlen(s) > 60 )
-		CG_DrawSmallStringColor( 88, 263 + SMALLCHAR_HEIGHT, va("%.60s", &s[60]), color);
+	objlen = strlen(s);
+	for (i = 0; i < 4; i++) {
+		if ( objlen < (i * 60) + 1)
+			break;
+		
+		CG_DrawSmallStringColor( 80, 264 + (SMALLCHAR_HEIGHT * i), va("%.60s", &s[i * 60]), color);
+	}
 
 	//draw deaths counter
-	CG_DrawSmallStringColor( 85, 310, "DEATHS", color);
-	CG_DrawSmallStringColor( 150, 310, va("%i", cg.snap->ps.persistant[PERS_KILLED]), color );
+	color[0] = 1;
+	color[1] = 0;
+	color[2] = 0;
+
+	i = strlen(va("%i", cg.snap->ps.persistant[PERS_KILLED]));
+	CG_DrawBigStringColor( 208 - (i * BIGCHAR_WIDTH), 343, va("%i", cg.snap->ps.persistant[PERS_KILLED]), color );
 
 	//draw level score
-	CG_DrawSmallStringColor( 250, 310, "SCORE", color);
-	CG_DrawSmallStringColor( 305, 310, va("%i", COM_CalculateLevelScore( cg.snap->ps.persistant, CG_GetAccuracy(), CG_GetSkill() )), color);	
+	score = COM_CalculateLevelScore( cg.snap->ps.persistant, CG_GetAccuracy(), CG_GetSkill() );
+	i = strlen(va("%i", score));
+	CG_DrawBigStringColor( 496 - (i * BIGCHAR_WIDTH), 343, va("%i", score), color);	
 
 	if ( ++cg.deferredPlayerLoading > 10 ) {
 		CG_LoadDeferredPlayers();
