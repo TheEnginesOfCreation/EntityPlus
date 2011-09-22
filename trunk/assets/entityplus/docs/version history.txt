@@ -11,6 +11,7 @@ v1.0 (?? ??? 2011)
 	- [Fixed] Player's viewangles are not locked during a cutscene.
 	- [Fixed] Crouching becomes useless due to extreme low speeds when being affected by a target_playerspeed that lowers the player's speed.
 	- [Fixed] Camera activates triggers, doors and plats when moving through them during cutscenes.
+	- [Fixed] Camera pitch sometimes makes unintentional complete roll in cutscenes.
 	- [Fixed] Player spawns with gauntlet and machinegun with 0 ammo when going through a target_mapchange without having any weapons.
 	- [Fixed] Deferred models aren't loaded when the objectives overlay is displayed.
 	- [Fixed] func_timer's random value defaults to 1 instead of 0.

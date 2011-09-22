@@ -78,7 +78,7 @@ void Use_Camera (gentity_t *self, gentity_t *other, gentity_t *activator) {
 	
 	if ( self->nextTrain && (self->spawnflags & 1) ) {
 		//add origin and viewangles of target camera
-		Info_SetValueForKey(variableInfo, "m", "1");	//1 means panning camera motion
+		Info_SetValueForKey(variableInfo, "m", va("%i", self->spawnflags));
 		Info_SetValueForKey(variableInfo, "o20", va("%f", self->nextTrain->s.origin[0]));
 		Info_SetValueForKey(variableInfo, "o21", va("%f", self->nextTrain->s.origin[1]));
 		Info_SetValueForKey(variableInfo, "o22", va("%f", self->nextTrain->s.origin[2]));
