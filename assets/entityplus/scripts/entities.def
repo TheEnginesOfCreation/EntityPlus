@@ -816,7 +816,7 @@ model="models/powerups/backpack/backpack.md3"*/
 
 //=============================================================================
 
-/*QUAKED info_camera (0 .5 0) (-8 -8 -8) (8 8 8) PAN
+/*QUAKED info_camera (1 .85 0) (-8 -8 -8) (8 8 8) PAN
 Functions as a positional entity for camera views during cutscenes initialized by a target_cutscene entity.
 -------- KEYS --------
 targetname : activating entity points to this.
