@@ -593,11 +593,11 @@ static void CG_CalcCutsceneViewValues( ) {
 	int timePassed;
 	float progress;
 	float diff;
-	int doPan;
+	int motion;
 
 	cutsceneData = CG_ConfigString( CS_CUTSCENE );
 
-	doPan = atoi(Info_ValueForKey(cutsceneData, "m"));
+	motion = atoi(Info_ValueForKey(cutsceneData, "m"));
 	start_time = atoi(Info_ValueForKey(cutsceneData, "t"));
 	wait = atof(Info_ValueForKey(cutsceneData, "w"));
 	newOrigin[0] = atof(Info_ValueForKey(cutsceneData, "o10"));
@@ -607,7 +607,7 @@ static void CG_CalcCutsceneViewValues( ) {
 	newAngles[1] = atof(Info_ValueForKey(cutsceneData, "a11"));
 	newAngles[2] = atof(Info_ValueForKey(cutsceneData, "a12"));
 
-	if ( doPan ) {
+	if ( motion & 1 ) {
 		destOrigin[0] = atof(Info_ValueForKey(cutsceneData, "o20"));
 		destOrigin[1] = atof(Info_ValueForKey(cutsceneData, "o21"));
 		destOrigin[2] = atof(Info_ValueForKey(cutsceneData, "o22"));
@@ -632,9 +632,14 @@ static void CG_CalcCutsceneViewValues( ) {
 		VectorCopy( newOrigin, cg.refdef.vieworg );
 
 		//calculate new angles
+		if (destAngles[0] < 0)
+			destAngles[0] = 360 + destAngles[0];
+		if (newAngles[0] < 0)
+			newAngles[0] = 360 + newAngles[0];
+
 		diff = destAngles[0] - newAngles[0];
 		newAngles[0] += diff * progress;
-
+		
 		diff = destAngles[1] - newAngles[1];
 		newAngles[1] += diff * progress;
 		
