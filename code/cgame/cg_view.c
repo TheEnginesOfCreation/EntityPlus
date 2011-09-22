@@ -632,12 +632,15 @@ static void CG_CalcCutsceneViewValues( ) {
 		VectorCopy( newOrigin, cg.refdef.vieworg );
 
 		//calculate new angles
-		if (destAngles[0] < 0)
-			destAngles[0] = 360 + destAngles[0];
-		if (newAngles[0] < 0)
-			newAngles[0] = 360 + newAngles[0];
-
 		diff = destAngles[0] - newAngles[0];
+		if ( diff > 180 ) {
+			Com_Printf("%f %f\n", diff, 0 - (360 - diff));
+			diff = 0 - (360 - diff);
+		}
+		else if ( diff < -180 ) {
+			Com_Printf("%f %f\n", diff, 0 - (-360 - diff));
+			diff = 0 - (-360 - diff);
+		}
 		newAngles[0] += diff * progress;
 		
 		diff = destAngles[1] - newAngles[1];
