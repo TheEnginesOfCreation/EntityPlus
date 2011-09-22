@@ -373,7 +373,7 @@ Draw the single player objectives overlay
 qboolean CG_DrawSinglePlayerObjectives( void ) {
 	const char *p;
 	const char *s;
-	vec4_t color;
+	vec4_t color, color_black;
 	int i, objlen, score;
 
 	if ( !cg.showScores )
@@ -386,6 +386,10 @@ qboolean CG_DrawSinglePlayerObjectives( void ) {
 	color[2] = 1;
 	color[3] = 0.75;
 
+	color_black[0] = 0;
+	color_black[1] = 0;
+	color_black[2] = 0;
+	color_black[3] = 0.6;
 
 	p = CG_ConfigString( CS_PRIMARYOBJECTIVE );
 	s = CG_ConfigString( CS_SECONDARYOBJECTIVE );
@@ -399,6 +403,7 @@ qboolean CG_DrawSinglePlayerObjectives( void ) {
 		if ( objlen < (i * 60) + 1)
 			break;
 		
+		CG_DrawSmallStringColor( 82, 146 + (SMALLCHAR_HEIGHT * i), va("%.60s", &p[i * 60]), color_black);
 		CG_DrawSmallStringColor( 80, 144 + (SMALLCHAR_HEIGHT * i), va("%.60s", &p[i * 60]), color);
 	}
 
@@ -408,6 +413,7 @@ qboolean CG_DrawSinglePlayerObjectives( void ) {
 		if ( objlen < (i * 60) + 1)
 			break;
 		
+		CG_DrawSmallStringColor( 82, 266 + (SMALLCHAR_HEIGHT * i), va("%.60s", &s[i * 60]), color_black);
 		CG_DrawSmallStringColor( 80, 264 + (SMALLCHAR_HEIGHT * i), va("%.60s", &s[i * 60]), color);
 	}
 
