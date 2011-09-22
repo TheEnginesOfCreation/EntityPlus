@@ -380,6 +380,20 @@ static qboolean EPMenu_MapGametype( char *string ) {
 }
 
 /*
+===============
+EPMenu_VersionAccepted
+
+Returns true if the mod version supports the features used in the map
+===============
+*/
+qboolean EPMenu_VersionAccepted( char *version ) {
+	if ( strlen( version ) > 0 && Q_stricmp(version, "1.0" ) != 0 )
+		return qfalse;
+	else
+		return qtrue;
+}
+
+/*
 =================
 EPMenu_Update
 =================
@@ -856,18 +870,4 @@ void UI_EPLevelMenu( void ) {
 
 	//filter the levels to show
 	EPMenu_GametypeFilter();
-}
-
-/*
-===============
-EPMenu_VersionAccepted
-
-Returns true if the mod version supports the features used in the map
-===============
-*/
-qboolean EPMenu_VersionAccepted( char *version ) {
-	if ( strlen( version ) > 0 && Q_stricmp(version, "1.0" ) != 0 )
-		return qfalse;
-	else
-		return qtrue;
 }
