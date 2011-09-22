@@ -634,11 +634,9 @@ static void CG_CalcCutsceneViewValues( ) {
 		//calculate new angles
 		diff = destAngles[0] - newAngles[0];
 		if ( diff > 180 ) {
-			Com_Printf("%f %f\n", diff, 0 - (360 - diff));
 			diff = 0 - (360 - diff);
 		}
 		else if ( diff < -180 ) {
-			Com_Printf("%f %f\n", diff, 0 - (-360 - diff));
 			diff = 0 - (-360 - diff);
 		}
 		newAngles[0] += diff * progress;
