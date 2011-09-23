@@ -5,6 +5,7 @@ v1.0 (?? ??? 2011)
 	- [Added] TARGET_PLAYER spawnflag to shooter_ entities
 	- [Added] dmg key to shooter_ entities.
 	- [Added] Support for color and light keys in target_modify.
+	- [Added] NO_PLAYER, NO_BOTS and NO_SHOOTER spawnflags to func_breakable.
 	- [Fixed] func_door_rotating spawnflags are incorrect.
 	- [Fixed] Using SUBTITLE spawnflag on target_print displays value of wait key instead of message.
 	- [Fixed] Subtitles are not visible during cutscenes.
