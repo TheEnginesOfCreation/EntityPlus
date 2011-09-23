@@ -1076,19 +1076,19 @@ void SP_target_finish (gentity_t *self) {
 /*QUAKED target_modify (.5 .5 .5) (-8 -8 -8) (8 8 8)
 When triggered, modifies the value of the specified key on the entities the target_modify targets
 */
-void modify_entity ( char *key, char *value, gentity_t *ent ) {
-	if ( !strcmp( key, "spawnflags") ) {
-		ent->spawnflags = atoi(value);
+void modify_entity ( gentity_t *self, gentity_t *ent ) {
+	if ( !strcmp( self->key, "spawnflags" ) ) {
+		ent->spawnflags = atoi(self->value);
 		return;
 	}
 
-	if ( !strcmp( key, "message") ) {
-		ent->message = value;
+	if ( !strcmp( self->key, "message" ) ) {
+		ent->message = self->value;
 		return;
 	}
 
-	if ( !strcmp( key, "target") ) {
-		ent->target = value;
+	if ( !strcmp( self->key, "target" ) ) {
+		ent->target = self->value;
 		if ( !strcmp( ent->classname, "path_corner" ) )
 			Think_SetupTrainTargets( ent );
 		
@@ -1099,107 +1099,139 @@ void modify_entity ( char *key, char *value, gentity_t *ent ) {
 		return;
 	}
 
-	if ( !strcmp( key, "targetname") ) {
-		ent->targetname = value;
+	if ( !strcmp( self->key, "targetname" ) ) {
+		ent->targetname = self->value;
 		if ( !strcmp( ent->classname, "path_corner" ) )
 			Think_SetupTrainTargets( ent );
 		return;
 	}
 
-	if ( !strcmp( key, "targetshadername") ) {
-		ent->targetShaderName = value;
+	if ( !strcmp( self->key, "targetshadername" ) ) {
+		ent->targetShaderName = self->value;
 		return;
 	}
 
-	if ( !strcmp( key, "targetnewshadername") ) {
-		ent->targetShaderNewName = value;
+	if ( !strcmp( self->key, "targetnewshadername" ) ) {
+		ent->targetShaderNewName = self->value;
 		return;
 	}
 
-	if ( !strcmp( key, "angle") ) {
-		ent->angle = atof(value);
+	if ( !strcmp( self->key, "angle" ) ) {
+		ent->angle = atof(self->value);
 		return;
 	}
 
-	if ( !strcmp( key, "speed") ) {
-		ent->speed = atof(value);
+	if ( !strcmp( self->key, "speed" ) ) {
+		ent->speed = atof(self->value);
 		return;
 	}
 
-	if ( !strcmp( key, "health") ) {
-		ent->health = atoi(value);
+	if ( !strcmp( self->key, "health" ) ) {
+		ent->health = atoi(self->value);
 		return;
 	}
 
-	if ( !strcmp( key, "count") ) {
-		ent->count = atoi(value);
+	if ( !strcmp( self->key, "count" ) ) {
+		ent->count = atoi(self->value);
 		return;
 	}
 
-	if ( !strcmp( key, "wait") ) {
-		ent->wait = atof(value);
+	if ( !strcmp( self->key, "wait" ) ) {
+		ent->wait = atof(self->value);
 		return;
 	}
 
-	if ( !strcmp( key, "clientname") ) {
-		ent->clientname = value;
+	if ( !strcmp( self->key, "clientname" ) ) {
+		ent->clientname = self->value;
 		return;
 	}
 
-	if ( !strcmp( key, "mapname") ) {
-		ent->mapname = value;
+	if ( !strcmp( self->key, "mapname" ) ) {
+		ent->mapname = self->value;
 		return;
 	}
 
-	if ( !strcmp( key, "script") ) {
-		ent->script = value;
+	if ( !strcmp( self->key, "script" ) ) {
+		ent->script = self->value;
 		return;
 	}
 	
-	if ( !strcmp( key, "teleportertarget") ) {
-		ent->teleporterTarget = value;
+	if ( !strcmp( self->key, "teleportertarget" ) ) {
+		ent->teleporterTarget = self->value;
 		return;
 	}
 
-	if ( !strcmp( key, "target2") ) {
-		ent->target2 = value;
+	if ( !strcmp( self->key, "target2" ) ) {
+		ent->target2 = self->value;
 		return;
 	}
 
-	if ( !strcmp( key, "targetname2") ) {
-		ent->targetname2 = value;
+	if ( !strcmp( self->key, "targetname2" ) ) {
+		ent->targetname2 = self->value;
 		return;
 	}
 
-	if ( !strcmp( key, "deathtarget") ) {
-		ent->deathTarget = value;
+	if ( !strcmp( self->key, "deathtarget" ) ) {
+		ent->deathTarget = self->value;
 		return;
 	}
 
-	if ( !strcmp( key, "skill") ) {
-		ent->skill = atof(value);
+	if ( !strcmp( self->key, "skill" ) ) {
+		ent->skill = atof(self->value);
 		return;
 	}
 	
-	if ( !strcmp( key, "overlay") ) {
-		ent->overlay = value;
+	if ( !strcmp( self->key, "overlay" ) ) {
+		ent->overlay = self->value;
 		return;
 	}
 
-	if ( !strcmp( key, "armor") ) {
-		ent->armor = atoi(value);
+	if ( !strcmp( self->key, "armor" ) ) {
+		ent->armor = atoi(self->value);
 		return;
 	}
 
-	if ( !strcmp( key, "key") ) {
-		ent->key = value;
+	if ( !strcmp( self->key, "key" ) ) {
+		ent->key = self->value;
 		return;
 	}
 
-	if ( !strcmp( key, "value") ) {
-		ent->value = value;
+	if ( !strcmp( self->key, "value" ) ) {
+		ent->value = self->value;
 		return;
 	}
+
+	if ( !strcmp( self->key, "light" ) ) {
+		int		cl;
+		int r, g, b, i;
+
+		cl = ent->s.constantLight;
+
+		r = (cl & 0xFF);
+		g = ((cl >> 8) & 0xFF);
+		b = ((cl >> 16) & 0xFF);
+
+		ent->s.constantLight = r | ( g << 8 ) | ( b << 16 ) | ( atoi(self->value) << 24 );		
+		return;
+	}
+
+	if ( !strcmp( self->key, "color" ) ) {
+		int		cl, gn;
+		int r, g, b, i;
+
+		cl = ent->s.constantLight;
+		gn = self->s.generic1;		
+
+		r = (gn & 0xFF);
+		g = ((gn >> 8) & 0xFF);
+		b = ((gn >> 16) & 0xFF);
+		i = ((cl >> 24) & 0xFF) * 4.0;
+
+		ent->s.constantLight = r | ( g << 8 ) | ( b << 16 ) | ( i << 24 );		
+		return;
+	}
+
+	G_Printf("WARNING: Incorrect key \"%s\" for target_modify at %s\n", self->key, vtos(self->s.origin));
 }
 
 void target_modify_use (gentity_t *self, gentity_t *other, gentity_t *activator) {
@@ -1207,7 +1239,7 @@ void target_modify_use (gentity_t *self, gentity_t *other, gentity_t *activator)
 
 	t = NULL;
 	while ( (t = G_Find (t, FOFS(targetname), self->target)) != NULL ) {
-		modify_entity(self->key, self->value, t);
+		modify_entity(self, t);
 		if ( !self->inuse ) {
 			G_Printf("entity was removed while using targets\n");
 			return;
@@ -1216,7 +1248,30 @@ void target_modify_use (gentity_t *self, gentity_t *other, gentity_t *activator)
 }
 
 void SP_target_modify (gentity_t *self) {
+	vec3_t	color;
+	int		r, g, b, i;
+
 	self->use = target_modify_use;
+
+	//store color value in generic1
+	if ( !strcmp(self->key, "color" ) ) {
+		G_SpawnVector( "value", "1 1 1", color );
+
+		r = color[0] * 255;
+		if ( r > 255 ) {
+			r = 255;
+		}
+		g = color[1] * 255;
+		if ( g > 255 ) {
+			g = 255;
+		}
+		b = color[2] * 255;
+		if ( b > 255 ) {
+			b = 255;
+		}
+		i = 0;
+		self->s.generic1 = r | ( g << 8 ) | ( b << 16 ) | ( i << 24 );
+	}
 }
 
 //==========================================================
