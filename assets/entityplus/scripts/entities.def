@@ -1605,7 +1605,9 @@ targetname2 : activating entity points to this.
 key : the key to modify on the target entity.
 value : the value to set for the key on the target entity.
 -------- NOTES --------
-The following keys can be modified: angle, clientname, count, deathtarget, health, key, mapname, message, overlay, script, target, target2, targetname, targetname2, targetshadername, teleportertarget, spawnflags, speed, skill, value, wait, armor.*/
+The following keys can be modified: angle, clientname, color, count, deathtarget, health, key, light, mapname, message, overlay, script, target, target2, targetname, targetname2, targetshadername, teleportertarget, spawnflags, speed, skill, value, wait, armor.
+
+The values for color and light can only be set on func_ entities. Light entities cannot be modified in-game.*/
 
 
 //=============================================================================
