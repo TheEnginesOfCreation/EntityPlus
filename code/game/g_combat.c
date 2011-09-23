@@ -1237,7 +1237,7 @@ qboolean G_RadiusDamage ( vec3_t origin, gentity_t *attacker, float damage, floa
 		points = damage * ( 1.0 - dist / radius );
 
 		if( CanDamage (ent, origin) ) {
-			if( LogAccuracyHit( ent, attacker ) ) {
+			if( !strcmp( attacker->classname, "player" ) && LogAccuracyHit( ent, attacker ) ) {
 				hitClient = qtrue;
 			}
 			VectorSubtract (ent->r.currentOrigin, origin, dir);
