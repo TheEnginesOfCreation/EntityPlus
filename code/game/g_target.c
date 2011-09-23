@@ -1231,7 +1231,7 @@ void modify_entity ( gentity_t *self, gentity_t *ent ) {
 		return;
 	}
 
-	G_Printf("WARNING: Incorrect key \"%s\" for target_modify at %s\n", self->key, vtos(self->s.origin));
+	G_Printf("WARNING: Incorrect key \"%s\" for %s at %s\n", self->key, self->classname, vtos(self->s.origin));
 }
 
 void target_modify_use (gentity_t *self, gentity_t *other, gentity_t *activator) {
