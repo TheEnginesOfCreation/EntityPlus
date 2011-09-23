@@ -881,7 +881,13 @@ void G_Damage( gentity_t *targ, gentity_t *inflictor, gentity_t *attacker,
 		if ( targ->use && (targ->moverState == MOVER_POS1
 		        || targ->moverState == ROTATOR_POS1) ) {
 			targ->use( targ, inflictor, attacker );
-		} else if ( targ->use == NULL ) {	// entity is a func_breakable
+		} else if ( targ->use == NULL) {	// entity is a func_breakable
+			if ( (targ->spawnflags & 1024) && attacker == level.player )
+				return;
+			if ( (targ->spawnflags & 2048) && IsBot(attacker) )
+				return;
+			if ( (targ->spawnflags & 4096) && strstr(attacker->classname, "shooter_") )
+				return;
 			targ->health -= damage;
 			if (targ->health <= 0)
 				Break_Breakable(targ, attacker);

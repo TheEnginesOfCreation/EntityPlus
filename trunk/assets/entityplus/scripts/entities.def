@@ -251,7 +251,7 @@ Target this entity with a misc_model to have the model attached to the entity (s
 
 //=============================================================================
 
-/*QUAKED func_breakable (0 .5 .8) ? LIGHT_DEBRIS DARK_DEBRIS LIGHT_LARGE_DEBRIS DARK_LARGE_DEBRIS WOOD_DEBRIS FLESH_DEBRIS GLASS_DEBRIS STONE_DEBRIS
+/*QUAKED func_breakable (0 .5 .8) ? LIGHT_DEBRIS DARK_DEBRIS LIGHT_LARGE_DEBRIS DARK_LARGE_DEBRIS WOOD_DEBRIS FLESH_DEBRIS GLASS_DEBRIS STONE_DEBRIS - - NO_PLAYER NO_BOTS NO_SHOOTER 
 A static entity that is removed when it receives a set amount of damage.
 -------- KEYS --------
 health : The entire entity is removed once this amount of damages has been inflicted to it.
@@ -279,6 +279,9 @@ WOOD_DEBRIS : Emit pieces of wooden debris.
 FLESH_DEBRIS : Emit gibs.
 GLASS_DEBRIS : Emit shards of glass.
 STONE_DEBRIS : Emit chunks of stone.
+NO_PLAYER : The player cannot damage the func_breakable.
+NO_BOTS : Bots cannot damage the func_breakable.
+NO_SHOOTER : Shooter entities cannot damage the func_breakable.
 -------- NOTES --------
 Target this entity with a misc_model to have the model attached to the entity (set the model's "target" key to the same value as this entity's "targetname").
 
