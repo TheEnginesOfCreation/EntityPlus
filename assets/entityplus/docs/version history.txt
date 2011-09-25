@@ -21,6 +21,7 @@ v1.0 (?? ??? 2011)
 	- [Fixed] When a connection error occurs a blank screen without error message is shown.
 	- [Fixed] Game crashes when no active spawnpoints are found.
 	- [Fixed] shooter_ entities deal full damage instead of damage scaled by skill level.
+	- [Fixed] shooter_ and target_effect entities cannot be unlinked by target_unlink.
 	- [Fixed] Game crashes when shooter_ entity shoots a func_breakable.
 	- [Fixed] Replaced info_player_deathmatch entitiy in example map with an info_player_start entity.
 	- [Fixed] Credits roll doesn't overrule s_musicvolume setting anymore.

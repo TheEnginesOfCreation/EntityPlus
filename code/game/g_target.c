@@ -889,6 +889,8 @@ void target_effect_use (gentity_t *self, gentity_t *other, gentity_t *activator)
 	gentity_t	*ent4;
 	gentity_t	*ent5;
 
+	if ( !self->r.linked )
+		return;
 
 	//explosion
 	if ( self->spawnflags & 1 ) {
@@ -979,6 +981,8 @@ void SP_target_effect (gentity_t *self) {
 	}
 
 	self->use = target_effect_use;
+
+	trap_LinkEntity( self );
 }
 
 //==========================================================
