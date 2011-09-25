@@ -320,6 +320,9 @@ void Use_Shooter( gentity_t *ent, gentity_t *other, gentity_t *activator ) {
 	vec3_t		up, right;
 	gentity_t	*bolt;
 
+	if ( !ent->r.linked )
+		return;
+
 	// see if we have a target
 	if ( ent->enemy ) {
 		VectorSubtract( ent->enemy->r.currentOrigin, ent->s.origin, dir );
