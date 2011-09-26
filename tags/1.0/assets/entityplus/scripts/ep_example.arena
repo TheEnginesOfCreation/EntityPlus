@@ -1,0 +1,6 @@
+{
+map "ep_example"
+bots ""
+type "entityplus"
+minversion "1.0"
+}
