@@ -868,7 +868,7 @@ static void CG_RegisterGraphics( void ) {
 	cgs.media.scoreboardScore = trap_R_RegisterShaderNoMip( "menu/tab/score.tga" );
 	cgs.media.scoreboardTime = trap_R_RegisterShaderNoMip( "menu/tab/time.tga" );
 
-	cgs.media.objectivesOverlay = trap_R_RegisterShaderNoMip( "menu/objectives/overlay.tga" );
+	cgs.media.objectivesOverlay = trap_R_RegisterShaderNoMip( CG_ConfigString(CS_OBJECTIVESOVERLAY) );
 	cgs.media.objectivesUpdated = trap_R_RegisterShaderNoMip( "menu/objectives/updated.tga" );
 	cgs.media.objectivesUpdatedSound = trap_S_RegisterSound( "sound/misc/objective_update_01.wav", qfalse );
 

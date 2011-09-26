@@ -190,15 +190,23 @@ namespace mvt
 			}
 
 			//Checking for v1.1 requirements
-			if (classname == "func_breakable")
-			{
-				if (!String.IsNullOrEmpty(ent.GetValue("dmg")))
-				{
-					Debug(" > use of \"dmg\" key requires " + VersionsStrings[(int)Versions.one_one]);
-					currentVersion = Versions.one_one;
+			switch (classname) {
+				case "func_breakable":
+					if (!String.IsNullOrEmpty(ent.GetValue("dmg")))
+					{
+						Debug(" > use of \"dmg\" key requires " + VersionsStrings[(int)Versions.one_one]);
+						currentVersion = Versions.one_one;
+					}
+					break;
 
-					//there's no need to check for the "radius" key because that requires "dmg" to be set anyway
-				}
+				case "worldspawn":
+					if (!String.IsNullOrEmpty(ent.GetValue("objectivesoverlay")))
+					{
+						Debug(" > use of \"objectivesoverlay\" key requires " + VersionsStrings[(int)Versions.one_one]);
+						currentVersion = Versions.one_one;
+					}
+					break;
+
 			}
 
 			return currentVersion;

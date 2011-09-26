@@ -2170,7 +2170,8 @@ music : path/name of looping .wav file used for level's music (eg. music/sonic5.
 scoreboardmusic : path/name of looping .wav file used for level's scoreboard music (eg. music/win.wav).
 deathmusic :  path/name of looping .wav file used when player is dead (eg. music/loss.wav).
 playermodel : the player's model is forced to this player model (eg. sarge or visor/gorre).
-playerheadmodel: the player's headmodel is forced to this head model (eg. sarge or visor/gorre). See notes.
+playerheadmodel : the player's headmodel is forced to this head model (eg. sarge or visor/gorre). See notes.
+objectivesoverlay : path/name of the image to use as objectives overlay (eg. menu/objectives/overlay.tga).
 _ambient OR ambient : Adds a constant value to overall lighting. Use is not recommended. Ambient light will have a tendency to flatten out variations in light and shade.
 _color : RGB value for ambient light color (default is 0 0 0).
 gravity : gravity of level (default is normal gravity: 800).
