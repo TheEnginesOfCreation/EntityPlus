@@ -1,6 +1,7 @@
 v1.1 (?? ??? 2011)
 	- [Added] "dmg" and "radius" keys to func_breakable.
 	- [Added] "objectivesoverlay" key to worldspawn entity.
+	- [Added] "fov" key to info_camera.
 
 v1.0 (26 sep 2011)
 	- [Added] g_debugCameras cvar to log info_camera debugging info to console.

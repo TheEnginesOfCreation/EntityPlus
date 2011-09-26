@@ -831,6 +831,7 @@ targetname2 : activating entity points to this.
 target : this points to the next camera to jump to in the cutscene.
 target2 : this points to an info_notnull or target_position entity to aim the view of the camera.
 wait : number of seconds this camera will hold the view (default 1).
+fov : zoom fov for this camera.
 angles: alternate "pitch, yaw, roll" angles method of aiming cutscene camera (default 0 0 0).
 -------- SPAWNFLAGS --------
 PAN : Instead of jumping to the next camera position, the camera view pans linearly to the next camera position.

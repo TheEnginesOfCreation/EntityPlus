@@ -192,15 +192,23 @@ namespace mvt
 			//Checking for v1.1 requirements
 			switch (classname) {
 				case "func_breakable":
-					if (!String.IsNullOrEmpty(ent.GetValue("dmg")))
+					if (!String.IsNullOrEmpty(ent.GetValue("dmg")) && ent.GetValue("dmg") != "0")
 					{
 						Debug(" > use of \"dmg\" key requires " + VersionsStrings[(int)Versions.one_one]);
 						currentVersion = Versions.one_one;
 					}
 					break;
+				
+				case "info_camera":
+					if (!String.IsNullOrEmpty(ent.GetValue("fov")) && ent.GetValue("fov") != "90")
+					{
+						Debug(" > use of \"fov\" key requires " + VersionsStrings[(int)Versions.one_one]);
+						currentVersion = Versions.one_one;
+					}
+					break;
 
 				case "worldspawn":
-					if (!String.IsNullOrEmpty(ent.GetValue("objectivesoverlay")))
+					if (!String.IsNullOrEmpty(ent.GetValue("objectivesoverlay")) && ent.GetValue("objectivesoverlay") != "menu/objectives/overlay.tga")
 					{
 						Debug(" > use of \"objectivesoverlay\" key requires " + VersionsStrings[(int)Versions.one_one]);
 						currentVersion = Versions.one_one;
