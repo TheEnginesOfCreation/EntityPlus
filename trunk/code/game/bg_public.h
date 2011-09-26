@@ -600,7 +600,8 @@ typedef enum {
 	MOD_KAMIKAZE,
 	MOD_JUICED,
 #endif
-	MOD_GRAPPLE
+	MOD_GRAPPLE,
+	MOD_BREAKABLE_SPLASH
 } meansOfDeath_t;
 
 

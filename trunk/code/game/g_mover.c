@@ -1831,6 +1831,9 @@ void Break_Breakable(gentity_t *ent, gentity_t *other) {
 		spawnflags = ent->spawnflags;
 	}
 
+	if ( ent->damage )
+		G_RadiusDamage( ent->r.currentOrigin, ent, ent->damage, ent->splashRadius, ent, MOD_BREAKABLE_SPLASH );
+
 	G_FreeEntity( ent );
 
 	//spray out debris
@@ -1857,6 +1860,9 @@ void SP_func_breakable( gentity_t *ent ) {
 	ent->use = 0;
 	ent->r.contents = CONTENTS_SOLID; 
 	ent->clipmask = MASK_SOLID;
+
+	G_SpawnInt( "dmg", "0", &ent->damage );
+	G_SpawnInt( "radius", "120", &ent->splashRadius );	//120 is default splash radius of a rocket
 }
 
 /*

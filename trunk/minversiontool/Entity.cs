@@ -21,7 +21,10 @@ namespace mvt
 
 		public string GetValue(string key)
 		{
-			return KeyValuePairs[key];
+			if (KeyValuePairs.ContainsKey(key))
+				return KeyValuePairs[key];
+			else
+				return null;
 		}
 	}
 }

@@ -1,3 +1,6 @@
+v1.1 (?? ??? 2011)
+	- [Added] "dmg" and "radius" keys to func_breakable.
+
 v1.0 (26 sep 2011)
 	- [Added] g_debugCameras cvar to log info_camera debugging info to console.
 	- [Added] optional minversion key to arena files.
