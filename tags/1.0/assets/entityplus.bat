@@ -1,1 +1,0 @@
-quake3.exe +set fs_game entityplus +seta g_gametype 8 +seta cg_letterboxsize 80
