@@ -58,6 +58,9 @@ Quake 3 would assume a default random value for func_timers of 1. In !EntityPlus
 
 Shooter`_` entities would deal the full amount of damage. From 1.0 onward, the skill level that is being played at influences the damage for shooter`_` entities in the same way as it does with the amount of damage bots deal.
 
+*Specifying model/headmodel through worldspawn*
+The playermodel and playerheadmodel keys can be added to the worldspawn entity to force the player model that the player will be playing with.
+
 ==Additional info about the beta1 release==
 
 Here's the full list of changes:
