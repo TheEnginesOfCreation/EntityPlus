@@ -33,14 +33,16 @@ namespace mvt
 		private enum Versions
 		{
 			UnableToDetect = 0,
-			one_zero = 1
+			one_zero = 1,
+			one_one = 2,
 		}
 
 		/// <summary>List of strings for supported EntityPlus versions</summary>
 		private string[] VersionsStrings =
 		{
 			"Unable to determine due to unknown entity classnames.",
-			"1.0"
+			"1.0",
+			"1.1"
 		};
 
 		/// <summary>A list of all the known entity classnames</summary>
@@ -180,13 +182,24 @@ namespace mvt
 		/// <returns>The minimum EntityPlus version required to support this entity</returns>
 		private Versions CheckEntity(Entity ent, Versions currentVersion)
 		{
-			if (!IsKnownEntity(ent.GetValue("classname")))
+			string classname = ent.GetValue("classname");
+			if (!IsKnownEntity(classname))
 			{
 				Console.WriteLine("WARNING: Unknown classname \"" + ent.GetValue("classname") + "\"");
 				return Versions.UnableToDetect;
 			}
 
-			//TODO: Here it should check if this entity uses features that are not part of the [currentVersion] release. If so, it should bump up the version number.
+			//Checking for v1.1 requirements
+			if (classname == "func_breakable")
+			{
+				if (!String.IsNullOrEmpty(ent.GetValue("dmg")))
+				{
+					Debug(" > use of \"dmg\" key requires " + VersionsStrings[(int)Versions.one_one]);
+					currentVersion = Versions.one_one;
+
+					//there's no need to check for the "radius" key because that requires "dmg" to be set anyway
+				}
+			}
 
 			return currentVersion;
 		}

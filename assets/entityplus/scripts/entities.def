@@ -256,6 +256,8 @@ A static entity that is removed when it receives a set amount of damage.
 -------- KEYS --------
 health : The entire entity is removed once this amount of damages has been inflicted to it.
 count : The entity will spew out this number of chunks of debris when it's broken (default = 0).
+dmg : Amount of splashdamage the func_breakable will deal when it is removed (default = 0).
+radius : The radius in which the splashdamage is dealt (default = 120).
 target : Targetted entity will be triggered once the func_breakable is destroyed.
 target2 : Targetted entity will be triggered once the func_breakable is destroyed.
 light : constantLight radius of .md3 model included with entity. Has no effect on the entity's brushes (default 0).
@@ -285,7 +287,9 @@ NO_SHOOTER : Shooter entities cannot damage the func_breakable.
 -------- NOTES --------
 Target this entity with a misc_model to have the model attached to the entity (set the model's "target" key to the same value as this entity's "targetname").
 
-The various spawnflags cannot be combined. If multiple spawnflags are selected, the first spawnflag will overrule later spawnflags. When no spawnflag is defined, the func_breakable will default to LIGHT_DEBRIS.*/
+The various debris type spawnflags cannot be combined. If multiple debris type spawnflags are selected, the first spawnflag will overrule later spawnflags. When no debris type spawnflag is defined, the func_breakable will default to LIGHT_DEBRIS.
+
+When the "dmg" key is set, the func_breakable will deal splash damage when it is removed. This can, for example, be used to create exploding barrels. The default radius in which damage is dealt is 120, which equals that of a rocket launcher shot.*/
 
 //=============================================================================
 
