@@ -96,7 +96,10 @@ namespace mvt
 			Versions minversion = ParseMap(filename);
 
 			Console.WriteLine("Finished parsing \"" + filename + "\"");
-			Console.WriteLine("\nminversion = " + VersionsStrings[(int)minversion]);
+			Console.WriteLine("\n================");
+			Console.WriteLine("minversion = " + VersionsStrings[(int)minversion]);
+			Console.WriteLine("================");
+			Console.WriteLine("\n\npress any key to continue...");
 			Console.ReadKey(true);
 		}
 		#endregion
@@ -195,6 +198,16 @@ namespace mvt
 					if (!String.IsNullOrEmpty(ent.GetValue("dmg")) && ent.GetValue("dmg") != "0")
 					{
 						Debug(" > use of \"dmg\" key requires " + VersionsStrings[(int)Versions.one_one]);
+						currentVersion = Versions.one_one;
+					}
+					if (!String.IsNullOrEmpty(ent.GetValue("targetname")))
+					{
+						Debug(" > use of \"targetname\" key requires " + VersionsStrings[(int)Versions.one_one]);
+						currentVersion = Versions.one_one;
+					}
+					if (!String.IsNullOrEmpty(ent.GetValue("targetname2")))
+					{
+						Debug(" > use of \"targetname2\" key requires " + VersionsStrings[(int)Versions.one_one]);
 						currentVersion = Versions.one_one;
 					}
 					break;
