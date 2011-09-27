@@ -260,6 +260,8 @@ dmg : Amount of splashdamage the func_breakable will deal when it is removed (de
 radius : The radius in which the splashdamage is dealt (default = 120).
 target : Targetted entity will be triggered once the func_breakable is destroyed.
 target2 : Targetted entity will be triggered once the func_breakable is destroyed.
+targetname : activating entity points to this.
+targetname2 : activating entity points to this.
 light : constantLight radius of .md3 model included with entity. Has no effect on the entity's brushes (default 0).
 color : constantLight color of .md3 model included with entity. Has no effect on the entity's brushes (default 1 1 1).
 -------- Q3MAP2 KEYS --------
