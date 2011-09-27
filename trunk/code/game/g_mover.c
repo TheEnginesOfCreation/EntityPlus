@@ -1806,6 +1806,10 @@ BREAKABLE
 ===============================================================================
 */
 
+void Think_Breakable( gentity_t *ent ) {
+	Break_Breakable( ent, ent->activator );
+}
+
 //other is the player that broke the func_breakable
 void Break_Breakable(gentity_t *ent, gentity_t *other) {
 	vec3_t size;
@@ -1814,6 +1818,15 @@ void Break_Breakable(gentity_t *ent, gentity_t *other) {
 	int spawnflags = 0;
 	gentity_t *tmp;
 	int type = EV_EMIT_DEBRIS_LIGHT;
+
+	if ( other != ent->activator && !strcmp( other->classname, "func_breakable" ) ) {
+		//if the splash damage from another func_breakable is causing this func_breakable to break
+		//then delay the break to get a nice chain explosion effect
+		ent->activator = other;
+		ent->think = Think_Breakable;
+		ent->nextthink = level.time + 400;
+		return;
+	}
 
 	// Get the center of the glass (code donated by Perle)
 	VectorSubtract(ent->r.maxs, ent->r.mins, size);
@@ -1832,7 +1845,7 @@ void Break_Breakable(gentity_t *ent, gentity_t *other) {
 	}
 
 	if ( ent->damage )
-		G_RadiusDamage( ent->r.currentOrigin, ent, ent->damage, ent->splashRadius, ent, MOD_BREAKABLE_SPLASH );
+		G_RadiusDamage( center, ent, ent->damage, ent->splashRadius, ent, MOD_BREAKABLE_SPLASH );
 
 	G_FreeEntity( ent );
 
@@ -1842,7 +1855,6 @@ void Break_Breakable(gentity_t *ent, gentity_t *other) {
 		tmp->s.eventParm = count;
 	}
 }
-
 
 /*QUAKED func_breakable (0 .5 .8) ? see PickDebrisType in g_util.c for spawnflags
 A bmodel that just sits there, doing nothing. It is removed when it received a set amount of damage.
