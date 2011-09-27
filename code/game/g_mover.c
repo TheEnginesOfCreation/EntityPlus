@@ -1856,6 +1856,10 @@ void Break_Breakable(gentity_t *ent, gentity_t *other) {
 	}
 }
 
+void Use_Breakable (gentity_t *ent, gentity_t *other, gentity_t *activator) {
+	Break_Breakable( ent, activator );
+}
+
 /*QUAKED func_breakable (0 .5 .8) ? see PickDebrisType in g_util.c for spawnflags
 A bmodel that just sits there, doing nothing. It is removed when it received a set amount of damage.
 "model2"	.md3 model to also draw
@@ -1869,7 +1873,7 @@ void SP_func_breakable( gentity_t *ent ) {
 	VectorCopy( ent->s.origin, ent->s.pos.trBase );
 	VectorCopy( ent->s.origin, ent->r.currentOrigin );
 	ent->takedamage = qtrue;
-	ent->use = 0;
+	ent->use = Use_Breakable;
 	ent->r.contents = CONTENTS_SOLID; 
 	ent->clipmask = MASK_SOLID;
 
