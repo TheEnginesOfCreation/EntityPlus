@@ -450,8 +450,6 @@ void player_die( gentity_t *self, gentity_t *inflictor, gentity_t *attacker, int
 		return;
 	}
 
-	G_Printf("%s\n", attacker->classname);
-
 	//if we're in SP mode and player killed a bot, award score for the kill
 	if ( g_gametype.integer == GT_ENTITYPLUS && IsBot( self ) ) {
 		if ( self->parent && self->parent->health && attacker->client )

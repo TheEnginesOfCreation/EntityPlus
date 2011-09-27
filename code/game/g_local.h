@@ -576,6 +576,7 @@ gentity_t *fire_prox( gentity_t *self, vec3_t start, vec3_t aimdir );
 //
 void G_RunMover( gentity_t *ent );
 void Touch_DoorTrigger( gentity_t *ent, gentity_t *other, trace_t *trace );
+void Break_Breakable(gentity_t *ent, gentity_t *other);
 
 //
 // g_trigger.c
