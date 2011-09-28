@@ -1,4 +1,5 @@
 v1.1 (?? ??? 2011)
+	- [Added] Paintball mode.
 	- [Added] "dmg" and "radius" keys to func_breakable.
 	- [Added] func_breakable entities can be targeted and will break upon activation.
 	- [Added] "objectivesoverlay" key to worldspawn entity.

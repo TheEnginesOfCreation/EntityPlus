@@ -1227,6 +1227,7 @@ extern	vmCvar_t		cg_noPlayerAnims;
 extern	vmCvar_t		cg_showmiss;
 extern	vmCvar_t		cg_footsteps;
 extern	vmCvar_t		cg_addMarks;
+extern	vmCvar_t		cg_paintballMode;
 extern	vmCvar_t		cg_brassTime;
 extern	vmCvar_t		cg_gun_frame;
 extern	vmCvar_t		cg_gun_x;
