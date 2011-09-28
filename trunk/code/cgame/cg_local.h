@@ -854,6 +854,11 @@ typedef struct {
 	qhandle_t	holeMarkShader;
 	qhandle_t	energyMarkShader;
 
+	// paintball mode shaders
+	qhandle_t	bulletMarkPaintShader;
+	qhandle_t	burnMarkPaintShader;
+	qhandle_t	holeMarkPaintShader;
+
 	// powerup shaders
 	qhandle_t	quadShader;
 	qhandle_t	redQuadShader;

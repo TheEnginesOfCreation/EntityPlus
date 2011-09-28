@@ -453,3 +453,36 @@ spark
 		alphaGen	vertex
 	}
 }
+
+//
+// PAINTBALL MODE WALLMARKS
+//
+gfx/damage/bullet_mrk_paint
+{
+	polygonOffset
+	{
+		map gfx/damage/bullet_mrk_paint.tga
+		blendFunc add
+		rgbGen exactVertex
+	}
+}
+
+gfx/damage/burn_med_mrk_paint
+{
+	polygonOffset
+	{
+		map gfx/damage/burn_med_mrk_paint.tga
+		blendFunc add
+		rgbGen exactVertex
+	}
+}
+
+gfx/damage/hole_lg_mrk_paint
+{
+	polygonOffset
+	{
+		map gfx/damage/hole_lg_mrk_paint.tga
+		blendFunc add
+		rgbGen exactVertex
+	}
+}
