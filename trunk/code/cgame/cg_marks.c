@@ -128,6 +128,17 @@ void CG_ImpactMark( qhandle_t markShader, const vec3_t origin, const vec3_t dir,
 		CG_Error( "CG_ImpactMark called with <= 0 radius" );
 	}
 
+	if (
+		cg_paintballMode.integer && (
+		markShader == cgs.media.bulletMarkShader || 
+		markShader == cgs.media.burnMarkShader || 
+		markShader == cgs.media.energyMarkShader || 
+		markShader == cgs.media.holeMarkShader)) {
+		red = (rand() % 255) / 255.0;
+		green = (rand() % 255) / 255.0;
+		blue = (rand() % 255) / 255.0;
+	}
+
 	//if ( markTotal >= MAX_MARK_POLYS ) {
 	//	return;
 	//}

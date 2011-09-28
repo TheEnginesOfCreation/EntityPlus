@@ -1828,7 +1828,7 @@ void Break_Breakable(gentity_t *ent, gentity_t *other) {
 		return;
 	}
 
-	// Get the center of the glass (code donated by Perle)
+	// Get the center of the func_breakable (code donated by Perle)
 	VectorSubtract(ent->r.maxs, ent->r.mins, size);
     VectorScale(size, 0.5, size);
     VectorAdd(ent->r.mins, size, center);
