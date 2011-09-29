@@ -127,14 +127,15 @@ void CG_ImpactMark( qhandle_t markShader, const vec3_t origin, const vec3_t dir,
 	if ( radius <= 0 ) {
 		CG_Error( "CG_ImpactMark called with <= 0 radius" );
 	}
+	Com_Printf("%i\n", markShader);
 
 	//paintball mode
 	if (
 		cg_paintballMode.integer && (
-		markShader == cgs.media.bulletMarkShader || 
-		markShader == cgs.media.burnMarkShader || 
-		markShader == cgs.media.energyMarkShader || 
-		markShader == cgs.media.holeMarkShader)) {
+		markShader == cgs.media.bulletMarkShader ||				//MG, SG
+		markShader == cgs.media.burnMarkShader ||				//RL, GL, BFG
+		markShader == cgs.media.energyMarkShader ||				//PG, RG
+		markShader == cgs.media.holeMarkShader)) {				//LG
 
 		if ( markShader == cgs.media.bulletMarkShader )
 			markShader = cgs.media.bulletMarkPaintShader;
@@ -142,8 +143,11 @@ void CG_ImpactMark( qhandle_t markShader, const vec3_t origin, const vec3_t dir,
 		if ( markShader == cgs.media.burnMarkShader )
 			markShader = cgs.media.burnMarkPaintShader;
 
+		if ( markShader == cgs.media.energyMarkShader )
+			markShader = cgs.media.energyMarkPaintShader;
+
 		if ( markShader == cgs.media.holeMarkShader )
-			markShader == cgs.media.holeMarkPaintShader;
+			markShader = cgs.media.holeMarkPaintShader;
 
 		red = (rand() % 255) / 255.0;
 		green = (rand() % 255) / 255.0;

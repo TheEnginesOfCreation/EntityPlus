@@ -1121,6 +1121,7 @@ static void CG_RegisterGraphics( void ) {
 	cgs.media.bulletMarkPaintShader = trap_R_RegisterShader( "gfx/damage/bullet_mrk_paint" );
 	cgs.media.burnMarkPaintShader = trap_R_RegisterShader( "gfx/damage/burn_med_mrk_paint" );
 	cgs.media.holeMarkPaintShader = trap_R_RegisterShader( "gfx/damage/hole_lg_mrk_paint" );
+	cgs.media.energyMarkPaintShader = trap_R_RegisterShader( "gfx/damage/plasma_mrk_paint" );
 
 	// register the inline models
 	cgs.numInlineModels = trap_CM_NumInlineModels();
