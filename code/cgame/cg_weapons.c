@@ -1803,7 +1803,10 @@ void CG_MissileHitWall( int weapon, int clientNum, vec3_t origin, vec3_t dir, im
 	case WP_GRENADE_LAUNCHER:
 		mod = cgs.media.dishFlashModel;
 		shader = cgs.media.grenadeExplosionShader;
-		sfx = cgs.media.sfx_rockexp;
+		if ( !cg_paintballMode.integer )
+			sfx = cgs.media.sfx_rockexp;
+		else
+			sfx = cgs.media.gibSound;
 		mark = cgs.media.burnMarkShader;
 		radius = 64;
 		light = 300;
@@ -1812,7 +1815,10 @@ void CG_MissileHitWall( int weapon, int clientNum, vec3_t origin, vec3_t dir, im
 	case WP_ROCKET_LAUNCHER:
 		mod = cgs.media.dishFlashModel;
 		shader = cgs.media.rocketExplosionShader;
-		sfx = cgs.media.sfx_rockexp;
+		if ( !cg_paintballMode.integer )
+			sfx = cgs.media.sfx_rockexp;
+		else
+			sfx = cgs.media.gibSound;
 		mark = cgs.media.burnMarkShader;
 		radius = 64;
 		light = 300;
@@ -1846,7 +1852,10 @@ void CG_MissileHitWall( int weapon, int clientNum, vec3_t origin, vec3_t dir, im
 	case WP_BFG:
 		mod = cgs.media.dishFlashModel;
 		shader = cgs.media.bfgExplosionShader;
-		sfx = cgs.media.sfx_rockexp;
+		if ( !cg_paintballMode.integer )
+			sfx = cgs.media.sfx_rockexp;
+		else
+			sfx = cgs.media.gibSound;
 		mark = cgs.media.burnMarkShader;
 		radius = 32;
 		isSprite = qtrue;
@@ -1890,12 +1899,22 @@ void CG_MissileHitWall( int weapon, int clientNum, vec3_t origin, vec3_t dir, im
 		mark = cgs.media.bulletMarkShader;
 
 		r = rand() & 3;
-		if ( r == 0 ) {
-			sfx = cgs.media.sfx_ric1;
-		} else if ( r == 1 ) {
-			sfx = cgs.media.sfx_ric2;
+		if ( !cg_paintballMode.integer ) {
+			if ( r == 0 ) {
+				sfx = cgs.media.sfx_ric1;
+			} else if ( r == 1 ) {
+				sfx = cgs.media.sfx_ric2;
+			} else {
+				sfx = cgs.media.sfx_ric3;
+			}
 		} else {
-			sfx = cgs.media.sfx_ric3;
+			if ( r == 0 ) {
+				sfx = cgs.media.gibBounce1Sound;
+			} else if ( r == 1 ) {
+				sfx = cgs.media.gibBounce2Sound;
+			} else {
+				sfx = cgs.media.gibBounce3Sound;
+			}
 		}
 
 		radius = 8;
