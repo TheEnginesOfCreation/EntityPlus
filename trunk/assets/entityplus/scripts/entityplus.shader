@@ -486,3 +486,13 @@ gfx/damage/hole_lg_mrk_paint
 		rgbGen exactVertex
 	}
 }
+
+gfx/damage/plasma_mrk_paint
+{
+	polygonOffset
+	{
+		map gfx/damage/plasma_mrk_paint.tga
+		blendFunc add
+		rgbGen exactVertex
+	}
+}
