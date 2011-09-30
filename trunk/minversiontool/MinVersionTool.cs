@@ -200,6 +200,11 @@ namespace mvt
 						Debug(" > use of \"dmg\" key requires " + VersionsStrings[(int)Versions.one_one]);
 						currentVersion = Versions.one_one;
 					}
+					if (!String.IsNullOrEmpty(ent.GetValue("radius")))
+					{
+						Debug(" > use of \"radius\" key requires " + VersionsStrings[(int)Versions.one_one]);
+						currentVersion = Versions.one_one;
+					}
 					if (!String.IsNullOrEmpty(ent.GetValue("targetname")))
 					{
 						Debug(" > use of \"targetname\" key requires " + VersionsStrings[(int)Versions.one_one]);
@@ -216,6 +221,19 @@ namespace mvt
 					if (!String.IsNullOrEmpty(ent.GetValue("fov")) && ent.GetValue("fov") != "90")
 					{
 						Debug(" > use of \"fov\" key requires " + VersionsStrings[(int)Versions.one_one]);
+						currentVersion = Versions.one_one;
+					}
+					break;
+
+				case "trigger_lock":
+					if (!String.IsNullOrEmpty(ent.GetValue("lockedsound")))
+					{
+						Debug(" > use of \"lockedsound\" key requires " + VersionsStrings[(int)Versions.one_one]);
+						currentVersion = Versions.one_one;
+					}
+					if (!String.IsNullOrEmpty(ent.GetValue("unlockedsound")))
+					{
+						Debug(" > use of \"unlockedsound\" key requires " + VersionsStrings[(int)Versions.one_one]);
 						currentVersion = Versions.one_one;
 					}
 					break;
