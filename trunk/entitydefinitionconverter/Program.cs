@@ -11,6 +11,7 @@ namespace edc
 			if (args.Length == 0)
 			{
 				Console.WriteLine("Need to specify input file");
+				Console.ReadKey(true);
 				return;
 			}
 
