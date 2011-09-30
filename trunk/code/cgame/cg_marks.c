@@ -252,7 +252,7 @@ void CG_AddMarks( void ) {
 		next = mp->nextMark;
 
 		// see if it is time to completely remove it
-		if ( cg.time > mp->time + MARK_TOTAL_TIME ) {
+		if ( cg.time > mp->time + (MARK_TOTAL_TIME * cg_addMarks.integer) ) {
 			CG_FreeMarkPoly( mp );
 			continue;
 		}
@@ -276,7 +276,7 @@ void CG_AddMarks( void ) {
 		}
 
 		// fade all marks out with time
-		t = mp->time + MARK_TOTAL_TIME - cg.time;
+		t = mp->time + (MARK_TOTAL_TIME * cg_addMarks.integer) - cg.time;
 		if ( t < MARK_FADE_TIME ) {
 			fade = 255 * t / MARK_FADE_TIME;
 			if ( mp->alphaFade ) {

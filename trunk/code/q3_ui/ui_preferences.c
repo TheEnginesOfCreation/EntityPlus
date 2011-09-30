@@ -31,8 +31,11 @@ GAME OPTIONS MENU
 #define ID_PAINTBALLMODE		137
 #define ID_BACK					138
 
-
 #define	NUM_CROSSHAIRS			10
+
+static const char *wallmark_items[] = {
+	"none", "normal", "long", "extreme", 0
+};
 
 
 typedef struct {
@@ -45,7 +48,7 @@ typedef struct {
 	menulist_s			crosshair;
 	menuradiobutton_s	simpleitems;
 	menuradiobutton_s	brass;
-	menuradiobutton_s	wallmarks;
+	menulist_s			wallmarks;
 	menuradiobutton_s	dynamiclights;
 	menuradiobutton_s	highqualitysky;
 	menuradiobutton_s	synceveryframe;
@@ -60,10 +63,18 @@ typedef struct {
 static preferences_t s_preferences;
 
 static void Preferences_SetMenuItems( void ) {
+	int marks = trap_Cvar_VariableValue( "cg_marks" );
+
+	//cap marks between 0 and 3
+	if (marks > 3)
+		marks = 3;
+	if (marks < 0)
+		marks = 0;
+
 	s_preferences.crosshair.curvalue		= (int)trap_Cvar_VariableValue( "cg_drawCrosshair" ) % NUM_CROSSHAIRS;
 	s_preferences.simpleitems.curvalue		= trap_Cvar_VariableValue( "cg_simpleItems" ) != 0;
 	s_preferences.brass.curvalue			= trap_Cvar_VariableValue( "cg_brassTime" ) != 0;
-	s_preferences.wallmarks.curvalue		= trap_Cvar_VariableValue( "cg_marks" ) != 0;
+	s_preferences.wallmarks.curvalue		= marks;
 	s_preferences.dynamiclights.curvalue	= trap_Cvar_VariableValue( "r_dynamiclight" ) != 0;
 	s_preferences.highqualitysky.curvalue	= trap_Cvar_VariableValue ( "r_fastsky" ) == 0;
 	s_preferences.synceveryframe.curvalue	= trap_Cvar_VariableValue( "r_finish" ) != 0;
@@ -239,13 +250,14 @@ static void Preferences_MenuInit( void ) {
 	s_preferences.simpleitems.generic.y	          = y;
 
 	y += BIGCHAR_HEIGHT;
-	s_preferences.wallmarks.generic.type          = MTYPE_RADIOBUTTON;
+	s_preferences.wallmarks.generic.type          = MTYPE_SPINCONTROL;
 	s_preferences.wallmarks.generic.name	      = "Marks on Walls:";
 	s_preferences.wallmarks.generic.flags	      = QMF_PULSEIFFOCUS|QMF_SMALLFONT;
 	s_preferences.wallmarks.generic.callback      = Preferences_Event;
 	s_preferences.wallmarks.generic.id            = ID_WALLMARKS;
 	s_preferences.wallmarks.generic.x	          = PREFERENCES_X_POS;
 	s_preferences.wallmarks.generic.y	          = y;
+	s_preferences.wallmarks.itemnames			  = wallmark_items;
 
 	y += BIGCHAR_HEIGHT+2;
 	s_preferences.brass.generic.type              = MTYPE_RADIOBUTTON;
