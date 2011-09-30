@@ -36,6 +36,7 @@ namespace edc
 			//read line-by-line
 			string line;
 			Entity ent = null;
+			KeyGroup keyGroup = null;
 			while (sr.Peek() > 0)
 			{
 				line = sr.ReadLine();
@@ -46,21 +47,27 @@ namespace edc
 				if (line == "*/")
 					ps = ParserStatus.Reading;
 
-				if (line.IndexOf("- KEYS -") != -1)
+				if (line.IndexOf("--------") != -1)
 				{
-					ps = ParserStatus.ReadingKeys;
-					continue;
-				}
+					if (keyGroup != null)
+					{
+						ent.AddKeyGroup(keyGroup);
+						keyGroup = null;
+					}
 
-				if (line.IndexOf("- SPAWNFLAGS -") != -1)
-				{
-					ps = ParserStatus.ReadingSpawnflags;
-					continue;
-				}
+					string keyGroupName = line.Replace("-", "").Trim();
 
-				if (line.IndexOf("- NOTES -") != -1)
-				{
-					ps = ParserStatus.ReadingNotes;
+					if (keyGroupName.ToUpper() == "SPAWNFLAGS")
+						ps = ParserStatus.ReadingSpawnflags;
+					else if (keyGroupName.ToUpper() == "NOTES")
+						ps = ParserStatus.ReadingNotes;
+					else if (keyGroupName.ToUpper().Contains("MODEL FOR RADIANT ONLY"))
+						continue;	//TODO: Would be nicer to update parser status and act on that for the next line
+					else
+					{
+						ps = ParserStatus.ReadingKeys;
+						keyGroup = new KeyGroup(keyGroupName);
+					}
 					continue;
 				}
 
@@ -74,6 +81,7 @@ namespace edc
 
 				if (line.IndexOf("/*QUAKED") != -1)
 				{
+					keyGroup = null;
 					int idx = 0;
 					ps = ParserStatus.DefinitionFound;
 					string[] parts = line.Split(' ');
@@ -148,11 +156,13 @@ namespace edc
 					{
 						int orIndex = key.IndexOf("OR");
 						string key2 = key.Substring(orIndex + 2);
-						ent.AddKey(key2.Trim().Replace("\"", ""), descr.Trim().Replace("*/", ""));
+						Key keyObj2 = new Key(key2.Trim().Replace("\"", ""), descr.Trim().Replace("*/", ""));
+						keyGroup.AddKey(keyObj2);
 						key = key.Substring(0, orIndex);
 					}
 
-					ent.AddKey(key.Trim().Replace("\"", ""), descr.Trim().Replace("*/", ""));
+					Key keyObj = new Key(key.Trim().Replace("\"", ""), descr.Trim().Replace("*/", ""));
+					keyGroup.AddKey(keyObj);
 
 					if (IsDefinitionEnd(line))
 						ps = ParserStatus.Reading;

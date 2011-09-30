@@ -7,8 +7,7 @@ namespace edc
 {
 	public class Entity
 	{
-		private List<string> m_Keys = new List<string>();
-		private List<string> m_KeyDescriptions = new List<string>();
+		private List<KeyGroup> m_KeyGroups = new List<KeyGroup>();
 		private List<Spawnflag> m_Spawnflags = new List<Spawnflag>();
 
 		public string Name
@@ -53,9 +52,9 @@ namespace edc
 			set;
 		}
 
-		public int KeyCount
+		public int KeyGroupCount
 		{
-			get { return m_Keys.Count; }
+			get { return m_KeyGroups.Count; }
 		}
 
 		public int SpawnflagCount
@@ -75,20 +74,19 @@ namespace edc
 
 
 		#region Methods - Public
-		public void AddKey(string key, string description)
+		public void AddKeyGroup(KeyGroup keyGroup)
 		{
-			m_Keys.Add(key);
-			m_KeyDescriptions.Add(description);
+			m_KeyGroups.Add(keyGroup);
 		}
 
-		public string GetKeyName(int index)
+		public KeyGroup GetKeyGroup(int index)
 		{
-			return m_Keys[index];	
+			return m_KeyGroups[index];
 		}
 
-		public string GetKeyDescription(int index)
+		public Key GetKey(int groupIndex, int index)
 		{
-			return m_KeyDescriptions[index];
+			return m_KeyGroups[groupIndex].GetKey(index);
 		}
 
 		public void AddSpawnflag(string name, int value)

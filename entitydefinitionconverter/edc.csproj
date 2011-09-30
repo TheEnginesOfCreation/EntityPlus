@@ -40,6 +40,8 @@
     <Compile Include="Entity.cs" />
     <Compile Include="EntityDefinitionsConverter.cs" />
     <Compile Include="BaseReader.cs" />
+    <Compile Include="Key.cs" />
+    <Compile Include="KeyGroup.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Reader14.cs" />

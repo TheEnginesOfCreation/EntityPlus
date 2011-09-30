@@ -57,17 +57,21 @@ namespace edc
 
 
 				//write keys
-				if (ent.KeyCount > 0)
+				if (ent.KeyGroupCount > 0)
 				{
-					sb.AppendLine("-------- KEYS --------");
-					for (int i = 0; i < ent.KeyCount; i++)
+					for (int i = 0; i < ent.KeyGroupCount; i++)
 					{
-						string name = ent.GetKeyName(i);
-						string descr = ent.GetKeyDescription(i);
-						string keytype = GetKeyType(name);
+						KeyGroup keyGroup = ent.GetKeyGroup(i);
+						sb.AppendLine("-------- " + keyGroup.Name + " --------");
 
-						if (!String.IsNullOrEmpty(keytype))
-							sb.AppendLine(String.Format("<{0} key=\"{1}\" name=\"{1}\">{2}</{0}>", keytype, name, descr));
+						for (int n = 0; n < keyGroup.KeyCount; n++)
+						{
+							Key key = keyGroup.GetKey(n);
+							string keyType = GetKeyType(key.Name);
+
+							if (!String.IsNullOrEmpty(keyType))
+								sb.AppendLine(String.Format("<{0} key=\"{1}\" name=\"{1}\">{2}</{0}>", keyType, key.Name, key.Description));
+						}
 					}
 				}
 
