@@ -627,10 +627,14 @@ like an ordinary trigger_multiple
 */
 
 void lock_touch(gentity_t *self, gentity_t *other, trace_t *trace) {
+	vec3_t size;
 	int holdables;
 	qboolean playerHasKeys;
 	
 	if (!other->client)
+		return;
+
+	if ( self->nextthink )
 		return;
 
 	holdables = other->client->ps.stats[STAT_HOLDABLE_ITEM];
@@ -657,10 +661,41 @@ void lock_touch(gentity_t *self, gentity_t *other, trace_t *trace) {
 	if ( !playerHasKeys ) {
 		if ( self->message )
 			trap_SendServerCommand( other-g_entities, va("cp \"%s\"", self->message ));
+
+		// sound played when locked
+		if ( self->soundPos1 )
+		{
+			vec3_t size, center;
+			gentity_t *tent;
+
+			VectorSubtract(self->r.maxs, self->r.mins, size);
+			VectorScale(size, 0.5, size);
+			VectorAdd(self->r.mins, size, center);
+			tent = G_TempEntity( center, EV_GENERAL_SOUND );
+			tent->s.eventParm = self->soundPos1;
+		}
+
+		self->think = multi_wait;
+		self->nextthink = level.time + ( self->wait + self->random * crandom() ) * 1000;
 		return;
 	}
 	else {
 		self->message = 0;	//remove the message so it's not displayed anymore once the lock is opened
+		
+		// sound played when unlocked
+		if ( self->soundPos2 ) {
+			vec3_t size, center;
+			gentity_t *tent;
+
+			VectorSubtract(self->r.maxs, self->r.mins, size);
+			VectorScale(size, 0.5, size);
+			VectorAdd(self->r.mins, size, center);
+			tent = G_TempEntity( center, EV_GENERAL_SOUND );
+			tent->s.eventParm = self->soundPos2;
+
+			self->soundPos1 = 0;
+			self->soundPos2 = 0;
+		}
 	}
 
 	// remove the required key(card)s
@@ -692,11 +727,20 @@ Used in conjunction with a holdable_key_* to grant/deny access to some entity
 Spawnflags determine which key is needed to trigger this lock
 */
 void SP_trigger_lock(gentity_t *self) {
+	char  *lockedsound;
+	char  *unlockedsound;
+	
 	InitTrigger(self);
 
 	// default values
 	G_SpawnFloat("wait", "0.5", &self->wait);
 	G_SpawnFloat("random", "0", &self->random);
+	G_SpawnString("lockedsound", "", &lockedsound);
+	G_SpawnString("unlockedsound", "", &unlockedsound);
+
+	// sounds
+	self->soundPos1 = G_SoundIndex(lockedsound);
+	self->soundPos2 = G_SoundIndex(unlockedsound);
 
 	// random cannot be larger than wait
 	if ( self->random >= self->wait && self->wait >= 0 ) {
