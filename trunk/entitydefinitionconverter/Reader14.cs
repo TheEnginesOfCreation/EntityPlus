@@ -6,6 +6,7 @@ using System.Text;
 
 namespace edc
 {
+	/// <summary>Reads GtkRadiant 1.4 style entities.def file and converts it to a list of entity objects</summary>
 	class Reader14 : BaseReader
 	{
 		#region Enums and constants

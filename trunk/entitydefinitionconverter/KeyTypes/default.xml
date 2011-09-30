@@ -39,6 +39,7 @@
 	<speed>real</speed>
 	<target>target</target>
 	<targetname>targetname</targetname>
+	<terrain>boolean</terrain>
 	<team>string</team>
 	<wait>real</wait>
 	<weight>real</weight>
