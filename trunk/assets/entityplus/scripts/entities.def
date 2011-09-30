@@ -1879,7 +1879,10 @@ Used in conjunction with a holdable_key_* entities to grant/deny access to an en
 -------- KEYS --------
 target : this points to the entity to activate.
 target2 : this points to the entity to activate.
-message : message displayed when user triggers lock without the required keys.
+message : message displayed when player triggers lock without the required keys.
+lockedsound : sound to play when player triggers lock without the required keys (eg. sound/world/klaxon1.wav).
+unlockedsound : sound to play when player triggers lock while having the required keys (eg. sound/world/klaxon2.wav).
+wait : time in seconds until trigger becomes re-triggerable after it's been touched (default 0.2, -1 = trigger once).
 -------- SPAWNFLAGS --------
 KEY_RED : only triggered when player has holdable_key_red item.
 KEY_GREEN : only triggered when player has holdable_key_green item.
@@ -1890,7 +1893,11 @@ KEY_GOLD : only triggered when player has holdable_key_gold item.
 KEY_SILVER : only triggered when player has holdable_key_silver item.
 KEY_IRON : only triggered when player has holdable_key_iron item.
 -------- NOTES --------
-The KEY_* spawnflags are AND-ed, meaning that checking multiple of these spawnflags will require the player to have multiple keys to trigger the lock. When no KEY_* spawnflag is checked, the lock will always be triggered, even if the player has no keys.*/
+The KEY_* spawnflags are AND-ed, meaning that checking multiple of these spawnflags will require the player to have multiple keys to trigger the lock. When no KEY_* spawnflag is checked, the lock will always be triggered, even if the player has no keys.
+
+While it's possible to set the wait key to -1, it is not advised to do so, because touching the trigger_lock without the required keys is registered as a trigger nonetheless. This would mean that the player is unable to continue if such a situation were to arise. Since the required keys are removed from the player's inventory, it is by default only possible to activate a trigger_lock once, as long as the player is not able to pick up a second set of keys required to activate the trigger_lock.
+
+When using the unlockedsound, it is advised to set a wait key that is at least as long as the duration of the sound file that is being played. Otherwise the sound file will be played again before it has finished playing the first time.*/
 
 //=============================================================================
 
