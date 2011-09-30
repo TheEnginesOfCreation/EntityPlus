@@ -1,5 +1,6 @@
 v1.1 (?? ??? 2011)
 	- [Added] Paintball mode (cg_paintballMode).
+	- [Added] Value of cg_marks determines how long wallmarks stay.
 	- [Added] "dmg" and "radius" keys to func_breakable.
 	- [Added] func_breakable entities can be targeted and will break upon activation.
 	- [Added] "objectivesoverlay" key to worldspawn entity.
