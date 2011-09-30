@@ -56,6 +56,9 @@ namespace edc
 						)
 					);
 
+				//write description
+				if (!String.IsNullOrEmpty(ent.Description))
+					sb.AppendLine(EncodeXml(ent.Description));
 
 				//write keys
 				if (ent.KeyGroupCount > 0)
@@ -71,7 +74,7 @@ namespace edc
 							string keyType = GetKeyType(key.Name);
 
 							if (!String.IsNullOrEmpty(keyType))
-								sb.AppendLine(String.Format("<{0} key=\"{1}\" name=\"{1}\">{2}</{0}>", keyType, key.Name, key.Description));
+								sb.AppendLine(String.Format("<{0} key=\"{1}\" name=\"{1}\">{2}</{0}>", keyType, key.Name, EncodeXml(key.Description)));
 						}
 					}
 				}
@@ -83,14 +86,14 @@ namespace edc
 					for (int i = 0; i < ent.SpawnflagCount; i++)
 					{
 						Spawnflag sf = ent.GetSpawnflag(i);
-						sb.AppendLine(String.Format("<flag key=\"{0}\" name=\"{0}\" bit=\"{1}\">{2}</flag>", sf.Name, sf.Value, sf.Description));
+						sb.AppendLine(String.Format("<flag key=\"{0}\" name=\"{0}\" bit=\"{1}\">{2}</flag>", sf.Name, sf.Bit, EncodeXml(sf.Description)));
 					}
 				}
 
 				if (!String.IsNullOrEmpty(ent.Notes))
 				{
 					sb.AppendLine("-------- NOTES --------");
-					sb.AppendLine(ent.Notes);
+					sb.AppendLine(EncodeXml(ent.Notes));
 				}
 
 				if (ent.Mins == null)
@@ -136,6 +139,13 @@ namespace edc
 
 			Console.WriteLine("Cannot find type for key \"" + key + "\"");
 			return "";
+		}
+
+		private string EncodeXml(string input)
+		{
+			if (input == null)
+				return "";
+			return input.Replace("<", "&lt;").Replace(">", "&gt;");
 		}
 		#endregion
 	}

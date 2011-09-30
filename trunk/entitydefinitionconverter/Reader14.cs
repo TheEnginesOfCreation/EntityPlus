@@ -115,13 +115,13 @@ namespace edc
 
 					//get spawnflags
 					idx++;
-					int spawnflagValue = 1;
+					int spawnflagBit = 0;
 					while (idx < parts.Length)
 					{
 						if (!String.IsNullOrEmpty(parts[idx])) {
-							if (!(parts[idx] == "-")) 
-								ent.AddSpawnflag(parts[idx], spawnflagValue);
-							spawnflagValue *= 2;
+							if (!(parts[idx] == "-"))
+								ent.AddSpawnflag(parts[idx], spawnflagBit);
+							spawnflagBit++;
 						}
 						idx++;
 					}

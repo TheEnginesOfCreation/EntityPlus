@@ -12,7 +12,7 @@ namespace edc
 			set;
 		}
 
-		public int Value
+		public int Bit
 		{
 			get;
 			set;
@@ -24,10 +24,10 @@ namespace edc
 			set;
 		}
 
-		public Spawnflag(string name, int value)
+		public Spawnflag(string name, int bit)
 		{
 			Name = name;
-			Value = value;
+			Bit = bit;
 		}
 	}
 }
