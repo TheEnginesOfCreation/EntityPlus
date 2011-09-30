@@ -6,6 +6,7 @@ using System.Xml;
 
 namespace edc
 {
+	/// <summary>Writes list of entity objects to GtkRadiant 1.5 format entities.ent file</summary>
 	class Writer15 : BaseWriter
 	{
 		#region Properties
@@ -97,6 +98,8 @@ namespace edc
 				else
 					sb.AppendLine("</point>");
 			}
+
+			sb.AppendLine("</classes>");
 
 			Console.WriteLine("Writing output to \"" + path + "\"");
 			StreamWriter sw = new StreamWriter(path);

@@ -19,7 +19,7 @@ namespace edc
 
 			BaseReader reader = new Reader14();
 			List<Entity> entities = reader.ReadFile(path);
-			Console.WriteLine("Read " + entities.Count + " entities");
+			Console.WriteLine("Read " + entities.Count + " entities from source file");
 
 			BaseWriter writer = new Writer15();
 			string outputPath = Path.GetDirectoryName(path);
