@@ -6,10 +6,12 @@ v1.1 (?? ??? 2011)
 	- [Added] "objectivesoverlay" key to worldspawn entity.
 	- [Added] "fov" key to info_camera.
 	- [Added] "lockedsound" and "unlockedsound" keys to trigger_lock.
-	- [Fixed] Game crashes when bot dies due to worldspawn hazard (trigger_hurt, slime, lava, falling damage, etc).
-	- [Fixed] Spawnflags for func_door_rotating
 	- [Changed] Bodies of dead bots stay slightly longer before disappearing.
 
+v1.0.1 (01 oct 2011)
+	- [Fixed] Game crashes when bot dies due to worldspawn hazard (trigger_hurt, slime, lava, falling damage, etc).
+	- [Fixed] Spawnflags for func_door_rotating
+	
 v1.0 (26 sep 2011)
 	- [Added] g_debugCameras cvar to log info_camera debugging info to console.
 	- [Added] optional minversion key to arena files.
