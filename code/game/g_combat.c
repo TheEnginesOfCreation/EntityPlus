@@ -633,10 +633,7 @@ void player_die( gentity_t *self, gentity_t *inflictor, gentity_t *attacker, int
 
 	// don't allow respawn until the death anim is done
 	// g_forcerespawn may force spawning at some later time
-	if ( !IsBot(self) )
-		self->client->respawnTime = level.time + 1700;
-	else
-		self->client->respawnTime = level.time + 5000;	//keep bot bodies around slightly longer
+	self->client->respawnTime = level.time + 1700;
 
 	// remove powerups
 	memset( self->client->ps.powerups, 0, sizeof(self->client->ps.powerups) );

@@ -33,16 +33,14 @@ namespace mvt
 		private enum Versions
 		{
 			UnableToDetect = 0,
-			one_zero = 1,
-			one_one = 2,
+			one_zero = 1
 		}
 
 		/// <summary>List of strings for supported EntityPlus versions</summary>
 		private string[] VersionsStrings =
 		{
 			"Unable to determine due to unknown entity classnames.",
-			"1.0",
-			"1.1"
+			"1.0"
 		};
 
 		/// <summary>A list of all the known entity classnames</summary>
@@ -96,10 +94,7 @@ namespace mvt
 			Versions minversion = ParseMap(filename);
 
 			Console.WriteLine("Finished parsing \"" + filename + "\"");
-			Console.WriteLine("\n================");
-			Console.WriteLine("minversion = " + VersionsStrings[(int)minversion]);
-			Console.WriteLine("================");
-			Console.WriteLine("\n\npress any key to continue...");
+			Console.WriteLine("\nminversion = " + VersionsStrings[(int)minversion]);
 			Console.ReadKey(true);
 		}
 		#endregion
@@ -185,68 +180,13 @@ namespace mvt
 		/// <returns>The minimum EntityPlus version required to support this entity</returns>
 		private Versions CheckEntity(Entity ent, Versions currentVersion)
 		{
-			string classname = ent.GetValue("classname");
-			if (!IsKnownEntity(classname))
+			if (!IsKnownEntity(ent.GetValue("classname")))
 			{
 				Console.WriteLine("WARNING: Unknown classname \"" + ent.GetValue("classname") + "\"");
 				return Versions.UnableToDetect;
 			}
 
-			//Checking for v1.1 requirements
-			switch (classname) {
-				case "func_breakable":
-					if (!String.IsNullOrEmpty(ent.GetValue("dmg")) && ent.GetValue("dmg") != "0")
-					{
-						Debug(" > use of \"dmg\" key requires " + VersionsStrings[(int)Versions.one_one]);
-						currentVersion = Versions.one_one;
-					}
-					if (!String.IsNullOrEmpty(ent.GetValue("radius")))
-					{
-						Debug(" > use of \"radius\" key requires " + VersionsStrings[(int)Versions.one_one]);
-						currentVersion = Versions.one_one;
-					}
-					if (!String.IsNullOrEmpty(ent.GetValue("targetname")))
-					{
-						Debug(" > use of \"targetname\" key requires " + VersionsStrings[(int)Versions.one_one]);
-						currentVersion = Versions.one_one;
-					}
-					if (!String.IsNullOrEmpty(ent.GetValue("targetname2")))
-					{
-						Debug(" > use of \"targetname2\" key requires " + VersionsStrings[(int)Versions.one_one]);
-						currentVersion = Versions.one_one;
-					}
-					break;
-				
-				case "info_camera":
-					if (!String.IsNullOrEmpty(ent.GetValue("fov")) && ent.GetValue("fov") != "90")
-					{
-						Debug(" > use of \"fov\" key requires " + VersionsStrings[(int)Versions.one_one]);
-						currentVersion = Versions.one_one;
-					}
-					break;
-
-				case "trigger_lock":
-					if (!String.IsNullOrEmpty(ent.GetValue("lockedsound")))
-					{
-						Debug(" > use of \"lockedsound\" key requires " + VersionsStrings[(int)Versions.one_one]);
-						currentVersion = Versions.one_one;
-					}
-					if (!String.IsNullOrEmpty(ent.GetValue("unlockedsound")))
-					{
-						Debug(" > use of \"unlockedsound\" key requires " + VersionsStrings[(int)Versions.one_one]);
-						currentVersion = Versions.one_one;
-					}
-					break;
-
-				case "worldspawn":
-					if (!String.IsNullOrEmpty(ent.GetValue("objectivesoverlay")) && ent.GetValue("objectivesoverlay") != "menu/objectives/overlay.tga")
-					{
-						Debug(" > use of \"objectivesoverlay\" key requires " + VersionsStrings[(int)Versions.one_one]);
-						currentVersion = Versions.one_one;
-					}
-					break;
-
-			}
+			//TODO: Here it should check if this entity uses features that are not part of the [currentVersion] release. If so, it should bump up the version number.
 
 			return currentVersion;
 		}

@@ -256,12 +256,8 @@ A static entity that is removed when it receives a set amount of damage.
 -------- KEYS --------
 health : The entire entity is removed once this amount of damages has been inflicted to it.
 count : The entity will spew out this number of chunks of debris when it's broken (default = 0).
-dmg : Amount of splashdamage the func_breakable will deal when it is removed (default = 0).
-radius : The radius in which the splashdamage is dealt (default = 120).
 target : Targetted entity will be triggered once the func_breakable is destroyed.
 target2 : Targetted entity will be triggered once the func_breakable is destroyed.
-targetname : activating entity points to this.
-targetname2 : activating entity points to this.
 light : constantLight radius of .md3 model included with entity. Has no effect on the entity's brushes (default 0).
 color : constantLight color of .md3 model included with entity. Has no effect on the entity's brushes (default 1 1 1).
 -------- Q3MAP2 KEYS --------
@@ -289,9 +285,7 @@ NO_SHOOTER : Shooter entities cannot damage the func_breakable.
 -------- NOTES --------
 Target this entity with a misc_model to have the model attached to the entity (set the model's "target" key to the same value as this entity's "targetname").
 
-The various debris type spawnflags cannot be combined. If multiple debris type spawnflags are selected, the first spawnflag will overrule later spawnflags. When no debris type spawnflag is defined, the func_breakable will default to LIGHT_DEBRIS.
-
-When the "dmg" key is set, the func_breakable will deal splash damage when it is removed. This can, for example, be used to create exploding barrels. The default radius in which damage is dealt is 120, which equals that of a rocket launcher shot.*/
+The various spawnflags cannot be combined. If multiple spawnflags are selected, the first spawnflag will overrule later spawnflags. When no spawnflag is defined, the func_breakable will default to LIGHT_DEBRIS.*/
 
 //=============================================================================
 
@@ -833,7 +827,6 @@ targetname2 : activating entity points to this.
 target : this points to the next camera to jump to in the cutscene.
 target2 : this points to an info_notnull or target_position entity to aim the view of the camera.
 wait : number of seconds this camera will hold the view (default 1).
-fov : zoom fov for this camera.
 angles: alternate "pitch, yaw, roll" angles method of aiming cutscene camera (default 0 0 0).
 -------- SPAWNFLAGS --------
 PAN : Instead of jumping to the next camera position, the camera view pans linearly to the next camera position.
@@ -1879,10 +1872,7 @@ Used in conjunction with a holdable_key_* entities to grant/deny access to an en
 -------- KEYS --------
 target : this points to the entity to activate.
 target2 : this points to the entity to activate.
-message : message displayed when player triggers lock without the required keys.
-lockedsound : sound to play when player triggers lock without the required keys (eg. sound/world/klaxon1.wav).
-unlockedsound : sound to play when player triggers lock while having the required keys (eg. sound/world/klaxon2.wav).
-wait : time in seconds until trigger becomes re-triggerable after it's been touched (default 0.2, -1 = trigger once).
+message : message displayed when user triggers lock without the required keys.
 -------- SPAWNFLAGS --------
 KEY_RED : only triggered when player has holdable_key_red item.
 KEY_GREEN : only triggered when player has holdable_key_green item.
@@ -1893,11 +1883,7 @@ KEY_GOLD : only triggered when player has holdable_key_gold item.
 KEY_SILVER : only triggered when player has holdable_key_silver item.
 KEY_IRON : only triggered when player has holdable_key_iron item.
 -------- NOTES --------
-The KEY_* spawnflags are AND-ed, meaning that checking multiple of these spawnflags will require the player to have multiple keys to trigger the lock. When no KEY_* spawnflag is checked, the lock will always be triggered, even if the player has no keys.
-
-While it's possible to set the wait key to -1, it is not advised to do so, because touching the trigger_lock without the required keys is registered as a trigger nonetheless. This would mean that the player is unable to continue if such a situation were to arise. Since the required keys are removed from the player's inventory, it is by default only possible to activate a trigger_lock once, as long as the player is not able to pick up a second set of keys required to activate the trigger_lock.
-
-When using the unlockedsound, it is advised to set a wait key that is at least as long as the duration of the sound file that is being played. Otherwise the sound file will be played again before it has finished playing the first time.*/
+The KEY_* spawnflags are AND-ed, meaning that checking multiple of these spawnflags will require the player to have multiple keys to trigger the lock. When no KEY_* spawnflag is checked, the lock will always be triggered, even if the player has no keys.*/
 
 //=============================================================================
 
@@ -2180,8 +2166,7 @@ music : path/name of looping .wav file used for level's music (eg. music/sonic5.
 scoreboardmusic : path/name of looping .wav file used for level's scoreboard music (eg. music/win.wav).
 deathmusic :  path/name of looping .wav file used when player is dead (eg. music/loss.wav).
 playermodel : the player's model is forced to this player model (eg. sarge or visor/gorre).
-playerheadmodel : the player's headmodel is forced to this head model (eg. sarge or visor/gorre). See notes.
-objectivesoverlay : path/name of the image to use as objectives overlay (eg. menu/objectives/overlay.tga).
+playerheadmodel: the player's headmodel is forced to this head model (eg. sarge or visor/gorre). See notes.
 _ambient OR ambient : Adds a constant value to overall lighting. Use is not recommended. Ambient light will have a tendency to flatten out variations in light and shade.
 _color : RGB value for ambient light color (default is 0 0 0).
 gravity : gravity of level (default is normal gravity: 800).

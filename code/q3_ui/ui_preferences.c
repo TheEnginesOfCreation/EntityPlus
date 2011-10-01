@@ -28,14 +28,10 @@ GAME OPTIONS MENU
 #define ID_SYNCEVERYFRAME		134
 #define ID_FORCEMODEL			135
 #define ID_SUBTITLES			136
-#define ID_PAINTBALLMODE		137
 #define ID_BACK					138
 
-#define	NUM_CROSSHAIRS			10
 
-static const char *wallmark_items[] = {
-	"none", "normal", "long", "extreme", 0
-};
+#define	NUM_CROSSHAIRS			10
 
 
 typedef struct {
@@ -48,13 +44,12 @@ typedef struct {
 	menulist_s			crosshair;
 	menuradiobutton_s	simpleitems;
 	menuradiobutton_s	brass;
-	menulist_s			wallmarks;
+	menuradiobutton_s	wallmarks;
 	menuradiobutton_s	dynamiclights;
 	menuradiobutton_s	highqualitysky;
 	menuradiobutton_s	synceveryframe;
 	menuradiobutton_s	forcemodel;
 	menuradiobutton_s	subtitles;
-	menuradiobutton_s	paintballmode;
 	menubitmap_s		back;
 
 	qhandle_t			crosshairShader[NUM_CROSSHAIRS];
@@ -63,24 +58,15 @@ typedef struct {
 static preferences_t s_preferences;
 
 static void Preferences_SetMenuItems( void ) {
-	int marks = trap_Cvar_VariableValue( "cg_marks" );
-
-	//cap marks between 0 and 3
-	if (marks > 3)
-		marks = 3;
-	if (marks < 0)
-		marks = 0;
-
 	s_preferences.crosshair.curvalue		= (int)trap_Cvar_VariableValue( "cg_drawCrosshair" ) % NUM_CROSSHAIRS;
 	s_preferences.simpleitems.curvalue		= trap_Cvar_VariableValue( "cg_simpleItems" ) != 0;
 	s_preferences.brass.curvalue			= trap_Cvar_VariableValue( "cg_brassTime" ) != 0;
-	s_preferences.wallmarks.curvalue		= marks;
+	s_preferences.wallmarks.curvalue		= trap_Cvar_VariableValue( "cg_marks" ) != 0;
 	s_preferences.dynamiclights.curvalue	= trap_Cvar_VariableValue( "r_dynamiclight" ) != 0;
 	s_preferences.highqualitysky.curvalue	= trap_Cvar_VariableValue ( "r_fastsky" ) == 0;
 	s_preferences.synceveryframe.curvalue	= trap_Cvar_VariableValue( "r_finish" ) != 0;
 	s_preferences.forcemodel.curvalue		= trap_Cvar_VariableValue( "cg_forcemodel" ) != 0;
 	s_preferences.subtitles.curvalue		= trap_Cvar_VariableValue( "cg_drawsubtitles" ) != 0;
-	s_preferences.paintballmode.curvalue	= trap_Cvar_VariableValue( "cg_paintballmode" ) != 0;
 }
 
 
@@ -131,10 +117,6 @@ static void Preferences_Event( void* ptr, int notification ) {
 
 	case ID_SUBTITLES:
 		trap_Cvar_SetValue( "cg_drawsubtitles", s_preferences.subtitles.curvalue );
-		break;
-
-	case ID_PAINTBALLMODE:
-		trap_Cvar_SetValue( "cg_paintballmode", s_preferences.paintballmode.curvalue );
 		break;
 
 	case ID_BACK:
@@ -250,14 +232,13 @@ static void Preferences_MenuInit( void ) {
 	s_preferences.simpleitems.generic.y	          = y;
 
 	y += BIGCHAR_HEIGHT;
-	s_preferences.wallmarks.generic.type          = MTYPE_SPINCONTROL;
+	s_preferences.wallmarks.generic.type          = MTYPE_RADIOBUTTON;
 	s_preferences.wallmarks.generic.name	      = "Marks on Walls:";
 	s_preferences.wallmarks.generic.flags	      = QMF_PULSEIFFOCUS|QMF_SMALLFONT;
 	s_preferences.wallmarks.generic.callback      = Preferences_Event;
 	s_preferences.wallmarks.generic.id            = ID_WALLMARKS;
 	s_preferences.wallmarks.generic.x	          = PREFERENCES_X_POS;
 	s_preferences.wallmarks.generic.y	          = y;
-	s_preferences.wallmarks.itemnames			  = wallmark_items;
 
 	y += BIGCHAR_HEIGHT+2;
 	s_preferences.brass.generic.type              = MTYPE_RADIOBUTTON;
@@ -314,15 +295,6 @@ static void Preferences_MenuInit( void ) {
 	s_preferences.subtitles.generic.y	     = y;
 
 	y += BIGCHAR_HEIGHT+2;
-	s_preferences.paintballmode.generic.type     = MTYPE_RADIOBUTTON;
-	s_preferences.paintballmode.generic.name	 = "Enable Paintball Mode:";
-	s_preferences.paintballmode.generic.flags	 = QMF_PULSEIFFOCUS|QMF_SMALLFONT;
-	s_preferences.paintballmode.generic.callback = Preferences_Event;
-	s_preferences.paintballmode.generic.id       = ID_PAINTBALLMODE;
-	s_preferences.paintballmode.generic.x	     = PREFERENCES_X_POS;
-	s_preferences.paintballmode.generic.y	     = y;
-
-	y += BIGCHAR_HEIGHT+2;
 	s_preferences.back.generic.type	    = MTYPE_BITMAP;
 	s_preferences.back.generic.name     = ART_BACK0;
 	s_preferences.back.generic.flags    = QMF_LEFT_JUSTIFY|QMF_PULSEIFFOCUS;
@@ -347,7 +319,6 @@ static void Preferences_MenuInit( void ) {
 	Menu_AddItem( &s_preferences.menu, &s_preferences.synceveryframe );
 	Menu_AddItem( &s_preferences.menu, &s_preferences.forcemodel );
 	Menu_AddItem( &s_preferences.menu, &s_preferences.subtitles );
-	Menu_AddItem( &s_preferences.menu, &s_preferences.paintballmode );
 
 	Menu_AddItem( &s_preferences.menu, &s_preferences.back );
 
