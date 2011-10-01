@@ -10,7 +10,7 @@
 
 // the "gameversion" client command will print this plus compile date
 #define	GAMEVERSION	"baseq3"
-#define EPVERSION "1.0"
+#define EPVERSION "1.1"
 
 #define BODY_QUEUE_SIZE		8
 
