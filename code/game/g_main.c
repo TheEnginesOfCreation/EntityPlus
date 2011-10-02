@@ -40,6 +40,7 @@ vmCvar_t	g_debugMove;
 vmCvar_t	g_debugDamage;
 vmCvar_t	g_debugAlloc;
 vmCvar_t	g_debugCameras;
+vmCvar_t	g_debugVariables;
 vmCvar_t	g_weaponRespawn;
 vmCvar_t	g_weaponTeamRespawn;
 vmCvar_t	g_motd;
@@ -132,6 +133,7 @@ static cvarTable_t		gameCvarTable[] = {
 	{ &g_debugDamage, "g_debugDamage", "0", 0, 0, qfalse },
 	{ &g_debugAlloc, "g_debugAlloc", "0", 0, 0, qfalse },
 	{ &g_debugCameras, "g_debugCameras", "0", CVAR_LATCH | CVAR_ARCHIVE | CVAR_CHEAT, 0, qfalse  },
+	{ &g_debugVariables, "g_debugVariables", "0", CVAR_ARCHIVE | CVAR_CHEAT, 0, qfalse  },
 	{ &g_motd, "g_motd", "", 0, 0, qfalse },
 	{ &g_blood, "com_blood", "1", 0, 0, qfalse },
 

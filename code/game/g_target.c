@@ -1342,11 +1342,21 @@ void target_variable_use (gentity_t *self, gentity_t *other, gentity_t *activato
 	{
 		trap_GetConfigstring(CS_TARGET_VARIABLE, buf, sizeof(buf));
 		value = Info_ValueForKey(buf, self->key);
-		if ( (self->spawnflags & 1) && !strcmp(value, self->value) )
-			G_UseTargets (self, activator);
+		if ( g_debugVariables.integer ) {
+			G_Printf("\nDebugvariables: comparing variable \"%s\" to \"%s\"\n", self->key, self->value);
+			G_Printf("In-memory value for variable = %s\n", value);
+			G_Printf("Variable infostring = %s\n", variableInfo);
+		}
 		
-		if ( (self->spawnflags & 2) && strcmp(value, self->value) )
+		if ( (self->spawnflags & 1) && !strcmp(value, self->value) ) {
+			if ( g_debugVariables.integer ) G_Printf("Variables match, targets will be activated\n");
 			G_UseTargets (self, activator);
+		}
+		
+		if ( (self->spawnflags & 2) && strcmp(value, self->value) ) {
+			if ( g_debugVariables.integer ) G_Printf("Variables do not match, targets will be activated\n");
+			G_UseTargets (self, activator);
+		}
 		
 		return;
 	}
@@ -1354,6 +1364,10 @@ void target_variable_use (gentity_t *self, gentity_t *other, gentity_t *activato
 	variableInfo[0] = '\0';
 	Info_SetValueForKey(variableInfo, self->key, self->value);
 	trap_SetConfigstring( CS_TARGET_VARIABLE, variableInfo );
+	if ( g_debugVariables.integer ) {
+		G_Printf("\nDebugvariables: setting variable \"%s\" to \"%s\"\n", self->key, self->value);
+		G_Printf("Variable infostring = %s\n", variableInfo);
+	}
 }
 
 //used for immediately spawnflag
