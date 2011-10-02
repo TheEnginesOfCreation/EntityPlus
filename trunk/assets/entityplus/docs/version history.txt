@@ -8,6 +8,7 @@ v1.1 (?? ??? 2011)
 	- [Added] "lockedsound" and "unlockedsound" keys to trigger_lock.
 	- [Added] g_debugVariables cvar.
 	- [Changed] Bodies of dead bots stay slightly longer before disappearing.
+	- [Changed] Increased storage length for target_variable from 1024 characters to 8192.
 
 v1.0.1 (01 oct 2011)
 	- [Fixed] Game crashes when bot dies due to worldspawn hazard (trigger_hurt, slime, lava, falling damage, etc).
