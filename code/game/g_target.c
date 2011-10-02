@@ -1334,8 +1334,8 @@ When triggered, this writes a variable with a specified value to memory or compa
 */
 
 void target_variable_use (gentity_t *self, gentity_t *other, gentity_t *activator) {
-	char buf[MAX_INFO_STRING];
-	char variableInfo[MAX_INFO_STRING];
+	char buf[BIG_INFO_STRING];
+	char variableInfo[BIG_INFO_STRING];
 	char *value;
 
 	if ( self->spawnflags & 1 || self->spawnflags & 2)
@@ -1344,7 +1344,7 @@ void target_variable_use (gentity_t *self, gentity_t *other, gentity_t *activato
 		value = Info_ValueForKey(buf, self->key);
 		if ( g_debugVariables.integer ) {
 			G_Printf("\nDebugvariables: comparing variable \"%s\" to \"%s\"\n", self->key, self->value);
-			G_Printf("In-memory value for variable = %s\n", value);
+			G_Printf("In-memory value for variable = \"%s\"\n", value);
 			G_Printf("Variable infostring = %s\n", variableInfo);
 		}
 		
