@@ -1028,7 +1028,7 @@ void G_AddCustomBot( char *name, int parentEntityNum, char* waypoint, float relS
 		skill = 5;
 
 	//set cl_noprint to 1 while adding bots in SP mode so that their loading message don't appear
-	if (g_gametype.integer == GT_ENTITYPLUS)
+	if (g_gametype.integer == GT_ENTITYPLUS && !g_debugBotspawns.integer)
 		trap_Cvar_Set( "cl_noprint", "1" );
 
 	G_AddBot( name, skill, "free", 0, name, parentEntityNum, waypoint );

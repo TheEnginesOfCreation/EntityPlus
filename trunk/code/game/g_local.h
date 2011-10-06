@@ -786,6 +786,7 @@ extern	vmCvar_t	g_debugAlloc;
 extern	vmCvar_t	g_debugDamage;
 extern	vmCvar_t	g_debugCameras;
 extern	vmCvar_t	g_debugVariables;
+extern	vmCvar_t	g_debugBotspawns;
 extern	vmCvar_t	g_weaponRespawn;
 extern	vmCvar_t	g_weaponTeamRespawn;
 extern	vmCvar_t	g_synchronousClients;
