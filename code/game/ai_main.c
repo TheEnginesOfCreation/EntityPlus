@@ -1146,7 +1146,7 @@ void BotInitPatrolPoints(bot_state_t* bs, char* target)
 {
 	gentity_t* wpEnt = G_Find (NULL, FOFS(targetname), target );
 	
-	if(!wpEnt)
+	if (!wpEnt)
 		return;
 
 	while( wpEnt )
@@ -1169,12 +1169,12 @@ void BotInitPatrolPoints(bot_state_t* bs, char* target)
 		if( !wpArea )
 		{
 			G_Printf("no AAS area for waypoint at %s \n", vtos(curWpEnt->s.origin) );
-			continue;
+			return;
 		}
 		if( !trap_AAS_AreaReachability(wpArea) )
 		{
 			G_Printf("waypoint at %s is unreachable \n", vtos(curWpEnt->s.origin) );
-			continue;
+			return;
 		}
 
 		// alloc waypoint

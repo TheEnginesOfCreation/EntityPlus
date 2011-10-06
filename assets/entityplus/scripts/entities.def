@@ -1411,6 +1411,18 @@ TARGET_* ENTITIES
 
 //=============================================================================
 
+/*QUAKED target_botremove (0 .7 .7) (-8 -8 -8) (8 8 8)
+Removes all bots that were spawned by the targeted target_botspawn entities.
+-------- KEYS --------
+target : this points to a target_botspawn entity from which all bots should be removed from the game.
+target2 : this points to a target_botspawn entity from which all bots should be removed from the game.
+targetname : activating entity points to this.
+targetname2 : activating entity points to this.
+-------- NOTES --------
+The target/target2 keys MUST be used to target an existing target_botspawn entity. When this entity is activated, it will remove ALL bots from the game that were spawned by the targeted target_botspawn entity. Targeting multiple target_botspawn entities is possible.*/
+
+//=============================================================================
+
 /*QUAKED target_botspawn (0 .7 .7) (-16 -16 -24) (16 16 32) - WP_MACHINEGUN WP_SHOTGUN WP_GRENADE_LAUNCHER WP_ROCKET_LAUNCHER WP_LIGHTNING WP_RAILGUN WP_PLASMAGUN WP_BFG
 Spawns a bot into the game at the location of the target_botspawn entity.
 -------- KEYS --------

@@ -1461,3 +1461,24 @@ void SP_target_cutscene (gentity_t *self) {
 	self->think = target_cutscene_think;
 	self->use = target_cutscene_use;
 }
+
+//==========================================================
+
+/*QUAKED target_botremove (.5 .5 .5) (-8 -8 -8) (8 8 8)
+When triggered, removes all bots that were spawned by the targeted target_botspawn entity
+*/
+
+void target_botremove_use (gentity_t *self, gentity_t *other, gentity_t *activator) {
+	if ( !G_RemoveBotsForTarget( self ) )
+		G_Printf("WARNING: %s at %s does not target any target_botspawn entities\n", self->classname, vtos(self->s.origin));
+}
+
+void SP_target_botremove (gentity_t *self) {
+	if ( !self->target && !self->target2 ) {
+		G_Printf("WARNING: %s without a target or target2 at %s\n", self->classname, vtos(self->s.origin));
+		G_FreeEntity( self );
+		return;
+	}
+	
+	self->use = target_botremove_use;
+}

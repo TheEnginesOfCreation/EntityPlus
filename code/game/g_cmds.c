@@ -202,6 +202,29 @@ int ClientNumberFromString( gentity_t *to, char *s ) {
 
 /*
 ==================
+Cmd_Position_f
+
+Gets player's current position
+==================
+*/
+void Cmd_Position_f (gentity_t *ent)
+{
+	if ( CheatsOk( ent ) ) {
+		G_Printf(
+			"X: %f\nY: %f\nZ: %f\nYAW: %f\nPITCH: %f\nROLL: %f\n", 
+			ent->client->ps.origin[0], 
+			ent->client->ps.origin[1], 
+			ent->client->ps.origin[2], 
+			ent->client->ps.viewangles[YAW],
+			ent->client->ps.viewangles[PITCH],
+			ent->client->ps.viewangles[ROLL]
+		);
+	}
+}
+
+
+/*
+==================
 Cmd_Give_f
 
 Give items to a client
@@ -1531,8 +1554,8 @@ void Cmd_SetViewpos_f( gentity_t *ent ) {
 		trap_SendServerCommand( ent-g_entities, va("print \"Cheats are not enabled on this server.\n\""));
 		return;
 	}
-	if ( trap_Argc() != 5 ) {
-		trap_SendServerCommand( ent-g_entities, va("print \"usage: setviewpos x y z yaw\n\""));
+	if ( trap_Argc() != 7 ) {
+		trap_SendServerCommand( ent-g_entities, va("print \"usage: setviewpos x y z yaw pitch roll\n\""));
 		return;
 	}
 
@@ -1545,7 +1568,13 @@ void Cmd_SetViewpos_f( gentity_t *ent ) {
 	trap_Argv( 4, buffer, sizeof( buffer ) );
 	angles[YAW] = atof( buffer );
 
-	TeleportPlayer( ent, origin, angles );
+	trap_Argv( 5, buffer, sizeof( buffer ) );
+	angles[PITCH] = atof( buffer );
+
+	trap_Argv( 6, buffer, sizeof( buffer ) );
+	angles[ROLL] = atof( buffer );
+
+	TeleportPlayerNoKnockback( ent, origin, angles );
 }
 
 
@@ -1642,6 +1671,8 @@ void ClientCommand( int clientNum ) {
 
 	if (Q_stricmp (cmd, "give") == 0)
 		Cmd_Give_f (ent);
+	else if (Q_stricmp (cmd, "position") == 0)
+		Cmd_Position_f (ent);
 	else if (Q_stricmp (cmd, "god") == 0)
 		Cmd_God_f (ent);
 	else if (Q_stricmp (cmd, "notarget") == 0)
