@@ -11,6 +11,7 @@ namespace edc
 		#region Constructor
 		public EntityDefinitionsConverter(string path)
 		{
+			Console.WriteLine("EntityDefinitionsConverter v1.0");
 			if (!File.Exists(path))
 			{
 				Console.WriteLine(String.Format("File \"{0}\" does not exist", path));
