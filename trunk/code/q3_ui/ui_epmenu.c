@@ -17,6 +17,9 @@
 #define MAX_MAPROWS 2
 #define MAX_SERVERMAPS	64
 #define MAX_NAMELENGTH	16
+#define MAX_DESCRIPTIONLINES 10
+#define MAX_DESCRIPTIONLINELENGTH 40
+#define MAX_DESCRIPTIONLENGTH	MAX_DESCRIPTIONLINES * MAX_DESCRIPTIONLINELENGTH
 
 #define ART_FRAME					"menu/art/cut_frame"
 #define ART_FIGHT0					"menu/art/fight_0"
@@ -64,8 +67,11 @@ typedef struct {
 	menutext_s		versionWarnings[MAX_MAPSPERPAGE];
 	menutext_s		versionWarningsVersion[MAX_MAPSPERPAGE];
 
+	menutext_s		mapDescriptionLines[MAX_DESCRIPTIONLINES];
+
 	char			maplist[MAX_SERVERMAPS][MAX_NAMELENGTH];
 	char			mapversions[MAX_SERVERMAPS][MAX_NAMELENGTH];
+	char			mapdescriptions[MAX_SERVERMAPS][MAX_DESCRIPTIONLENGTH];
 	int				page;
 	int				currentmap;
 	int				nummaps;
@@ -420,6 +426,11 @@ static void EPMenu_Update( void ) {
 		epMenuInfo.versionWarnings[i].string = "";
 	}
 
+	// clear description
+	for ( i = 0; i < MAX_DESCRIPTIONLINES; i++ ) {
+		epMenuInfo.mapDescriptionLines[i].string = "";
+	}
+
 
 	for (i=0; i<MAX_MAPSPERPAGE; i++)
 	{
@@ -478,6 +489,25 @@ static void EPMenu_Update( void ) {
 
 		// set the high score
 		strcpy( epMenuInfo.highScore.string, va("%i", COM_LoadLevelScore( epMenuInfo.maplist[epMenuInfo.currentmap] ) ) );
+
+		// set the description
+		if ( strlen( epMenuInfo.mapdescriptions[epMenuInfo.currentmap] ) ) {
+			static char desc[MAX_DESCRIPTIONLENGTH];
+			int objlen;
+			Q_strncpyz(desc, epMenuInfo.mapdescriptions[epMenuInfo.currentmap], sizeof(desc));
+			objlen = strlen(desc);
+			
+			for (i = 0; i < MAX_DESCRIPTIONLINES; i++) {
+				if ( objlen < (i * MAX_DESCRIPTIONLINELENGTH) + 1)
+					break;
+				epMenuInfo.mapDescriptionLines[i].string = va("%.40s", &desc[i * MAX_DESCRIPTIONLINELENGTH]);
+				//Com_Printf("%s\n", va("%.40s", &desc[i * MAX_DESCRIPTIONLINELENGTH]));
+			}
+			
+		} else {
+			epMenuInfo.mapDescriptionLines[0].string = "no description available...";
+		}
+		
 	}
 	
 	Q_strupr( epMenuInfo.mapname.string );
@@ -509,6 +539,7 @@ static void EPMenu_GametypeFilter( void ) {
 		Q_strncpyz( epMenuInfo.maplist[epMenuInfo.nummaps], Info_ValueForKey( info, "map" ), MAX_NAMELENGTH );
 		Q_strupr( epMenuInfo.maplist[epMenuInfo.nummaps] );
 		Q_strncpyz( epMenuInfo.mapversions[epMenuInfo.nummaps], Info_ValueForKey( info, "minversion" ), MAX_NAMELENGTH);
+		Q_strncpyz( epMenuInfo.mapdescriptions[epMenuInfo.nummaps], Info_ValueForKey( info, "description" ), MAX_DESCRIPTIONLENGTH);
 		epMenuInfo.mapGamebits[epMenuInfo.nummaps] = GT_ENTITYPLUS;
 		epMenuInfo.nummaps++;
 	}
@@ -600,7 +631,6 @@ static void EPMenu_LevelshotDraw( void *self ) {
 	x += b->width / 2;
 	y += 4;
 	n = epMenuInfo.page * MAX_MAPSPERPAGE + b->generic.id - ID_PICTURES;
-	//n = 0;
 	UI_DrawString( x, y, epMenuInfo.maplist[n], UI_CENTER|UI_SMALLFONT, color_orange );
 
 	x = b->generic.x;
@@ -713,7 +743,7 @@ void UI_EPLevelMenu( void ) {
 	epMenuInfo.framel.generic.y	   = 78;
 	epMenuInfo.framel.width  	   = 256;
 	epMenuInfo.framel.height  	   = 329;
-	Menu_AddItem( &epMenuInfo.menu, &epMenuInfo.framel );
+	//Menu_AddItem( &epMenuInfo.menu, &epMenuInfo.framel );
 
 	//add right frame
 	epMenuInfo.framer.generic.type  = MTYPE_BITMAP;
@@ -723,7 +753,7 @@ void UI_EPLevelMenu( void ) {
 	epMenuInfo.framer.generic.y	   = 76;
 	epMenuInfo.framer.width  	   = 256;
 	epMenuInfo.framer.height  	   = 334;
-	Menu_AddItem( &epMenuInfo.menu, &epMenuInfo.framer );
+	//Menu_AddItem( &epMenuInfo.menu, &epMenuInfo.framer );
 
 	//add back button
 	epMenuInfo.back.generic.type			= MTYPE_BITMAP;
@@ -754,7 +784,7 @@ void UI_EPLevelMenu( void ) {
 	//add map selectors
 	for ( i = 0; i < MAX_MAPSPERPAGE; i++)
 	{
-		x =	(i % MAX_MAPCOLS) * (128+8) + 188;
+		x =	(i % MAX_MAPCOLS) * (128+8) + 16;
 		y = (i / MAX_MAPROWS) * (128+8) + 96;
 
 		epMenuInfo.mappics[i].generic.type		= MTYPE_BITMAP;
@@ -807,6 +837,17 @@ void UI_EPLevelMenu( void ) {
 		epMenuInfo.versionWarnings[i].style = UI_LEFT;
 		epMenuInfo.versionWarnings[i].color = color_yellow;
 		Menu_AddItem( &epMenuInfo.menu, &epMenuInfo.versionWarnings[i] );
+	}
+
+	//add description
+	for (i = 0; i < MAX_DESCRIPTIONLINES; i++ ) {
+		epMenuInfo.mapDescriptionLines[i].generic.type = MTYPE_TEXT;
+		epMenuInfo.mapDescriptionLines[i].generic.flags = QMF_CENTER_JUSTIFY|QMF_INACTIVE;
+		epMenuInfo.mapDescriptionLines[i].generic.x = 298;
+		epMenuInfo.mapDescriptionLines[i].generic.y = 96 + (i * 8);
+		epMenuInfo.mapDescriptionLines[i].style = UI_LEFT|UI_SMALLFONT;
+		epMenuInfo.mapDescriptionLines[i].color = color_red;
+		Menu_AddItem( &epMenuInfo.menu, &epMenuInfo.mapDescriptionLines[i] );
 	}
 
 	//add next/prev page buttons
