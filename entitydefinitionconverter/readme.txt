@@ -7,9 +7,11 @@ This tool converts entity defintion files from the GtkRadiant 1.4 to the GtkRadi
 Usage
 -----
 type
-edc.exe "filename"
-in a command prompt to convert a file. Replace "filename" with the path to the entities.def file that should be converted.
-The resulting entities.ent file will be stored next to the entities.def file.
+edc.exe [filename] [output]
+in a command prompt to convert a file. Replace [filename] with the path to the entities.def file that should be converted.
+[ouput] should be replaced with the path to which you wish to write the output file (including filename). If [output] is omitted
+the resulting entities.ent file will be written to the same folder as where the input file is located.
+
 
 When this tool is used for definition files other than the ones meant for baseq3 or EntityPlus it may be necessary to add a new
 KeyTypes xml file. Because GtkRadiant 1.5 entities.ent files also define the data type for each key, the tool needs to know what

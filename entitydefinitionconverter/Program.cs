@@ -15,7 +15,10 @@ namespace edc
 				return;
 			}
 
-			EntityDefinitionsConverter prog = new EntityDefinitionsConverter(args[0]);
+			string outputPath = null;
+			if (args.Length > 1)
+				outputPath = args[1];
+			EntityDefinitionsConverter prog = new EntityDefinitionsConverter(args[0], outputPath);
 			Console.ReadKey(true);
 		}
 	}
