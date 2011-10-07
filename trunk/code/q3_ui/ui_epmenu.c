@@ -387,10 +387,18 @@ Returns true if the mod version supports the features used in the map
 ===============
 */
 qboolean EPMenu_VersionAccepted( char *version ) {
-	if ( strlen( version ) > 0 && Q_stricmp(version, "1.0" ) != 0 )
-		return qfalse;
-	else
-		return qtrue;
+	if ( strlen( version ) > 0 )
+		if 
+		(	
+			Q_stricmp( version, "1.0" ) != 0 && 
+			Q_stricmp( version, "1.0.1" ) != 0 &&
+			Q_stricmp( version, "1.1" ) != 0
+		)
+		{
+			return qfalse;
+		}
+
+	return qtrue;
 }
 
 /*

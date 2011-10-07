@@ -9,12 +9,18 @@ namespace edc
 	{
 
 		#region Constructor
-		public EntityDefinitionsConverter(string path)
+		public EntityDefinitionsConverter(string path, string outputPath)
 		{
-			Console.WriteLine("EntityDefinitionsConverter v1.0");
+			Console.WriteLine("EntityDefinitionsConverter v1.1");
 			if (!File.Exists(path))
 			{
 				Console.WriteLine(String.Format("File \"{0}\" does not exist", path));
+				return;
+			}
+
+			if (outputPath != null && !Directory.Exists(Path.GetDirectoryName(outputPath)))
+			{
+				Console.WriteLine(String.Format("Output folder \"{0}\" does not exist", Path.GetDirectoryName(outputPath)));
 				return;
 			}
 
@@ -23,8 +29,11 @@ namespace edc
 			Console.WriteLine("Read " + entities.Count + " entities from source file");
 
 			BaseWriter writer = new Writer15();
-			string outputPath = Path.GetDirectoryName(path);
-			outputPath += "\\" + writer.OutputFilename;
+			if (outputPath == null)
+			{
+				outputPath = Path.GetDirectoryName(path);
+				outputPath += "\\" + writer.OutputFilename;
+			}
 			writer.WriteFile(entities, outputPath);
 		}
 		#endregion
