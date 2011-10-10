@@ -76,9 +76,9 @@ namespace mvt
 			//target_
 			"target_botremove", "target_botspawn", "target_cutscene", "target_debrisemitter", "target_delay", "target_earthquake", 
 			"target_effect", "target_finish", "target_give", "target_gravity", "target_kill", "target_laser", "target_logic", 
-			"target_mapchange", "target_modify", "target_objective", "target_playerspeed", "target_playerstats", "target_position",
-			"target_print", "target_push", "target_relay", "target_remove_powerups", "target_score", "target_script", "target_secret",
-			"target_skill", "target_speaker", "target_teleporter", "target_unlink", "target_variable",
+			"target_mapchange", "target_modify", "target_music", "target_objective", "target_playerspeed", "target_playerstats",
+			"target_position", "target_print", "target_push", "target_relay", "target_remove_powerups", "target_score", "target_script",
+			"target_secret", "target_skill", "target_speaker", "target_teleporter", "target_unlink", "target_variable",
 			//trigger_
 			"trigger_always", "trigger_death", "trigger_frag", "trigger_lock", "trigger_hurt", "trigger_multiple", "trigger_push",
 			"trigger_teleport",
@@ -283,6 +283,10 @@ namespace mvt
 				
 				case "target_botremove":
 					Debug(" > use of \"target_botremove\" entity requires " + versionString);
+					break;
+
+				case "target_music":
+					Debug(" > use of \"target_music\" entity requires " + versionString);
 					break;
 
 				case "worldspawn":

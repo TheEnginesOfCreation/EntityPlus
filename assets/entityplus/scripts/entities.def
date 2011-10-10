@@ -1631,6 +1631,17 @@ The following keys can be modified: angle, clientname, color, count, deathtarget
 
 The values for color and light can only be set on func_ entities. Light entities cannot be modified in-game.*/
 
+//=============================================================================
+
+/*QUAKED target_music (0 .7 .7) (-8 -8 -8) (8 8 8)
+Sets the current music track to be played.
+-------- KEYS --------
+targetname : activating entity points to this.
+targetname2 : activating entity points to this.
+music : path/name of looping .wav file used for level's music (eg. music/sonic5.wav).
+-------- NOTES --------
+Setting an empty music key or completely omitting it will make the music stop playing.*/
+
 
 //=============================================================================
 
