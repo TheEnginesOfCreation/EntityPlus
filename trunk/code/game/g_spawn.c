@@ -108,7 +108,8 @@ field_t fields[] = {
 	{"key", FOFS(key), F_LSTRING},
 	{"value", FOFS(value), F_LSTRING},
 	{"armor", FOFS(armor), F_INT},
-	
+	{"music", FOFS(music), F_LSTRING},
+
 	{"distance", FOFS(distance), F_FLOAT},
 	
 	{NULL}
