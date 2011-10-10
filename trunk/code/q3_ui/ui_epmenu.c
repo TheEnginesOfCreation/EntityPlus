@@ -494,14 +494,15 @@ static void EPMenu_Update( void ) {
 		if ( strlen( epMenuInfo.mapdescriptions[epMenuInfo.currentmap] ) ) {
 			static char desc[MAX_DESCRIPTIONLENGTH];
 			int objlen;
+
 			Q_strncpyz(desc, epMenuInfo.mapdescriptions[epMenuInfo.currentmap], sizeof(desc));
 			objlen = strlen(desc);
 			
 			for (i = 0; i < MAX_DESCRIPTIONLINES; i++) {
 				if ( objlen < (i * MAX_DESCRIPTIONLINELENGTH) + 1)
 					break;
+
 				epMenuInfo.mapDescriptionLines[i].string = va("%.40s", &desc[i * MAX_DESCRIPTIONLINELENGTH]);
-				//Com_Printf("%s\n", va("%.40s", &desc[i * MAX_DESCRIPTIONLINELENGTH]));
 			}
 			
 		} else {
