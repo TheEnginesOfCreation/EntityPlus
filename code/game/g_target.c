@@ -192,7 +192,7 @@ void SP_target_print( gentity_t *ent ) {
 //==========================================================
 
 
-/*QUAKED target_speaker (1 0 0) (-8 -8 -8) (8 8 8) looped-on looped-off global activator
+/*QUAKED target_speaker (0 .7 .7) (-8 -8 -8) (8 8 8) looped-on looped-off global activator
 "noise"		wav file to play
 
 A global sound will play full volume throughout the level.
@@ -1481,4 +1481,20 @@ void SP_target_botremove (gentity_t *self) {
 	}
 	
 	self->use = target_botremove_use;
+}
+
+//==========================================================
+
+/*QUAKED target_music (0 .7 .7) (-8 -8 -8) (8 8 8)
+When triggered, starts playing specified music track
+*/
+void target_music_use (gentity_t *self, gentity_t *other, gentity_t *activator) {
+	G_Printf("%s\n", self->value );
+	trap_SetConfigstring( CS_MUSIC, self->value );
+}
+
+void SP_target_music (gentity_t *self) {
+	G_SpawnString( "music", "", &self->value );
+	
+	self->use = target_music_use;
 }
