@@ -515,14 +515,12 @@ static void EPMenu_Update( void ) {
 		// set the description
 		if ( strlen( epMenuInfo.mapdescriptions[epMenuInfo.currentmap] ) ) {
 			char desc[MAX_DESCRIPTIONLENGTH];
-			int descLen;
 			int spaceIndex, prevSpaceIndex = 0;
 			int currentLine = 0;
 			int lineIndex = 0;
 			char c[2];
 
 			Q_strncpyz(desc, epMenuInfo.mapdescriptions[epMenuInfo.currentmap], sizeof(desc));
-			descLen = strlen(desc);
 
 			for ( i = 0; i < MAX_DESCRIPTIONLENGTH; i++ ) {
 				c[0] = desc[i];
