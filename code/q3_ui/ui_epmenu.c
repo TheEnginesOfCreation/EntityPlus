@@ -67,11 +67,15 @@ typedef struct {
 	menutext_s		versionWarnings[MAX_MAPSPERPAGE];
 	menutext_s		versionWarningsVersion[MAX_MAPSPERPAGE];
 
+	menutext_s		mapLongName;
+	menutext_s		mapAuthor;
 	menutext_s		mapDescriptionLines[MAX_DESCRIPTIONLINES];
 
 	char			maplist[MAX_SERVERMAPS][MAX_NAMELENGTH];
 	char			mapversions[MAX_SERVERMAPS][MAX_NAMELENGTH];
 	char			mapdescriptions[MAX_SERVERMAPS][MAX_DESCRIPTIONLENGTH];
+	char			maplongnames[MAX_SERVERMAPS][MAX_DESCRIPTIONLINELENGTH];
+	char			mapauthors[MAX_SERVERMAPS][MAX_DESCRIPTIONLINELENGTH];
 	int				page;
 	int				currentmap;
 	int				nummaps;
@@ -429,6 +433,7 @@ static void EPMenu_Update( void ) {
 
 	// clear description
 	for ( i = 0; i < MAX_DESCRIPTIONLINES; i++ ) {
+		strcpy(lines[i], "");
 		epMenuInfo.mapDescriptionLines[i].string = "";
 	}
 
@@ -491,18 +496,60 @@ static void EPMenu_Update( void ) {
 		// set the high score
 		strcpy( epMenuInfo.highScore.string, va("%i", COM_LoadLevelScore( epMenuInfo.maplist[epMenuInfo.currentmap] ) ) );
 
+		// set the longname
+		if ( strlen(epMenuInfo.maplongnames[epMenuInfo.currentmap]) == 0 )
+			strcpy( epMenuInfo.mapLongName.string, epMenuInfo.maplist[epMenuInfo.currentmap] );	//display mapname if no longname is specified
+		else
+			strcpy( epMenuInfo.mapLongName.string, epMenuInfo.maplongnames[epMenuInfo.currentmap] );
+			Q_strupr( epMenuInfo.mapLongName.string );
+
+
+		// set the author
+		if ( strlen( epMenuInfo.mapauthors[epMenuInfo.currentmap] ) > 0 ) {
+			strcpy( epMenuInfo.mapAuthor.string, "by: ");
+			strcat( epMenuInfo.mapAuthor.string, epMenuInfo.mapauthors[epMenuInfo.currentmap] );
+		} else {
+			strcpy( epMenuInfo.mapAuthor.string, "");
+		}
+
 		// set the description
 		if ( strlen( epMenuInfo.mapdescriptions[epMenuInfo.currentmap] ) ) {
 			char desc[MAX_DESCRIPTIONLENGTH];
-			int objlen;
+			int descLen;
+			int spaceIndex, prevSpaceIndex = 0;
+			int currentLine = 0;
+			int lineIndex = 0;
+			char c[2];
+
 			Q_strncpyz(desc, epMenuInfo.mapdescriptions[epMenuInfo.currentmap], sizeof(desc));
-			objlen = strlen(desc);
+			descLen = strlen(desc);
 
-			for (i = 0; i < MAX_DESCRIPTIONLINES; i++) {
-				if ( objlen < (i * MAX_DESCRIPTIONLINELENGTH) + 1)
-					break;
+			for ( i = 0; i < MAX_DESCRIPTIONLENGTH; i++ ) {
+				c[0] = desc[i];
+				c[1] = '\0';
 
-				Q_strncpyz(lines[i], &desc[i * (MAX_DESCRIPTIONLINELENGTH - 1)], sizeof(lines[i]));
+				if ( c[0] == ' ' ) {
+					spaceIndex = i;
+				}
+
+				if (lineIndex == MAX_DESCRIPTIONLINELENGTH) {
+					//Com_Printf("[%i %i]\n", prevSpaceIndex, spaceIndex);
+					if (spaceIndex - prevSpaceIndex <= 0) {
+						strcat(lines[currentLine-1], &desc[prevSpaceIndex-1]);
+						break;
+					} else {
+						Q_strncpyz(lines[currentLine], &desc[prevSpaceIndex], (spaceIndex - prevSpaceIndex) + 1);
+					}
+					prevSpaceIndex = spaceIndex;
+					prevSpaceIndex++;
+					i = spaceIndex;
+					lineIndex = -1;
+					currentLine++;
+				}
+				lineIndex++;
+			}
+
+			for ( i = 0; i < MAX_DESCRIPTIONLINES; i++ ) {
 				epMenuInfo.mapDescriptionLines[i].string = lines[i];
 			}
 		} else {
@@ -541,6 +588,8 @@ static void EPMenu_GametypeFilter( void ) {
 		Q_strupr( epMenuInfo.maplist[epMenuInfo.nummaps] );
 		Q_strncpyz( epMenuInfo.mapversions[epMenuInfo.nummaps], Info_ValueForKey( info, "minversion" ), MAX_NAMELENGTH);
 		Q_strncpyz( epMenuInfo.mapdescriptions[epMenuInfo.nummaps], Info_ValueForKey( info, "description" ), MAX_DESCRIPTIONLENGTH);
+		Q_strncpyz( epMenuInfo.maplongnames[epMenuInfo.nummaps], Info_ValueForKey( info, "longname" ), MAX_DESCRIPTIONLINELENGTH);
+		Q_strncpyz( epMenuInfo.mapauthors[epMenuInfo.nummaps], Info_ValueForKey( info, "author" ), MAX_DESCRIPTIONLINELENGTH);
 		epMenuInfo.mapGamebits[epMenuInfo.nummaps] = GT_ENTITYPLUS;
 		epMenuInfo.nummaps++;
 	}
@@ -718,6 +767,8 @@ void UI_EPLevelMenu( void ) {
 	int x, y;
 	static char mapnamebuffer[64];
 	static char mapscorebuffer[MAX_HIGHSCORE_TEXT];
+	static char maplongnamebuffer[MAX_DESCRIPTIONLINELENGTH];
+	static char mapauthorbuffer[MAX_DESCRIPTIONLINELENGTH];
 
 	//initialize menu
 	memset( &epMenuInfo, 0, sizeof(epMenuInfo) );
@@ -839,13 +890,33 @@ void UI_EPLevelMenu( void ) {
 		epMenuInfo.versionWarnings[i].color = color_yellow;
 		Menu_AddItem( &epMenuInfo.menu, &epMenuInfo.versionWarnings[i] );
 	}
+	
+	//add longname
+	epMenuInfo.mapLongName.generic.type = MTYPE_TEXT;
+	epMenuInfo.mapLongName.generic.flags = QMF_CENTER_JUSTIFY|QMF_INACTIVE;
+	epMenuInfo.mapLongName.generic.x = 298;
+	epMenuInfo.mapLongName.generic.y = 96;
+	epMenuInfo.mapLongName.style = UI_LEFT|UI_SMALLFONT;
+	epMenuInfo.mapLongName.color = color_red;
+	epMenuInfo.mapLongName.string = maplongnamebuffer;
+	Menu_AddItem( &epMenuInfo.menu, &epMenuInfo.mapLongName );
+
+	//add author
+	epMenuInfo.mapAuthor.generic.type = MTYPE_TEXT;
+	epMenuInfo.mapAuthor.generic.flags = QMF_CENTER_JUSTIFY|QMF_INACTIVE;
+	epMenuInfo.mapAuthor.generic.x = 298;
+	epMenuInfo.mapAuthor.generic.y = 108;
+	epMenuInfo.mapAuthor.style = UI_LEFT|UI_SMALLFONT;
+	epMenuInfo.mapAuthor.color = color_red;
+	epMenuInfo.mapAuthor.string = mapauthorbuffer;
+	Menu_AddItem( &epMenuInfo.menu, &epMenuInfo.mapAuthor );
 
 	//add description
 	for (i = 0; i < MAX_DESCRIPTIONLINES; i++ ) {
 		epMenuInfo.mapDescriptionLines[i].generic.type = MTYPE_TEXT;
 		epMenuInfo.mapDescriptionLines[i].generic.flags = QMF_CENTER_JUSTIFY|QMF_INACTIVE;
 		epMenuInfo.mapDescriptionLines[i].generic.x = 298;
-		epMenuInfo.mapDescriptionLines[i].generic.y = 96 + (i * 12);
+		epMenuInfo.mapDescriptionLines[i].generic.y = 120 + (i * 12);
 		epMenuInfo.mapDescriptionLines[i].style = UI_LEFT|UI_SMALLFONT;
 		epMenuInfo.mapDescriptionLines[i].color = color_red;
 		Menu_AddItem( &epMenuInfo.menu, &epMenuInfo.mapDescriptionLines[i] );
