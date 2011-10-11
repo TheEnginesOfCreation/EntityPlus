@@ -510,6 +510,11 @@ Closest target_location in sight used for the location, if none
 in site, closest in distance
 */
 void SP_target_location( gentity_t *self ){
+	if ( g_gametype.integer == GT_ENTITYPLUS ) {
+		G_FreeEntity( self );
+		return;
+	}
+	
 	self->think = target_location_linkup;
 	self->nextthink = level.time + 200;  // Let them all spawn first
 

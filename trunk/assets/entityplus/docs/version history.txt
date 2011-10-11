@@ -18,6 +18,7 @@ v1.1 (?? ??? 2011)
 	- [Changed] Bodies of dead bots stay slightly longer before disappearing.
 	- [Changed] Increased storage length for target_variable from 1024 characters to 8192.
 	- [Changed] "setviewpos" console command no longer applies teleporter kick and allows setting of pitch, yaw and roll as well.
+	- [Changed] g_listEntity is now cheat protected, accepts a value of 2 to only list in-use entity slots and prints out in-use entity count.
 
 v1.0.1 (01 oct 2011)
 	- [Fixed] Game crashes when bot dies due to worldspawn hazard (trigger_hurt, slime, lava, falling damage, etc).
