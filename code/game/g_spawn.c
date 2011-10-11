@@ -360,11 +360,13 @@ qboolean G_CallSpawn( gentity_t *ent ) {
 			// found it
 			s->spawn(ent);
 
+			/*
 			//check for freeafteruse key
 			G_SpawnInt( "freeafteruse", "0", &i );
 			if ( i ) {
 				ent->flags |= FL_FREE_AFTER_USE;
 			}
+			*/
 
 			return qtrue;
 		}
