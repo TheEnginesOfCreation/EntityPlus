@@ -903,7 +903,7 @@ void UI_EPLevelMenu( void ) {
 	epMenuInfo.mapAuthor.generic.type = MTYPE_TEXT;
 	epMenuInfo.mapAuthor.generic.flags = QMF_CENTER_JUSTIFY|QMF_INACTIVE;
 	epMenuInfo.mapAuthor.generic.x = 298;
-	epMenuInfo.mapAuthor.generic.y = 108;
+	epMenuInfo.mapAuthor.generic.y = 112;
 	epMenuInfo.mapAuthor.style = UI_LEFT|UI_SMALLFONT;
 	epMenuInfo.mapAuthor.color = color_red;
 	epMenuInfo.mapAuthor.string = mapauthorbuffer;
@@ -914,7 +914,7 @@ void UI_EPLevelMenu( void ) {
 		epMenuInfo.mapDescriptionLines[i].generic.type = MTYPE_TEXT;
 		epMenuInfo.mapDescriptionLines[i].generic.flags = QMF_CENTER_JUSTIFY|QMF_INACTIVE;
 		epMenuInfo.mapDescriptionLines[i].generic.x = 298;
-		epMenuInfo.mapDescriptionLines[i].generic.y = 120 + (i * 12);
+		epMenuInfo.mapDescriptionLines[i].generic.y = 128 + (i * 16);
 		epMenuInfo.mapDescriptionLines[i].style = UI_LEFT|UI_SMALLFONT;
 		epMenuInfo.mapDescriptionLines[i].color = color_red;
 		Menu_AddItem( &epMenuInfo.menu, &epMenuInfo.mapDescriptionLines[i] );
