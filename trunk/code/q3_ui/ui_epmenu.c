@@ -79,6 +79,7 @@ typedef struct {
 	int				mapGamebits[MAX_SERVERMAPS];
 } epMenuInfo_t;
 
+char lines[MAX_DESCRIPTIONLINES][MAX_DESCRIPTIONLINELENGTH];
 
 typedef struct {
 	menuframework_s	menu;
@@ -492,19 +493,18 @@ static void EPMenu_Update( void ) {
 
 		// set the description
 		if ( strlen( epMenuInfo.mapdescriptions[epMenuInfo.currentmap] ) ) {
-			static char desc[MAX_DESCRIPTIONLENGTH];
+			char desc[MAX_DESCRIPTIONLENGTH];
 			int objlen;
-
 			Q_strncpyz(desc, epMenuInfo.mapdescriptions[epMenuInfo.currentmap], sizeof(desc));
 			objlen = strlen(desc);
-			
+
 			for (i = 0; i < MAX_DESCRIPTIONLINES; i++) {
-				if ( objlen < (i * MAX_DESCRIPTIONLINELENGTH) + 1)
+				if ( objlen < (i * 40) + 1)
 					break;
 
-				epMenuInfo.mapDescriptionLines[i].string = va("%.40s", &desc[i * MAX_DESCRIPTIONLINELENGTH]);
+				Q_strncpyz(lines[i], &desc[i * 39], sizeof(lines[i]));
+				epMenuInfo.mapDescriptionLines[i].string = lines[i];
 			}
-			
 		} else {
 			epMenuInfo.mapDescriptionLines[0].string = "no description available...";
 		}
@@ -845,7 +845,7 @@ void UI_EPLevelMenu( void ) {
 		epMenuInfo.mapDescriptionLines[i].generic.type = MTYPE_TEXT;
 		epMenuInfo.mapDescriptionLines[i].generic.flags = QMF_CENTER_JUSTIFY|QMF_INACTIVE;
 		epMenuInfo.mapDescriptionLines[i].generic.x = 298;
-		epMenuInfo.mapDescriptionLines[i].generic.y = 96 + (i * 8);
+		epMenuInfo.mapDescriptionLines[i].generic.y = 96 + (i * 12);
 		epMenuInfo.mapDescriptionLines[i].style = UI_LEFT|UI_SMALLFONT;
 		epMenuInfo.mapDescriptionLines[i].color = color_red;
 		Menu_AddItem( &epMenuInfo.menu, &epMenuInfo.mapDescriptionLines[i] );
