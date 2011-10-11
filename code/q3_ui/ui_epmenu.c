@@ -499,10 +499,10 @@ static void EPMenu_Update( void ) {
 			objlen = strlen(desc);
 
 			for (i = 0; i < MAX_DESCRIPTIONLINES; i++) {
-				if ( objlen < (i * 40) + 1)
+				if ( objlen < (i * MAX_DESCRIPTIONLINELENGTH) + 1)
 					break;
 
-				Q_strncpyz(lines[i], &desc[i * 39], sizeof(lines[i]));
+				Q_strncpyz(lines[i], &desc[i * (MAX_DESCRIPTIONLINELENGTH - 1)], sizeof(lines[i]));
 				epMenuInfo.mapDescriptionLines[i].string = lines[i];
 			}
 		} else {
