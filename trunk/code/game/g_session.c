@@ -225,7 +225,7 @@ void G_UpdateClientSessionDataForMapChange( gclient_t *client ) {
 	sess->deaths = client->ps.persistant[PERS_KILLED];
 
 	secretFound = (client->ps.persistant[PERS_SECRETS] & 0x7F);
-	secretCount = level.secretCount;
+	secretCount = ((client->ps.persistant[PERS_SECRETS] >> 7) & 0x7F) + level.secretCount;
 	sess->secrets = secretFound + (secretCount << 7);
 
 	sess->accuracyShots = client->accuracy_shots;
