@@ -339,6 +339,7 @@ returning qfalse if not found
 qboolean G_CallSpawn( gentity_t *ent ) {
 	spawn_t	*s;
 	gitem_t	*item;
+	int		i;
 
 	if ( !ent->classname ) {
 		G_Printf ("G_CallSpawn: NULL classname\n");
@@ -358,6 +359,13 @@ qboolean G_CallSpawn( gentity_t *ent ) {
 		if ( !strcmp(s->name, ent->classname) ) {
 			// found it
 			s->spawn(ent);
+
+			//check for freeafteruse key
+			G_SpawnInt( "freeafteruse", "0", &i );
+			if ( i ) {
+				ent->flags |= FL_FREE_AFTER_USE;
+			}
+
 			return qtrue;
 		}
 	}

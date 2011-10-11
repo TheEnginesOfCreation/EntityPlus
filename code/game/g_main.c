@@ -143,7 +143,7 @@ static cvarTable_t		gameCvarTable[] = {
 	{ &g_podiumDrop, "g_podiumDrop", "70", 0, 0, qfalse },
 
 	{ &g_allowVote, "g_allowVote", "1", CVAR_ARCHIVE, 0, qfalse },
-	{ &g_listEntity, "g_listEntity", "0", 0, 0, qfalse },
+	{ &g_listEntity, "g_listEntity", "0", CVAR_CHEAT, 0, qfalse },
 
 #ifdef MISSIONPACK
 	{ &g_obeliskHealth, "g_obeliskHealth", "2500", 0, 0, qfalse },
@@ -1883,9 +1883,15 @@ void G_RunFrame( int levelTime ) {
 	CheckCvars();
 
 	if (g_listEntity.integer) {
+		int counter = 0;
 		for (i = 0; i < MAX_GENTITIES; i++) {
-			G_Printf("%4i: %s\n", i, g_entities[i].classname);
+			if ( g_listEntity.integer == 1 || g_entities[i].inuse || g_entities[i].classname == "worldspawn" )
+			{
+				G_Printf("%4i: %s\n", i, g_entities[i].classname);
+				counter++;
+			}
 		}
+		G_Printf("%i entities in use\n", counter);
 		trap_Cvar_Set("g_listEntity", "0");
 	}
 
