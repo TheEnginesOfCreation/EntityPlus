@@ -395,7 +395,7 @@ void SP_target_teleporter( gentity_t *self ) {
 //==========================================================
 
 
-/*QUAKED target_relay (.5 .5 .5) (-8 -8 -8) (8 8 8) RED_ONLY BLUE_ONLY RANDOM
+/*QUAKED target_relay (.5 .5 .5) (-8 -8 -8) (8 8 8) RED_ONLY BLUE_ONLY RANDOM ONCE
 This doesn't perform any actions except fire its targets.
 The activator can be forced to be from a certain team.
 if RANDOM is checked, only one of the targets will be fired, not all of them
@@ -439,7 +439,11 @@ void target_relay_use (gentity_t *self, gentity_t *other, gentity_t *activator) 
 	if (self->damage == self->count)
 	{
 		G_UseTargets (self, activator);
-		self->damage = 0;
+		
+		if ( self->spawnflags & 8 )
+			G_FreeEntity( self );
+		else
+			self->damage = 0;
 	}
 }
 
@@ -700,6 +704,8 @@ The entity specified with deathtarget will be activated when the spawned bot die
 Use the skill key to specify the skill level for the bot relative to the g_spskill level. This is only applied to the amount of damage it deals.
 */
 void target_botspawn_use (gentity_t *self, gentity_t *other, gentity_t *activator) {
+	if ( g_debugBotspawns.integer )
+		G_Printf("\n%i\n spawn bot \"%s\"\n botspawn \"%s\" / \"%s\" (%i)\n waypoint \"%s\"\n", level.time, self->clientname, self->targetname, self->targetname2, self->s.number, self->target);
 	G_AddCustomBot( self->clientname, self->s.number, self->target, self->skill );
 }
 

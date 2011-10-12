@@ -9,6 +9,7 @@ v1.1 (?? ??? 2011)
 	- [Added] "fov" key to info_camera.
 	- [Added] "lockedsound" and "unlockedsound" keys to trigger_lock.
 	- [Added] "position" console command to get current player position coordinates.
+	- [Added] "ONCE" spawnflag to target_relay.
 	- [Added] g_debugVariables cvar.
 	- [Added] g_debugBotspawns cvar.
 	- [Added] Support for longname, author and description through arena files.
