@@ -573,6 +573,10 @@ void Touch_Item (gentity_t *ent, gentity_t *other, trace_t *trace) {
 		ent->s.eFlags |= EF_NODRAW;
 		ent->r.contents = 0;
 		ent->unlinkAfterEvent = qtrue;
+
+		if ( g_gametype.integer == GT_ENTITYPLUS )
+			G_FreeEntity( ent );	//completely free the entity. It no longer serves a purpose.
+
 		return;
 	}
 
@@ -605,6 +609,8 @@ void Touch_Item (gentity_t *ent, gentity_t *other, trace_t *trace) {
 	// A negative respawn times means to never respawn this item (but don't 
 	// delete it).  This is used by items that are respawned by third party 
 	// events such as ctf flags
+	// ENTITYPLUS
+	// Items with a negative respawn time are being freed to keep dangers of hitting entity limits as low as possible
 	if ( respawn <= 0 ) {
 		ent->nextthink = 0;
 		ent->think = 0;
