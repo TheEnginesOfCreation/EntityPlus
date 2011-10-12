@@ -237,6 +237,14 @@ namespace mvt
 			string classname = ent.GetValue("classname");
 			switch (classname)
 			{
+				case "target_relay":
+					if ((ent.Spawnflags & 8) != 0)
+					{
+						Debug(" > use of \"ONCE\" spawnflag requires " + versionString);
+						result = true;
+					}
+					break;
+
 				case "func_breakable":
 					if (!String.IsNullOrEmpty(ent.GetValue("dmg")) && ent.GetValue("dmg") != "0")
 					{

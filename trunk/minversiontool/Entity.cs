@@ -6,8 +6,41 @@ namespace mvt
 {
 	class Entity
 	{
-		public int EntityNum;
+		#region Private fields
 		private Dictionary<string, string> KeyValuePairs = new Dictionary<string, string>();
+		#endregion
+
+		
+		#region Properties
+		public int EntityNum
+		{
+			get;
+			set;
+		}
+
+		public int Spawnflags
+		{
+			get
+			{
+				string sf = GetValue("spawnflags");
+				if (String.IsNullOrEmpty(sf))
+					return 0;
+				else
+				{
+					try
+					{
+						int sfi = int.Parse(sf);
+						return sfi;
+					}
+					catch (FormatException)
+					{
+						Console.WriteLine("ERROR: spawnflags for this entity is set to \"" + sf + "\", which is not a valid numeric value");
+						return 0;
+					}
+				}
+			}
+		}
+		#endregion
 
 
 		public Entity()
