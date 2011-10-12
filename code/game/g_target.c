@@ -1500,17 +1500,12 @@ void SP_target_botremove (gentity_t *self) {
 When triggered, starts playing specified music track
 */
 void target_music_use (gentity_t *self, gentity_t *other, gentity_t *activator) {
-//	if ( !self->music || strlen(self->music) == 0) {
-//		G_Printf("Silence!\n");
-//		trap_SetConfigstring( CS_MUSIC, "" );
-//	} else {
-		trap_SetConfigstring( CS_MUSIC, self->music );
-//	}
+	trap_SetConfigstring( CS_MUSIC, self->music );
 }
 
 void SP_target_music (gentity_t *self) {
 	char	*s;
-	char	buffer[MAX_QPATH];
+	char	buffer[MAX_INFO_STRING];
 	G_SpawnString( "music", "", &s );
 	Q_strncpyz( self->music, s, sizeof(self->music) );
 
