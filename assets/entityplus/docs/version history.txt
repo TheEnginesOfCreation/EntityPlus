@@ -8,14 +8,15 @@ v1.1 (?? ??? 2011)
 	- [Added] "objectivesoverlay" key to worldspawn entity.
 	- [Added] "fov" key to info_camera.
 	- [Added] "lockedsound" and "unlockedsound" keys to trigger_lock.
-	- [Added] "position" console command to get current player position coordinates.
 	- [Added] "ONCE" spawnflag to target_relay.
+	- [Added] "position" console command to get current player position coordinates.
 	- [Added] g_debugVariables cvar.
 	- [Added] g_debugBotspawns cvar.
 	- [Added] Support for longname, author and description through arena files.
 	- [Fixed] Game stops responding when spawning a bot whose waypoints are all inside solids or unreachable.
 	- [Fixed] Maps with a minversion of "1.0.1" are marked as incompatible.
 	- [Fixed] Final scoreboard does not display the correct total number of secrets for campaigns with more than 2 maps.
+	- [Fixed] Picking up backpack that should contain BFG gives player a shotgun.
 	- [Changed] Bodies of dead bots stay slightly longer before disappearing.
 	- [Changed] Increased storage length for target_variable from 1024 characters to 8192.
 	- [Changed] "setviewpos" console command no longer applies teleporter kick and allows setting of pitch, yaw and roll as well.
