@@ -17,6 +17,7 @@ v1.1 (?? ??? 2011)
 	- [Fixed] Maps with a minversion of "1.0.1" are marked as incompatible.
 	- [Fixed] Final scoreboard does not display the correct total number of secrets for campaigns with more than 2 maps.
 	- [Fixed] Picking up backpack that should contain BFG gives player a shotgun.
+	- [Fixed] Backpack that is dropped when player has ammo for a weapon he doesn't have will give that weapon to the player when backpack is picked up.
 	- [Changed] Bodies of dead bots stay slightly longer before disappearing.
 	- [Changed] Increased storage length for target_variable from 1024 characters to 8192.
 	- [Changed] "setviewpos" console command no longer applies teleporter kick and allows setting of pitch, yaw and roll as well.

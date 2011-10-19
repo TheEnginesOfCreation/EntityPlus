@@ -197,57 +197,50 @@ int Pickup_Backpack( gentity_t *ent, gentity_t *other) {
 	//other is the player picking the backpack up
 	//function doesn't return a respawn time because backpacks never respawn
 	
-	if (ent->backpackContents[WP_MACHINEGUN]) {
+	//machinegun
+	if ( ent->count & (1 << WP_MACHINEGUN) )
 		other->client->ps.stats[STAT_WEAPONS] |= (1 << WP_MACHINEGUN);
-
-		//after dying, player spawns with 'free' 100 MG ammo, so we're taking 100 bullets from the backpack and give the remainder to the player
-		if (ent->backpackContents[WP_MACHINEGUN] > 100)
-			other->client->ps.ammo[WP_MACHINEGUN] += (ent->backpackContents[WP_MACHINEGUN] - 100);
-	}
-
-	if (ent->backpackContents[WP_SHOTGUN]) {
+	
+	//after dying, player spawns with 'free' 100 MG ammo, so we're taking 100 bullets from the backpack and give the remainder to the player
+	if ( ent->backpackContents[WP_MACHINEGUN] > 100 )
+		other->client->ps.ammo[WP_MACHINEGUN] += (ent->backpackContents[WP_MACHINEGUN] - 100);
+	
+	//shotgun
+	if ( ent->count & (1 << WP_SHOTGUN) )
 		other->client->ps.stats[STAT_WEAPONS] |= (1 << WP_SHOTGUN);
-		
-		if ( ent->backpackContents[WP_SHOTGUN] > 0 )
-			other->client->ps.ammo[WP_SHOTGUN] += ent->backpackContents[WP_SHOTGUN];
-	}
+	other->client->ps.ammo[WP_SHOTGUN] += ent->backpackContents[WP_SHOTGUN];
 
-	if (ent->backpackContents[WP_GRENADE_LAUNCHER]) {
+	//grenade launcher
+	if ( ent->count & (1 << WP_GRENADE_LAUNCHER) )
 		other->client->ps.stats[STAT_WEAPONS] |= (1 << WP_GRENADE_LAUNCHER);
-		if ( ent->backpackContents[WP_GRENADE_LAUNCHER] > 0 )
-			other->client->ps.ammo[WP_GRENADE_LAUNCHER] += ent->backpackContents[WP_GRENADE_LAUNCHER];
-	}
+	other->client->ps.ammo[WP_GRENADE_LAUNCHER] += ent->backpackContents[WP_GRENADE_LAUNCHER];
 
-	if (ent->backpackContents[WP_ROCKET_LAUNCHER]) {
+	//rocket launcher
+	if ( ent->count & (1 << WP_ROCKET_LAUNCHER) )
 		other->client->ps.stats[STAT_WEAPONS] |= (1 << WP_ROCKET_LAUNCHER);
-		if ( ent->backpackContents[WP_ROCKET_LAUNCHER] > 0 )
-			other->client->ps.ammo[WP_ROCKET_LAUNCHER] += ent->backpackContents[WP_ROCKET_LAUNCHER];
-	}
+	other->client->ps.ammo[WP_ROCKET_LAUNCHER] += ent->backpackContents[WP_ROCKET_LAUNCHER];
 
-	if (ent->backpackContents[WP_LIGHTNING]) {
+	//lightning gun
+	if ( ent->count & (1 << WP_LIGHTNING) )
 		other->client->ps.stats[STAT_WEAPONS] |= (1 << WP_LIGHTNING);
-		if ( ent->backpackContents[WP_LIGHTNING] > 0 )
-			other->client->ps.ammo[WP_LIGHTNING] += ent->backpackContents[WP_LIGHTNING];
-	}
-
-	if (ent->backpackContents[WP_RAILGUN]) {
+	other->client->ps.ammo[WP_LIGHTNING] += ent->backpackContents[WP_LIGHTNING];
+	
+	//railgun
+	if ( ent->count & (1 << WP_RAILGUN) )
 		other->client->ps.stats[STAT_WEAPONS] |= (1 << WP_RAILGUN);
-		if ( ent->backpackContents[WP_RAILGUN] > 0 )
-			other->client->ps.ammo[WP_RAILGUN] += ent->backpackContents[WP_RAILGUN];
-	}
+	other->client->ps.ammo[WP_RAILGUN] += ent->backpackContents[WP_RAILGUN];
 
-	if (ent->backpackContents[WP_PLASMAGUN]) {
+	//plasma gun
+	if ( ent->count & (1 << WP_PLASMAGUN) )
 		other->client->ps.stats[STAT_WEAPONS] |= (1 << WP_PLASMAGUN);
-		if ( ent->backpackContents[WP_PLASMAGUN] > 0 )
-			other->client->ps.ammo[WP_PLASMAGUN] += ent->backpackContents[WP_PLASMAGUN];
-	}
+	other->client->ps.ammo[WP_PLASMAGUN] += ent->backpackContents[WP_PLASMAGUN];
 
-	if (ent->backpackContents[WP_BFG]) {
+	//bfg
+		if ( ent->count & (1 << WP_BFG) )
 		other->client->ps.stats[STAT_WEAPONS] |= (1 << WP_BFG);
-		if ( ent->backpackContents[WP_BFG] > 0 )
-			other->client->ps.ammo[WP_BFG] += ent->backpackContents[WP_BFG];
-	}
+	other->client->ps.ammo[WP_BFG] += ent->backpackContents[WP_BFG];
 
+	//holdables
 	other->client->ps.stats[STAT_HOLDABLE_ITEM] = ent->backpackContents[0];
 
 	return -1;
@@ -684,7 +677,7 @@ Spawns a backpack and tosses it forward
 gentity_t *LaunchBackpack( gitem_t *item, gentity_t *self, vec3_t velocity ) {
 	gentity_t	*dropped;
 	vec3_t		origin;
-	int			ammo;
+	int			weapons = 0;
 
 	VectorCopy(self->s.pos.trBase, origin);
 
@@ -718,52 +711,48 @@ gentity_t *LaunchBackpack( gitem_t *item, gentity_t *self, vec3_t velocity ) {
 	dropped->backpackContents[0] = self->client->ps.stats[STAT_HOLDABLE_ITEM];
 	
 	//machinegun 
-	ammo = self->client->ps.ammo[WP_MACHINEGUN];
-	if ( ammo == 0 && self->client->ps.stats[STAT_WEAPONS] & (1 << WP_MACHINEGUN ) )
-		ammo = -1;	//Ammo -1 means player has the weapon, but no ammo. Ammo 0 means player doesn't have the weapon.
-	dropped->backpackContents[WP_MACHINEGUN] = ammo;
+	if ( self->client->ps.stats[STAT_WEAPONS] & (1 << WP_MACHINEGUN ) )
+		weapons |= (1 << WP_MACHINEGUN);
+	dropped->backpackContents[WP_MACHINEGUN] = self->client->ps.ammo[WP_MACHINEGUN];
 	
 	//shotgun
-	ammo = self->client->ps.ammo[WP_SHOTGUN];
-	if ( ammo == 0 && self->client->ps.stats[STAT_WEAPONS] & (1 << WP_SHOTGUN ) )
-		ammo = -1;
-	dropped->backpackContents[WP_SHOTGUN] = ammo;
+	if ( self->client->ps.stats[STAT_WEAPONS] & (1 << WP_SHOTGUN ) )
+		weapons |= (1 << WP_SHOTGUN);
+	dropped->backpackContents[WP_SHOTGUN] = self->client->ps.ammo[WP_SHOTGUN];
 
 	//grenade launcher
-	ammo = self->client->ps.ammo[WP_GRENADE_LAUNCHER];
-	if ( ammo == 0 && self->client->ps.stats[STAT_WEAPONS] & (1 << WP_GRENADE_LAUNCHER ) )
-		ammo = -1;
-	dropped->backpackContents[WP_GRENADE_LAUNCHER] = ammo;
+	if ( self->client->ps.stats[STAT_WEAPONS] & (1 << WP_GRENADE_LAUNCHER ) )
+		weapons |= (1 << WP_GRENADE_LAUNCHER);
+	dropped->backpackContents[WP_GRENADE_LAUNCHER] = self->client->ps.ammo[WP_GRENADE_LAUNCHER];
 
 	//rocket launcher
-	ammo = self->client->ps.ammo[WP_ROCKET_LAUNCHER];
-	if ( ammo == 0 && self->client->ps.stats[STAT_WEAPONS] & (1 << WP_ROCKET_LAUNCHER ) )
-		ammo = -1;
-	dropped->backpackContents[WP_ROCKET_LAUNCHER] = ammo;
+	if ( self->client->ps.stats[STAT_WEAPONS] & (1 << WP_ROCKET_LAUNCHER ) )
+		weapons |= (1 << WP_ROCKET_LAUNCHER);
+	dropped->backpackContents[WP_ROCKET_LAUNCHER] = self->client->ps.ammo[WP_ROCKET_LAUNCHER];
 
 	//lightning gun
-	ammo = self->client->ps.ammo[WP_LIGHTNING];
-	if ( ammo == 0 && self->client->ps.stats[STAT_WEAPONS] & (1 << WP_LIGHTNING ) )
-		ammo = -1;
-	dropped->backpackContents[WP_LIGHTNING] = ammo;
+	if ( self->client->ps.stats[STAT_WEAPONS] & (1 << WP_LIGHTNING ) )
+		weapons |= (1 << WP_LIGHTNING);
+	dropped->backpackContents[WP_LIGHTNING] = self->client->ps.ammo[WP_LIGHTNING];
 
 	//railgun
-	ammo = self->client->ps.ammo[WP_RAILGUN];
-	if ( ammo == 0 && self->client->ps.stats[STAT_WEAPONS] & (1 << WP_RAILGUN ) )
-		ammo = -1;
-	dropped->backpackContents[WP_RAILGUN] = ammo;
+	if ( self->client->ps.stats[STAT_WEAPONS] & (1 << WP_RAILGUN ) )
+		weapons |= (1 << WP_RAILGUN);
+	dropped->backpackContents[WP_RAILGUN] = self->client->ps.ammo[WP_RAILGUN];
 
 	//plasmagun
-	ammo = self->client->ps.ammo[WP_PLASMAGUN];
-	if ( ammo == 0 && self->client->ps.stats[STAT_WEAPONS] & (1 << WP_PLASMAGUN ) )
-		ammo = -1;
-	dropped->backpackContents[WP_PLASMAGUN] = ammo;
+	if ( self->client->ps.stats[STAT_WEAPONS] & (1 << WP_PLASMAGUN ) )
+		weapons |= (1 << WP_PLASMAGUN);
+	dropped->backpackContents[WP_PLASMAGUN] = self->client->ps.ammo[WP_PLASMAGUN];
 
 	//bfg
-	ammo = self->client->ps.ammo[WP_BFG];
-	if ( ammo == 0 && self->client->ps.stats[STAT_WEAPONS] & (1 << WP_BFG ) )
-		ammo = -1;
-	dropped->backpackContents[WP_BFG] = ammo;
+	if ( self->client->ps.stats[STAT_WEAPONS] & (1 << WP_BFG ) )
+		weapons |= (1 << WP_BFG);
+	dropped->backpackContents[WP_BFG] = self->client->ps.ammo[WP_BFG];
+
+	
+	//store weapons in the count attribute of the backpack
+	dropped->count = weapons;
 
 	return dropped;
 }
