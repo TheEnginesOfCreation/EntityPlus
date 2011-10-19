@@ -459,7 +459,7 @@ static int CG_CalcFov( void ) {
 	float	f;
 	int		inwater;
 
-	if ( cg.predictedPlayerState.pm_type == PM_INTERMISSION ) {
+	if ( cg.predictedPlayerState.pm_type == PM_INTERMISSION || cg.predictedPlayerState.pm_type == PM_CUTSCENE ) {
 		// if in intermission, use a fixed value
 		fov_x = 90;
 	} else {
@@ -582,42 +582,8 @@ static void CG_DamageBlendBlob( void ) {
 	trap_R_AddRefEntityToScene( &ent );
 }
 
-static int CG_CalcCutsceneFov(int startFov, int endFov, float progress) {
-	int diff;
-	float fov_x, fov_y;
-	int x, contents;
-	float phase, v;
-	qboolean inwater;
 
-	//calculate new FOV
-	diff = endFov - startFov;
-	fov_x = startFov + (diff * progress);
-	
-	x = cg.refdef.width / tan( fov_x / 360 * M_PI );
-	fov_y = atan2( cg.refdef.height, x );
-	fov_y = fov_y * 360 / M_PI;
-
-	// warp if underwater
-	contents = CG_PointContents( cg.refdef.vieworg, -1 );
-	if ( contents & ( CONTENTS_WATER | CONTENTS_SLIME | CONTENTS_LAVA ) ){
-		phase = cg.time / 1000.0 * WAVE_FREQUENCY * M_PI * 2;
-		v = WAVE_AMPLITUDE * sin( phase );
-		fov_x += v;
-		fov_y -= v;
-		inwater = qtrue;
-	}
-	else {
-		inwater = qfalse;
-	}
-
-	// set it
-	cg.refdef.fov_x = fov_x;
-	cg.refdef.fov_y = fov_y;
-
-	return inwater;
-}
-
-static int CG_CalcCutsceneViewValues( ) {
+static void CG_CalcCutsceneViewValues( ) {
 	const char *cutsceneData;
 	char buf[MAX_INFO_STRING];
 	float wait;
@@ -628,8 +594,6 @@ static int CG_CalcCutsceneViewValues( ) {
 	float progress;
 	float diff;
 	int motion;
-	int newFov, destFov;
-	int inwater;
 
 	cutsceneData = CG_ConfigString( CS_CUTSCENE );
 
@@ -642,7 +606,6 @@ static int CG_CalcCutsceneViewValues( ) {
 	newAngles[0] = atof(Info_ValueForKey(cutsceneData, "a10"));
 	newAngles[1] = atof(Info_ValueForKey(cutsceneData, "a11"));
 	newAngles[2] = atof(Info_ValueForKey(cutsceneData, "a12"));
-	newFov = atoi(Info_ValueForKey(cutsceneData, "f1"));
 
 	if ( motion & 1 ) {
 		destOrigin[0] = atof(Info_ValueForKey(cutsceneData, "o20"));
@@ -651,7 +614,6 @@ static int CG_CalcCutsceneViewValues( ) {
 		destAngles[0] = atof(Info_ValueForKey(cutsceneData, "a20"));
 		destAngles[1] = atof(Info_ValueForKey(cutsceneData, "a21"));
 		destAngles[2] = atof(Info_ValueForKey(cutsceneData, "a22"));
-		destFov = atoi(Info_ValueForKey(cutsceneData, "f2"));
 
 		//determine how long the current camera pan has taken
 		timePassed = cg.time - start_time;
@@ -666,6 +628,8 @@ static int CG_CalcCutsceneViewValues( ) {
 		
 		diff = destOrigin[2] - newOrigin[2];
 		newOrigin[2] += diff * progress;
+
+		VectorCopy( newOrigin, cg.refdef.vieworg );
 
 		//calculate new angles
 		diff = destAngles[0] - newAngles[0];
@@ -683,19 +647,13 @@ static int CG_CalcCutsceneViewValues( ) {
 		diff = destAngles[2] - newAngles[2];
 		newAngles[2] += diff * progress;
 
-		VectorCopy( newOrigin, cg.refdef.vieworg );
 		VectorCopy( newAngles, cg.refdefViewAngles );
-
-		inwater = CG_CalcCutsceneFov(newFov, destFov, progress);
 	} else {
 		VectorCopy( newOrigin, cg.refdef.vieworg );
 		VectorCopy( newAngles, cg.refdefViewAngles );
-		inwater = CG_CalcCutsceneFov(newFov, newFov, progress);
 	}
 
 	AnglesToAxis( cg.refdefViewAngles, cg.refdef.viewaxis );
-
-	return inwater;
 }
 
 /*
@@ -734,7 +692,8 @@ static int CG_CalcViewValues( void ) {
 */
 	//cutscene view
 	if ( ps->pm_type == PM_CUTSCENE ) {
-		return CG_CalcCutsceneViewValues();	//this also calculates fov
+		CG_CalcCutsceneViewValues();
+		return CG_CalcFov();
 	}
 
 	// intermission view

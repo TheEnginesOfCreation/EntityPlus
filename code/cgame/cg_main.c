@@ -107,7 +107,6 @@ vmCvar_t	cg_noPlayerAnims;
 vmCvar_t	cg_showmiss;
 vmCvar_t	cg_footsteps;
 vmCvar_t	cg_addMarks;
-vmCvar_t	cg_paintballMode;
 vmCvar_t	cg_brassTime;
 vmCvar_t	cg_viewsize;
 vmCvar_t	cg_drawGun;
@@ -220,7 +219,6 @@ static cvarTable_t cvarTable[] = { // bk001129
 	{ &cg_brassTime, "cg_brassTime", "2500", CVAR_ARCHIVE },
 	{ &cg_simpleItems, "cg_simpleItems", "0", CVAR_ARCHIVE },
 	{ &cg_addMarks, "cg_marks", "1", CVAR_ARCHIVE },
-	{ &cg_paintballMode, "cg_paintballMode", "0", CVAR_ARCHIVE },
 	{ &cg_lagometer, "cg_lagometer", "1", CVAR_ARCHIVE },
 	{ &cg_railTrailTime, "cg_railTrailTime", "400", CVAR_ARCHIVE  },
 	{ &cg_gun_x, "cg_gunX", "0", CVAR_CHEAT },
@@ -870,7 +868,7 @@ static void CG_RegisterGraphics( void ) {
 	cgs.media.scoreboardScore = trap_R_RegisterShaderNoMip( "menu/tab/score.tga" );
 	cgs.media.scoreboardTime = trap_R_RegisterShaderNoMip( "menu/tab/time.tga" );
 
-	cgs.media.objectivesOverlay = trap_R_RegisterShaderNoMip( CG_ConfigString(CS_OBJECTIVESOVERLAY) );
+	cgs.media.objectivesOverlay = trap_R_RegisterShaderNoMip( "menu/objectives/overlay.tga" );
 	cgs.media.objectivesUpdated = trap_R_RegisterShaderNoMip( "menu/objectives/updated.tga" );
 	cgs.media.objectivesUpdatedSound = trap_S_RegisterSound( "sound/misc/objective_update_01.wav", qfalse );
 
@@ -1117,12 +1115,6 @@ static void CG_RegisterGraphics( void ) {
 	cgs.media.wakeMarkShader = trap_R_RegisterShader( "wake" );
 	cgs.media.bloodMarkShader = trap_R_RegisterShader( "bloodMark" );
 
-	// paintball mode marks
-	cgs.media.bulletMarkPaintShader = trap_R_RegisterShader( "gfx/damage/bullet_mrk_paint" );
-	cgs.media.burnMarkPaintShader = trap_R_RegisterShader( "gfx/damage/burn_med_mrk_paint" );
-	cgs.media.holeMarkPaintShader = trap_R_RegisterShader( "gfx/damage/hole_lg_mrk_paint" );
-	cgs.media.energyMarkPaintShader = trap_R_RegisterShader( "gfx/damage/plasma_mrk_paint" );
-
 	// register the inline models
 	cgs.numInlineModels = trap_CM_NumInlineModels();
 	for ( i = 1 ; i < cgs.numInlineModels ; i++ ) {
@@ -1270,14 +1262,10 @@ void CG_StartMusic( void ) {
 
 	// start the background music
 	s = (char *)CG_ConfigString( CS_MUSIC );
-	if ( !s || strlen(s) == 0)
-		trap_S_StopBackgroundTrack();
-	else {
-		Q_strncpyz( parm1, COM_Parse( &s ), sizeof( parm1 ) );
-		Q_strncpyz( parm2, COM_Parse( &s ), sizeof( parm2 ) );
+	Q_strncpyz( parm1, COM_Parse( &s ), sizeof( parm1 ) );
+	Q_strncpyz( parm2, COM_Parse( &s ), sizeof( parm2 ) );
 
-		trap_S_StartBackgroundTrack( parm1, parm2 );
-	}
+	trap_S_StartBackgroundTrack( parm1, parm2 );
 }
 
 void CG_StartScoreboardMusic( void ) {

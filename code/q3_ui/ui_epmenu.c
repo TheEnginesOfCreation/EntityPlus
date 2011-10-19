@@ -17,9 +17,6 @@
 #define MAX_MAPROWS 2
 #define MAX_SERVERMAPS	64
 #define MAX_NAMELENGTH	16
-#define MAX_DESCRIPTIONLINES 10
-#define MAX_DESCRIPTIONLINELENGTH 40
-#define MAX_DESCRIPTIONLENGTH	MAX_DESCRIPTIONLINES * MAX_DESCRIPTIONLINELENGTH
 
 #define ART_FRAME					"menu/art/cut_frame"
 #define ART_FIGHT0					"menu/art/fight_0"
@@ -67,15 +64,8 @@ typedef struct {
 	menutext_s		versionWarnings[MAX_MAPSPERPAGE];
 	menutext_s		versionWarningsVersion[MAX_MAPSPERPAGE];
 
-	menutext_s		mapLongName;
-	menutext_s		mapAuthor;
-	menutext_s		mapDescriptionLines[MAX_DESCRIPTIONLINES];
-
 	char			maplist[MAX_SERVERMAPS][MAX_NAMELENGTH];
 	char			mapversions[MAX_SERVERMAPS][MAX_NAMELENGTH];
-	char			mapdescriptions[MAX_SERVERMAPS][MAX_DESCRIPTIONLENGTH];
-	char			maplongnames[MAX_SERVERMAPS][MAX_DESCRIPTIONLINELENGTH];
-	char			mapauthors[MAX_SERVERMAPS][MAX_DESCRIPTIONLINELENGTH];
 	int				page;
 	int				currentmap;
 	int				nummaps;
@@ -83,7 +73,6 @@ typedef struct {
 	int				mapGamebits[MAX_SERVERMAPS];
 } epMenuInfo_t;
 
-char lines[MAX_DESCRIPTIONLINES][MAX_DESCRIPTIONLINELENGTH];
 
 typedef struct {
 	menuframework_s	menu;
@@ -403,7 +392,7 @@ qboolean EPMenu_VersionAccepted( char *version ) {
 		(	
 			Q_stricmp( version, "1.0" ) != 0 && 
 			Q_stricmp( version, "1.0.1" ) != 0 &&
-			Q_stricmp( version, "1.1" ) != 0
+			Q_stricmp( version, "1.0.2" ) != 0
 		)
 		{
 			return qfalse;
@@ -429,12 +418,6 @@ static void EPMenu_Update( void ) {
 		epMenuInfo.versionWarningsRequires[i].string = "";
 		epMenuInfo.versionWarningsVersion[i].string = "";
 		epMenuInfo.versionWarnings[i].string = "";
-	}
-
-	// clear description
-	for ( i = 0; i < MAX_DESCRIPTIONLINES; i++ ) {
-		strcpy(lines[i], "");
-		epMenuInfo.mapDescriptionLines[i].string = "";
 	}
 
 
@@ -495,65 +478,6 @@ static void EPMenu_Update( void ) {
 
 		// set the high score
 		strcpy( epMenuInfo.highScore.string, va("%i", COM_LoadLevelScore( epMenuInfo.maplist[epMenuInfo.currentmap] ) ) );
-
-		// set the longname
-		if ( strlen(epMenuInfo.maplongnames[epMenuInfo.currentmap]) == 0 )
-			strcpy( epMenuInfo.mapLongName.string, epMenuInfo.maplist[epMenuInfo.currentmap] );	//display mapname if no longname is specified
-		else
-			strcpy( epMenuInfo.mapLongName.string, epMenuInfo.maplongnames[epMenuInfo.currentmap] );
-			Q_strupr( epMenuInfo.mapLongName.string );
-
-
-		// set the author
-		if ( strlen( epMenuInfo.mapauthors[epMenuInfo.currentmap] ) > 0 ) {
-			strcpy( epMenuInfo.mapAuthor.string, "by: ");
-			strcat( epMenuInfo.mapAuthor.string, epMenuInfo.mapauthors[epMenuInfo.currentmap] );
-		} else {
-			strcpy( epMenuInfo.mapAuthor.string, "");
-		}
-
-		// set the description
-		if ( strlen( epMenuInfo.mapdescriptions[epMenuInfo.currentmap] ) ) {
-			char desc[MAX_DESCRIPTIONLENGTH];
-			int spaceIndex, prevSpaceIndex = 0;
-			int currentLine = 0;
-			int lineIndex = 0;
-			char c[2];
-
-			Q_strncpyz(desc, epMenuInfo.mapdescriptions[epMenuInfo.currentmap], sizeof(desc));
-
-			for ( i = 0; i < MAX_DESCRIPTIONLENGTH; i++ ) {
-				c[0] = desc[i];
-				c[1] = '\0';
-
-				if ( c[0] == ' ' ) {
-					spaceIndex = i;
-				}
-
-				if (lineIndex == MAX_DESCRIPTIONLINELENGTH) {
-					//Com_Printf("[%i %i]\n", prevSpaceIndex, spaceIndex);
-					if (spaceIndex - prevSpaceIndex <= 0) {
-						strcat(lines[currentLine-1], &desc[prevSpaceIndex-1]);
-						break;
-					} else {
-						Q_strncpyz(lines[currentLine], &desc[prevSpaceIndex], (spaceIndex - prevSpaceIndex) + 1);
-					}
-					prevSpaceIndex = spaceIndex;
-					prevSpaceIndex++;
-					i = spaceIndex;
-					lineIndex = -1;
-					currentLine++;
-				}
-				lineIndex++;
-			}
-
-			for ( i = 0; i < MAX_DESCRIPTIONLINES; i++ ) {
-				epMenuInfo.mapDescriptionLines[i].string = lines[i];
-			}
-		} else {
-			epMenuInfo.mapDescriptionLines[0].string = "no description available...";
-		}
-		
 	}
 	
 	Q_strupr( epMenuInfo.mapname.string );
@@ -585,9 +509,6 @@ static void EPMenu_GametypeFilter( void ) {
 		Q_strncpyz( epMenuInfo.maplist[epMenuInfo.nummaps], Info_ValueForKey( info, "map" ), MAX_NAMELENGTH );
 		Q_strupr( epMenuInfo.maplist[epMenuInfo.nummaps] );
 		Q_strncpyz( epMenuInfo.mapversions[epMenuInfo.nummaps], Info_ValueForKey( info, "minversion" ), MAX_NAMELENGTH);
-		Q_strncpyz( epMenuInfo.mapdescriptions[epMenuInfo.nummaps], Info_ValueForKey( info, "description" ), MAX_DESCRIPTIONLENGTH);
-		Q_strncpyz( epMenuInfo.maplongnames[epMenuInfo.nummaps], Info_ValueForKey( info, "longname" ), MAX_DESCRIPTIONLINELENGTH);
-		Q_strncpyz( epMenuInfo.mapauthors[epMenuInfo.nummaps], Info_ValueForKey( info, "author" ), MAX_DESCRIPTIONLINELENGTH);
 		epMenuInfo.mapGamebits[epMenuInfo.nummaps] = GT_ENTITYPLUS;
 		epMenuInfo.nummaps++;
 	}
@@ -679,6 +600,7 @@ static void EPMenu_LevelshotDraw( void *self ) {
 	x += b->width / 2;
 	y += 4;
 	n = epMenuInfo.page * MAX_MAPSPERPAGE + b->generic.id - ID_PICTURES;
+	//n = 0;
 	UI_DrawString( x, y, epMenuInfo.maplist[n], UI_CENTER|UI_SMALLFONT, color_orange );
 
 	x = b->generic.x;
@@ -765,8 +687,6 @@ void UI_EPLevelMenu( void ) {
 	int x, y;
 	static char mapnamebuffer[64];
 	static char mapscorebuffer[MAX_HIGHSCORE_TEXT];
-	static char maplongnamebuffer[MAX_DESCRIPTIONLINELENGTH];
-	static char mapauthorbuffer[MAX_DESCRIPTIONLINELENGTH];
 
 	//initialize menu
 	memset( &epMenuInfo, 0, sizeof(epMenuInfo) );
@@ -793,7 +713,7 @@ void UI_EPLevelMenu( void ) {
 	epMenuInfo.framel.generic.y	   = 78;
 	epMenuInfo.framel.width  	   = 256;
 	epMenuInfo.framel.height  	   = 329;
-	//Menu_AddItem( &epMenuInfo.menu, &epMenuInfo.framel );
+	Menu_AddItem( &epMenuInfo.menu, &epMenuInfo.framel );
 
 	//add right frame
 	epMenuInfo.framer.generic.type  = MTYPE_BITMAP;
@@ -803,7 +723,7 @@ void UI_EPLevelMenu( void ) {
 	epMenuInfo.framer.generic.y	   = 76;
 	epMenuInfo.framer.width  	   = 256;
 	epMenuInfo.framer.height  	   = 334;
-	//Menu_AddItem( &epMenuInfo.menu, &epMenuInfo.framer );
+	Menu_AddItem( &epMenuInfo.menu, &epMenuInfo.framer );
 
 	//add back button
 	epMenuInfo.back.generic.type			= MTYPE_BITMAP;
@@ -834,7 +754,7 @@ void UI_EPLevelMenu( void ) {
 	//add map selectors
 	for ( i = 0; i < MAX_MAPSPERPAGE; i++)
 	{
-		x =	(i % MAX_MAPCOLS) * (128+8) + 16;
+		x =	(i % MAX_MAPCOLS) * (128+8) + 188;
 		y = (i / MAX_MAPROWS) * (128+8) + 96;
 
 		epMenuInfo.mappics[i].generic.type		= MTYPE_BITMAP;
@@ -887,37 +807,6 @@ void UI_EPLevelMenu( void ) {
 		epMenuInfo.versionWarnings[i].style = UI_LEFT;
 		epMenuInfo.versionWarnings[i].color = color_yellow;
 		Menu_AddItem( &epMenuInfo.menu, &epMenuInfo.versionWarnings[i] );
-	}
-	
-	//add longname
-	epMenuInfo.mapLongName.generic.type = MTYPE_TEXT;
-	epMenuInfo.mapLongName.generic.flags = QMF_CENTER_JUSTIFY|QMF_INACTIVE;
-	epMenuInfo.mapLongName.generic.x = 298;
-	epMenuInfo.mapLongName.generic.y = 96;
-	epMenuInfo.mapLongName.style = UI_LEFT|UI_SMALLFONT;
-	epMenuInfo.mapLongName.color = color_red;
-	epMenuInfo.mapLongName.string = maplongnamebuffer;
-	Menu_AddItem( &epMenuInfo.menu, &epMenuInfo.mapLongName );
-
-	//add author
-	epMenuInfo.mapAuthor.generic.type = MTYPE_TEXT;
-	epMenuInfo.mapAuthor.generic.flags = QMF_CENTER_JUSTIFY|QMF_INACTIVE;
-	epMenuInfo.mapAuthor.generic.x = 298;
-	epMenuInfo.mapAuthor.generic.y = 112;
-	epMenuInfo.mapAuthor.style = UI_LEFT|UI_SMALLFONT;
-	epMenuInfo.mapAuthor.color = color_red;
-	epMenuInfo.mapAuthor.string = mapauthorbuffer;
-	Menu_AddItem( &epMenuInfo.menu, &epMenuInfo.mapAuthor );
-
-	//add description
-	for (i = 0; i < MAX_DESCRIPTIONLINES; i++ ) {
-		epMenuInfo.mapDescriptionLines[i].generic.type = MTYPE_TEXT;
-		epMenuInfo.mapDescriptionLines[i].generic.flags = QMF_CENTER_JUSTIFY|QMF_INACTIVE;
-		epMenuInfo.mapDescriptionLines[i].generic.x = 298;
-		epMenuInfo.mapDescriptionLines[i].generic.y = 128 + (i * 16);
-		epMenuInfo.mapDescriptionLines[i].style = UI_LEFT|UI_SMALLFONT;
-		epMenuInfo.mapDescriptionLines[i].color = color_red;
-		Menu_AddItem( &epMenuInfo.menu, &epMenuInfo.mapDescriptionLines[i] );
 	}
 
 	//add next/prev page buttons

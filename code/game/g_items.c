@@ -200,45 +200,45 @@ int Pickup_Backpack( gentity_t *ent, gentity_t *other) {
 	//machinegun
 	if ( ent->count & (1 << WP_MACHINEGUN) )
 		other->client->ps.stats[STAT_WEAPONS] |= (1 << WP_MACHINEGUN);
-	
-	//after dying, player spawns with 'free' 100 MG ammo, so we're taking 100 bullets from the backpack and give the remainder to the player
-	if ( ent->backpackContents[WP_MACHINEGUN] > 100 )
-		other->client->ps.ammo[WP_MACHINEGUN] += (ent->backpackContents[WP_MACHINEGUN] - 100);
-	
+
+		//after dying, player spawns with 'free' 100 MG ammo, so we're taking 100 bullets from the backpack and give the remainder to the player
+		if (ent->backpackContents[WP_MACHINEGUN] > 100)
+			other->client->ps.ammo[WP_MACHINEGUN] += (ent->backpackContents[WP_MACHINEGUN] - 100);
+
 	//shotgun
 	if ( ent->count & (1 << WP_SHOTGUN) )
 		other->client->ps.stats[STAT_WEAPONS] |= (1 << WP_SHOTGUN);
-	other->client->ps.ammo[WP_SHOTGUN] += ent->backpackContents[WP_SHOTGUN];
+			other->client->ps.ammo[WP_SHOTGUN] += ent->backpackContents[WP_SHOTGUN];
 
 	//grenade launcher
 	if ( ent->count & (1 << WP_GRENADE_LAUNCHER) )
 		other->client->ps.stats[STAT_WEAPONS] |= (1 << WP_GRENADE_LAUNCHER);
-	other->client->ps.ammo[WP_GRENADE_LAUNCHER] += ent->backpackContents[WP_GRENADE_LAUNCHER];
+			other->client->ps.ammo[WP_GRENADE_LAUNCHER] += ent->backpackContents[WP_GRENADE_LAUNCHER];
 
 	//rocket launcher
 	if ( ent->count & (1 << WP_ROCKET_LAUNCHER) )
 		other->client->ps.stats[STAT_WEAPONS] |= (1 << WP_ROCKET_LAUNCHER);
-	other->client->ps.ammo[WP_ROCKET_LAUNCHER] += ent->backpackContents[WP_ROCKET_LAUNCHER];
+			other->client->ps.ammo[WP_ROCKET_LAUNCHER] += ent->backpackContents[WP_ROCKET_LAUNCHER];
 
 	//lightning gun
 	if ( ent->count & (1 << WP_LIGHTNING) )
 		other->client->ps.stats[STAT_WEAPONS] |= (1 << WP_LIGHTNING);
-	other->client->ps.ammo[WP_LIGHTNING] += ent->backpackContents[WP_LIGHTNING];
-	
+			other->client->ps.ammo[WP_LIGHTNING] += ent->backpackContents[WP_LIGHTNING];
+
 	//railgun
 	if ( ent->count & (1 << WP_RAILGUN) )
 		other->client->ps.stats[STAT_WEAPONS] |= (1 << WP_RAILGUN);
-	other->client->ps.ammo[WP_RAILGUN] += ent->backpackContents[WP_RAILGUN];
+			other->client->ps.ammo[WP_RAILGUN] += ent->backpackContents[WP_RAILGUN];
 
 	//plasma gun
 	if ( ent->count & (1 << WP_PLASMAGUN) )
 		other->client->ps.stats[STAT_WEAPONS] |= (1 << WP_PLASMAGUN);
-	other->client->ps.ammo[WP_PLASMAGUN] += ent->backpackContents[WP_PLASMAGUN];
+			other->client->ps.ammo[WP_PLASMAGUN] += ent->backpackContents[WP_PLASMAGUN];
 
 	//bfg
 		if ( ent->count & (1 << WP_BFG) )
 		other->client->ps.stats[STAT_WEAPONS] |= (1 << WP_BFG);
-	other->client->ps.ammo[WP_BFG] += ent->backpackContents[WP_BFG];
+			other->client->ps.ammo[WP_BFG] += ent->backpackContents[WP_BFG];
 
 	//holdables
 	other->client->ps.stats[STAT_HOLDABLE_ITEM] = ent->backpackContents[0];
@@ -566,10 +566,6 @@ void Touch_Item (gentity_t *ent, gentity_t *other, trace_t *trace) {
 		ent->s.eFlags |= EF_NODRAW;
 		ent->r.contents = 0;
 		ent->unlinkAfterEvent = qtrue;
-
-		if ( g_gametype.integer == GT_ENTITYPLUS )
-			G_FreeEntity( ent );	//completely free the entity. It no longer serves a purpose.
-
 		return;
 	}
 
@@ -602,8 +598,6 @@ void Touch_Item (gentity_t *ent, gentity_t *other, trace_t *trace) {
 	// A negative respawn times means to never respawn this item (but don't 
 	// delete it).  This is used by items that are respawned by third party 
 	// events such as ctf flags
-	// ENTITYPLUS
-	// Items with a negative respawn time are being freed to keep dangers of hitting entity limits as low as possible
 	if ( respawn <= 0 ) {
 		ent->nextthink = 0;
 		ent->think = 0;

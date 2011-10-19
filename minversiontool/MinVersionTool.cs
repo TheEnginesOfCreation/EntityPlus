@@ -33,16 +33,14 @@ namespace mvt
 		private enum Versions
 		{
 			UnableToDetect = 0,
-			one_zero = 1,
-			one_one = 2,
+			one_zero = 1
 		}
 
 		/// <summary>List of strings for supported EntityPlus versions</summary>
 		private string[] VersionsStrings =
 		{
 			"Unable to determine due to unknown entity classnames.",
-			"1.0",
-			"1.1"
+			"1.0"
 		};
 
 		/// <summary>A list of all the known entity classnames</summary>
@@ -74,11 +72,11 @@ namespace mvt
 			//shooter_
 			"shooter_bfg", "shooter_grenade", "shooter_plasma", "shooter_rocket",
 			//target_
-			"target_botremove", "target_botspawn", "target_cutscene", "target_debrisemitter", "target_delay", "target_earthquake", 
-			"target_effect", "target_finish", "target_give", "target_gravity", "target_kill", "target_laser", "target_logic", 
-			"target_mapchange", "target_modify", "target_music", "target_objective", "target_playerspeed", "target_playerstats",
-			"target_position", "target_print", "target_push", "target_relay", "target_remove_powerups", "target_score", "target_script",
-			"target_secret", "target_skill", "target_speaker", "target_teleporter", "target_unlink", "target_variable",
+			"target_botspawn", "target_cutscene", "target_debrisemitter", "target_delay", "target_earthquake", "target_effect",
+			"target_finish", "target_give", "target_gravity", "target_kill", "target_laser", "target_logic", "target_mapchange",
+			"target_modify", "target_objective", "target_playerspeed", "target_playerstats", "target_position", "target_print",
+			"target_push", "target_relay", "target_remove_powerups", "target_score", "target_script", "target_secret", "target_skill",
+			"target_speaker", "target_teleporter", "target_unlink", "target_variable",
 			//trigger_
 			"trigger_always", "trigger_death", "trigger_frag", "trigger_lock", "trigger_hurt", "trigger_multiple", "trigger_push",
 			"trigger_teleport",
@@ -93,14 +91,10 @@ namespace mvt
 		public MinVersionTool(string filename, bool debug)
 		{
 			this.debug = debug;
-			Console.WriteLine("=== MinVersionTool for EntityPlus v1.1 ===");
 			Versions minversion = ParseMap(filename);
 
 			Console.WriteLine("Finished parsing \"" + filename + "\"");
-			Console.WriteLine("\n================");
-			Console.WriteLine("minversion = " + VersionsStrings[(int)minversion]);
-			Console.WriteLine("================");
-			Console.WriteLine("\n\npress any key to continue...");
+			Console.WriteLine("\nminversion = " + VersionsStrings[(int)minversion]);
 			Console.ReadKey(true);
 		}
 		#endregion
@@ -186,16 +180,13 @@ namespace mvt
 		/// <returns>The minimum EntityPlus version required to support this entity</returns>
 		private Versions CheckEntity(Entity ent, Versions currentVersion)
 		{
-			string classname = ent.GetValue("classname");
-			if (!IsKnownEntity(classname))
+			if (!IsKnownEntity(ent.GetValue("classname")))
 			{
 				Console.WriteLine("WARNING: Unknown classname \"" + ent.GetValue("classname") + "\"");
 				return Versions.UnableToDetect;
 			}
 
-			//Checking for v1.1 requirements
-			if (IsVersion11(ent))
-				currentVersion = Versions.one_one;
+			//TODO: Here it should check if this entity uses features that are not part of the [currentVersion] release. If so, it should bump up the version number.
 
 			return currentVersion;
 		}
@@ -225,88 +216,6 @@ namespace mvt
 			{
 				Console.WriteLine(text);
 			}
-		}
-		#endregion
-
-
-		#region Version checking methods
-		private bool IsVersion11(Entity ent)
-		{
-			bool result = false;
-			string versionString = VersionsStrings[(int)Versions.one_one];
-			string classname = ent.GetValue("classname");
-			switch (classname)
-			{
-				case "target_relay":
-					if ((ent.Spawnflags & 8) != 0)
-					{
-						Debug(" > use of \"ONCE\" spawnflag requires " + versionString);
-						result = true;
-					}
-					break;
-
-				case "func_breakable":
-					if (!String.IsNullOrEmpty(ent.GetValue("dmg")) && ent.GetValue("dmg") != "0")
-					{
-						Debug(" > use of \"dmg\" key requires " + versionString);
-						result = true;
-					}
-					if (!String.IsNullOrEmpty(ent.GetValue("radius")))
-					{
-						Debug(" > use of \"radius\" key requires " + versionString);
-						result = true;
-					}
-					if (!String.IsNullOrEmpty(ent.GetValue("targetname")))
-					{
-						Debug(" > use of \"targetname\" key requires " + versionString);
-						result = true;
-					}
-					if (!String.IsNullOrEmpty(ent.GetValue("targetname2")))
-					{
-						Debug(" > use of \"targetname2\" key requires " + versionString);
-						result = true;
-					}
-					break;
-
-				case "info_camera":
-					if (!String.IsNullOrEmpty(ent.GetValue("fov")) && ent.GetValue("fov") != "90")
-					{
-						Debug(" > use of \"fov\" key requires " + versionString);
-						result = true;
-					}
-					break;
-
-				case "trigger_lock":
-					if (!String.IsNullOrEmpty(ent.GetValue("lockedsound")))
-					{
-						Debug(" > use of \"lockedsound\" key requires " + versionString);
-						result = true;
-					}
-					if (!String.IsNullOrEmpty(ent.GetValue("unlockedsound")))
-					{
-						Debug(" > use of \"unlockedsound\" key requires " + versionString);
-						result = true;
-					}
-					break;
-				
-				case "target_botremove":
-					Debug(" > use of \"target_botremove\" entity requires " + versionString);
-					break;
-
-				case "target_music":
-					Debug(" > use of \"target_music\" entity requires " + versionString);
-					break;
-
-				case "worldspawn":
-					if (!String.IsNullOrEmpty(ent.GetValue("objectivesoverlay")) && ent.GetValue("objectivesoverlay") != "menu/objectives/overlay.tga")
-					{
-						Debug(" > use of \"objectivesoverlay\" key requires " + versionString);
-						result = true;
-					}
-					break;
-			}
-
-			return result;
 		}
 		#endregion
 	}

@@ -192,7 +192,7 @@ void SP_target_print( gentity_t *ent ) {
 //==========================================================
 
 
-/*QUAKED target_speaker (0 .7 .7) (-8 -8 -8) (8 8 8) looped-on looped-off global activator
+/*QUAKED target_speaker (1 0 0) (-8 -8 -8) (8 8 8) looped-on looped-off global activator
 "noise"		wav file to play
 
 A global sound will play full volume throughout the level.
@@ -395,7 +395,7 @@ void SP_target_teleporter( gentity_t *self ) {
 //==========================================================
 
 
-/*QUAKED target_relay (.5 .5 .5) (-8 -8 -8) (8 8 8) RED_ONLY BLUE_ONLY RANDOM ONCE
+/*QUAKED target_relay (.5 .5 .5) (-8 -8 -8) (8 8 8) RED_ONLY BLUE_ONLY RANDOM
 This doesn't perform any actions except fire its targets.
 The activator can be forced to be from a certain team.
 if RANDOM is checked, only one of the targets will be fired, not all of them
@@ -439,11 +439,7 @@ void target_relay_use (gentity_t *self, gentity_t *other, gentity_t *activator) 
 	if (self->damage == self->count)
 	{
 		G_UseTargets (self, activator);
-		
-		if ( self->spawnflags & 8 )
-			G_FreeEntity( self );
-		else
-			self->damage = 0;
+		self->damage = 0;
 	}
 }
 
@@ -514,11 +510,6 @@ Closest target_location in sight used for the location, if none
 in site, closest in distance
 */
 void SP_target_location( gentity_t *self ){
-	if ( g_gametype.integer == GT_ENTITYPLUS ) {
-		G_FreeEntity( self );
-		return;
-	}
-	
 	self->think = target_location_linkup;
 	self->nextthink = level.time + 200;  // Let them all spawn first
 
@@ -704,8 +695,6 @@ The entity specified with deathtarget will be activated when the spawned bot die
 Use the skill key to specify the skill level for the bot relative to the g_spskill level. This is only applied to the amount of damage it deals.
 */
 void target_botspawn_use (gentity_t *self, gentity_t *other, gentity_t *activator) {
-	if ( g_debugBotspawns.integer )
-		G_Printf("\n%i\n spawn bot \"%s\"\n botspawn \"%s\" / \"%s\" (%i)\n waypoint \"%s\"\n", level.time, self->clientname, self->targetname, self->targetname2, self->s.number, self->target);
 	G_AddCustomBot( self->clientname, self->s.number, self->target, self->skill );
 }
 
@@ -1345,29 +1334,19 @@ When triggered, this writes a variable with a specified value to memory or compa
 */
 
 void target_variable_use (gentity_t *self, gentity_t *other, gentity_t *activator) {
-	char buf[BIG_INFO_STRING];
-	char variableInfo[BIG_INFO_STRING];
+	char buf[MAX_INFO_STRING];
+	char variableInfo[MAX_INFO_STRING];
 	char *value;
 
 	if ( self->spawnflags & 1 || self->spawnflags & 2)
 	{
 		trap_GetConfigstring(CS_TARGET_VARIABLE, buf, sizeof(buf));
 		value = Info_ValueForKey(buf, self->key);
-		if ( g_debugVariables.integer ) {
-			G_Printf("\nDebugvariables: comparing variable \"%s\" to \"%s\"\n", self->key, self->value);
-			G_Printf("In-memory value for variable = \"%s\"\n", value);
-			G_Printf("Variable infostring = %s\n", variableInfo);
-		}
-		
-		if ( (self->spawnflags & 1) && !strcmp(value, self->value) ) {
-			if ( g_debugVariables.integer ) G_Printf("Variables match, targets will be activated\n");
+		if ( (self->spawnflags & 1) && !strcmp(value, self->value) )
 			G_UseTargets (self, activator);
-		}
 		
-		if ( (self->spawnflags & 2) && strcmp(value, self->value) ) {
-			if ( g_debugVariables.integer ) G_Printf("Variables do not match, targets will be activated\n");
+		if ( (self->spawnflags & 2) && strcmp(value, self->value) )
 			G_UseTargets (self, activator);
-		}
 		
 		return;
 	}
@@ -1375,10 +1354,6 @@ void target_variable_use (gentity_t *self, gentity_t *other, gentity_t *activato
 	variableInfo[0] = '\0';
 	Info_SetValueForKey(variableInfo, self->key, self->value);
 	trap_SetConfigstring( CS_TARGET_VARIABLE, variableInfo );
-	if ( g_debugVariables.integer ) {
-		G_Printf("\nDebugvariables: setting variable \"%s\" to \"%s\"\n", self->key, self->value);
-		G_Printf("Variable infostring = %s\n", variableInfo);
-	}
 }
 
 //used for immediately spawnflag
@@ -1471,43 +1446,4 @@ void SP_target_cutscene (gentity_t *self) {
 	self->nextthink = level.time + FRAMETIME * 3;
 	self->think = target_cutscene_think;
 	self->use = target_cutscene_use;
-}
-
-//==========================================================
-
-/*QUAKED target_botremove (.5 .5 .5) (-8 -8 -8) (8 8 8)
-When triggered, removes all bots that were spawned by the targeted target_botspawn entity
-*/
-
-void target_botremove_use (gentity_t *self, gentity_t *other, gentity_t *activator) {
-	if ( !G_RemoveBotsForTarget( self ) )
-		G_Printf("WARNING: %s at %s does not target any target_botspawn entities\n", self->classname, vtos(self->s.origin));
-}
-
-void SP_target_botremove (gentity_t *self) {
-	if ( !self->target && !self->target2 ) {
-		G_Printf("WARNING: %s without a target or target2 at %s\n", self->classname, vtos(self->s.origin));
-		G_FreeEntity( self );
-		return;
-	}
-	
-	self->use = target_botremove_use;
-}
-
-//==========================================================
-
-/*QUAKED target_music (0 .7 .7) (-8 -8 -8) (8 8 8)
-When triggered, starts playing specified music track
-*/
-void target_music_use (gentity_t *self, gentity_t *other, gentity_t *activator) {
-	trap_SetConfigstring( CS_MUSIC, self->music );
-}
-
-void SP_target_music (gentity_t *self) {
-	char	*s;
-	char	buffer[MAX_INFO_STRING];
-	G_SpawnString( "music", "", &s );
-	Q_strncpyz( self->music, s, sizeof(self->music) );
-
-	self->use = target_music_use;
 }

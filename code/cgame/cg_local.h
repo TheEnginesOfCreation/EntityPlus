@@ -854,12 +854,6 @@ typedef struct {
 	qhandle_t	holeMarkShader;
 	qhandle_t	energyMarkShader;
 
-	// paintball mode shaders
-	qhandle_t	bulletMarkPaintShader;
-	qhandle_t	burnMarkPaintShader;
-	qhandle_t	holeMarkPaintShader;
-	qhandle_t	energyMarkPaintShader;
-
 	// powerup shaders
 	qhandle_t	quadShader;
 	qhandle_t	redQuadShader;
@@ -1233,7 +1227,6 @@ extern	vmCvar_t		cg_noPlayerAnims;
 extern	vmCvar_t		cg_showmiss;
 extern	vmCvar_t		cg_footsteps;
 extern	vmCvar_t		cg_addMarks;
-extern	vmCvar_t		cg_paintballMode;
 extern	vmCvar_t		cg_brassTime;
 extern	vmCvar_t		cg_gun_frame;
 extern	vmCvar_t		cg_gun_x;

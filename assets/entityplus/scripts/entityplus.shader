@@ -447,52 +447,9 @@ spark
 	cull none
 	entityMergable
 	{
-		map gfx/misc/spark.tga
+		map sprites/spark.tga
 		blendFunc GL_SRC_ALPHA GL_ONE_MINUS_SRC_ALPHA
 		rgbGen		vertex
 		alphaGen	vertex
-	}
-}
-
-//
-// PAINTBALL MODE WALLMARKS
-//
-gfx/damage/bullet_mrk_paint
-{
-	polygonOffset
-	{
-		map gfx/damage/bullet_mrk_paint.tga
-		blendFunc add
-		rgbGen exactVertex
-	}
-}
-
-gfx/damage/burn_med_mrk_paint
-{
-	polygonOffset
-	{
-		map gfx/damage/burn_med_mrk_paint.tga
-		blendFunc add
-		rgbGen exactVertex
-	}
-}
-
-gfx/damage/hole_lg_mrk_paint
-{
-	polygonOffset
-	{
-		map gfx/damage/hole_lg_mrk_paint.tga
-		blendFunc add
-		rgbGen exactVertex
-	}
-}
-
-gfx/damage/plasma_mrk_paint
-{
-	polygonOffset
-	{
-		map gfx/damage/plasma_mrk_paint.tga
-		blendFunc add
-		rgbGen exactVertex
 	}
 }

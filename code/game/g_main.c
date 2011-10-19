@@ -40,8 +40,6 @@ vmCvar_t	g_debugMove;
 vmCvar_t	g_debugDamage;
 vmCvar_t	g_debugAlloc;
 vmCvar_t	g_debugCameras;
-vmCvar_t	g_debugVariables;
-vmCvar_t	g_debugBotspawns;
 vmCvar_t	g_weaponRespawn;
 vmCvar_t	g_weaponTeamRespawn;
 vmCvar_t	g_motd;
@@ -134,8 +132,6 @@ static cvarTable_t		gameCvarTable[] = {
 	{ &g_debugDamage, "g_debugDamage", "0", 0, 0, qfalse },
 	{ &g_debugAlloc, "g_debugAlloc", "0", 0, 0, qfalse },
 	{ &g_debugCameras, "g_debugCameras", "0", CVAR_LATCH | CVAR_ARCHIVE | CVAR_CHEAT, 0, qfalse  },
-	{ &g_debugVariables, "g_debugVariables", "0", CVAR_ARCHIVE | CVAR_CHEAT, 0, qfalse  },
-	{ &g_debugBotspawns, "g_debugBotspawns", "0", CVAR_ARCHIVE | CVAR_CHEAT, 0, qfalse  },
 	{ &g_motd, "g_motd", "", 0, 0, qfalse },
 	{ &g_blood, "com_blood", "1", 0, 0, qfalse },
 
@@ -143,7 +139,7 @@ static cvarTable_t		gameCvarTable[] = {
 	{ &g_podiumDrop, "g_podiumDrop", "70", 0, 0, qfalse },
 
 	{ &g_allowVote, "g_allowVote", "1", CVAR_ARCHIVE, 0, qfalse },
-	{ &g_listEntity, "g_listEntity", "0", CVAR_CHEAT, 0, qfalse },
+	{ &g_listEntity, "g_listEntity", "0", 0, 0, qfalse },
 
 #ifdef MISSIONPACK
 	{ &g_obeliskHealth, "g_obeliskHealth", "2500", 0, 0, qfalse },
@@ -1883,15 +1879,9 @@ void G_RunFrame( int levelTime ) {
 	CheckCvars();
 
 	if (g_listEntity.integer) {
-		int counter = 0;
 		for (i = 0; i < MAX_GENTITIES; i++) {
-			if ( g_listEntity.integer == 1 || g_entities[i].inuse || g_entities[i].classname == "worldspawn" )
-			{
-				G_Printf("%4i: %s\n", i, g_entities[i].classname);
-				counter++;
-			}
+			G_Printf("%4i: %s\n", i, g_entities[i].classname);
 		}
-		G_Printf("%i entities in use\n", counter);
 		trap_Cvar_Set("g_listEntity", "0");
 	}
 

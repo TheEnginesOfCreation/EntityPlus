@@ -108,8 +108,7 @@ field_t fields[] = {
 	{"key", FOFS(key), F_LSTRING},
 	{"value", FOFS(value), F_LSTRING},
 	{"armor", FOFS(armor), F_INT},
-	{"music", FOFS(music), F_LSTRING},
-
+	
 	{"distance", FOFS(distance), F_FLOAT},
 	
 	{NULL}
@@ -185,8 +184,6 @@ void SP_target_secret (gentity_t *ent);
 void SP_target_playerstats (gentity_t *ent);
 void SP_target_variable (gentity_t *ent);
 void SP_target_cutscene (gentity_t *ent);
-void SP_target_botremove (gentity_t *ent);
-void SP_target_music (gentity_t *ent);
 
 void SP_light (gentity_t *self);
 void SP_info_null (gentity_t *self);
@@ -294,8 +291,6 @@ spawn_t	spawns[] = {
 	{"target_playerstats", SP_target_playerstats},
 	{"target_variable", SP_target_variable},
 	{"target_cutscene", SP_target_cutscene},
-	{"target_botremove", SP_target_botremove},
-	{"target_music", SP_target_music},
 
 	{"light", SP_light},
 	{"path_corner", SP_path_corner},
@@ -339,7 +334,6 @@ returning qfalse if not found
 qboolean G_CallSpawn( gentity_t *ent ) {
 	spawn_t	*s;
 	gitem_t	*item;
-	int		i;
 
 	if ( !ent->classname ) {
 		G_Printf ("G_CallSpawn: NULL classname\n");
@@ -359,7 +353,6 @@ qboolean G_CallSpawn( gentity_t *ent ) {
 		if ( !strcmp(s->name, ent->classname) ) {
 			// found it
 			s->spawn(ent);
-
 			return qtrue;
 		}
 	}
@@ -654,9 +647,6 @@ void SP_worldspawn( void ) {
 
 	G_SpawnString( "playerheadmodel", "", &s );
 	trap_SetConfigstring( CS_PLAYERHEADMODEL, s );
-
-	G_SpawnString( "objectivesoverlay", "menu/objectives/overlay.tga", &s );
-	trap_SetConfigstring( CS_OBJECTIVESOVERLAY, s );
 
 	G_SpawnString( "message", "", &s );
 	trap_SetConfigstring( CS_MESSAGE, s );				// map specific message

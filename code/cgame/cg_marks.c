@@ -128,31 +128,6 @@ void CG_ImpactMark( qhandle_t markShader, const vec3_t origin, const vec3_t dir,
 		CG_Error( "CG_ImpactMark called with <= 0 radius" );
 	}
 
-	//paintball mode
-	if (
-		cg_paintballMode.integer && (
-		markShader == cgs.media.bulletMarkShader ||				//MG, SG
-		markShader == cgs.media.burnMarkShader ||				//RL, GL, BFG
-		markShader == cgs.media.energyMarkShader ||				//PG, RG
-		markShader == cgs.media.holeMarkShader)) {				//LG
-
-		if ( markShader == cgs.media.bulletMarkShader )
-			markShader = cgs.media.bulletMarkPaintShader;
-
-		if ( markShader == cgs.media.burnMarkShader )
-			markShader = cgs.media.burnMarkPaintShader;
-
-		if ( markShader == cgs.media.energyMarkShader )
-			markShader = cgs.media.energyMarkPaintShader;
-
-		if ( markShader == cgs.media.holeMarkShader )
-			markShader = cgs.media.holeMarkPaintShader;
-
-		red = (rand() % 255) / 255.0;
-		green = (rand() % 255) / 255.0;
-		blue = (rand() % 255) / 255.0;
-	}
-
 	//if ( markTotal >= MAX_MARK_POLYS ) {
 	//	return;
 	//}
@@ -252,7 +227,7 @@ void CG_AddMarks( void ) {
 		next = mp->nextMark;
 
 		// see if it is time to completely remove it
-		if ( cg.time > mp->time + (MARK_TOTAL_TIME * cg_addMarks.integer) ) {
+		if ( cg.time > mp->time + MARK_TOTAL_TIME ) {
 			CG_FreeMarkPoly( mp );
 			continue;
 		}
@@ -276,7 +251,7 @@ void CG_AddMarks( void ) {
 		}
 
 		// fade all marks out with time
-		t = mp->time + (MARK_TOTAL_TIME * cg_addMarks.integer) - cg.time;
+		t = mp->time + MARK_TOTAL_TIME - cg.time;
 		if ( t < MARK_FADE_TIME ) {
 			fade = 255 * t / MARK_FADE_TIME;
 			if ( mp->alphaFade ) {

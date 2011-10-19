@@ -1,8 +1,6 @@
 {
 map "ep_example"
-longname "Temple Escape"
-author "Eraser"
-description "Fight your way out of this dangerous but strangely familiar temple. Discover the secret it hides that will aid you in your escape."
+bots ""
 type "entityplus"
 minversion "1.0"
 }

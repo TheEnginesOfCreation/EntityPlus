@@ -10,7 +10,7 @@
 
 // the "gameversion" client command will print this plus compile date
 #define	GAMEVERSION	"baseq3"
-#define EPVERSION "1.1"
+#define EPVERSION "1.0.2"
 
 #define BODY_QUEUE_SIZE		8
 
@@ -183,7 +183,6 @@ struct gentity_s {
 	char		*value; // value for target_modify to change to
 	int			armor; // armor for the target_playerstats entity
 	vec3_t		orgOrigin; // origin of entity (player) when cutscene starts
-	char		music[MAX_INFO_STRING]; //path to music file(s) for target_music
 };
 
 
@@ -577,7 +576,6 @@ gentity_t *fire_prox( gentity_t *self, vec3_t start, vec3_t aimdir );
 //
 void G_RunMover( gentity_t *ent );
 void Touch_DoorTrigger( gentity_t *ent, gentity_t *other, trace_t *trace );
-void Break_Breakable(gentity_t *ent, gentity_t *other);
 
 //
 // g_trigger.c
@@ -786,8 +784,6 @@ extern	vmCvar_t	g_debugMove;
 extern	vmCvar_t	g_debugAlloc;
 extern	vmCvar_t	g_debugDamage;
 extern	vmCvar_t	g_debugCameras;
-extern	vmCvar_t	g_debugVariables;
-extern	vmCvar_t	g_debugBotspawns;
 extern	vmCvar_t	g_weaponRespawn;
 extern	vmCvar_t	g_weaponTeamRespawn;
 extern	vmCvar_t	g_synchronousClients;

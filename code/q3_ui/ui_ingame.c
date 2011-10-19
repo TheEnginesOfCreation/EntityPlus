@@ -87,7 +87,7 @@ void InGame_Event( void *ptr, int notification ) {
 		break;
 
 	case ID_RESTART:
-		UI_ConfirmMenu( "RESTART LEVEL?", (voidfunc_f)NULL, InGame_RestartAction );
+		UI_ConfirmMenu( "RESTART ARENA?", (voidfunc_f)NULL, InGame_RestartAction );
 		break;
 
 	case ID_QUIT:

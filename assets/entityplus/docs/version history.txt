@@ -1,32 +1,14 @@
-v1.1 (?? ??? 2011)
-	- [Added] Paintball mode (cg_paintballMode).
-	- [Added] Value of cg_marks determines how long wallmarks stay.
-	- [Added] target_botremove entity.
-	- [Added] target_music entity.
-	- [Added] "dmg" and "radius" keys to func_breakable.
-	- [Added] func_breakable entities can be targeted and will break upon activation.
-	- [Added] "objectivesoverlay" key to worldspawn entity.
-	- [Added] "fov" key to info_camera.
-	- [Added] "lockedsound" and "unlockedsound" keys to trigger_lock.
-	- [Added] "ONCE" spawnflag to target_relay.
-	- [Added] "position" console command to get current player position coordinates.
-	- [Added] g_debugVariables cvar.
-	- [Added] g_debugBotspawns cvar.
-	- [Added] Support for longname, author and description through arena files.
+v1.0.2 (19 oct 2011)
 	- [Fixed] Game stops responding when spawning a bot whose waypoints are all inside solids or unreachable.
-	- [Fixed] Maps with a minversion of "1.0.1" are marked as incompatible.
 	- [Fixed] Final scoreboard does not display the correct total number of secrets for campaigns with more than 2 maps.
 	- [Fixed] Picking up backpack that should contain BFG gives player a shotgun.
 	- [Fixed] Backpack that is dropped when player has ammo for a weapon he doesn't have will give that weapon to the player when backpack is picked up.
-	- [Changed] Bodies of dead bots stay slightly longer before disappearing.
-	- [Changed] Increased storage length for target_variable from 1024 characters to 8192.
-	- [Changed] "setviewpos" console command no longer applies teleporter kick and allows setting of pitch, yaw and roll as well.
-	- [Changed] g_listEntity is now cheat protected, accepts a value of 2 to only list in-use entity slots and prints out in-use entity count.
+	- [Fixed] Maps with a minversion of "1.0.1" are marked as incompatible.
 
 v1.0.1 (01 oct 2011)
 	- [Fixed] Game crashes when bot dies due to worldspawn hazard (trigger_hurt, slime, lava, falling damage, etc).
 	- [Fixed] Spawnflags for func_door_rotating
-	
+
 v1.0 (26 sep 2011)
 	- [Added] g_debugCameras cvar to log info_camera debugging info to console.
 	- [Added] optional minversion key to arena files.

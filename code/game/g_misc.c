@@ -68,14 +68,13 @@ void Use_Camera (gentity_t *self, gentity_t *other, gentity_t *activator) {
 	Info_SetValueForKey(variableInfo, "w", va("%f", self->wait));
 	Info_SetValueForKey(variableInfo, "t", va("%i", level.time));
 
-	//add origin, viewangles and fov of source camera
+	//add origin and viewangles of source camera
 	Info_SetValueForKey(variableInfo, "o10", va("%f", self->s.origin[0]));
 	Info_SetValueForKey(variableInfo, "o11", va("%f", self->s.origin[1]));
 	Info_SetValueForKey(variableInfo, "o12", va("%f", self->s.origin[2]));
 	Info_SetValueForKey(variableInfo, "a10", va("%f", self->s.angles[0]));
 	Info_SetValueForKey(variableInfo, "a11", va("%f", self->s.angles[1]));
 	Info_SetValueForKey(variableInfo, "a12", va("%f", self->s.angles[2]));
-	Info_SetValueForKey(variableInfo, "f1", va("%i", self->count));
 	
 	if ( self->nextTrain && (self->spawnflags & 1) ) {
 		//add origin and viewangles of target camera
@@ -86,7 +85,6 @@ void Use_Camera (gentity_t *self, gentity_t *other, gentity_t *activator) {
 		Info_SetValueForKey(variableInfo, "a20", va("%f", self->nextTrain->s.angles[0]));
 		Info_SetValueForKey(variableInfo, "a21", va("%f", self->nextTrain->s.angles[1]));
 		Info_SetValueForKey(variableInfo, "a22", va("%f", self->nextTrain->s.angles[2]));
-		Info_SetValueForKey(variableInfo, "f2", va("%i", self->nextTrain->count));
 	} else {
 		Info_SetValueForKey(variableInfo, "m", "0");	//0 means no camera motion
 	}
@@ -131,7 +129,6 @@ void SP_info_camera( gentity_t *self ) {
 	}
 
 	G_SpawnFloat( "wait", "1", &self->wait );
-	G_SpawnInt( "fov", "90", &self->count );	//abusing self->count here to store the FOV for the camera
 
 	self->use = Use_Camera;
 	self->think = Think_Camera;
@@ -147,60 +144,6 @@ TELEPORTERS
 
 =================================================================================
 */
-
-/*=========
-Sets player's location without spitting out the player
-===========*/
-void TeleportPlayerNoKnockback( gentity_t *player, vec3_t origin, vec3_t angles ) {
-	gentity_t	*tent;
-
-	// use temp events at source and destination to prevent the effect
-	// from getting dropped by a second player event
-	if ( player->client->sess.sessionTeam != TEAM_SPECTATOR ) {
-		tent = G_TempEntity( player->client->ps.origin, EV_PLAYER_TELEPORT_OUT );
-		tent->s.clientNum = player->s.clientNum;
-
-		tent = G_TempEntity( origin, EV_PLAYER_TELEPORT_IN );
-		tent->s.clientNum = player->s.clientNum;
-	}
-
-	// unlink to make sure it can't possibly interfere with G_KillBox
-	trap_UnlinkEntity (player);
-
-	VectorCopy ( origin, player->client->ps.origin );
-	player->client->ps.origin[2] += 1;
-
-	// spit the player out
-	//AngleVectors( angles, player->client->ps.velocity, NULL, NULL );
-	//VectorScale( player->client->ps.velocity, 400, player->client->ps.velocity );
-	//player->client->ps.pm_time = 160;		// hold time
-	//player->client->ps.pm_flags |= PMF_TIME_KNOCKBACK;
-
-	// toggle the teleport bit so the client knows to not lerp
-	player->client->ps.eFlags ^= EF_TELEPORT_BIT;
-
-	// set angles
-	SetClientViewAngle( player, angles );
-
-	player->s.angles[0] = atof(va("%.4f", player->s.angles[0]));
-	player->s.angles[1] = atof(va("%.4f", player->s.angles[1]));
-	player->s.angles[2] = atof(va("%.4f", player->s.angles[2]));
-
-	// kill anything at the destination
-	if ( player->client->sess.sessionTeam != TEAM_SPECTATOR ) {
-		G_KillBox (player);
-	}
-
-	// save results of pmove
-	BG_PlayerStateToEntityState( &player->client->ps, &player->s, qtrue );
-
-	// use the precise origin for linking
-	VectorCopy( player->client->ps.origin, player->r.currentOrigin );
-
-	if ( player->client->sess.sessionTeam != TEAM_SPECTATOR ) {
-		trap_LinkEntity (player);
-	}
-}
 
 void TeleportPlayer( gentity_t *player, vec3_t origin, vec3_t angles ) {
 	gentity_t	*tent;

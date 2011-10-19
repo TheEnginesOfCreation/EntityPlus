@@ -1513,10 +1513,7 @@ See http://www.quake3world.com/forum/viewtopic.php?f=16&t=45625
 ============
 */
 void DropClientSilently( int clientNum ) {
-	if ( g_debugBotspawns.integer )
-		trap_DropClient( clientNum, " : removing dead bot" );
-	else
-		trap_DropClient( clientNum, "DR_SILENT_DROP" );
+	trap_DropClient( clientNum, "DR_SILENT_DROP" );
 }
 
 /*
@@ -1561,7 +1558,7 @@ void SetupCustomBot( gentity_t *bot ) {
 	if ( bot->parent->spawnflags & 256 )
 		bot->client->ps.stats[STAT_WEAPONS] |= ( 1 << WP_BFG );
 
-	//G_Printf("bot health: %i\n", bot->parent->health);
+	G_Printf("BOT HEALTH: %i\n", bot->parent->health);
 	//set bot's health (it doesn't degrade automatically)
 	bot->health = bot->client->ps.stats[STAT_HEALTH] = bot->client->ps.stats[STAT_MAX_HEALTH] = bot->parent->health;
 
