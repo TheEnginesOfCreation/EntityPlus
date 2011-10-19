@@ -1,0 +1,293 @@
+v1.0.2 (19 oct 2011)
+	- [Fixed] Game stops responding when spawning a bot whose waypoints are all inside solids or unreachable.
+	- [Fixed] Final scoreboard does not display the correct total number of secrets for campaigns with more than 2 maps.
+	- [Fixed] Picking up backpack that should contain BFG gives player a shotgun.
+	- [Fixed] Backpack that is dropped when player has ammo for a weapon he doesn't have will give that weapon to the player when backpack is picked up.
+	- [Fixed] Maps with a minversion of "1.0.1" are marked as incompatible.
+
+v1.0.1 (01 oct 2011)
+	- [Fixed] Game crashes when bot dies due to worldspawn hazard (trigger_hurt, slime, lava, falling damage, etc).
+	- [Fixed] Spawnflags for func_door_rotating
+
+v1.0 (26 sep 2011)
+	- [Added] g_debugCameras cvar to log info_camera debugging info to console.
+	- [Added] optional minversion key to arena files.
+	- [Added] playermodel and playerheadmodel keys to worldspawn entity.
+	- [Added] TARGET_PLAYER spawnflag to shooter_ entities
+	- [Added] dmg key to shooter_ entities.
+	- [Added] Support for color and light keys in target_modify.
+	- [Added] NO_PLAYER, NO_BOTS and NO_SHOOTER spawnflags to func_breakable.
+	- [Fixed] func_door_rotating spawnflags are incorrect.
+	- [Fixed] Using SUBTITLE spawnflag on target_print displays value of wait key instead of message.
+	- [Fixed] Subtitles are not visible during cutscenes.
+	- [Fixed] Lightning gun continues firing during cutscenes.
+	- [Fixed] Player's viewangles are not locked during a cutscene.
+	- [Fixed] Crouching becomes useless due to extreme low speeds when being affected by a target_playerspeed that lowers the player's speed.
+	- [Fixed] Camera activates triggers, doors and plats when moving through them during cutscenes.
+	- [Fixed] Camera pitch sometimes makes unintentional complete roll in cutscenes.
+	- [Fixed] Player spawns with gauntlet and machinegun with 0 ammo when going through a target_mapchange without having any weapons.
+	- [Fixed] Deferred models aren't loaded when the objectives overlay is displayed.
+	- [Fixed] func_timer's random value defaults to 1 instead of 0.
+	- [Fixed] Colors of key icons get distorted when health drops below 25.
+	- [Fixed] When a connection error occurs a blank screen without error message is shown.
+	- [Fixed] Game crashes when no active spawnpoints are found.
+	- [Fixed] shooter_ entities deal full damage instead of damage scaled by skill level.
+	- [Fixed] shooter_ and target_effect entities cannot be unlinked by target_unlink.
+	- [Fixed] Game crashes when shooter_ entity shoots a func_breakable.
+	- [Fixed] Replaced info_player_deathmatch entitiy in example map with an info_player_start entity.
+	- [Fixed] Credits roll doesn't overrule s_musicvolume setting anymore.
+	- [Changed] Objectives notification is drawn on top of letterbox, fades and overlays.
+	- [Changed] Skill based score modifier runs from 1.0 (easiest skill) to 1.4 (hardest skill) now.
+	- [Changed] Cutscenes run at a fixed FOV of 90.
+	- [Changed] It is no longer possible for a second player to connect to the server.
+	- [Changed] Setting cg_letterBoxSize to 0 completely removes letterbox effect.
+	- [Changed] New objectives overlay.
+
+BETA1 (04 sep 2011)
+    - [Added] func_door_rotating entity.
+    - [Added] New credits to exit menu.
+	- [Added] Background music plays in main menu.
+	- [Added] info_backpack entity which can be used with nodrop brushes to teleport a backpack from an unreachable location to a safe location.
+	- [Added] target_playerstats entity which can set a player's health and armor.
+	- [Added] target_variable entity which can set or read and compare variables that persist across map changes.
+	- [Added] target_cutscene and info_camera for creating cutscenes.
+	- [Added] START_UNLINKED spawnflag for func_static.
+	- [Added] TOGGLE spawnflag for target_delay.
+	- [Added] START_DELAYED spawnflag and count key for func_timer.
+	- [Added] SUBTITLE spawnflag for target_print.
+	- [Added] cg_drawsubtitles cvar to enable/disable subtitles (also available in game options menu).
+	- [Added] cg_drawHoldableItems cvar to enable/disable drawing of holdable item icons (teleporter/medkit/keys)
+	- [Added] deathmusic key to worldspawn entity.
+	- [Fixed] Spawning a bot with only a Gauntlet results in the bot spawning with a MG and console errors when the bot attacks.
+	- [Fixed] Picking up a Gauntlet after it has been removed results in the Gauntlet being unusable.
+	- [Fixed] target_unlink with IMMEDIATELY spawnflag won't unlink entities that spawn on second frame (such as movers).
+	- [Fixed] target_unlink ALWAYS_UNLINK and ALWAYS_LINK spawnflags have opposite effect.
+	- [Fixed] target_unlink toggles unlinked entities if ALWAYS_UNLINK is set and linked entities if ALWAYS_LINK is set.
+	- [Fixed] target_score doesn't add any score when triggered.
+	- [Fixed] deathtarget key on target_botspawn does not activate entities with matching targetname2.
+	- [Changed] Shots at a func_breakable are now counted as hits and thus will positively affect accuracy instead of negatively
+	- [Changed] Using the skill key on target_botspawn now actually influences the general AI skill level of that bot.
+	- [Changed] Picking up a weapon if no weapons are currently held will automatically switch to that weapon.
+	- [Changed] Setting a speed of -1 for target_playerspeed will freeze the player in his spot, unable to jump or duck as well.
+	- [Changed] Countdown is no longer displayed when issueing a map_restart.
+	- [Changed] Default health value for target_botspawn was changed from 125 to 100.
+	- [Changed] Bot health is higher/lower depending on skill level.
+	- [Changed] Picking up weapon for which you already have ammo adds normal amount of ammo instead of just 1.
+	- [Changed] Removed info_player_deathmatch from entities.def
+	- [Changed] Renamed the skill levels.
+
+v0.8.1 (13 jul 2011)
+	- [Fixed] Looping target_speakers do not stop playing their sound when triggered.
+	- [Fixed] Center print messages (such as target_print message) are not displayed.
+
+v0.8 (08 jul 2011)
+	- [Added] target_modify entity.
+	- [Added] target_secret entity.
+	- [Added] func_rotating can be started/stopped by targeting it with a trigger.
+	- [Added] START_OFF spawnflag to func_rotating.
+	- [Added] Added target2 key to a number of entities.
+	- [Added] Added targetname2 key to a number of entities.
+	- [Added] scoreboardmusic key to worldspawn entity.
+	- [Added] path_corner entities can have a wait key of -1 which will halt the train until the train is triggered again.
+	- [Added] STONE_DEBRIS spawnflag to target_debrisemitter and func_breakable.
+	- [Added] Explosion sound when score is being added up in scoreboard.
+	- [Added] Lightning effect to main menu background.
+	- [Fixed] Accuracy does not persist across map changes.
+	- [Fixed] Players respawning at a spawnpoint targeting a target_remove_powerups that removes all weapons end up holding a Gauntlet.
+	- [Fixed] Objective texts of more than 60 characters run outside of the objectives overlay.
+	- [Fixed] Objectives updated notification sound does not play if cg_draw2d is set to 0.
+	- [Fixed] Highscores are saved to incorrect file when target_mapchange was used.
+	- [Fixed] Added missing spawnflags to info_player_start in entities.def.
+	- [Changed] From this release forward, multiplayer modes are officially no longer supported.
+	- [Changed] target_disable is renamed to target_unlink.
+	- [Changed] Shortened fade-in at start of level if no message key was set for the map's worldspawn entity.
+	- [Changed] Accuracy is no longer a seperate item in scoreboard and only applies to carnage score.
+	- [Changed] Removed team related entities and spawnflags from entities.def.
+	- [Changed] Removed FLAGS spawnflag from target_remove_powerups.
+	- [Changed] Removed multiplayer option from main menu.
+	- [Changed] Removed some multiplayer related settings to the setup menu.
+
+
+v0.7.1 (24 jun 2011)
+	- [Fixed] target_finish entity ignores accuracy when calculating final score.
+	- [Fixed] Constantlight on func_ entities sets color values as int instead of float (thanks ZTurtleMan).
+	- [Fixed] Added missing GLASS_DEBRIS spawnflag on func_breakable in entities.def.
+	
+
+v0.7 (16 jun 2011)
+	- [Added] Scoring system which allows players to keep track of high scores for levels.
+	- [Added] target_script entity which implements the SCRIPT functionality previously available on target_mapchange.
+	- [Added] target_finish entity to finish a level and record a highscore for that level.
+	- [Added] POWERUPS, FLAGS, WEAPONS and HOLDABLES spawnflags to target_remove_powerups.
+	- [Added] SILENT spawnflag for target_objective.
+	- [Added] OVERLAY spawnflag for target_effect.
+	- [Added] cg_letterBoxSize cvar.
+	- [Added] cg_lodScale cvar.
+	- [Added] custom pickup sounds for keys and keycards.
+	- [Fixed] sv_maxclients is forced to 8 when starting a map through the single player menu.
+	- [Fixed] Weapons with 0 ammo do not end up in backpack.
+	- [Fixed] Player handicap affects single player mode.
+	- [Fixed] Bot connection and loading messages are displayed in the console when running in single player mode.
+	- [Fixed] Single Player menu shows same map name under the levelshot for each map.
+	- [Fixed] Bots specified in .arena file are spawned into the game in g_gametype 8.
+	- [Fixed] The "levelselect" command shows the old Quake 3 level select menu.
+	- [Fixed] Demos recorded in vanilla Quake 3 display incorrect item pickups.
+	- [Changed] Screen fades in or out after level load or when hitting a target_mapchange.
+	- [Changed] Green armor name from "armor" to "light armor".
+	- [Changed] Green armor icon.
+	- [Changed] Running maps in EntityPlus' single player mode now requires g_gametype to be set to 8 instead of 2.
+	- [Changed] In-game pause menu no longer shows inaccessible options.
+	- [Changed] Health no longer degrades to 100 when it is above 100.
+	- [Changed] Notification for updated objectives is made more subtle with a sound and a blinking icon.
+	- [Changed] con_notifytime is no longer forced to 0.
+	- [Changed] ".... entered the game" message is no longer displayed for the player in SP mode.
+	- [Changed] Updated skin of green armor.
+	- [Changed] CD Key menu is no longer automatically displayed if no CD key is entered.
+	- [Changed] Removed SCRIPT and SHOW_INTERMISSION spawnflags from target_mapchange.
+	- [Changed] Number of kills is no longer tracked on the objectives overlay.
+	- [Changed] Bots should no longer taunt in single player mode.
+	- [Changed] New main menu (again!)
+	- [Changed] New minimalistic loading screen so it doesn't spoil the items in the level.
+
+
+v0.6.1 (25 may 2011)
+	- [Fixed] Buttons in main menu don't always highlight properly on mouse-over.
+
+
+v0.6 (25 may 2011)
+	- [Added] info_waypoint entity to plot patrolling routes for bots.
+	- [Added] target_skill entity to set the skill level for the next map.
+	- [Added] target_earthquake entity.
+	- [Added] target_effect entity.
+	- [Added] LIGHT_LARGE_DEBRIS, DARK_LARGE_DEBRIS, WOOD_DEBRIS, FLESH_DEBRIS and GLASS_DEBRIS spawnflags to target_debrisemitter and func_breakable.
+	- [Added] deathtarget key to target_botspawn in order to activate entities upon a bot's death.
+	- [Added] skill key to target_botspawn in order to set the skill level of the bot relative to the global skill level.
+	- [Added] New single player menu which displays entityplus compatible maps.
+	- [Fixed] Rocket Launcher is not in the backpack if player dies while having a RL.
+	- [Fixed] target_objective not displaying "objectives updated" message when it's triggered by a bot (for example through a trigger_death entity).
+	- [Fixed] count key was missing from target_relay description in entities.def and manual.
+	- [Fixed] Negative values for count key on target_relay prevent the entity from being used.
+	- [Fixed] Sometimes wrong spawnpoint is picked in ep_example map when dying in key room.
+	- [Fixed] Not killing all enemies in ep_example map prevents exit for key room from opening up.
+	- [Fixed] Lava doesn't drain in ep_example map if not all enemies in level are killed.
+	- [Fixed] Not killing enemies quickly enough in ep_example map causes the default sv_maxclients limit to be hit, preventing the player from completing the map.
+	- [Changed] con_notify time is now set to 0 in single player at map load.
+	- [Changed] target_gravity defaults to g_gravity value instead of a fixed 800 now.
+	- [Changed] Player now (re)spawns at nearest spawnpoint even if that spawnpoint would telefrag an enemy (SP mode only).
+	- [Changed] Enemies spawning into or out of the game no longer show the teleportation effect.
+	- [Changed] Main menu looks a bit different now.
+
+
+v0.5.1 (9 may 2011)
+	- [Fixed] Added missing example map roq video to pak0.pk3
+	- [Fixed] Missing texture in ep_example map
+	- [Fixed] Startup batch file does not properly set sv_maxclients
+
+
+v0.5 (8 may 2011)
+	- [Added] health key to target_botspawn in entities.def.
+	- [Added] entities.def mentioning a wait key of -2 for func_button.
+	- [Added] message key to trigger_lock.
+	- [Added] target_objective displays "objectives updated" message in screen when triggered.
+	- [Added] count key and DARK_DEBRIS spawnflag to func_breakable so it can spew out debris without a target_debrisemitter
+	- [Added] New ep_example map which replaces the old entityplus map.
+	- [Added] EntityPlus manual for level designers
+	- [Fixed] target_print does not display any text in single player mode.
+	- [Fixed] entities.def entry for shooter_bfg refers to shooting grenades.
+	- [Fixed] Game crashes when bots receive damage from world hazards (lava/slime/cratering/etc).
+	- [Fixed] light/color keys on func_ entities for proper use of constantLight
+	- [Changed] Suicide no longer subtracts a kill in single player mode.
+	- [Changed] Score plums are no longer shown in single player mode.
+	- [Changed] Items no longer respawn in single player mode unless a specific value for the 'wait' key was specified.
+	- [Changed] Shaders and icons for skeleton keys have been updated
+	- [Changed] Awards (humiliation/impressive/excellent) are no longer rewarded in single player mode for improved game immersion.
+	- [Changed] Improved description of target_logic in entities.def
+
+
+v0.4 (25 apr 2011)
+	- [Added] Dying in single player causes the player to drop a backpack which can be picked up to restore the player's weapons/ammo/holdables.
+	- [Added] Ladderclip texture to create ladders.
+	- [Added] DARK_DEBRIS key for target_debrisemitter to toggle between lighter and darker bits of debris.
+	- [Added] Red, Green, Blue and Yellow keycards.
+	- [Added] Master, Gold, Silver and Iron skeleton keys.
+	- [Added] nobots and nohumans keys to trigger_multiple.
+	- [Added] KEY_RED, KEY_GREEN, KEY_BLUE, KEY_YELLOW, KEY_MASTER, KEY_GOLD, KEY_SILVER and KEY_IRON spawnflags for trigger_lock.
+	- [Added] Targeting an info_player_deathmatch with a trigger will enable or disable the spawnpoint.
+	- [Added] DISABLED spawnflag to info_player_deathmatch.
+	- [Added] SCRIPT spawnflag to target_mapchange.
+	- [Fixed] Game crashes when joining the spectators.
+	- [Fixed] target_mapchange incorrectly reads specified mapname.
+	- [Fixed] IMMEDIATELY spawnflag on target_disable doesn't work in some cases.
+	- [Fixed] The RANDOM spawnflag on target_logic causes an entity to always be triggered.
+	- [Changed] protection of armor from .66 to .69.
+	- [Changed] target_botspawn now spawns bots at it's own location and allows customization of the bot to spawn.
+	- [Changed] target_logic can now be targetted by up to 10 entities instead of just 2.
+	- [Changed] target_debrisemitter spews out actual debris models.
+	- [Changed] Smoke trails for target_debrisemitter are slightly less opaque now.
+	- [Changed] target_mapchange now only retains player stats when game is in single player mode.
+	- [Changed] Holdable item is also persisted across map changes caused by target_mapchange.
+	- [Changed] setting the wait key for a func_door to -2 will prevent it from closing until it is triggered again.
+	- [Changed] Player is respawned at the nearest active spawnpoint instead of the furthest in single player mode.
+	- [Changed] Damage from bots to players is scaled back depending on skill level (ranging from 0.3 to 0.7 times damage)
+	- [Changed] Bots no longer attack each other in single player mode.
+	- [Changed] Bots can no longer damage each other in single player mode.
+	- [Changed] Bots are no longer able to pick up items in single player mode.
+	- [Changed] Bots no longer chat in single player mode.
+	- [Changed] "You fragged ... " messages no longer shown in single player mode.
+	- [Changed] Obituaries ("... was fragged by ...") messages are no longer shown in single player mode.
+	- [Changed] "... connected" messages no longer shown in SP mode when connecting player is a bot.
+	- [Changed] join and team change messages no longer shown in SP mode when joining/changing player is a bot.
+	- [Changed] Fraglimit and timelimit are forced to 0 in single player mode.
+	- [Changed] Removed non-essential information from HUD in single player mode.
+	- [Changed] Hit beep sounds are no longer played in single player.
+	- [Changed] Crosshair names are no longer displayed in single player.
+	- [Changed] The announcer voice no longer announced fraglimit or timelimit warnings and lead changes in single player.
+	
+	
+v0.3 (12 apr 2011)
+	- [Added] IMMEDIATELY spawnflag for target_disable.
+	- [Added] mapname key for target_mapchange.
+	- [Added] SHOW_INTERMISSION spawnflag for target_mapchange.
+	- [Added] Health, armor, weapons and ammo are retained through a map change if it was caused by a target_mapchange.
+	- [Added] trigger_death and trigger_frag entities.
+	- [Added] count key for spawnpoint entities to limit the number of times a player can spawn there.
+	- [Added] startsound and endsound keys to func_door
+	- [Added] sound key to func_button
+	- [Added] trigger_lock and holdable_key entities
+	- [Added] Example map for trigger_lock and holdable_key entities called "keytest"
+	- [Added] teleporttarget key to holdable_teleporter
+	- [Added] target_debrisemitter entity
+	- [Added] target key for func_breakable
+	- [Fixed] target_mapchange leaving single player mode when current level is loaded with spmap.
+	- [Fixed] Bots are left in the game when a map_restart is issued or the map is changed (note: bots are only kicked when in single player mode)
+	- [Fixed] target_mapchange doesn't properly end a map_restart command with a newline character, messing up the next command.
+	- [Fixed] Green armor texture is too bright and too saturated
+	- [Changed] trigger_disable now links and unlinks entities from the world instead of tagging them with a FL_DISABLED flag.
+	- [Changed] Removed START_OFF spawnflag from trigger_hurt.
+	- [Changed] Renamed target_intermission to target_mapchange.
+	- [Changed] Example map uses target_mapchange instead of target_intermission.
+	- [Changed] Bots no longer drop items when in single player mode (g_gametype 2)
+	- [Changed] Bots are removed from the game when fragged when in single player mode (g_gametype 2)
+	- [Changed] "FIGHT!" message is no longer shown when in single player mode (g_gametype 2)
+	- [Changed] Bots defined in arena files are no longer announced when in single player mode (g_gametype 2)
+	- [Changed] EntityPlus startup batch file now loads entityplus example map in single player mode
+	
+	
+v0.2 (25 mar 2011)
+	- [Added] shooter_bfg
+	- [Added] target_botspawn
+	- [Added] target_disable
+	- [Added] item_armor_vest
+	- [Added] target_playerspeed
+	- [Fixed] Two triggers sharing the same origin both targetting the same target_logic won't work.
+	- [Changed] func_rotating can rotate along multiple axes.
+	- [Changed] func_bobbing can move along multiple axes.
+	- [Changed] Removed RED_ONLY/BLUE_ONLY spawnflags from target_intermission and target_gravity.
+	- [Changed] Added target_disable, target_botspawn and item_armor_vest example to entityplus example map.
+
+
+v0.1 (11 mar 2011)
+	- [Added] func_breakable
+	- [Added] target_gravity
+	- [Added] target_intermission
+	- [Added] target_logic
