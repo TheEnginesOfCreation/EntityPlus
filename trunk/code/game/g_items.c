@@ -243,7 +243,7 @@ int Pickup_Backpack( gentity_t *ent, gentity_t *other) {
 	}
 
 	if (ent->backpackContents[WP_BFG]) {
-		other->client->ps.stats[STAT_WEAPONS] |= (1 << WP_SHOTGUN);
+		other->client->ps.stats[STAT_WEAPONS] |= (1 << WP_BFG);
 		if ( ent->backpackContents[WP_BFG] > 0 )
 			other->client->ps.ammo[WP_BFG] += ent->backpackContents[WP_BFG];
 	}
