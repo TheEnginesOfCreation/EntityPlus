@@ -1345,8 +1345,8 @@ When triggered, this writes a variable with a specified value to memory or compa
 */
 
 void target_variable_use (gentity_t *self, gentity_t *other, gentity_t *activator) {
-	char buf[BIG_INFO_STRING];
-	char variableInfo[BIG_INFO_STRING];
+	char buf[MAX_INFO_STRING];
+	char variableInfo[MAX_INFO_STRING];
 	char *value;
 
 	if ( self->spawnflags & 1 || self->spawnflags & 2)
