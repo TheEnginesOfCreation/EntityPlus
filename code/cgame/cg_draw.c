@@ -797,20 +797,24 @@ static float CG_DrawTimer( float y ) {
 	char		*s;
 	int			w;
 	int			mins, seconds, tens;
-	int			msec;
-
-	if (cgs.gametype == GT_ENTITYPLUS)
-		return y;	//do not draw timer in single player entityplus
+	int			msec, mtens, mhundreds;
 
 	msec = cg.time - cgs.levelStartTime;
 
 	seconds = msec / 1000;
+	
+	msec -= (seconds * 1000);
+	mhundreds = msec / 100;
+	msec -= mhundreds * 100;
+	mtens = msec / 10;
+	msec -= mtens * 10;
+	
 	mins = seconds / 60;
 	seconds -= mins * 60;
 	tens = seconds / 10;
 	seconds -= tens * 10;
 
-	s = va( "%i:%i%i", mins, tens, seconds );
+	s = va( "%i:%i%i:%i%i%i", mins, tens, seconds, mhundreds, mtens, msec );
 	w = CG_DrawStrlen( s ) * BIGCHAR_WIDTH;
 
 	CG_DrawBigString( 635 - w, y + 2, s, 1.0F);
