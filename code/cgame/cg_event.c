@@ -675,8 +675,13 @@ void CG_EntityEvent( centity_t *cent, vec3_t position ) {
 		trap_S_StartSound (NULL, es->number, CHAN_AUTO, CG_CustomSound( es->number, "*gasp.wav" ) );
 		break;
 
+	case EV_SILENT_ITEM_PICKUP:
 	case EV_ITEM_PICKUP:
-		DEBUGNAME("EV_ITEM_PICKUP");
+		if (event == EV_ITEM_PICKUP) {
+			DEBUGNAME("EV_ITEM_PICKUP");
+		} else {
+			DEBUGNAME("EV_SILENT_ITEM_PICKUP");
+		}
 		{
 			gitem_t	*item;
 			int		index;
@@ -690,27 +695,29 @@ void CG_EntityEvent( centity_t *cent, vec3_t position ) {
 
 			// powerups and team items will have a separate global sound, this one
 			// will be played at prediction time
-			if ( item->giType == IT_POWERUP || item->giType == IT_TEAM) {
-				trap_S_StartSound (NULL, es->number, CHAN_AUTO,	cgs.media.n_healthSound );
-			} else if (item->giType == IT_PERSISTANT_POWERUP) {
+			if ( event == EV_ITEM_PICKUP ) {
+				if ( item->giType == IT_POWERUP || item->giType == IT_TEAM) {
+					trap_S_StartSound (NULL, es->number, CHAN_AUTO,	cgs.media.n_healthSound );
+				} else if (item->giType == IT_PERSISTANT_POWERUP) {
 #ifdef MISSIONPACK
-				switch (item->giTag ) {
-					case PW_SCOUT:
-						trap_S_StartSound (NULL, es->number, CHAN_AUTO,	cgs.media.scoutSound );
-					break;
-					case PW_GUARD:
-						trap_S_StartSound (NULL, es->number, CHAN_AUTO,	cgs.media.guardSound );
-					break;
-					case PW_DOUBLER:
-						trap_S_StartSound (NULL, es->number, CHAN_AUTO,	cgs.media.doublerSound );
-					break;
-					case PW_AMMOREGEN:
-						trap_S_StartSound (NULL, es->number, CHAN_AUTO,	cgs.media.ammoregenSound );
-					break;
-				}
+					switch (item->giTag ) {
+						case PW_SCOUT:
+							trap_S_StartSound (NULL, es->number, CHAN_AUTO,	cgs.media.scoutSound );
+						break;
+						case PW_GUARD:
+							trap_S_StartSound (NULL, es->number, CHAN_AUTO,	cgs.media.guardSound );
+						break;
+						case PW_DOUBLER:
+							trap_S_StartSound (NULL, es->number, CHAN_AUTO,	cgs.media.doublerSound );
+						break;
+						case PW_AMMOREGEN:
+							trap_S_StartSound (NULL, es->number, CHAN_AUTO,	cgs.media.ammoregenSound );
+						break;
+					}
 #endif
-			} else {
-				trap_S_StartSound (NULL, es->number, CHAN_AUTO,	trap_S_RegisterSound( item->pickup_sound, qfalse ) );
+				} else {
+					trap_S_StartSound (NULL, es->number, CHAN_AUTO,	trap_S_RegisterSound( item->pickup_sound, qfalse ) );
+				}
 			}
 
 			// show icon and name on status bar
