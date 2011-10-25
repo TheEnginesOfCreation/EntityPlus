@@ -695,6 +695,12 @@ void Use_BinaryMover( gentity_t *ent, gentity_t *other, gentity_t *activator ) {
 	int		total;
 	int		partial;
 
+	if ( (ent->flags & FL_NO_HUMANS) && !IsBot( activator ) )
+		return;
+
+	if ( (ent->flags & FL_NO_BOTS) && IsBot( activator ) )
+		return;
+
 	// only the master should be used
 	if ( ent->flags & FL_TEAMSLAVE ) {
 		Use_BinaryMover( ent->teammaster, other, activator );
@@ -1151,7 +1157,9 @@ void SP_func_door (gentity_t *ent) {
 	float	distance;
 	vec3_t	size;
 	float	lip;
+	int		i;
 
+	//sounds
 	startsound = endsound = NULL;
 	G_SpawnString("startsound", "sound/movers/doors/dr1_strt.wav", &startsound);
 	G_SpawnString("endsound", "sound/movers/doors/dr1_end.wav", &endsound);
@@ -1159,6 +1167,17 @@ void SP_func_door (gentity_t *ent) {
 	ent->sound1to2 = ent->sound2to1 = G_SoundIndex(startsound);
 	ent->soundPos1 = ent->soundPos2 = G_SoundIndex(endsound);
 
+	//nobots/nohumans
+	G_SpawnInt( "nobots", "0", &i);
+	if ( i ) {
+		ent->flags |= FL_NO_BOTS;
+	}
+	G_SpawnInt( "nohumans", "0", &i );
+	if ( i ) {
+		ent->flags |= FL_NO_HUMANS;
+	}
+	
+	//blocked
 	ent->blocked = Blocked_Door;
 
 	// default speed of 400
@@ -1240,9 +1259,11 @@ check either the Z_AXIS or X_AXIS box to change that.
 */
 
 void SP_func_door_rotating ( gentity_t *ent ) {
-	char  *startsound;
-	char  *endsound;
+	char	*startsound;
+	char	*endsound;
+	int		i;
 
+	//sounds
 	startsound = endsound = NULL;
 	G_SpawnString("startsound", "sound/movers/doors/dr1_strt.wav", &startsound);
 	G_SpawnString("endsound", "sound/movers/doors/dr1_end.wav", &endsound);
@@ -1252,7 +1273,19 @@ void SP_func_door_rotating ( gentity_t *ent ) {
 
 	// default damage of 2 points
 	G_SpawnInt( "dmg", "2", &ent->damage );
+
+	//blocked
 	ent->blocked = Blocked_Door;
+
+	//nobots/nohumans
+	G_SpawnInt( "nobots", "0", &i);
+	if ( i ) {
+		ent->flags |= FL_NO_BOTS;
+	}
+	G_SpawnInt( "nohumans", "0", &i );
+	if ( i ) {
+		ent->flags |= FL_NO_HUMANS;
+	}
 
 	// default speed of 120
 	if (!ent->speed)
