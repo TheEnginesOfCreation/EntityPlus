@@ -280,7 +280,10 @@ static void CG_TouchItem( centity_t *cent ) {
 	}
 
 	// grab it
-	BG_AddPredictableEventToPlayerstate( EV_ITEM_PICKUP, cent->currentState.modelindex , &cg.predictedPlayerState);
+	if ( cent->currentState.generic1 & 2 )
+		BG_AddPredictableEventToPlayerstate( EV_SILENT_ITEM_PICKUP, cent->currentState.modelindex , &cg.predictedPlayerState);
+	else
+		BG_AddPredictableEventToPlayerstate( EV_ITEM_PICKUP, cent->currentState.modelindex , &cg.predictedPlayerState);
 
 	// remove it from the frame so it won't be drawn
 	cent->currentState.eFlags |= EF_NODRAW;

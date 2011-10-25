@@ -64,11 +64,11 @@ int Pickup_Powerup( gentity_t *ent, gentity_t *other ) {
 			continue;
 		}
 
-    // if same team in team game, no sound
-    // cannot use OnSameTeam as it expects to g_entities, not clients
-  	if ( G_IsTeamGame() && other->client->sess.sessionTeam == client->sess.sessionTeam  ) {
-      continue;
-    }
+		// if same team in team game, no sound
+		// cannot use OnSameTeam as it expects to g_entities, not clients
+  		if ( G_IsTeamGame() && other->client->sess.sessionTeam == client->sess.sessionTeam  ) {
+		  continue;
+		}
 
 		// if too far away, no sound
 		VectorSubtract( ent->s.pos.trBase, client->ps.origin, delta );
@@ -527,31 +527,35 @@ void Touch_Item (gentity_t *ent, gentity_t *other, trace_t *trace) {
 	}
 
 	// play the normal pickup sound
-	if (predict) {
-		G_AddPredictableEvent( other, EV_ITEM_PICKUP, ent->s.modelindex );
-	} else {
-		G_AddEvent( other, EV_ITEM_PICKUP, ent->s.modelindex );
-	}
-
-	// powerup pickups are global broadcasts
-	if ( ent->item->giType == IT_POWERUP || ent->item->giType == IT_TEAM) {
-		// if we want the global sound to play
-		if (!ent->speed) {
-			gentity_t	*te;
-
-			te = G_TempEntity( ent->s.pos.trBase, EV_GLOBAL_ITEM_PICKUP );
-			te->s.eventParm = ent->s.modelindex;
-			te->r.svFlags |= SVF_BROADCAST;
+	if (!(ent->spawnflags & 2)) {
+		if (predict) {
+			G_AddPredictableEvent( other, EV_ITEM_PICKUP, ent->s.modelindex );
 		} else {
-			gentity_t	*te;
+			G_AddEvent( other, EV_ITEM_PICKUP, ent->s.modelindex );
+		}
 
-			te = G_TempEntity( ent->s.pos.trBase, EV_GLOBAL_ITEM_PICKUP );
-			te->s.eventParm = ent->s.modelindex;
-			// only send this temp entity to a single client
-			te->r.svFlags |= SVF_SINGLECLIENT;
-			te->r.singleClient = other->s.number;
+		// powerup pickups are global broadcasts
+		if ( ent->item->giType == IT_POWERUP || ent->item->giType == IT_TEAM) {
+			// if we want the global sound to play
+			if (!ent->speed) {
+				gentity_t	*te;
+
+				te = G_TempEntity( ent->s.pos.trBase, EV_GLOBAL_ITEM_PICKUP );
+				te->s.eventParm = ent->s.modelindex;
+				te->r.svFlags |= SVF_BROADCAST;
+			} else {
+				gentity_t	*te;
+
+				te = G_TempEntity( ent->s.pos.trBase, EV_GLOBAL_ITEM_PICKUP );
+				te->s.eventParm = ent->s.modelindex;
+				// only send this temp entity to a single client
+				te->r.svFlags |= SVF_SINGLECLIENT;
+				te->r.singleClient = other->s.number;
+			}
 		}
 	}
+
+	
 
 	// fire item targets
 	G_UseTargets (ent, other);
@@ -1040,8 +1044,13 @@ be on an entity that hasn't spawned yet.
 ============
 */
 void G_SpawnItem (gentity_t *ent, gitem_t *item) {
+	char	buffer[MAX_QPATH];
+	char	*s;
+
 	G_SpawnFloat( "random", "0", &ent->random );
 	G_SpawnFloat( "wait", "0", &ent->wait );
+	
+	ent->s.generic1 = ent->spawnflags;	//we want to know spawnflags for muting predicted pickup sounds client-side.
 
 	RegisterItem( item );
 	if ( G_ItemDisabled(item) )
