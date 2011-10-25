@@ -1779,12 +1779,22 @@ void CG_MissileHitWall( int weapon, int clientNum, vec3_t origin, vec3_t dir, im
 	case WP_LIGHTNING:
 		// no explosion at LG impact, it is added with the beam
 		r = rand() & 3;
-		if ( r < 2 ) {
-			sfx = cgs.media.sfx_lghit2;
-		} else if ( r == 2 ) {
-			sfx = cgs.media.sfx_lghit1;
+		if ( !cg_paintballMode.integer ) {
+			if ( r < 2 ) {
+				sfx = cgs.media.sfx_lghit2;
+			} else if ( r == 2 ) {
+				sfx = cgs.media.sfx_lghit1;
+			} else {
+				sfx = cgs.media.sfx_lghit3;
+			}
 		} else {
-			sfx = cgs.media.sfx_lghit3;
+			if ( r < 2 ) {
+				sfx = cgs.media.gibBounce1Sound;
+			} else if ( r == 2 ) {
+				sfx = cgs.media.gibBounce2Sound;
+			} else {
+				sfx = cgs.media.gibBounce3Sound;
+			}
 		}
 		mark = cgs.media.holeMarkShader;
 		radius = 12;
@@ -1838,14 +1848,20 @@ void CG_MissileHitWall( int weapon, int clientNum, vec3_t origin, vec3_t dir, im
 	case WP_RAILGUN:
 		mod = cgs.media.ringFlashModel;
 		shader = cgs.media.railExplosionShader;
-		sfx = cgs.media.sfx_plasmaexp;
+		if ( !cg_paintballMode.integer )
+			sfx = cgs.media.sfx_plasmaexp;
+		else
+			sfx = cgs.media.gibBounce3Sound;
 		mark = cgs.media.energyMarkShader;
 		radius = 24;
 		break;
 	case WP_PLASMAGUN:
 		mod = cgs.media.ringFlashModel;
 		shader = cgs.media.plasmaExplosionShader;
-		sfx = cgs.media.sfx_plasmaexp;
+		if ( !cg_paintballMode.integer )
+			sfx = cgs.media.sfx_plasmaexp;
+		else
+			sfx = cgs.media.gibBounce3Sound;
 		mark = cgs.media.energyMarkShader;
 		radius = 16;
 		break;
