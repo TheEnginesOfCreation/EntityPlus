@@ -322,6 +322,20 @@ namespace mvt
 					break;
 			}
 
+			if (
+				classname.IndexOf("item_") == 0 ||
+				classname.IndexOf("ammo_") == 0 ||
+				classname.IndexOf("weapon_") == 0 ||
+				classname.IndexOf("holdable_") == 0
+			)
+			{
+				if ((ent.Spawnflags & 2) != 0)
+				{
+					Debug(" > use of \"SILENT\" spawnflag requires " + versionString);
+					result = true;
+				}
+			}
+
 			return result;
 		}
 		#endregion
