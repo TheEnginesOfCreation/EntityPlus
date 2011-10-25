@@ -291,10 +291,26 @@ namespace mvt
 				
 				case "target_botremove":
 					Debug(" > use of \"target_botremove\" entity requires " + versionString);
+					result = true;
 					break;
 
 				case "target_music":
 					Debug(" > use of \"target_music\" entity requires " + versionString);
+					result = true;
+					break;
+
+				case "func_door":
+				case "func_door_rotating":
+					if (!String.IsNullOrEmpty(ent.GetValue("nohumans")) && ent.GetValue("nohumans") != "0")
+					{
+						Debug(" > use of \"nohumans\" requires " + versionString);
+						result = true;
+					}
+					if (!String.IsNullOrEmpty(ent.GetValue("nobots")) && ent.GetValue("nobots") != "0")
+					{
+						Debug(" > use of \"nobots\" requires " + versionString);
+						result = true;
+					}
 					break;
 
 				case "worldspawn":

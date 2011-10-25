@@ -39,7 +39,7 @@ AMMO_* ENTITIES
 
 //=============================================================================
 
-/*QUAKED ammo_bfg (.3 .3 1) (-16 -16 -16) (16 16 16) SUSPENDED
+/*QUAKED ammo_bfg (.3 .3 1) (-16 -16 -16) (16 16 16) SUSPENDED SILENT
 BFG ammo. Gives the player 15 by default.
 -------- KEYS --------
 wait : time in seconds before item respawns after being picked up (default 40, -1 = never respawn).
@@ -52,6 +52,7 @@ targetname : a target_give entity can point to this for respawn freebies.
 targetname2 : a target_give entity can point to this for respawn freebies.
 -------- SPAWNFLAGS --------
 SUSPENDED : item will spawn where it was placed in map and won't drop to the floor.
+SILENT : no sound will be played when picking up this item.
 -------- NOTES --------
 The amount of time it takes for an item in the team to respawn is determined by the "wait" value of the item that was picked up previously. So if one of the items in the team has it's "wait" key set to -1 (never respawn), the random respawning cycle of the teamed items will stop after that item is picked up.
 
@@ -61,7 +62,7 @@ model="models/powerups/ammo/bfgam.md3"*/
 
 //=============================================================================
 
-/*QUAKED ammo_bullets (.3 .3 1) (-16 -16 -16) (16 16 16) SUSPENDED
+/*QUAKED ammo_bullets (.3 .3 1) (-16 -16 -16) (16 16 16) SUSPENDED SILENT
 Machine Gun ammo. Gives the player 50 by default.
 -------- KEYS --------
 wait : time in seconds before item respawns after being picked up (default 40, -1 = never respawn).
@@ -74,6 +75,7 @@ targetname : a target_give entity can point to this for respawn freebies.
 targetname2 : a target_give entity can point to this for respawn freebies.
 -------- SPAWNFLAGS --------
 SUSPENDED : item will spawn where it was placed in map and won't drop to the floor.
+SILENT : no sound will be played when picking up this item.
 -------- NOTES --------
 The amount of time it takes for an item in the team to respawn is determined by the "wait" value of the item that was picked up previously. So if one of the items in the team has it's "wait" key set to -1 (never respawn), the random respawning cycle of the teamed items will stop after that item is picked up.
 
@@ -83,7 +85,7 @@ model="models/powerups/ammo/machinegunam.md3"*/
 
 //=============================================================================
 
-/*QUAKED ammo_cells (.3 .3 1) (-16 -16 -16) (16 16 16) SUSPENDED
+/*QUAKED ammo_cells (.3 .3 1) (-16 -16 -16) (16 16 16) SUSPENDED SILENT
 Plasma Gun ammo. Gives the player 30 by default.
 -------- KEYS --------
 wait : time in seconds before item respawns after being picked up (default 40, -1 = never respawn).
@@ -96,6 +98,7 @@ targetname : a target_give entity can point to this for respawn freebies.
 targetname2 : a target_give entity can point to this for respawn freebies.
 -------- SPAWNFLAGS --------
 SUSPENDED : item will spawn where it was placed in map and won't drop to the floor.
+SILENT : no sound will be played when picking up this item.
 -------- NOTES --------
 The amount of time it takes for an item in the team to respawn is determined by the "wait" value of the item that was picked up previously. So if one of the items in the team has it's "wait" key set to -1 (never respawn), the random respawning cycle of the teamed items will stop after that item is picked up.
 
@@ -105,7 +108,7 @@ model="models/powerups/ammo/plasmaam.md3"*/
 
 //=============================================================================
 
-/*QUAKED ammo_grenades (.3 .3 1) (-16 -16 -16) (16 16 16) SUSPENDED
+/*QUAKED ammo_grenades (.3 .3 1) (-16 -16 -16) (16 16 16) SUSPENDED SILENT
 Grenade Launcher ammo. Gives the player 5 by default.
 -------- KEYS --------
 wait : time in seconds before item respawns after being picked up (default 40, -1 = never respawn).
@@ -118,6 +121,7 @@ targetname : a target_give entity can point to this for respawn freebies.
 targetname2 : a target_give entity can point to this for respawn freebies.
 -------- SPAWNFLAGS --------
 SUSPENDED : item will spawn where it was placed in map and won't drop to the floor.
+SILENT : no sound will be played when picking up this item.
 -------- NOTES --------
 The amount of time it takes for an item in the team to respawn is determined by the "wait" value of the item that was picked up previously. So if one of the items in the team has it's "wait" key set to -1 (never respawn), the random respawning cycle of the teamed items will stop after that item is picked up.
 
@@ -127,7 +131,7 @@ model="models/powerups/ammo/grenadeam.md3"*/
 
 //=============================================================================
 
-/*QUAKED ammo_lightning (.3 .3 1) (-16 -16 -16) (16 16 16) SUSPENDED
+/*QUAKED ammo_lightning (.3 .3 1) (-16 -16 -16) (16 16 16) SUSPENDED SILENT
 Lightning Gun ammo. Gives the player 60 by default.
 -------- KEYS --------
 wait : time in seconds before item respawns after being picked up (default 40, -1 = never respawn).
@@ -140,6 +144,7 @@ targetname : a target_give entity can point to this for respawn freebies.
 targetname2 : a target_give entity can point to this for respawn freebies.
 -------- SPAWNFLAGS --------
 SUSPENDED : item will spawn where it was placed in map and won't drop to the floor.
+SILENT : no sound will be played when picking up this item.
 -------- NOTES --------
 The amount of time it takes for an item in the team to respawn is determined by the "wait" value of the item that was picked up previously. So if one of the items in the team has it's "wait" key set to -1 (never respawn), the random respawning cycle of the teamed items will stop after that item is picked up.
 
@@ -149,7 +154,7 @@ model="models/powerups/ammo/lightningam.md3"*/
 
 //=============================================================================
 
-/*QUAKED ammo_rockets (.3 .3 1) (-16 -16 -16) (16 16 16) SUSPENDED
+/*QUAKED ammo_rockets (.3 .3 1) (-16 -16 -16) (16 16 16) SUSPENDED SILENT
 Rocket Launcher ammo. Gives the player 5 by default.
 -------- KEYS --------
 wait : time in seconds before item respawns after being picked up (default 40, -1 = never respawn).
@@ -162,6 +167,7 @@ targetname : a target_give entity can point to this for respawn freebies.
 targetname2 : a target_give entity can point to this for respawn freebies.
 -------- SPAWNFLAGS --------
 SUSPENDED : item will spawn where it was placed in map and won't drop to the floor.
+SILENT : no sound will be played when picking up this item.
 -------- NOTES --------
 The amount of time it takes for an item in the team to respawn is determined by the "wait" value of the item that was picked up previously. So if one of the items in the team has it's "wait" key set to -1 (never respawn), the random respawning cycle of the teamed items will stop after that item is picked up.
 
@@ -171,7 +177,7 @@ model="models/powerups/ammo/rocketam.md3"*/
 
 //=============================================================================
 
-/*QUAKED ammo_shells (.3 .3 1) (-16 -16 -16) (16 16 16) SUSPENDED
+/*QUAKED ammo_shells (.3 .3 1) (-16 -16 -16) (16 16 16) SUSPENDED SILENT
 Shotgun ammo. Gives the player 10 by default.
 -------- KEYS --------
 wait : time in seconds before item respawns after being picked up (default 40, -1 = never respawn).
@@ -184,6 +190,7 @@ targetname : a target_give entity can point to this for respawn freebies.
 targetname2 : a target_give entity can point to this for respawn freebies.
 -------- SPAWNFLAGS --------
 SUSPENDED : item will spawn where it was placed in map and won't drop to the floor.
+SILENT : no sound will be played when picking up this item.
 -------- NOTES --------
 The amount of time it takes for an item in the team to respawn is determined by the "wait" value of the item that was picked up previously. So if one of the items in the team has it's "wait" key set to -1 (never respawn), the random respawning cycle of the teamed items will stop after that item is picked up.
 
@@ -193,7 +200,7 @@ model="models/powerups/ammo/shotgunam.md3"*/
 
 //=============================================================================
 
-/*QUAKED ammo_slugs (.3 .3 1) (-16 -16 -16) (16 16 16) SUSPENDED
+/*QUAKED ammo_slugs (.3 .3 1) (-16 -16 -16) (16 16 16) SUSPENDED SILENT
 Railgun ammo. Gives the player 10 by default.
 -------- KEYS --------
 wait : time in seconds before item respawns after being picked up (default 40, -1 = never respawn).
@@ -206,6 +213,7 @@ targetname : a target_give entity can point to this for respawn freebies.
 targetname2 : a target_give entity can point to this for respawn freebies.
 -------- SPAWNFLAGS --------
 SUSPENDED : item will spawn where it was placed in map and won't drop to the floor.
+SILENT : no sound will be played when picking up this item.
 -------- NOTES --------
 The amount of time it takes for an item in the team to respawn is determined by the "wait" value of the item that was picked up previously. So if one of the items in the team has it's "wait" key set to -1 (never respawn), the random respawning cycle of the teamed items will stop after that item is picked up.
 
@@ -343,6 +351,8 @@ dmg : damage to inflict on player when he blocks operation of door (default 2). 
 team : assign the same team name to multiple doors that should operate together (see Notes).
 startsound : if set, overrides the sound to play when the door starts moving.
 endsound : if set, overrides the sound to play when the door has stopped moving.
+nobots : bots cannot activate this door.
+nohumans : human player cannot activate this door.
 light : constantLight radius of .md3 model included with entity. Has no effect on the entity's brushes (default 0).
 color : constantLight color of .md3 model included with entity. Has no effect on the entity's brushes (default 1 1 1).
 -------- Q3MAP2 KEYS --------
@@ -380,6 +390,8 @@ health : (default 0) if set to any non-zero value, the button must take damage (
 team : assign the same team name to multiple doors that should operate together (see Notes).
 startsound : if set, overrides the sound to play when the door starts moving.
 endsound : if set, overrides the sound to play when the door has stopped moving.
+nobots : bots cannot activate this door.
+nohumans : human player cannot activate this door.
 light : constantLight radius of .md3 model included with entity. Has no effect on the entity's brushes (default 0).
 color : constantLight color of .md3 model included with entity. Has no effect on the entity's brushes (default 1 1 1).
 model2 : path/name of model to include (eg: models/mapobjects/pipe/pipe02.md3).
@@ -599,7 +611,7 @@ HOLDABLE_* ENTITIES
 
 //=============================================================================
 
-/*QUAKED holdable_key_blue (.7 0 1) (-16 -16 -16) (16 16 16) SUSPENDED
+/*QUAKED holdable_key_blue (.7 0 1) (-16 -16 -16) (16 16 16) SUSPENDED SILENT
 Key can be picked up and used in conjunction with a trigger_lock to open doors, etc. It is possible to pick up more than one key at once.
 -------- KEYS --------
 wait : time in seconds before item respawns after being picked up (default 60, -1 = never respawn).
@@ -611,6 +623,7 @@ targetname : a target_give entity can point to this for respawn freebies.
 targetname2 : a target_give entity can point to this for respawn freebies.
 -------- SPAWNFLAGS --------
 SUSPENDED : item will spawn where it was placed in map and won't drop to the floor.
+SILENT : no sound will be played when picking up this item.
 -------- NOTES --------
 The amount of time it takes for an item in the team to respawn is determined by the "wait" value of the item that was picked up previously. So if one of the items in the team has it's "wait" key set to -1 (never respawn), the random respawning cycle of the teamed items will stop after that item is picked up.
 
@@ -620,7 +633,7 @@ model="models/powerups/keys/keycard-b.md3"*/
 
 //=============================================================================
 
-/*QUAKED holdable_key_gold (.7 0 1) (-16 -16 -16) (16 16 16) SUSPENDED
+/*QUAKED holdable_key_gold (.7 0 1) (-16 -16 -16) (16 16 16) SUSPENDED SILENT
 Key can be picked up and used in conjunction with a trigger_lock to open doors, etc. It is possible to pick up more than one key at once.
 -------- KEYS --------
 wait : time in seconds before item respawns after being picked up (default 60, -1 = never respawn).
@@ -632,6 +645,7 @@ targetname : a target_give entity can point to this for respawn freebies.
 targetname2 : a target_give entity can point to this for respawn freebies.
 -------- SPAWNFLAGS --------
 SUSPENDED : item will spawn where it was placed in map and won't drop to the floor.
+SILENT : no sound will be played when picking up this item.
 -------- NOTES --------
 The amount of time it takes for an item in the team to respawn is determined by the "wait" value of the item that was picked up previously. So if one of the items in the team has it's "wait" key set to -1 (never respawn), the random respawning cycle of the teamed items will stop after that item is picked up.
 
@@ -641,7 +655,7 @@ model="models/powerups/keys/key_gold.md3"*/
 
 //=============================================================================
 
-/*QUAKED holdable_key_green (.7 0 1) (-16 -16 -16) (16 16 16) SUSPENDED
+/*QUAKED holdable_key_green (.7 0 1) (-16 -16 -16) (16 16 16) SUSPENDED SILENT
 Key can be picked up and used in conjunction with a trigger_lock to open doors, etc. It is possible to pick up more than one key at once.
 -------- KEYS --------
 wait : time in seconds before item respawns after being picked up (default 60, -1 = never respawn).
@@ -653,6 +667,7 @@ targetname : a target_give entity can point to this for respawn freebies.
 targetname2 : a target_give entity can point to this for respawn freebies.
 -------- SPAWNFLAGS --------
 SUSPENDED : item will spawn where it was placed in map and won't drop to the floor.
+SILENT : no sound will be played when picking up this item.
 -------- NOTES --------
 The amount of time it takes for an item in the team to respawn is determined by the "wait" value of the item that was picked up previously. So if one of the items in the team has it's "wait" key set to -1 (never respawn), the random respawning cycle of the teamed items will stop after that item is picked up.
 
@@ -662,7 +677,7 @@ model="models/powerups/keys/keycard-g.md3"*/
 
 //=============================================================================
 
-/*QUAKED holdable_key_iron (.7 0 1) (-16 -16 -16) (16 16 16) SUSPENDED
+/*QUAKED holdable_key_iron (.7 0 1) (-16 -16 -16) (16 16 16) SUSPENDED SILENT
 Key can be picked up and used in conjunction with a trigger_lock to open doors, etc. It is possible to pick up more than one key at once.
 -------- KEYS --------
 wait : time in seconds before item respawns after being picked up (default 60, -1 = never respawn).
@@ -674,6 +689,7 @@ targetname : a target_give entity can point to this for respawn freebies.
 targetname2 : a target_give entity can point to this for respawn freebies.
 -------- SPAWNFLAGS --------
 SUSPENDED : item will spawn where it was placed in map and won't drop to the floor.
+SILENT : no sound will be played when picking up this item.
 -------- NOTES --------
 The amount of time it takes for an item in the team to respawn is determined by the "wait" value of the item that was picked up previously. So if one of the items in the team has it's "wait" key set to -1 (never respawn), the random respawning cycle of the teamed items will stop after that item is picked up.
 
@@ -683,7 +699,7 @@ model="models/powerups/keys/key_iron.md3"*/
 
 //=============================================================================
 
-/*QUAKED holdable_key_master (.7 0 1) (-16 -16 -16) (16 16 16) SUSPENDED
+/*QUAKED holdable_key_master (.7 0 1) (-16 -16 -16) (16 16 16) SUSPENDED SILENT
 Key can be picked up and used in conjunction with a trigger_lock to open doors, etc. It is possible to pick up more than one key at once.
 -------- KEYS --------
 wait : time in seconds before item respawns after being picked up (default 60, -1 = never respawn).
@@ -695,6 +711,7 @@ targetname : a target_give entity can point to this for respawn freebies.
 targetname2 : a target_give entity can point to this for respawn freebies.
 -------- SPAWNFLAGS --------
 SUSPENDED : item will spawn where it was placed in map and won't drop to the floor.
+SILENT : no sound will be played when picking up this item.
 -------- NOTES --------
 The amount of time it takes for an item in the team to respawn is determined by the "wait" value of the item that was picked up previously. So if one of the items in the team has it's "wait" key set to -1 (never respawn), the random respawning cycle of the teamed items will stop after that item is picked up.
 
@@ -704,7 +721,7 @@ model="models/powerups/keys/key_master.md3"*/
 
 //=============================================================================
 
-/*QUAKED holdable_medkit (.7 0 1) (-16 -16 -16) (16 16 16) SUSPENDED
+/*QUAKED holdable_medkit (.7 0 1) (-16 -16 -16) (16 16 16) SUSPENDED SILENT
 Medkit that can be picked up and used later. Brings the player's health back to 100 when used. Player can only carry one holdable item at a time.
 -------- KEYS --------
 wait : time in seconds before item respawns after being picked up (default 60, -1 = never respawn).
@@ -716,6 +733,7 @@ targetname : a target_give entity can point to this for respawn freebies.
 targetname2 : a target_give entity can point to this for respawn freebies.
 -------- SPAWNFLAGS --------
 SUSPENDED : item will spawn where it was placed in map and won't drop to the floor.
+SILENT : no sound will be played when picking up this item.
 -------- NOTES --------
 The amount of time it takes for an item in the team to respawn is determined by the "wait" value of the item that was picked up previously. So if one of the items in the team has it's "wait" key set to -1 (never respawn), the random respawning cycle of the teamed items will stop after that item is picked up.
 
@@ -725,7 +743,7 @@ model="models/powerups/holdable/medkit.md3"*/
 
 //=============================================================================
 
-/*QUAKED holdable_key_red (.7 0 1) (-16 -16 -16) (16 16 16) SUSPENDED
+/*QUAKED holdable_key_red (.7 0 1) (-16 -16 -16) (16 16 16) SUSPENDED SILENT
 Key can be picked up and used in conjunction with a trigger_lock to open doors, etc. It is possible to pick up more than one key at once.
 -------- KEYS --------
 wait : time in seconds before item respawns after being picked up (default 60, -1 = never respawn).
@@ -737,6 +755,7 @@ targetname : a target_give entity can point to this for respawn freebies.
 targetname2 : a target_give entity can point to this for respawn freebies.
 -------- SPAWNFLAGS --------
 SUSPENDED : item will spawn where it was placed in map and won't drop to the floor.
+SILENT : no sound will be played when picking up this item.
 -------- NOTES --------
 The amount of time it takes for an item in the team to respawn is determined by the "wait" value of the item that was picked up previously. So if one of the items in the team has it's "wait" key set to -1 (never respawn), the random respawning cycle of the teamed items will stop after that item is picked up.
 
@@ -746,7 +765,7 @@ model="models/powerups/keys/keycard-r.md3"*/
 
 //=============================================================================
 
-/*QUAKED holdable_key_silver (.7 0 1) (-16 -16 -16) (16 16 16) SUSPENDED
+/*QUAKED holdable_key_silver (.7 0 1) (-16 -16 -16) (16 16 16) SUSPENDED SILENT
 Key can be picked up and used in conjunction with a trigger_lock to open doors, etc. It is possible to pick up more than one key at once.
 -------- KEYS --------
 wait : time in seconds before item respawns after being picked up (default 60, -1 = never respawn).
@@ -758,6 +777,7 @@ targetname : a target_give entity can point to this for respawn freebies.
 targetname2 : a target_give entity can point to this for respawn freebies.
 -------- SPAWNFLAGS --------
 SUSPENDED : item will spawn where it was placed in map and won't drop to the floor.
+SILENT : no sound will be played when picking up this item.
 -------- NOTES --------
 The amount of time it takes for an item in the team to respawn is determined by the "wait" value of the item that was picked up previously. So if one of the items in the team has it's "wait" key set to -1 (never respawn), the random respawning cycle of the teamed items will stop after that item is picked up.
 
@@ -767,7 +787,7 @@ model="models/powerups/keys/key_silver.md3"*/
 
 //=============================================================================
 
-/*QUAKED holdable_teleporter (.7 0 1) (-16 -16 -16) (16 16 16) SUSPENDED
+/*QUAKED holdable_teleporter (.7 0 1) (-16 -16 -16) (16 16 16) SUSPENDED SILENT
 Teleporter item that can be picked up and used later. Teleports the player to a random player spawn point when used. Player can only carry one holdable item at a time.
 -------- KEYS --------
 wait : time in seconds before item respawns after being picked up (default 60, -1 = never respawn).
@@ -780,6 +800,7 @@ targetname2 : a target_give entity can point to this for respawn freebies.
 teleportertarget : targeting a spawnpoint entity with this will force the item to teleport the player to this spawnpoint.
 -------- SPAWNFLAGS --------
 SUSPENDED : item will spawn where it was placed in map and won't drop to the floor.
+SILENT : no sound will be played when picking up this item.
 -------- NOTES --------
 The amount of time it takes for an item in the team to respawn is determined by the "wait" value of the item that was picked up previously. So if one of the items in the team has it's "wait" key set to -1 (never respawn), the random respawning cycle of the teamed items will stop after that item is picked up.
 
@@ -789,7 +810,7 @@ model="models/powerups/holdable/teleporter.md3"*/
 
 //=============================================================================
 
-/*QUAKED holdable_key_yellow (.7 0 1) (-16 -16 -16) (16 16 16) SUSPENDED
+/*QUAKED holdable_key_yellow (.7 0 1) (-16 -16 -16) (16 16 16) SUSPENDED SILENT
 Key can be picked up and used in conjunction with a trigger_lock to open doors, etc. It is possible to pick up more than one key at once.
 -------- KEYS --------
 wait : time in seconds before item respawns after being picked up (default 60, -1 = never respawn).
@@ -801,6 +822,7 @@ targetname : a target_give entity can point to this for respawn freebies.
 targetname2 : a target_give entity can point to this for respawn freebies.
 -------- SPAWNFLAGS --------
 SUSPENDED : item will spawn where it was placed in map and won't drop to the floor.
+SILENT : no sound will be played when picking up this item.
 -------- NOTES --------
 The amount of time it takes for an item in the team to respawn is determined by the "wait" value of the item that was picked up previously. So if one of the items in the team has it's "wait" key set to -1 (never respawn), the random respawning cycle of the teamed items will stop after that item is picked up.
 
@@ -911,7 +933,7 @@ ITEM_* ENTITIES
 
 //=============================================================================
 
-/*QUAKED item_armor_body (.6 0 0) (-16 -16 -16) (16 16 16) SUSPENDED
+/*QUAKED item_armor_body (.6 0 0) (-16 -16 -16) (16 16 16) SUSPENDED SILENT
 Red Armor - 100 points. All armor can be cumulated up to a maximum of 200 points and slowly wears out to 100 points.
 -------- KEYS --------
 wait : time in seconds before item respawns after being picked up (default 25, -1 = never respawn).
@@ -923,6 +945,7 @@ targetname : a target_give entity can point to this for respawn freebies.
 targetname2 : a target_give entity can point to this for respawn freebies.
 -------- SPAWNFLAGS --------
 SUSPENDED : item will spawn where it was placed in map and won't drop to the floor.
+SILENT : no sound will be played when picking up this item.
 -------- NOTES --------
 The amount of time it takes for an item in the team to respawn is determined by the "wait" value of the item that was picked up previously. So if one of the items in the team has it's "wait" key set to -1 (never respawn), the random respawning cycle of the teamed items will stop after that item is picked up.
 
@@ -932,7 +955,7 @@ model="models/powerups/armor/armor_red.md3"*/
 
 //=============================================================================
 
-/*QUAKED item_armor_combat (1 .75 .3) (-16 -16 -16) (16 16 16) SUSPENDED
+/*QUAKED item_armor_combat (1 .75 .3) (-16 -16 -16) (16 16 16) SUSPENDED SILENT
 Yellow Armor - 50 points. All armor can be cumulated up to a maximum of 200 points and slowly wears out to 100 points.
 -------- KEYS --------
 wait : time in seconds before item respawns after being picked up (default 25, -1 = never respawn).
@@ -944,6 +967,7 @@ targetname : a target_give entity can point to this for respawn freebies.
 targetname2 : a target_give entity can point to this for respawn freebies.
 -------- SPAWNFLAGS --------
 SUSPENDED : item will spawn where it was placed in map and won't drop to the floor.
+SILENT : no sound will be played when picking up this item.
 -------- NOTES --------
 The amount of time it takes for an item in the team to respawn is determined by the "wait" value of the item that was picked up previously. So if one of the items in the team has it's "wait" key set to -1 (never respawn), the random respawning cycle of the teamed items will stop after that item is picked up.
 
@@ -953,7 +977,7 @@ model="models/powerups/armor/armor_yel.md3"*/
 
 //=============================================================================
 
-/*QUAKED item_armor_vest (.18 1 .27) (-16 -16 -16) (16 16 16) SUSPENDED
+/*QUAKED item_armor_vest (.18 1 .27) (-16 -16 -16) (16 16 16) SUSPENDED SILENT
 Green Armor - 25 points. All armor can be cumulated up to a maximum of 200 points and slowly wears out to 100 points.
 -------- KEYS --------
 wait : time in seconds before item respawns after being picked up (default 25, -1 = never respawn).
@@ -965,6 +989,7 @@ targetname : a target_give entity can point to this for respawn freebies.
 targetname2 : a target_give entity can point to this for respawn freebies.
 -------- SPAWNFLAGS --------
 SUSPENDED : item will spawn where it was placed in map and won't drop to the floor.
+SILENT : no sound will be played when picking up this item.
 -------- NOTES --------
 The amount of time it takes for an item in the team to respawn is determined by the "wait" value of the item that was picked up previously. So if one of the items in the team has it's "wait" key set to -1 (never respawn), the random respawning cycle of the teamed items will stop after that item is picked up.
 
@@ -974,7 +999,7 @@ model="models/powerups/armor/armor_gre.md3"*/
 
 //=============================================================================
 
-/*QUAKED item_armor_shard (0 .7 0) (-16 -16 -16) (16 16 16) SUSPENDED
+/*QUAKED item_armor_shard (0 .7 0) (-16 -16 -16) (16 16 16) SUSPENDED SILENT
 Green Armor Shard - 5 points. All armor can be cumulated up to a maximum of 200 points and slowly wears out to 100 points.
 -------- KEYS --------
 wait : time in seconds before item respawns after being picked up (default 25, -1 = never respawn).
@@ -986,6 +1011,7 @@ targetname : a target_give entity can point to this for respawn freebies.
 targetname2 : a target_give entity can point to this for respawn freebies.
 -------- SPAWNFLAGS --------
 SUSPENDED : item will spawn where it was placed in map and won't drop to the floor.
+SILENT : no sound will be played when picking up this item.
 -------- NOTES --------
 The amount of time it takes for an item in the team to respawn is determined by the "wait" value of the item that was picked up previously. So if one of the items in the team has it's "wait" key set to -1 (never respawn), the random respawning cycle of the teamed items will stop after that item is picked up.
 
@@ -1006,7 +1032,7 @@ The item_botroam entity can be used when a bot does not roam the whole level or 
 
 //=============================================================================
 
-/*QUAKED item_enviro (.5 0 1) (-16 -16 -16) (16 16 16) SUSPENDED
+/*QUAKED item_enviro (.5 0 1) (-16 -16 -16) (16 16 16) SUSPENDED SILENT
 Battle Suit power-up - Gives protection against slime, lava and weapon splash damage. Lasts 30 seconds.
 -------- KEYS --------
 wait : time in seconds before item respawns after being picked up (default 120, -1 = never respawn).
@@ -1019,6 +1045,7 @@ targetname : a target_give entity can point to this for respawn freebies.
 targetname2 : a target_give entity can point to this for respawn freebies.
 -------- SPAWNFLAGS --------
 SUSPENDED : item will spawn where it was placed in map and won't drop to the floor.
+SILENT : no sound will be played when picking up this item.
 -------- NOTES --------
 The amount of time it takes for an item in the team to respawn is determined by the "wait" value of the item that was picked up previously. So if one of the items in the team has it's "wait" key set to -1 (never respawn), the random respawning cycle of the teamed items will stop after that item is picked up.
 
@@ -1028,7 +1055,7 @@ model="models/powerups/instant/enviro.md3"*/
 
 //=============================================================================
 
-/*QUAKED item_flight (.5 0 1) (-16 -16 -16) (16 16 16) SUSPENDED
+/*QUAKED item_flight (.5 0 1) (-16 -16 -16) (16 16 16) SUSPENDED SILENT
 Flight power-up. Lasts 60 seconds.
 -------- KEYS --------
 wait : time in seconds before item respawns after being picked up (default 120, -1 = never respawn).
@@ -1041,6 +1068,7 @@ targetname : a target_give entity can point to this for respawn freebies.
 targetname2 : a target_give entity can point to this for respawn freebies.
 -------- SPAWNFLAGS --------
 SUSPENDED : item will spawn where it was placed in map and won't drop to the floor.
+SILENT : no sound will be played when picking up this item.
 -------- NOTES --------
 The amount of time it takes for an item in the team to respawn is determined by the "wait" value of the item that was picked up previously. So if one of the items in the team has it's "wait" key set to -1 (never respawn), the random respawning cycle of the teamed items will stop after that item is picked up.
 
@@ -1050,7 +1078,7 @@ model="models/powerups/instant/flight.md3"*/
 
 //=============================================================================
 
-/*QUAKED item_haste (.5 0 1) (-16 -16 -16) (16 16 16) SUSPENDED
+/*QUAKED item_haste (.5 0 1) (-16 -16 -16) (16 16 16) SUSPENDED SILENT
 Speed power-up. Makes player run at double speed for 30 seconds.
 -------- KEYS --------
 wait : time in seconds before item respawns after being picked up (default 120, -1 = never respawn).
@@ -1063,6 +1091,7 @@ targetname : a target_give entity can point to this for respawn freebies.
 targetname2 : a target_give entity can point to this for respawn freebies.
 -------- SPAWNFLAGS --------
 SUSPENDED : item will spawn where it was placed in map and won't drop to the floor.
+SILENT : no sound will be played when picking up this item.
 -------- NOTES --------
 The amount of time it takes for an item in the team to respawn is determined by the "wait" value of the item that was picked up previously. So if one of the items in the team has it's "wait" key set to -1 (never respawn), the random respawning cycle of the teamed items will stop after that item is picked up.
 
@@ -1072,7 +1101,7 @@ model="models/powerups/instant/haste.md3"*/
 
 //=============================================================================
 
-/*QUAKED item_health (.8 .8 0) (-16 -16 -16) (16 16 16) SUSPENDED
+/*QUAKED item_health (.8 .8 0) (-16 -16 -16) (16 16 16) SUSPENDED SILENT
 Yellow cross bubble - 25 Health. Cannot be picked up over 100 health.
 -------- KEYS --------
 wait : time in seconds before item respawns after being picked up (default 35, -1 = never respawn).
@@ -1083,6 +1112,7 @@ target : picking up the item will trigger the entity this points to.
 target2 : picking up the item will trigger the entity this points to.
 -------- SPAWNFLAGS --------
 SUSPENDED : item will spawn where it was placed in map and won't drop to the floor.
+SILENT : no sound will be played when picking up this item.
 -------- NOTES --------
 The amount of time it takes for an item in the team to respawn is determined by the "wait" value of the item that was picked up previously. So if one of the items in the team has it's "wait" key set to -1 (never respawn), the random respawning cycle of the teamed items will stop after that item is picked up.
 
@@ -1092,7 +1122,7 @@ model="models/powerups/health/medium_cross.md3"*/
 
 //=============================================================================
 
-/*QUAKED item_health_large (1 0 0) (-16 -16 -16) (16 16 16) SUSPENDED
+/*QUAKED item_health_large (1 0 0) (-16 -16 -16) (16 16 16) SUSPENDED SILENT
 Gold cross bubble - 50 Health. Cannot be picked up over 100 health.
 -------- KEYS --------
 wait : time in seconds before item respawns after being picked up (default 35, -1 = never respawn).
@@ -1103,6 +1133,7 @@ target : picking up the item will trigger the entity this points to.
 target2 : picking up the item will trigger the entity this points to.
 -------- SPAWNFLAGS --------
 SUSPENDED : item will spawn where it was placed in map and won't drop to the floor.
+SILENT : no sound will be played when picking up this item.
 -------- NOTES --------
 The amount of time it takes for an item in the team to respawn is determined by the "wait" value of the item that was picked up previously. So if one of the items in the team has it's "wait" key set to -1 (never respawn), the random respawning cycle of the teamed items will stop after that item is picked up.
 
@@ -1112,7 +1143,7 @@ model="models/powerups/health/large_cross.md3"*/
 
 //=============================================================================
 
-/*QUAKED item_health_mega (0 0 1) (-16 -16 -16) (16 16 16) SUSPENDED
+/*QUAKED item_health_mega (0 0 1) (-16 -16 -16) (16 16 16) SUSPENDED SILENT
 Blue M bubble - 100 Health. Adds 100 health points to current health up to a maximum of 200.
 -------- KEYS --------
 wait : time in seconds before item respawns after being picked up (default 40, -1 = never respawn).
@@ -1125,6 +1156,7 @@ targetname : a target_give entity can point to this for respawn freebies.
 targetname2 : a target_give entity can point to this for respawn freebies.
 -------- SPAWNFLAGS --------
 SUSPENDED : item will spawn where it was placed in map and won't drop to the floor.
+SILENT : no sound will be played when picking up this item.
 -------- NOTES --------
 The amount of time it takes for an item in the team to respawn is determined by the "wait" value of the item that was picked up previously. So if one of the items in the team has it's "wait" key set to -1 (never respawn), the random respawning cycle of the teamed items will stop after that item is picked up.
 
@@ -1134,7 +1166,7 @@ model="models/powerups/health/mega_cross.md3"*/
 
 //=============================================================================
 
-/*QUAKED item_health_small (0 1 0) (-16 -16 -16) (16 16 16) SUSPENDED
+/*QUAKED item_health_small (0 1 0) (-16 -16 -16) (16 16 16) SUSPENDED SILENT
 Green cross bubble - 5 Health. Can be picked up over 100 health but slowly wears out to 100 afterwards.
 -------- KEYS --------
 wait : time in seconds before item respawns after being picked up (default 35, -1 = never respawn).
@@ -1147,6 +1179,7 @@ targetname : a target_give entity can point to this for respawn freebies.
 targetname2 : a target_give entity can point to this for respawn freebies.
 -------- SPAWNFLAGS --------
 SUSPENDED : item will spawn where it was placed in map and won't drop to the floor.
+SILENT : no sound will be played when picking up this item.
 -------- NOTES --------
 The amount of time it takes for an item in the team to respawn is determined by the "wait" value of the item that was picked up previously. So if one of the items in the team has it's "wait" key set to -1 (never respawn), the random respawning cycle of the teamed items will stop after that item is picked up.
 
@@ -1156,7 +1189,7 @@ model="models/powerups/health/small_cross.md3"*/
 
 //=============================================================================
 
-/*QUAKED item_invis (.5 0 1) (-16 -16 -16) (16 16 16) SUSPENDED
+/*QUAKED item_invis (.5 0 1) (-16 -16 -16) (16 16 16) SUSPENDED SILENT
 Invisibility power-up. Lasts 30 seconds.
 -------- KEYS --------
 wait : time in seconds before item respawns after being picked up (default 120, -1 = never respawn).
@@ -1169,6 +1202,7 @@ targetname : a target_give entity can point to this for respawn freebies.
 targetname2 : a target_give entity can point to this for respawn freebies.
 -------- SPAWNFLAGS --------
 SUSPENDED : item will spawn where it was placed in map and won't drop to the floor.
+SILENT : no sound will be played when picking up this item.
 -------- NOTES --------
 The amount of time it takes for an item in the team to respawn is determined by the "wait" value of the item that was picked up previously. So if one of the items in the team has it's "wait" key set to -1 (never respawn), the random respawning cycle of the teamed items will stop after that item is picked up.
 
@@ -1178,7 +1212,7 @@ model="models/powerups/instant/invis.md3"*/
 
 //=============================================================================
 
-/*QUAKED item_quad (.4 .6 1) (-16 -16 -16) (16 16 16) SUSPENDED
+/*QUAKED item_quad (.4 .6 1) (-16 -16 -16) (16 16 16) SUSPENDED SILENT
 Quad Damage power-up. Lasts 30 seconds.
 -------- KEYS --------
 wait : time in seconds before item respawns after being picked up (default 120, -1 = never respawn).
@@ -1191,6 +1225,7 @@ targetname : a target_give entity can point to this for respawn freebies.
 targetname2 : a target_give entity can point to this for respawn freebies.
 -------- SPAWNFLAGS --------
 SUSPENDED : item will spawn where it was placed in map and won't drop to the floor.
+SILENT : no sound will be played when picking up this item.
 -------- NOTES --------
 The amount of time it takes for an item in the team to respawn is determined by the "wait" value of the item that was picked up previously. So if one of the items in the team has it's "wait" key set to -1 (never respawn), the random respawning cycle of the teamed items will stop after that item is picked up.
 
@@ -1199,7 +1234,7 @@ model="models/powerups/instant/quad.md3"*/
 
 //=============================================================================
 
-/*QUAKED item_regen (.5 0 1) (-16 -16 -16) (16 16 16) SUSPENDED
+/*QUAKED item_regen (.5 0 1) (-16 -16 -16) (16 16 16) SUSPENDED SILENT
 Health Regeneration power-up. This will boost your current health by 5 points every second for a period of up to 30 seconds or up to 200 points whichever comes first. Afterwards, any health points over 100 slowly wears out to 100.
 -------- KEYS --------
 wait : time in seconds before item respawns after being picked up (default 120, -1 = never respawn).
@@ -1212,6 +1247,7 @@ targetname : a target_give entity can point to this for respawn freebies.
 targetname2 : a target_give entity can point to this for respawn freebies.
 -------- SPAWNFLAGS --------
 SUSPENDED : item will spawn where it was placed in map and won't drop to the floor.
+SILENT : no sound will be played when picking up this item.
 -------- NOTES --------
 The amount of time it takes for an item in the team to respawn is determined by the "wait" value of the item that was picked up previously. So if one of the items in the team has it's "wait" key set to -1 (never respawn), the random respawning cycle of the teamed items will stop after that item is picked up.
 
@@ -1974,7 +2010,7 @@ WEAPON_* ENTITIES
 
 //=============================================================================
 
-/*QUAKED weapon_bfg (1 0 .5) (-16 -16 -16) (16 16 16) SUSPENDED
+/*QUAKED weapon_bfg (1 0 .5) (-16 -16 -16) (16 16 16) SUSPENDED SILENT
 Big Freaking Gun.
 -------- KEYS --------
 wait : time in seconds before item respawns after being picked up (default 5, -1 = never respawn).
@@ -1987,6 +2023,7 @@ targetname : a target_give entity can point to this for respawn freebies.
 targetname2 : a target_give entity can point to this for respawn freebies.
 -------- SPAWNFLAGS --------
 SUSPENDED : item will spawn where it was placed in map and won't drop to the floor.
+SILENT : no sound will be played when picking up this item.
 -------- NOTES --------
 The amount of time it takes for an item in the team to respawn is determined by the "wait" value of the item that was picked up previously. So if one of the items in the team has it's "wait" key set to -1 (never respawn), the random respawning cycle of the teamed items will stop after that item is picked up.
 
@@ -1996,7 +2033,7 @@ model="models/weapons2/bfg/bfg.md3"*/
 
 //=============================================================================
 
-/*QUAKED weapon_gauntlet (1 0 .5) (-16 -16 -16) (16 16 16) SUSPENDED
+/*QUAKED weapon_gauntlet (1 0 .5) (-16 -16 -16) (16 16 16) SUSPENDED SILENT
 Gauntlet.
 -------- KEYS --------
 wait : time in seconds before item respawns after being picked up (default 5, -1 = never respawn).
@@ -2008,6 +2045,7 @@ targetname : a target_give entity can point to this for respawn freebies.
 targetname2 : a target_give entity can point to this for respawn freebies.
 -------- SPAWNFLAGS --------
 SUSPENDED : item will spawn where it was placed in map and won't drop to the floor.
+SILENT : no sound will be played when picking up this item.
 -------- NOTES --------
 The amount of time it takes for an item in the team to respawn is determined by the "wait" value of the item that was picked up previously. So if one of the items in the team has it's "wait" key set to -1 (never respawn), the random respawning cycle of the teamed items will stop after that item is picked up.
 
@@ -2016,29 +2054,30 @@ When the random key is set, its value is used to calculate a minimum and a maxim
 model="models/weapons2/gauntlet/gauntlet.md3"*/
 
 //=============================================================================
-
-/*QUAKED weapon_grapplinghook (1 0 .5) (-16 -16 -16) (16 16 16) SUSPENDED
-Grappling Hook. Spawns in the game and works but is unskinned.
--------- KEYS --------
-wait : time in seconds before item respawns after being picked up (default 5, -1 = never respawn).
-random : random time variance in seconds added or subtracted from "wait" delay (default 0 - see Notes).
-team : set this to team items. Teamed items will respawn randomly after team master is picked up (see Notes).
-target : picking up the item will trigger the entity this points to.
-target2 : picking up the item will trigger the entity this points to.
-targetname : a target_give entity can point to this for respawn freebies.
-targetname2 : a target_give entity can point to this for respawn freebies.
--------- SPAWNFLAGS --------
-SUSPENDED : item will spawn where it was placed in map and won't drop to the floor.
--------- NOTES --------
-The amount of time it takes for an item in the team to respawn is determined by the "wait" value of the item that was picked up previously. So if one of the items in the team has it's "wait" key set to -1 (never respawn), the random respawning cycle of the teamed items will stop after that item is picked up.
-
-When the random key is set, its value is used to calculate a minimum and a maximum delay. The final time delay will be a random value anywhere between the minimum and maximum values: (min delay = wait - random) (max delay = wait + random).
--------- MODEL FOR RADIANT ONLY - DO NOT SET THIS AS A KEY --------
-model="models/weapons2/grapple/grapple.md3"*/
-
+//
+///*QUAKED weapon_grapplinghook (1 0 .5) (-16 -16 -16) (16 16 16) SUSPENDED SILENT
+//Grappling Hook. Spawns in the game and works but is unskinned.
+//-------- KEYS --------
+//wait : time in seconds before item respawns after being picked up (default 5, -1 = never respawn).
+//random : random time variance in seconds added or subtracted from "wait" delay (default 0 - see Notes).
+//team : set this to team items. Teamed items will respawn randomly after team master is picked up (see Notes).
+//target : picking up the item will trigger the entity this points to.
+//target2 : picking up the item will trigger the entity this points to.
+//targetname : a target_give entity can point to this for respawn freebies.
+//targetname2 : a target_give entity can point to this for respawn freebies.
+//-------- SPAWNFLAGS --------
+//SUSPENDED : item will spawn where it was placed in map and won't drop to the floor.
+//SILENT : no sound will be played when picking up this item.
+//-------- NOTES --------
+//The amount of time it takes for an item in the team to respawn is determined by the "wait" value of the item that was picked up previously. So if one of the items in the team has it's "wait" key set to -1 (never respawn), the random respawning cycle of the teamed items will stop after that item is picked up.
+//
+//When the random key is set, its value is used to calculate a minimum and a maximum delay. The final time delay will be a random value anywhere between the minimum and maximum values: (min delay = wait - random) (max delay = wait + random).
+//-------- MODEL FOR RADIANT ONLY - DO NOT SET THIS AS A KEY --------
+//model="models/weapons2/grapple/grapple.md3"*/
+//
 //=============================================================================
 
-/*QUAKED weapon_grenadelauncher (1 0 .5) (-16 -16 -16) (16 16 16) SUSPENDED
+/*QUAKED weapon_grenadelauncher (1 0 .5) (-16 -16 -16) (16 16 16) SUSPENDED SILENT
 Grenade Launcher.
 -------- KEYS --------
 wait : time in seconds before item respawns after being picked up (default 5, -1 = never respawn).
@@ -2051,6 +2090,7 @@ targetname : a target_give entity can point to this for respawn freebies.
 targetname2 : a target_give entity can point to this for respawn freebies.
 -------- SPAWNFLAGS --------
 SUSPENDED : item will spawn where it was placed in map and won't drop to the floor.
+SILENT : no sound will be played when picking up this item.
 -------- NOTES --------
 The amount of time it takes for an item in the team to respawn is determined by the "wait" value of the item that was picked up previously. So if one of the items in the team has it's "wait" key set to -1 (never respawn), the random respawning cycle of the teamed items will stop after that item is picked up.
 
@@ -2060,7 +2100,7 @@ model="models/weapons2/grenadel/grenadel.md3"*/
 
 //=============================================================================
 
-/*QUAKED weapon_lightning (1 0 .5) (-16 -16 -16) (16 16 16) SUSPENDED
+/*QUAKED weapon_lightning (1 0 .5) (-16 -16 -16) (16 16 16) SUSPENDED SILENT
 Lightning Gun.
 -------- KEYS --------
 wait : time in seconds before item respawns after being picked up (default 5, -1 = never respawn).
@@ -2073,6 +2113,7 @@ targetname : a target_give entity can point to this for respawn freebies.
 targetname2 : a target_give entity can point to this for respawn freebies.
 -------- SPAWNFLAGS --------
 SUSPENDED : item will spawn where it was placed in map and won't drop to the floor.
+SILENT : no sound will be played when picking up this item.
 -------- NOTES --------
 The amount of time it takes for an item in the team to respawn is determined by the "wait" value of the item that was picked up previously. So if one of the items in the team has it's "wait" key set to -1 (never respawn), the random respawning cycle of the teamed items will stop after that item is picked up.
 
@@ -2082,7 +2123,7 @@ model="models\weapons2\lightning\lightning.md3"*/
 
 //=============================================================================
 
-/*QUAKED weapon_machinegun (1 0 .5) (-16 -16 -16) (16 16 16) SUSPENDED
+/*QUAKED weapon_machinegun (1 0 .5) (-16 -16 -16) (16 16 16) SUSPENDED SILENT
 Machine Gun.
 -------- KEYS --------
 wait : time in seconds before item respawns after being picked up (default 5, -1 = never respawn).
@@ -2095,6 +2136,7 @@ targetname : a target_give entity can point to this for respawn freebies.
 targetname2 : a target_give entity can point to this for respawn freebies.
 -------- SPAWNFLAGS --------
 SUSPENDED : item will spawn where it was placed in map and won't drop to the floor.
+SILENT : no sound will be played when picking up this item.
 -------- NOTES --------
 The amount of time it takes for an item in the team to respawn is determined by the "wait" value of the item that was picked up previously. So if one of the items in the team has it's "wait" key set to -1 (never respawn), the random respawning cycle of the teamed items will stop after that item is picked up.
 
@@ -2104,7 +2146,7 @@ model="models\weapons2\machinegun\machinegun.md3"*/
 
 //=============================================================================
 
-/*QUAKED weapon_plasmagun (1 0 .5) (-16 -16 -16) (16 16 16) SUSPENDED
+/*QUAKED weapon_plasmagun (1 0 .5) (-16 -16 -16) (16 16 16) SUSPENDED SILENT
 Plasma gun.
 -------- KEYS --------
 wait : time in seconds before item respawns after being picked up (default 5, -1 = never respawn).
@@ -2117,6 +2159,7 @@ targetname : a target_give entity can point to this for respawn freebies.
 targetname2 : a target_give entity can point to this for respawn freebies.
 -------- SPAWNFLAGS --------
 SUSPENDED : item will spawn where it was placed in map and won't drop to the floor.
+SILENT : no sound will be played when picking up this item.
 -------- NOTES --------
 The amount of time it takes for an item in the team to respawn is determined by the "wait" value of the item that was picked up previously. So if one of the items in the team has it's "wait" key set to -1 (never respawn), the random respawning cycle of the teamed items will stop after that item is picked up.
 
@@ -2126,7 +2169,7 @@ model="models/weapons2/plasma/plasma.md3"*/
 
 //=============================================================================
 
-/*QUAKED weapon_railgun (1 0 .5) (-16 -16 -16) (16 16 16) SUSPENDED
+/*QUAKED weapon_railgun (1 0 .5) (-16 -16 -16) (16 16 16) SUSPENDED SILENT
 Railgun.
 -------- KEYS --------
 wait : time in seconds before item respawns after being picked up (default 5, -1 = never respawn).
@@ -2139,6 +2182,7 @@ targetname : a target_give entity can point to this for respawn freebies.
 targetname2 : a target_give entity can point to this for respawn freebies.
 -------- SPAWNFLAGS --------
 SUSPENDED : item will spawn where it was placed in map and won't drop to the floor.
+SILENT : no sound will be played when picking up this item.
 -------- NOTES --------
 The amount of time it takes for an item in the team to respawn is determined by the "wait" value of the item that was picked up previously. So if one of the items in the team has it's "wait" key set to -1 (never respawn), the random respawning cycle of the teamed items will stop after that item is picked up.
 
@@ -2148,7 +2192,7 @@ model="models/weapons2/railgun/railgun.md3"*/
 
 //=============================================================================
 
-/*QUAKED weapon_rocketlauncher (1 0 .5) (-16 -16 -16) (16 16 16) SUSPENDED
+/*QUAKED weapon_rocketlauncher (1 0 .5) (-16 -16 -16) (16 16 16) SUSPENDED SILENT
 Rocket Launcher.
 -------- KEYS --------
 wait : time in seconds before item respawns after being picked up (default 5, -1 = never respawn).
@@ -2161,6 +2205,7 @@ targetname : a target_give entity can point to this for respawn freebies.
 targetname2 : a target_give entity can point to this for respawn freebies.
 -------- SPAWNFLAGS --------
 SUSPENDED : item will spawn where it was placed in map and won't drop to the floor.
+SILENT : no sound will be played when picking up this item.
 -------- NOTES --------
 The amount of time it takes for an item in the team to respawn is determined by the "wait" value of the item that was picked up previously. So if one of the items in the team has it's "wait" key set to -1 (never respawn), the random respawning cycle of the teamed items will stop after that item is picked up.
 
@@ -2170,7 +2215,7 @@ model="models/weapons2/rocketl/rocketl.md3"*/
 
 //=============================================================================
 
-/*QUAKED weapon_shotgun (1 0 .5) (-16 -16 -16) (16 16 16) SUSPENDED
+/*QUAKED weapon_shotgun (1 0 .5) (-16 -16 -16) (16 16 16) SUSPENDED SILENT
 Shotgun.
 -------- KEYS --------
 wait : time in seconds before item respawns after being picked up (default 5, -1 = never respawn).
@@ -2183,6 +2228,7 @@ targetname : a target_give entity can point to this for respawn freebies.
 targetname2 : a target_give entity can point to this for respawn freebies.
 -------- SPAWNFLAGS --------
 SUSPENDED : item will spawn where it was placed in map and won't drop to the floor.
+SILENT : no sound will be played when picking up this item.
 -------- NOTES --------
 The amount of time it takes for an item in the team to respawn is determined by the "wait" value of the item that was picked up previously. So if one of the items in the team has it's "wait" key set to -1 (never respawn), the random respawning cycle of the teamed items will stop after that item is picked up.
 
