@@ -203,7 +203,7 @@ static cvarTable_t cvarTable[] = { // bk001129
 	{ &cg_draw2D, "cg_draw2D", "1", CVAR_ARCHIVE  },
 	{ &cg_drawStatus, "cg_drawStatus", "1", CVAR_ARCHIVE  },
 	{ &cg_drawHoldableItems, "cg_drawHoldableItems", "1", CVAR_ARCHIVE  },
-	{ &cg_drawTimer, "cg_drawTimer", "0", CVAR_ARCHIVE  },
+	{ &cg_drawTimer, "cg_drawTimer", "0", CVAR_ARCHIVE | CVAR_CHEAT },
 	{ &cg_drawFPS, "cg_drawFPS", "0", CVAR_ARCHIVE  },
 	{ &cg_drawSnapshot, "cg_drawSnapshot", "0", CVAR_ARCHIVE  },
 	{ &cg_draw3dIcons, "cg_draw3dIcons", "1", CVAR_ARCHIVE  },
