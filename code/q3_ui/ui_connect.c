@@ -156,108 +156,19 @@ to prevent it from blinking away too rapidly on local or lan games.
 ========================
 */
 void UI_DrawConnectScreen( qboolean overlay ) {
+	int strWidth;
 	uiClientState_t	cstate;
+	
+	strWidth = strlen("Loading...") * 8;
 
-	UI_DrawString( 8, 8, "Loading...", UI_SMALLFONT, color_white );
 	UI_SetColor( color_white );
 	UI_DrawHandlePic( 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, uis.menuBackNoLogoShader );
+	UI_DrawString( (SCREEN_WIDTH - strWidth) - 16, SCREEN_HEIGHT - 32, "Loading...", UI_SMALLFONT, color_white );
 
 	trap_GetClientState( &cstate );
 	if ( cstate.connState < CA_CONNECTED ) {
 		UI_DrawProportionalString_AutoWrapped( 320, 192, 630, 20, cstate.messageString, UI_CENTER|UI_SMALLFONT|UI_DROPSHADOW, menu_text_color );
 	}
-/*
-	char			*s;
-	uiClientState_t	cstate;
-	char			info[MAX_INFO_VALUE];
-
-	Menu_Cache();
-
-	if ( !overlay ) {
-		// draw the dialog background
-		UI_SetColor( color_white );
-		UI_DrawHandlePic( 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, uis.menuBackShader );
-	}
-
-	// see what information we should display
-	trap_GetClientState( &cstate );
-
-	info[0] = '\0';
-	if( trap_GetConfigString( CS_SERVERINFO, info, sizeof(info) ) ) {
-		UI_DrawProportionalString( 320, 16, va( "Loading %s", Info_ValueForKey( info, "mapname" ) ), UI_BIGFONT|UI_CENTER|UI_DROPSHADOW, color_white );
-	}
-
-	UI_DrawProportionalString( 320, 64, va("Connecting to %s", cstate.servername), UI_CENTER|UI_SMALLFONT|UI_DROPSHADOW, menu_text_color );
-	//UI_DrawProportionalString( 320, 96, "Press Esc to abort", UI_CENTER|UI_SMALLFONT|UI_DROPSHADOW, menu_text_color );
-
-	// display global MOTD at bottom
-	UI_DrawProportionalString( SCREEN_WIDTH/2, SCREEN_HEIGHT-32, 
-		Info_ValueForKey( cstate.updateInfoString, "motd" ), UI_CENTER|UI_SMALLFONT|UI_DROPSHADOW, menu_text_color );
-	
-	// print any server info (server full, bad version, etc)
-	if ( cstate.connState < CA_CONNECTED ) {
-		UI_DrawProportionalString_AutoWrapped( 320, 192, 630, 20, cstate.messageString, UI_CENTER|UI_SMALLFONT|UI_DROPSHADOW, menu_text_color );
-	}
-
-#if 0
-	// display password field
-	if ( passwordNeeded ) {
-		s_ingame_menu.x = SCREEN_WIDTH * 0.50 - 128;
-		s_ingame_menu.nitems = 0;
-		s_ingame_menu.wrapAround = qtrue;
-
-		passwordField.generic.type = MTYPE_FIELD;
-		passwordField.generic.name = "Password:";
-		passwordField.generic.callback = 0;
-		passwordField.generic.x		= 10;
-		passwordField.generic.y		= 180;
-		Field_Clear( &passwordField.field );
-		passwordField.width = 256;
-		passwordField.field.widthInChars = 16;
-		Q_strncpyz( passwordField.field.buffer, Cvar_VariableString("password"), 
-			sizeof(passwordField.field.buffer) );
-
-		Menu_AddItem( &s_ingame_menu, ( void * ) &s_customize_player_action );
-
-		MField_Draw( &passwordField );
-	}
-#endif
-
-	if ( lastConnState > cstate.connState ) {
-		lastLoadingText[0] = '\0';
-	}
-	lastConnState = cstate.connState;
-
-	switch ( cstate.connState ) {
-	case CA_CONNECTING:
-		s = va("Awaiting challenge...%i", cstate.connectPacketCount);
-		break;
-	case CA_CHALLENGING:
-		s = va("Awaiting connection...%i", cstate.connectPacketCount);
-		break;
-	case CA_CONNECTED: {
-		char downloadName[MAX_INFO_VALUE];
-
-			trap_Cvar_VariableStringBuffer( "cl_downloadName", downloadName, sizeof(downloadName) );
-			if (*downloadName) {
-				UI_DisplayDownloadInfo( downloadName );
-				return;
-			}
-		}
-		s = "Awaiting gamestate...";
-		break;
-	case CA_LOADING:
-		return;
-	case CA_PRIMED:
-		return;
-	default:
-		return;
-	}
-
-	UI_DrawProportionalString( 320, 128, s, UI_CENTER|UI_SMALLFONT|UI_DROPSHADOW, color_white );
-
-	// password required / connection rejected information goes here
-*/
 }
 
 
