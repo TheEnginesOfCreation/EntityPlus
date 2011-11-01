@@ -117,25 +117,6 @@ void CG_LoadingClient( int clientNum ) {
 	CG_LoadingString( personality );
 }
 
-void CG_DrawEntityPlusInformation( void ) {
-	int n, x;
-	vec4_t color;
-
-	color[0] = 0;
-	color[1] = 0;
-	color[2] = 0;
-	color[3] = 1;
-
-	//clear the screen
-	CG_FillRect(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, color);
-
-	//draw the progress bar
-	color[0] = 1;
-	for( n = 0; n < loadingPlayerIconCount + loadingItemIconCount; n++ ) {
-		CG_FillRect(8 + (n * 10), SMALLCHAR_HEIGHT + 10, 10, 10, color);
-	}
-}
-
 /*
 ====================
 CG_DrawInformation
@@ -154,7 +135,6 @@ void CG_DrawInformation( void ) {
 	char		buf[1024];
 
 	if ( cgs.gametype == GT_ENTITYPLUS ) {
-		CG_DrawEntityPlusInformation();	//in Entityplus gametype, show specialized loading screen
 		return;
 	}
 	
