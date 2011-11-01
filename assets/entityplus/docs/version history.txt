@@ -16,6 +16,7 @@ v1.1 (?? ??? 2011)
 	- [Added] g_debugBotspawns cvar.
 	- [Added] Support for longname, author and description through arena files.
 	- [Changed] Bodies of dead bots stay slightly longer before disappearing.
+	- [Changed] Increased max ammo amount for all weapons from 200 to 999.
 	- [Changed] "setviewpos" console command no longer applies teleporter kick and allows setting of pitch, yaw and roll as well.
 	- [Changed] g_listEntity is now cheat protected, accepts a value of 2 to only list in-use entity slots and prints out in-use entity count.
 	- [Changed] Allowed the use of cg_drawTimer again when cheats are enabled. Timer also displays milliseconds.
