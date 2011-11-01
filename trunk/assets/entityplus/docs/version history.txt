@@ -15,6 +15,7 @@ v1.1 (?? ??? 2011)
 	- [Added] g_debugVariables cvar.
 	- [Added] g_debugBotspawns cvar.
 	- [Added] Support for longname, author and description through arena files.
+	- [Added] "Loading..." text is displayed when map is loading.
 	- [Changed] Bodies of dead bots stay slightly longer before disappearing.
 	- [Changed] Increased max ammo amount for all weapons from 200 to 999.
 	- [Changed] "setviewpos" console command no longer applies teleporter kick and allows setting of pitch, yaw and roll as well.
