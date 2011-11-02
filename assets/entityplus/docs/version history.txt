@@ -21,6 +21,7 @@ v1.1 (?? ??? 2011)
 	- [Changed] "setviewpos" console command no longer applies teleporter kick and allows setting of pitch, yaw and roll as well.
 	- [Changed] g_listEntity is now cheat protected, accepts a value of 2 to only list in-use entity slots and prints out in-use entity count.
 	- [Changed] Allowed the use of cg_drawTimer again when cheats are enabled. Timer also displays milliseconds.
+	- [Changed] Objectives text in objectives overlay automatically wraps to next line without breaking words.
 
 v1.0.2 (19 oct 2011)
 	- [Fixed] Game stops responding when spawning a bot whose waypoints are all inside solids or unreachable.

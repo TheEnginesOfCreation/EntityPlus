@@ -52,7 +52,6 @@
 
 static qboolean localClient; // true if local client has been displayed
 
-
 							 /*
 =================
 CG_DrawScoreboard
@@ -375,6 +374,14 @@ qboolean CG_DrawSinglePlayerObjectives( void ) {
 	const char *s;
 	vec4_t color, color_black;
 	int i, objlen, score;
+	/**/
+	char lines[5][60];
+	int spaceIndex, prevSpaceIndex = 0;
+	int currentLine = 0;
+	int lineIndex = 0;
+	char c[2];
+	qboolean tooLong = qfalse;
+	
 
 	if ( !cg.showScores )
 		return qfalse;
@@ -399,22 +406,86 @@ qboolean CG_DrawSinglePlayerObjectives( void ) {
 	
 	//draw primary objective
 	objlen = strlen(p);
-	for (i = 0; i < 5; i++) {
-		if ( objlen < (i * 60) + 1)
-			break;
-		
-		CG_DrawSmallStringColor( 82, 146 + (SMALLCHAR_HEIGHT * i), va("%.60s", &p[i * 60]), color_black);
-		CG_DrawSmallStringColor( 80, 144 + (SMALLCHAR_HEIGHT * i), va("%.60s", &p[i * 60]), color);
+
+	for ( i = 0; i < objlen; i++) {
+		c[0] = p[i];
+		c[1] = '\0';
+
+		if ( c[0] == ' ' ) {
+			spaceIndex = i;
+		}
+
+		if (lineIndex == 60) {
+			if (spaceIndex - prevSpaceIndex <= 0) {
+				strcat(lines[currentLine-1], &p[prevSpaceIndex-1]);
+				break;
+			} else {
+				Q_strncpyz(lines[currentLine], &p[prevSpaceIndex], (spaceIndex - prevSpaceIndex) + 1);
+				CG_DrawSmallStringColor( 82, 146 + (SMALLCHAR_HEIGHT * currentLine), lines[currentLine], color_black);
+				CG_DrawSmallStringColor( 80, 144 + (SMALLCHAR_HEIGHT * currentLine), lines[currentLine], color);
+			}
+			prevSpaceIndex = spaceIndex;
+			prevSpaceIndex++;
+			i = spaceIndex;
+			lineIndex = -1;
+			currentLine++;
+			if (currentLine == 5)
+			{
+				tooLong = qtrue;
+				break;
+			}
+		}
+		lineIndex++;
 	}
 
+	if ( !tooLong ) {
+		CG_DrawSmallStringColor( 82, 146 + (SMALLCHAR_HEIGHT * currentLine), va("%s", &p[prevSpaceIndex]), color_black);
+		CG_DrawSmallStringColor( 80, 144 + (SMALLCHAR_HEIGHT * currentLine), va("%s", &p[prevSpaceIndex]), color);
+	}
+
+	
 	//draw secondary objective
+	spaceIndex = 0;
+	prevSpaceIndex = 0;
+	lineIndex = 0;
+	currentLine = 0;
+	tooLong = qfalse;
+
 	objlen = strlen(s);
-	for (i = 0; i < 4; i++) {
-		if ( objlen < (i * 60) + 1)
-			break;
-		
-		CG_DrawSmallStringColor( 82, 266 + (SMALLCHAR_HEIGHT * i), va("%.60s", &s[i * 60]), color_black);
-		CG_DrawSmallStringColor( 80, 264 + (SMALLCHAR_HEIGHT * i), va("%.60s", &s[i * 60]), color);
+
+	for ( i = 0; i < objlen; i++) {
+		c[0] = s[i];
+		c[1] = '\0';
+
+		if ( c[0] == ' ' ) {
+			spaceIndex = i;
+		}
+
+		if (lineIndex == 60) {
+			if (spaceIndex - prevSpaceIndex <= 0) {
+				strcat(lines[currentLine-1], &s[prevSpaceIndex-1]);
+				break;
+			} else {
+				Q_strncpyz(lines[currentLine], &s[prevSpaceIndex], (spaceIndex - prevSpaceIndex) + 1);
+				CG_DrawSmallStringColor( 82, 266 + (SMALLCHAR_HEIGHT * currentLine), lines[currentLine], color_black);
+				CG_DrawSmallStringColor( 80, 264 + (SMALLCHAR_HEIGHT * currentLine), lines[currentLine], color);
+			}
+			prevSpaceIndex = spaceIndex;
+			prevSpaceIndex++;
+			i = spaceIndex;
+			lineIndex = -1;
+			currentLine++;
+			if (currentLine == 4) {
+				tooLong = qtrue;
+				break;
+			}
+		}
+		lineIndex++;
+	}
+
+	if ( !tooLong ) {
+		CG_DrawSmallStringColor( 82, 266 + (SMALLCHAR_HEIGHT * currentLine), va("%s", &s[prevSpaceIndex]), color_black);
+		CG_DrawSmallStringColor( 80, 264 + (SMALLCHAR_HEIGHT * currentLine), va("%s", &s[prevSpaceIndex]), color);
 	}
 
 	//draw deaths counter
