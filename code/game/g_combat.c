@@ -857,7 +857,7 @@ void G_Damage( gentity_t *targ, gentity_t *inflictor, gentity_t *attacker,
 		return;
 
 	//if attacker is shooter which was configured not to harm target, do nothing
-	if ( strstr(attacker->classname, "shooter_" )) {
+	if ( attacker && strstr(attacker->classname, "shooter_" )) {
 		if ( (attacker->spawnflags & 2) && IsBot( targ ) ) //spawnflags 2 == NO_BOTS
 			return;
 		if ( (attacker->spawnflags & 4) && !IsBot( targ ) ) //spawnflag 4 = NO_HUMANS
