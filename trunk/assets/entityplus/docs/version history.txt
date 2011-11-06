@@ -11,6 +11,7 @@ v1.1 (?? ??? 2011)
 	- [Added] "nobots" and "nohumans" keys to func_door and func_door_rotating.
 	- [Added] "ONCE" spawnflag to target_relay.
 	- [Added] "SILENT" spawnflag to all item pickup (item_*, weapon_*, holdable_*, ammo_*) entities.
+	- [Added] "NO_BOTS" and "NO_HUMANS" spawnflags to all shooter_* entities.
 	- [Added] "position" console command to get current player position coordinates.
 	- [Added] g_debugVariables cvar.
 	- [Added] g_debugBotspawns cvar.

@@ -313,6 +313,22 @@ namespace mvt
 					}
 					break;
 
+				case "shooter_rocket":
+				case "shooter_plasma":
+				case "shooter_bfg":
+				case "shooter_grenade":
+					if ((ent.Spawnflags & 2) != 0)
+					{
+						Debug(" > use of \"NO_BOTS\" spawnflag requires " + versionString);
+						result = true;
+					}
+					if ((ent.Spawnflags & 4) != 0)
+					{
+						Debug(" > use of \"NO_HUMANS\" spawnflag requires " + versionString);
+						result = true;
+					}
+					break;
+
 				case "worldspawn":
 					if (!String.IsNullOrEmpty(ent.GetValue("objectivesoverlay")) && ent.GetValue("objectivesoverlay") != "menu/objectives/overlay.tga")
 					{
