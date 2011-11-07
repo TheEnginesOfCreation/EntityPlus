@@ -1455,13 +1455,16 @@ TARGET_* ENTITIES
 
 //=============================================================================
 
-/*QUAKED target_botremove (0 .7 .7) (-8 -8 -8) (8 8 8)
+/*QUAKED target_botremove (0 .7 .7) (-8 -8 -8) (8 8 8) LETHAL_INJECTION SPONTANEOUS_COMBUSTION
 Removes all bots that were spawned by the targeted target_botspawn entities.
 -------- KEYS --------
 target : this points to a target_botspawn entity from which all bots should be removed from the game.
 target2 : this points to a target_botspawn entity from which all bots should be removed from the game.
 targetname : activating entity points to this.
 targetname2 : activating entity points to this.
+-------- SPAWNFLAGS --------
+LETHAL_INJECTION : Instead of being removed from the game immediately, the bot will die.
+SPONTANEOUS_COMBUSTION : Instead of being removed from the game immediately, the bot will explode in a shower of gibs.
 -------- NOTES --------
 The target/target2 keys MUST be used to target an existing target_botspawn entity. When this entity is activated, it will remove ALL bots from the game that were spawned by the targeted target_botspawn entity. Targeting multiple target_botspawn entities is possible.*/
 

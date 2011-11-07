@@ -487,7 +487,7 @@ bots that were spawned by the specified target_botspawn
 
 ==============================
 */
-void G_RemoveBotsForBotspawn( gentity_t *self ) {
+void G_RemoveBotsForBotspawn( gentity_t *self, qboolean kill, qboolean gib ) {
 	gentity_t *ent;
 	int i;
 	
@@ -498,7 +498,21 @@ void G_RemoveBotsForBotspawn( gentity_t *self ) {
 	for (i = 0; i < MAX_CLIENTS; i++) {
 		ent = &g_entities[i];
 		if ( ent->client && ent->parent == self )
-			DropClientSilently( ent->client->ps.clientNum );
+		{
+			vec3_t dir;
+			dir[0] = 0;
+			dir[1] = 0;
+			dir[2] = 0;
+			if ( gib ) {
+				Cmd_Kill_f( ent );
+			}
+			else if ( kill ) {
+				ent->client->ps.stats[STAT_HEALTH] = ent->health = 0;
+				player_die (ent, ent, ent, ent->client->ps.stats[STAT_HEALTH], MOD_FALLING);
+			}
+			else 
+				DropClientSilently( ent->client->ps.clientNum );
+		}
 	}
 }
 
@@ -507,16 +521,19 @@ void G_RemoveBotsForBotspawn( gentity_t *self ) {
 G_RemoveBotsForTarget
 
 Search for targetname(2) in all target_botspawn entities that
-match ent.target(2) and remove bots spawned by that botspawn
-Returns qfalse if no valid target/target2 entity was found
+match ent.target(2) and remove bots spawned by that botspawn.
+
+ent: a target_botremove entity
+kill: when true, bot will receive damage equal to its health, effectively killing it.
+gib: when true, bot will receive 999 damage, effectively gibbing it. Will overrule 'kill'.
 ==============================
 */
 
-qboolean G_RemoveBotsForTarget( gentity_t *ent ) {
+void G_RemoveBotsForTarget( gentity_t *ent, qboolean kill, qboolean gib ) {
 	gentity_t		*t;
 	
 	if ( !ent ) {
-		return qtrue;
+		return;
 	}
 
 	// ent->target
@@ -526,11 +543,11 @@ qboolean G_RemoveBotsForTarget( gentity_t *ent ) {
 		t = NULL;
 		while ( (t = G_Find (t, FOFS(targetname), ent->target)) != NULL ) {
 			if ( !strcmp(t->classname, "target_botspawn") ) {
-				G_RemoveBotsForBotspawn( t );
+				G_RemoveBotsForBotspawn( t, kill, gib );
 			}
 			if ( !ent->inuse ) {
 				G_Printf("entity was removed while finding targets\n");
-				return qtrue;
+				return;
 			}
 		}
 
@@ -538,11 +555,11 @@ qboolean G_RemoveBotsForTarget( gentity_t *ent ) {
 		t = NULL;
 		while ( (t = G_Find (t, FOFS(targetname2), ent->target)) != NULL ) {
 			if ( !strcmp(t->classname, "target_botspawn") ) {
-				G_RemoveBotsForBotspawn( t );
+				G_RemoveBotsForBotspawn( t, kill, gib );
 			}
 			if ( !ent->inuse ) {
 				G_Printf("entity was removed while finding targets\n");
-				return qtrue;
+				return;
 			}
 		}
 	}
@@ -554,11 +571,11 @@ qboolean G_RemoveBotsForTarget( gentity_t *ent ) {
 		t = NULL;
 		while ( (t = G_Find (t, FOFS(targetname), ent->target2)) != NULL ) {
 			if ( !strcmp(t->classname, "target_botspawn") ) {
-				G_RemoveBotsForBotspawn( t );
+				G_RemoveBotsForBotspawn( t, kill, gib );
 			}
 			if ( !ent->inuse ) {
 				G_Printf("entity was removed while finding targets\n");
-				return qtrue;
+				return;
 			}
 		}
 
@@ -566,16 +583,14 @@ qboolean G_RemoveBotsForTarget( gentity_t *ent ) {
 		t = NULL;
 		while ( (t = G_Find (t, FOFS(targetname2), ent->target2)) != NULL ) {
 			if ( !strcmp(t->classname, "target_botspawn") ) {
-				G_RemoveBotsForBotspawn( t );
+				G_RemoveBotsForBotspawn( t, kill, gib );
 			}
 			if ( !ent->inuse ) {
 				G_Printf("entity was removed while finding targets\n");
-				return qtrue;
+				return;
 			}
 		}
 	}
-
-	return qfalse;
 }
 
 /*

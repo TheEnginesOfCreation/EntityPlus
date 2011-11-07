@@ -1475,13 +1475,12 @@ void SP_target_cutscene (gentity_t *self) {
 
 //==========================================================
 
-/*QUAKED target_botremove (.5 .5 .5) (-8 -8 -8) (8 8 8)
+/*QUAKED target_botremove (.5 .5 .5) (-8 -8 -8) (8 8 8) LETHAL_INJECTION SPONTANEOUS_COMBUSTION
 When triggered, removes all bots that were spawned by the targeted target_botspawn entity
 */
 
 void target_botremove_use (gentity_t *self, gentity_t *other, gentity_t *activator) {
-	if ( !G_RemoveBotsForTarget( self ) )
-		G_Printf("WARNING: %s at %s does not target any target_botspawn entities\n", self->classname, vtos(self->s.origin));
+	G_RemoveBotsForTarget( self, (self->spawnflags & 1), (self->spawnflags & 2) );
 }
 
 void SP_target_botremove (gentity_t *self) {
