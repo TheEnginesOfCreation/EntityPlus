@@ -49,6 +49,7 @@ namespace mvt
 
 		public void AddKeyValuePair(string key, string value)
 		{
+			key = key.ToLower();
 			if (KeyValuePairs.ContainsKey(key))
 			{
 				Console.WriteLine(String.Format("Error: entity {0} contains multiple entries for \"{1}\" key", EntityNum, key));
@@ -59,6 +60,7 @@ namespace mvt
 
 		public string GetValue(string key)
 		{
+			key = key.ToLower();
 			if (KeyValuePairs.ContainsKey(key))
 				return KeyValuePairs[key];
 			else
