@@ -335,6 +335,18 @@ namespace mvt
 						Debug(" > use of \"objectivesoverlay\" key requires " + versionString);
 						result = true;
 					}
+
+					if (!String.IsNullOrEmpty(ent.GetValue("enabledust")) && ent.GetValue("enabledust") != "0")
+					{
+						Debug(" > use of \"enabledust\" key requires " + versionString);
+						result = true;
+					}
+
+					if (!String.IsNullOrEmpty(ent.GetValue("enablebreath")) && ent.GetValue("enablebreath") != "0")
+					{
+						Debug(" > use of \"enablebreath\" key requires " + versionString);
+						result = true;
+					}
 					break;
 			}
 
