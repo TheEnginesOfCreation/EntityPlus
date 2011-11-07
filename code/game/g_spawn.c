@@ -165,7 +165,6 @@ void SP_target_teleporter( gentity_t *ent );
 void SP_target_relay (gentity_t *ent);
 void SP_target_kill (gentity_t *ent);
 void SP_target_position (gentity_t *ent);
-void SP_target_location (gentity_t *ent);
 void SP_target_push (gentity_t *ent);
 void SP_target_logic (gentity_t *ent);
 void SP_target_gravity (gentity_t *ent);
@@ -213,11 +212,6 @@ void SP_team_CTF_bluespawn( gentity_t *ent );
 
 void SP_func_door_rotating( gentity_t *ent );
 
-#ifdef MISSIONPACK
-void SP_team_blueobelisk( gentity_t *ent );
-void SP_team_redobelisk( gentity_t *ent );
-void SP_team_neutralobelisk( gentity_t *ent );
-#endif
 void SP_item_botroam( gentity_t *ent ) {};
 
 spawn_t	spawns[] = {
@@ -273,7 +267,6 @@ spawn_t	spawns[] = {
 	{"target_relay", SP_target_relay},
 	{"target_kill", SP_target_kill},
 	{"target_position", SP_target_position},
-	{"target_location", SP_target_location},
 	{"target_push", SP_target_push},
 	{"target_logic", SP_target_logic},
 	{"target_gravity", SP_target_gravity},
@@ -318,11 +311,6 @@ spawn_t	spawns[] = {
 	
 	{"func_door_rotating", SP_func_door_rotating},
 
-#ifdef MISSIONPACK
-	{"team_redobelisk", SP_team_redobelisk},
-	{"team_blueobelisk", SP_team_blueobelisk},
-	{"team_neutralobelisk", SP_team_neutralobelisk},
-#endif
 	{"item_botroam", SP_item_botroam},
 
 	{0, 0}
@@ -478,43 +466,6 @@ void G_SpawnGEntityFromSpawnVars( void ) {
 	for ( i = 0 ; i < level.numSpawnVars ; i++ ) {
 		G_ParseField( level.spawnVars[i][0], level.spawnVars[i][1], ent );
 	}
-
-	// check for "notsingle" flag
-	if ( g_gametype.integer == GT_SINGLE_PLAYER || g_gametype.integer == GT_ENTITYPLUS ) {
-		G_SpawnInt( "notsingle", "0", &i );
-		if ( i ) {
-			G_FreeEntity( ent );
-			return;
-		}
-	}
-	// check for "notteam" flag (GT_FFA, GT_TOURNAMENT, GT_ENTITYPLUS)
-	if ( G_IsTeamGame() ) {
-		G_SpawnInt( "notteam", "0", &i );
-		if ( i ) {
-			G_FreeEntity( ent );
-			return;
-		}
-	} else {
-		G_SpawnInt( "notfree", "0", &i );
-		if ( i ) {
-			G_FreeEntity( ent );
-			return;
-		}
-	}
-
-#ifdef MISSIONPACK
-	G_SpawnInt( "notta", "0", &i );
-	if ( i ) {
-		G_FreeEntity( ent );
-		return;
-	}
-#else
-	G_SpawnInt( "notq3a", "0", &i );
-	if ( i ) {
-		G_FreeEntity( ent );
-		return;
-	}
-#endif
 
 	if( G_SpawnString( "gametype", NULL, &value ) ) {
 		if( g_gametype.integer >= GT_FFA && g_gametype.integer < GT_MAX_GAME_TYPE ) {

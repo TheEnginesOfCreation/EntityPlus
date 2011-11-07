@@ -263,26 +263,6 @@ void BotReportStatus(bot_state_t *bs) {
 	else leader = " ";
 
 	strcpy(flagstatus, "  ");
-	if (gametype == GT_CTF) {
-		if (BotCTFCarryingFlag(bs)) {
-			if (BotTeam(bs) == TEAM_RED) strcpy(flagstatus, S_COLOR_RED"F ");
-			else strcpy(flagstatus, S_COLOR_BLUE"F ");
-		}
-	}
-#ifdef MISSIONPACK
-	else if (gametype == GT_1FCTF) {
-		if (Bot1FCTFCarryingFlag(bs)) {
-			if (BotTeam(bs) == TEAM_RED) strcpy(flagstatus, S_COLOR_RED"F ");
-			else strcpy(flagstatus, S_COLOR_BLUE"F ");
-		}
-	}
-	else if (gametype == GT_HARVESTER) {
-		if (BotHarvesterCarryingCubes(bs)) {
-			if (BotTeam(bs) == TEAM_RED) Com_sprintf(flagstatus, sizeof(flagstatus), S_COLOR_RED"%2d", bs->inventory[INVENTORY_REDCUBE]);
-			else Com_sprintf(flagstatus, sizeof(flagstatus), S_COLOR_BLUE"%2d", bs->inventory[INVENTORY_BLUECUBE]);
-		}
-	}
-#endif
 
 	switch(bs->ltgtype) {
 		case LTG_TEAMHELP:
@@ -413,24 +393,6 @@ void BotSetInfoConfigString(bot_state_t *bs) {
 	else leader = " ";
 
 	strcpy(carrying, "  ");
-	if (gametype == GT_CTF) {
-		if (BotCTFCarryingFlag(bs)) {
-			strcpy(carrying, "F ");
-		}
-	}
-#ifdef MISSIONPACK
-	else if (gametype == GT_1FCTF) {
-		if (Bot1FCTFCarryingFlag(bs)) {
-			strcpy(carrying, "F ");
-		}
-	}
-	else if (gametype == GT_HARVESTER) {
-		if (BotHarvesterCarryingCubes(bs)) {
-			if (BotTeam(bs) == TEAM_RED) Com_sprintf(carrying, sizeof(carrying), "%2d", bs->inventory[INVENTORY_REDCUBE]);
-			else Com_sprintf(carrying, sizeof(carrying), "%2d", bs->inventory[INVENTORY_BLUECUBE]);
-		}
-	}
-#endif
 
 	switch(bs->ltgtype) {
 		case LTG_TEAMHELP:
@@ -632,28 +594,8 @@ void BotInterbreeding(void) {
 
 	trap_Cvar_Update(&bot_interbreedchar);
 	if (!strlen(bot_interbreedchar.string)) return;
-	//make sure we are in tournament mode
-	if (gametype != GT_TOURNAMENT) {
-		trap_Cvar_Set("g_gametype", va("%d", GT_TOURNAMENT));
-		ExitLevel();
-		return;
-	}
-	//shutdown all the bots
-	for (i = 0; i < MAX_CLIENTS; i++) {
-		if (botstates[i] && botstates[i]->inuse) {
-			BotAIShutdownClient(botstates[i]->client, qfalse);
-		}
-	}
-	//make sure all item weight configs are reloaded and Not shared
-	trap_BotLibVarSet("bot_reloadcharacters", "1");
-	//add a number of bots using the desired bot character
-	for (i = 0; i < bot_interbreedbots.integer; i++) {
-		trap_SendConsoleCommand( EXEC_INSERT, va("addbot %s 4 free %i %s%d\n",
-						bot_interbreedchar.string, i * 50, bot_interbreedchar.string, i) );
-	}
-	//
-	trap_Cvar_Set("bot_interbreedchar", "");
-	bot_interbreed = qtrue;
+	ExitLevel();
+	return;
 }
 
 /*
@@ -986,17 +928,6 @@ int BotAI(int client, float thinktime) {
 			args[strlen(args)-1] = '\0';
 			trap_BotQueueConsoleMessage(bs->cs, CMS_CHAT, args);
 		}
-#ifdef MISSIONPACK
-		else if (!Q_stricmp(buf, "vchat")) {
-			BotVoiceChatCommand(bs, SAY_ALL, args);
-		}
-		else if (!Q_stricmp(buf, "vtchat")) {
-			BotVoiceChatCommand(bs, SAY_TEAM, args);
-		}
-		else if (!Q_stricmp(buf, "vtell")) {
-			BotVoiceChatCommand(bs, SAY_TELL, args);
-		}
-#endif
 		else if (!Q_stricmp(buf, "scores"))
 			{ /*FIXME: parse scores?*/ }
 		else if (!Q_stricmp(buf, "clientLevelShot"))
@@ -1321,10 +1252,6 @@ int BotAIShutdownClient(int client, qboolean restart) {
 		BotWriteSessionData(bs);
 	}
 
-	if (BotChat_ExitGame(bs)) {
-		trap_BotEnterChat(bs->cs, bs->client, CHAT_ALL);
-	}
-
 	trap_BotFreeMoveState(bs->ms);
 	//free the goal state`			
 	trap_BotFreeGoalState(bs->gs);
@@ -1427,10 +1354,6 @@ int BotAILoadMap( int restart ) {
 
 	return qtrue;
 }
-
-#ifdef MISSIONPACK
-void ProximityMine_Trigger( gentity_t *trigger, gentity_t *other, trace_t *trace );
-#endif
 
 /*
 ==================
@@ -1545,15 +1468,6 @@ int BotAIStartFrame(int time) {
 				trap_BotLibUpdateEntity(i, NULL);
 				continue;
 			}
-#ifdef MISSIONPACK
-			// never link prox mine triggers
-			if (ent->r.contents == CONTENTS_TRIGGER) {
-				if (ent->touch == ProximityMine_Trigger) {
-					trap_BotLibUpdateEntity(i, NULL);
-					continue;
-				}
-			}
-#endif
 			//
 			memset(&state, 0, sizeof(bot_entitystate_t));
 			//
@@ -1690,9 +1604,6 @@ int BotInitLibrary(void) {
 	trap_Cvar_VariableStringBuffer("fs_cdpath", buf, sizeof(buf));
 	if (strlen(buf)) trap_BotLibVarSet("cddir", buf);
 	//
-#ifdef MISSIONPACK
-	trap_BotLibDefine("MISSIONPACK");
-#endif
 	//setup the bot library
 	return trap_BotLibSetup();
 }

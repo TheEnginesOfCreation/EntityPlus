@@ -478,32 +478,6 @@ void Cmd_Kill_f( gentity_t *ent ) {
 
 /*
 =================
-BroadCastTeamChange
-
-Let everyone know about a team change
-=================
-*/
-void BroadcastTeamChange( gclient_t *client, int oldTeam )
-{
-	if ( !IsClientBot( client ) || g_gametype.integer != GT_ENTITYPLUS ) {
-		if ( client->sess.sessionTeam == TEAM_RED ) {
-			trap_SendServerCommand( -1, va("cp \"%s" S_COLOR_WHITE " joined the red team.\n\"",
-				client->pers.netname) );
-		} else if ( client->sess.sessionTeam == TEAM_BLUE ) {
-			trap_SendServerCommand( -1, va("cp \"%s" S_COLOR_WHITE " joined the blue team.\n\"",
-			client->pers.netname));
-		} else if ( client->sess.sessionTeam == TEAM_SPECTATOR && oldTeam != TEAM_SPECTATOR ) {
-			trap_SendServerCommand( -1, va("cp \"%s" S_COLOR_WHITE " joined the spectators.\n\"",
-			client->pers.netname));
-		} else if ( client->sess.sessionTeam == TEAM_FREE ) {
-			trap_SendServerCommand( -1, va("cp \"%s" S_COLOR_WHITE " joined the battle.\n\"",
-			client->pers.netname));
-		}
-	}
-}
-
-/*
-=================
 SetTeam
 =================
 */
@@ -576,11 +550,7 @@ void SetTeam( gentity_t *ent, char *s ) {
 	}
 
 	// override decision if limiting the players
-	if ( (g_gametype.integer == GT_TOURNAMENT)
-		&& level.numNonSpectatorClients >= 2 ) {
-		team = TEAM_SPECTATOR;
-	} else if ( g_maxGameClients.integer > 0 && 
-		level.numNonSpectatorClients >= g_maxGameClients.integer ) {
+	if ( g_maxGameClients.integer > 0 && level.numNonSpectatorClients >= g_maxGameClients.integer ) {
 		team = TEAM_SPECTATOR;
 	}
 
@@ -631,8 +601,6 @@ void SetTeam( gentity_t *ent, char *s ) {
 	if ( oldTeam == TEAM_RED || oldTeam == TEAM_BLUE ) {
 		CheckTeamLeader( oldTeam );
 	}
-
-	BroadcastTeamChange( client, oldTeam );
 
 	// get and distribute relevent paramters
 	ClientUserinfoChanged( clientNum );
@@ -690,12 +658,6 @@ void Cmd_Team_f( gentity_t *ent ) {
 		return;
 	}
 
-	// if they are playing a tournement game, count as a loss
-	if ( (g_gametype.integer == GT_TOURNAMENT )
-		&& ent->client->sess.sessionTeam == TEAM_FREE ) {
-		ent->client->sess.losses++;
-	}
-
 	trap_Argv( 1, s, sizeof( s ) );
 
 	SetTeam( ent, s );
@@ -736,12 +698,6 @@ void Cmd_Follow_f( gentity_t *ent ) {
 		return;
 	}
 
-	// if they are playing a tournement game, count as a loss
-	if ( (g_gametype.integer == GT_TOURNAMENT )
-		&& ent->client->sess.sessionTeam == TEAM_FREE ) {
-		ent->client->sess.losses++;
-	}
-
 	// first set them to spectator
 	if ( ent->client->sess.sessionTeam != TEAM_SPECTATOR ) {
 		SetTeam( ent, "spectator" );
@@ -760,11 +716,6 @@ void Cmd_FollowCycle_f( gentity_t *ent, int dir ) {
 	int		clientnum;
 	int		original;
 
-	// if they are playing a tournement game, count as a loss
-	if ( (g_gametype.integer == GT_TOURNAMENT )
-		&& ent->client->sess.sessionTeam == TEAM_FREE ) {
-		ent->client->sess.losses++;
-	}
 	// first set them to spectator
 	if ( ent->client->sess.spectatorState == SPECTATOR_NOT ) {
 		SetTeam( ent, "spectator" );
@@ -825,12 +776,6 @@ static void G_SayTo( gentity_t *ent, gentity_t *other, int mode, int color, cons
 		return;
 	}
 	if ( mode == SAY_TEAM  && !OnSameTeam(ent, other) ) {
-		return;
-	}
-	// no chatting to players in tournements
-	if ( (g_gametype.integer == GT_TOURNAMENT )
-		&& other->client->sess.sessionTeam == TEAM_FREE
-		&& ent->client->sess.sessionTeam != TEAM_FREE ) {
 		return;
 	}
 
@@ -978,10 +923,6 @@ static void G_VoiceTo( gentity_t *ent, gentity_t *other, int mode, const char *i
 		return;
 	}
 	if ( mode == SAY_TEAM && !OnSameTeam(ent, other) ) {
-		return;
-	}
-	// no chatting to players in tournements
-	if ( (g_gametype.integer == GT_TOURNAMENT )) {
 		return;
 	}
 
@@ -1273,7 +1214,7 @@ void Cmd_CallVote_f( gentity_t *ent ) {
 	// special case for g_gametype, check for bad values
 	if ( !Q_stricmp( arg1, "g_gametype" ) ) {
 		i = atoi( arg2 );
-		if( i == GT_ENTITYPLUS || i < GT_FFA || i >= GT_MAX_GAME_TYPE) {
+		if( i < GT_FFA || i >= GT_MAX_GAME_TYPE) {
 			trap_SendServerCommand( ent-g_entities, "print \"Invalid gametype.\n\"" );
 			return;
 		}

@@ -368,8 +368,8 @@ void trap_EA_Action(int client, int action) {
 }
 
 void trap_EA_Gesture(int client) {
-	if ( g_gametype.integer != GT_ENTITYPLUS )	//we don't want bots taunting in EntityPlus mode
-		syscall( BOTLIB_EA_GESTURE, client );
+	//we don't want bots taunting in EntityPlus 
+	//syscall( BOTLIB_EA_GESTURE, client );
 }
 
 void trap_EA_Talk(int client) {
