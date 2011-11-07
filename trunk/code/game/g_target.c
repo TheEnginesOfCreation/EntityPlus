@@ -64,21 +64,6 @@ void Use_target_remove_powerups( gentity_t *ent, gentity_t *other, gentity_t *ac
 		activator->client->ps.powerups[PW_FLIGHT] = 0;
 	}
 
-	//remove CTF flags
-	if ( ent->spawnflags & 2 ) {
-		if( activator->client->ps.powerups[PW_REDFLAG] ) {
-			Team_ReturnFlag( TEAM_RED );
-		} else if( activator->client->ps.powerups[PW_BLUEFLAG] ) {
-			Team_ReturnFlag( TEAM_BLUE );
-		} else if( activator->client->ps.powerups[PW_NEUTRALFLAG] ) {
-			Team_ReturnFlag( TEAM_FREE );
-		}
-
-		activator->client->ps.powerups[PW_REDFLAG] = 0;
-		activator->client->ps.powerups[PW_BLUEFLAG] = 0;
-		activator->client->ps.powerups[PW_NEUTRALFLAG] = 0;
-	}
-
 	//remove weapons and ammo
 	if ( ent->spawnflags & 4 ) {
 		activator->client->ps.weapon = WP_NONE;
@@ -473,58 +458,6 @@ void SP_target_position( gentity_t *self ){
 	G_SetOrigin( self, self->s.origin );
 }
 
-static void target_location_linkup(gentity_t *ent)
-{
-	int i;
-	int n;
-
-	if (level.locationLinked) 
-		return;
-
-	level.locationLinked = qtrue;
-
-	level.locationHead = NULL;
-
-	trap_SetConfigstring( CS_LOCATIONS, "unknown" );
-
-	for (i = 0, ent = g_entities, n = 1;
-			i < level.num_entities;
-			i++, ent++) {
-		if (ent->classname && !Q_stricmp(ent->classname, "target_location")) {
-			// lets overload some variables!
-			ent->health = n; // use for location marking
-			trap_SetConfigstring( CS_LOCATIONS + n, ent->message );
-			n++;
-			ent->nextTrain = level.locationHead;
-			level.locationHead = ent;
-		}
-	}
-
-	// All linked together now
-}
-
-//==========================================================
-
-/*QUAKED target_location (0 0.5 0) (-8 -8 -8) (8 8 8)
-Set "message" to the name of this location.
-Set "count" to 0-7 for color.
-0:white 1:red 2:green 3:yellow 4:blue 5:cyan 6:magenta 7:white
-
-Closest target_location in sight used for the location, if none
-in site, closest in distance
-*/
-void SP_target_location( gentity_t *self ){
-	if ( g_gametype.integer == GT_ENTITYPLUS ) {
-		G_FreeEntity( self );
-		return;
-	}
-	
-	self->think = target_location_linkup;
-	self->nextthink = level.time + 200;  // Let them all spawn first
-
-	G_SetOrigin( self, self->s.origin );
-}
-
 //==========================================================
 
 /*QUAKED target_logic (.5 .5 .5) (-8 -8 -8) (8 8 8) RED_ONLY BLUE_ONLY RANDOM STAY_ON
@@ -629,10 +562,8 @@ void target_mapchange_use (gentity_t *self, gentity_t *other, gentity_t *activat
 	self->nextthink = level.time + FADEOUT_TIME;
 	
 	//store session data to persist health/armor/weapons/ammo and variables to next level (only in SP mode)
-	if ( g_gametype.integer == GT_ENTITYPLUS ) {
-		G_UpdateClientSessionDataForMapChange( activator->client );
-		G_UpdateGlobalSessionDataForMapChange();
-	}
+	G_UpdateClientSessionDataForMapChange( activator->client );
+	G_UpdateGlobalSessionDataForMapChange();
 
 	G_FadeOut( FADEOUT_TIME / 1000 );
 }
@@ -641,9 +572,7 @@ void target_mapchange_think (gentity_t *self) {
 	char	*cmd;	
 
 	//determine map switch command to use
-	if ( g_gametype.integer == GT_SINGLE_PLAYER )
-		cmd = "spmap";		//stay in single player mode
-	else if ( g_cheats.integer )
+	if ( g_cheats.integer )
 		cmd = "devmap";		//keep cheats enabled
 	else
 		cmd = "map";
@@ -1041,10 +970,6 @@ void target_finish_use (gentity_t *self, gentity_t *other, gentity_t *activator)
 	float skill;
 	int secretFound, secretCount;
 
-	// only usable in entity plus mode
-	if ( g_gametype.integer != GT_ENTITYPLUS )
-		return;
-
 	// bots should not be able to activate this
 	if ( IsBot( activator ) )
 		return;
@@ -1077,12 +1002,6 @@ void target_finish_use (gentity_t *self, gentity_t *other, gentity_t *activator)
 }
 
 void SP_target_finish (gentity_t *self) {
-	//free the entity if we're not in GT_ENTITYPLUS gametype
-	if ( g_gametype.integer != GT_ENTITYPLUS ) {
-		G_FreeEntity( self );
-		return;
-	}
-
 	self->use = target_finish_use;
 }
 
@@ -1456,12 +1375,6 @@ void target_cutscene_think (gentity_t *self) {
 }
 
 void SP_target_cutscene (gentity_t *self) {
-	//entity should only spawn in entity plus gamemode
-	if ( g_gametype.integer != GT_ENTITYPLUS ) {
-		G_FreeEntity( self );
-		return;
-	}
-
 	if ( !self->target && !self->target2 ) {
 		G_Printf("WARNING: %s without a target or target2 at %s\n", self->classname, vtos(self->s.origin));
 		G_FreeEntity( self );

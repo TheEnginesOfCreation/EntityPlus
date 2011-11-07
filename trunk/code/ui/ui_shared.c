@@ -3177,7 +3177,6 @@ static bind_t g_bindings[] =
 
 static const int g_bindCount = sizeof(g_bindings) / sizeof(bind_t);
 
-#ifndef MISSIONPACK // bk001206
 static configcvar_t g_configcvars[] =
 {
 	{"cl_run",			0,					0},
@@ -3190,7 +3189,6 @@ static configcvar_t g_configcvars[] =
 	{"cl_freelook",		0,					0},
 	{NULL,				0,					0}
 };
-#endif
 
 /*
 =================
@@ -5618,10 +5616,8 @@ displayContextDef_t *Display_GetContext() {
 	return DC;
 }
  
-#ifndef MISSIONPACK // bk001206
 static float captureX;
 static float captureY;
-#endif
 
 void *Display_CaptureItem(int x, int y) {
 	int i;

@@ -550,238 +550,6 @@ Only in CTF games*/
 		""
 	},
 
-#ifdef MISSIONPACK
-/*QUAKED holdable_kamikaze (.3 .3 1) (-16 -16 -16) (16 16 16) suspended*/
-	{
-		"holdable_kamikaze", 
-		"sound/items/holdable.wav",
-        { "models/powerups/kamikazi.md3", 0, 0, 0},
-		"icons/kamikaze",
-		"Kamikaze",
-		60,
-		IT_HOLDABLE,
-		HI_KAMIKAZE,
-		"",
-		"sound/items/kamikazerespawn.wav"
-	},
-
-/*QUAKED holdable_portal (.3 .3 1) (-16 -16 -16) (16 16 16) suspended*/
-	{
-		"holdable_portal", 
-		"sound/items/holdable.wav",
-        { "models/powerups/holdable/porter.md3", 0, 0, 0},
-		"icons/portal",
-		"Portal",
-		60,
-		IT_HOLDABLE,
-		HI_PORTAL,
-		"",
-		""
-	},
-
-/*QUAKED holdable_invulnerability (.3 .3 1) (-16 -16 -16) (16 16 16) suspended*/
-	{
-		"holdable_invulnerability", 
-		"sound/items/holdable.wav",
-        { "models/powerups/holdable/invulnerability.md3", 0, 0, 0},
-		"icons/invulnerability",
-		"Invulnerability",
-		60,
-		IT_HOLDABLE,
-		HI_INVULNERABILITY,
-		"",
-		""
-	},
-
-/*QUAKED ammo_nails (.3 .3 1) (-16 -16 -16) (16 16 16) suspended*/
-	{
-		"ammo_nails",
-		"sound/misc/am_pkup.wav",
-        { "models/powerups/ammo/nailgunam.md3", 0, 0, 0},
-		"icons/icona_nailgun",
-		"Nails",
-		20,
-		IT_AMMO,
-		WP_NAILGUN,
-		"",
-		""
-	},
-
-/*QUAKED ammo_mines (.3 .3 1) (-16 -16 -16) (16 16 16) suspended*/
-	{
-		"ammo_mines",
-		"sound/misc/am_pkup.wav",
-        { "models/powerups/ammo/proxmineam.md3", 0, 0, 0},
-		"icons/icona_proxlauncher",
-		"Proximity Mines",
-		10,
-		IT_AMMO,
-		WP_PROX_LAUNCHER,
-		"",
-		""
-	},
-
-/*QUAKED ammo_belt (.3 .3 1) (-16 -16 -16) (16 16 16) suspended*/
-	{
-		"ammo_belt",
-		"sound/misc/am_pkup.wav",
-        { "models/powerups/ammo/chaingunam.md3", 0, 0, 0},
-		"icons/icona_chaingun",
-		"Chaingun Belt",
-		100,
-		IT_AMMO,
-		WP_CHAINGUN,
-		"",
-		""
-	},
-
-	//
-	// PERSISTANT POWERUP ITEMS
-	//
-/*QUAKED item_scout (.3 .3 1) (-16 -16 -16) (16 16 16) suspended redTeam blueTeam*/
-	{
-		"item_scout",
-		"sound/items/scout.wav",
-        { "models/powerups/scout.md3", 0, 0, 0 },
-		"icons/scout",
-		"Scout",
-		30,
-		IT_PERSISTANT_POWERUP,
-		PW_SCOUT,
-		"",
-		""
-	},
-
-/*QUAKED item_guard (.3 .3 1) (-16 -16 -16) (16 16 16) suspended redTeam blueTeam*/
-	{
-		"item_guard",
-		"sound/items/guard.wav",
-        { "models/powerups/guard.md3", 0, 0, 0 },
-		"icons/guard",
-		"Guard",
-		30,
-		IT_PERSISTANT_POWERUP,
-		PW_GUARD,
-		"",
-		""
-	},
-
-/*QUAKED item_doubler (.3 .3 1) (-16 -16 -16) (16 16 16) suspended redTeam blueTeam*/
-	{
-		"item_doubler",
-		"sound/items/doubler.wav",
-        { "models/powerups/doubler.md3", 0, 0, 0 },
-		"icons/doubler",
-		"Doubler",
-		30,
-		IT_PERSISTANT_POWERUP,
-		PW_DOUBLER,
-		"",
-		""
-	},
-
-/*QUAKED item_doubler (.3 .3 1) (-16 -16 -16) (16 16 16) suspended redTeam blueTeam*/
-	{
-		"item_ammoregen",
-		"sound/items/ammoregen.wav",
-        { "models/powerups/ammo.md3",0, 0, 0 },
-		"icons/ammo_regen",
-		"Ammo Regen",
-		30,
-		IT_PERSISTANT_POWERUP,
-		PW_AMMOREGEN,
-		"",
-		""
-	},
-
-/*QUAKED team_CTF_neutralflag (0 0 1) (-16 -16 -16) (16 16 16)
-Only in One Flag CTF games*/
-	{
-		"team_CTF_neutralflag",
-		NULL,
-        { "models/flags/n_flag.md3", 0, 0, 0 },
-		"icons/iconf_neutral1",
-		"Neutral Flag",
-		0,
-		IT_TEAM,
-		PW_NEUTRALFLAG,
-		"",
-		""
-	},
-
-	{
-		"item_redcube",
-		"sound/misc/am_pkup.wav",
-        { "models/powerups/orb/r_orb.md3", 0, 0, 0 },
-		"icons/iconh_rorb",
-		"Red Cube",
-		0,
-		IT_TEAM,
-		0,
-		"",
-		""
-	},
-
-	{
-		"item_bluecube",
-		"sound/misc/am_pkup.wav",
-        { "models/powerups/orb/b_orb.md3", 0, 0, 0 },
-		"icons/iconh_borb",
-		"Blue Cube",
-		0,
-		IT_TEAM,
-		0,
-		"",
-		""
-	},
-/*QUAKED weapon_nailgun (.3 .3 1) (-16 -16 -16) (16 16 16) suspended*/
-	{
-		"weapon_nailgun", 
-		"sound/misc/w_pkup.wav",
-        { "models/weapons/nailgun/nailgun.md3", 0, 0, 0},
-		"icons/iconw_nailgun",
-		"Nailgun",
-		10,
-		IT_WEAPON,
-		WP_NAILGUN,
-		"",
-		""
-	},
-
-/*QUAKED weapon_prox_launcher (.3 .3 1) (-16 -16 -16) (16 16 16) suspended*/
-	{
-		"weapon_prox_launcher", 
-		"sound/misc/w_pkup.wav",
-        { "models/weapons/proxmine/proxmine.md3", 0, 0, 0},
-		"icons/iconw_proxlauncher",
-		"Prox Launcher",
-		5,
-		IT_WEAPON,
-		WP_PROX_LAUNCHER,
-		"",
-		"sound/weapons/proxmine/wstbtick.wav "
-		"sound/weapons/proxmine/wstbactv.wav "
-		"sound/weapons/proxmine/wstbimpl.wav "
-		"sound/weapons/proxmine/wstbimpm.wav "
-		"sound/weapons/proxmine/wstbimpd.wav "
-		"sound/weapons/proxmine/wstbactv.wav"
-	},
-
-/*QUAKED weapon_chaingun (.3 .3 1) (-16 -16 -16) (16 16 16) suspended*/
-	{
-		"weapon_chaingun", 
-		"sound/misc/w_pkup.wav",
-        { "models/weapons/vulcan/vulcan.md3", 0, 0, 0},
-		"icons/iconw_chaingun",
-		"Chaingun",
-		80,
-		IT_WEAPON,
-		WP_CHAINGUN,
-		"",
-		"sound/weapons/vulcan/wvulwind.wav"
-	},
-#endif
-
 	/*QUAKED item_armor_vest (.3 .3 1) (-16 -16 -16) (16 16 16) suspended*/
 	{
 		"item_armor_vest", 
@@ -1058,9 +826,6 @@ This needs to be the same for client side prediction and server use.
 qboolean BG_CanItemBeGrabbed( int gametype, const entityState_t *ent, const playerState_t *ps ) {
 	gitem_t	*item;
 	int i;
-#ifdef MISSIONPACK
-	int		upperBound;
-#endif
 
 	if ( ent->modelindex < 1 || ent->modelindex >= bg_numItems ) {
 		Com_Error( ERR_DROP, "BG_CanItemBeGrabbed: index out of range" );
@@ -1081,38 +846,15 @@ qboolean BG_CanItemBeGrabbed( int gametype, const entityState_t *ent, const play
 		return qtrue;
 
 	case IT_ARMOR:
-#ifdef MISSIONPACK
-		if( bg_itemlist[ps->stats[STAT_PERSISTANT_POWERUP]].giTag == PW_SCOUT ) {
-			return qfalse;
-		}
-
-		// we also clamp armor to the maxhealth for handicapping
-		if( bg_itemlist[ps->stats[STAT_PERSISTANT_POWERUP]].giTag == PW_GUARD ) {
-			upperBound = ps->stats[STAT_MAX_HEALTH];
-		}
-		else {
-			upperBound = ps->stats[STAT_MAX_HEALTH] * 2;
-		}
-
-		if ( ps->stats[STAT_ARMOR] >= upperBound ) {
-			return qfalse;
-		}
-#else
 		if ( ps->stats[STAT_ARMOR] >= ps->stats[STAT_MAX_HEALTH] * 2 ) {
 			return qfalse;
 		}
-#endif
+
 		return qtrue;
 
 	case IT_HEALTH:
 		// small and mega healths will go over the max, otherwise
 		// don't pick up if already at max
-#ifdef MISSIONPACK
-		if( bg_itemlist[ps->stats[STAT_PERSISTANT_POWERUP]].giTag == PW_GUARD ) {
-			upperBound = ps->stats[STAT_MAX_HEALTH];
-		}
-		else
-#endif
 		if ( item->quantity == 5 || item->quantity == 100 ) {
 			if ( ps->stats[STAT_HEALTH] >= ps->stats[STAT_MAX_HEALTH] * 2 ) {
 				return qfalse;
@@ -1128,64 +870,7 @@ qboolean BG_CanItemBeGrabbed( int gametype, const entityState_t *ent, const play
 	case IT_POWERUP:
 		return qtrue;	// powerups are always picked up
 
-#ifdef MISSIONPACK
-	case IT_PERSISTANT_POWERUP:
-		// can only hold one item at a time
-		if ( ps->stats[STAT_PERSISTANT_POWERUP] ) {
-			return qfalse;
-		}
-
-		// check team only
-		if( ( ent->generic1 & 2 ) && ( ps->persistant[PERS_TEAM] != TEAM_RED ) ) {
-			return qfalse;
-		}
-		if( ( ent->generic1 & 4 ) && ( ps->persistant[PERS_TEAM] != TEAM_BLUE ) ) {
-			return qfalse;
-		}
-
-		return qtrue;
-#endif
-
 	case IT_TEAM: // team items, such as flags
-#ifdef MISSIONPACK		
-		if( gametype == GT_1FCTF ) {
-			// neutral flag can always be picked up
-			if( item->giTag == PW_NEUTRALFLAG ) {
-				return qtrue;
-			}
-			if (ps->persistant[PERS_TEAM] == TEAM_RED) {
-				if (item->giTag == PW_BLUEFLAG  && ps->powerups[PW_NEUTRALFLAG] ) {
-					return qtrue;
-				}
-			} else if (ps->persistant[PERS_TEAM] == TEAM_BLUE) {
-				if (item->giTag == PW_REDFLAG  && ps->powerups[PW_NEUTRALFLAG] ) {
-					return qtrue;
-				}
-			}
-		}
-#endif
-		if( gametype == GT_CTF ) {
-			// ent->modelindex2 is non-zero on items if they are dropped
-			// we need to know this because we can pick up our dropped flag (and return it)
-			// but we can't pick up our flag at base
-			if (ps->persistant[PERS_TEAM] == TEAM_RED) {
-				if (item->giTag == PW_BLUEFLAG ||
-					(item->giTag == PW_REDFLAG && ent->modelindex2) ||
-					(item->giTag == PW_REDFLAG && ps->powerups[PW_BLUEFLAG]) )
-					return qtrue;
-			} else if (ps->persistant[PERS_TEAM] == TEAM_BLUE) {
-				if (item->giTag == PW_REDFLAG ||
-					(item->giTag == PW_BLUEFLAG && ent->modelindex2) ||
-					(item->giTag == PW_BLUEFLAG && ps->powerups[PW_REDFLAG]) )
-					return qtrue;
-			}
-		}
-
-#ifdef MISSIONPACK
-		if( gametype == GT_HARVESTER ) {
-			return qtrue;
-		}
-#endif
 		return qfalse;
 
 	case IT_HOLDABLE:

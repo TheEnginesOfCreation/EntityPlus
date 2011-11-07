@@ -1736,8 +1736,5 @@ returns true if the specified gametype is a team gametype
 ==================
 */
 qboolean UI_IsTeamGame(int gametype) {
-	if ( gametype >= GT_TEAM && gametype != GT_ENTITYPLUS )
-		return qtrue;
-	else
-		return qfalse;
+	return qfalse;
 }

@@ -79,23 +79,7 @@ qboolean SpotWouldTelefrag( gentity_t *spot ) {
 	gentity_t	*hit;
 	vec3_t		mins, maxs;
 
-	if ( g_gametype.integer == GT_ENTITYPLUS )
-		return qfalse;		//bit of a hack: in single player we'll allow the player to spawn even if the spawnpoint telefrags
-
-	VectorAdd( spot->s.origin, playerMins, mins );
-	VectorAdd( spot->s.origin, playerMaxs, maxs );
-	num = trap_EntitiesInBox( mins, maxs, touch, MAX_GENTITIES );
-
-	for (i=0 ; i<num ; i++) {
-		hit = &g_entities[touch[i]];
-		//if ( hit->client && hit->client->ps.stats[STAT_HEALTH] > 0 ) {
-		if ( hit->client) {
-			return qtrue;
-		}
-
-	}
-
-	return qfalse;
+	return qfalse;		//bit of a hack: in single player we'll allow the player to spawn even if the spawnpoint telefrags
 }
 
 /*
@@ -446,10 +430,6 @@ just like the existing corpse to leave behind.
 =============
 */
 void CopyToBodyQue( gentity_t *ent ) {
-#ifdef MISSIONPACK
-	gentity_t	*e;
-	int i;
-#endif
 	gentity_t		*body;
 	int			contents;
 
@@ -469,24 +449,6 @@ void CopyToBodyQue( gentity_t *ent ) {
 
 	body->s = ent->s;
 	body->s.eFlags = EF_DEAD;		// clear EF_TALK, etc
-#ifdef MISSIONPACK
-	if ( ent->s.eFlags & EF_KAMIKAZE ) {
-		body->s.eFlags |= EF_KAMIKAZE;
-
-		// check if there is a kamikaze timer around for this owner
-		for (i = 0; i < MAX_GENTITIES; i++) {
-			e = &g_entities[i];
-			if (!e->inuse)
-				continue;
-			if (e->activator != ent)
-				continue;
-			if (strcmp(e->classname, "kamikaze timer"))
-				continue;
-			e->activator = body;
-			break;
-		}
-	}
-#endif
 	body->s.powerups = 0;	// clear powerups
 	body->s.loopSound = 0;	// clear lava burning
 	body->s.number = body - g_entities;
@@ -578,12 +540,10 @@ respawn
 void respawn( gentity_t *ent ) {
 	gentity_t	*tent;
 
-	if ( g_gametype.integer == GT_ENTITYPLUS ) {
-		if ( IsBot( ent ) ) {
-			//kick fragged bots from game
-			DropClientSilently( ent->client->ps.clientNum );
-			return;
-		}
+	if ( IsBot( ent ) ) {
+		//kick fragged bots from game
+		DropClientSilently( ent->client->ps.clientNum );
+		return;
 	}
 
 	CopyToBodyQue (ent);
@@ -808,7 +768,7 @@ void ClientUserinfoChanged( int clientNum ) {
 	trap_GetUserinfo( clientNum, userinfo, sizeof( userinfo ) );
 
 	// forcing player model (if done through worldspawn)
-	if ( g_gametype.integer == GT_ENTITYPLUS && !IsBot( ent )) {
+	if ( !IsBot( ent ) ) {
 		trap_GetConfigstring( CS_PLAYERMODEL, forcedPlayerModel, sizeof(forcedPlayerModel) );
 		trap_GetConfigstring( CS_PLAYERHEADMODEL, forcedPlayerHeadModel, sizeof(forcedPlayerHeadModel) );
 
@@ -868,23 +828,11 @@ void ClientUserinfoChanged( int clientNum ) {
 	}
 
 	// set max health
-#ifdef MISSIONPACK
-	if (client->ps.powerups[PW_GUARD]) {
-		client->pers.maxHealth = 200;
-	} else {
-		health = atoi( Info_ValueForKey( userinfo, "handicap" ) );
-		client->pers.maxHealth = health;
-		if ( client->pers.maxHealth < 1 || client->pers.maxHealth > 100 ) {
-			client->pers.maxHealth = 100;
-		}
-	}
-#else
 	health = atoi( Info_ValueForKey( userinfo, "handicap" ) );
 	client->pers.maxHealth = health;
 	if ( client->pers.maxHealth < 1 || client->pers.maxHealth > 100 ) {
 		client->pers.maxHealth = 100;
 	}
-#endif
 	client->ps.stats[STAT_MAX_HEALTH] = client->pers.maxHealth;
 
 	// set model
@@ -912,39 +860,6 @@ void ClientUserinfoChanged( int clientNum ) {
 		team = client->sess.sessionTeam;
 	}
 
-/*	NOTE: all client side now
-
-	// team
-	switch( team ) {
-	case TEAM_RED:
-		ForceClientSkin(client, model, "red");
-//		ForceClientSkin(client, headModel, "red");
-		break;
-	case TEAM_BLUE:
-		ForceClientSkin(client, model, "blue");
-//		ForceClientSkin(client, headModel, "blue");
-		break;
-	}
-	// don't ever use a default skin in teamplay, it would just waste memory
-	// however bots will always join a team but they spawn in as spectator
-	if ( g_gametype.integer >= GT_TEAM && team == TEAM_SPECTATOR) {
-		ForceClientSkin(client, model, "red");
-//		ForceClientSkin(client, headModel, "red");
-	}
-*/
-
-#ifdef MISSIONPACK
-	if (G_IsTeamGame()) {
-		client->pers.teamInfo = qtrue;
-	} else {
-		s = Info_ValueForKey( userinfo, "teamoverlay" );
-		if ( ! *s || atoi( s ) != 0 ) {
-			client->pers.teamInfo = qtrue;
-		} else {
-			client->pers.teamInfo = qfalse;
-		}
-	}
-#else
 	// teamInfo
 	s = Info_ValueForKey( userinfo, "teamoverlay" );
 	if ( ! *s || atoi( s ) != 0 ) {
@@ -952,16 +867,6 @@ void ClientUserinfoChanged( int clientNum ) {
 	} else {
 		client->pers.teamInfo = qfalse;
 	}
-#endif
-	/*
-	s = Info_ValueForKey( userinfo, "cg_pmove_fixed" );
-	if ( !*s || atoi( s ) == 0 ) {
-		client->pers.pmoveFixed = qfalse;
-	}
-	else {
-		client->pers.pmoveFixed = qtrue;
-	}
-	*/
 
 	// team task (0 = none, 1 = offence, 2 = defence)
 	teamTask = atoi(Info_ValueForKey(userinfo, "teamtask"));
@@ -1023,7 +928,7 @@ char *ClientConnect( int clientNum, qboolean firstTime, qboolean isBot ) {
 	char		userinfo[MAX_INFO_STRING];
 	gentity_t	*ent;
 
-	if ( !isBot && g_gametype.integer == GT_ENTITYPLUS && level.player )
+	if ( !isBot && level.player )
 		return "Server is running a single player gametype.";
 
 	ent = &g_entities[ clientNum ];
@@ -1083,13 +988,8 @@ char *ClientConnect( int clientNum, qboolean firstTime, qboolean isBot ) {
 	ClientUserinfoChanged( clientNum );
 
 	// don't do the "xxx connected" messages if they were caried over from previous level
-	if ( firstTime && ( !isBot || g_gametype.integer != GT_ENTITYPLUS ) ) {
+	if ( firstTime && ( !isBot ) ) {
 		trap_SendServerCommand( -1, va("print \"%s" S_COLOR_WHITE " connected\n\"", client->pers.netname) );
-	}
-
-	if ( G_IsTeamGame() &&
-		client->sess.sessionTeam != TEAM_SPECTATOR ) {
-		BroadcastTeamChange( client, -1 );
 	}
 
 	// count current clients and rank for scoreboard
@@ -1152,18 +1052,6 @@ void ClientBegin( int clientNum ) {
 
 	// set info that persisted after mapchange
 	G_UpdateClientWithSessionData( ent );
-
-	if ( client->sess.sessionTeam != TEAM_SPECTATOR ) {
-		// send event
-		if ( g_gametype.integer != GT_ENTITYPLUS ) {
-			tent = G_TempEntity( ent->client->ps.origin, EV_PLAYER_TELEPORT_IN );
-			tent->s.clientNum = ent->s.clientNum;
-		}
-
-		if ( g_gametype.integer != GT_TOURNAMENT && g_gametype.integer != GT_ENTITYPLUS ) {
-			trap_SendServerCommand( -1, va("print \"%s" S_COLOR_WHITE " entered the game\n\"", client->pers.netname) );
-		}
-	}
 	G_LogPrintf( "ClientBegin: %i\n", clientNum );
 
 	// count current clients and rank for scoreboard
@@ -1206,45 +1094,11 @@ void ClientSpawn(gentity_t *ent) {
 		VectorCopy( spawnPoint->s.origin, spawn_origin );
 		VectorCopy(  spawnPoint->s.angles, spawn_angles );
 		trap_SendServerCommand( -1, "loaddefered\n" );	//force clients to load the deferred assets
-	} else if ( g_gametype.integer == GT_ENTITYPLUS ) {
+	} else {
 		//in single player, find the closest spawnpoint to spawn at
 		spawnPoint = SelectNearestDeathmatchSpawnPoint( client->ps.origin );
 		VectorCopy( spawnPoint->s.origin, spawn_origin );
 		VectorCopy(  spawnPoint->s.angles, spawn_angles );
-	} else if ( client->sess.sessionTeam == TEAM_SPECTATOR ) {
-		spawnPoint = SelectSpectatorSpawnPoint ( spawn_origin, spawn_angles );		
-	} else if (g_gametype.integer >= GT_CTF ) {
-		// all base oriented team games use the CTF spawn points
-		spawnPoint = SelectCTFSpawnPoint ( 
-						client->sess.sessionTeam, 
-						client->pers.teamState.state, 
-						spawn_origin, spawn_angles);
-	} else {
-		do {
-			// the first spawn should be at a good looking spot
-			if ( !client->pers.initialSpawn && client->pers.localClient ) {
-				client->pers.initialSpawn = qtrue;
-				spawnPoint = SelectInitialSpawnPoint( spawn_origin, spawn_angles );
-			} else {
-				// don't spawn near existing origin if possible
-				spawnPoint = SelectSpawnPoint ( 
-					client->ps.origin, 
-					spawn_origin, spawn_angles);
-			}
-
-			// Tim needs to prevent bots from spawning at the initial point
-			// on q3dm0...
-			if ( ( spawnPoint->flags & FL_NO_BOTS ) && ( ent->r.svFlags & SVF_BOT ) ) {
-				continue;	// try again
-			}
-			// just to be symetric, we have a nohumans option...
-			if ( ( spawnPoint->flags & FL_NO_HUMANS ) && !( ent->r.svFlags & SVF_BOT ) ) {
-				continue;	// try again
-			}
-
-			break;
-
-		} while ( 1 );
 	}
 
 	// reduce one allowed spawn from spawnpoint, if limit is set
@@ -1296,18 +1150,8 @@ void ClientSpawn(gentity_t *ent) {
 
 	trap_GetUserinfo( index, userinfo, sizeof(userinfo) );
 	
-	if ( g_gametype.integer != GT_ENTITYPLUS ) {
-		// set max health
-		client->pers.maxHealth = atoi( Info_ValueForKey( userinfo, "handicap" ) );
-		if ( client->pers.maxHealth < 1 || client->pers.maxHealth > 100 ) {
-			client->pers.maxHealth = 100;
-		}
-		// clear entity values
-		client->ps.stats[STAT_MAX_HEALTH] = client->pers.maxHealth;
-	} else {
-		client->pers.maxHealth = 100;
-		client->ps.stats[STAT_MAX_HEALTH] = client->pers.maxHealth;
-	}
+	client->pers.maxHealth = 100;
+	client->ps.stats[STAT_MAX_HEALTH] = client->pers.maxHealth;
 	client->ps.eFlags = flags;
 
 	ent->s.groundEntityNum = ENTITYNUM_NONE;
@@ -1338,20 +1182,10 @@ void ClientSpawn(gentity_t *ent) {
 		//give ammo
 		client->ps.ammo[WP_GAUNTLET] = -1;
 		client->ps.ammo[WP_GRAPPLING_HOOK] = -1;
-
-		if ( g_gametype.integer == GT_TEAM ) {
-			client->ps.ammo[WP_MACHINEGUN] = 50;
-		} else {
-			client->ps.ammo[WP_MACHINEGUN] = 100;
-		}
+		client->ps.ammo[WP_MACHINEGUN] = 100;
 
 		//give health
-		if (g_gametype.integer != GT_ENTITYPLUS) {
-			// health will count down towards max_health
-			ent->health = client->ps.stats[STAT_HEALTH] = client->ps.stats[STAT_MAX_HEALTH] + 25;
-		} else {
-			ent->health = client->ps.stats[STAT_HEALTH] = 100;
-		}
+		ent->health = client->ps.stats[STAT_HEALTH] = 100;
 	}
 
 	G_SetOrigin( ent, spawn_origin );
@@ -1458,34 +1292,14 @@ void ClientDisconnect( int clientNum ) {
 	}
 
 	// send effect if they were completely connected
-	if ( ent->client->pers.connected == CON_CONNECTED 
-		&& ent->client->sess.sessionTeam != TEAM_SPECTATOR ) {
-			if ( g_gametype.integer != GT_ENTITYPLUS ) {
-				tent = G_TempEntity( ent->client->ps.origin, EV_PLAYER_TELEPORT_OUT );
-				tent->s.clientNum = ent->s.clientNum;
-			}
+	if ( ent->client->pers.connected == CON_CONNECTED && ent->client->sess.sessionTeam != TEAM_SPECTATOR ) {
 
 		// They don't get to take powerups with them!
 		// Especially important for stuff like CTF flags
 		TossClientItems( ent );
-#ifdef MISSIONPACK
-		TossClientPersistantPowerups( ent );
-		if( g_gametype.integer == GT_HARVESTER ) {
-			TossClientCubes( ent );
-		}
-#endif
-
 	}
 
 	G_LogPrintf( "ClientDisconnect: %i\n", clientNum );
-
-	// if we are playing in tourney mode and losing, give a win to the other player
-	if ( (g_gametype.integer == GT_TOURNAMENT )
-		&& !level.intermissiontime
-		&& !level.warmupTime && level.sortedClients[1] == clientNum ) {
-		level.clients[ level.sortedClients[0] ].sess.wins++;
-		ClientUserinfoChanged( level.sortedClients[0] );
-	}
 
 	trap_UnlinkEntity (ent);
 	ent->s.modelindex = 0;

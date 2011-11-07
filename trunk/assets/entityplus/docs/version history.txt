@@ -12,9 +12,10 @@ v1.1 (?? ??? 2011)
 	- [Added] "ONCE" spawnflag to target_relay.
 	- [Added] "SILENT" spawnflag to all item pickup (item_*, weapon_*, holdable_*, ammo_*) entities.
 	- [Added] "NO_BOTS" and "NO_HUMANS" spawnflags to all shooter_* entities.
+	- [Added] "enablebreath" and "enabledust" keys to worldspawn entity.
 	- [Added] "position" console command to get current player position coordinates.
-	- [Added] g_debugVariables cvar.
-	- [Added] g_debugBotspawns cvar.
+	- [Added] g_debugVariables cvar and g_debugBotspawns cvars.
+	- [Added] g_enableBreath and g_enableDust cvars.
 	- [Added] Support for longname, author and description through arena files.
 	- [Added] "Loading..." text is displayed when map is loading.
 	- [Changed] Bodies of dead bots stay slightly longer before disappearing.
@@ -23,6 +24,7 @@ v1.1 (?? ??? 2011)
 	- [Changed] g_listEntity is now cheat protected, accepts a value of 2 to only list in-use entity slots and prints out in-use entity count.
 	- [Changed] Allowed the use of cg_drawTimer again when cheats are enabled. Timer also displays milliseconds.
 	- [Changed] Objectives text in objectives overlay automatically wraps to next line without breaking words.
+	- [Changed] Removed all gametypes from the game. Setting g_gametype to 8 is no longer necessary.
 
 v1.0.2 (19 oct 2011)
 	- [Fixed] Game stops responding when spawning a bot whose waypoints are all inside solids or unreachable.

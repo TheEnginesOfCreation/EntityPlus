@@ -922,9 +922,6 @@ void CG_DrawActiveFrame( int serverTime, stereoFrame_t stereoView, qboolean demo
 	// add buffered sounds
 	CG_PlayBufferedSounds();
 
-	// play buffered voice chats
-	CG_PlayBufferedVoiceChats();
-
 	// finish up the rest of the refdef
 	if ( cg.testModelEntity.hModel ) {
 		CG_AddTestModel();

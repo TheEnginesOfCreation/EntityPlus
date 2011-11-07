@@ -372,89 +372,12 @@ int G_CountBotPlayers( int team ) {
 
 /*
 ===============
-G_CheckMinimumPlayers
-===============
-*/
-void G_CheckMinimumPlayers( void ) {
-	int minplayers;
-	int humanplayers, botplayers;
-	static int checkminimumplayers_time;
-
-	if (level.intermissiontime) return;
-	//only check once each 10 seconds
-	if (checkminimumplayers_time > level.time - 10000) {
-		return;
-	}
-	checkminimumplayers_time = level.time;
-	trap_Cvar_Update(&bot_minplayers);
-	minplayers = bot_minplayers.integer;
-	if (minplayers <= 0) return;
-
-	if (G_IsTeamGame()) {
-		if (minplayers >= g_maxclients.integer / 2) {
-			minplayers = (g_maxclients.integer / 2) -1;
-		}
-
-		humanplayers = G_CountHumanPlayers( TEAM_RED );
-		botplayers = G_CountBotPlayers(	TEAM_RED );
-		//
-		if (humanplayers + botplayers < minplayers) {
-			G_AddRandomBot( TEAM_RED );
-		} else if (humanplayers + botplayers > minplayers && botplayers) {
-			G_RemoveRandomBot( TEAM_RED );
-		}
-		//
-		humanplayers = G_CountHumanPlayers( TEAM_BLUE );
-		botplayers = G_CountBotPlayers( TEAM_BLUE );
-		//
-		if (humanplayers + botplayers < minplayers) {
-			G_AddRandomBot( TEAM_BLUE );
-		} else if (humanplayers + botplayers > minplayers && botplayers) {
-			G_RemoveRandomBot( TEAM_BLUE );
-		}
-	}
-	else if (g_gametype.integer == GT_TOURNAMENT ) {
-		if (minplayers >= g_maxclients.integer) {
-			minplayers = g_maxclients.integer-1;
-		}
-		humanplayers = G_CountHumanPlayers( -1 );
-		botplayers = G_CountBotPlayers( -1 );
-		//
-		if (humanplayers + botplayers < minplayers) {
-			G_AddRandomBot( TEAM_FREE );
-		} else if (humanplayers + botplayers > minplayers && botplayers) {
-			// try to remove spectators first
-			if (!G_RemoveRandomBot( TEAM_SPECTATOR )) {
-				// just remove the bot that is playing
-				G_RemoveRandomBot( -1 );
-			}
-		}
-	}
-	else if (g_gametype.integer == GT_FFA) {
-		if (minplayers >= g_maxclients.integer) {
-			minplayers = g_maxclients.integer-1;
-		}
-		humanplayers = G_CountHumanPlayers( TEAM_FREE );
-		botplayers = G_CountBotPlayers( TEAM_FREE );
-		//
-		if (humanplayers + botplayers < minplayers) {
-			G_AddRandomBot( TEAM_FREE );
-		} else if (humanplayers + botplayers > minplayers && botplayers) {
-			G_RemoveRandomBot( TEAM_FREE );
-		}
-	}
-}
-
-/*
-===============
 G_CheckBotSpawn
 ===============
 */
 void G_CheckBotSpawn( void ) {
 	int		n;
 	char	userinfo[MAX_INFO_VALUE];
-
-	G_CheckMinimumPlayers();
 
 	for( n = 0; n < BOT_SPAWN_QUEUE_DEPTH; n++ ) {
 		if( !botSpawnQueue[n].spawnTime ) {
@@ -465,14 +388,6 @@ void G_CheckBotSpawn( void ) {
 		}
 		ClientBegin( botSpawnQueue[n].clientNum );
 		botSpawnQueue[n].spawnTime = 0;
-
-		//we don't want this in EntityPlus
-		/*
-		if( g_gametype.integer == GT_ENTITYPLUS ) {
-			trap_GetUserinfo( botSpawnQueue[n].clientNum, userinfo, sizeof(userinfo) );
-			PlayerIntroSound( Info_ValueForKey (userinfo, "model") );
-		}
-		*/
 	}
 }
 
@@ -937,7 +852,7 @@ G_GetBotInfoByName
 char *G_GetBotInfoByName( const char *name ) {
 	int		n;
 	char	*value;
-
+G_Printf("%i\n", g_numBots);
 	for ( n = 0; n < g_numBots ; n++ ) {
 		value = Info_ValueForKey( g_botInfos[n], "name" );
 		if ( !Q_stricmp( value, name ) ) {
@@ -1028,12 +943,11 @@ void G_AddCustomBot( char *name, int parentEntityNum, char* waypoint, float relS
 		skill = 5;
 
 	//set cl_noprint to 1 while adding bots in SP mode so that their loading message don't appear
-	if (g_gametype.integer == GT_ENTITYPLUS && !g_debugBotspawns.integer)
+	if ( !g_debugBotspawns.integer )
 		trap_Cvar_Set( "cl_noprint", "1" );
 
 	G_AddBot( name, skill, "free", 0, name, parentEntityNum, waypoint );
 
 	//restore cl_noprint to its former value
-	if (g_gametype.integer == GT_ENTITYPLUS)
-		trap_Cvar_Set( "cl_noprint", va("%i", noprint ) );
+	trap_Cvar_Set( "cl_noprint", va("%i", noprint ) );
 }

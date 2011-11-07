@@ -130,7 +130,6 @@ void G_InitSessionData( gclient_t *client, char *userinfo ) {
 	if ( G_IsTeamGame() ) {
 		if ( g_teamAutoJoin.integer ) {
 			sess->sessionTeam = PickTeam( -1 );
-			BroadcastTeamChange( client, -1 );
 		} else {
 			// always spawn as spectator in team games
 			sess->sessionTeam = TEAM_SPECTATOR;	
@@ -141,25 +140,10 @@ void G_InitSessionData( gclient_t *client, char *userinfo ) {
 			// a willing spectator, not a waiting-in-line
 			sess->sessionTeam = TEAM_SPECTATOR;
 		} else {
-			switch ( g_gametype.integer ) {
-			default:
-			case GT_FFA:
-			case GT_ENTITYPLUS:
-				if ( g_maxGameClients.integer > 0 && 
-					level.numNonSpectatorClients >= g_maxGameClients.integer ) {
-					sess->sessionTeam = TEAM_SPECTATOR;
-				} else {
-					sess->sessionTeam = TEAM_FREE;
-				}
-				break;
-			case GT_TOURNAMENT:
-				// if the game is full, go into a waiting mode
-				if ( level.numNonSpectatorClients >= 2 ) {
-					sess->sessionTeam = TEAM_SPECTATOR;
-				} else {
-					sess->sessionTeam = TEAM_FREE;
-				}
-				break;
+			if ( g_maxGameClients.integer > 0 && level.numNonSpectatorClients >= g_maxGameClients.integer ) {
+				sess->sessionTeam = TEAM_SPECTATOR;
+			} else {
+				sess->sessionTeam = TEAM_FREE;
 			}
 		}
 	}

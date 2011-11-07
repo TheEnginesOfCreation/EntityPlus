@@ -1088,10 +1088,7 @@ returns true if we're currently in a team gametype
 ==================
 */
 qboolean G_IsTeamGame() {
-	if ( g_gametype.integer >= GT_TEAM && g_gametype.integer != GT_ENTITYPLUS )
-		return qtrue;
-	else
-		return qfalse;
+	return qfalse;
 }
 
 /*

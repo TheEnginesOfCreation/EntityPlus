@@ -2263,6 +2263,8 @@ deathmusic :  path/name of looping .wav file used when player is dead (eg. music
 playermodel : the player's model is forced to this player model (eg. sarge or visor/gorre).
 playerheadmodel : the player's headmodel is forced to this head model (eg. sarge or visor/gorre). See notes.
 objectivesoverlay : path/name of the image to use as objectives overlay (eg. menu/objectives/overlay.tga).
+enablebreath : setting this to 1 will enable cold breath puffs.
+enabledust : setting this to 1 will enable dust trails on surfaces with the "dust" surfaceparm.
 _ambient OR ambient : Adds a constant value to overall lighting. Use is not recommended. Ambient light will have a tendency to flatten out variations in light and shade.
 _color : RGB value for ambient light color (default is 0 0 0).
 gravity : gravity of level (default is normal gravity: 800).
@@ -2285,4 +2287,6 @@ _indexmap OR alphamap : Path/name for the art file used to guide the mapping of 
 _layers OR layers : Integer value is the number unique root shaders that will be use on the terrain.
 _shader OR shader : Path to the metashader used to assign textures to the terrain entity. Note: Omit the "textures/" prefix.
 -------- NOTES --------
-When a playermodel is specified without specifying a headmodel, the player's headmodel will be forced to the model specified with the playermodel key.*/
+When a playermodel is specified without specifying a headmodel, the player's headmodel will be forced to the model specified with the playermodel key.
+
+For more info on the enablebreath and enabledust keys, refer to the Team Arena terrain mapping manual.*/
