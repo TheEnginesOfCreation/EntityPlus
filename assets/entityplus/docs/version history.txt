@@ -18,6 +18,7 @@ v1.1 (?? ??? 2011)
 	- [Added] g_enableBreath and g_enableDust cvars.
 	- [Added] Support for longname, author and description through arena files.
 	- [Added] "Loading..." text is displayed when map is loading.
+	- [Fixed] target_unlink does not work on func_bobbing entities.
 	- [Changed] Bodies of dead bots stay slightly longer before disappearing.
 	- [Changed] Increased max ammo amount for all weapons from 200 to 999.
 	- [Changed] "setviewpos" console command no longer applies teleporter kick and allows setting of pitch, yaw and roll as well.

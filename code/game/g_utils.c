@@ -363,6 +363,43 @@ void G_UseDeathTargets( gentity_t *ent, gentity_t *activator ) {
 
 /*
 ==============================
+G_SetEntityLinked
+==============================
+*/
+G_SetEntityLinked( gentity_t *t, int spawnflags ) {
+	if ( spawnflags & 4 ) {								
+		//always_unlink spawnflag is set, so unlink entity to the world
+		if ( strcmp(t->classname, "func_bobbing") ) {
+			if ( t->r.linked ) { trap_UnlinkEntity( t ); }
+		} else {
+			if ( t->s.eType == ET_MOVER ) { t->s.eType = ET_INVISIBLE; }
+		}
+		
+	} else if ( spawnflags & 8 ) {						
+		//always_link spawnflag is set, so link entity from the world
+		if ( strcmp(t->classname, "func_bobbing") ) {
+			if ( !t->r.linked ) { trap_LinkEntity( t ); }	
+		} else {
+			if ( t->s.eType == ET_INVISIBLE ) { t->s.eType = ET_MOVER; }
+		}
+	} else {											
+		//no spawnflag is set, so toggle
+		if ( strcmp(t->classname, "func_bobbing") ) {
+			if ( t->r.linked )
+				trap_UnlinkEntity( t );
+			else
+				trap_LinkEntity( t );
+		} else {
+			if ( t->s.eType == ET_MOVER )
+				t->s.eType = ET_INVISIBLE;
+			else
+				t->s.eType = ET_MOVER;
+		}
+	}
+}
+
+/*
+==============================
 G_ToggleTargetsLinked
 
 Search for targetname(2) in all entities that
@@ -387,17 +424,7 @@ void G_ToggleTargetsLinked( gentity_t *ent ) {
 			if ( t == ent ) {
 				G_Printf ("WARNING: Entity targets itself.\n");
 			} else {
-				if ( ent->spawnflags & 4 ) {
-					if ( t->r.linked ) { trap_UnlinkEntity( t ); }	//always_unlink spawnflag is set, so unlink entity to the world
-				} else if ( ent->spawnflags & 8 ) {
-					if ( !t->r.linked ) { trap_LinkEntity( t ); }	//always_link spawnflag is set, so link entity from the world
-				} else {
-					//no spawnflag is set, so toggle
-					if ( t->r.linked )
-						trap_UnlinkEntity( t );
-					else
-						trap_LinkEntity( t );
-				}
+				G_SetEntityLinked( t, ent->spawnflags );
 			}
 			if ( !ent->inuse ) {
 				G_Printf("entity was removed while using targets\n");
@@ -410,17 +437,7 @@ void G_ToggleTargetsLinked( gentity_t *ent ) {
 			if ( t == ent ) {
 				G_Printf ("WARNING: Entity targets itself.\n");
 			} else {
-				if ( ent->spawnflags & 4 ) {
-					if ( t->r.linked ) { trap_UnlinkEntity( t ); }	//always_unlink spawnflag is set, so unlink entity to the world
-				} else if ( ent->spawnflags & 8 ) {
-					if ( !t->r.linked ) { trap_LinkEntity( t ); }	//always_link spawnflag is set, so link entity from the world
-				} else {
-					//no spawnflag is set, so toggle
-					if ( t->r.linked )
-						trap_UnlinkEntity( t );
-					else
-						trap_LinkEntity( t );
-				}
+				G_SetEntityLinked( t, ent->spawnflags );
 			}
 			if ( !ent->inuse ) {
 				G_Printf("entity was removed while using targets\n");
@@ -435,17 +452,7 @@ void G_ToggleTargetsLinked( gentity_t *ent ) {
 			if ( t == ent ) {
 				G_Printf ("WARNING: Entity targets itself.\n");
 			} else {
-				if ( ent->spawnflags & 4 ) {
-					if ( t->r.linked ) { trap_UnlinkEntity( t ); }	//always_unlink spawnflag is set, so unlink entity to the world
-				} else if ( ent->spawnflags & 8 ) {
-					if ( !t->r.linked ) { trap_LinkEntity( t ); }	//always_link spawnflag is set, so link entity from the world
-				} else {
-					//no spawnflag is set, so toggle
-					if ( t->r.linked )
-						trap_UnlinkEntity( t );
-					else
-						trap_LinkEntity( t );
-				}
+				G_SetEntityLinked( t, ent->spawnflags );
 			}
 			if ( !ent->inuse ) {
 				G_Printf("entity was removed while using targets\n");
@@ -458,17 +465,7 @@ void G_ToggleTargetsLinked( gentity_t *ent ) {
 			if ( t == ent ) {
 				G_Printf ("WARNING: Entity targets itself.\n");
 			} else {
-				if ( ent->spawnflags & 4 ) {
-					if ( t->r.linked ) { trap_UnlinkEntity( t ); }	//always_unlink spawnflag is set, so unlink entity to the world
-				} else if ( ent->spawnflags & 8 ) {
-					if ( !t->r.linked ) { trap_LinkEntity( t ); }	//always_link spawnflag is set, so link entity from the world
-				} else {
-					//no spawnflag is set, so toggle
-					if ( t->r.linked )
-						trap_UnlinkEntity( t );
-					else
-						trap_LinkEntity( t );
-				}
+				G_SetEntityLinked( t, ent->spawnflags );
 			}
 			if ( !ent->inuse ) {
 				G_Printf("entity was removed while using targets\n");
