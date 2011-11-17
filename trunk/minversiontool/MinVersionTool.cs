@@ -94,13 +94,26 @@ namespace mvt
 		{
 			this.debug = debug;
 			Console.WriteLine("=== MinVersionTool for EntityPlus v1.1 ===");
-			Versions minversion = ParseMap(filename);
 
-			Console.WriteLine("Finished parsing \"" + filename + "\"");
+			DateTime start = DateTime.Now;
+			
+			ParseMap(filename);
+			Versions minversion = AnalyseEntities();
+			
+			DateTime end= DateTime.Now;
+			TimeSpan diff = end.Subtract(start);
+			string prefix = "";
+			if (diff.Milliseconds < 100)
+				prefix += "0";
+			if (diff.Milliseconds < 10)
+				prefix += "0";
+			Console.WriteLine("Finished parsing \"" + filename + "\" in " + diff.Seconds + "." + prefix + diff.Milliseconds + "s");
+			
 			Console.WriteLine("\n================");
 			Console.WriteLine("minversion = " + VersionsStrings[(int)minversion]);
 			Console.WriteLine("================");
 			Console.WriteLine("\n\npress any key to continue...");
+
 			Console.ReadKey(true);
 		}
 		#endregion
@@ -110,9 +123,9 @@ namespace mvt
 		/// <summary>Parses a complete .map file</summary>
 		/// <param name="filename">Filename of the map to parse</param>
 		/// <returns>The minimum version of EntityPlus that's required to run this map</returns>
-		private Versions ParseMap(string filename)
+		private void ParseMap(string filename)
 		{
-			Versions minversion = DEFAULT_MINVERSION;
+			Debug("Reading map file... ", false);
 			StreamReader sr = File.OpenText(filename);
 
 			ParserStatus parserStatus = ParserStatus.Normal;
@@ -146,8 +159,6 @@ namespace mvt
 				else if (line == "}" && parserStatus == ParserStatus.EntityStartTokenFound)
 				{
 					parserStatus = ParserStatus.Normal;
-					Debug(String.Format("Entity {0}: {1}", ent.EntityNum, ent.GetValue("classname")));
-					minversion = GetMostRecentVersion(CheckEntity(ent), minversion);
 					entities.Add(ent);
 				}
 				else if (line == "}" && parserStatus == ParserStatus.ReadingBrush)
@@ -162,7 +173,9 @@ namespace mvt
 
 			sr.Close();
 
-			return minversion;
+			DateTime end = DateTime.Now;
+			
+			Debug("Done.");
 		}
 
 		/// <summary>
@@ -199,6 +212,21 @@ namespace mvt
 			string value = line.Substring(startValue, endValue - startValue);
 
 			ent.AddKeyValuePair(key, value);
+		}
+
+		private Versions AnalyseEntities()
+		{
+			Versions minversion = DEFAULT_MINVERSION;
+			Versions entversion = DEFAULT_MINVERSION;
+
+			foreach (Entity ent in entities)
+			{
+				Debug(String.Format("Entity {0}: {1}", ent.EntityNum, ent.GetValue("classname")));
+				entversion = CheckEntity(ent);
+				minversion = GetMostRecentVersion(entversion, minversion);
+			}
+
+			return minversion;
 		}
 
 		/// <summary>Checks the version of EntityPlus that's required to support the entity in this form.</summary>
@@ -245,9 +273,20 @@ namespace mvt
 		/// <param name="text">Debug text to print</param>
 		private void Debug(string text)
 		{
+			Debug(text, true);
+		}
+
+		/// <summary>Prints a debug message (only if the -d commandline switch was supplied)</summary>
+		/// <param name="text">Debug text to print</param>
+		/// <param name="newline">When true, WriteLine is used. When false, Write is used</param>
+		private void Debug(string text, bool newline)
+		{
 			if (debug)
 			{
-				Console.WriteLine(text);
+				if (newline)
+					Console.WriteLine(text);
+				else
+					Console.Write(text);
 			}
 		}
 		#endregion
