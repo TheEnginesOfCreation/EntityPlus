@@ -1574,6 +1574,10 @@ The wait time at a corner has completed, so start moving again
 ===============
 */
 void Think_BeginMoving( gentity_t *ent ) {
+	//play sound
+	if ( ent->sound1to2 ) {
+		G_AddEvent( ent, EV_GENERAL_SOUND, ent->sound1to2 );
+	}
 	ent->s.pos.trTime = level.time;
 	ent->s.pos.trType = TR_LINEAR_STOP;
 }
@@ -1628,8 +1632,14 @@ void Reached_Train( gentity_t *ent ) {
 
 	// if there is a "wait" value on the target, don't start moving yet
 	if ( next->wait ) {
-		if ( next->wait > 0 )
+		//play sound
+		if ( ent->soundPos2 ) {
+			G_AddEvent( ent, EV_GENERAL_SOUND, ent->soundPos2 );
+		}
+
+		if ( next->wait > 0 ) {
 			ent->nextthink = level.time + next->wait * 1000;
+		}
 		ent->think = Think_BeginMoving;
 		ent->s.pos.trType = TR_STATIONARY;
 	}
@@ -1732,7 +1742,21 @@ void Use_Train (gentity_t *ent, gentity_t *other, gentity_t *activator) {
 }
 
 void SP_func_train (gentity_t *self) {
+	char *startsound;
+	char *endsound;
+
 	VectorClear (self->s.angles);
+
+	//sounds
+	startsound = endsound = NULL;
+	G_SpawnString("startsound", "", &startsound);
+	G_SpawnString("endsound", "", &endsound);
+
+	if ( strlen( startsound ) > 0 )
+		self->sound1to2 = self->sound2to1 = G_SoundIndex(startsound);
+
+	if ( strlen( endsound ) > 0 )
+		self->soundPos1 = self->soundPos2 = G_SoundIndex(endsound);
 
 	if (self->spawnflags & TRAIN_BLOCK_STOPS) {
 		self->damage = 0;

@@ -313,6 +313,19 @@ namespace mvt
 					}
 					break;
 
+				case "func_train":
+					if (!String.IsNullOrEmpty(ent.GetValue("startsound")))
+					{
+						Debug(" > use of \"startsound\" requires " + versionString);
+						result = true;
+					}
+					if (!String.IsNullOrEmpty(ent.GetValue("endsound")))
+					{
+						Debug(" > use of \"endsound\" requires " + versionString);
+						result = true;
+					}
+					break;
+
 				case "shooter_rocket":
 				case "shooter_plasma":
 				case "shooter_bfg":
