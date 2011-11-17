@@ -586,6 +586,8 @@ speed : speed of displacement of train (default 100 or overridden by speed value
 target : this points to the first path_corner of the path which is also the spawn location of the train's origin.
 model2 : path/name of model to include (eg: models/mapobjects/pipe/pipe02.md3).
 origin : alternate method of setting XYZ origin of the train's brush(es) and .md3 model included with entity (See Notes).
+startsound : sound to play when the train starts moving.
+endsound : sound to play when the train stops moving.
 light : constantLight radius of .md3 model included with entity. Has no effect on the entity's brushes (default 0).
 color : constantLight color of .md3 model included with entity. Has no effect on the entity's brushes (default 1 1 1).
 -------- Q3MAP2 KEYS --------
@@ -607,7 +609,9 @@ _shader OR shader : Path to the metashader used to assign textures to the terrai
 
 Setting the origin key is simply an alternate method to using an origin brush. When using the model2 key, the origin point of the model will correspond to the origin point defined by either the origin brush or the origin coordinate value.
 
-Target this entity with a misc_model to have the model attached to the entity (set the model's "target" key to the same value as this entity's "targetname").*/
+Target this entity with a misc_model to have the model attached to the entity (set the model's "target" key to the same value as this entity's "targetname").
+
+Setting the startsound or endsound keys will allow the train to play a sound when it stops moving at a path_corner entity or when it starts moving again. Enter a reference to a wav file here, like "sound/movers/doors/dr1_strt.wav".*/
 
 //=============================================================================
 
