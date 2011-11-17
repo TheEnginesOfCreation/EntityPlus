@@ -147,7 +147,7 @@ namespace mvt
 				{
 					parserStatus = ParserStatus.Normal;
 					Debug(String.Format("Entity {0}: {1}", ent.EntityNum, ent.GetValue("classname")));
-					minversion = CheckEntity(ent, minversion);
+					minversion = GetMostRecentVersion(CheckEntity(ent), minversion);
 					entities.Add(ent);
 				}
 				else if (line == "}" && parserStatus == ParserStatus.ReadingBrush)
@@ -161,7 +161,28 @@ namespace mvt
 			}
 
 			sr.Close();
+
 			return minversion;
+		}
+
+		/// <summary>
+		/// Gets the most recent version of two versions. This is used to determine if an entity should push up 
+		/// the map's minversion value. If either of the supplied versions is UnableToDetect, the method will
+		/// return UnableToDetect as most recent version
+		/// </summary>
+		/// <param name="a"></param>
+		/// <param name="b"></param>
+		/// <returns></returns>
+		private Versions GetMostRecentVersion(Versions a, Versions b)
+		{
+			//if either version is marked as UnableToDetect, return this version value
+			if (a == Versions.UnableToDetect || b == Versions.UnableToDetect)
+				return Versions.UnableToDetect;
+
+			if ((int)a > (int)b)
+				return a;
+			else
+				return b;
 		}
 
 		/// <summary>Parses a single key/value combination for an entity</summary>
@@ -182,9 +203,8 @@ namespace mvt
 
 		/// <summary>Checks the version of EntityPlus that's required to support the entity in this form.</summary>
 		/// <param name="ent">The entity to check.</param>
-		/// <param name="currentVersion">The currently determined minversion for the map as far as it's parsed.</param>
 		/// <returns>The minimum EntityPlus version required to support this entity</returns>
-		private Versions CheckEntity(Entity ent, Versions currentVersion)
+		private Versions CheckEntity(Entity ent)
 		{
 			string classname = ent.GetValue("classname");
 			if (!IsKnownEntity(classname))
@@ -193,11 +213,15 @@ namespace mvt
 				return Versions.UnableToDetect;
 			}
 
+			//Checking for v1.2 requirements
+			//if (IsVersion12(ent))
+			//	return Versions.one_two;
+
 			//Checking for v1.1 requirements
 			if (IsVersion11(ent))
-				currentVersion = Versions.one_one;
+				return Versions.one_one;
 
-			return currentVersion;
+			return Versions.one_zero;
 		}
 
 		/// <summary>
