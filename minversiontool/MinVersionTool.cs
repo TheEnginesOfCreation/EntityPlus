@@ -246,7 +246,7 @@ namespace mvt
 			//	return Versions.one_two;
 
 			//Checking for v1.1 requirements
-			if (IsVersion11(ent))
+			if (HasVersion11Keys(ent) || HasVersion11Targets(ent))
 				return Versions.one_one;
 
 			return Versions.one_zero;
@@ -266,6 +266,32 @@ namespace mvt
 				if (cn == classname)
 					return true;
 			}
+			return false;
+		}
+
+		/// <summary>checks if potentialTarget is targeted by ent</summary>
+		/// <param name="ent">The entity doing the targeting</param>
+		/// <param name="potentialTarget">The entity potentially being targeted</param>
+		/// <returns>true if ent targets potentialTarget, false if not</returns>
+		private bool IsTarget(Entity ent, Entity potentialTarget)
+		{
+			string target = ent.GetValue("target");
+			string target2 = ent.GetValue("target2");
+			string targetname = potentialTarget.GetValue("targetname");
+			string targetname2 = potentialTarget.GetValue("targetname2");
+
+			if (!String.IsNullOrEmpty(target))
+			{
+				if (target == targetname || target == targetname2)
+					return true;
+			}
+
+			if (!String.IsNullOrEmpty(target2))
+			{
+				if (target2 == targetname || target2 == targetname2)
+					return true;
+			}
+
 			return false;
 		}
 
@@ -293,7 +319,7 @@ namespace mvt
 
 
 		#region Version checking methods
-		private bool IsVersion11(Entity ent)
+		private bool HasVersion11Keys(Entity ent)
 		{
 			bool result = false;
 			string versionString = VersionsStrings[(int)Versions.one_one];
@@ -440,6 +466,35 @@ namespace mvt
 				}
 			}
 
+			return result;
+		}
+
+		private bool HasVersion11Targets(Entity ent)
+		{
+			string versionString = VersionsStrings[(int)Versions.one_one];
+			string target = ent.GetValue("target");
+			string target2 = ent.GetValue("target2");
+			string classname = ent.GetValue("classname");
+
+			if (String.IsNullOrEmpty(target) && String.IsNullOrEmpty(target2))
+				return false;
+
+			if (classname != "target_unlink")
+				return false;
+
+			bool result = false;
+			foreach (Entity t in entities)
+			{
+				if (!IsTarget(ent, t))
+					continue;
+
+				if (classname == "target_unlink" && t.GetValue("classname") == "func_bobbing")
+				{
+					Debug(" > targeting \"func_bobbing\" requires " + versionString);
+					result = true;
+				}
+			}
+			
 			return result;
 		}
 		#endregion
