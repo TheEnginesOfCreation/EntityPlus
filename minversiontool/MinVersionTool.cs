@@ -378,6 +378,14 @@ namespace mvt
 					}
 					break;
 				
+				case "target_botspawn":
+					if ((ent.Spawnflags & 1) != 0)
+					{
+						Debug(" > use of \"WP_GAUNTLET\" spawnflag requires " + versionString);
+						result = true;
+					}
+					break;
+
 				case "target_botremove":
 					Debug(" > use of \"target_botremove\" entity requires " + versionString);
 					result = true;
