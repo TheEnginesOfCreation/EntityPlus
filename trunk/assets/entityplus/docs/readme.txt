@@ -1,5 +1,5 @@
 ENTITYPLUS 
-version 1.0
+version 1.1
 -----------
 
 EntityPlus is a Quake III Arena mod that is aimed at expanding the toolset for Quake III Arena map makers.
@@ -28,8 +28,9 @@ to load the mod.
 The entityplus package contains an entities.def file which is an expanded version of the entities.def file you'll
 find in your baseq3\scripts folder. This new .def file contains entity definitions for the new entities in EntityPlus.
 You can either overwrite the existing entities.def in baseq3 (although this is not recommended) or configure 
-GtkRadiant 1.4 or ZeroRadiant 1.6 to use the entityplus folder as working folder. There is no entity definition file
-for use with GtkRadiant 1.5 yet.
+GtkRadiant 1.4 or ZeroRadiant 1.6 to use the entityplus folder as working folder.
+
+A seperate entities.ent for use in GtkRadiant 1.5 is available from the EntityPlus project website.
 
 Configuring Radiant to use the entityplus folder as working folder can be done by going to "File" > "Project Settings", 
 then under "Select mod" pick the option "Custom Quake III modification" and enter "entityplus" as value for the fs_game 
