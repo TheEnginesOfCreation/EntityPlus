@@ -496,3 +496,38 @@ gfx/damage/plasma_mrk_paint
 		rgbGen exactVertex
 	}
 }
+
+//
+// MENU SHADERS
+//
+
+menu/backgrounds/01
+{
+	{
+		map menu/backgrounds/01.tga
+	}
+}
+
+menu/backgrounds/02
+{
+	{
+		map menu/backgrounds/02.tga
+		blendFunc GL_SRC_ALPHA GL_ONE_MINUS_SRC_ALPHA
+		AlphaGen wave sin 0 0.2 0.5 .1
+		//rgbgen wave triangle .95 .05 0 10
+	}
+	{
+		map menu/backgrounds/noise.tga
+		blendfunc add
+		rgbgen wave triangle .2 .05 0 10
+		tcmod scroll 5 .25 
+	}	
+}
+
+menu/art/loading
+{
+	{
+		map menu/art/loading.tga
+		tcMod rotate 360
+	}
+}
