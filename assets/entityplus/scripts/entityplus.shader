@@ -506,10 +506,6 @@ menu/backgrounds/01
 	{
 		map menu/backgrounds/01.tga
 	}
-}
-
-menu/backgrounds/02
-{
 	{
 		map menu/backgrounds/02.tga
 		blendFunc GL_SRC_ALPHA GL_ONE_MINUS_SRC_ALPHA
