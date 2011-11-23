@@ -164,6 +164,7 @@ void UI_DrawConnectScreen( qboolean overlay ) {
 	UI_SetColor( color_white );
 	UI_DrawHandlePic( 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, uis.menuBackNoLogoShader );
 	UI_DrawString( (SCREEN_WIDTH - strWidth) - 16, SCREEN_HEIGHT - 32, "Loading...", UI_SMALLFONT, color_white );
+	UI_DrawHandlePic( (SCREEN_WIDTH - strWidth) - 80, SCREEN_HEIGHT - 64, 64, 64, uis.menuLoadingIcon );
 
 	trap_GetClientState( &cstate );
 	if ( cstate.connState < CA_CONNECTED ) {

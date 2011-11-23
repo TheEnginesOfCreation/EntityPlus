@@ -17,8 +17,6 @@ MAIN MENU
 #define ID_EXIT						17
 
 #define ART_OVERLAY						"menu/art/mainoverlay"
-#define ART_BACKGROUND					"menu/backgrounds/01"
-#define ART_BACKGROUND2					"menu/backgrounds/02"
 
 #define MAIN_MENU_VERTICAL_SPACING	34
 #define MAIN_MENU_MARGIN_LEFT		48
@@ -37,12 +35,13 @@ typedef struct {
 	menubitmap_s	logo;
 	menubitmap_s	overlay;
 
-	qhandle_t		bannerModel;
-	qhandle_t		menuModel;
+	qhandle_t		menuBackground1;
+	qhandle_t		menuBackground2;
 	vec3_t			menuModelOrigin;
 	vec3_t			menuModelAngles;
 
 	int				backgroundDelay;
+	int				backgroundShaderIndex;
 } mainmenu_t;
 
 
@@ -102,9 +101,8 @@ MainMenu_Cache
 ===============
 */
 void MainMenu_Cache( void ) {
-//#if 0
-//	trap_S_RegisterSound("music music/sonic4.wav", qfalse);
-//#endif	
+	s_main.menuBackground1 = trap_R_RegisterShaderNoMip( "menu/backgrounds/01" );
+	s_main.menuBackground2 = trap_R_RegisterShaderNoMip( "menu/backgrounds/02" );
 }
 
 sfxHandle_t ErrorMessage_Key(int key)
@@ -131,19 +129,10 @@ static void Main_MenuDraw( void ) {
 	}
 	else
 	{
-		int t;
-		
-		if ( !s_main.backgroundDelay )
-			s_main.backgroundDelay = 5000;
+		UI_DrawHandlePic(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, s_main.menuBackground1 ); //background image
+		UI_DrawHandlePic(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, s_main.menuBackground2 ); //tris lines showing through
 
-		t = uis.realtime % s_main.backgroundDelay;
-		if ( t < 32 || (t > 60 && t < 92) || (t > 150 && t < 200) || (t > 240 && t < 270) )
-		{
-			UI_DrawNamedPic( 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, ART_BACKGROUND2 );
-		}
-		else
-			UI_DrawNamedPic( 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, ART_BACKGROUND );
-
+		/*
 		//determine delay until next lighting strike
 		if ( t == 270 ) {
 			trap_RealTime(&tm);
@@ -156,6 +145,7 @@ static void Main_MenuDraw( void ) {
 			
 			s_main.backgroundDelay = 5000 + (1500 - (rand() % 3000));	//delay somewhere between 3500 and 6500 ms
 		}
+		*/
 
 		Menu_Draw( &s_main.menu );		
 	}
