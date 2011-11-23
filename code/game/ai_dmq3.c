@@ -1006,6 +1006,9 @@ float BotAggression(bot_state_t *bs) {
 			return 70;
 		}
 	}
+	
+	//if the bot doesn't have a weapon
+	if (bs->weaponnum <= WP_NONE || bs->weaponnum >= WP_NUM_WEAPONS) return 0;
 	//if the enemy is located way higher than the bot
 	if (bs->inventory[ENEMY_HEIGHT] > 200) return 0;
 	//if the bot is very low on health
@@ -1867,6 +1870,11 @@ void BotAimAtEnemy(bot_state_t *bs) {
 	if (bs->enemy < 0) {
 		return;
 	}
+
+	//if bot has no valid weapon, return
+	if (bs->weaponnum <= WP_NONE || bs->weaponnum >= WP_NUM_WEAPONS)
+		return;
+
 	//get the enemy entity information
 	BotEntityInfo(bs->enemy, &entinfo);
 	//if this is not a player (should be an obelisk)
