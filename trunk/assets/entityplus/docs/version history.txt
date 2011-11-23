@@ -19,7 +19,7 @@ v1.1 (?? ??? 2011)
 	- [Added] g_debugVariables cvar and g_debugBotspawns cvars.
 	- [Added] g_enableBreath and g_enableDust cvars.
 	- [Added] Support for longname, author and description through arena files.
-	- [Added] "Loading..." text is displayed when map is loading.
+	- [Added] "Loading..." text and icon is displayed when map is loading.
 	- [Fixed] target_unlink does not work on func_bobbing entities.
 	- [Changed] Bodies of dead bots stay slightly longer before disappearing.
 	- [Changed] Increased max ammo amount for all weapons from 200 to 999.
@@ -28,6 +28,7 @@ v1.1 (?? ??? 2011)
 	- [Changed] Allowed the use of cg_drawTimer again when cheats are enabled. Timer also displays milliseconds.
 	- [Changed] Objectives text in objectives overlay automatically wraps to next line without breaking words.
 	- [Changed] Removed all gametypes from the game. Setting g_gametype to 8 is no longer necessary.
+	- [Changed] New main menu artwork.
 
 v1.0.2 (19 oct 2011)
 	- [Fixed] Game stops responding when spawning a bot whose waypoints are all inside solids or unreachable.
