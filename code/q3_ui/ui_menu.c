@@ -230,23 +230,23 @@ void UI_MainMenu( void ) {
 	s_main.overlay.generic.type		= MTYPE_BITMAP;
 	s_main.overlay.generic.name		= ART_OVERLAY;
 	s_main.overlay.generic.flags	= QMF_INACTIVE;
-	s_main.overlay.generic.x		= MAIN_MENU_VERTICAL_SPACING;
+	s_main.overlay.generic.x		= (SCREEN_WIDTH - 256) / 2;
 	s_main.overlay.generic.y		= y - 48;
 	s_main.overlay.width  			= 256;
 	s_main.overlay.height			= 256;
 
 	//add header
 	s_main.header.generic.type		= MTYPE_PTEXT;
-	s_main.header.generic.x			= MAIN_MENU_MARGIN_LEFT;
+	s_main.header.generic.x			= (SCREEN_WIDTH - UI_ProportionalStringWidth("=ENTITYPLUS=")) / 2;
 	s_main.header.generic.y			= y;
-	s_main.header.string			= "ENTITYPLUS";
+	s_main.header.string			= "=ENTITYPLUS=";
 	s_main.header.color				= color_ochre;
 
 	//add menu buttons
 	y += MAIN_MENU_VERTICAL_SPACING;
 	s_main.singleplayer.generic.type		= MTYPE_PTEXT;
 	s_main.singleplayer.generic.flags		= QMF_PULSEIFFOCUS;
-	s_main.singleplayer.generic.x			= MAIN_MENU_MARGIN_LEFT;
+	s_main.singleplayer.generic.x			= (SCREEN_WIDTH - UI_ProportionalStringWidth("NEW GAME")) / 2;
 	s_main.singleplayer.generic.y			= y;
 	s_main.singleplayer.generic.id			= ID_SINGLEPLAYER;
 	s_main.singleplayer.generic.callback	= Main_MenuEvent; 
@@ -256,7 +256,7 @@ void UI_MainMenu( void ) {
 	y += MAIN_MENU_VERTICAL_SPACING;
 	s_main.setup.generic.type				= MTYPE_PTEXT;
 	s_main.setup.generic.flags				= QMF_PULSEIFFOCUS;
-	s_main.setup.generic.x					= MAIN_MENU_MARGIN_LEFT;
+	s_main.setup.generic.x					= (SCREEN_WIDTH - UI_ProportionalStringWidth("SETUP")) / 2;
 	s_main.setup.generic.y					= y;
 	s_main.setup.generic.id					= ID_SETUP;
 	s_main.setup.generic.callback			= Main_MenuEvent; 
@@ -266,7 +266,7 @@ void UI_MainMenu( void ) {
 	y += MAIN_MENU_VERTICAL_SPACING;
 	s_main.exit.generic.type				= MTYPE_PTEXT;
 	s_main.exit.generic.flags				= QMF_PULSEIFFOCUS;
-	s_main.exit.generic.x					= MAIN_MENU_MARGIN_LEFT;
+	s_main.exit.generic.x					= (SCREEN_WIDTH - UI_ProportionalStringWidth("EXIT")) / 2;
 	s_main.exit.generic.y					= y;
 	s_main.exit.generic.id					= ID_EXIT;
 	s_main.exit.generic.callback			= Main_MenuEvent; 
