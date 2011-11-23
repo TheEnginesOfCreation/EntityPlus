@@ -36,7 +36,6 @@ typedef struct {
 	menubitmap_s	overlay;
 
 	qhandle_t		menuBackground1;
-	qhandle_t		menuBackground2;
 	vec3_t			menuModelOrigin;
 	vec3_t			menuModelAngles;
 
@@ -102,7 +101,6 @@ MainMenu_Cache
 */
 void MainMenu_Cache( void ) {
 	s_main.menuBackground1 = trap_R_RegisterShaderNoMip( "menu/backgrounds/01" );
-	s_main.menuBackground2 = trap_R_RegisterShaderNoMip( "menu/backgrounds/02" );
 }
 
 sfxHandle_t ErrorMessage_Key(int key)
@@ -129,8 +127,7 @@ static void Main_MenuDraw( void ) {
 	}
 	else
 	{
-		UI_DrawHandlePic(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, s_main.menuBackground1 ); //background image
-		UI_DrawHandlePic(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, s_main.menuBackground2 ); //tris lines showing through
+		UI_DrawHandlePic(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, s_main.menuBackground1 ); //background shader
 
 		/*
 		//determine delay until next lighting strike
