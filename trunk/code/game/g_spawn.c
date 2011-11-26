@@ -49,6 +49,14 @@ qboolean	G_SpawnVector( const char *key, const char *defaultString, float *out )
 	return present;
 }
 
+qboolean	G_SpawnVector4( const char *key, const char *defaultString, float *out ) {
+	char		*s;
+	qboolean	present;
+
+	present = G_SpawnString( key, defaultString, &s );
+	sscanf( s, "%f %f %f %f", &out[0], &out[1], &out[2], &out[3] );
+	return present;
+}
 
 
 //

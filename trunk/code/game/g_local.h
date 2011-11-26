@@ -179,6 +179,8 @@ struct gentity_s {
 	int			armor; // armor for the target_playerstats entity
 	vec3_t		orgOrigin; // origin of entity (player) when cutscene starts
 	char		music[MAX_INFO_STRING]; //path to music file(s) for target_music
+	vec4_t		rgba1; //start color for target_effect fade
+	vec4_t		rgba2; //end color for target_effect fade
 };
 
 
@@ -443,6 +445,7 @@ qboolean	G_SpawnString( const char *key, const char *defaultString, char **out )
 qboolean	G_SpawnFloat( const char *key, const char *defaultString, float *out );
 qboolean	G_SpawnInt( const char *key, const char *defaultString, int *out );
 qboolean	G_SpawnVector( const char *key, const char *defaultString, float *out );
+qboolean	G_SpawnVector4( const char *key, const char *defaultString, float *out );
 void		G_SpawnEntitiesFromString( void );
 char *G_NewString( const char *string );
 

@@ -439,6 +439,14 @@ namespace mvt
 					}
 					break;
 
+				case "target_effect":
+					if ((ent.Spawnflags & 64) != 0)
+					{
+						Debug(" > use of \"FADE\" spawnflag requires " + versionString);
+						result = true;
+					}
+					break;
+
 				case "worldspawn":
 					if (!String.IsNullOrEmpty(ent.GetValue("objectivesoverlay")) && ent.GetValue("objectivesoverlay") != "menu/objectives/overlay.tga")
 					{
