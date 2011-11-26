@@ -813,7 +813,7 @@ void SP_target_earthquake (gentity_t *self) {
 
 //==========================================================
 
-/*QUAKED target_effect (.5 .5 .5) (-8 -8 -8) (8 8 8) EXPLOSION PARTICLES_GRAVITY PARTICLES_LINEAR PARTICLES_LINEAR_UP PARTICLES_LINEAR_DOWN OVERLAY
+/*QUAKED target_effect (.5 .5 .5) (-8 -8 -8) (8 8 8) EXPLOSION PARTICLES_GRAVITY PARTICLES_LINEAR PARTICLES_LINEAR_UP PARTICLES_LINEAR_DOWN OVERLAY FADE
 shows animated environmental effect
 The EXPLOSION spawnflag will cause the entity to show an explosion
 The PARTICLES_GRAVITY spawnflag will cause the entity to show particles which are affected by gravity and drop to the ground
@@ -880,6 +880,10 @@ void target_effect_use (gentity_t *self, gentity_t *other, gentity_t *activator)
 		//send event to player which will register the asset so it may subsequently be drawn each frame.
 		G_TempEntity( self->s.origin, EV_OVERLAY );
 	}
+
+	if ( self->spawnflags & 64 ) {
+		G_Fade( self->wait, self->rgba1, self->rgba2 ); 
+	}
 }
 
 void SP_target_effect (gentity_t *self) {
@@ -918,6 +922,12 @@ void SP_target_effect (gentity_t *self) {
 	//preload assets if necessary
 	if ( self->spawnflags & 1 ) {
 		RegisterItem( BG_FindItemForWeapon( WP_ROCKET_LAUNCHER ) );	//uses RL gfx so we must register the RL
+	}
+
+	//fade info
+	if ( self->spawnflags & 64 ) {
+		G_SpawnVector4( "startcolor", "0 0 0 0", self->rgba1 );
+		G_SpawnVector4( "endcolor", "0 0 0 1", self->rgba2 );
 	}
 
 	self->use = target_effect_use;

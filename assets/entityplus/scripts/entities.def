@@ -1569,7 +1569,7 @@ intensity : intensity of the earthquake (1 - 16).*/
 
 //=============================================================================
 
-/*QUAKED target_effect (0 .7 .7) (-8 -8 -8) (8 8 8) EXPLOSION PARTICLES_GRAVITY PARTICLES_LINEAR PARTICLES_LINEAR_UP PARTICLES_LINEAR_DOWN OVERLAY
+/*QUAKED target_effect (0 .7 .7) (-8 -8 -8) (8 8 8) EXPLOSION PARTICLES_GRAVITY PARTICLES_LINEAR PARTICLES_LINEAR_UP PARTICLES_LINEAR_DOWN OVERLAY FADE
 shows animated environmental effects or overlay
 -------- KEYS --------
 targetname : activating entity points to this.
@@ -1578,6 +1578,9 @@ color : color of the particles for particle effect (default 1.0 1.0 1.0).
 count : number of particles for particle effect (0 - 255, default 100).
 speed : speed of the particles (default 100).
 overlay : specifies an image to overlay over the screen. Leave empty to remove existing overlay.
+startcolor : specifies the rgba value of the starting color of a fade (default 0.0 0.0 0.0 0.0).
+endcolor : specifies the rgba value of the ending color of a fade (default 0.0 0.0 0.0 1.0).
+wait : specifies the amount of time it takes to fade from the start color to the end color.
 -------- SPAWNFLAGS --------
 EXPLOSION : Shows an explosion when activated.
 PARTICLES_GRAVITY : Generates particles that are affected by gravity.
@@ -1585,8 +1588,11 @@ PARTICLES_LINEAR : Generates particles that are not affected by gravity.
 PARTICLES_LINEAR_UP : Generates particles that are not affected by gravity that only move upwards.
 PARTICLES_LINEAR_DOWN : Generates particles that are not affected by gravity that only move downwards.
 OVERLAY : Applies the specified overlay to the screen.
+FADE : The screen will fade from the specified start color to the specified end color.
 -------- NOTES --------
-Spawnflags can be combined to have the entity show multiple effects when triggered.*/
+Spawnflags can be combined to have the entity show multiple effects when triggered.
+
+The rgba values for startcolor and endcolor are specified like other color values but they accept a fourth value which specifies the alpha (transparency) value. A value of 1.0 is 100% opaque, a value of 0.0 is completely transparent.*/
 
 //=============================================================================
 
