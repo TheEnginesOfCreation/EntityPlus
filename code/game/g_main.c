@@ -333,7 +333,14 @@ G_InitGame
 */
 void G_InitGame( int levelTime, int randomSeed, int restart ) {
 	int					i;
+	vec4_t				rgba;
 
+	//clear any fades set by target_effect
+	for (i = 0; i < 4; i++) 
+		rgba[i] = 0;
+	G_Fade(0, rgba, rgba);
+
+	//initialize
 	G_Printf ("------- Game Initialization -------\n");
 	G_Printf ("gamename: %s\n", GAMEVERSION);
 	G_Printf ("gamedate: %s\n", __DATE__);
