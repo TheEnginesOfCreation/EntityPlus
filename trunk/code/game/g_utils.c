@@ -422,7 +422,7 @@ void G_ToggleTargetsLinked( gentity_t *ent ) {
 		t = NULL;
 		while ( (t = G_Find (t, FOFS(targetname), ent->target)) != NULL ) {
 			if ( t == ent ) {
-				G_Printf ("WARNING: Entity targets itself.\n");
+				G_Printf( "WARNING: Entity %s at %s targets itself.\n", ent->classname, vtos(ent->s.origin) );
 			} else {
 				G_SetEntityLinked( t, ent->spawnflags );
 			}
@@ -435,7 +435,7 @@ void G_ToggleTargetsLinked( gentity_t *ent ) {
 		t = NULL;
 		while ( (t = G_Find (t, FOFS(targetname2), ent->target)) != NULL ) {
 			if ( t == ent ) {
-				G_Printf ("WARNING: Entity targets itself.\n");
+				G_Printf( "WARNING: Entity %s at %s targets itself.\n", ent->classname, vtos(ent->s.origin) );
 			} else {
 				G_SetEntityLinked( t, ent->spawnflags );
 			}
@@ -450,7 +450,7 @@ void G_ToggleTargetsLinked( gentity_t *ent ) {
 		t = NULL;
 		while ( (t = G_Find (t, FOFS(targetname), ent->target2)) != NULL ) {
 			if ( t == ent ) {
-				G_Printf ("WARNING: Entity targets itself.\n");
+				G_Printf( "WARNING: Entity %s at %s targets itself.\n", ent->classname, vtos(ent->s.origin) );
 			} else {
 				G_SetEntityLinked( t, ent->spawnflags );
 			}
@@ -463,7 +463,7 @@ void G_ToggleTargetsLinked( gentity_t *ent ) {
 		t = NULL;
 		while ( (t = G_Find (t, FOFS(targetname2), ent->target2)) != NULL ) {
 			if ( t == ent ) {
-				G_Printf ("WARNING: Entity targets itself.\n");
+				G_Printf( "WARNING: Entity %s at %s targets itself.\n", ent->classname, vtos(ent->s.origin) );
 			} else {
 				G_SetEntityLinked( t, ent->spawnflags );
 			}
@@ -1173,7 +1173,7 @@ void G_LinkCameras( gentity_t *ent ) {
 		t = NULL;
 		while ( (t = G_Find (t, FOFS(targetname), ent->target)) != NULL ) {
 			if ( t == ent ) {
-				G_Printf ("WARNING: Entity targets itself.\n");
+				G_Printf( "WARNING: Entity %s at %s targets itself.\n", ent->classname, vtos(ent->s.origin) );
 			} else if ( !strcmp(t->classname, "info_camera") ) {
 				ent->nextTrain = t;
 				t->parent = parent;
@@ -1190,7 +1190,7 @@ void G_LinkCameras( gentity_t *ent ) {
 		t = NULL;
 		while ( (t = G_Find (t, FOFS(targetname2), ent->target)) != NULL ) {
 			if ( t == ent ) {
-				G_Printf ("WARNING: Entity targets itself.\n");
+				G_Printf( "WARNING: Entity %s at %s targets itself.\n", ent->classname, vtos(ent->s.origin) );
 			} else if ( !strcmp(t->classname, "info_camera") ) {
 				ent->nextTrain = t;
 				t->parent = parent;
@@ -1211,7 +1211,7 @@ void G_LinkCameras( gentity_t *ent ) {
 		t = NULL;
 		while ( (t = G_Find (t, FOFS(targetname), ent->target2)) != NULL ) {
 			if ( t == ent ) {
-				G_Printf ("WARNING: Entity targets itself.\n");
+				G_Printf( "WARNING: Entity %s at %s targets itself.\n", ent->classname, vtos(ent->s.origin) );
 			} else if ( !strcmp(t->classname, "info_camera") ) {
 				ent->nextTrain = t;
 				t->parent = parent;
@@ -1228,7 +1228,7 @@ void G_LinkCameras( gentity_t *ent ) {
 		t = NULL;
 		while ( (t = G_Find (t, FOFS(targetname2), ent->target2)) != NULL ) {
 			if ( t == ent ) {
-				G_Printf ("WARNING: Entity targets itself.\n");
+				G_Printf( "WARNING: Entity %s at %s targets itself.\n", ent->classname, vtos(ent->s.origin) );
 			} else if ( !strcmp(t->classname, "info_camera") ) {
 				ent->nextTrain = t;
 				t->parent = parent;
