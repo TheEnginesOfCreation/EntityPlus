@@ -81,8 +81,8 @@ Programming support				: Perle
 Programming support				: themuffinman
 								  [http://quake3world.com/forum/memberlist.php?mode=viewprofile&u=28606]
 
-Keycard models					: Obsidian
-								  [http://www.robotrenegade.com]
+Keycard models and				: Obsidian
+main menu artwork				  [http://www.robotrenegade.com]
 
 Skeleton key models				: Hipshot
 								  [http://www.zfight.com]

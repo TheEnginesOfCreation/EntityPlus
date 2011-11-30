@@ -18,6 +18,7 @@ MAIN MENU
 
 #define ART_OVERLAY						"menu/art/mainoverlay"
 
+#define MAIN_MENU_OVERLAY_WIDTH		256
 #define MAIN_MENU_VERTICAL_SPACING	34
 #define MAIN_MENU_MARGIN_LEFT		48
 #define MAIN_MENU_MARGIN_TOP		310
@@ -192,6 +193,7 @@ and that local cinematics are killed
 */
 void UI_MainMenu( void ) {
 	int		y;
+	int		overlayX;
 
 	trap_Cvar_Set( "sv_killserver", "1" );
 	
@@ -222,53 +224,54 @@ void UI_MainMenu( void ) {
 	s_main.menu.showlogo = qfalse;
 
 	y = MAIN_MENU_MARGIN_TOP;
+	overlayX = SCREEN_WIDTH - (MAIN_MENU_OVERLAY_WIDTH + 32);
 
 	//add overlay
 	s_main.overlay.generic.type		= MTYPE_BITMAP;
 	s_main.overlay.generic.name		= ART_OVERLAY;
 	s_main.overlay.generic.flags	= QMF_INACTIVE;
-	s_main.overlay.generic.x		= (SCREEN_WIDTH - 256) / 2;
+	s_main.overlay.generic.x		= overlayX;
 	s_main.overlay.generic.y		= y - 48;
-	s_main.overlay.width  			= 256;
-	s_main.overlay.height			= 256;
+	s_main.overlay.width  			= MAIN_MENU_OVERLAY_WIDTH;
+	s_main.overlay.height			= MAIN_MENU_OVERLAY_WIDTH;
 
 	//add header
 	s_main.header.generic.type		= MTYPE_PTEXT;
-	s_main.header.generic.x			= (SCREEN_WIDTH - UI_ProportionalStringWidth("=ENTITYPLUS=")) / 2;
+	s_main.header.generic.x			= ((MAIN_MENU_OVERLAY_WIDTH - UI_ProportionalStringWidth("=ENTITYPLUS=")) / 2) + overlayX;
 	s_main.header.generic.y			= y;
 	s_main.header.string			= "=ENTITYPLUS=";
-	s_main.header.color				= color_ochre;
+	s_main.header.color				= color_white;
 
 	//add menu buttons
 	y += MAIN_MENU_VERTICAL_SPACING;
 	s_main.singleplayer.generic.type		= MTYPE_PTEXT;
 	s_main.singleplayer.generic.flags		= QMF_PULSEIFFOCUS;
-	s_main.singleplayer.generic.x			= (SCREEN_WIDTH - UI_ProportionalStringWidth("NEW GAME")) / 2;
+	s_main.singleplayer.generic.x			= ((MAIN_MENU_OVERLAY_WIDTH - UI_ProportionalStringWidth("NEW GAME")) / 2) + overlayX;
 	s_main.singleplayer.generic.y			= y;
 	s_main.singleplayer.generic.id			= ID_SINGLEPLAYER;
 	s_main.singleplayer.generic.callback	= Main_MenuEvent; 
 	s_main.singleplayer.string				= "NEW GAME";
-	s_main.singleplayer.color				= color_white;
+	s_main.singleplayer.color				= color_black;
 
 	y += MAIN_MENU_VERTICAL_SPACING;
 	s_main.setup.generic.type				= MTYPE_PTEXT;
 	s_main.setup.generic.flags				= QMF_PULSEIFFOCUS;
-	s_main.setup.generic.x					= (SCREEN_WIDTH - UI_ProportionalStringWidth("SETUP")) / 2;
+	s_main.setup.generic.x					= ((MAIN_MENU_OVERLAY_WIDTH - UI_ProportionalStringWidth("SETUP")) / 2) + overlayX;
 	s_main.setup.generic.y					= y;
 	s_main.setup.generic.id					= ID_SETUP;
 	s_main.setup.generic.callback			= Main_MenuEvent; 
 	s_main.setup.string						= "SETUP";
-	s_main.setup.color						= color_white;
+	s_main.setup.color						= color_black;
 
 	y += MAIN_MENU_VERTICAL_SPACING;
 	s_main.exit.generic.type				= MTYPE_PTEXT;
 	s_main.exit.generic.flags				= QMF_PULSEIFFOCUS;
-	s_main.exit.generic.x					= (SCREEN_WIDTH - UI_ProportionalStringWidth("EXIT")) / 2;
+	s_main.exit.generic.x					= ((MAIN_MENU_OVERLAY_WIDTH - UI_ProportionalStringWidth("EXIT")) / 2) + overlayX;
 	s_main.exit.generic.y					= y;
 	s_main.exit.generic.id					= ID_EXIT;
 	s_main.exit.generic.callback			= Main_MenuEvent; 
 	s_main.exit.string						= "EXIT";
-	s_main.exit.color						= color_white;
+	s_main.exit.color						= color_black;
 
 	Menu_AddItem( &s_main.menu,	&s_main.overlay );
 	Menu_AddItem( &s_main.menu,	&s_main.header );
