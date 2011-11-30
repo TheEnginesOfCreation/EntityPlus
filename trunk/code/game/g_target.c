@@ -478,20 +478,13 @@ void target_logic_use (gentity_t *self, gentity_t *other, gentity_t *activator) 
 	qboolean	found;
 	gentity_t	*t;
 
-	if ( ( self->spawnflags & 1 ) && activator->client && activator->client->sess.sessionTeam != TEAM_RED ) {
-		return;
-	}
-	if ( ( self->spawnflags & 2 ) && activator->client && activator->client->sess.sessionTeam != TEAM_BLUE ) {
-		return;
-	}
-
 	//determine the number of entities (triggers) targeting this target_logic
 	triggerCount = triggeredCount = 0;
 	t = NULL;
 	while ( (t = G_Find (t, FOFS(target), self->targetname)) != NULL ) {
 		found = qfalse;
 		if ( t == self ) {
-			G_Printf ("WARNING: Entity used itself.\n");
+			G_Printf ("WARNING: Entity %s at %s used itself.\n", self->classname, vtos(self->s.origin));
 		} else {
 			triggerCount++;
 		}

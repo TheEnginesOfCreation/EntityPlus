@@ -508,16 +508,13 @@ menu/backgrounds/01
 	}
 	{
 		map menu/backgrounds/02.tga
-		blendFunc GL_SRC_ALPHA GL_ONE_MINUS_SRC_ALPHA
-		AlphaGen wave sin 0 0.2 0.5 .1
-		//rgbgen wave triangle .95 .05 0 10
+		blendFunc blend
+		AlphaGen wave sin 0 1 0.5 .1
 	}
 	{
-		map menu/backgrounds/noise.tga
-		blendfunc add
-		rgbgen wave triangle .2 .05 0 10
-		tcmod scroll 5 .25 
-	}	
+		map menu/art/logo2.tga
+		blendFunc blend
+	}
 }
 
 menu/art/loading
