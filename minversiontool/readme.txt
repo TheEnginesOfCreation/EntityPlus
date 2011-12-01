@@ -14,13 +14,18 @@ Usage
 
 Simply type 
 mvt.exe "filename"
-in a command prompt to analyze a map. Replace filename with the full path to the mapfile. The tool also supports a -d switch. When the -d switch is used, it will output debug information.
+in a command prompt to analyze a map. Replace filename with the full path to the mapfile. 
+
+The tool also supports two command line switches:
+
+-d : When supplying this switch, the tool will list the entities, keys or spawnflags used.
+-v : This switch will output the same information as the -d switch but it will also list all the entities present in the map.
 
 
 Compatibility
 -------------
 
-The minversiontool is only able to determine the minversion up to the version that the minversiontool itself is compatible with. It is therefor important to always make sure your minversiontool is up-to-date with the version of EntityPlus you are running yourself.
+The minversiontool is only able to determine the minversion up to the version that the minversiontool itself is compatible with. It is therefore important to always make sure your minversiontool is up-to-date with the version of EntityPlus you are running yourself.
 
 
 Contact

@@ -10,11 +10,18 @@ namespace mvt
 	{
 		#region private members
 		private List<Entity> entities = new List<Entity>();
-		private bool debug = false;
+		private LogModes logMode = LogModes.None;
 		#endregion
 
 		
 		#region definitions
+		public enum LogModes
+		{
+			None = 0,
+			Debug = 1,
+			Verbose = 2
+		}
+
 		/// <summary>The default minversion. Should always be 1.0</summary>
 		private const Versions DEFAULT_MINVERSION = Versions.one_zero;
 
@@ -90,9 +97,9 @@ namespace mvt
 
 
 		#region Constructor
-		public MinVersionTool(string filename, bool debug)
+		public MinVersionTool(string filename, LogModes logMode)
 		{
-			this.debug = debug;
+			this.logMode = logMode;
 			Console.WriteLine("=== MinVersionTool for EntityPlus v1.1 ===");
 
 			DateTime start = DateTime.Now;
@@ -221,7 +228,7 @@ namespace mvt
 
 			foreach (Entity ent in entities)
 			{
-				Debug(String.Format("Entity {0}: {1}", ent.EntityNum, ent.GetValue("classname")));
+				Verbose(String.Format("Entity {0}: {1}", ent.EntityNum, ent.GetValue("classname")));
 				entversion = CheckEntity(ent);
 				minversion = GetMostRecentVersion(entversion, minversion);
 			}
@@ -295,19 +302,40 @@ namespace mvt
 			return false;
 		}
 
-		/// <summary>Prints a debug message (only if the -d commandline switch was supplied)</summary>
+		/// <summary>Prints a debug message (only if the -d or -v commandline switch was supplied)</summary>
 		/// <param name="text">Debug text to print</param>
 		private void Debug(string text)
 		{
 			Debug(text, true);
 		}
 
-		/// <summary>Prints a debug message (only if the -d commandline switch was supplied)</summary>
+		/// <summary>Prints a debug message (only if the -d or -v commandline switch was supplied)</summary>
 		/// <param name="text">Debug text to print</param>
 		/// <param name="newline">When true, WriteLine is used. When false, Write is used</param>
 		private void Debug(string text, bool newline)
 		{
-			if (debug)
+			if (logMode == LogModes.Debug || logMode == LogModes.Verbose)
+			{
+				if (newline)
+					Console.WriteLine(text);
+				else
+					Console.Write(text);
+			}
+		}
+
+		/// <summary>Prints a verbose message (only if the -v commandline switch was supplied)</summary>
+		/// <param name="text">Verbose text to print</param>
+		private void Verbose(string text)
+		{
+			Verbose(text, true);
+		}
+
+		/// <summary>Prints a verbose message (only if the -v commandline switch was supplied)</summary>
+		/// <param name="text">Verbose text to print</param>
+		/// <param name="newline">When true, WriteLine is used. When false, Write is used</param>
+		private void Verbose(string text, bool newline)
+		{
+			if (logMode == LogModes.Verbose)
 			{
 				if (newline)
 					Console.WriteLine(text);
@@ -353,6 +381,11 @@ namespace mvt
 					if (!String.IsNullOrEmpty(ent.GetValue("targetname2")))
 					{
 						Debug(" > use of \"targetname2\" key requires " + versionString);
+						result = true;
+					}
+					if (!String.IsNullOrEmpty(ent.GetValue("breaksound")))
+					{
+						Debug(" > use of \"breaksound\" key requires " + versionString);
 						result = true;
 					}
 					break;

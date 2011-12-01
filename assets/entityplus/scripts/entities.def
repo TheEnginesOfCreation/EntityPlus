@@ -266,6 +266,7 @@ health : The entire entity is removed once this amount of damages has been infli
 count : The entity will spew out this number of chunks of debris when it's broken (default = 0).
 dmg : Amount of splashdamage the func_breakable will deal when it is removed (default = 0).
 radius : The radius in which the splashdamage is dealt (default = 120).
+breaksound : Sound to play when it's broken (by default, no sound will be played)
 target : Targetted entity will be triggered once the func_breakable is destroyed.
 target2 : Targetted entity will be triggered once the func_breakable is destroyed.
 targetname : activating entity points to this.
@@ -604,8 +605,7 @@ _shader OR shader : Path to the metashader used to assign textures to the terrai
 1. Trains always start on in the game.
 2. Trains do not damage the played when blocked.
 3. Trains cannot emit sound.
-4. Trains are not triggerable or toggle-able.
-5. Trains cannot be block-stopped just by getting in their way, the player must be wedged between the train and another obstacle to block it.
+4. Trains cannot be block-stopped just by getting in their way, the player must be wedged between the train and another obstacle to block it.
 
 Setting the origin key is simply an alternate method to using an origin brush. When using the model2 key, the origin point of the model will correspond to the origin point defined by either the origin brush or the origin coordinate value.
 

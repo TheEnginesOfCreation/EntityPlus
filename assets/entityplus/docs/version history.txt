@@ -17,6 +17,7 @@ v1.1 (?? ??? 2011)
 	- [Added] "position" console command to get current player position coordinates.
 	- [Added] "WP_GAUNTLET" spawnflag to target_botspawns. Botspawns without this spawnflag now spawn bots without Gauntlet.
 	- [Added] "FADE" spawnflag and "startcolor", "endcolor" and "wait" keys for target_effect.
+	- [Added] "breaksound" key to func_breakable.
 	- [Added] g_debugVariables cvar and g_debugBotspawns cvars.
 	- [Added] g_enableBreath and g_enableDust cvars.
 	- [Added] Support for longname, author and description through arena files.

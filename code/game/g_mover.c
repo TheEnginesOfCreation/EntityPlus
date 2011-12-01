@@ -1832,8 +1832,9 @@ void Break_Breakable(gentity_t *ent, gentity_t *other) {
 	vec3_t size;
 	vec3_t center;
 	int count = 0;
+	int sound = 0;
 	int spawnflags = 0;
-	gentity_t *tmp;
+	gentity_t *tmp, *tmp2;
 	int type = EV_EMIT_DEBRIS_LIGHT;
 
 	if ( other != ent->activator && !strcmp( other->classname, "func_breakable" ) ) {
@@ -1855,21 +1856,37 @@ void Break_Breakable(gentity_t *ent, gentity_t *other) {
 	ent->s.eType = ET_INVISIBLE;
 	G_UseTargets( ent, other );
 
+
+
 	//need to store properties of the entity in seperate variables because we're going to free the entity
 	if ( ent->count > 0) {
 		count = ent->count;
 		spawnflags = ent->spawnflags;
 	}
 
+	if ( ent->soundPos2 )
+		sound = ent->soundPos2;
+
+	//apply radius damage
 	if ( ent->damage )
 		G_RadiusDamage( center, ent, ent->damage, ent->splashRadius, ent, MOD_BREAKABLE_SPLASH );
 
+
+	//free the entity so it disappears
 	G_FreeEntity( ent );
+
 
 	//spray out debris
 	if ( count > 0 ) {
 		tmp = G_TempEntity( center, PickDebrisType( spawnflags ) );
 		tmp->s.eventParm = count;
+	}
+
+	//play sound
+	if ( sound )
+	{
+		tmp2 = G_TempEntity( center, EV_GENERAL_SOUND );
+		tmp2->s.eventParm = sound;
 	}
 }
 
@@ -1885,6 +1902,8 @@ A bmodel that just sits there, doing nothing. It is removed when it received a s
 "health"	the amount of damage required before this entity is removed
 */
 void SP_func_breakable( gentity_t *ent ) {
+	char  *noise;
+
 	trap_SetBrushModel( ent, ent->model );
 	InitMover( ent );
 	VectorCopy( ent->s.origin, ent->s.pos.trBase );
@@ -1896,6 +1915,11 @@ void SP_func_breakable( gentity_t *ent ) {
 
 	G_SpawnInt( "dmg", "0", &ent->damage );
 	G_SpawnInt( "radius", "120", &ent->splashRadius );	//120 is default splash radius of a rocket
+	
+	G_SpawnString("breaksound", "", &noise);
+	if (strlen(noise) > 0) {
+		ent->soundPos2 = G_SoundIndex(noise);
+	}
 }
 
 /*

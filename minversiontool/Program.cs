@@ -10,12 +10,14 @@ namespace mvt
 		static void Main(string[] args)
 		{
 			string filename= "";
-			bool debug = false;
+			MinVersionTool.LogModes logMode = MinVersionTool.LogModes.None;
 
 			for (int i = 0; i < args.Length; i++)
 			{
-				if (args[i] == "-d")
-					debug = true;
+				if (args[i] == "-d" && logMode != MinVersionTool.LogModes.Verbose)
+					logMode = MinVersionTool.LogModes.Debug;
+				else if (args[i] == "-v")
+					logMode = MinVersionTool.LogModes.Verbose;
 				else if (filename == "")
 					filename = args[i];
 			}
@@ -34,7 +36,7 @@ namespace mvt
 				return;
 			}
 
-			MinVersionTool mvt = new MinVersionTool(filename, debug);
+			MinVersionTool mvt = new MinVersionTool(filename, logMode);
 		}
 	}
 }
