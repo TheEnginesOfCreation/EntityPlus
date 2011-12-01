@@ -527,12 +527,11 @@ static void EPMenu_Update( void ) {
 				c[0] = desc[i];
 				c[1] = '\0';
 
-				if ( c[0] == ' ' ) {
+				if ( c[0] == ' ' && lineIndex < MAX_DESCRIPTIONLINELENGTH ) {
 					spaceIndex = i;
 				}
 
 				if (lineIndex == MAX_DESCRIPTIONLINELENGTH) {
-					//Com_Printf("[%i %i]\n", prevSpaceIndex, spaceIndex);
 					if (spaceIndex - prevSpaceIndex <= 0) {
 						strcat(lines[currentLine-1], &desc[prevSpaceIndex-1]);
 						break;
