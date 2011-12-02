@@ -1202,6 +1202,10 @@
 				</FileConfiguration>
 			</File>
 			<File
+				RelativePath=".\ui_mutators.c"
+				>
+			</File>
+			<File
 				RelativePath="ui_network.c"
 				>
 				<FileConfiguration

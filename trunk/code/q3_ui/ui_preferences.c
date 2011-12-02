@@ -29,8 +29,8 @@ GAME OPTIONS MENU
 #define ID_FORCEMODEL			135
 #define ID_SUBTITLES			136
 #define ID_PAINTBALLMODE		137
-#define ID_BIGHEADMODE			139
-#define ID_BACK					138
+#define ID_BIGHEADMODE			138
+#define ID_BACK					150
 
 #define	NUM_CROSSHAIRS			10
 
