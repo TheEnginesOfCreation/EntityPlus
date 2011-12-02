@@ -4,22 +4,22 @@ v1.1 (?? ??? 2011)
 	- [Added] target_botremove entity.
 	- [Added] target_music entity.
 	- [Added] "dmg" and "radius" keys to func_breakable.
-	- [Added] func_breakable entities can be targeted and will break upon activation.
-	- [Added] "objectivesoverlay" key to worldspawn entity.
-	- [Added] "fov" key to info_camera.
-	- [Added] "lockedsound" and "unlockedsound" keys to trigger_lock.
-	- [Added] "startsound" and "endsound" keys to func_train.
 	- [Added] "breaksound" key to func_breakable.
+	- [Added] func_breakable entities can be targeted and will break upon activation.
+	- [Added] "startsound" and "endsound" keys to func_train.
 	- [Added] "nobots" and "nohumans" keys to func_door and func_door_rotating.
+	- [Added] "FADE" spawnflag and "startcolor", "endcolor" and "wait" keys for target_effect.
 	- [Added] "ONCE" spawnflag to target_relay.
-	- [Added] "SILENT" spawnflag to all item pickup (item_*, weapon_*, holdable_*, ammo_*) entities.
+	- [Added] "WP_GAUNTLET" spawnflag to target_botspawns. Botspawns without this spawnflag now spawn bots without Gauntlet.
+	- [Added] "lockedsound" and "unlockedsound" keys to trigger_lock.
+	- [Added] "fov" key to info_camera.
 	- [Added] "NO_BOTS" and "NO_HUMANS" spawnflags to all shooter_* entities.
+	- [Added] "SILENT" spawnflag to all item pickup (item_*, weapon_*, holdable_*, ammo_*) entities.
+	- [Added] "objectivesoverlay" key to worldspawn entity.
 	- [Added] "enablebreath" and "enabledust" keys to worldspawn entity.
 	- [Added] "position" console command to get current player position coordinates.
-	- [Added] "WP_GAUNTLET" spawnflag to target_botspawns. Botspawns without this spawnflag now spawn bots without Gauntlet.
-	- [Added] "FADE" spawnflag and "startcolor", "endcolor" and "wait" keys for target_effect.
-	- [Added] g_debugVariables cvar and g_debugBotspawns cvars.
-	- [Added] g_enableBreath and g_enableDust cvars.
+	- [Added] "g_debugVariables" cvar and "g_debugBotspawns" cvars.
+	- [Added] "g_enableBreath" and "g_enableDust" cvars.
 	- [Added] Support for longname, author and description through arena files.
 	- [Added] "Loading..." text and icon is displayed when map is loading.
 	- [Fixed] target_unlink does not work on func_bobbing entities.
