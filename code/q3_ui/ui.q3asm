@@ -21,6 +21,7 @@ ui_playermodel
 ui_players
 ui_playersettings
 ui_preferences
+ui_mutators
 ui_qmenu
 ui_serverinfo
 ui_servers2

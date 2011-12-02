@@ -410,6 +410,12 @@ extern void UI_PreferencesMenu( void );
 extern void Preferences_Cache( void );
 
 //
+// ui_mutators.c
+//
+extern void UI_MutatorsMenu( void );
+extern void Mutators_Cache( void );
+
+//
 // ui_specifyleague.c
 //
 extern void UI_SpecifyLeagueMenu( void );
