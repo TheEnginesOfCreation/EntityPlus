@@ -29,6 +29,7 @@ GAME OPTIONS MENU
 #define ID_FORCEMODEL			135
 #define ID_SUBTITLES			136
 #define ID_PAINTBALLMODE		137
+#define ID_BIGHEADMODE			139
 #define ID_BACK					138
 
 #define	NUM_CROSSHAIRS			10
@@ -55,6 +56,7 @@ typedef struct {
 	menuradiobutton_s	forcemodel;
 	menuradiobutton_s	subtitles;
 	menuradiobutton_s	paintballmode;
+	menuradiobutton_s	bigheadmode;
 	menubitmap_s		back;
 
 	qhandle_t			crosshairShader[NUM_CROSSHAIRS];
@@ -81,6 +83,7 @@ static void Preferences_SetMenuItems( void ) {
 	s_preferences.forcemodel.curvalue		= trap_Cvar_VariableValue( "cg_forcemodel" ) != 0;
 	s_preferences.subtitles.curvalue		= trap_Cvar_VariableValue( "cg_drawsubtitles" ) != 0;
 	s_preferences.paintballmode.curvalue	= trap_Cvar_VariableValue( "cg_paintballmode" ) != 0;
+	s_preferences.bigheadmode.curvalue		= trap_Cvar_VariableValue( "cg_bigheadmode" ) != 0;
 }
 
 
@@ -135,6 +138,10 @@ static void Preferences_Event( void* ptr, int notification ) {
 
 	case ID_PAINTBALLMODE:
 		trap_Cvar_SetValue( "cg_paintballmode", s_preferences.paintballmode.curvalue );
+		break;
+
+	case ID_BIGHEADMODE:
+		trap_Cvar_SetValue( "cg_bigheadmode", s_preferences.bigheadmode.curvalue );
 		break;
 
 	case ID_BACK:
@@ -306,7 +313,7 @@ static void Preferences_MenuInit( void ) {
 
 	y += BIGCHAR_HEIGHT+2;
 	s_preferences.subtitles.generic.type     = MTYPE_RADIOBUTTON;
-	s_preferences.subtitles.generic.name	 = "Show subtitles:";
+	s_preferences.subtitles.generic.name	 = "Show Subtitles:";
 	s_preferences.subtitles.generic.flags	 = QMF_PULSEIFFOCUS|QMF_SMALLFONT;
 	s_preferences.subtitles.generic.callback = Preferences_Event;
 	s_preferences.subtitles.generic.id       = ID_SUBTITLES;
@@ -323,6 +330,14 @@ static void Preferences_MenuInit( void ) {
 	s_preferences.paintballmode.generic.y	     = y;
 
 	y += BIGCHAR_HEIGHT+2;
+	s_preferences.bigheadmode.generic.type		= MTYPE_RADIOBUTTON;
+	s_preferences.bigheadmode.generic.name		= "Enable Big Head Mode:";
+	s_preferences.bigheadmode.generic.flags		= QMF_PULSEIFFOCUS|QMF_SMALLFONT;
+	s_preferences.bigheadmode.generic.callback	= Preferences_Event;
+	s_preferences.bigheadmode.generic.id		= ID_BIGHEADMODE;
+	s_preferences.bigheadmode.generic.x			= PREFERENCES_X_POS;
+	s_preferences.bigheadmode.generic.y			= y;
+
 	s_preferences.back.generic.type	    = MTYPE_BITMAP;
 	s_preferences.back.generic.name     = ART_BACK0;
 	s_preferences.back.generic.flags    = QMF_LEFT_JUSTIFY|QMF_PULSEIFFOCUS;
@@ -348,6 +363,7 @@ static void Preferences_MenuInit( void ) {
 	Menu_AddItem( &s_preferences.menu, &s_preferences.forcemodel );
 	Menu_AddItem( &s_preferences.menu, &s_preferences.subtitles );
 	Menu_AddItem( &s_preferences.menu, &s_preferences.paintballmode );
+	Menu_AddItem( &s_preferences.menu, &s_preferences.bigheadmode );
 
 	Menu_AddItem( &s_preferences.menu, &s_preferences.back );
 
