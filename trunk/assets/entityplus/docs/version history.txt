@@ -1,4 +1,5 @@
 v1.1 (?? ??? 2011)
+	- [Added] Big Head mode (cg_bigheadMode).
 	- [Added] Paintball mode (cg_paintballMode).
 	- [Added] Value of cg_marks determines how long wallmarks stay.
 	- [Added] target_botremove entity.
