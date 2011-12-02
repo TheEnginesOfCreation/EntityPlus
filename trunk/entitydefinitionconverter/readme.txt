@@ -15,7 +15,7 @@ the resulting entities.ent file will be written to the same folder as where the 
 
 When this tool is used for definition files other than the ones meant for baseq3 or EntityPlus it may be necessary to add a new
 KeyTypes xml file. Because GtkRadiant 1.5 entities.ent files also define the data type for each key, the tool needs to know what
-the data type for each key is. Thes KeyTypes xml files tell the tool what datatype is used for what key. To add a new KeyTypes file,
+the data type for each key is. The KeyTypes xml files tell the tool what datatype is used for what key. To add a new KeyTypes file,
 create a new XML file in the KeyTypes folder and add the root element "keytypes". Under the root element, add a node for each new key
 where the name of the node is equal to the name of the key. The text within the node should describe the datatype used for this key.
 
