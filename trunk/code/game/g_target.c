@@ -812,6 +812,8 @@ The EXPLOSION spawnflag will cause the entity to show an explosion
 The PARTICLES_GRAVITY spawnflag will cause the entity to show particles which are affected by gravity and drop to the ground
 The PARTICLES_LINEAR spawnflag will cause the entity to show particles which are not affected by gravity and move in a straight line
 color key takes normalized color values (0.0 - 1.0)
+startcolor key takes normalized color values (0.0 - 1.0)
+endcolor key takes normalized color values (0.0 - 1.0)
 count key takes int (0 - 255)
 speed key takes int (0 - 255)
 */
@@ -826,12 +828,12 @@ void target_effect_use (gentity_t *self, gentity_t *other, gentity_t *activator)
 		return;
 
 	//explosion
-	if ( self->spawnflags & 1 ) {
+	if ( self->spawnflags & SF_EFFECT_EXPLOSION ) {
 		G_TempEntity( self->s.origin, EV_EXPLOSION );
 	}
 
 	//particles_gravity
-	if ( self->spawnflags & 2 ) {
+	if ( self->spawnflags & SF_EFFECT_PARTICLES_GRAVITY ) {
 		ent2 = G_TempEntity( self->s.origin, EV_PARTICLES_GRAVITY );
 		ent2->s.constantLight = self->s.constantLight;	//constantLight is used to determine particle color
 		ent2->s.eventParm = self->count; //eventParm is used to determine the number of particles
@@ -839,7 +841,7 @@ void target_effect_use (gentity_t *self, gentity_t *other, gentity_t *activator)
 	}
 
 	//particles_linear
-	if ( self->spawnflags & 4 ) {
+	if ( self->spawnflags & SF_EFFECT_PARTICLES_LINEAR ) {
 		ent3 = G_TempEntity( self->s.origin, EV_PARTICLES_LINEAR );
 		ent3->s.constantLight = self->s.constantLight;	//constantLight is used to determine particle color
 		ent3->s.eventParm = self->count; //eventParm is used to determine the number of particles
@@ -847,7 +849,7 @@ void target_effect_use (gentity_t *self, gentity_t *other, gentity_t *activator)
 	}
 
 	//particles_linear_up
-	if ( self->spawnflags & 8 ) {
+	if ( self->spawnflags & SF_EFFECT_PARTICLES_LINEAR_UP ) {
 		ent4 = G_TempEntity( self->s.origin, EV_PARTICLES_LINEAR_UP );
 		ent4->s.constantLight = self->s.constantLight;	//constantLight is used to determine particle color
 		ent4->s.eventParm = self->count; //eventParm is used to determine the number of particles
@@ -855,7 +857,7 @@ void target_effect_use (gentity_t *self, gentity_t *other, gentity_t *activator)
 	}
 
 	//particles_linear_down
-	if ( self->spawnflags & 16 ) {
+	if ( self->spawnflags & SF_EFFECT_PARTICLES_LINEAR_DOWN ) {
 		ent5 = G_TempEntity( self->s.origin, EV_PARTICLES_LINEAR_DOWN );
 		ent5->s.constantLight = self->s.constantLight;	//constantLight is used to determine particle color
 		ent5->s.eventParm = self->count; //eventParm is used to determine the number of particles
@@ -863,7 +865,7 @@ void target_effect_use (gentity_t *self, gentity_t *other, gentity_t *activator)
 	}
 
 	//overlay
-	if ( self->spawnflags & 32 ) {
+	if ( self->spawnflags & SF_EFFECT_OVERLAY ) {
 		if ( self->overlay ) {
 			trap_SetConfigstring( CS_OVERLAY, self->overlay );
 		} else {
@@ -874,51 +876,74 @@ void target_effect_use (gentity_t *self, gentity_t *other, gentity_t *activator)
 		G_TempEntity( self->s.origin, EV_OVERLAY );
 	}
 
-	if ( self->spawnflags & 64 ) {
+	//fade
+	if ( self->spawnflags & SF_EFFECT_FADE ) {
 		G_Fade( self->wait, self->rgba1, self->rgba2 ); 
 	}
 }
 
 void SP_target_effect (gentity_t *self) {
 	vec3_t		color;
-	int			r, g, b;
+	float		light;
+	int			r, g, b, i;
 
 	//check if effects are selected
 	if ( !self->spawnflags ) {
-		G_Printf( va( S_COLOR_YELLOW "WARNING: target_effect without selected effects at %s\n", vtos(self->s.origin) ) );
+		G_Printf( va( S_COLOR_YELLOW "WARNING: %s without selected effects at %s\n", self->classname, vtos(self->s.origin) ) );
 		G_FreeEntity( self );
 	}
 	
 	// particle color
-	G_SpawnVector( "color", "1 1 1", color );
+	if ( 
+		self->spawnflags & SF_EFFECT_PARTICLES_GRAVITY || 
+		self->spawnflags & SF_EFFECT_PARTICLES_LINEAR || 
+		self->spawnflags & SF_EFFECT_PARTICLES_LINEAR_UP ||
+		self->spawnflags & SF_EFFECT_PARTICLES_LINEAR_DOWN
+	) {
+		G_SpawnVector( "color", "1 1 1", color );
 
-	r = color[0] * 255;
-	if (r > 255) r = 255;
+		r = color[0] * 255;
+		if ( r > 255 ) {
+			r = 255;
+		}
+		g = color[1] * 255;
+		if ( g > 255 ) {
+			g = 255;
+		}
+		b = color[2] * 255;
+		if ( b > 255 ) {
+			b = 255;
+		}
+		i = light / 4;
+		if ( i > 255 ) {
+			i = 255;
+		}
+		self->s.constantLight = r | ( g << 8 ) | ( b << 16 ) | ( i << 24 );
+	}
 
-	g = color[1] * 255;
-	if (g > 255) g = 255;
+	//particle count and speed
+	if ( 
+		self->spawnflags & SF_EFFECT_PARTICLES_GRAVITY || 
+		self->spawnflags & SF_EFFECT_PARTICLES_LINEAR || 
+		self->spawnflags & SF_EFFECT_PARTICLES_LINEAR_UP ||
+		self->spawnflags & SF_EFFECT_PARTICLES_LINEAR_DOWN
+	) {
+		if ( !self->count )
+			self->count = 100;
+		else if (self->count > 255)
+			self->count = 255;
 
-	b = color[2] * 255;
-	if (b > 255) b = 255;
-	
-	self->s.constantLight = r + (g << 8) + (b << 16);
+		if ( !self->speed )
+			self->speed = 100;
+	}
 
-	//set default values
-	if ( !self->count )
-		self->count = 100;
-	else if (self->count > 255)
-		self->count = 255;
-
-	if ( !self->speed )
-		self->speed = 100;
-
-	//preload assets if necessary
-	if ( self->spawnflags & 1 ) {
+	//preload explosion assets if necessary
+	if ( self->spawnflags & SF_EFFECT_EXPLOSION ) {
 		RegisterItem( BG_FindItemForWeapon( WP_ROCKET_LAUNCHER ) );	//uses RL gfx so we must register the RL
 	}
 
 	//fade info
-	if ( self->spawnflags & 64 ) {
+	if ( self->spawnflags & SF_EFFECT_FADE ) {
 		G_SpawnVector4( "startcolor", "0 0 0 0", self->rgba1 );
 		G_SpawnVector4( "endcolor", "0 0 0 1", self->rgba2 );
 	}

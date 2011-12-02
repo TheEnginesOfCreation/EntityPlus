@@ -1050,28 +1050,28 @@ returns a type of debris based on the passed spawnflags value
 */
 int PickDebrisType( int spawnflags ) {
 
-	if ( spawnflags & 1 )
+	if ( spawnflags & SF_DEBRIS_LIGHT )
 		return EV_EMIT_DEBRIS_LIGHT;
 	
-	if ( spawnflags & 2 )
+	if ( spawnflags & SF_DEBRIS_DARK )
 		return EV_EMIT_DEBRIS_DARK;
 	
-	if ( spawnflags & 4 )
+	if ( spawnflags & SF_DEBRIS_LIGHT_LARGE )
 		return EV_EMIT_DEBRIS_LIGHT_LARGE;
 
-	if ( spawnflags & 8 )
+	if ( spawnflags & SF_DEBRIS_DARK_LARGE )
 		return EV_EMIT_DEBRIS_DARK_LARGE;
 	
-	if ( spawnflags & 16 )
+	if ( spawnflags & SF_DEBRIS_WOOD )
 		return EV_EMIT_DEBRIS_WOOD;
 
-	if ( spawnflags & 32 )
+	if ( spawnflags & SF_DEBRIS_FLESH )
 		return EV_EMIT_DEBRIS_FLESH;
 	
-	if ( spawnflags & 64 )
+	if ( spawnflags & SF_DEBRIS_GLASS )
 		return EV_EMIT_DEBRIS_GLASS;
 		
-	if ( spawnflags & 128 )
+	if ( spawnflags & SF_DEBRIS_STONE )
 		return EV_EMIT_DEBRIS_STONE;	
 
 	//if no compatible spawnflags supplied, return EV_EMIT_DEBRIS_LIGHT
