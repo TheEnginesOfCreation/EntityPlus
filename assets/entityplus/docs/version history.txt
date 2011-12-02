@@ -31,6 +31,7 @@ v1.1 (?? ??? 2011)
 	- [Changed] Allowed the use of cg_drawTimer again when cheats are enabled. Timer also displays milliseconds.
 	- [Changed] Objectives text in objectives overlay automatically wraps to next line without breaking words.
 	- [Changed] Removed all gametypes from the game. Setting g_gametype to 8 is no longer necessary.
+	- [Changed] All debris related spawnflags on target_debrisemitter and func_breakable are now named DEBRIS_[type].
 	- [Changed] New main menu artwork.
 
 v1.0.2 (19 oct 2011)

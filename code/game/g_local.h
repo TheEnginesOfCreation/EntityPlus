@@ -34,6 +34,25 @@
 #define FL_FORCE_GESTURE		0x00008000	// force gesture on client
 #define FL_NO_SPAWN				0x00010000  // spawn point not in use
 
+// target_debrisemitter and func_breakable debris spawnflags
+#define SF_DEBRIS_LIGHT					1
+#define SF_DEBRIS_DARK					2
+#define SF_DEBRIS_LIGHT_LARGE			4
+#define SF_DEBRIS_DARK_LARGE			8
+#define SF_DEBRIS_WOOD					16
+#define SF_DEBRIS_FLESH					32
+#define SF_DEBRIS_GLASS					64
+#define SF_DEBRIS_STONE					128
+
+// target_effect spawnflags
+#define SF_EFFECT_EXPLOSION				1
+#define SF_EFFECT_PARTICLES_GRAVITY		2
+#define SF_EFFECT_PARTICLES_LINEAR		4
+#define SF_EFFECT_PARTICLES_LINEAR_UP	8
+#define SF_EFFECT_PARTICLES_LINEAR_DOWN	16
+#define SF_EFFECT_OVERLAY				32
+#define SF_EFFECT_FADE					64
+
 // movers are things like doors, plats, buttons, etc
 typedef enum {
 	MOVER_POS1,
