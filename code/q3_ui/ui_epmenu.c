@@ -395,10 +395,11 @@ static qboolean EPMenu_MapGametype( char *string ) {
 EPMenu_VersionAccepted
 
 Returns true if the mod version supports the features used in the map
+char *version : version specified in the map's arena file
 ===============
 */
 qboolean EPMenu_VersionAccepted( char *version ) {
-	if ( strlen( version ) > 0 )
+	if ( strlen( version ) > 0 ) {
 		if 
 		(	
 			Q_stricmp( version, "1.0" ) != 0 && 
@@ -409,6 +410,7 @@ qboolean EPMenu_VersionAccepted( char *version ) {
 		{
 			return qfalse;
 		}
+	}
 
 	return qtrue;
 }
