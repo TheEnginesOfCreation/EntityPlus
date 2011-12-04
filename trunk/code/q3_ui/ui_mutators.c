@@ -9,8 +9,9 @@
 #define MUTATORS_X_POS		360
 
 
-#define ID_BACK					1
-#define ID_MACHINEGUNONLY		2
+#define ID_MACHINEGUNONLY		1
+#define	ID_RESETSCOREAFTERDEATH	2
+#define ID_BACK					99
 
 typedef struct {
 	menuframework_s		menu;
@@ -20,6 +21,7 @@ typedef struct {
 	menubitmap_s		framer;
 	
 	menuradiobutton_s	machinegunonly;
+	menuradiobutton_s	resetscoreafterdeath;
 
 	menubitmap_s		back;
 } mutators_t;
@@ -27,6 +29,20 @@ typedef struct {
 static mutators_t s_mutators;
 
 static void Mutators_SetMenuItems( void ) {
+	int value = trap_Cvar_VariableValue("g_mutators");
+
+	s_mutators.machinegunonly.curvalue = (value & ID_MACHINEGUNONLY != 0);
+}
+
+static void Mutators_UpdateCvar( int id ) {
+	int value = trap_Cvar_VariableValue("g_mutators");
+
+	if ( value & id )
+		value -= id;
+	else
+		value += id;
+
+	trap_Cvar_SetValue("g_mutators", value);
 }
 
 static void Mutators_Event( void* ptr, int notification ) {
@@ -40,7 +56,11 @@ static void Mutators_Event( void* ptr, int notification ) {
 			break;
 
 		case ID_MACHINEGUNONLY:
-			Com_Printf("You clicked 'machineguns only'\n");
+			Mutators_UpdateCvar(ID_MACHINEGUNONLY);
+			break;
+
+		case ID_RESETSCOREAFTERDEATH:
+			Mutators_UpdateCvar(ID_RESETSCOREAFTERDEATH);
 			break;
 	}
 }
@@ -48,7 +68,7 @@ static void Mutators_Event( void* ptr, int notification ) {
 static void Mutators_MenuInit( void ) {
 	int				y;
 
-	memset( &s_mutators, 0 ,sizeof(mutators_t) );
+	memset( &s_mutators, 0, sizeof(mutators_t) );
 
 	Mutators_Cache();
 
@@ -88,6 +108,16 @@ static void Mutators_MenuInit( void ) {
 	s_mutators.machinegunonly.generic.x	          = MUTATORS_X_POS;
 	s_mutators.machinegunonly.generic.y	          = y;
 
+	//reset score after death
+	y += BIGCHAR_HEIGHT;
+	s_mutators.resetscoreafterdeath.generic.type		= MTYPE_RADIOBUTTON;
+	s_mutators.resetscoreafterdeath.generic.name		= "Reset score after death:";
+	s_mutators.resetscoreafterdeath.generic.flags		= QMF_PULSEIFFOCUS|QMF_SMALLFONT;
+	s_mutators.resetscoreafterdeath.generic.callback	= Mutators_Event;
+	s_mutators.resetscoreafterdeath.generic.id			= ID_RESETSCOREAFTERDEATH;
+	s_mutators.resetscoreafterdeath.generic.x			= MUTATORS_X_POS;
+	s_mutators.resetscoreafterdeath.generic.y			= y;
+
 	s_mutators.back.generic.type		= MTYPE_BITMAP;
 	s_mutators.back.generic.name		= ART_BACK0;
 	s_mutators.back.generic.flags		= QMF_LEFT_JUSTIFY|QMF_PULSEIFFOCUS;
@@ -104,6 +134,7 @@ static void Mutators_MenuInit( void ) {
 	Menu_AddItem( &s_mutators.menu, &s_mutators.framer );
 	
 	Menu_AddItem( &s_mutators.menu, &s_mutators.machinegunonly );
+	Menu_AddItem( &s_mutators.menu, &s_mutators.resetscoreafterdeath );
 	Menu_AddItem( &s_mutators.menu, &s_mutators.back );
 
 	Mutators_SetMenuItems();

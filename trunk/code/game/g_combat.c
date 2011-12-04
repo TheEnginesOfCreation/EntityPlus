@@ -37,18 +37,16 @@ void AddScore( gentity_t *ent, vec3_t origin, int score ) {
 	if ( !ent->client ) {
 		return;
 	}
-	// no scoring during pre-match warmup
-	if ( level.warmupTime ) {
-		return;
-	}
 
 	// show score plum
-	ScorePlum(ent, origin, score);
+	if ( origin )
+		ScorePlum(ent, origin, score);
 
-	if ( ent->client->ps.persistant[PERS_SCORE] += score >= 0 )	//don't let score drop below 0 in entityplus mode
+	//add score
+	if ( ent->client->ps.persistant[PERS_SCORE] += score >= 0 )	//don't let score drop below 0 in entityplus
 		ent->client->ps.persistant[PERS_SCORE] += score;
 
-	CalculateRanks();
+	//CalculateRanks();
 }
 
 /*
@@ -195,8 +193,9 @@ void player_die( gentity_t *self, gentity_t *inflictor, gentity_t *attacker, int
 
 	//if we're in SP mode and player killed a bot, award score for the kill
 	if ( IsBot( self ) ) {
-		if ( self->parent && self->parent->health && attacker->client )
-			attacker->client->ps.persistant[PERS_SCORE] += self->parent->health;
+		if ( self->parent && self->parent->health && attacker->client ) {
+			AddScore( attacker->client, self->r.currentOrigin, self->parent->health );
+		}
 	}	
 
 	if (self->client && self->client->hook) {
@@ -232,16 +231,25 @@ void player_die( gentity_t *self, gentity_t *inflictor, gentity_t *attacker, int
 		self->client->pers.netname, obit );
 
 	// broadcast the death event to everyone
+	/*
 	ent = G_TempEntity( self->r.currentOrigin, EV_OBITUARY );
 	ent->s.eventParm = meansOfDeath;
 	ent->s.otherEntityNum = self->s.number;
 	ent->s.otherEntityNum2 = killer;
 	ent->r.svFlags = SVF_BROADCAST;	// send to everyone
+	*/
 
 	self->enemy = attacker;
 
 	self->client->ps.persistant[PERS_KILLED]++;
 
+	//if 'reset score after death' mutator is enabled, reset the player's score
+	if ( g_mutators.integer & MT_RESETSCOREAFTERDEATH )
+		self->client->ps.persistant[PERS_SCORE] = 0;
+
+
+	//regular q3 deathmatch scoring
+	/*
 	if (attacker && attacker->client) {
 		attacker->client->lastkilled_client = self->s.number;
 
@@ -250,10 +258,11 @@ void player_die( gentity_t *self, gentity_t *inflictor, gentity_t *attacker, int
 			AddScore( attacker, self->r.currentOrigin, 1 );
 			attacker->client->lastKillTime = level.time;
 		}
-	} 
+	}
+	*/
 
 	// Add team bonuses
-	Team_FragBonuses(self, inflictor, attacker);
+	//Team_FragBonuses(self, inflictor, attacker);
 
 	// if client is in a nodrop area, don't drop anything (but return CTF flags!)
 	contents = trap_PointContents( self->r.currentOrigin, -1 );
