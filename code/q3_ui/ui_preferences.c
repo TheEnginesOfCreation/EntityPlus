@@ -65,7 +65,7 @@ typedef struct {
 static preferences_t s_preferences;
 
 static void Preferences_SetMenuItems( void ) {
-	int marks = trap_Cvar_VariableValue( "cg_marks" );
+	float marks = trap_Cvar_VariableValue( "cg_marks" );
 
 	//cap marks between 0 and 3
 	if (marks > 3)

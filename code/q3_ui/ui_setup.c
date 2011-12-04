@@ -26,9 +26,7 @@ SETUP MENU
 #define ID_LOAD					15
 #define ID_SAVE					16
 #define ID_DEFAULTS				17
-#define ID_MUTATORS				18
-#define ID_BACK					25
-
+#define ID_BACK					18
 
 
 typedef struct {
@@ -41,7 +39,6 @@ typedef struct {
 	menutext_s		setupcontrols;
 	menutext_s		setupsystem;
 	menutext_s		game;
-	menutext_s		mutators;
 //	menutext_s		load;
 //	menutext_s		save;
 	menutext_s		defaults;
@@ -115,9 +112,6 @@ static void UI_SetupMenu_Event( void *ptr, int event ) {
 	case ID_DEFAULTS:
 		UI_ConfirmMenu( "SET TO DEFAULTS?", Setup_ResetDefaults_Draw, Setup_ResetDefaults_Action );
 		break;
-
-	case ID_MUTATORS:
-		UI_MutatorsMenu();
 
 	case ID_BACK:
 		UI_PopMenu();
@@ -207,17 +201,6 @@ static void UI_SetupMenu_Init( void ) {
 	setupMenuInfo.game.color						= color_red;
 	setupMenuInfo.game.style						= UI_CENTER;
 
-	y += SETUP_MENU_VERTICAL_SPACING;
-	setupMenuInfo.mutators.generic.type					= MTYPE_PTEXT;
-	setupMenuInfo.mutators.generic.flags				= QMF_CENTER_JUSTIFY|QMF_PULSEIFFOCUS;
-	setupMenuInfo.mutators.generic.x					= 320;
-	setupMenuInfo.mutators.generic.y					= y;
-	setupMenuInfo.mutators.generic.id					= ID_MUTATORS;
-	setupMenuInfo.mutators.generic.callback				= UI_SetupMenu_Event; 
-	setupMenuInfo.mutators.string						= "GAME MUTATORS";
-	setupMenuInfo.mutators.color						= color_red;
-	setupMenuInfo.mutators.style						= UI_CENTER;
-
 	if( !trap_Cvar_VariableValue( "cl_paused" ) ) {
 #if 0
 		y += SETUP_MENU_VERTICAL_SPACING;
@@ -273,7 +256,6 @@ static void UI_SetupMenu_Init( void ) {
 	Menu_AddItem( &setupMenuInfo.menu, &setupMenuInfo.setupcontrols );
 	Menu_AddItem( &setupMenuInfo.menu, &setupMenuInfo.setupsystem );
 	Menu_AddItem( &setupMenuInfo.menu, &setupMenuInfo.game );
-	Menu_AddItem( &setupMenuInfo.menu, &setupMenuInfo.mutators );
 //	Menu_AddItem( &setupMenuInfo.menu, &setupMenuInfo.load );
 //	Menu_AddItem( &setupMenuInfo.menu, &setupMenuInfo.save );
 	if( !trap_Cvar_VariableValue( "cl_paused" ) ) {

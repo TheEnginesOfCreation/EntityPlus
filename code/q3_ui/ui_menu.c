@@ -14,14 +14,15 @@ MAIN MENU
 
 #define ID_SINGLEPLAYER				10
 #define ID_SETUP					12
+#define ID_MUTATORS					14
 #define ID_EXIT						17
 
 #define ART_OVERLAY						"menu/art/mainoverlay"
 
 #define MAIN_MENU_OVERLAY_WIDTH		256
 #define MAIN_MENU_VERTICAL_SPACING	34
-#define MAIN_MENU_MARGIN_LEFT		48
-#define MAIN_MENU_MARGIN_TOP		310
+#define MAIN_MENU_MARGIN_RIGHT		32
+#define MAIN_MENU_MARGIN_TOP		294
 
 
 
@@ -30,6 +31,7 @@ typedef struct {
 
 	menutext_s		singleplayer;
 	menutext_s		setup;
+	menutext_s		mutators;
 	menutext_s		exit;
 
 	menutext_s		header;
@@ -86,6 +88,10 @@ void Main_MenuEvent (void* ptr, int event) {
 
 	case ID_SETUP:
 		UI_SetupMenu();
+		break;
+
+	case ID_MUTATORS:
+		UI_MutatorsMenu();
 		break;
 
 	case ID_EXIT:
@@ -224,7 +230,7 @@ void UI_MainMenu( void ) {
 	s_main.menu.showlogo = qfalse;
 
 	y = MAIN_MENU_MARGIN_TOP;
-	overlayX = SCREEN_WIDTH - (MAIN_MENU_OVERLAY_WIDTH + 32);
+	overlayX = SCREEN_WIDTH - (MAIN_MENU_OVERLAY_WIDTH + MAIN_MENU_MARGIN_RIGHT);
 
 	//add overlay
 	s_main.overlay.generic.type		= MTYPE_BITMAP;
@@ -254,6 +260,16 @@ void UI_MainMenu( void ) {
 	s_main.singleplayer.color				= color_black;
 
 	y += MAIN_MENU_VERTICAL_SPACING;
+	s_main.mutators.generic.type			= MTYPE_PTEXT;
+	s_main.mutators.generic.flags			= QMF_PULSEIFFOCUS;
+	s_main.mutators.generic.x				= ((MAIN_MENU_OVERLAY_WIDTH - UI_ProportionalStringWidth("MUTATORS")) / 2) + overlayX;
+	s_main.mutators.generic.y				= y;
+	s_main.mutators.generic.id				= ID_MUTATORS;
+	s_main.mutators.generic.callback		= Main_MenuEvent; 
+	s_main.mutators.string					= "MUTATORS";
+	s_main.mutators.color					= color_black;
+
+	y += MAIN_MENU_VERTICAL_SPACING;
 	s_main.setup.generic.type				= MTYPE_PTEXT;
 	s_main.setup.generic.flags				= QMF_PULSEIFFOCUS;
 	s_main.setup.generic.x					= ((MAIN_MENU_OVERLAY_WIDTH - UI_ProportionalStringWidth("SETUP")) / 2) + overlayX;
@@ -261,7 +277,7 @@ void UI_MainMenu( void ) {
 	s_main.setup.generic.id					= ID_SETUP;
 	s_main.setup.generic.callback			= Main_MenuEvent; 
 	s_main.setup.string						= "SETUP";
-	s_main.setup.color						= color_black;
+	s_main.setup.color						= color_black;	
 
 	y += MAIN_MENU_VERTICAL_SPACING;
 	s_main.exit.generic.type				= MTYPE_PTEXT;
@@ -276,6 +292,7 @@ void UI_MainMenu( void ) {
 	Menu_AddItem( &s_main.menu,	&s_main.overlay );
 	Menu_AddItem( &s_main.menu,	&s_main.header );
 	Menu_AddItem( &s_main.menu,	&s_main.singleplayer );
+	Menu_AddItem( &s_main.menu,	&s_main.mutators );
 	Menu_AddItem( &s_main.menu,	&s_main.setup );
 	Menu_AddItem( &s_main.menu,	&s_main.exit );             
 
