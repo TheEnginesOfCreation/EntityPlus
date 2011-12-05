@@ -259,19 +259,24 @@ void Cmd_Give_f (gentity_t *ent)
 
 	if (give_all || Q_stricmp(name, "weapons") == 0)
 	{
-		ent->client->ps.stats[STAT_WEAPONS] = (1 << WP_NUM_WEAPONS) - 1 - 
-			( 1 << WP_GRAPPLING_HOOK ) - ( 1 << WP_NONE );
-		if (!give_all)
-			return;
+		if ( !(g_mutators.integer & MT_MACHINEGUNONLY) && !(g_mutators.integer & MT_INSTAGIB) ) {
+			ent->client->ps.stats[STAT_WEAPONS] = (1 << WP_NUM_WEAPONS) - 1 - 
+				( 1 << WP_GRAPPLING_HOOK ) - ( 1 << WP_NONE );
+			if (!give_all)
+				return;
+		}
 	}
 
 	if (give_all || Q_stricmp(name, "ammo") == 0)
 	{
-		for ( i = 0 ; i < MAX_WEAPONS ; i++ ) {
-			ent->client->ps.ammo[i] = 999;
+		if ( !(g_mutators.integer & MT_INSTAGIB) ) {
+
+			for ( i = 0 ; i < MAX_WEAPONS ; i++ ) {
+				ent->client->ps.ammo[i] = 999;
+			}
+			if (!give_all)
+				return;
 		}
-		if (!give_all)
-			return;
 	}
 
 	if (give_all || Q_stricmp(name, "armor") == 0)
@@ -282,6 +287,7 @@ void Cmd_Give_f (gentity_t *ent)
 			return;
 	}
 
+	/*
 	if (Q_stricmp(name, "excellent") == 0) {
 		ent->client->ps.persistant[PERS_EXCELLENT_COUNT]++;
 		return;
@@ -302,6 +308,7 @@ void Cmd_Give_f (gentity_t *ent)
 		ent->client->ps.persistant[PERS_ASSIST_COUNT]++;
 		return;
 	}
+	*/
 
 	// spawn a specific item right on the player
 	if ( !give_all ) {
@@ -309,6 +316,14 @@ void Cmd_Give_f (gentity_t *ent)
 		if (!it) {
 			return;
 		}
+
+		//do not allow giving weapons in machinegunonly/instagib mode
+		if ( ((g_mutators.integer & MT_MACHINEGUNONLY) || (g_mutators.integer & MT_INSTAGIB)) && strstr(it->classname, "weapon_") )
+			return;
+
+		//do not allow giving ammo in instagib mode
+		if ( (g_mutators.integer & MT_INSTAGIB) && strstr(it->classname, "ammo_") )
+			return;
 
 		it_ent = G_Spawn();
 		VectorCopy( ent->r.currentOrigin, it_ent->s.origin );

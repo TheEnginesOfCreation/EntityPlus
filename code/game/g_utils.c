@@ -1278,3 +1278,27 @@ Fades in from black
 void G_FadeIn( float duration ) {
 	trap_SendServerCommand( -1, va("fade \"%f\" \"0\" \"0\" \"0\" \"1\" \"0\" \"0\" \"0\" \"0\"", duration) );
 }
+
+
+/*
+==================
+G_CalculateLevelScore
+Wrapper around COM_CalculateLevelScore. This method calculates data that is required by COM_CalculateLevelScore and returns
+the result of the COM_CalculateLevelScore function.
+==================
+*/
+int G_CalculateLevelScore( gentity_t *ent ) {
+	float skill;
+	int accuracy;
+
+	//determine accuracy
+	if ( ent->client->accuracy_shots > 0 )
+		accuracy = ((float)ent->client->accuracy_hits / (float)ent->client->accuracy_shots) * 100;
+	else
+		accuracy = 0;
+
+	// get skill
+	skill = trap_Cvar_VariableValue( "g_spskill" );
+
+	return COM_CalculateLevelScore(ent->client->ps.persistant, accuracy, (int)skill);
+}

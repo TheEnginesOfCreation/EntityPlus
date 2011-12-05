@@ -254,6 +254,7 @@ void CG_DrawSinglePlayerIntermission( void ) {
 	int i, y;
 	int carnage, deaths, accuracy, secrets, secretsCount, secretsScore, skill, score;
 	int index;
+	
 
 	color[0] = 1;
 	color[1] = 1;
@@ -268,6 +269,7 @@ void CG_DrawSinglePlayerIntermission( void ) {
 	secretsScore = secrets * SCORE_SECRET;
 	skill = CG_GetSkill();
 	score = COM_CalculateLevelScore( cg.snap->ps.persistant, accuracy, skill );
+	
 
 	//carnage score
 	y = 64;
@@ -356,6 +358,7 @@ qboolean CG_DrawSinglePlayerObjectives( void ) {
 	int lineIndex = 0;
 	char c[2];
 	qboolean tooLong = qfalse;
+	
 	
 
 	if ( !cg.showScores )

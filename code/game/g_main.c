@@ -41,6 +41,7 @@ vmCvar_t	g_debugMove;
 vmCvar_t	g_debugDamage;
 vmCvar_t	g_debugAlloc;
 vmCvar_t	g_debugCameras;
+vmCvar_t	g_debugScore;
 vmCvar_t	g_debugVariables;
 vmCvar_t	g_debugBotspawns;
 vmCvar_t	g_weaponRespawn;
@@ -79,7 +80,7 @@ static cvarTable_t		gameCvarTable[] = {
 
 	// latched vars
 	{ &g_gametype, "g_gametype", "8", CVAR_SERVERINFO | CVAR_USERINFO | CVAR_LATCH, 0, qfalse  },
-	{ &g_mutators, "g_mutators", "0", CVAR_SERVERINFO | CVAR_LATCH, 0, qfalse  },
+	{ &g_mutators, "g_mutators", "0", CVAR_SERVERINFO | CVAR_LATCH | CVAR_ARCHIVE, 0, qfalse  },
 	{ &g_maxclients, "sv_maxclients", "64", CVAR_SERVERINFO | CVAR_LATCH | CVAR_ARCHIVE, 0, qfalse  },
 	{ &g_maxGameClients, "g_maxGameClients", "0", CVAR_SERVERINFO | CVAR_LATCH | CVAR_ARCHIVE, 0, qfalse  },
 
@@ -122,6 +123,7 @@ static cvarTable_t		gameCvarTable[] = {
 	{ &g_debugDamage, "g_debugDamage", "0", 0, 0, qfalse },
 	{ &g_debugAlloc, "g_debugAlloc", "0", 0, 0, qfalse },
 	{ &g_debugCameras, "g_debugCameras", "0", CVAR_LATCH | CVAR_ARCHIVE | CVAR_CHEAT, 0, qfalse  },
+	{ &g_debugScore, "g_debugScore", "0", CVAR_ARCHIVE | CVAR_CHEAT, 0, qfalse  },
 	{ &g_debugVariables, "g_debugVariables", "0", CVAR_ARCHIVE | CVAR_CHEAT, 0, qfalse  },
 	{ &g_debugBotspawns, "g_debugBotspawns", "0", CVAR_ARCHIVE | CVAR_CHEAT, 0, qfalse  },
 	{ &g_motd, "g_motd", "", 0, 0, qfalse },

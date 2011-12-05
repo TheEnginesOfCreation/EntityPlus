@@ -9,8 +9,10 @@
 #define MUTATORS_X_POS		360
 
 
-#define ID_MACHINEGUNONLY		1
-#define	ID_RESETSCOREAFTERDEATH	2
+#define ID_MACHINEGUNONLY		MT_MACHINEGUNONLY
+#define ID_INSTAGIB				MT_INSTAGIB
+#define	ID_RESETSCOREAFTERDEATH	MT_RESETSCOREAFTERDEATH
+
 #define ID_BACK					99
 
 typedef struct {
@@ -21,6 +23,7 @@ typedef struct {
 	menubitmap_s		framer;
 	
 	menuradiobutton_s	machinegunonly;
+	menuradiobutton_s	instagib;
 	menuradiobutton_s	resetscoreafterdeath;
 
 	menubitmap_s		back;
@@ -31,7 +34,9 @@ static mutators_t s_mutators;
 static void Mutators_SetMenuItems( void ) {
 	int value = trap_Cvar_VariableValue("g_mutators");
 
-	s_mutators.machinegunonly.curvalue = (value & ID_MACHINEGUNONLY != 0);
+	s_mutators.machinegunonly.curvalue = (value & MT_MACHINEGUNONLY) != 0;
+	s_mutators.instagib.curvalue = (value & MT_INSTAGIB) != 0;
+	s_mutators.resetscoreafterdeath.curvalue = (value & MT_RESETSCOREAFTERDEATH) != 0;
 }
 
 static void Mutators_UpdateCvar( int id ) {
@@ -39,8 +44,19 @@ static void Mutators_UpdateCvar( int id ) {
 
 	if ( value & id )
 		value -= id;
-	else
+	else {
 		value += id;
+
+		//make sure "machinegun only" and "instagib" are mutually exclusive
+		if ( id == MT_MACHINEGUNONLY && (value & MT_INSTAGIB) ) {
+			value -= MT_INSTAGIB;
+			s_mutators.instagib.curvalue = 0;
+		}
+		if ( id == MT_INSTAGIB && (value & MT_MACHINEGUNONLY) ) {
+			value -= MT_MACHINEGUNONLY;
+			s_mutators.machinegunonly.curvalue = 0;
+		}
+	}
 
 	trap_Cvar_SetValue("g_mutators", value);
 }
@@ -56,11 +72,15 @@ static void Mutators_Event( void* ptr, int notification ) {
 			break;
 
 		case ID_MACHINEGUNONLY:
-			Mutators_UpdateCvar(ID_MACHINEGUNONLY);
+			Mutators_UpdateCvar(MT_MACHINEGUNONLY);
+			break;
+
+		case ID_INSTAGIB:
+			Mutators_UpdateCvar(MT_INSTAGIB);
 			break;
 
 		case ID_RESETSCOREAFTERDEATH:
-			Mutators_UpdateCvar(ID_RESETSCOREAFTERDEATH);
+			Mutators_UpdateCvar(MT_RESETSCOREAFTERDEATH);
 			break;
 	}
 }
@@ -108,6 +128,16 @@ static void Mutators_MenuInit( void ) {
 	s_mutators.machinegunonly.generic.x	          = MUTATORS_X_POS;
 	s_mutators.machinegunonly.generic.y	          = y;
 
+	//instagib
+	y += BIGCHAR_HEIGHT;
+	s_mutators.instagib.generic.type		= MTYPE_RADIOBUTTON;
+	s_mutators.instagib.generic.name		= "Instagib:";
+	s_mutators.instagib.generic.flags		= QMF_PULSEIFFOCUS|QMF_SMALLFONT;
+	s_mutators.instagib.generic.callback	= Mutators_Event;
+	s_mutators.instagib.generic.id			= ID_INSTAGIB;
+	s_mutators.instagib.generic.x			= MUTATORS_X_POS;
+	s_mutators.instagib.generic.y			= y;
+
 	//reset score after death
 	y += BIGCHAR_HEIGHT;
 	s_mutators.resetscoreafterdeath.generic.type		= MTYPE_RADIOBUTTON;
@@ -134,6 +164,7 @@ static void Mutators_MenuInit( void ) {
 	Menu_AddItem( &s_mutators.menu, &s_mutators.framer );
 	
 	Menu_AddItem( &s_mutators.menu, &s_mutators.machinegunonly );
+	Menu_AddItem( &s_mutators.menu, &s_mutators.instagib );
 	Menu_AddItem( &s_mutators.menu, &s_mutators.resetscoreafterdeath );
 	Menu_AddItem( &s_mutators.menu, &s_mutators.back );
 

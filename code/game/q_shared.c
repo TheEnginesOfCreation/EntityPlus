@@ -1299,6 +1299,12 @@ Calculates the player's level score
 */
 int COM_CalculateLevelScore(int persistant[MAX_PERSISTANT], int accuracy, int skill) {
 	int score = 0;
+	int mutators;
+	char var[MAX_TOKEN_CHARS];
+
+	//determine mutators
+	trap_Cvar_VariableStringBuffer( "g_mutators", var, sizeof( var ) );
+	mutators = atoi(var);
 
 	//carnage
 	score += persistant[PERS_SCORE];
@@ -1306,11 +1312,13 @@ int COM_CalculateLevelScore(int persistant[MAX_PERSISTANT], int accuracy, int sk
 	//accuracy
 	score += COM_AccuracyToScore(accuracy, score);
 
-	//deaths
-	score += (persistant[PERS_KILLED] * SCORE_DEATH);
+	if ( !(mutators & MT_RESETSCOREAFTERDEATH) ) {
+		//deaths
+		score += (persistant[PERS_KILLED] * SCORE_DEATH);
 	
-	//secrets
-	score += (persistant[PERS_SECRETS] & 0x7F) * SCORE_SECRET;
+		//secrets
+		score += (persistant[PERS_SECRETS] & 0x7F) * SCORE_SECRET;
+	}
 
 	//skill modifier
 	score *= ((skill - 1) * SCORE_SKILL) + 1;
