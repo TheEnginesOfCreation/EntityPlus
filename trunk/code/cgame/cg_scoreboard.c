@@ -281,7 +281,7 @@ void CG_DrawSinglePlayerIntermission( void ) {
 			trap_S_StartLocalSound( cgs.media.scoreShow, CHAN_LOCAL_SOUND );
 			cg.scoreSoundsPlayed++;
 		}
-		CG_DrawStringExt( 64, y, va("       Carnage : %i (%i%%)", carnage, accuracy), color, qtrue, qtrue, BIGCHAR_WIDTH, BIGCHAR_HEIGHT, 0 );
+		CG_DrawStringExt( 64, y, va("       Carnage : %i (%i%% accuracy)", carnage, accuracy), color, qtrue, qtrue, BIGCHAR_WIDTH, BIGCHAR_HEIGHT, 0 );
 	}
 	
 	//deaths score
