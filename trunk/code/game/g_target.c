@@ -994,31 +994,24 @@ high score (if it is higher than the current highscore) for the current map and,
 game.
 */
 void target_finish_use (gentity_t *self, gentity_t *other, gentity_t *activator) {
-	int accuracy, score, highScore;
-	float skill;
+	int score, highScore;
 	int secretFound, secretCount;
 
 	// bots should not be able to activate this
 	if ( IsBot( activator ) )
 		return;
 
-	// get skill
-	skill = trap_Cvar_VariableValue( "g_spskill" );
-
-	// get accuracy
-	if ( activator->client->accuracy_shots > 0 )
-		accuracy = ((float)activator->client->accuracy_hits / (float)activator->client->accuracy_shots) * 100;
-	else
-		accuracy = 0;
-
 	//set number of secrets to persistant so it can be displayed in the client side scoreboard. If user persistant secretcount already
 	//contains a secretcount from a previous level, add that to the secretcount of this level.
+
+	//TODO: This code below is "run once" code (I think). Rewrite it so it can be run over and over again so we can properly determine the player's score at any point in time
 	secretFound = (activator->client->ps.persistant[PERS_SECRETS] & 0x7F);
 	secretCount = ((activator->client->ps.persistant[PERS_SECRETS] >> 7) & 0x7F) + level.secretCount;
 	activator->client->ps.persistant[PERS_SECRETS] = secretFound + (secretCount << 7);
+	///
 
 	// calculate player's score
-	score = COM_CalculateLevelScore(activator->client->ps.persistant, accuracy, (int)skill);
+	score = G_CalculateLevelScore( activator );
 
 	// get high score
 	highScore = COM_LoadLevelScore( G_GetScoringMapName() );

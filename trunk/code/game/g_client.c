@@ -1176,13 +1176,21 @@ void ClientSpawn(gentity_t *ent) {
 		SetupCustomBot( ent );
 	} else {
 		//give weapons
-		client->ps.stats[STAT_WEAPONS] = ( 1 << WP_MACHINEGUN );
-		client->ps.stats[STAT_WEAPONS] |= ( 1 << WP_GAUNTLET );
+		if ( g_mutators.integer & MT_INSTAGIB ) {
+			client->ps.stats[STAT_WEAPONS] = ( 1 << WP_RAILGUN );
+		} else if ( g_mutators.integer & MT_MACHINEGUNONLY ) {
+			client->ps.stats[STAT_WEAPONS] = ( 1 << WP_MACHINEGUN );
+		} else {
+			client->ps.stats[STAT_WEAPONS] = ( 1 << WP_MACHINEGUN );
+			client->ps.stats[STAT_WEAPONS] |= ( 1 << WP_GAUNTLET );
+		}
 
 		//give ammo
 		client->ps.ammo[WP_GAUNTLET] = -1;
 		client->ps.ammo[WP_GRAPPLING_HOOK] = -1;
 		client->ps.ammo[WP_MACHINEGUN] = 100;
+		if ( g_mutators.integer & MT_INSTAGIB )
+			client->ps.ammo[WP_RAILGUN] = -1;
 
 		//give health
 		ent->health = client->ps.stats[STAT_HEALTH] = 100;

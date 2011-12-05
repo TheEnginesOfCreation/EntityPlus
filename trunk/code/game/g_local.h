@@ -53,10 +53,6 @@
 #define SF_EFFECT_OVERLAY				32
 #define SF_EFFECT_FADE					64
 
-//mutators
-#define MT_MACHINEGUNONLY				1	//all weapons are MG and all ammo boxes are bullets
-#define MT_RESETSCOREAFTERDEATH			2	//carnage score is set to 0 when the player dies
-
 // movers are things like doors, plats, buttons, etc
 typedef enum {
 	MOVER_POS1,
@@ -778,6 +774,7 @@ extern	vmCvar_t	g_debugMove;
 extern	vmCvar_t	g_debugAlloc;
 extern	vmCvar_t	g_debugDamage;
 extern	vmCvar_t	g_debugCameras;
+extern	vmCvar_t	g_debugScore;
 extern	vmCvar_t	g_debugVariables;
 extern	vmCvar_t	g_debugBotspawns;
 extern	vmCvar_t	g_weaponRespawn;

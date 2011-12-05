@@ -1,5 +1,5 @@
 v1.1 (?? ??? 2011)
-	- [Added] "Machinegun only" and "reset score after death" mutators.
+	- [Added] "Machinegun only", "Instagib" and "Reset score after death" mutators.
 	- [Added] Big Head mode (cg_bigheadMode).
 	- [Added] Paintball mode (cg_paintballMode).
 	- [Added] Value of cg_marks determines how long wallmarks stay.
@@ -20,7 +20,7 @@ v1.1 (?? ??? 2011)
 	- [Added] "objectivesoverlay" key to worldspawn entity.
 	- [Added] "enablebreath" and "enabledust" keys to worldspawn entity.
 	- [Added] "position" console command to get current player position coordinates.
-	- [Added] "g_debugVariables" cvar and "g_debugBotspawns" cvars.
+	- [Added] "g_debugVariables", "g_debugBotspawns" and "g_debugScore" cvars.
 	- [Added] "g_enableBreath" and "g_enableDust" cvars.
 	- [Added] Support for longname, author and description through arena files.
 	- [Added] "Loading..." text and icon is displayed when map is loading.

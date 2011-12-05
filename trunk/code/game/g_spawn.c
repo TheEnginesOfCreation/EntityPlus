@@ -343,7 +343,7 @@ qboolean G_CallSpawn( gentity_t *ent ) {
 	}
 
 	// check item spawn functions
-	if ( g_mutators.integer & MT_MACHINEGUNONLY && (strstr(ent->classname, "weapon_") ||  strstr(ent->classname, "ammo_"))) {
+	if ( g_mutators.integer & MT_MACHINEGUNONLY && (strstr(ent->classname, "weapon_") || strstr(ent->classname, "ammo_"))) {
 		for ( item=bg_itemlist+1 ; item->classname ; item++ ) {
 			if ( strstr(ent->classname, "weapon_") && !strcmp(item->classname, "weapon_machinegun") ) {
 				G_SpawnItem( ent, item );
@@ -353,6 +353,17 @@ qboolean G_CallSpawn( gentity_t *ent ) {
 				G_SpawnItem( ent, item );
 				return qtrue;
 			}
+		}
+	} else if ( g_mutators.integer & MT_INSTAGIB && (strstr(ent->classname, "weapon_") || strstr(ent->classname, "ammo_"))) {
+		if ( strstr(ent->classname, "weapon_") ) {
+			for ( item=bg_itemlist+1 ; item->classname ; item++ ) {
+				if ( !strcmp(item->classname, "weapon_railgun") ) {
+					G_SpawnItem( ent, item );
+					return qtrue;
+				}
+			}
+		} else if ( strstr(ent->classname, "ammo_") ) {
+			return qfalse;
 		}
 	} else {
 		for ( item=bg_itemlist+1 ; item->classname ; item++ ) {

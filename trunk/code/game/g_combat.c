@@ -15,7 +15,6 @@ void ScorePlum( gentity_t *ent, vec3_t origin, int score ) {
 
 	return;	//no score plums in entityplus gametype
 
-	/*
 	plum = G_TempEntity( origin, EV_SCOREPLUM );
 	// only send this temp entity to a single client
 	plum->r.svFlags |= SVF_SINGLECLIENT;
@@ -23,7 +22,6 @@ void ScorePlum( gentity_t *ent, vec3_t origin, int score ) {
 	//
 	plum->s.otherEntityNum = ent->s.number;
 	plum->s.time = score;
-	*/
 }
 
 /*
@@ -43,8 +41,16 @@ void AddScore( gentity_t *ent, vec3_t origin, int score ) {
 		ScorePlum(ent, origin, score);
 
 	//add score
+	if ( g_debugScore.integer ) {
+		G_Printf("Scored %i points\n", score);
+	}
+
 	if ( ent->client->ps.persistant[PERS_SCORE] += score >= 0 )	//don't let score drop below 0 in entityplus
 		ent->client->ps.persistant[PERS_SCORE] += score;
+
+	if ( g_debugScore.integer ) {
+		G_Printf("New score: %i\n", G_CalculateLevelScore( ent ));
+	}
 
 	//CalculateRanks();
 }
@@ -194,7 +200,7 @@ void player_die( gentity_t *self, gentity_t *inflictor, gentity_t *attacker, int
 	//if we're in SP mode and player killed a bot, award score for the kill
 	if ( IsBot( self ) ) {
 		if ( self->parent && self->parent->health && attacker->client ) {
-			AddScore( attacker->client, self->r.currentOrigin, self->parent->health );
+			AddScore( attacker, self->r.currentOrigin, self->parent->health );
 		}
 	}	
 
@@ -544,7 +550,7 @@ void G_Damage( gentity_t *targ, gentity_t *inflictor, gentity_t *attacker,
 		if (skill < 1)
 			skill = 1;	//relative skill level should not drop below 1 but is allowed to rise above 5
 		
-		damage *= ( ( 0.1 * skill  ) - 0.05 );	//TODO: round damage to nearest int instead of down
+		damage *= ( ( 0.1 * skill  ) - 0.05 ); //damage is always rounded down.
 		
 		if ( damage < 1 )
 			damage = 1;	//make sure bot does at least -some- damage
@@ -693,7 +699,11 @@ void G_Damage( gentity_t *targ, gentity_t *inflictor, gentity_t *attacker,
 
 	// do the damage
 	if (take) {
-		targ->health = targ->health - take;
+		if ( g_mutators.integer & MT_INSTAGIB && IsBot( targ ) )
+			targ->health = -999;
+		else
+			targ->health = targ->health - take;
+
 		if ( targ->client ) {
 			targ->client->ps.stats[STAT_HEALTH] = targ->health;
 		}

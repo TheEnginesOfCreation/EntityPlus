@@ -1440,3 +1440,8 @@ typedef enum _flag_status {
 #define SCORE_SKILL					0.1		//skill based multiplier. Multiplier is increased with this value for each difficulty level above skill 1.
 
 #define FADEOUT_TIME	500.000	//amount of time it takes for screen to fade out at map change. Needed by both server and client
+
+//mutators
+#define MT_MACHINEGUNONLY				1	//all weapons are MG and all ammo boxes are bullets
+#define MT_INSTAGIB						2	//no ammo pickups. All weapons are RG's, player has unlimited ammo.
+#define MT_RESETSCOREAFTERDEATH			4	//carnage score is set to 0 when the player dies
