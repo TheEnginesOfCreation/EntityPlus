@@ -336,6 +336,7 @@ qboolean G_CallSpawn( gentity_t *ent ) {
 	spawn_t	*s;
 	gitem_t	*item;
 	int		i;
+	qboolean normalSpawn = qtrue;
 
 	if ( !ent->classname ) {
 		G_Printf ("G_CallSpawn: NULL classname\n");
@@ -343,34 +344,28 @@ qboolean G_CallSpawn( gentity_t *ent ) {
 	}
 
 	// check item spawn functions
-	if ( g_mutators.integer & MT_MACHINEGUNONLY && (strstr(ent->classname, "weapon_") || strstr(ent->classname, "ammo_"))) {
-		for ( item=bg_itemlist+1 ; item->classname ; item++ ) {
-			if ( strstr(ent->classname, "weapon_") && !strcmp(item->classname, "weapon_machinegun") ) {
-				G_SpawnItem( ent, item );
-				return qtrue;
-			}
-			if ( strstr(ent->classname, "ammo_") && !strcmp(item->classname, "ammo_bullets") ) {
-				G_SpawnItem( ent, item );
-				return qtrue;
-			}
-		}
-	} else if ( g_mutators.integer & MT_INSTAGIB && (strstr(ent->classname, "weapon_") || strstr(ent->classname, "ammo_"))) {
+	if ( g_mutators.integer & MT_MACHINEGUNONLY ) {
 		if ( strstr(ent->classname, "weapon_") ) {
-			for ( item=bg_itemlist+1 ; item->classname ; item++ ) {
-				if ( !strcmp(item->classname, "weapon_railgun") ) {
-					G_SpawnItem( ent, item );
-					return qtrue;
-				}
-			}
+			ent->classname = "weapon_machinegun";
 		} else if ( strstr(ent->classname, "ammo_") ) {
-			return qfalse;
+			ent->classname = "ammo_bullets";
 		}
-	} else {
-		for ( item=bg_itemlist+1 ; item->classname ; item++ ) {
-			if ( !strcmp(item->classname, ent->classname) ) {
-				G_SpawnItem( ent, item );
-				return qtrue;
-			}
+	}
+
+	if ( g_mutators.integer & MT_INSTAGIB ) {
+		if ( strstr(ent->classname, "weapon_") ) {
+			ent->classname = "weapon_railgun";
+		} else if ( strstr(ent->classname, "ammo_") && (ent->target || ent->target2) ) {
+			ent->classname = "ammo_slugs";
+		} else if ( strstr(ent->classname, "ammo_") ) {	
+			return qtrue;	//ammo box has no target/target2 so it isn't spawned
+		}
+	}
+
+	for ( item=bg_itemlist+1 ; item->classname ; item++ ) {
+		if ( !strcmp(item->classname, ent->classname) ) {
+			G_SpawnItem( ent, item );
+			return qtrue;
 		}
 	}
 
