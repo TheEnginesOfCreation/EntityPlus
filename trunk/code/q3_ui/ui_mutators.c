@@ -9,6 +9,8 @@
 #define MUTATORS_X_POS		360
 
 
+#define ID_PAINTBALLMODE		MT_PAINTBALLMODE
+#define ID_BIGHEADMODE			MT_BIGHEADMODE
 #define ID_MACHINEGUNONLY		MT_MACHINEGUNONLY
 #define ID_INSTAGIB				MT_INSTAGIB
 #define	ID_RESETSCOREAFTERDEATH	MT_RESETSCOREAFTERDEATH
@@ -22,6 +24,8 @@ typedef struct {
 	menubitmap_s		framel;
 	menubitmap_s		framer;
 	
+	menuradiobutton_s	paintballmode;
+	menuradiobutton_s	bigheadmode;
 	menuradiobutton_s	machinegunonly;
 	menuradiobutton_s	instagib;
 	menuradiobutton_s	resetscoreafterdeath;
@@ -34,6 +38,8 @@ static mutators_t s_mutators;
 static void Mutators_SetMenuItems( void ) {
 	int value = trap_Cvar_VariableValue("g_mutators");
 
+	s_mutators.paintballmode.curvalue = (value & MT_PAINTBALLMODE) != 0;
+	s_mutators.bigheadmode.curvalue = (value & MT_BIGHEADMODE) != 0;
 	s_mutators.machinegunonly.curvalue = (value & MT_MACHINEGUNONLY) != 0;
 	s_mutators.instagib.curvalue = (value & MT_INSTAGIB) != 0;
 	s_mutators.resetscoreafterdeath.curvalue = (value & MT_RESETSCOREAFTERDEATH) != 0;
@@ -62,25 +68,21 @@ static void Mutators_UpdateCvar( int id ) {
 }
 
 static void Mutators_Event( void* ptr, int notification ) {
+	int id;
+
 	if( notification != QM_ACTIVATED ) {
 		return;
 	}
 
-	switch( ((menucommon_s*)ptr)->id ) {
+	id = ((menucommon_s*)ptr)->id;
+
+	switch( id ) {
 		case ID_BACK:
 			UI_PopMenu();
 			break;
-
-		case ID_MACHINEGUNONLY:
-			Mutators_UpdateCvar(MT_MACHINEGUNONLY);
-			break;
-
-		case ID_INSTAGIB:
-			Mutators_UpdateCvar(MT_INSTAGIB);
-			break;
-
-		case ID_RESETSCOREAFTERDEATH:
-			Mutators_UpdateCvar(MT_RESETSCOREAFTERDEATH);
+		
+		default:
+			Mutators_UpdateCvar(id);
 			break;
 	}
 }
@@ -118,8 +120,29 @@ static void Mutators_MenuInit( void ) {
 	s_mutators.framer.width  		= 256;
 	s_mutators.framer.height  		= 334;
 
-	//machinegun only
+	
+	//paintball mode
 	y = 144;
+	s_mutators.paintballmode.generic.type		= MTYPE_RADIOBUTTON;
+	s_mutators.paintballmode.generic.name		= "Paintball mode:";
+	s_mutators.paintballmode.generic.flags		= QMF_PULSEIFFOCUS|QMF_SMALLFONT;
+	s_mutators.paintballmode.generic.callback	= Mutators_Event;
+	s_mutators.paintballmode.generic.id			= ID_PAINTBALLMODE;
+	s_mutators.paintballmode.generic.x			= MUTATORS_X_POS;
+	s_mutators.paintballmode.generic.y			= y;
+
+	//big head mode
+	y += BIGCHAR_HEIGHT;
+	s_mutators.bigheadmode.generic.type		= MTYPE_RADIOBUTTON;
+	s_mutators.bigheadmode.generic.name		= "Big Head mode:";
+	s_mutators.bigheadmode.generic.flags	= QMF_PULSEIFFOCUS|QMF_SMALLFONT;
+	s_mutators.bigheadmode.generic.callback	= Mutators_Event;
+	s_mutators.bigheadmode.generic.id		= ID_BIGHEADMODE;
+	s_mutators.bigheadmode.generic.x		= MUTATORS_X_POS;
+	s_mutators.bigheadmode.generic.y		= y;
+
+	//machinegun only
+	y += BIGCHAR_HEIGHT;
 	s_mutators.machinegunonly.generic.type        = MTYPE_RADIOBUTTON;
 	s_mutators.machinegunonly.generic.name	      = "Machinegun only:";
 	s_mutators.machinegunonly.generic.flags	      = QMF_PULSEIFFOCUS|QMF_SMALLFONT;
@@ -163,6 +186,8 @@ static void Mutators_MenuInit( void ) {
 	Menu_AddItem( &s_mutators.menu, &s_mutators.framel );
 	Menu_AddItem( &s_mutators.menu, &s_mutators.framer );
 	
+	Menu_AddItem( &s_mutators.menu, &s_mutators.paintballmode );
+	Menu_AddItem( &s_mutators.menu, &s_mutators.bigheadmode );
 	Menu_AddItem( &s_mutators.menu, &s_mutators.machinegunonly );
 	Menu_AddItem( &s_mutators.menu, &s_mutators.instagib );
 	Menu_AddItem( &s_mutators.menu, &s_mutators.resetscoreafterdeath );

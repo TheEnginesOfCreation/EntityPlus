@@ -1442,6 +1442,8 @@ typedef enum _flag_status {
 #define FADEOUT_TIME	500.000	//amount of time it takes for screen to fade out at map change. Needed by both server and client
 
 //mutators
-#define MT_MACHINEGUNONLY				1	//all weapons are MG and all ammo boxes are bullets
-#define MT_INSTAGIB						2	//no ammo pickups. All weapons are RG's, player has unlimited ammo.
-#define MT_RESETSCOREAFTERDEATH			4	//carnage score is set to 0 when the player dies
+#define MT_PAINTBALLMODE				1	//impact marks are brightly colored splashes of paint.
+#define MT_BIGHEADMODE					2	//all enemies have extremely large heads.
+#define MT_MACHINEGUNONLY				4	//all weapons are MG and all ammo boxes are bullets.
+#define MT_INSTAGIB						8	//no ammo pickups. All weapons are RG's, player has unlimited ammo.
+#define MT_RESETSCOREAFTERDEATH			16	//carnage score is set to 0 when the player dies.

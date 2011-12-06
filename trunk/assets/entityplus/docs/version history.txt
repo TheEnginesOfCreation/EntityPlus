@@ -1,8 +1,5 @@
 v1.1 (?? ??? 2011)
-	- [Added] "Machinegun only", "Instagib" and "Reset score after death" mutators.
-	- [Added] Big Head mode (cg_bigheadMode).
-	- [Added] Paintball mode (cg_paintballMode).
-	- [Added] Value of cg_marks determines how long wallmarks stay.
+	- [Added] "Paintball mode", "Big Head mode", "Machinegun only", "Instagib" and "Reset score after death" mutators.
 	- [Added] target_botremove entity.
 	- [Added] target_music entity.
 	- [Added] "dmg" and "radius" keys to func_breakable.
@@ -30,7 +27,8 @@ v1.1 (?? ??? 2011)
 	- [Changed] Bodies of dead bots stay slightly longer before disappearing.
 	- [Changed] Increased max ammo amount for all weapons from 200 to 999.
 	- [Changed] "setviewpos" console command no longer applies teleporter kick and allows setting of pitch, yaw and roll as well.
-	- [Changed] g_listEntity is now cheat protected, accepts a value of 2 to only list in-use entity slots and prints out in-use entity count.
+	- [Changed] Value of "cg_marks" determines how long wallmarks stay.
+	- [Changed] "g_listEntity" is now cheat protected, accepts a value of 2 to only list in-use entity slots and prints out in-use entity count.
 	- [Changed] Allowed the use of cg_drawTimer again when cheats are enabled. Timer also displays milliseconds.
 	- [Changed] Objectives text in objectives overlay automatically wraps to next line without breaking words.
 	- [Changed] Removed all gametypes from the game. Setting g_gametype to 8 is no longer necessary.

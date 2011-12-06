@@ -1620,7 +1620,7 @@ void CG_MissileHitWall( int weapon, int clientNum, vec3_t origin, vec3_t dir, im
 	case WP_LIGHTNING:
 		// no explosion at LG impact, it is added with the beam
 		r = rand() & 3;
-		if ( !cg_paintballMode.integer ) {
+		if ( !CG_IsMutatorEnabled( MT_PAINTBALLMODE ) ) {
 			if ( r < 2 ) {
 				sfx = cgs.media.sfx_lghit2;
 			} else if ( r == 2 ) {
@@ -1643,7 +1643,7 @@ void CG_MissileHitWall( int weapon, int clientNum, vec3_t origin, vec3_t dir, im
 	case WP_GRENADE_LAUNCHER:
 		mod = cgs.media.dishFlashModel;
 		shader = cgs.media.grenadeExplosionShader;
-		if ( !cg_paintballMode.integer )
+		if ( !CG_IsMutatorEnabled( MT_PAINTBALLMODE ) )
 			sfx = cgs.media.sfx_rockexp;
 		else
 			sfx = cgs.media.gibSound;
@@ -1655,7 +1655,7 @@ void CG_MissileHitWall( int weapon, int clientNum, vec3_t origin, vec3_t dir, im
 	case WP_ROCKET_LAUNCHER:
 		mod = cgs.media.dishFlashModel;
 		shader = cgs.media.rocketExplosionShader;
-		if ( !cg_paintballMode.integer )
+		if ( !CG_IsMutatorEnabled( MT_PAINTBALLMODE ) )
 			sfx = cgs.media.sfx_rockexp;
 		else
 			sfx = cgs.media.gibSound;
@@ -1678,7 +1678,7 @@ void CG_MissileHitWall( int weapon, int clientNum, vec3_t origin, vec3_t dir, im
 	case WP_RAILGUN:
 		mod = cgs.media.ringFlashModel;
 		shader = cgs.media.railExplosionShader;
-		if ( !cg_paintballMode.integer )
+		if ( !CG_IsMutatorEnabled( MT_PAINTBALLMODE ) )
 			sfx = cgs.media.sfx_plasmaexp;
 		else
 			sfx = cgs.media.gibBounce3Sound;
@@ -1688,7 +1688,7 @@ void CG_MissileHitWall( int weapon, int clientNum, vec3_t origin, vec3_t dir, im
 	case WP_PLASMAGUN:
 		mod = cgs.media.ringFlashModel;
 		shader = cgs.media.plasmaExplosionShader;
-		if ( !cg_paintballMode.integer )
+		if ( !CG_IsMutatorEnabled( MT_PAINTBALLMODE ) )
 			sfx = cgs.media.sfx_plasmaexp;
 		else
 			sfx = cgs.media.gibBounce3Sound;
@@ -1698,7 +1698,7 @@ void CG_MissileHitWall( int weapon, int clientNum, vec3_t origin, vec3_t dir, im
 	case WP_BFG:
 		mod = cgs.media.dishFlashModel;
 		shader = cgs.media.bfgExplosionShader;
-		if ( !cg_paintballMode.integer )
+		if ( !CG_IsMutatorEnabled( MT_PAINTBALLMODE ) )
 			sfx = cgs.media.sfx_rockexp;
 		else
 			sfx = cgs.media.gibSound;
@@ -1720,7 +1720,7 @@ void CG_MissileHitWall( int weapon, int clientNum, vec3_t origin, vec3_t dir, im
 		mark = cgs.media.bulletMarkShader;
 
 		r = rand() & 3;
-		if ( !cg_paintballMode.integer ) {
+		if ( !CG_IsMutatorEnabled( MT_PAINTBALLMODE ) ) {
 			if ( r == 0 ) {
 				sfx = cgs.media.sfx_ric1;
 			} else if ( r == 1 ) {
