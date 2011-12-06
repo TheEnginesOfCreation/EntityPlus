@@ -176,6 +176,10 @@ int Pickup_Backpack( gentity_t *ent, gentity_t *other) {
 
 void Add_Ammo (gentity_t *ent, int weapon, int count)
 {
+	//don't add ammo in instagib mode
+	if ( g_mutators.integer && MT_INSTAGIB )
+		return;
+
 	ent->client->ps.ammo[weapon] += count;
 	if ( ent->client->ps.ammo[weapon] > 999 ) {
 		ent->client->ps.ammo[weapon] = 999;
