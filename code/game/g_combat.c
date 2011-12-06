@@ -481,8 +481,8 @@ void G_Damage( gentity_t *targ, gentity_t *inflictor, gentity_t *attacker,
 		return;
 	}
 
-	//in entityplus bots cannot harm other bots
-	if ( IsBot( targ ) && attacker && IsBot( attacker ) )
+	//in entityplus bots cannot harm other bots (unless it's a telefrag)
+	if ( IsBot( targ ) && attacker && IsBot( attacker ) && mod != MOD_TELEFRAG )
 		return;
 
 	//if attacker is shooter which was configured not to harm target, do nothing
