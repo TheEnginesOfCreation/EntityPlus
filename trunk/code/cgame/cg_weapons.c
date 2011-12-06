@@ -1104,7 +1104,11 @@ void CG_AddPlayerWeapon( refEntity_t *parent, playerState_t *ps, centity_t *cent
 			// lightning gun and guantlet make a different sound when fire is held down
 			trap_S_AddLoopingSound( cent->currentState.number, cent->lerpOrigin, vec3_origin, weapon->firingSound );
 			cent->pe.lightningFiring = qtrue;
-		} else if ( weapon->readySound ) {
+		} else if ( weapon->readySound && cg.predictedPlayerState.pm_type != PM_CUTSCENE ) {	
+			//note: the pm_cutscene check above makes weapon idle noises stop during cutscenes, but it does so for 
+			//ALL weapons, including those of bots. Unfortunately this method is called without supplying ps for the 
+			//player itself as well. So unfortunately, I cannot differentiate between bots and players which means that
+			//either ALL hums play or NO hums play. I've chosen for the latter option during cutscenes.
 			trap_S_AddLoopingSound( cent->currentState.number, cent->lerpOrigin, vec3_origin, weapon->readySound );
 		}
 	}
