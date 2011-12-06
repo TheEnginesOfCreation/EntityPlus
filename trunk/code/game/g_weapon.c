@@ -150,6 +150,7 @@ void Bullet_Fire (gentity_t *ent, float spread, int damage ) {
 	for (i = 0; i < 10; i++) {
 
 		trap_Trace (&tr, muzzle, NULL, NULL, end, passent, MASK_SHOT);
+		
 		if ( tr.surfaceFlags & SURF_NOIMPACT ) {
 			return;
 		}
@@ -548,7 +549,7 @@ LogAccuracyHit
 */
 qboolean LogAccuracyHit( gentity_t *target, gentity_t *attacker ) {
 
-	if ( !strcmp(target->classname, "func_breakable") ) {
+	if ( target->classname && !strcmp(target->classname, "func_breakable") ) {
 		return qtrue;
 	}
 

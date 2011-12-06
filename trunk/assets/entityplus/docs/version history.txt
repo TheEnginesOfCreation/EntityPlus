@@ -24,6 +24,7 @@ v1.1 (?? ??? 2011)
 	- [Fixed] target_unlink does not work on func_bobbing entities.
 	- [Fixed] Bots get stuck in each other when they should be telefragged.
 	- [Fixed] Lightning gun, Railgun and BFG idle sounds continue playing during cutscenes.
+	- [Fixed] Shooting the machinegun into the void (in a leaked map) crashes the game.
 	- [Changed] Particles from target_effect are slightly bigger now so they are better visible.
 	- [Changed] Bodies of dead bots stay slightly longer before disappearing.
 	- [Changed] Increased max ammo amount for all weapons from 200 to 999.
