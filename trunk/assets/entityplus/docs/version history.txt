@@ -25,6 +25,7 @@ v1.1 (?? ??? 2011)
 	- [Added] Support for longname, author and description through arena files.
 	- [Added] "Loading..." text and icon is displayed when map is loading.
 	- [Fixed] target_unlink does not work on func_bobbing entities.
+	- [Fixed] Bots get stuck in each other when they should be telefragged.
 	- [Changed] Particles from target_effect are slightly bigger now so they are better visible.
 	- [Changed] Bodies of dead bots stay slightly longer before disappearing.
 	- [Changed] Increased max ammo amount for all weapons from 200 to 999.
