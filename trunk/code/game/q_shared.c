@@ -1298,8 +1298,9 @@ Calculates the player's level score
 ==================
 */
 int COM_CalculateLevelScore(int persistant[MAX_PERSISTANT], int accuracy, int skill) {
-	int score = 0;
+	int carnageScore, accuracyScore, deathsScore, secretsScore, skillScore, subTotal, total = 0;
 	int mutators;
+	qboolean debugScore;
 	char var[MAX_TOKEN_CHARS];
 
 	//determine mutators
@@ -1307,24 +1308,47 @@ int COM_CalculateLevelScore(int persistant[MAX_PERSISTANT], int accuracy, int sk
 	mutators = atoi(var);
 
 	//carnage
-	score += persistant[PERS_SCORE];
+	carnageScore = persistant[PERS_SCORE];
 
 	//accuracy
-	score += COM_AccuracyToScore(accuracy, score);
-
+	accuracyScore = COM_AccuracyToScore(accuracy, carnageScore);
+	
 	if ( !(mutators & MT_RESETSCOREAFTERDEATH) ) {
 		//deaths
-		score += (persistant[PERS_KILLED] * SCORE_DEATH);
+		deathsScore = (persistant[PERS_KILLED] * SCORE_DEATH);
 	
 		//secrets
-		score += (persistant[PERS_SECRETS] & 0x7F) * SCORE_SECRET;
+		secretsScore = (persistant[PERS_SECRETS] & 0x7F) * SCORE_SECRET;
+	} else {
+		deathsScore = 0;
+		secretsScore = 0;
 	}
 
+	//(sub)total before applying skill modifier
+	subTotal = carnageScore + accuracyScore + deathsScore + secretsScore;
+
 	//skill modifier
-	score *= ((skill - 1) * SCORE_SKILL) + 1;
+	skillScore = subTotal * (((skill - 1) * SCORE_SKILL));
+	total = subTotal + skillScore;
 
-	if ( score < 0 )
-		score = 0;
+	//make sure total score never drops below 0
+	if ( total < 0 )
+		total = 0;
 
-	return score;
+	//debug scores
+	trap_Cvar_VariableStringBuffer( "g_debugScore", var, sizeof( var ) );
+	debugScore = atoi(var);
+
+	if (debugScore) {
+		Com_Printf("---Score debug info---\n");
+		Com_Printf("Carnage  : %i\n", carnageScore);
+		Com_Printf("Accuracy : %i (%i%%)\n", accuracyScore, accuracy);
+		Com_Printf("Deaths   : %i (%ix)\n", deathsScore, persistant[PERS_KILLED]);
+		Com_Printf("Secrets  : %i (%i)\n", secretsScore, persistant[PERS_SECRETS] & 0x7F);
+		Com_Printf("Subtotal : %i\n", subTotal);
+		Com_Printf("Skill    : %i (%1.1f)\n", skillScore, (((skill - 1) * SCORE_SKILL)));
+		Com_Printf("Total    : %i\n", total);
+	}
+
+	return total;
 }
