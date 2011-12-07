@@ -37,6 +37,8 @@ vmCvar_t	g_knockback;
 vmCvar_t	g_quadfactor;
 vmCvar_t	g_forcerespawn;
 vmCvar_t	g_inactivity;
+vmCvar_t	g_disableCutscenes;
+vmCvar_t	g_disableScripts;
 vmCvar_t	g_debugMove;
 vmCvar_t	g_debugDamage;
 vmCvar_t	g_debugAlloc;
@@ -119,13 +121,15 @@ static cvarTable_t		gameCvarTable[] = {
 	{ &g_weaponTeamRespawn, "g_weaponTeamRespawn", "30", 0, 0, qtrue },
 	{ &g_forcerespawn, "g_forcerespawn", "20", 0, 0, qtrue },
 	{ &g_inactivity, "g_inactivity", "0", 0, 0, qtrue },
+	{ &g_disableCutscenes, "g_disableCutscenes", "0", CVAR_ARCHIVE | CVAR_CHEAT, 0, qfalse },
+	{ &g_disableScripts, "g_disableScripts", "0", CVAR_ARCHIVE, 0, qfalse },
 	{ &g_debugMove, "g_debugMove", "0", 0, 0, qfalse },
 	{ &g_debugDamage, "g_debugDamage", "0", 0, 0, qfalse },
 	{ &g_debugAlloc, "g_debugAlloc", "0", 0, 0, qfalse },
-	{ &g_debugCameras, "g_debugCameras", "0", CVAR_LATCH | CVAR_ARCHIVE | CVAR_CHEAT, 0, qfalse  },
-	{ &g_debugScore, "g_debugScore", "0", CVAR_ARCHIVE | CVAR_CHEAT, 0, qfalse  },
-	{ &g_debugVariables, "g_debugVariables", "0", CVAR_ARCHIVE | CVAR_CHEAT, 0, qfalse  },
-	{ &g_debugBotspawns, "g_debugBotspawns", "0", CVAR_ARCHIVE | CVAR_CHEAT, 0, qfalse  },
+	{ &g_debugCameras, "g_debugCameras", "0", CVAR_LATCH | CVAR_ARCHIVE | CVAR_CHEAT, 0, qfalse },
+	{ &g_debugScore, "g_debugScore", "0", CVAR_ARCHIVE | CVAR_CHEAT, 0, qfalse },
+	{ &g_debugVariables, "g_debugVariables", "0", CVAR_ARCHIVE | CVAR_CHEAT, 0, qfalse },
+	{ &g_debugBotspawns, "g_debugBotspawns", "0", CVAR_ARCHIVE | CVAR_CHEAT, 0, qfalse },
 	{ &g_motd, "g_motd", "", 0, 0, qfalse },
 	{ &g_blood, "com_blood", "1", 0, 0, qfalse },
 

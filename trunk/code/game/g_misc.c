@@ -125,6 +125,12 @@ void Think_Camera (gentity_t *self) {
 }
 
 void SP_info_camera( gentity_t *self ) {
+	//if cutscenes are disabled, free the entity and return
+	if ( g_disableCutscenes.integer ) {
+		G_FreeEntity( self );
+		return;
+	}
+	
 	G_SpawnFloat( "wait", "1", &self->wait );
 	G_SpawnInt( "fov", "90", &self->count );	//abusing self->count here to store the FOV for the camera
 

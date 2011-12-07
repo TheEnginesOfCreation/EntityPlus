@@ -36,21 +36,15 @@ void AddScore( gentity_t *ent, vec3_t origin, int score ) {
 		return;
 	}
 
+	if ( g_debugScore.integer )
+		G_Printf("AddScore: %i\n", score);
+
 	// show score plum
 	if ( origin )
 		ScorePlum(ent, origin, score);
 
-	//add score
-	if ( g_debugScore.integer ) {
-		G_Printf("Scored %i points\n", score);
-	}
-
 	if ( ent->client->ps.persistant[PERS_SCORE] += score >= 0 )	//don't let score drop below 0 in entityplus
 		ent->client->ps.persistant[PERS_SCORE] += score;
-
-	if ( g_debugScore.integer ) {
-		G_Printf("New score: %i\n", G_CalculateLevelScore( ent ));
-	}
 
 	//CalculateRanks();
 }
