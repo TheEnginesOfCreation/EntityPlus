@@ -48,7 +48,6 @@ typedef struct {
 	menuframework_s	menu;
 
 	menutext_s		banner;
-	menutext_s		mapname;
 
 	menubitmap_s	framel;
 	menubitmap_s	framer;
@@ -479,9 +478,6 @@ static void EPMenu_Update( void ) {
 	// no servers to start
 	if( !epMenuInfo.nummaps ) {
 		epMenuInfo.next.generic.flags |= QMF_INACTIVE;
-
-		// set the map name
-		strcpy( epMenuInfo.mapname.string, "NO MAPS FOUND" );
 	}
 	else {
 		// set the highlight
@@ -492,9 +488,6 @@ static void EPMenu_Update( void ) {
 			epMenuInfo.mappics[i].generic.flags    |= QMF_HIGHLIGHT;
 			epMenuInfo.mapbuttons[i].generic.flags &= ~QMF_PULSEIFFOCUS;
 		}
-
-		// set the map name
-		strcpy( epMenuInfo.mapname.string, epMenuInfo.maplist[epMenuInfo.currentmap] );
 
 		// set the high score
 		strcpy( epMenuInfo.highScore.string, va("%i", COM_LoadLevelScore( epMenuInfo.maplist[epMenuInfo.currentmap] ) ) );
@@ -557,8 +550,6 @@ static void EPMenu_Update( void ) {
 		}
 		
 	}
-	
-	Q_strupr( epMenuInfo.mapname.string );
 }
 
 
@@ -927,7 +918,7 @@ void UI_EPLevelMenu( void ) {
 	epMenuInfo.arrows.generic.name  = ART_ARROWS;
 	epMenuInfo.arrows.generic.flags = QMF_INACTIVE;
 	epMenuInfo.arrows.generic.x	   = 260;
-	epMenuInfo.arrows.generic.y	   = 400;
+	epMenuInfo.arrows.generic.y	   = 480 - 32;
 	epMenuInfo.arrows.width  	   = 128;
 	epMenuInfo.arrows.height  	   = 32;
 	Menu_AddItem( &epMenuInfo.menu, &epMenuInfo.arrows );
@@ -938,7 +929,7 @@ void UI_EPLevelMenu( void ) {
 	epMenuInfo.prevpage.generic.callback = EPMenu_MenuEvent;
 	epMenuInfo.prevpage.generic.id	    = ID_PREVPAGE;
 	epMenuInfo.prevpage.generic.x		= 260;
-	epMenuInfo.prevpage.generic.y		= 400;
+	epMenuInfo.prevpage.generic.y		= 480 - 32;
 	epMenuInfo.prevpage.width  		    = 64;
 	epMenuInfo.prevpage.height			= 32;
 	epMenuInfo.prevpage.focuspic        = ART_ARROWSL;
@@ -950,21 +941,11 @@ void UI_EPLevelMenu( void ) {
 	epMenuInfo.nextpage.generic.callback = EPMenu_MenuEvent;
 	epMenuInfo.nextpage.generic.id	    = ID_NEXTPAGE;
 	epMenuInfo.nextpage.generic.x		= 321;
-	epMenuInfo.nextpage.generic.y		= 400;
+	epMenuInfo.nextpage.generic.y		= 480 - 32;
 	epMenuInfo.nextpage.width  		    = 64;
-	epMenuInfo.nextpage.height  		    = 32;
+	epMenuInfo.nextpage.height  		 = 32;
 	epMenuInfo.nextpage.focuspic         = ART_ARROWSR;
 	Menu_AddItem( &epMenuInfo.menu, &epMenuInfo.nextpage );
-
-	//add selected map name
-	epMenuInfo.mapname.generic.type  = MTYPE_PTEXT;
-	epMenuInfo.mapname.generic.flags = QMF_CENTER_JUSTIFY|QMF_INACTIVE;
-	epMenuInfo.mapname.generic.x	    = 320;
-	epMenuInfo.mapname.generic.y	    = 440;
-	epMenuInfo.mapname.string        = mapnamebuffer;
-	epMenuInfo.mapname.style         = UI_CENTER|UI_BIGFONT;
-	epMenuInfo.mapname.color         = text_color_normal;
-	Menu_AddItem( &epMenuInfo.menu, &epMenuInfo.mapname );
 
 	//add high score caption
 	epMenuInfo.highScoreCaption.generic.type = MTYPE_TEXT;
@@ -983,7 +964,6 @@ void UI_EPLevelMenu( void ) {
 	epMenuInfo.highScore.generic.y = 378;
 	epMenuInfo.highScore.string = mapscorebuffer;
 	epMenuInfo.highScore.style = UI_CENTER;
-	epMenuInfo.mapname.color = text_color_normal;
 	Menu_AddItem( &epMenuInfo.menu, &epMenuInfo.highScore );
 
 	//add menu to stack
