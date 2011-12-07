@@ -18,6 +18,8 @@ v1.1 (?? ??? 2011)
 	- [Added] "enablebreath" and "enabledust" keys to worldspawn entity.
 	- [Added] "position" console command to get current player position coordinates.
 	- [Added] "g_debugVariables", "g_debugBotspawns" and "g_debugScore" cvars.
+	- [Added] "g_disableCutscenes" cvar.
+	- [Added] "g_disableScripts" cvar.
 	- [Added] "g_enableBreath" and "g_enableDust" cvars.
 	- [Added] Support for longname, author and description through arena files.
 	- [Added] "Loading..." text and icon is displayed when map is loading.

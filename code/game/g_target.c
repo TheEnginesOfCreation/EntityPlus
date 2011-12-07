@@ -977,6 +977,13 @@ void target_script_think (gentity_t *self) {
 }
 
 void SP_target_script (gentity_t *self) {
+	//if script execution by target_script is not allowed, free the entity and return
+	if ( g_disableScripts.integer )
+	{
+		G_FreeEntity( self );
+		return;
+	}
+
 	if ( !self->script )
 	{
 		G_Printf( va( S_COLOR_YELLOW "WARNING: target_script without specified script at %s\n", vtos(self->s.origin) ) );
@@ -1356,6 +1363,12 @@ HALT_AI: Prevents bots from moving and shooting while the cutscene is playing
 */
 void target_cutscene_use (gentity_t *self, gentity_t *other, gentity_t *activator) {
 	int i;
+
+	//if cutscenes are disabled, free the entity and return
+	if ( g_disableCutscenes.integer ) {
+		G_FreeEntity( self );
+		return;
+	}
 
 	//bots shouldn't be able to activate this entity
 	if ( IsBot( activator ) )

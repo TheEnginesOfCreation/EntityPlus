@@ -1819,11 +1819,11 @@ count: number of points to add to player's carnage score (default 1).*/
 //=============================================================================
 
 /*QUAKED target_script (0 .5 0) (-8 -8 -8) (8 8 8)
-When activated the entity executes the specified script file.
+When activated the entity executes the specified script file. Note that the player can disable the execution of scripts by setting g_disableScripts to 1. Therefore it is important that level designers always assume that the script is NOT going to be executed. In practice, this means that scripts used by target_script should only tweak aestethical settings which will not directly impact the gameplay or experience of the level.
 -------- KEYS --------
 targetname : ativating entity points to this.
 targetname2 : activating entity points to this.
-script: filename of the script to execute (example: myscript.cfg).*/
+script: filename of the script to execute (example: scripts/myscript.cfg).*/
 
 //=============================================================================
 

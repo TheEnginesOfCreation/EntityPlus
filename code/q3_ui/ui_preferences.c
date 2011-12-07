@@ -28,6 +28,7 @@ GAME OPTIONS MENU
 #define ID_SYNCEVERYFRAME		134
 #define ID_FORCEMODEL			135
 #define ID_SUBTITLES			136
+#define ID_DISABLESCRIPTS		137
 #define ID_BACK					150
 
 #define	NUM_CROSSHAIRS			10
@@ -53,6 +54,7 @@ typedef struct {
 	menuradiobutton_s	synceveryframe;
 	menuradiobutton_s	forcemodel;
 	menuradiobutton_s	subtitles;
+	menuradiobutton_s	disablescripts;
 	menubitmap_s		back;
 
 	qhandle_t			crosshairShader[NUM_CROSSHAIRS];
@@ -78,6 +80,7 @@ static void Preferences_SetMenuItems( void ) {
 	s_preferences.synceveryframe.curvalue	= trap_Cvar_VariableValue( "r_finish" ) != 0;
 	s_preferences.forcemodel.curvalue		= trap_Cvar_VariableValue( "cg_forcemodel" ) != 0;
 	s_preferences.subtitles.curvalue		= trap_Cvar_VariableValue( "cg_drawsubtitles" ) != 0;
+	s_preferences.disablescripts.curvalue	= trap_Cvar_VariableValue( "g_disableScripts" ) != 0;
 }
 
 
@@ -128,6 +131,10 @@ static void Preferences_Event( void* ptr, int notification ) {
 
 	case ID_SUBTITLES:
 		trap_Cvar_SetValue( "cg_drawsubtitles", s_preferences.subtitles.curvalue );
+		break;
+
+	case ID_DISABLESCRIPTS:
+		trap_Cvar_SetValue( "g_disableScripts", s_preferences.disablescripts.curvalue );
 		break;
 
 	case ID_BACK:
@@ -306,6 +313,15 @@ static void Preferences_MenuInit( void ) {
 	s_preferences.subtitles.generic.x	     = PREFERENCES_X_POS;
 	s_preferences.subtitles.generic.y	     = y;
 
+	y += BIGCHAR_HEIGHT+2;
+	s_preferences.disablescripts.generic.type		= MTYPE_RADIOBUTTON;
+	s_preferences.disablescripts.generic.name		= "Disable auto script execution:";
+	s_preferences.disablescripts.generic.flags		= QMF_PULSEIFFOCUS|QMF_SMALLFONT;
+	s_preferences.disablescripts.generic.callback	= Preferences_Event;
+	s_preferences.disablescripts.generic.id			= ID_DISABLESCRIPTS;
+	s_preferences.disablescripts.generic.x			= PREFERENCES_X_POS;
+	s_preferences.disablescripts.generic.y			= y;
+
 	s_preferences.back.generic.type	    = MTYPE_BITMAP;
 	s_preferences.back.generic.name     = ART_BACK0;
 	s_preferences.back.generic.flags    = QMF_LEFT_JUSTIFY|QMF_PULSEIFFOCUS;
@@ -330,6 +346,7 @@ static void Preferences_MenuInit( void ) {
 	Menu_AddItem( &s_preferences.menu, &s_preferences.synceveryframe );
 	Menu_AddItem( &s_preferences.menu, &s_preferences.forcemodel );
 	Menu_AddItem( &s_preferences.menu, &s_preferences.subtitles );
+	Menu_AddItem( &s_preferences.menu, &s_preferences.disablescripts );
 
 	Menu_AddItem( &s_preferences.menu, &s_preferences.back );
 
