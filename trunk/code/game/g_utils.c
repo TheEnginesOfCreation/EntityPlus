@@ -1282,12 +1282,12 @@ void G_FadeIn( float duration ) {
 
 /*
 ==================
-G_CalculateLevelScore
-Wrapper around COM_CalculateLevelScore. This method calculates data that is required by COM_CalculateLevelScore and returns
-the result of the COM_CalculateLevelScore function.
+G_CalculatePlayerScore
+Wrapper around COM_CalculatePlayerScore. This method calculates data that is required by COM_CalculatePlayerScore and returns
+the result of the COM_CalculatePlayerScore function.
 ==================
 */
-int G_CalculateLevelScore( gentity_t *ent ) {
+void G_CalculatePlayerScore( playerscore_t *scores, gentity_t *ent ) {
 	float skill;
 	int accuracy;
 
@@ -1300,5 +1300,5 @@ int G_CalculateLevelScore( gentity_t *ent ) {
 	// get skill
 	skill = trap_Cvar_VariableValue( "g_spskill" );
 
-	return COM_CalculateLevelScore(ent->client->ps.persistant, accuracy, (int)skill);
+	COM_CalculatePlayerScore(scores, ent->client->ps.persistant, accuracy, (int)skill);
 }
