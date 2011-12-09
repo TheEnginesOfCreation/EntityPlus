@@ -252,24 +252,36 @@ Draw the single player intermission screen
 void CG_DrawSinglePlayerIntermission( void ) {
 	vec4_t color;
 	int i, y;
-	int carnage, deaths, accuracy, secrets, secretsCount, secretsScore, skill, score;
 	int index;
+	playerscore_t *scores;
+	/*
+	int carnageScore, accuracyScore, deathsScore, secretsScore, subtotalScore, skillScore, totalScore;
+	int accuracy, deaths, secrets, secretsCount, skill;
+	*/
 	
+	COM_CalculatePlayerScore( scores, cg.snap->ps.persistant, CG_GetAccuracy(), CG_GetSkill() );
+
+	/*
+	carnageScore = cg.snap->ps.persistant[PERS_SCORE];
+	accuracy = CG_GetAccuracy();
+	accuracyScore = COM_AccuracyToScore(accuracy, carnageScore);
+	deaths = cg.snap->ps.persistant[PERS_KILLED];
+	deathsScore = deaths * SCORE_DEATH;
+	secrets = (cg.snap->ps.persistant[PERS_SECRETS] & 0x7F);
+	secretsCount = ((cg.snap->ps.persistant[PERS_SECRETS] >> 7) & 0x7F);
+	secretsScore = secrets * SCORE_SECRET;
+	subtotalScore = carnageScore + deathsScore + secretsScore;
+	skill = CG_GetSkill();
+	skillScore = subtotalScore * (((skill - 1) * SCORE_SKILL));
+	totalScore = COM_CalculateLevelScore( cg.snap->ps.persistant, accuracy, skill );
+	*/
+	
+return;
 
 	color[0] = 1;
 	color[1] = 1;
 	color[2] = 1;
 	color[3] = 1;
-
-	accuracy = CG_GetAccuracy();
-	carnage = cg.snap->ps.persistant[PERS_SCORE] + COM_AccuracyToScore(accuracy, cg.snap->ps.persistant[PERS_SCORE]);
-	deaths = cg.snap->ps.persistant[PERS_KILLED];
-	secrets = (cg.snap->ps.persistant[PERS_SECRETS] & 0x7F);
-	secretsCount = ((cg.snap->ps.persistant[PERS_SECRETS] >> 7) & 0x7F);
-	secretsScore = secrets * SCORE_SECRET;
-	skill = CG_GetSkill();
-	score = COM_CalculateLevelScore( cg.snap->ps.persistant, accuracy, skill );
-	
 
 	//carnage score
 	y = 64;
@@ -281,7 +293,7 @@ void CG_DrawSinglePlayerIntermission( void ) {
 			trap_S_StartLocalSound( cgs.media.scoreShow, CHAN_LOCAL_SOUND );
 			cg.scoreSoundsPlayed++;
 		}
-		CG_DrawStringExt( 64, y, va("       Carnage : %i (%i%% accuracy)", carnage, accuracy), color, qtrue, qtrue, BIGCHAR_WIDTH, BIGCHAR_HEIGHT, 0 );
+		CG_DrawStringExt( 64, y, va("       Carnage : %i", scores->carnageScore), color, qtrue, qtrue, BIGCHAR_WIDTH, BIGCHAR_HEIGHT, 0 );
 	}
 	
 	//deaths score
@@ -294,7 +306,7 @@ void CG_DrawSinglePlayerIntermission( void ) {
 			trap_S_StartLocalSound( cgs.media.scoreShow, CHAN_LOCAL_SOUND );
 			cg.scoreSoundsPlayed++;
 		}
-		CG_DrawStringExt( 64, y, va("        Deaths : %i (%ix)", deaths * SCORE_DEATH, deaths), color, qtrue, qtrue, BIGCHAR_WIDTH, BIGCHAR_HEIGHT, 0 );
+		CG_DrawStringExt( 64, y, va("        Deaths : %i (%ix)", scores->deathsScore, scores->deaths), color, qtrue, qtrue, BIGCHAR_WIDTH, BIGCHAR_HEIGHT, 0 );
 	}
 
 	//secrets score
@@ -307,7 +319,7 @@ void CG_DrawSinglePlayerIntermission( void ) {
 			trap_S_StartLocalSound( cgs.media.scoreShow, CHAN_LOCAL_SOUND );
 			cg.scoreSoundsPlayed++;
 		}
-		CG_DrawStringExt( 64, y, va("       Secrets : %i (%i/%i)", secretsScore, secrets, secretsCount), color, qtrue, qtrue, BIGCHAR_WIDTH, BIGCHAR_HEIGHT, 0 );		
+		CG_DrawStringExt( 64, y, va("       Secrets : %i (%i/%i)", scores->secretsScore, scores->secretsFound, scores->secretsCount), color, qtrue, qtrue, BIGCHAR_WIDTH, BIGCHAR_HEIGHT, 0 );		
 	}
 
 	//skill modifier
@@ -321,7 +333,7 @@ void CG_DrawSinglePlayerIntermission( void ) {
 			cg.scoreSoundsPlayed++;
 		}
 
-		CG_DrawStringExt( 64, y, va("Skill modifier : %1.1f", ((skill - 1) * SCORE_SKILL) + 1), color, qtrue, qtrue, BIGCHAR_WIDTH, BIGCHAR_HEIGHT, 0 );
+		//CG_DrawStringExt( 64, y, va("Skill modifier : %1.1f", 1 + scores->skillModifier), color, qtrue, qtrue, BIGCHAR_WIDTH, BIGCHAR_HEIGHT, 0 );
 	}
 
 	//total score
@@ -335,7 +347,7 @@ void CG_DrawSinglePlayerIntermission( void ) {
 			cg.scoreSoundsPlayed++;
 		}
 
-		CG_DrawStringExt( 64, y, va("         TOTAL : %i", score), color, qtrue, qtrue, BIGCHAR_WIDTH, BIGCHAR_HEIGHT, 0 );
+		CG_DrawStringExt( 64, y, va("         TOTAL : %i", scores->totalScore), color, qtrue, qtrue, BIGCHAR_WIDTH, BIGCHAR_HEIGHT, 0 );
 	}
 }
 
@@ -349,23 +361,25 @@ Draw the single player objectives overlay
 qboolean CG_DrawSinglePlayerObjectives( void ) {
 	const char *p;
 	const char *s;
-	vec4_t color, color_black;
-	int i, objlen, score;
-	/**/
+	vec4_t color;
+	vec4_t color_black;
+	int i;
+	int objlen;
 	char lines[5][60];
 	int spaceIndex, prevSpaceIndex = 0;
 	int currentLine = 0;
 	int lineIndex = 0;
 	char c[2];
-	qboolean tooLong = qfalse;
-	
-	
+	qboolean tooLong = qfalse;	
+	playerscore_t *scores;
+
 
 	if ( !cg.showScores )
 		return qfalse;
 
-	cg.objectivesTime = 0;	//stop objectives notification from showing
 
+	cg.objectivesTime = 0;	//stop objectives notification from showing
+	
 	color[0] = 1;
 	color[1] = 1;
 	color[2] = 1;
@@ -385,7 +399,9 @@ qboolean CG_DrawSinglePlayerObjectives( void ) {
 	//draw primary objective
 	objlen = strlen(p);
 
+	
 	for ( i = 0; i < objlen; i++) {
+		
 		c[0] = p[i];
 		c[1] = '\0';
 
@@ -402,6 +418,7 @@ qboolean CG_DrawSinglePlayerObjectives( void ) {
 				CG_DrawSmallStringColor( 82, 146 + (SMALLCHAR_HEIGHT * currentLine), lines[currentLine], color_black);
 				CG_DrawSmallStringColor( 80, 144 + (SMALLCHAR_HEIGHT * currentLine), lines[currentLine], color);
 			}
+			
 			prevSpaceIndex = spaceIndex;
 			prevSpaceIndex++;
 			i = spaceIndex;
@@ -412,8 +429,10 @@ qboolean CG_DrawSinglePlayerObjectives( void ) {
 				tooLong = qtrue;
 				break;
 			}
+			
 		}
 		lineIndex++;
+		
 	}
 
 	if ( !tooLong ) {
@@ -421,7 +440,7 @@ qboolean CG_DrawSinglePlayerObjectives( void ) {
 		CG_DrawSmallStringColor( 80, 144 + (SMALLCHAR_HEIGHT * currentLine), va("%s", &p[prevSpaceIndex]), color);
 	}
 
-	
+
 	//draw secondary objective
 	spaceIndex = 0;
 	prevSpaceIndex = 0;
@@ -475,9 +494,9 @@ qboolean CG_DrawSinglePlayerObjectives( void ) {
 	CG_DrawBigStringColor( 208 - (i * BIGCHAR_WIDTH), 343, va("%i", cg.snap->ps.persistant[PERS_KILLED]), color );
 
 	//draw level score
-	score = COM_CalculateLevelScore( cg.snap->ps.persistant, CG_GetAccuracy(), CG_GetSkill() );
-	i = strlen(va("%i", score));
-	CG_DrawBigStringColor( 496 - (i * BIGCHAR_WIDTH), 343, va("%i", score), color);	
+	COM_CalculatePlayerScore( scores, cg.snap->ps.persistant, CG_GetAccuracy(), CG_GetSkill() );
+	i = strlen(va("%i", scores->totalScore));
+	CG_DrawBigStringColor( 496 - (i * BIGCHAR_WIDTH), 343, va("%i", scores->totalScore), color);	
 
 	if ( ++cg.deferredPlayerLoading > 10 ) {
 		CG_LoadDeferredPlayers();

@@ -1416,7 +1416,21 @@ typedef enum _flag_status {
 	FLAG_DROPPED
 } flagStatus_t;
 
-
+typedef struct playerscore_s {
+	int carnageScore;
+	int accuracy;
+	int accuracyScore;
+	int deaths;
+	int deathsScore;
+	int secretsFound;
+	int secretsCount;
+	int secretsScore;
+	int subtotalScore;
+	float skill;
+	float skillModifier;
+	int skillScore;
+	int totalScore;
+} playerscore_t;
 
 #define	MAX_GLOBAL_SERVERS				4096
 #define	MAX_OTHER_SERVERS					128

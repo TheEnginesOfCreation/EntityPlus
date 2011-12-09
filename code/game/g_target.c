@@ -1001,7 +1001,8 @@ high score (if it is higher than the current highscore) for the current map and,
 game.
 */
 void target_finish_use (gentity_t *self, gentity_t *other, gentity_t *activator) {
-	int score, highScore;
+	int highScore;
+	//playerscore_t *scores;
 	int secretFound, secretCount;
 
 	// bots should not be able to activate this
@@ -1017,14 +1018,15 @@ void target_finish_use (gentity_t *self, gentity_t *other, gentity_t *activator)
 	activator->client->ps.persistant[PERS_SECRETS] = secretFound + (secretCount << 7);
 	///
 
+	
 	// calculate player's score
-	score = G_CalculateLevelScore( activator );
+	//G_CalculatePlayerScore( scores, activator );
 
 	// get high score
 	highScore = COM_LoadLevelScore( G_GetScoringMapName() );
 	
-	if ( score > highScore )
-		COM_WriteLevelScore( G_GetScoringMapName(), score );
+	//if ( scores->totalScore > highScore )
+	//	COM_WriteLevelScore( G_GetScoringMapName(), scores->totalScore );
 
 	BeginIntermission();
 }
