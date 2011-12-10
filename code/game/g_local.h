@@ -515,6 +515,7 @@ char	*G_GetScoringMapName();
 void	G_Fade( float duration, vec4_t startColor, vec4_t endColor );
 void	G_FadeOut( float duration );
 void	G_FadeIn( float duration );
+playerscore_t G_CalculatePlayerScore( gentity_t *ent );
 
 void	G_InitGentity( gentity_t *e );
 gentity_t	*G_Spawn (void);

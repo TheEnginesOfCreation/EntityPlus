@@ -253,30 +253,9 @@ void CG_DrawSinglePlayerIntermission( void ) {
 	vec4_t color;
 	int i, y;
 	int index;
-	playerscore_t *scores;
-	/*
-	int carnageScore, accuracyScore, deathsScore, secretsScore, subtotalScore, skillScore, totalScore;
-	int accuracy, deaths, secrets, secretsCount, skill;
-	*/
+	playerscore_t scores;
 	
-	COM_CalculatePlayerScore( scores, cg.snap->ps.persistant, CG_GetAccuracy(), CG_GetSkill() );
-
-	/*
-	carnageScore = cg.snap->ps.persistant[PERS_SCORE];
-	accuracy = CG_GetAccuracy();
-	accuracyScore = COM_AccuracyToScore(accuracy, carnageScore);
-	deaths = cg.snap->ps.persistant[PERS_KILLED];
-	deathsScore = deaths * SCORE_DEATH;
-	secrets = (cg.snap->ps.persistant[PERS_SECRETS] & 0x7F);
-	secretsCount = ((cg.snap->ps.persistant[PERS_SECRETS] >> 7) & 0x7F);
-	secretsScore = secrets * SCORE_SECRET;
-	subtotalScore = carnageScore + deathsScore + secretsScore;
-	skill = CG_GetSkill();
-	skillScore = subtotalScore * (((skill - 1) * SCORE_SKILL));
-	totalScore = COM_CalculateLevelScore( cg.snap->ps.persistant, accuracy, skill );
-	*/
-	
-return;
+	scores = COM_CalculatePlayerScore( cg.snap->ps.persistant, CG_GetAccuracy(), CG_GetSkill() );
 
 	color[0] = 1;
 	color[1] = 1;
@@ -293,8 +272,23 @@ return;
 			trap_S_StartLocalSound( cgs.media.scoreShow, CHAN_LOCAL_SOUND );
 			cg.scoreSoundsPlayed++;
 		}
-		CG_DrawStringExt( 64, y, va("       Carnage : %i", scores->carnageScore), color, qtrue, qtrue, BIGCHAR_WIDTH, BIGCHAR_HEIGHT, 0 );
+		CG_DrawStringExt( 64, y, va("       Carnage : %i", scores.carnageScore), color, qtrue, qtrue, BIGCHAR_WIDTH, BIGCHAR_HEIGHT, 0 );
 	}
+
+	//accuracy bonus
+	y += BIGCHAR_HEIGHT;
+	index++;
+	if (cg.time < cg.intermissionTime + (SCOREB_TIME * index))
+		CG_DrawStringExt( 64, y, "Accuracy bonus :", color, qtrue, qtrue, BIGCHAR_WIDTH, BIGCHAR_HEIGHT, 0 );
+	else {
+		if (cg.scoreSoundsPlayed == index - 1) {
+			trap_S_StartLocalSound( cgs.media.scoreShow, CHAN_LOCAL_SOUND );
+			cg.scoreSoundsPlayed++;
+		}
+
+		CG_DrawStringExt( 64, y, va("Accuracy bonus : %i (%i%%)", scores.accuracyScore, scores.accuracy), color, qtrue, qtrue, BIGCHAR_WIDTH, BIGCHAR_HEIGHT, 0 );
+	}
+
 	
 	//deaths score
 	y += BIGCHAR_HEIGHT;
@@ -306,7 +300,7 @@ return;
 			trap_S_StartLocalSound( cgs.media.scoreShow, CHAN_LOCAL_SOUND );
 			cg.scoreSoundsPlayed++;
 		}
-		CG_DrawStringExt( 64, y, va("        Deaths : %i (%ix)", scores->deathsScore, scores->deaths), color, qtrue, qtrue, BIGCHAR_WIDTH, BIGCHAR_HEIGHT, 0 );
+		CG_DrawStringExt( 64, y, va("        Deaths : %i (%ix)", scores.deathsScore, scores.deaths), color, qtrue, qtrue, BIGCHAR_WIDTH, BIGCHAR_HEIGHT, 0 );
 	}
 
 	//secrets score
@@ -319,21 +313,21 @@ return;
 			trap_S_StartLocalSound( cgs.media.scoreShow, CHAN_LOCAL_SOUND );
 			cg.scoreSoundsPlayed++;
 		}
-		CG_DrawStringExt( 64, y, va("       Secrets : %i (%i/%i)", scores->secretsScore, scores->secretsFound, scores->secretsCount), color, qtrue, qtrue, BIGCHAR_WIDTH, BIGCHAR_HEIGHT, 0 );		
+		CG_DrawStringExt( 64, y, va("       Secrets : %i (%i/%i)", scores.secretsScore, scores.secretsFound, scores.secretsCount), color, qtrue, qtrue, BIGCHAR_WIDTH, BIGCHAR_HEIGHT, 0 );		
 	}
 
-	//skill modifier
+	//skill bonus
 	y += BIGCHAR_HEIGHT;
 	index++;
 	if (cg.time < cg.intermissionTime + (SCOREB_TIME * index))
-		CG_DrawStringExt( 64, y, "Skill modifier :", color, qtrue, qtrue, BIGCHAR_WIDTH, BIGCHAR_HEIGHT, 0 );
+		CG_DrawStringExt( 64, y, "   Skill bonus :", color, qtrue, qtrue, BIGCHAR_WIDTH, BIGCHAR_HEIGHT, 0 );
 	else {
 		if (cg.scoreSoundsPlayed == index - 1) {
 			trap_S_StartLocalSound( cgs.media.scoreShow, CHAN_LOCAL_SOUND );
 			cg.scoreSoundsPlayed++;
 		}
 
-		//CG_DrawStringExt( 64, y, va("Skill modifier : %1.1f", 1 + scores->skillModifier), color, qtrue, qtrue, BIGCHAR_WIDTH, BIGCHAR_HEIGHT, 0 );
+		CG_DrawStringExt( 64, y, va("   Skill bonus : %i (%1.0f%%)", scores.skillScore, scores.skillModifier * 100), color, qtrue, qtrue, BIGCHAR_WIDTH, BIGCHAR_HEIGHT, 0 );
 	}
 
 	//total score
@@ -347,7 +341,7 @@ return;
 			cg.scoreSoundsPlayed++;
 		}
 
-		CG_DrawStringExt( 64, y, va("         TOTAL : %i", scores->totalScore), color, qtrue, qtrue, BIGCHAR_WIDTH, BIGCHAR_HEIGHT, 0 );
+		CG_DrawStringExt( 64, y, va("         TOTAL : %i", scores.totalScore), color, qtrue, qtrue, BIGCHAR_WIDTH, BIGCHAR_HEIGHT, 0 );
 	}
 }
 
@@ -371,7 +365,7 @@ qboolean CG_DrawSinglePlayerObjectives( void ) {
 	int lineIndex = 0;
 	char c[2];
 	qboolean tooLong = qfalse;	
-	playerscore_t *scores;
+	playerscore_t scores;
 
 
 	if ( !cg.showScores )
@@ -494,9 +488,9 @@ qboolean CG_DrawSinglePlayerObjectives( void ) {
 	CG_DrawBigStringColor( 208 - (i * BIGCHAR_WIDTH), 343, va("%i", cg.snap->ps.persistant[PERS_KILLED]), color );
 
 	//draw level score
-	COM_CalculatePlayerScore( scores, cg.snap->ps.persistant, CG_GetAccuracy(), CG_GetSkill() );
-	i = strlen(va("%i", scores->totalScore));
-	CG_DrawBigStringColor( 496 - (i * BIGCHAR_WIDTH), 343, va("%i", scores->totalScore), color);	
+	scores = COM_CalculatePlayerScore( cg.snap->ps.persistant, CG_GetAccuracy(), CG_GetSkill() );
+	i = strlen(va("%i", scores.totalScore));
+	CG_DrawBigStringColor( 496 - (i * BIGCHAR_WIDTH), 343, va("%i", scores.totalScore), color);	
 
 	if ( ++cg.deferredPlayerLoading > 10 ) {
 		CG_LoadDeferredPlayers();

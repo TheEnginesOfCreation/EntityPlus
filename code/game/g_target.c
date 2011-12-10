@@ -1002,8 +1002,8 @@ game.
 */
 void target_finish_use (gentity_t *self, gentity_t *other, gentity_t *activator) {
 	int highScore;
-	//playerscore_t *scores;
 	int secretFound, secretCount;
+	playerscore_t scores;
 
 	// bots should not be able to activate this
 	if ( IsBot( activator ) )
@@ -1020,13 +1020,13 @@ void target_finish_use (gentity_t *self, gentity_t *other, gentity_t *activator)
 
 	
 	// calculate player's score
-	//G_CalculatePlayerScore( scores, activator );
+	scores = G_CalculatePlayerScore( activator );
 
 	// get high score
 	highScore = COM_LoadLevelScore( G_GetScoringMapName() );
 	
-	//if ( scores->totalScore > highScore )
-	//	COM_WriteLevelScore( G_GetScoringMapName(), scores->totalScore );
+	if ( scores.totalScore > highScore )
+		COM_WriteLevelScore( G_GetScoringMapName(), scores.totalScore );
 
 	BeginIntermission();
 }

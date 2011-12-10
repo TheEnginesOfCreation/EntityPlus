@@ -15,6 +15,7 @@ void ScorePlum( gentity_t *ent, vec3_t origin, int score ) {
 
 	return;	//no score plums in entityplus gametype
 
+	/*
 	plum = G_TempEntity( origin, EV_SCOREPLUM );
 	// only send this temp entity to a single client
 	plum->r.svFlags |= SVF_SINGLECLIENT;
@@ -22,6 +23,7 @@ void ScorePlum( gentity_t *ent, vec3_t origin, int score ) {
 	//
 	plum->s.otherEntityNum = ent->s.number;
 	plum->s.time = score;
+	*/
 }
 
 /*

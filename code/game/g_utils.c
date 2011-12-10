@@ -366,7 +366,7 @@ void G_UseDeathTargets( gentity_t *ent, gentity_t *activator ) {
 G_SetEntityLinked
 ==============================
 */
-G_SetEntityLinked( gentity_t *t, int spawnflags ) {
+void G_SetEntityLinked( gentity_t *t, int spawnflags ) {
 	if ( spawnflags & 4 ) {								
 		//always_unlink spawnflag is set, so unlink entity to the world
 		if ( strcmp(t->classname, "func_bobbing") ) {
@@ -1287,7 +1287,7 @@ Wrapper around COM_CalculatePlayerScore. This method calculates data that is req
 the result of the COM_CalculatePlayerScore function.
 ==================
 */
-void G_CalculatePlayerScore( playerscore_t *scores, gentity_t *ent ) {
+playerscore_t G_CalculatePlayerScore( gentity_t *ent ) {
 	float skill;
 	int accuracy;
 
@@ -1300,5 +1300,5 @@ void G_CalculatePlayerScore( playerscore_t *scores, gentity_t *ent ) {
 	// get skill
 	skill = trap_Cvar_VariableValue( "g_spskill" );
 
-	COM_CalculatePlayerScore(scores, ent->client->ps.persistant, accuracy, (int)skill);
+	return COM_CalculatePlayerScore( ent->client->ps.persistant, accuracy, (int)skill);
 }
