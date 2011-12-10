@@ -28,7 +28,9 @@ v1.1 (?? ??? 2011)
 	- [Fixed] Lightning gun, Railgun and BFG idle sounds continue playing during cutscenes.
 	- [Fixed] Shooting the machinegun into the void (in a leaked map) crashes the game.
 	- [Fixed] Music is audible for a short time when s_musicvolume is set to 0 and death screen or end-game scoreboard is shown.
+	- [Changed] Removed all gametypes from the game. Setting g_gametype to 8 is no longer necessary.
 	- [Changed] End-game scoreboard specifies accuracy bonus and skill bonus seperately now.
+	- [Changed] New stylized icon for backpack.
 	- [Changed] Particles from target_effect are slightly bigger now so they are better visible.
 	- [Changed] Bodies of dead bots stay slightly longer before disappearing.
 	- [Changed] Increased max ammo amount for all weapons from 200 to 999.
@@ -37,7 +39,6 @@ v1.1 (?? ??? 2011)
 	- [Changed] "g_listEntity" is now cheat protected, accepts a value of 2 to only list in-use entity slots and prints out in-use entity count.
 	- [Changed] Allowed the use of cg_drawTimer again when cheats are enabled. Timer also displays milliseconds.
 	- [Changed] Objectives text in objectives overlay automatically wraps to next line without breaking words.
-	- [Changed] Removed all gametypes from the game. Setting g_gametype to 8 is no longer necessary.
 	- [Changed] All debris related spawnflags on target_debrisemitter and func_breakable are now named DEBRIS_[type].
 	- [Changed] New main menu artwork.
 
