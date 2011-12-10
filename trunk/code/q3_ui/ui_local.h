@@ -305,6 +305,12 @@ void EPMenu_Cache( void );
 void EPSkill_Cache( void );
 
 //
+// ui_mutators.c
+//
+extern void UI_MutatorsMenu( void );
+extern void Mutators_Cache( void );
+
+//
 // ui_mfield.c
 //
 extern void			MField_Clear( mfield_t *edit );
@@ -408,12 +414,6 @@ extern void PlayerSettings_Cache( void );
 //
 extern void UI_PreferencesMenu( void );
 extern void Preferences_Cache( void );
-
-//
-// ui_mutators.c
-//
-extern void UI_MutatorsMenu( void );
-extern void Mutators_Cache( void );
 
 //
 // ui_specifyleague.c

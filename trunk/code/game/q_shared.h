@@ -895,7 +895,6 @@ void Info_NextPair( const char **s, char *key, char *value );
 void	QDECL Com_Error( int level, const char *error, ... );
 void	QDECL Com_Printf( const char *msg, ... );
 
-
 /*
 ==========================================================
 
@@ -1461,3 +1460,5 @@ typedef struct playerscore_s {
 #define MT_MACHINEGUNONLY				4	//all weapons are MG and all ammo boxes are bullets.
 #define MT_INSTAGIB						8	//no ammo pickups. All weapons are RG's, player has unlimited ammo.
 #define MT_RESETSCOREAFTERDEATH			16	//carnage score is set to 0 when the player dies.
+
+playerscore_t COM_CalculatePlayerScore(int persistant[MAX_PERSISTANT], int accuracy, float skill);

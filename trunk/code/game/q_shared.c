@@ -1296,46 +1296,36 @@ COM_CalculateScore
 Calculates the player's score
 ==================
 */
-void COM_CalculatePlayerScore(playerscore_t *scores, int persistant[MAX_PERSISTANT], int accuracy, float skill) {
-	//char			var[MAX_TOKEN_CHARS];
-	//int				mutators;
-	//qboolean		debugScore;
+playerscore_t COM_CalculatePlayerScore(int persistant[MAX_PERSISTANT], int accuracy, float skill) {
+	char			var[MAX_TOKEN_CHARS];
+	int				mutators;
+	qboolean		debugScore;
+	playerscore_t	scores;
 
-	if (scores) {
-		Com_Printf("Yes\n");
-		scores->totalScore = 0;
-	}
-	else
-	{
-		Com_Printf("No\n");
-	}
-
-/*
-
+	
 	//determine mutators
-
 	trap_Cvar_VariableStringBuffer( "g_mutators", var, sizeof( var ) );
 	mutators = atoi(var);
 
-	scores->carnageScore = persistant[PERS_SCORE];
-	scores->accuracy = accuracy;
-	scores->accuracyScore = COM_AccuracyToScore( accuracy, scores->carnageScore );
-	scores->deaths = persistant[PERS_KILLED];
+	scores.carnageScore = persistant[PERS_SCORE];
+	scores.accuracy = accuracy;
+	scores.accuracyScore = COM_AccuracyToScore( accuracy, scores.carnageScore );
+	scores.deaths = persistant[PERS_KILLED];
 	if ( mutators & MT_RESETSCOREAFTERDEATH )
-		scores->deathsScore = 0;
+		scores.deathsScore = 0;
 	else
-		scores->deathsScore = scores->deaths * SCORE_DEATH;
-	scores->secretsFound = persistant[PERS_SECRETS] & 0x7F;
-	scores->secretsCount = 0;	//TODO: How to determine this here?
+		scores.deathsScore = scores.deaths * SCORE_DEATH;
+	scores.secretsFound = persistant[PERS_SECRETS] & 0x7F;
+	scores.secretsCount = (persistant[PERS_SECRETS] >> 7) & 0x7F;
 	if ( mutators & MT_RESETSCOREAFTERDEATH )
-		scores->secretsScore = 0;
+		scores.secretsScore = 0;
 	else
-		scores->secretsScore = scores->secretsFound * SCORE_SECRET;
-	scores->subtotalScore = scores->carnageScore + scores->accuracyScore + scores->deathsScore + scores->secretsScore;
-	scores->skill = skill;
-	scores->skillModifier = (skill - 1) * SCORE_SKILL;
-	scores->skillScore = scores->subtotalScore * scores->skillModifier;
-	scores->totalScore = scores->subtotalScore + scores->skillScore;		
+		scores.secretsScore = scores.secretsFound * SCORE_SECRET;
+	scores.subtotalScore = scores.carnageScore + scores.accuracyScore + scores.deathsScore + scores.secretsScore;
+	scores.skill = skill;
+	scores.skillModifier = (skill - 1) * SCORE_SKILL;
+	scores.skillScore = scores.subtotalScore * scores.skillModifier;
+	scores.totalScore = scores.subtotalScore + scores.skillScore;		
 
 	//debug scores
 	trap_Cvar_VariableStringBuffer( "g_debugScore", var, sizeof( var ) );
@@ -1343,77 +1333,14 @@ void COM_CalculatePlayerScore(playerscore_t *scores, int persistant[MAX_PERSISTA
 
 	if (debugScore) {
 		Com_Printf("---Score debug info---\n");
-		Com_Printf("Carnage  : %i\n", scores->carnageScore);
-		Com_Printf("Accuracy : %i (%i%%)\n", scores->accuracyScore, scores->accuracy);
-		Com_Printf("Deaths   : %i (%ix)\n", scores->deathsScore, scores->deaths);
-		Com_Printf("Secrets  : %i (%i)\n", scores->secretsScore, scores->secretsFound);
-		Com_Printf("Subtotal : %i\n", scores->subtotalScore);
-		Com_Printf("Skill    : %i (%1.1f)\n", scores->skillScore, scores->skillModifier);
-		Com_Printf("Total    : %i\n", scores->totalScore);
-	}
-*/
-}
-
-
-/*
-==================
-COM_CalculateLevelScore
-Calculates the player's level score
-==================
-*/
-int COM_CalculateLevelScore(int persistant[MAX_PERSISTANT], int accuracy, int skill) {
-	int carnageScore, accuracyScore, deathsScore, secretsScore, subTotal, skillScore, total;
-	int mutators;
-	qboolean debugScore;
-	char var[MAX_TOKEN_CHARS];
-
-
-	//determine mutators
-	trap_Cvar_VariableStringBuffer( "g_mutators", var, sizeof( var ) );
-	mutators = atoi(var);
-
-	//carnage
-	carnageScore = persistant[PERS_SCORE];
-
-	//accuracy
-	accuracyScore = COM_AccuracyToScore(accuracy, carnageScore);
-	
-	if ( !(mutators & MT_RESETSCOREAFTERDEATH) ) {
-		//deaths
-		deathsScore = (persistant[PERS_KILLED] * SCORE_DEATH);
-	
-		//secrets
-		secretsScore = (persistant[PERS_SECRETS] & 0x7F) * SCORE_SECRET;
-	} else {
-		deathsScore = 0;
-		secretsScore = 0;
+		Com_Printf("Carnage  : %i\n", scores.carnageScore);
+		Com_Printf("Accuracy : %i (%i%%)\n", scores.accuracyScore, scores.accuracy);
+		Com_Printf("Deaths   : %i (%ix)\n", scores.deathsScore, scores.deaths);
+		Com_Printf("Secrets  : %i (%i)\n", scores.secretsScore, scores.secretsFound);
+		Com_Printf("Subtotal : %i\n", scores.subtotalScore);
+		Com_Printf("Skill    : %i (%1.1f)\n", scores.skillScore, scores.skillModifier);
+		Com_Printf("Total    : %i\n", scores.totalScore);
 	}
 
-	//(sub)total before applying skill modifier
-	subTotal = carnageScore + accuracyScore + deathsScore + secretsScore;
-
-	//skill modifier
-	skillScore = subTotal * (((skill - 1) * SCORE_SKILL));
-	total = subTotal + skillScore;
-
-	//make sure total score never drops below 0
-	if ( total < 0 )
-		total = 0;
-
-	//debug scores
-	trap_Cvar_VariableStringBuffer( "g_debugScore", var, sizeof( var ) );
-	debugScore = atoi(var);
-
-	if (debugScore) {
-		Com_Printf("---Score debug info---\n");
-		Com_Printf("Carnage  : %i\n", carnageScore);
-		Com_Printf("Accuracy : %i (%i%%)\n", accuracyScore, accuracy);
-		Com_Printf("Deaths   : %i (%ix)\n", deathsScore, persistant[PERS_KILLED]);
-		Com_Printf("Secrets  : %i (%i)\n", secretsScore, persistant[PERS_SECRETS] & 0x7F);
-		Com_Printf("Subtotal : %i\n", subTotal);
-		Com_Printf("Skill    : %i (%1.1f)\n", skillScore, (((skill - 1) * SCORE_SKILL)));
-		Com_Printf("Total    : %i\n", total);
-	}
-
-	return total;
+	return scores;
 }
