@@ -1036,8 +1036,14 @@ void CG_StartMusic( void ) {
 }
 
 void CG_StartScoreboardMusic( void ) {
+	char	var[MAX_TOKEN_CHARS];
 	char	*s;
 	char	parm1[MAX_QPATH], parm2[MAX_QPATH];
+
+	//if music volume is 0, don't start the scoreboard music
+	trap_Cvar_VariableStringBuffer( "s_musicvolume", var, sizeof( var ) );
+	if ( !strcmp(var, "0") )
+		return;
 
 	// start the background music
 	s = (char *)CG_ConfigString( CS_SCOREBOARDMUSIC );
@@ -1048,8 +1054,14 @@ void CG_StartScoreboardMusic( void ) {
 }
 
 void CG_StartDeathMusic( void ) {
+	char	var[MAX_TOKEN_CHARS];
 	char	*s;
 	char	parm1[MAX_QPATH], parm2[MAX_QPATH];
+
+	//if music volume is 0, don't start the scoreboard music
+	trap_Cvar_VariableStringBuffer( "s_musicvolume", var, sizeof( var ) );
+	if ( !strcmp(var, "0") )
+		return;
 
 	// start the background music
 	s = (char *)CG_ConfigString( CS_DEATHMUSIC );
