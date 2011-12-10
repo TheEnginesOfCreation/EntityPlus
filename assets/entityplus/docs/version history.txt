@@ -27,6 +27,8 @@ v1.1 (?? ??? 2011)
 	- [Fixed] Bots get stuck in each other when they should be telefragged.
 	- [Fixed] Lightning gun, Railgun and BFG idle sounds continue playing during cutscenes.
 	- [Fixed] Shooting the machinegun into the void (in a leaked map) crashes the game.
+	- [Fixed] Music is audible for a short time when s_musicvolume is set to 0 and death screen or end-game scoreboard is shown.
+	- [Changed] End-game scoreboard specifies accuracy bonus and skill bonus seperately now.
 	- [Changed] Particles from target_effect are slightly bigger now so they are better visible.
 	- [Changed] Bodies of dead bots stay slightly longer before disappearing.
 	- [Changed] Increased max ammo amount for all weapons from 200 to 999.
