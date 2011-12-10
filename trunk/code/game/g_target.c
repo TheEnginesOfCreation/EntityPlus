@@ -1366,9 +1366,8 @@ HALT_AI: Prevents bots from moving and shooting while the cutscene is playing
 void target_cutscene_use (gentity_t *self, gentity_t *other, gentity_t *activator) {
 	int i;
 
-	//if cutscenes are disabled, free the entity and return
+	//if cutscenes are disabled, do nothing
 	if ( g_disableCutscenes.integer ) {
-		G_FreeEntity( self );
 		return;
 	}
 
