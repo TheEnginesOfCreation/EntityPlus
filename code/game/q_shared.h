@@ -1461,7 +1461,7 @@ typedef struct playerscore_s {
 #define MT_INSTAGIB						8	//no ammo pickups. All weapons are RG's, player has unlimited ammo.
 #define MT_RESETSCOREAFTERDEATH			16	//carnage score is set to 0 when the player dies.
 
-//score info keys
+//score info keys (these should NEVER change because it will break compatibility with older score files)
 #define SIK_CARNAGESCORE	"a"
 #define SIK_ACCURACY		"b"
 #define SIK_ACCURACYSCORE	"c"
