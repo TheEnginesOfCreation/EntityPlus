@@ -1297,8 +1297,16 @@ void COM_WriteLevelScore(char *levelname, playerscore_t scores) {
 	char			*filename;
 	fileHandle_t	f;
 	char			scoreInfo[MAX_INFO_STRING];
+	int				i;
 
-	//TODO: for some reason part of the server info string is written to the high score file.
+	
+
+	//For some reason part of the server info string is written to the high score file. To prevent this, we completely reset the scoreInfo string
+	for ( i = 0; i < MAX_INFO_STRING; i++ ) {
+		scoreInfo[i] = NULL;
+	}
+	//TODO: Check if the above fix doesn't mess up anything for the actual server info string.
+
 	scoreInfo[0] = '\0';
 	Info_SetValueForKey(scoreInfo, SIK_CARNAGESCORE, va("%i", scores.carnageScore));
 	Info_SetValueForKey(scoreInfo, SIK_ACCURACY, va("%i", scores.accuracy));
