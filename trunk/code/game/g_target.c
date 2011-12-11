@@ -1001,8 +1001,8 @@ high score (if it is higher than the current highscore) for the current map and,
 game.
 */
 void target_finish_use (gentity_t *self, gentity_t *other, gentity_t *activator) {
-	int highScore;
 	int secretFound, secretCount;
+	playerscore_t highScores;
 	playerscore_t scores;
 
 	// bots should not be able to activate this
@@ -1023,10 +1023,17 @@ void target_finish_use (gentity_t *self, gentity_t *other, gentity_t *activator)
 	scores = G_CalculatePlayerScore( activator );
 
 	// get high score
-	highScore = COM_LoadLevelScore( G_GetScoringMapName() );
+	highScores = COM_LoadLevelScore( G_GetScoringMapName() );
+
+	G_Printf("playerscore = %i\n", scores.totalScore);
+	G_Printf("highscore = %i\n", highScores.totalScore);
 	
-	if ( scores.totalScore > highScore )
-		COM_WriteLevelScore( G_GetScoringMapName(), scores.totalScore );
+	if ( scores.totalScore > highScores.totalScore ) {
+		COM_WriteLevelScore( G_GetScoringMapName(), scores );
+		G_Printf("new high score file is being written\n");
+	} else {
+		G_Printf("no high score file is being written\n");
+	}
 
 	BeginIntermission();
 }

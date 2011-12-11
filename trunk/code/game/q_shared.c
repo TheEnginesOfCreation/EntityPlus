@@ -1242,23 +1242,49 @@ COM_LoadLevelScore
 Loads the current highscore for a level
 ==================
 */
-int COM_LoadLevelScore(char *levelname) {
+playerscore_t COM_LoadLevelScore(char *levelname) {
+	playerscore_t	scores;
 	char			*filename;
 	int				len;
 	fileHandle_t	f;
-	char			buf[MAX_HIGHSCORE_TEXT];
+	char			buf[MAX_INFO_STRING];
 	
 
-	filename = va("games/%s.epgame", levelname);
-
+	//read entityplus 1.1 style score file
+	filename = va("games/%s-1.1.epgame", levelname);
 	len = trap_FS_FOpenFile( filename, &f, FS_READ );
 	if ( len > 0 ) {
 		trap_FS_Read( buf, len, f );
 		trap_FS_FCloseFile( f );
-		return atoi( buf );
+		
+		scores.accuracy = atoi(Info_ValueForKey(buf, SIK_ACCURACY));
+		scores.accuracyScore = atoi(Info_ValueForKey(buf, SIK_ACCURACYSCORE));
+		scores.carnageScore = atoi(Info_ValueForKey(buf, SIK_CARNAGESCORE));
+		scores.deaths = atoi(Info_ValueForKey(buf, SIK_DEATHS));
+		scores.deathsScore = atoi(Info_ValueForKey(buf, SIK_DEATHSSCORE));
+		scores.mutators = atoi(Info_ValueForKey(buf, SIK_MUTATORS));
+		scores.secretsCount = atoi(Info_ValueForKey(buf, SIK_SECRETSCOUNT));
+		scores.secretsFound = atoi(Info_ValueForKey(buf, SIK_SECRETSFOUND));
+		scores.secretsScore = atoi(Info_ValueForKey(buf, SIK_SECRETSSCORE));
+		scores.skill = atof(Info_ValueForKey(buf, SIK_SKILL));
+		scores.skillModifier = atoi(Info_ValueForKey(buf, SIK_SKILLMODIFIER));
+		scores.skillScore = atoi(Info_ValueForKey(buf, SIK_SKILLSCORE));
+		scores.subtotalScore = -1;	//TODO: calculate the subtotal score based on the other scores
+		scores.totalScore = atoi(Info_ValueForKey(buf, SIK_TOTALSCORE));
 	} else {
-		return 0;
+		//no 1.1 style file exists, check for 1.0 style file
+		filename = va("games/%s.epgame", levelname);
+		len = trap_FS_FOpenFile( filename, &f, FS_READ );
+		if ( len > 0 ) {
+			trap_FS_Read( buf, len, f );
+			trap_FS_FCloseFile( f );
+			scores.totalScore = atoi( buf );
+		} else {
+			scores.totalScore = 0;
+		}
 	}
+
+	return scores;
 }
 
 /*
@@ -1267,16 +1293,31 @@ COM_WriteLevelScore
 Writes the current highscore for a level to a file
 ==================
 */
-void COM_WriteLevelScore(char *levelname, int score) {
+void COM_WriteLevelScore(char *levelname, playerscore_t scores) {
 	char			*filename;
 	fileHandle_t	f;
-	char			s[MAX_HIGHSCORE_TEXT];
+	char			scoreInfo[MAX_INFO_STRING];
 
-	filename = va("games/%s.epgame", levelname);
-	Com_sprintf(s, sizeof(s), "%i", score);
+	//TODO: for some reason part of the server info string is written to the high score file.
+	scoreInfo[0] = '\0';
+	Info_SetValueForKey(scoreInfo, SIK_CARNAGESCORE, va("%i", scores.carnageScore));
+	Info_SetValueForKey(scoreInfo, SIK_ACCURACY, va("%i", scores.accuracy));
+	Info_SetValueForKey(scoreInfo, SIK_ACCURACYSCORE, va("%i", scores.accuracyScore));
+	Info_SetValueForKey(scoreInfo, SIK_DEATHS, va("%i", scores.deaths));
+	Info_SetValueForKey(scoreInfo, SIK_DEATHSSCORE, va("%i", scores.deathsScore));
+	Info_SetValueForKey(scoreInfo, SIK_SECRETSFOUND, va("%i", scores.secretsFound));
+	Info_SetValueForKey(scoreInfo, SIK_SECRETSCOUNT, va("%i", scores.secretsCount));
+	Info_SetValueForKey(scoreInfo, SIK_SECRETSSCORE, va("%i", scores.secretsScore));
+	Info_SetValueForKey(scoreInfo, SIK_SKILL, va("%1.0f", scores.skill));
+	Info_SetValueForKey(scoreInfo, SIK_SKILLMODIFIER, va("%i", scores.skillModifier));
+	Info_SetValueForKey(scoreInfo, SIK_SKILLSCORE, va("%i", scores.skillScore));
+	Info_SetValueForKey(scoreInfo, SIK_TOTALSCORE, va("%i", scores.totalScore));
+	Info_SetValueForKey(scoreInfo, SIK_MUTATORS, va("%i", scores.mutators));
+
+	filename = va("games/%s-1.1.epgame", levelname);
 
 	trap_FS_FOpenFile( filename, &f, FS_WRITE );
-	trap_FS_Write( s, sizeof(s), f);
+	trap_FS_Write( scoreInfo, sizeof(scoreInfo), f);
 	trap_FS_FCloseFile( f );
 }
 
@@ -1326,6 +1367,7 @@ playerscore_t COM_CalculatePlayerScore(int persistant[MAX_PERSISTANT], int accur
 	scores.skillModifier = (skill - 1) * SCORE_SKILL;
 	scores.skillScore = scores.subtotalScore * scores.skillModifier;
 	scores.totalScore = scores.subtotalScore + scores.skillScore;		
+	scores.mutators = mutators;
 
 	//debug scores
 	trap_Cvar_VariableStringBuffer( "g_debugScore", var, sizeof( var ) );
