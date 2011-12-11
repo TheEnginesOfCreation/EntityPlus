@@ -1429,6 +1429,7 @@ typedef struct playerscore_s {
 	float skillModifier;
 	int skillScore;
 	int totalScore;
+	int mutators;
 } playerscore_t;
 
 #define	MAX_GLOBAL_SERVERS				4096
@@ -1446,7 +1447,6 @@ typedef struct playerscore_s {
 
 #endif	// __Q_SHARED_H
 
-#define MAX_HIGHSCORE_TEXT			12		//I guess it's safe to assume score never goes higher than 999,999,999,999
 #define SCORE_DEATH					-50		//amount of points awarded when the player dies in SP
 #define SCORE_SECRET				50		//amount of points awarded when the player finds a secret
 #define SCORE_ACCURACY				0.5		//part of the carnage score that accuracy will apply to
@@ -1461,4 +1461,21 @@ typedef struct playerscore_s {
 #define MT_INSTAGIB						8	//no ammo pickups. All weapons are RG's, player has unlimited ammo.
 #define MT_RESETSCOREAFTERDEATH			16	//carnage score is set to 0 when the player dies.
 
+//score info keys
+#define SIK_CARNAGESCORE	"a"
+#define SIK_ACCURACY		"b"
+#define SIK_ACCURACYSCORE	"c"
+#define SIK_DEATHS			"d"
+#define SIK_DEATHSSCORE		"e"
+#define SIK_SECRETSFOUND	"f"
+#define SIK_SECRETSCOUNT	"g"
+#define SIK_SECRETSSCORE	"h"
+#define SIK_SKILL			"i"
+#define SIK_SKILLMODIFIER	"j"
+#define SIK_SKILLSCORE		"k"
+#define SIK_TOTALSCORE		"l"
+#define SIK_MUTATORS		"m"
+
+
 playerscore_t COM_CalculatePlayerScore(int persistant[MAX_PERSISTANT], int accuracy, float skill);
+playerscore_t COM_LoadLevelScore(char *levelname);

@@ -423,6 +423,7 @@ static void EPMenu_Update( void ) {
 	int				i;
 	int				top;
 	static	char	picname[MAX_MAPSPERPAGE][64];
+	playerscore_t	scores;
 
 	top = epMenuInfo.page*MAX_MAPSPERPAGE;
 
@@ -490,7 +491,8 @@ static void EPMenu_Update( void ) {
 		}
 
 		// set the high score
-		strcpy( epMenuInfo.highScore.string, va("%i", COM_LoadLevelScore( epMenuInfo.maplist[epMenuInfo.currentmap] ) ) );
+		scores = COM_LoadLevelScore( epMenuInfo.maplist[epMenuInfo.currentmap] );
+		strcpy( epMenuInfo.highScore.string, va("%i", scores.totalScore ) );
 
 		// set the longname
 		if ( strlen(epMenuInfo.maplongnames[epMenuInfo.currentmap]) == 0 )
@@ -757,7 +759,7 @@ void UI_EPLevelMenu( void ) {
 	int top;
 	int x, y;
 	static char mapnamebuffer[64];
-	static char mapscorebuffer[MAX_HIGHSCORE_TEXT];
+	static char mapscorebuffer[64];
 	static char maplongnamebuffer[MAX_DESCRIPTIONLINELENGTH];
 	static char mapauthorbuffer[MAX_DESCRIPTIONLINELENGTH];
 
