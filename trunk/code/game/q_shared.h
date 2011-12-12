@@ -1482,4 +1482,4 @@ typedef struct highscores_s {
 #define SIK_MUTATORS		"m"
 
 playerscore_t COM_CalculatePlayerScore(int persistant[MAX_PERSISTANT], int accuracy, float skill);
-playerscore_t COM_LoadLevelScore(char *levelname);
+highscores_t COM_LoadLevelScores( char *levelname );
