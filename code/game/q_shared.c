@@ -1258,7 +1258,7 @@ highscores_t COM_LoadLevelScores( char *levelname ) {
 		trap_FS_FCloseFile( f );
 
 		for ( i = 0; i < SCOREBOARD_LENGTH; i++ ) {
-			if ( strlen(Info_ValueForKey(buf, SIK_TOTALSCORE)) > 0 ) {
+			if ( strlen(Info_ValueForKey(buf, va("%i%s", i, SIK_TOTALSCORE))) > 0 ) {
 				highScores.highscores[i].accuracy = atoi(Info_ValueForKey(buf, va("%i%s", i, SIK_ACCURACY)));
 				highScores.highscores[i].accuracyScore = atoi(Info_ValueForKey(buf, va("%i%s", i, SIK_ACCURACYSCORE)));
 				highScores.highscores[i].carnageScore = atoi(Info_ValueForKey(buf, va("%i%s", i, SIK_CARNAGESCORE)));
@@ -1300,63 +1300,6 @@ highscores_t COM_LoadLevelScores( char *levelname ) {
 
 /*
 ==================
-COM_LoadLevelScore
-Loads the current highscore for a level
-==================
-*/
-playerscore_t COM_LoadLevelScore(char *levelname) {
-	//TODO: Function is obsolete. Replace calls to this function with COM_LoadLevelScores.
-	playerscore_t	scores;
-	char			*filename;
-	int				len;
-	fileHandle_t	f;
-	char			buf[MAX_INFO_STRING];
-	
-
-	//read entityplus 1.1 style score file
-	filename = va("games/%s-1.1.epgame", levelname);
-	len = trap_FS_FOpenFile( filename, &f, FS_READ );
-	if ( len > 0 ) {
-		trap_FS_Read( buf, len, f );
-		trap_FS_FCloseFile( f );
-		
-		scores.accuracy = atoi(Info_ValueForKey(buf, SIK_ACCURACY));
-		scores.accuracyScore = atoi(Info_ValueForKey(buf, SIK_ACCURACYSCORE));
-		scores.carnageScore = atoi(Info_ValueForKey(buf, SIK_CARNAGESCORE));
-		scores.deaths = atoi(Info_ValueForKey(buf, SIK_DEATHS));
-		scores.deathsScore = atoi(Info_ValueForKey(buf, SIK_DEATHSSCORE));
-		scores.mutators = atoi(Info_ValueForKey(buf, SIK_MUTATORS));
-		scores.secretsCount = atoi(Info_ValueForKey(buf, SIK_SECRETSCOUNT));
-		scores.secretsFound = atoi(Info_ValueForKey(buf, SIK_SECRETSFOUND));
-		scores.secretsScore = atoi(Info_ValueForKey(buf, SIK_SECRETSSCORE));
-		scores.skill = atof(Info_ValueForKey(buf, SIK_SKILL));
-		scores.skillModifier = atoi(Info_ValueForKey(buf, SIK_SKILLMODIFIER));
-		scores.skillScore = atoi(Info_ValueForKey(buf, SIK_SKILLSCORE));
-		scores.totalScore = atoi(Info_ValueForKey(buf, SIK_TOTALSCORE));
-	} else {
-		/*
-		//no 1.1 style file exists, check for 1.0 style file
-		filename = va("games/%s.epgame", levelname);
-		len = trap_FS_FOpenFile( filename, &f, FS_READ );
-		if ( len > 0 ) {
-			trap_FS_Read( buf, len, f );
-			trap_FS_FCloseFile( f );
-			scores.totalScore = atoi( buf );
-		} else {
-			scores.totalScore = 0;
-		}
-		*/
-
-		//note: we're just going to ignore previous high scores because they were formed with a different scoring system
-		scores.totalScore = 0;
-		return scores;
-	}
-
-	return scores;
-}
-
-/*
-==================
 COM_WriteLevelScores
 Writes the new highscores file if the player's score sets a new record score
 ==================
@@ -1370,6 +1313,10 @@ void COM_WriteLevelScores( char *levelname, playerscore_t scores ) {
 	int				i;
 	int				newPos;
 	
+	//don't bother if the player scored 0 points
+	if ( scores.totalScore == 0 )
+		return;
+
 	Com_sprintf( filename, sizeof(filename), "games/%s-1.1.epgame", levelname );
 
 	highScores = COM_LoadLevelScores( levelname );
@@ -1403,7 +1350,6 @@ void COM_WriteLevelScores( char *levelname, playerscore_t scores ) {
 	newHighScores.highscores[newPos].skillModifier = scores.skillModifier;
 	newHighScores.highscores[newPos].skillScore = scores.skillScore;
 	newHighScores.highscores[newPos].totalScore = scores.totalScore;
-	Com_Printf("%i (%i)*\n", newPos, newHighScores.highscores[newPos].totalScore);
 
 	//add all scores worse than player's score to new highscores struct
 	if ( newPos < SCOREBOARD_LENGTH - 1 ) {
@@ -1421,7 +1367,6 @@ void COM_WriteLevelScores( char *levelname, playerscore_t scores ) {
 			newHighScores.highscores[i].skillModifier = highScores.highscores[i-1].skillModifier;
 			newHighScores.highscores[i].skillScore = highScores.highscores[i-1].skillScore;
 			newHighScores.highscores[i].totalScore = highScores.highscores[i-1].totalScore;
-			Com_Printf("%i (%i) (%i)\n", i, newHighScores.highscores[i].totalScore, highScores.highscores[i-1]);
 		}
 	}
 
