@@ -1022,18 +1022,8 @@ void target_finish_use (gentity_t *self, gentity_t *other, gentity_t *activator)
 	// calculate player's score
 	scores = G_CalculatePlayerScore( activator );
 
-	// get high score
-	highScores = COM_LoadLevelScore( G_GetScoringMapName() );
-
-	G_Printf("playerscore = %i\n", scores.totalScore);
-	G_Printf("highscore = %i\n", highScores.totalScore);
-	
-	if ( scores.totalScore > highScores.totalScore ) {
-		COM_WriteLevelScore( G_GetScoringMapName(), scores );
-		G_Printf("new high score file is being written\n");
-	} else {
-		G_Printf("no high score file is being written\n");
-	}
+	// write high score file
+	COM_WriteLevelScores( G_GetScoringMapName(), scores );
 
 	BeginIntermission();
 }

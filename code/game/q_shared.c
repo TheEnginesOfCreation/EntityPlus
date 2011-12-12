@@ -1235,6 +1235,68 @@ void Info_SetValueForKey_Big( char *s, const char *key, const char *value ) {
 
 //====================================================================
 
+/*
+==================
+COM_LoadLevelScores
+Loads the current highscores for a level
+==================
+*/
+
+highscores_t COM_LoadLevelScores( char *levelname ) {
+	highscores_t	highScores;
+	playerscore_t	scores;
+	char			*filename;
+	int				len;
+	int				i;
+	fileHandle_t	f;
+	char			buf[MAX_INFO_STRING];
+
+	filename = va("games/%s-1.1.epgame", levelname);
+	len = trap_FS_FOpenFile( filename, &f, FS_READ );
+	if ( len > 0 ) {
+		trap_FS_Read( buf, len, f );
+		trap_FS_FCloseFile( f );
+
+		for ( i = 0; i < SCOREBOARD_LENGTH; i++ ) {
+			if ( strlen(Info_ValueForKey(buf, SIK_TOTALSCORE)) > 0 ) {
+				highScores.highscores[i].accuracy = atoi(Info_ValueForKey(buf, va("%i%s", i, SIK_ACCURACY)));
+				highScores.highscores[i].accuracyScore = atoi(Info_ValueForKey(buf, va("%i%s", i, SIK_ACCURACYSCORE)));
+				highScores.highscores[i].carnageScore = atoi(Info_ValueForKey(buf, va("%i%s", i, SIK_CARNAGESCORE)));
+				highScores.highscores[i].deaths = atoi(Info_ValueForKey(buf, va("%i%s", i, SIK_DEATHS)));
+				highScores.highscores[i].deathsScore = atoi(Info_ValueForKey(buf, va("%i%s", i, SIK_DEATHSSCORE)));
+				highScores.highscores[i].mutators = atoi(Info_ValueForKey(buf, va("%i%s", i, SIK_MUTATORS)));
+				highScores.highscores[i].secretsCount = atoi(Info_ValueForKey(buf, va("%i%s", i, SIK_SECRETSCOUNT)));
+				highScores.highscores[i].secretsFound = atoi(Info_ValueForKey(buf, va("%i%s", i, SIK_SECRETSFOUND)));
+				highScores.highscores[i].secretsScore = atoi(Info_ValueForKey(buf, va("%i%s", i, SIK_SECRETSSCORE)));
+				highScores.highscores[i].skill = atof(Info_ValueForKey(buf, va("%i%s", i, SIK_SKILL)));
+				highScores.highscores[i].skillModifier = atoi(Info_ValueForKey(buf, va("%i%s", i, SIK_SKILLMODIFIER)));
+				highScores.highscores[i].skillScore = atoi(Info_ValueForKey(buf, va("%i%s", i, SIK_SKILLSCORE)));
+				highScores.highscores[i].totalScore = atoi(Info_ValueForKey(buf, va("%i%s", i, SIK_TOTALSCORE)));
+			} else {
+				highScores.highscores[i].accuracy = 0;
+				highScores.highscores[i].accuracyScore = 0;
+				highScores.highscores[i].carnageScore = 0;
+				highScores.highscores[i].deaths = 0;
+				highScores.highscores[i].deathsScore = 0;
+				highScores.highscores[i].mutators = 0;
+				highScores.highscores[i].secretsCount = 0;
+				highScores.highscores[i].secretsFound = 0;
+				highScores.highscores[i].secretsScore = 0;
+				highScores.highscores[i].skill = 0;
+				highScores.highscores[i].skillModifier = 0;
+				highScores.highscores[i].skillScore = 0;
+				highScores.highscores[i].totalScore = 0;
+			}
+		}
+	} else {
+		for ( i = 0; i < SCOREBOARD_LENGTH; i++ ) {
+			highScores.highscores[i].totalScore = 0;
+		}
+	}
+
+	return highScores;
+}
+
 
 /*
 ==================
@@ -1243,6 +1305,7 @@ Loads the current highscore for a level
 ==================
 */
 playerscore_t COM_LoadLevelScore(char *levelname) {
+	//TODO: Function is obsolete. Replace calls to this function with COM_LoadLevelScores.
 	playerscore_t	scores;
 	char			*filename;
 	int				len;
@@ -1269,9 +1332,9 @@ playerscore_t COM_LoadLevelScore(char *levelname) {
 		scores.skill = atof(Info_ValueForKey(buf, SIK_SKILL));
 		scores.skillModifier = atoi(Info_ValueForKey(buf, SIK_SKILLMODIFIER));
 		scores.skillScore = atoi(Info_ValueForKey(buf, SIK_SKILLSCORE));
-		scores.subtotalScore = -1;	//TODO: calculate the subtotal score based on the other scores
 		scores.totalScore = atoi(Info_ValueForKey(buf, SIK_TOTALSCORE));
 	} else {
+		/*
 		//no 1.1 style file exists, check for 1.0 style file
 		filename = va("games/%s.epgame", levelname);
 		len = trap_FS_FOpenFile( filename, &f, FS_READ );
@@ -1282,6 +1345,11 @@ playerscore_t COM_LoadLevelScore(char *levelname) {
 		} else {
 			scores.totalScore = 0;
 		}
+		*/
+
+		//note: we're just going to ignore previous high scores because they were formed with a different scoring system
+		scores.totalScore = 0;
+		return scores;
 	}
 
 	return scores;
@@ -1289,45 +1357,105 @@ playerscore_t COM_LoadLevelScore(char *levelname) {
 
 /*
 ==================
-COM_WriteLevelScore
-Writes the current highscore for a level to a file
+COM_WriteLevelScores
+Writes the new highscores file if the player's score sets a new record score
 ==================
 */
-void COM_WriteLevelScore(char *levelname, playerscore_t scores) {
-	char			*filename;
+void COM_WriteLevelScores( char *levelname, playerscore_t scores ) {
+	highscores_t	highScores;
+	highscores_t	newHighScores;
+	char			filename[64];
 	fileHandle_t	f;
 	char			scoreInfo[MAX_INFO_STRING];
 	int				i;
-
+	int				newPos;
 	
+	Com_sprintf( filename, sizeof(filename), "games/%s-1.1.epgame", levelname );
+
+	highScores = COM_LoadLevelScores( levelname );
+
+	newPos = -1;
+	for ( i = 0; i < SCOREBOARD_LENGTH; i++ ) {
+		if ( newPos == -1 && scores.totalScore > highScores.highscores[i].totalScore ) {
+			newPos = i;
+		}
+	}
+
+	if (newPos == -1)
+		return;			//player didn't get a top-5 score
+
+	//add all scores better than player's score to new highscores struct
+	for ( i = 0; i < newPos; i++ ) {
+		newHighScores.highscores[i] = highScores.highscores[i];
+	}
+
+	//add player's score to new highscores struct
+	newHighScores.highscores[newPos].accuracy = scores.accuracy;
+	newHighScores.highscores[newPos].accuracyScore = scores.accuracyScore;
+	newHighScores.highscores[newPos].carnageScore = scores.carnageScore;
+	newHighScores.highscores[newPos].deaths = scores.deaths;
+	newHighScores.highscores[newPos].deathsScore = scores.deathsScore;
+	newHighScores.highscores[newPos].mutators = scores.mutators;
+	newHighScores.highscores[newPos].secretsCount = scores.secretsCount;
+	newHighScores.highscores[newPos].secretsFound = scores.secretsFound;
+	newHighScores.highscores[newPos].secretsScore = scores.secretsScore;
+	newHighScores.highscores[newPos].skill = scores.skill;
+	newHighScores.highscores[newPos].skillModifier = scores.skillModifier;
+	newHighScores.highscores[newPos].skillScore = scores.skillScore;
+	newHighScores.highscores[newPos].totalScore = scores.totalScore;
+	Com_Printf("%i (%i)*\n", newPos, newHighScores.highscores[newPos].totalScore);
+
+	//add all scores worse than player's score to new highscores struct
+	if ( newPos < SCOREBOARD_LENGTH - 1 ) {
+		for ( i = newPos + 1; i < SCOREBOARD_LENGTH; i++ ) {
+			newHighScores.highscores[i].accuracy = highScores.highscores[i-1].accuracy;
+			newHighScores.highscores[i].accuracyScore = highScores.highscores[i-1].accuracyScore;
+			newHighScores.highscores[i].carnageScore = highScores.highscores[i-1].carnageScore;
+			newHighScores.highscores[i].deaths = highScores.highscores[i-1].deaths;
+			newHighScores.highscores[i].deathsScore = highScores.highscores[i-1].deathsScore;
+			newHighScores.highscores[i].mutators = highScores.highscores[i-1].mutators;
+			newHighScores.highscores[i].secretsCount = highScores.highscores[i-1].secretsCount;
+			newHighScores.highscores[i].secretsFound = highScores.highscores[i-1].secretsFound;
+			newHighScores.highscores[i].secretsScore = highScores.highscores[i-1].secretsScore;
+			newHighScores.highscores[i].skill = highScores.highscores[i-1].skill;
+			newHighScores.highscores[i].skillModifier = highScores.highscores[i-1].skillModifier;
+			newHighScores.highscores[i].skillScore = highScores.highscores[i-1].skillScore;
+			newHighScores.highscores[i].totalScore = highScores.highscores[i-1].totalScore;
+			Com_Printf("%i (%i) (%i)\n", i, newHighScores.highscores[i].totalScore, highScores.highscores[i-1]);
+		}
+	}
+
+
+	//write new highscore file
 
 	//For some reason part of the server info string is written to the high score file. To prevent this, we completely reset the scoreInfo string
 	for ( i = 0; i < MAX_INFO_STRING; i++ ) {
-		scoreInfo[i] = NULL;
+		scoreInfo[i] = ' ';
 	}
 	//TODO: Check if the above fix doesn't mess up anything for the actual server info string.
 
 	scoreInfo[0] = '\0';
-	Info_SetValueForKey(scoreInfo, SIK_CARNAGESCORE, va("%i", scores.carnageScore));
-	Info_SetValueForKey(scoreInfo, SIK_ACCURACY, va("%i", scores.accuracy));
-	Info_SetValueForKey(scoreInfo, SIK_ACCURACYSCORE, va("%i", scores.accuracyScore));
-	Info_SetValueForKey(scoreInfo, SIK_DEATHS, va("%i", scores.deaths));
-	Info_SetValueForKey(scoreInfo, SIK_DEATHSSCORE, va("%i", scores.deathsScore));
-	Info_SetValueForKey(scoreInfo, SIK_SECRETSFOUND, va("%i", scores.secretsFound));
-	Info_SetValueForKey(scoreInfo, SIK_SECRETSCOUNT, va("%i", scores.secretsCount));
-	Info_SetValueForKey(scoreInfo, SIK_SECRETSSCORE, va("%i", scores.secretsScore));
-	Info_SetValueForKey(scoreInfo, SIK_SKILL, va("%1.0f", scores.skill));
-	Info_SetValueForKey(scoreInfo, SIK_SKILLMODIFIER, va("%i", scores.skillModifier));
-	Info_SetValueForKey(scoreInfo, SIK_SKILLSCORE, va("%i", scores.skillScore));
-	Info_SetValueForKey(scoreInfo, SIK_TOTALSCORE, va("%i", scores.totalScore));
-	Info_SetValueForKey(scoreInfo, SIK_MUTATORS, va("%i", scores.mutators));
-
-	filename = va("games/%s-1.1.epgame", levelname);
+	for ( i = 0 ; i < SCOREBOARD_LENGTH; i++ ) {
+		Info_SetValueForKey(scoreInfo, va("%i%s", i, SIK_CARNAGESCORE), va("%i", newHighScores.highscores[i].carnageScore));
+		Info_SetValueForKey(scoreInfo, va("%i%s", i, SIK_ACCURACY), va("%i", newHighScores.highscores[i].accuracy));
+		Info_SetValueForKey(scoreInfo, va("%i%s", i, SIK_ACCURACYSCORE), va("%i", newHighScores.highscores[i].accuracyScore));
+		Info_SetValueForKey(scoreInfo, va("%i%s", i, SIK_DEATHS), va("%i", newHighScores.highscores[i].deaths));
+		Info_SetValueForKey(scoreInfo, va("%i%s", i, SIK_DEATHSSCORE), va("%i", newHighScores.highscores[i].deathsScore));
+		Info_SetValueForKey(scoreInfo, va("%i%s", i, SIK_SECRETSFOUND), va("%i", newHighScores.highscores[i].secretsFound));
+		Info_SetValueForKey(scoreInfo, va("%i%s", i, SIK_SECRETSCOUNT), va("%i", newHighScores.highscores[i].secretsCount));
+		Info_SetValueForKey(scoreInfo, va("%i%s", i, SIK_SECRETSSCORE), va("%i", newHighScores.highscores[i].secretsScore));
+		Info_SetValueForKey(scoreInfo, va("%i%s", i, SIK_SKILL), va("%1.0f", newHighScores.highscores[i].skill));
+		Info_SetValueForKey(scoreInfo, va("%i%s", i, SIK_SKILLMODIFIER), va("%1.1f", newHighScores.highscores[i].skillModifier));
+		Info_SetValueForKey(scoreInfo, va("%i%s", i, SIK_SKILLSCORE), va("%i", newHighScores.highscores[i].skillScore));
+		Info_SetValueForKey(scoreInfo, va("%i%s", i, SIK_TOTALSCORE), va("%i", newHighScores.highscores[i].totalScore));
+		Info_SetValueForKey(scoreInfo, va("%i%s", i, SIK_MUTATORS), va("%i", newHighScores.highscores[i].mutators));
+	}
 
 	trap_FS_FOpenFile( filename, &f, FS_WRITE );
 	trap_FS_Write( scoreInfo, sizeof(scoreInfo), f);
 	trap_FS_FCloseFile( f );
 }
+
 
 /*
 ==================
@@ -1356,25 +1484,37 @@ playerscore_t COM_CalculatePlayerScore(int persistant[MAX_PERSISTANT], int accur
 	trap_Cvar_VariableStringBuffer( "g_mutators", var, sizeof( var ) );
 	mutators = atoi(var);
 
+	//carnage score
 	scores.carnageScore = persistant[PERS_SCORE];
+
+	//accuracy bonus
 	scores.accuracy = accuracy;
 	scores.accuracyScore = COM_AccuracyToScore( accuracy, scores.carnageScore );
-	scores.deaths = persistant[PERS_KILLED];
-	if ( mutators & MT_RESETSCOREAFTERDEATH )
-		scores.deathsScore = 0;
-	else
-		scores.deathsScore = scores.deaths * SCORE_DEATH;
+
+	//skill bonus
+	scores.skill = skill;
+	scores.skillModifier = (skill - 1) * SCORE_SKILL;
+	scores.skillScore = scores.carnageScore * scores.skillModifier;
+
+	//secrets
 	scores.secretsFound = persistant[PERS_SECRETS] & 0x7F;
 	scores.secretsCount = (persistant[PERS_SECRETS] >> 7) & 0x7F;
 	if ( mutators & MT_RESETSCOREAFTERDEATH )
 		scores.secretsScore = 0;
 	else
-		scores.secretsScore = scores.secretsFound * SCORE_SECRET;
-	scores.subtotalScore = scores.carnageScore + scores.accuracyScore + scores.deathsScore + scores.secretsScore;
-	scores.skill = skill;
-	scores.skillModifier = (skill - 1) * SCORE_SKILL;
-	scores.skillScore = scores.subtotalScore * scores.skillModifier;
-	scores.totalScore = scores.subtotalScore + scores.skillScore;		
+		scores.secretsScore = (scores.secretsFound * SCORE_SECRET) * scores.carnageScore;
+
+	//deaths
+	scores.deaths = persistant[PERS_KILLED];
+	if ( mutators & MT_RESETSCOREAFTERDEATH )
+		scores.deathsScore = 0;
+	else
+		scores.deathsScore = (scores.deaths * SCORE_DEATH) * scores.carnageScore;
+
+	//total score
+	scores.totalScore = scores.carnageScore + scores.accuracyScore + scores.skillScore + scores.secretsScore + scores.deathsScore ;
+
+	//enabled mutators
 	scores.mutators = mutators;
 
 	//debug scores
@@ -1385,10 +1525,9 @@ playerscore_t COM_CalculatePlayerScore(int persistant[MAX_PERSISTANT], int accur
 		Com_Printf("---Score debug info---\n");
 		Com_Printf("Carnage  : %i\n", scores.carnageScore);
 		Com_Printf("Accuracy : %i (%i%%)\n", scores.accuracyScore, scores.accuracy);
-		Com_Printf("Deaths   : %i (%ix)\n", scores.deathsScore, scores.deaths);
-		Com_Printf("Secrets  : %i (%i)\n", scores.secretsScore, scores.secretsFound);
-		Com_Printf("Subtotal : %i\n", scores.subtotalScore);
 		Com_Printf("Skill    : %i (%1.1f)\n", scores.skillScore, scores.skillModifier);
+		Com_Printf("Secrets  : %i (%i)\n", scores.secretsScore, scores.secretsFound);
+		Com_Printf("Deaths   : %i (%ix)\n", scores.deathsScore, scores.deaths);
 		Com_Printf("Total    : %i\n", scores.totalScore);
 	}
 

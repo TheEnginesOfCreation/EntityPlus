@@ -1424,13 +1424,18 @@ typedef struct playerscore_s {
 	int secretsFound;
 	int secretsCount;
 	int secretsScore;
-	int subtotalScore;
 	float skill;
 	float skillModifier;
 	int skillScore;
 	int totalScore;
 	int mutators;
 } playerscore_t;
+
+#define SCOREBOARD_LENGTH	5		//number of high scores that will be remembered
+
+typedef struct highscores_s {
+	playerscore_t	highscores[SCOREBOARD_LENGTH];
+} highscores_t;
 
 #define	MAX_GLOBAL_SERVERS				4096
 #define	MAX_OTHER_SERVERS					128
@@ -1447,9 +1452,9 @@ typedef struct playerscore_s {
 
 #endif	// __Q_SHARED_H
 
-#define SCORE_DEATH					-50		//amount of points awarded when the player dies in SP
-#define SCORE_SECRET				50		//amount of points awarded when the player finds a secret
-#define SCORE_ACCURACY				0.5		//part of the carnage score that accuracy will apply to
+#define SCORE_ACCURACY				0.5		//part of the carnage score that accuracy will apply to.
+#define SCORE_SECRET				0.05	//part of the carnage score that will be gained for each secret found.
+#define SCORE_DEATH					0.1		//part of the carnage score that will be lost for each death.
 #define SCORE_SKILL					0.1		//skill based multiplier. Multiplier is increased with this value for each difficulty level above skill 1.
 
 #define FADEOUT_TIME	500.000	//amount of time it takes for screen to fade out at map change. Needed by both server and client
@@ -1475,7 +1480,6 @@ typedef struct playerscore_s {
 #define SIK_SKILLSCORE		"k"
 #define SIK_TOTALSCORE		"l"
 #define SIK_MUTATORS		"m"
-
 
 playerscore_t COM_CalculatePlayerScore(int persistant[MAX_PERSISTANT], int accuracy, float skill);
 playerscore_t COM_LoadLevelScore(char *levelname);
