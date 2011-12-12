@@ -289,18 +289,18 @@ void CG_DrawSinglePlayerIntermission( void ) {
 		CG_DrawStringExt( 64, y, va("Accuracy bonus : %i (%i%%)", scores.accuracyScore, scores.accuracy), color, qtrue, qtrue, BIGCHAR_WIDTH, BIGCHAR_HEIGHT, 0 );
 	}
 
-	
-	//deaths score
+	//skill bonus
 	y += BIGCHAR_HEIGHT;
 	index++;
 	if (cg.time < cg.intermissionTime + (SCOREB_TIME * index))
-		CG_DrawStringExt( 64, y, "        Deaths :", color, qtrue, qtrue, BIGCHAR_WIDTH, BIGCHAR_HEIGHT, 0 );
+		CG_DrawStringExt( 64, y, "   Skill bonus :", color, qtrue, qtrue, BIGCHAR_WIDTH, BIGCHAR_HEIGHT, 0 );
 	else {
 		if (cg.scoreSoundsPlayed == index - 1) {
 			trap_S_StartLocalSound( cgs.media.scoreShow, CHAN_LOCAL_SOUND );
 			cg.scoreSoundsPlayed++;
 		}
-		CG_DrawStringExt( 64, y, va("        Deaths : %i (%ix)", scores.deathsScore, scores.deaths), color, qtrue, qtrue, BIGCHAR_WIDTH, BIGCHAR_HEIGHT, 0 );
+
+		CG_DrawStringExt( 64, y, va("   Skill bonus : %i (%1.0f%%)", scores.skillScore, scores.skillModifier * 100), color, qtrue, qtrue, BIGCHAR_WIDTH, BIGCHAR_HEIGHT, 0 );
 	}
 
 	//secrets score
@@ -316,18 +316,17 @@ void CG_DrawSinglePlayerIntermission( void ) {
 		CG_DrawStringExt( 64, y, va("       Secrets : %i (%i/%i)", scores.secretsScore, scores.secretsFound, scores.secretsCount), color, qtrue, qtrue, BIGCHAR_WIDTH, BIGCHAR_HEIGHT, 0 );		
 	}
 
-	//skill bonus
+	//death penalty
 	y += BIGCHAR_HEIGHT;
 	index++;
 	if (cg.time < cg.intermissionTime + (SCOREB_TIME * index))
-		CG_DrawStringExt( 64, y, "   Skill bonus :", color, qtrue, qtrue, BIGCHAR_WIDTH, BIGCHAR_HEIGHT, 0 );
+		CG_DrawStringExt( 64, y, "        Deaths :", color, qtrue, qtrue, BIGCHAR_WIDTH, BIGCHAR_HEIGHT, 0 );
 	else {
 		if (cg.scoreSoundsPlayed == index - 1) {
 			trap_S_StartLocalSound( cgs.media.scoreShow, CHAN_LOCAL_SOUND );
 			cg.scoreSoundsPlayed++;
 		}
-
-		CG_DrawStringExt( 64, y, va("   Skill bonus : %i (%1.0f%%)", scores.skillScore, scores.skillModifier * 100), color, qtrue, qtrue, BIGCHAR_WIDTH, BIGCHAR_HEIGHT, 0 );
+		CG_DrawStringExt( 64, y, va("        Deaths : %i (%ix)", scores.deathsScore, scores.deaths), color, qtrue, qtrue, BIGCHAR_WIDTH, BIGCHAR_HEIGHT, 0 );
 	}
 
 	//total score
