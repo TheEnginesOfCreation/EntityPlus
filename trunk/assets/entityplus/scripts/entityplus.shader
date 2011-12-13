@@ -15,6 +15,21 @@ textures/common/ladderclip
 
 
 //
+// DEAD BOT
+//
+
+models/players/deadbot
+{
+	{
+		map models/players/deadbot.tga
+		blendFunc blend
+		tcMod turb 0 .5 0 .125
+		AlphaGen wave sin 0 1 .75 .1
+    }
+}
+
+
+//
 // ITEM_ARMOR_VEST
 //
 

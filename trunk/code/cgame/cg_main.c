@@ -727,6 +727,8 @@ static void CG_RegisterGraphics( void ) {
 
 	cgs.media.deathImage = trap_R_RegisterShaderNoMip( "menu/art/level_complete5" );
 
+	cgs.media.deadBotShader = trap_R_RegisterShader( "models/players/deadbot" );
+
 	cgs.media.scoreShow = trap_S_RegisterSound( "sound/weapons/rocket/rocklx1a.wav", qfalse );
 	cgs.media.finalScoreShow = trap_S_RegisterSound( "sound/weapons/rocket/rocklx1a.wav", qfalse );
 
