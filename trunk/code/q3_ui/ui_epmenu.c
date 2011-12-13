@@ -5,6 +5,7 @@
 #define ID_PICTURES	3	// 4, 5, 6
 #define ID_PREVPAGE 7
 #define ID_NEXTPAGE 8
+#define ID_SCORES	14
 
 #define ID_SKILL1 9
 #define ID_SKILL2 10
@@ -34,6 +35,8 @@
 #define ART_BACK1		"menu/art/back_1"	
 #define ART_NEXT0		"menu/art/next_0"
 #define ART_NEXT1		"menu/art/next_1"
+#define ART_SCORES0		"menu/art/menu_0"
+#define ART_SCORES1		"menu/art/menu_1"
 #define ART_FRAMEL		"menu/art/frame2_l"
 #define ART_FRAMER		"menu/art/frame1_r"
 #define ART_SELECT		"menu/art/maps_select"
@@ -53,6 +56,7 @@ typedef struct {
 	menubitmap_s	framer;
 	menubitmap_s	back;
 	menubitmap_s	next;
+	menubitmap_s	scores;
 	menubitmap_s	mappics[MAX_MAPSPERPAGE];
 	menubitmap_s	mapbuttons[MAX_MAPSPERPAGE];
 	menubitmap_s	arrows;
@@ -626,6 +630,10 @@ static void EPMenu_MenuEvent( void* ptr, int event ) {
 				EPMenu_Update();
 			}
 			break;
+
+		case ID_SCORES:
+			Com_Printf("Scores button was clicked\n");
+			break;
 	}
 }
 
@@ -813,6 +821,19 @@ void UI_EPLevelMenu( void ) {
 	epMenuInfo.back.focuspic				= ART_BACK1;
 	Menu_AddItem( &epMenuInfo.menu, &epMenuInfo.back );
 
+	//add scores button
+	epMenuInfo.scores.generic.type			= MTYPE_BITMAP;
+	epMenuInfo.scores.generic.name			= ART_SCORES0;
+	epMenuInfo.scores.generic.flags			= QMF_LEFT_JUSTIFY|QMF_PULSEIFFOCUS;
+	epMenuInfo.scores.generic.x				= (640-128) / 2;
+	epMenuInfo.scores.generic.y				= 480-64;
+	epMenuInfo.scores.generic.callback		= EPMenu_MenuEvent;
+	epMenuInfo.scores.generic.id			= ID_SCORES;
+	epMenuInfo.scores.width					= 128;
+	epMenuInfo.scores.height				= 64;
+	epMenuInfo.scores.focuspic				= ART_SCORES1;
+	Menu_AddItem( &epMenuInfo.menu, &epMenuInfo.scores );
+
 	//add next button
 	epMenuInfo.next.generic.type			= MTYPE_BITMAP;
 	epMenuInfo.next.generic.name			= ART_NEXT0;
@@ -919,8 +940,8 @@ void UI_EPLevelMenu( void ) {
 	epMenuInfo.arrows.generic.type  = MTYPE_BITMAP;
 	epMenuInfo.arrows.generic.name  = ART_ARROWS;
 	epMenuInfo.arrows.generic.flags = QMF_INACTIVE;
-	epMenuInfo.arrows.generic.x	   = 260;
-	epMenuInfo.arrows.generic.y	   = 480 - 32;
+	epMenuInfo.arrows.generic.x	   = 96;
+	epMenuInfo.arrows.generic.y	   = 360;
 	epMenuInfo.arrows.width  	   = 128;
 	epMenuInfo.arrows.height  	   = 32;
 	Menu_AddItem( &epMenuInfo.menu, &epMenuInfo.arrows );
@@ -930,8 +951,8 @@ void UI_EPLevelMenu( void ) {
 	epMenuInfo.prevpage.generic.flags    = QMF_LEFT_JUSTIFY|QMF_PULSEIFFOCUS;
 	epMenuInfo.prevpage.generic.callback = EPMenu_MenuEvent;
 	epMenuInfo.prevpage.generic.id	    = ID_PREVPAGE;
-	epMenuInfo.prevpage.generic.x		= 260;
-	epMenuInfo.prevpage.generic.y		= 480 - 32;
+	epMenuInfo.prevpage.generic.x		= 96;
+	epMenuInfo.prevpage.generic.y		= 360;
 	epMenuInfo.prevpage.width  		    = 64;
 	epMenuInfo.prevpage.height			= 32;
 	epMenuInfo.prevpage.focuspic        = ART_ARROWSL;
@@ -942,8 +963,8 @@ void UI_EPLevelMenu( void ) {
 	epMenuInfo.nextpage.generic.flags    = QMF_LEFT_JUSTIFY|QMF_PULSEIFFOCUS;
 	epMenuInfo.nextpage.generic.callback = EPMenu_MenuEvent;
 	epMenuInfo.nextpage.generic.id	    = ID_NEXTPAGE;
-	epMenuInfo.nextpage.generic.x		= 321;
-	epMenuInfo.nextpage.generic.y		= 480 - 32;
+	epMenuInfo.nextpage.generic.x		= 157;
+	epMenuInfo.nextpage.generic.y		= 360;
 	epMenuInfo.nextpage.width  		    = 64;
 	epMenuInfo.nextpage.height  		 = 32;
 	epMenuInfo.nextpage.focuspic         = ART_ARROWSR;
