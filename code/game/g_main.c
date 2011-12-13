@@ -1550,14 +1550,14 @@ void G_RunFrame( int levelTime ) {
 	CheckExitRules();
 
 	// update to team status?
-	CheckTeamStatus();
+	//CheckTeamStatus();
 
 	// cancel vote if timed out
-	CheckVote();
+	//CheckVote();
 
 	// check team votes
-	CheckTeamVote( TEAM_RED );
-	CheckTeamVote( TEAM_BLUE );
+	//CheckTeamVote( TEAM_RED );
+	//CheckTeamVote( TEAM_BLUE );
 
 	// for tracking changes
 	CheckCvars();

@@ -1,4 +1,5 @@
 v1.1 (?? ??? 2011)
+	- [Added] Top 5 of scores are saved now instead of just the high score.
 	- [Added] "Paintball mode", "Big Head mode", "Machinegun only", "Instagib" and "Reset score after death" mutators.
 	- [Added] target_botremove entity.
 	- [Added] target_music entity.
