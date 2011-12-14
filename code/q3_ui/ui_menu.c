@@ -17,7 +17,8 @@ MAIN MENU
 #define ID_MUTATORS					14
 #define ID_EXIT						17
 
-#define ART_OVERLAY						"menu/art/mainoverlay"
+#define ART_OVERLAY					"menu/art/mainoverlay"
+#define ART_LOGOMODEL				"models/entplus/logo/entpluslogo.md3"
 
 #define MAIN_MENU_OVERLAY_WIDTH		256
 #define MAIN_MENU_VERTICAL_SPACING	34
@@ -39,11 +40,9 @@ typedef struct {
 	menubitmap_s	overlay;
 
 	qhandle_t		menuBackground1;
-	vec3_t			menuModelOrigin;
-	vec3_t			menuModelAngles;
+	qhandle_t		logoModel;
 
-	int				backgroundDelay;
-	int				backgroundShaderIndex;
+	//int			backgroundDelay;
 } mainmenu_t;
 
 
@@ -108,6 +107,7 @@ MainMenu_Cache
 */
 void MainMenu_Cache( void ) {
 	s_main.menuBackground1 = trap_R_RegisterShaderNoMip( "menu/backgrounds/01" );
+	s_main.logoModel = trap_R_RegisterModel( ART_LOGOMODEL );
 }
 
 sfxHandle_t ErrorMessage_Key(int key)
@@ -125,8 +125,13 @@ TTimo: this function is common to the main menu and errorMessage menu
 */
 
 static void Main_MenuDraw( void ) {
-	qtime_t tm;
-	int seed;
+	refdef_t		refdef;
+	refEntity_t		ent;
+	vec3_t			origin;	
+	vec3_t			angles;
+	float			x, y, w, h;
+	//qtime_t tm;
+	//int seed;
 
 	if (strlen(s_errorMessage.errorMessage))
 	{
@@ -135,6 +140,49 @@ static void Main_MenuDraw( void ) {
 	else
 	{
 		UI_DrawHandlePic(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, s_main.menuBackground1 ); //background shader
+
+		//logo model
+		memset( &refdef, 0, sizeof( refdef ) );
+
+		refdef.rdflags = RDF_NOWORLDMODEL;
+
+		AxisClear( refdef.viewaxis );
+
+		x = 0;
+		y = 0;
+		w = 640;
+		h = 240;
+
+		UI_AdjustFrom640( &x, &y, &w, &h );
+		refdef.x = x;
+		refdef.y = y;
+		refdef.width = w;
+		refdef.height = h;
+
+		refdef.fov_x = 60;
+		refdef.fov_y = 19.6875;
+
+		refdef.time = uis.realtime;
+
+		origin[0] = 450;	//screen space z (lower value is closer to camera)
+		origin[1] = 150;	//screen space x (lower value moves to the right)
+		origin[2] = 15;		//screen space y (lower value moves downwards)
+
+		trap_R_ClearScene();
+
+		memset( &ent, 0, sizeof(ent) );
+
+		VectorSet( angles, 15, 210, 5 );
+		AnglesToAxis( angles, ent.axis );
+		ent.hModel = s_main.logoModel;
+		VectorCopy( origin, ent.origin );
+		VectorCopy( origin, ent.lightingOrigin );
+		ent.renderfx = RF_LIGHTING_ORIGIN | RF_NOSHADOW;
+		VectorCopy( ent.origin, ent.oldorigin );
+
+		trap_R_AddRefEntityToScene( &ent );
+
+		trap_R_RenderScene( &refdef );
 
 		/*
 		//determine delay until next lighting strike
