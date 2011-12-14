@@ -526,10 +526,10 @@ menu/backgrounds/01
 		blendFunc blend
 		AlphaGen wave sin 0 1 0.5 .1
 	}
-	{
-		map menu/art/logo2.tga
-		blendFunc blend
-	}
+	//{
+	//	map menu/art/logo2.tga
+	//	blendFunc blend
+	//}
 }
 
 menu/art/loading
@@ -537,5 +537,34 @@ menu/art/loading
 	{
 		map menu/art/loading.tga
 		tcMod rotate 360
+	}
+}
+
+//
+// MENU LOGO MODEL SHADERS
+//
+
+models/entplus/logo/materials/plusg
+{
+	cull none
+	surfaceparm trans
+	{
+		map models/entplus/logo/materials/plusg.tga
+		blendFunc blend
+		rgbGen const ( 1 1 1 ) 
+	}
+}
+models/entplus/logo/materials/plusw
+{
+	{
+		map models/entplus/logo/materials/plusw.tga
+		rgbGen const ( 1 1 1 )
+	}
+}
+models/entplus/logo/materials/text
+{
+	{
+		map models/entplus/logo/materials/text.tga
+		rgbGen const ( 1 1 1 )
 	}
 }
