@@ -671,16 +671,25 @@ static int CG_CalcCutsceneViewValues( ) {
 		diff = destAngles[0] - newAngles[0];
 		if ( diff > 180 ) {
 			diff = 0 - (360 - diff);
-		}
-		else if ( diff < -180 ) {
+		} else if ( diff < -180 ) {
 			diff = 0 - (-360 - diff);
 		}
 		newAngles[0] += diff * progress;
 		
 		diff = destAngles[1] - newAngles[1];
+		if ( diff > 180 ) {
+			diff = 0 - (360 - diff);
+		} else if  ( diff < -180 ) {
+			diff = 0 - (-360 - diff);
+		}
 		newAngles[1] += diff * progress;
 		
 		diff = destAngles[2] - newAngles[2];
+		if ( diff > 180 ) {
+			diff = 0 - (360 - diff);
+		} else if  ( diff < -180 ) {
+			diff = 0 - (-360 - diff);
+		}
 		newAngles[2] += diff * progress;
 
 		VectorCopy( newOrigin, cg.refdef.vieworg );
