@@ -159,13 +159,13 @@ static void Main_MenuDraw( void ) {
 		refdef.width = w;
 		refdef.height = h;
 
-		refdef.fov_x = 60;
-		refdef.fov_y = 19.6875;
+		refdef.fov_x = 90;
+		refdef.fov_y = 40;
 
 		refdef.time = uis.realtime;
 
-		origin[0] = 450;	//screen space z (lower value is closer to camera)
-		origin[1] = 150;	//screen space x (lower value moves to the right)
+		origin[0] = 250;	//screen space z (lower value is closer to camera)
+		origin[1] = 140;	//screen space x (lower value moves to the right)
 		origin[2] = 15;		//screen space y (lower value moves downwards)
 
 		trap_R_ClearScene();
