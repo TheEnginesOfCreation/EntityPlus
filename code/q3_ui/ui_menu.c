@@ -264,6 +264,7 @@ void UI_MainMenu( void ) {
 
 	//add header
 	s_main.header.generic.type		= MTYPE_PTEXT;
+	s_main.header.generic.flags		= QMF_INACTIVE;
 	s_main.header.generic.x			= ((MAIN_MENU_OVERLAY_WIDTH - UI_ProportionalStringWidth("=ENTITYPLUS=")) / 2) + overlayX;
 	s_main.header.generic.y			= y;
 	s_main.header.string			= "=ENTITYPLUS=";

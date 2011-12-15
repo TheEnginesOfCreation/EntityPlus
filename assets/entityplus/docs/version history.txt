@@ -29,6 +29,7 @@ v1.1 (?? ??? 2011)
 	- [Fixed] Lightning gun, Railgun and BFG idle sounds continue playing during cutscenes.
 	- [Fixed] Shooting the machinegun into the void (in a leaked map) crashes the game.
 	- [Fixed] Music is audible for a short time when s_musicvolume is set to 0 and death screen or end-game scoreboard is shown.
+	- [Fixed] Menu item mouseover sound effect is played when mouse is moved over "EntityPlus" title in main menu.
 	- [Changed] Removed all gametypes from the game. Setting g_gametype to 8 is no longer necessary.
 	- [Changed] End-game scoreboard specifies accuracy bonus and skill bonus seperately now.
 	- [Changed] Skill level score bonus is applied to carnage score instead of a (sub)total score.
