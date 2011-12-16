@@ -1289,6 +1289,7 @@ highscores_t COM_LoadLevelScores( char *levelname ) {
 			}
 		}
 	} else {
+		//Com_Printf("No highscore file found for %s\n", filename);
 		for ( i = 0; i < SCOREBOARD_LENGTH; i++ ) {
 			highScores.highscores[i].totalScore = 0;
 		}

@@ -311,6 +311,12 @@ extern void UI_MutatorsMenu( void );
 extern void Mutators_Cache( void );
 
 //
+// ui_scores.c
+//
+extern void UI_ScoresMenu( char *mapname );
+extern void Scores_Cache( void );
+
+//
 // ui_mfield.c
 //
 extern void			MField_Clear( mfield_t *edit );
