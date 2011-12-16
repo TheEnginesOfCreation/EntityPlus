@@ -197,6 +197,7 @@ void player_die( gentity_t *self, gentity_t *inflictor, gentity_t *attacker, int
 	if ( IsBot( self ) ) {
 		if ( self->parent && self->parent->health && attacker->client ) {
 			AddScore( attacker, self->r.currentOrigin, self->parent->health );
+			self->s.time = level.time;
 		}
 	}	
 

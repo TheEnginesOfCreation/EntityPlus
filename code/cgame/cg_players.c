@@ -2191,8 +2191,12 @@ void CG_Player( centity_t *cent ) {
 	//
 	legs.hModel = ci->legsModel;
 	legs.customSkin = ci->legsSkin;
-	if ( cent->currentState.eFlags & EF_DEAD )
-		legs.customShader = cgs.media.deadBotShader;
+
+	//death shader on legs
+	if ( cent->currentState.eFlags & EF_DEAD ) {
+		//legs.customShader = cgs.media.deadBotShader;
+		//legs.shaderTime = cent->currentState.time;
+	}
 
 	VectorCopy( cent->lerpOrigin, legs.origin );
 
@@ -2200,6 +2204,16 @@ void CG_Player( centity_t *cent ) {
 	legs.shadowPlane = shadowPlane;
 	legs.renderfx = renderfx;
 	VectorCopy (legs.origin, legs.oldorigin);	// don't positionally lerp at all
+	if ( cent->currentState.eFlags & EF_DEAD ) {
+		int delay = 3000;
+		int timediff = cg.time - cent->currentState.time;
+
+		//dead bodies stay 5 secs before server drops the client
+		if ( timediff > delay ) {
+			//sink body into floor after 3 secs
+			legs.origin[2] -= ((timediff - delay) / 2000.00) * 32;
+		}
+	}
 
 	CG_AddRefEntityWithPowerups( &legs, &cent->currentState, ci->team );
 
@@ -2218,11 +2232,12 @@ void CG_Player( centity_t *cent ) {
 
 	torso.customSkin = ci->torsoSkin;
 	
-	// apply dead body shader
-	if ( cent->currentState.eFlags & EF_DEAD )
-		torso.customShader = cgs.media.deadBotShader;
+	//death shader on torso
+	if ( cent->currentState.eFlags & EF_DEAD ) {
+		//torso.customShader = cgs.media.deadBotShader;
+		//torso.shaderTime = cent->currentState.time;
+	}
 
-	
 	VectorCopy( cent->lerpOrigin, torso.lightingOrigin );
 
 	CG_PositionRotatedEntityOnTag( &torso, &legs, ci->legsModel, "tag_torso");
@@ -2240,8 +2255,12 @@ void CG_Player( centity_t *cent ) {
 		return;
 	}
 	head.customSkin = ci->headSkin;
-	if ( cent->currentState.eFlags & EF_DEAD )
-		head.customShader = cgs.media.deadBotShader;
+
+	//death shader on head
+	if ( cent->currentState.eFlags & EF_DEAD ) {
+		//head.customShader = cgs.media.deadBotShader;
+		//head.shaderTime = cent->currentState.time;
+	}
 	
 	VectorCopy( cent->lerpOrigin, head.lightingOrigin );
 
