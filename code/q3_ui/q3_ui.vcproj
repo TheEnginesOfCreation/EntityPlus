@@ -1550,6 +1550,10 @@
 				</FileConfiguration>
 			</File>
 			<File
+				RelativePath=".\ui_scores.c"
+				>
+			</File>
+			<File
 				RelativePath="ui_serverinfo.c"
 				>
 				<FileConfiguration

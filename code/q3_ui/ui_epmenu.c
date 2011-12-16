@@ -632,7 +632,7 @@ static void EPMenu_MenuEvent( void* ptr, int event ) {
 			break;
 
 		case ID_SCORES:
-			Com_Printf("Scores button was clicked\n");
+			UI_ScoresMenu( epMenuInfo.maplist[epMenuInfo.currentmap] );
 			break;
 	}
 }
@@ -972,21 +972,19 @@ void UI_EPLevelMenu( void ) {
 
 	//add high score caption
 	epMenuInfo.highScoreCaption.generic.type = MTYPE_TEXT;
-	epMenuInfo.highScoreCaption.generic.flags = QMF_CENTER_JUSTIFY|QMF_INACTIVE;
-	epMenuInfo.highScoreCaption.generic.x = 320;
-	epMenuInfo.highScoreCaption.generic.y = 360;
+	epMenuInfo.highScoreCaption.generic.flags = QMF_INACTIVE;
+	epMenuInfo.highScoreCaption.generic.x = 300;
+	epMenuInfo.highScoreCaption.generic.y = 400;
 	epMenuInfo.highScoreCaption.string = "HIGH SCORE:";
-	epMenuInfo.highScoreCaption.style = UI_CENTER;
 	epMenuInfo.highScoreCaption.color = text_color_normal;
 	Menu_AddItem( &epMenuInfo.menu, &epMenuInfo.highScoreCaption );
 
 	//add high score
 	epMenuInfo.highScore.generic.type = MTYPE_TEXT;
-	epMenuInfo.highScore.generic.flags = QMF_CENTER_JUSTIFY|QMF_INACTIVE;
-	epMenuInfo.highScore.generic.x = 320;
-	epMenuInfo.highScore.generic.y = 378;
+	epMenuInfo.highScore.generic.flags = QMF_INACTIVE;
+	epMenuInfo.highScore.generic.x = 480;
+	epMenuInfo.highScore.generic.y = 400;
 	epMenuInfo.highScore.string = mapscorebuffer;
-	epMenuInfo.highScore.style = UI_CENTER;
 	Menu_AddItem( &epMenuInfo.menu, &epMenuInfo.highScore );
 
 	//add menu to stack

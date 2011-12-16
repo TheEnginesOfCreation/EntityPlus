@@ -30,6 +30,7 @@ ui_sppostgame
 ui_splevel
 ui_spskill
 ui_startserver
+ui_scores
 ui_epmenu
 ui_mutators
 ui_team

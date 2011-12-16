@@ -61,6 +61,8 @@ set cc=..\..\..\bin\lcc -DQ3_VM -S -Wf-target=bytecode -Wf-g -I..\..\cgame -I..\
 @if errorlevel 1 goto quit
 ..\..\..\bin\lcc -DQ3_VM -S -Wf-target=bytecode -Wf-g -I..\..\cgame -I..\..\game -I..\..\q3_ui ../ui_mutators.c
 @if errorlevel 1 goto quit
+..\..\..\bin\lcc -DQ3_VM -S -Wf-target=bytecode -Wf-g -I..\..\cgame -I..\..\game -I..\..\q3_ui ../ui_scores.c
+@if errorlevel 1 goto quit
 ..\..\..\bin\lcc -DQ3_VM -S -Wf-target=bytecode -Wf-g -I..\..\cgame -I..\..\game -I..\..\q3_ui ../ui_qmenu.c
 @if errorlevel 1 goto quit
 ..\..\..\bin\lcc -DQ3_VM -S -Wf-target=bytecode -Wf-g -I..\..\cgame -I..\..\game -I..\..\q3_ui ../ui_servers2.c
