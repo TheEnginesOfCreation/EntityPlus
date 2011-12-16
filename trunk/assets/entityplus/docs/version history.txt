@@ -37,7 +37,7 @@ v1.1 (?? ??? 2011)
 	- [Changed] Player will now be rewared a score bonus equal to 5% of the carnage score for each secret found.
 	- [Changed] New stylized icon for backpack.
 	- [Changed] Particles from target_effect are slightly bigger now so they are better visible.
-	- [Changed] Bodies of dead bots stay slightly longer before disappearing.
+	- [Changed] Bodies of dead bots sink into the floor and no longer pop out of existence.
 	- [Changed] Increased max ammo amount for all weapons from 200 to 999.
 	- [Changed] Cameras now take shortest yaw and roll paths.
 	- [Changed] "setviewpos" console command no longer applies teleporter kick and allows setting of pitch, yaw and roll as well.

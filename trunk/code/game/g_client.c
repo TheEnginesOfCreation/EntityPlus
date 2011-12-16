@@ -411,6 +411,9 @@ After sitting around for five seconds, fall into the ground and dissapear
 =============
 */
 void BodySink( gentity_t *ent ) {
+	//EntityPlus: this function is never called for dead bots as they don't respawn and leave a body entity. The sinking effect is
+	//achieved in the CG_Players function in cg_players.c
+
 	if ( level.time - ent->timestamp > 6500 ) {
 		// the body ques are never actually freed, they are just unlinked
 		trap_UnlinkEntity( ent );
