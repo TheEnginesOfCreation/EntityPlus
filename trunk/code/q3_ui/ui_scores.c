@@ -16,11 +16,7 @@ typedef struct {
 	menubitmap_s		framer;
 	
 	menutext_s			tableheader;
-	menutext_s			score1;
-	menutext_s			score2;
-	menutext_s			score3;
-	menutext_s			score4;
-	menutext_s			score5;
+	menutext_s			scoretexts[SCOREBOARD_LENGTH];
 	
 	menuradiobutton_s	paintballmode;
 	menuradiobutton_s	bigheadmode;
@@ -52,6 +48,7 @@ void Scores_GenerateScoringTable( void ) {
 	char			carnagePad[5][7];
 	char			accuracyScorePad[5][5];
 	char			accuracyPad[5][3];
+	char			secretsScorePad[5][5];
 
 	hs = COM_LoadLevelScores( levelname );
 
@@ -71,7 +68,7 @@ void Scores_GenerateScoringTable( void ) {
 	//calculate paddings for accuracy score
 	for ( i = 0; i < SCOREBOARD_LENGTH; i++ ) {
 		strcpy( accuracyScorePad[i], "") ;
-		n = 10000;
+		n = 1000;
 		while ( n > 1 ) {
 			if ( hs.highscores[i].accuracyScore < n ) {
 				strcat( accuracyScorePad[i], " " );
@@ -94,34 +91,32 @@ void Scores_GenerateScoringTable( void ) {
 		}
 	}
 
-	sprintf( s_scores.score1.string, "1.  | %i%s | %i%s %s(%i%%) |", 
-		hs.highscores[0].carnageScore, carnagePad[0],
-		hs.highscores[0].accuracyScore, accuracyScorePad[0], accuracyPad[0], hs.highscores[0].accuracy);
-	
-	sprintf( s_scores.score2.string, "2.  | %i%s | %i", 
-		hs.highscores[1].carnageScore, carnagePad[1],
-		hs.highscores[1].accuracyScore);
+	//calculate paddings for secrets score
+	for ( i = 0; i < SCOREBOARD_LENGTH; i++ ) {
+		strcpy( secretsScorePad[i], "") ;
+		n = 1000;
+		while ( n > 1 ) {
+			if ( hs.highscores[i].secretsScore < n ) {
+				strcat( secretsScorePad[i], " " );
+				n = n / 10;
+			} else
+				break;
+		}
+	}
 
-	sprintf( s_scores.score3.string, "3.  | %i%s | %i", 
-		hs.highscores[2].carnageScore, carnagePad[2],
-		hs.highscores[2].accuracyScore);
-
-	sprintf( s_scores.score4.string, "4.  | %i%s | %i", 
-		hs.highscores[3].carnageScore, carnagePad[3],
-		hs.highscores[3].accuracyScore);
-
-	sprintf( s_scores.score5.string, "5.  | %i%s | %i", 
-		hs.highscores[4].carnageScore, carnagePad[4],
-		hs.highscores[4].accuracyScore);
+	for (i = 0; i < SCOREBOARD_LENGTH; i++ ) {
+		sprintf( s_scores.scoretexts[i].string, "%i.  | %i%s | %i%s (%i%%)%s | %i%s (%i/%i) |", 
+			i + 1,
+			hs.highscores[i].carnageScore, carnagePad[i],
+			hs.highscores[i].accuracyScore, accuracyScorePad[i], hs.highscores[i].accuracy, accuracyPad[i],
+			hs.highscores[i].secretsScore, secretsScorePad[i], hs.highscores[i].secretsFound, hs.highscores[i].secretsCount);
+	}
 }
 
 static void Scores_MenuInit( void ) {
+	int				i;
 	int				x, y;
-	static			char score1buffer[4096];
-	static			char score2buffer[4096];
-	static			char score3buffer[4096];
-	static			char score4buffer[4096];
-	static			char score5buffer[4096];
+	static			char scorebuffers[SCOREBOARD_LENGTH][4096];
 
 	memset( &s_scores, 0, sizeof(scores_t) );
 
@@ -172,52 +167,18 @@ static void Scores_MenuInit( void ) {
 	s_scores.tableheader.generic.y		= y;
 	s_scores.tableheader.style			= UI_LEFT|UI_SMALLFONT;
 	s_scores.tableheader.color			= color_red;
-	s_scores.tableheader.string			= "pos | carnage | accuracy    | secrets | deaths | skill | total";
+	s_scores.tableheader.string			= "POS | CARNAGE | ACCURACY    | SECRETS | DEATHS | SKILL | TOTAL";
 
-	y += 16;
-	s_scores.score1.generic.type	= MTYPE_TEXT;
-	s_scores.score1.generic.flags	= QMF_CENTER_JUSTIFY|QMF_INACTIVE;
-	s_scores.score1.generic.x		= x;
-	s_scores.score1.generic.y		= y;
-	s_scores.score1.style			= UI_LEFT|UI_SMALLFONT;
-	s_scores.score1.color			= color_red;
-	s_scores.score1.string			= score1buffer;
-
-	y += 16;
-	s_scores.score2.generic.type	= MTYPE_TEXT;
-	s_scores.score2.generic.flags	= QMF_CENTER_JUSTIFY|QMF_INACTIVE;
-	s_scores.score2.generic.x		= x;
-	s_scores.score2.generic.y		= y;
-	s_scores.score2.style			= UI_LEFT|UI_SMALLFONT;
-	s_scores.score2.color			= color_red;
-	s_scores.score2.string			= score2buffer;
-
-	y += 16;
-	s_scores.score3.generic.type	= MTYPE_TEXT;
-	s_scores.score3.generic.flags	= QMF_CENTER_JUSTIFY|QMF_INACTIVE;
-	s_scores.score3.generic.x		= x;
-	s_scores.score3.generic.y		= y;
-	s_scores.score3.style			= UI_LEFT|UI_SMALLFONT;
-	s_scores.score3.color			= color_red;
-	s_scores.score3.string			= score3buffer;
-
-	y += 16;
-	s_scores.score4.generic.type	= MTYPE_TEXT;
-	s_scores.score4.generic.flags	= QMF_CENTER_JUSTIFY|QMF_INACTIVE;
-	s_scores.score4.generic.x		= x;
-	s_scores.score4.generic.y		= y;
-	s_scores.score4.style			= UI_LEFT|UI_SMALLFONT;
-	s_scores.score4.color			= color_red;
-	s_scores.score4.string			= score4buffer;
-
-	y += 16;
-	s_scores.score5.generic.type	= MTYPE_TEXT;
-	s_scores.score5.generic.flags	= QMF_CENTER_JUSTIFY|QMF_INACTIVE;
-	s_scores.score5.generic.x		= x;
-	s_scores.score5.generic.y		= y;
-	s_scores.score5.style			= UI_LEFT|UI_SMALLFONT;
-	s_scores.score5.color			= color_red;
-	s_scores.score5.string			= score5buffer;
+	for (i = 0; i < SCOREBOARD_LENGTH; i++ ) {
+		y+= 16;
+		s_scores.scoretexts[i].generic.type		= MTYPE_TEXT;
+		s_scores.scoretexts[i].generic.flags	= QMF_CENTER_JUSTIFY|QMF_INACTIVE;
+		s_scores.scoretexts[i].generic.x		= x;
+		s_scores.scoretexts[i].generic.y		= y;
+		s_scores.scoretexts[i].style			= UI_LEFT|UI_SMALLFONT;
+		s_scores.scoretexts[i].color			= color_red;
+		s_scores.scoretexts[i].string			= scorebuffers[i];
+	}
 	
 	Menu_AddItem( &s_scores.menu, &s_scores.banner );
 	Menu_AddItem( &s_scores.menu, &s_scores.framel );
@@ -225,11 +186,8 @@ static void Scores_MenuInit( void ) {
 	Menu_AddItem( &s_scores.menu, &s_scores.back );
 
 	Menu_AddItem( &s_scores.menu, &s_scores.tableheader );
-	Menu_AddItem( &s_scores.menu, &s_scores.score1 );
-	Menu_AddItem( &s_scores.menu, &s_scores.score2 );
-	Menu_AddItem( &s_scores.menu, &s_scores.score3 );
-	Menu_AddItem( &s_scores.menu, &s_scores.score4 );
-	Menu_AddItem( &s_scores.menu, &s_scores.score5 );
+	for (i = 0; i < SCOREBOARD_LENGTH; i++ )
+		Menu_AddItem( &s_scores.menu, &s_scores.scoretexts[i] );
 
 	Scores_GenerateScoringTable();
 }
