@@ -1452,19 +1452,17 @@ typedef struct highscores_s {
 
 #endif	// __Q_SHARED_H
 
-#define SCORE_ACCURACY				0.5		//part of the carnage score that accuracy will apply to.
-#define SCORE_SECRET				0.05	//part of the carnage score that will be gained for each secret found.
-#define SCORE_DEATH					0.1		//part of the carnage score that will be lost for each death.
-#define SCORE_SKILL					0.1		//skill based multiplier. Multiplier is increased with this value for each difficulty level above skill 1.
+#define SCORE_ACCURACY	0.5		//part of the carnage score that accuracy will apply to.
+#define SCORE_SECRET	0.05	//part of the carnage score that will be gained for each secret found.
+#define SCORE_DEATH		0.1		//part of the carnage score that will be lost for each death.
+#define SCORE_SKILL		0.1		//skill based multiplier. Multiplier is increased with this value for each difficulty level above skill 1.
 
 #define FADEOUT_TIME	500.000	//amount of time it takes for screen to fade out at map change. Needed by both server and client
 
 //mutators
-#define MT_PAINTBALLMODE				1	//impact marks are brightly colored splashes of paint.
-#define MT_BIGHEADMODE					2	//all enemies have extremely large heads.
-#define MT_MACHINEGUNONLY				4	//all weapons are MG and all ammo boxes are bullets.
-#define MT_INSTAGIB						8	//no ammo pickups. All weapons are RG's, player has unlimited ammo.
-#define MT_RESETSCOREAFTERDEATH			16	//carnage score is set to 0 when the player dies.
+#define MT_MACHINEGUNONLY				1	//all weapons are MG and all ammo boxes are bullets.
+#define MT_INSTAGIB						2	//no ammo pickups. All weapons are RG's, player has unlimited ammo.
+#define MT_RESETSCOREAFTERDEATH			4	//carnage score is set to 0 when the player dies.
 
 //score info keys (these should NEVER change because it will break compatibility with older score files)
 #define SIK_CARNAGESCORE	"a"

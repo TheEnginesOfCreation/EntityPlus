@@ -258,7 +258,7 @@ void UI_MainMenu( void ) {
 	s_main.overlay.generic.name		= ART_OVERLAY;
 	s_main.overlay.generic.flags	= QMF_INACTIVE;
 	s_main.overlay.generic.x		= overlayX;
-	s_main.overlay.generic.y		= y - 48;
+	s_main.overlay.generic.y		= y - 64;//y - 48;
 	s_main.overlay.width  			= MAIN_MENU_OVERLAY_WIDTH;
 	s_main.overlay.height			= MAIN_MENU_OVERLAY_WIDTH;
 
@@ -281,6 +281,7 @@ void UI_MainMenu( void ) {
 	s_main.singleplayer.string				= "NEW GAME";
 	s_main.singleplayer.color				= color_black;
 
+	/*
 	y += MAIN_MENU_VERTICAL_SPACING;
 	s_main.mutators.generic.type			= MTYPE_PTEXT;
 	s_main.mutators.generic.flags			= QMF_PULSEIFFOCUS;
@@ -290,7 +291,7 @@ void UI_MainMenu( void ) {
 	s_main.mutators.generic.callback		= Main_MenuEvent; 
 	s_main.mutators.string					= "MUTATORS";
 	s_main.mutators.color					= color_black;
-
+*/
 	y += MAIN_MENU_VERTICAL_SPACING;
 	s_main.setup.generic.type				= MTYPE_PTEXT;
 	s_main.setup.generic.flags				= QMF_PULSEIFFOCUS;
@@ -314,7 +315,7 @@ void UI_MainMenu( void ) {
 	Menu_AddItem( &s_main.menu,	&s_main.overlay );
 	Menu_AddItem( &s_main.menu,	&s_main.header );
 	Menu_AddItem( &s_main.menu,	&s_main.singleplayer );
-	Menu_AddItem( &s_main.menu,	&s_main.mutators );
+	//Menu_AddItem( &s_main.menu,	&s_main.mutators );
 	Menu_AddItem( &s_main.menu,	&s_main.setup );
 	Menu_AddItem( &s_main.menu,	&s_main.exit );             
 

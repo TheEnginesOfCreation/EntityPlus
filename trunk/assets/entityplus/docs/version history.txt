@@ -1,6 +1,6 @@
 v1.1 (?? ??? 2011)
+	- [Added] "cg_paintballMode" and "cg_bigheadMode" cvars
 	- [Added] Top 5 of scores are saved now instead of just the high score and viewable through scores menu.
-	- [Added] "Paintball mode", "Big Head mode", "Machinegun only", "Instagib" and "Reset score after death" mutators.
 	- [Added] target_botremove entity.
 	- [Added] target_music entity.
 	- [Added] "dmg" and "radius" keys to func_breakable.
@@ -24,6 +24,7 @@ v1.1 (?? ??? 2011)
 	- [Added] "g_enableBreath" and "g_enableDust" cvars.
 	- [Added] Support for longname, author and description through arena files.
 	- [Added] "Loading..." text and icon is displayed when map is loading.
+
 	- [Fixed] target_unlink does not work on func_bobbing entities.
 	- [Fixed] Bots get stuck in each other when they should be telefragged.
 	- [Fixed] Lightning gun, Railgun and BFG idle sounds continue playing during cutscenes.
