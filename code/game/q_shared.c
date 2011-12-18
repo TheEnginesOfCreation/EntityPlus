@@ -1291,6 +1291,18 @@ highscores_t COM_LoadLevelScores( char *levelname ) {
 	} else {
 		//Com_Printf("No highscore file found for %s\n", filename);
 		for ( i = 0; i < SCOREBOARD_LENGTH; i++ ) {
+			highScores.highscores[i].accuracy = 0;
+			highScores.highscores[i].accuracyScore = 0;
+			highScores.highscores[i].carnageScore = 0;
+			highScores.highscores[i].deaths = 0;
+			highScores.highscores[i].deathsScore = 0;
+			highScores.highscores[i].mutators = 0;
+			highScores.highscores[i].secretsCount = 0;
+			highScores.highscores[i].secretsFound = 0;
+			highScores.highscores[i].secretsScore = 0;
+			highScores.highscores[i].skill = 0;
+			highScores.highscores[i].skillModifier = 0;
+			highScores.highscores[i].skillScore = 0;
 			highScores.highscores[i].totalScore = 0;
 		}
 	}
@@ -1455,7 +1467,7 @@ playerscore_t COM_CalculatePlayerScore(int persistant[MAX_PERSISTANT], int accur
 	if ( mutators & MT_RESETSCOREAFTERDEATH )
 		scores.deathsScore = 0;
 	else
-		scores.deathsScore = (scores.deaths * SCORE_DEATH) * scores.carnageScore;
+		scores.deathsScore = 0 - ((scores.deaths * SCORE_DEATH) * scores.carnageScore);
 
 	//total score
 	scores.totalScore = scores.carnageScore + scores.accuracyScore + scores.skillScore + scores.secretsScore + scores.deathsScore ;

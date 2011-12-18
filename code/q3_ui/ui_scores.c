@@ -1,8 +1,7 @@
 #include "ui_local.h"
 
 
-#define ART_FRAMEL				"menu/art/frame2_l"
-#define ART_FRAMER				"menu/art/frame1_r"
+#define ART_TABLE				"menu/art/table"
 #define ART_BACK0				"menu/art/back_0"
 #define ART_BACK1				"menu/art/back_1"
 
@@ -12,10 +11,10 @@ typedef struct {
 	menuframework_s		menu;
 
 	menutext_s			banner;
-	menubitmap_s		framel;
-	menubitmap_s		framer;
+	menutext_s			levelname;
 	
 	menutext_s			tableheader;
+	menubitmap_s		table;
 	menutext_s			scoretexts[SCOREBOARD_LENGTH];
 	
 	menuradiobutton_s	paintballmode;
@@ -44,16 +43,23 @@ static void Scores_Event( void* ptr, int notification ) {
 
 void Scores_GenerateScoringTable( void ) {
 	highscores_t	hs;
-	int				i, n;
+	int				i, n, ds;
 	char			carnagePad[5][7];
 	char			accuracyScorePad[5][5];
 	char			accuracyPad[5][3];
 	char			secretsScorePad[5][5];
+	char			secretsFoundPad[5][3];
+	char			secretsCountPad[5][3];
+	char			deathsScorePad[5][6];
+	char			deathsCountPad[5][2];
+	char			skillScorePad[5][5];
+	char			totalScorePad[5][6];
 
 	hs = COM_LoadLevelScores( levelname );
 
-	//calculate paddings for carnage
+	
 	for ( i = 0; i < SCOREBOARD_LENGTH; i++ ) {
+		//calculate paddings for carnage
 		strcpy( carnagePad[i], "") ;
 		n = 1000000;
 		while ( n > 1 ) {
@@ -63,12 +69,10 @@ void Scores_GenerateScoringTable( void ) {
 			} else
 				break;
 		}
-	}
 
-	//calculate paddings for accuracy score
-	for ( i = 0; i < SCOREBOARD_LENGTH; i++ ) {
+		//calculate paddings for accuracy score
 		strcpy( accuracyScorePad[i], "") ;
-		n = 1000;
+		n = 10000;
 		while ( n > 1 ) {
 			if ( hs.highscores[i].accuracyScore < n ) {
 				strcat( accuracyScorePad[i], " " );
@@ -76,10 +80,8 @@ void Scores_GenerateScoringTable( void ) {
 			} else
 				break;
 		}
-	}
 
-	//calculate paddings for accuracy percentage
-	for ( i = 0; i < SCOREBOARD_LENGTH; i++ ) {
+		//calculate paddings for accuracy percentage
 		strcpy( accuracyPad[i], "") ;
 		n = 100;
 		while ( n > 1 ) {
@@ -89,10 +91,8 @@ void Scores_GenerateScoringTable( void ) {
 			} else
 				break;
 		}
-	}
 
-	//calculate paddings for secrets score
-	for ( i = 0; i < SCOREBOARD_LENGTH; i++ ) {
+		//calculate paddings for secrets score
 		strcpy( secretsScorePad[i], "") ;
 		n = 1000;
 		while ( n > 1 ) {
@@ -102,14 +102,89 @@ void Scores_GenerateScoringTable( void ) {
 			} else
 				break;
 		}
+
+		//calculate padding for secrets found
+		strcpy( secretsFoundPad[i], "") ;
+		n = 10;
+		while ( n > 1 ) {
+			if ( hs.highscores[i].secretsFound < n ) {
+				strcat( secretsFoundPad[i], " " );
+				n = n / 10;
+			} else
+				break;
+		}
+
+		//calculate padding for secrets count
+		strcpy( secretsCountPad[i], "") ;
+		n = 10;
+		while ( n > 1 ) {
+			if ( hs.highscores[i].secretsCount < n ) {
+				strcat( secretsCountPad[i], " " );
+				n = n / 10;
+			} else
+				break;
+		}
+
+		//calculate padding for deathsscore
+		strcpy( deathsScorePad[i], "");
+		n = 10000;
+		ds = 0 - hs.highscores[i].deathsScore;
+		if (ds == 0)
+			strcpy( deathsScorePad[i], "     ");
+		else {
+			while ( n > 1 ) {
+				if ( ds < n ) {
+					strcat( deathsScorePad[i], " " );
+					n = n / 10;
+				} else
+					break;
+			}
+		}
+		
+		//calculate padding for deaths count
+		strcpy( deathsCountPad[i], "") ;
+		n = 10;
+		while ( n > 1 ) {
+			if ( hs.highscores[i].deaths < n ) {
+				strcat( deathsCountPad[i], " " );
+				n = n / 10;
+			} else
+				break;
+		}
+
+		//calculate padding for skill score
+		strcpy( skillScorePad[i], "");
+		n = 10000;
+		while ( n > 1 ) {
+			if ( hs.highscores[i].skillScore < n ) {
+				strcat( skillScorePad[i], " " );
+				n = n / 10;
+			} else
+				break;
+		}
+
+		//calculate padding for total score
+		strcpy( totalScorePad[i], "");
+		n = 10000;
+		while ( n > 1 ) {
+			if ( hs.highscores[i].totalScore < n ) {
+				strcat( totalScorePad[i], " " );
+				n = n / 10;
+			} else
+				break;
+		}
 	}
 
+
 	for (i = 0; i < SCOREBOARD_LENGTH; i++ ) {
-		sprintf( s_scores.scoretexts[i].string, "%i.  | %i%s | %i%s (%i%%)%s | %i%s (%i/%i) |", 
+		sprintf( s_scores.scoretexts[i].string, "%i.    %s%i   %s%i %s(%i%%)   %s%i %s%s(%i/%i)   %s%i %s(%ix)   %s%i (%1.0f)   %s%i", 
 			i + 1,
-			hs.highscores[i].carnageScore, carnagePad[i],
-			hs.highscores[i].accuracyScore, accuracyScorePad[i], hs.highscores[i].accuracy, accuracyPad[i],
-			hs.highscores[i].secretsScore, secretsScorePad[i], hs.highscores[i].secretsFound, hs.highscores[i].secretsCount);
+			carnagePad[i], hs.highscores[i].carnageScore,
+			accuracyScorePad[i], hs.highscores[i].accuracyScore, accuracyPad[i], hs.highscores[i].accuracy,
+			secretsScorePad[i], hs.highscores[i].secretsScore, secretsFoundPad[i], secretsCountPad[i], hs.highscores[i].secretsFound, hs.highscores[i].secretsCount,
+			deathsScorePad[i], hs.highscores[i].deathsScore, deathsCountPad[i], hs.highscores[i].deaths,
+			skillScorePad[i], hs.highscores[i].skillScore, hs.highscores[i].skill,
+			totalScorePad[i], hs.highscores[i].totalScore);
 	}
 }
 
@@ -132,21 +207,12 @@ static void Scores_MenuInit( void ) {
 	s_scores.banner.color			= color_white;
 	s_scores.banner.style			= UI_CENTER;
 
-	s_scores.framel.generic.type	= MTYPE_BITMAP;
-	s_scores.framel.generic.name	= ART_FRAMEL;
-	s_scores.framel.generic.flags	= QMF_INACTIVE;
-	s_scores.framel.generic.x		= 0;
-	s_scores.framel.generic.y		= 78;
-	s_scores.framel.width  			= 256;
-	s_scores.framel.height  		= 329;
-
-	s_scores.framer.generic.type	= MTYPE_BITMAP;
-	s_scores.framer.generic.name	= ART_FRAMER;
-	s_scores.framer.generic.flags	= QMF_INACTIVE;
-	s_scores.framer.generic.x		= 376;
-	s_scores.framer.generic.y		= 76;
-	s_scores.framer.width  			= 256;
-	s_scores.framer.height  		= 334;
+	s_scores.levelname.generic.type	= MTYPE_TEXT;
+	s_scores.levelname.generic.x	= 320;
+	s_scores.levelname.generic.y	= 48;
+	s_scores.levelname.string		= levelname;
+	s_scores.levelname.color		= text_color_normal;
+	s_scores.levelname.style		= UI_CENTER;
 
 	s_scores.back.generic.type		= MTYPE_BITMAP;
 	s_scores.back.generic.name		= ART_BACK0;
@@ -159,33 +225,42 @@ static void Scores_MenuInit( void ) {
 	s_scores.back.height			= 64;
 	s_scores.back.focuspic			= ART_BACK1;
 
-	y = 196;
-	x = 80;
+	y = 96;
+	x = 320;
 	s_scores.tableheader.generic.type	= MTYPE_TEXT;
 	s_scores.tableheader.generic.flags	= QMF_CENTER_JUSTIFY|QMF_INACTIVE;
 	s_scores.tableheader.generic.x		= x;
 	s_scores.tableheader.generic.y		= y;
-	s_scores.tableheader.style			= UI_LEFT|UI_SMALLFONT;
+	s_scores.tableheader.style			= UI_CENTER|UI_SMALLFONT;
 	s_scores.tableheader.color			= color_red;
-	s_scores.tableheader.string			= "POS | CARNAGE | ACCURACY    | SECRETS | DEATHS | SKILL | TOTAL";
+	s_scores.tableheader.string			= "POS   CARNAGE     ACCURACY       SECRETS         DEATHS        SKILL     TOTAL";
 
+	s_scores.table.generic.type		= MTYPE_BITMAP;
+	s_scores.table.generic.name		= ART_TABLE;
+	s_scores.table.generic.flags	= QMF_INACTIVE;
+	s_scores.table.generic.x		= 0;
+	s_scores.table.generic.y		= y;
+	s_scores.table.width  			= 640;
+	s_scores.table.height  			= 128;
+
+	y += 20;
 	for (i = 0; i < SCOREBOARD_LENGTH; i++ ) {
-		y+= 16;
 		s_scores.scoretexts[i].generic.type		= MTYPE_TEXT;
 		s_scores.scoretexts[i].generic.flags	= QMF_CENTER_JUSTIFY|QMF_INACTIVE;
 		s_scores.scoretexts[i].generic.x		= x;
 		s_scores.scoretexts[i].generic.y		= y;
-		s_scores.scoretexts[i].style			= UI_LEFT|UI_SMALLFONT;
+		s_scores.scoretexts[i].style			= UI_CENTER|UI_SMALLFONT;
 		s_scores.scoretexts[i].color			= color_red;
 		s_scores.scoretexts[i].string			= scorebuffers[i];
+		y += 16;
 	}
 	
 	Menu_AddItem( &s_scores.menu, &s_scores.banner );
-	Menu_AddItem( &s_scores.menu, &s_scores.framel );
-	Menu_AddItem( &s_scores.menu, &s_scores.framer );
+	Menu_AddItem( &s_scores.menu, &s_scores.levelname );
 	Menu_AddItem( &s_scores.menu, &s_scores.back );
 
 	Menu_AddItem( &s_scores.menu, &s_scores.tableheader );
+	Menu_AddItem( &s_scores.menu, &s_scores.table );
 	for (i = 0; i < SCOREBOARD_LENGTH; i++ )
 		Menu_AddItem( &s_scores.menu, &s_scores.scoretexts[i] );
 
@@ -194,8 +269,7 @@ static void Scores_MenuInit( void ) {
 
 
 void Scores_Cache( void ) {
-	trap_R_RegisterShaderNoMip( ART_FRAMEL );
-	trap_R_RegisterShaderNoMip( ART_FRAMER );
+	trap_R_RegisterShaderNoMip( ART_TABLE );
 	trap_R_RegisterShaderNoMip( ART_BACK0 );
 	trap_R_RegisterShaderNoMip( ART_BACK1 );
 }
