@@ -2264,7 +2264,7 @@ void CG_Player( centity_t *cent ) {
 	
 	VectorCopy( cent->lerpOrigin, head.lightingOrigin );
 
-	if ( CG_IsMutatorEnabled( MT_BIGHEADMODE ) ) {
+	if ( cg_bigheadMode.integer ) {
 		VectorScale(head.axis[0], 5, head.axis[0]);
 		VectorScale(head.axis[1], 5, head.axis[1]);
 		VectorScale(head.axis[2], 5, head.axis[2]);

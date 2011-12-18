@@ -130,7 +130,7 @@ void CG_ImpactMark( qhandle_t markShader, const vec3_t origin, const vec3_t dir,
 
 	//paintball mode
 	if (
-		CG_IsMutatorEnabled(MT_PAINTBALLMODE) && (
+		cg_paintballMode.integer && (
 		markShader == cgs.media.bulletMarkShader ||				//MG, SG
 		markShader == cgs.media.burnMarkShader ||				//RL, GL, BFG
 		markShader == cgs.media.energyMarkShader ||				//PG, RG
