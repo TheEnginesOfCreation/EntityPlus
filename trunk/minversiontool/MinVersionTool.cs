@@ -100,7 +100,6 @@ namespace mvt
 		public MinVersionTool(string filename, LogModes logMode)
 		{
 			this.logMode = logMode;
-			Console.WriteLine("=== MinVersionTool for EntityPlus v1.1 ===");
 
 			DateTime start = DateTime.Now;
 			
