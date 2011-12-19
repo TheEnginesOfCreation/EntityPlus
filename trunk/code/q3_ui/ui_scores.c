@@ -177,7 +177,8 @@ void Scores_GenerateScoringTable( void ) {
 
 
 	for (i = 0; i < SCOREBOARD_LENGTH; i++ ) {
-		sprintf( s_scores.scoretexts[i].string, "%i.    %s%i   %s%i %s(%i%%)   %s%i %s%s(%i/%i)   %s%i %s(%ix)   %s%i (%1.0f)   %s%i", 
+		Com_sprintf(s_scores.scoretexts[i].string, 80, "%i.    %s%i   %s%i %s(%i%%)   %s%i %s%s(%i/%i)   %s%i %s(%ix)   %s%i (%1.0f)   %s%i",
+		//sprintf( s_scores.scoretexts[i].string, "%i.    %s%i   %s%i %s(%i%%)   %s%i %s%s(%i/%i)   %s%i %s(%ix)   %s%i (%1.0f)   %s%i", 
 			i + 1,
 			carnagePad[i], hs.highscores[i].carnageScore,
 			accuracyScorePad[i], hs.highscores[i].accuracyScore, accuracyPad[i], hs.highscores[i].accuracy,

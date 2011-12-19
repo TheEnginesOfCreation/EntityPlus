@@ -24,7 +24,6 @@ v1.1 (?? ??? 2011)
 	- [Added] "g_enableBreath" and "g_enableDust" cvars.
 	- [Added] Support for longname, author and description through arena files.
 	- [Added] "Loading..." text and icon is displayed when map is loading.
-
 	- [Fixed] target_unlink does not work on func_bobbing entities.
 	- [Fixed] Bots get stuck in each other when they should be telefragged.
 	- [Fixed] Lightning gun, Railgun and BFG idle sounds continue playing during cutscenes.
@@ -32,10 +31,8 @@ v1.1 (?? ??? 2011)
 	- [Fixed] Music is audible for a short time when s_musicvolume is set to 0 and death screen or end-game scoreboard is shown.
 	- [Fixed] Menu item mouseover sound effect is played when mouse is moved over "EntityPlus" title in main menu.
 	- [Changed] Removed all gametypes from the game. Setting g_gametype to 8 is no longer necessary.
+	- [Changed] Scores are calculated differently.
 	- [Changed] End-game scoreboard specifies accuracy bonus and skill bonus seperately now.
-	- [Changed] Skill level score bonus is applied to carnage score instead of a (sub)total score.
-	- [Changed] Player will now incur a score penalty equal to 10% of the carnage score for each time he died.
-	- [Changed] Player will now be rewared a score bonus equal to 5% of the carnage score for each secret found.
 	- [Changed] New stylized icon for backpack.
 	- [Changed] Particles from target_effect are slightly bigger now so they are better visible.
 	- [Changed] Bodies of dead bots sink into the floor and no longer pop out of existence.

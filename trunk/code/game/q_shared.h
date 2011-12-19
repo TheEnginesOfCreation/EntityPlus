@@ -1453,8 +1453,8 @@ typedef struct highscores_s {
 
 #define SCORE_ACCURACY	0.5		//part of the carnage score that accuracy will apply to.
 #define SCORE_SECRET	0.05	//part of the carnage score that will be gained for each secret found.
-#define SCORE_DEATH		0.1		//part of the carnage score that will be lost for each death.
-#define SCORE_SKILL		0.1		//skill based multiplier. Multiplier is increased with this value for each difficulty level above skill 1.
+#define SCORE_DEATH		0.05	//part of the carnage score that will be lost for each death.
+#define SCORE_SKILL		0.05	//skill based multiplier. Multiplier is increased with this value for each difficulty level above skill 1.
 
 #define FADEOUT_TIME	500.000	//amount of time it takes for screen to fade out at map change. Needed by both server and client
 
