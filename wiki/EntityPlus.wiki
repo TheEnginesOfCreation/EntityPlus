@@ -18,8 +18,8 @@ For an overview of all features in !EntityPlus, download the level designer manu
   * `[`Added] "WP_GAUNTLET" spawnflag to target_botspawns. Botspawns without this spawnflag now spawn bots without Gauntlet.
   * `[`Added] "lockedsound" and "unlockedsound" keys to trigger_lock.
   * `[`Added] "fov" key to info_camera.
-  * `[`Added] "NO_BOTS" and "NO_HUMANS" spawnflags to all shooter_* entities.
-  * `[`Added] "SILENT" spawnflag to all item pickup (item_*, weapon_*, holdable_*, ammo_*) entities.
+  * `[`Added] "NO_BOTS" and "NO_HUMANS" spawnflags to all shooter`_*` entities.
+  * `[`Added] "SILENT" spawnflag to all item pickup (item`_*`, weapon`_*`, holdable`_*`, ammo`_*`) entities.
   * `[`Added] "objectivesoverlay" key to worldspawn entity.
   * `[`Added] "enablebreath" and "enabledust" keys to worldspawn entity.
   * `[`Added] "position" console command to get current player position coordinates.
@@ -48,25 +48,30 @@ For an overview of all features in !EntityPlus, download the level designer manu
   * `[`Changed] "g_listEntity" is now cheat protected, accepts a value of 2 to only list in-use entity slots and prints out in-use entity count.
   * `[`Changed] Allowed the use of cg_drawTimer again when cheats are enabled. Timer also displays milliseconds.
   * `[`Changed] Objectives text in objectives overlay automatically wraps to next line without breaking words.
-  * `[`Changed] All debris related spawnflags on target_debrisemitter and func_breakable are now named DEBRIS_[type].
+  * `[`Changed] All debris related spawnflags on target_debrisemitter and func_breakable are now named `DEBRIS_[type]`.
   * `[`Changed] New main menu artwork.
 
 
 Most important changes:
 
-*It is no longer necessary to run EntityPlus maps in g_gametype 8*
+*It is no longer necessary to run !EntityPlus maps in g_gametype 8*
+
 The g_gametype cvar is completely ignored now.
 
 *New scoring system*
+
 The calculation of high scores has changed, so all previous scores are ignored and the scoring starts from scratch. The mod does save a top 5 of scores now.
 
 *Paintball mode and Big Head mode*
+
 Paintball mode makes the gun shoot colorful blobs of paint. In big head mode, all enemies have really, _really_ large heads.
 
 *WP_GAUNTLET spawnflag for botspawns*
+
 Botspawns without any spawnflags will now spawn bots without any weapons. Use the WP_GAUNTLET spawnflag to make them spawn with a gauntlet.
 
 *objectives overlay can be changed in worldspawn*
+
 The graphics that should be used for the objectives overlay can be specified individually for each map. If no graphics are specified, the default graphics will be used.
 
 
