@@ -246,24 +246,6 @@ void player_die( gentity_t *self, gentity_t *inflictor, gentity_t *attacker, int
 
 	self->client->ps.persistant[PERS_KILLED]++;
 
-	//if 'reset score after death' mutator is enabled, reset the player's score
-	if ( g_mutators.integer & MT_RESETSCOREAFTERDEATH )
-		self->client->ps.persistant[PERS_SCORE] = 0;
-
-
-	//regular q3 deathmatch scoring
-	/*
-	if (attacker && attacker->client) {
-		attacker->client->lastkilled_client = self->s.number;
-
-		if ( attacker == self || OnSameTeam (self, attacker ) ) {
-		} else {
-			AddScore( attacker, self->r.currentOrigin, 1 );
-			attacker->client->lastKillTime = level.time;
-		}
-	}
-	*/
-
 	// Add team bonuses
 	//Team_FragBonuses(self, inflictor, attacker);
 

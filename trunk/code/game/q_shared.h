@@ -1428,7 +1428,6 @@ typedef struct playerscore_s {
 	float skillModifier;
 	int skillScore;
 	int totalScore;
-	int mutators;
 } playerscore_t;
 
 #define SCOREBOARD_LENGTH	5		//number of high scores that will be remembered
@@ -1462,7 +1461,6 @@ typedef struct highscores_s {
 //mutators
 #define MT_MACHINEGUNONLY				1	//all weapons are MG and all ammo boxes are bullets.
 #define MT_INSTAGIB						2	//no ammo pickups. All weapons are RG's, player has unlimited ammo.
-#define MT_RESETSCOREAFTERDEATH			4	//carnage score is set to 0 when the player dies.
 
 //score info keys (these should NEVER change because it will break compatibility with older score files)
 #define SIK_CARNAGESCORE	"a"
@@ -1477,7 +1475,6 @@ typedef struct highscores_s {
 #define SIK_SKILLMODIFIER	"j"
 #define SIK_SKILLSCORE		"k"
 #define SIK_TOTALSCORE		"l"
-#define SIK_MUTATORS		"m"
 
 playerscore_t COM_CalculatePlayerScore(int persistant[MAX_PERSISTANT], int accuracy, float skill);
 highscores_t COM_LoadLevelScores( char *levelname );

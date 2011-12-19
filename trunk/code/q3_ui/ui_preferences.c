@@ -28,7 +28,9 @@ GAME OPTIONS MENU
 #define ID_SYNCEVERYFRAME		134
 #define ID_FORCEMODEL			135
 #define ID_SUBTITLES			136
-#define ID_DISABLESCRIPTS		137
+#define ID_PAINTBALLMODE		137
+#define ID_BIGHEADMODE			138
+#define ID_DISABLESCRIPTS		139
 #define ID_BACK					150
 
 #define	NUM_CROSSHAIRS			10
@@ -54,6 +56,8 @@ typedef struct {
 	menuradiobutton_s	synceveryframe;
 	menuradiobutton_s	forcemodel;
 	menuradiobutton_s	subtitles;
+	menuradiobutton_s	paintballmode;
+	menuradiobutton_s	bigheadmode;
 	menuradiobutton_s	disablescripts;
 	menubitmap_s		back;
 
@@ -80,6 +84,8 @@ static void Preferences_SetMenuItems( void ) {
 	s_preferences.synceveryframe.curvalue	= trap_Cvar_VariableValue( "r_finish" ) != 0;
 	s_preferences.forcemodel.curvalue		= trap_Cvar_VariableValue( "cg_forcemodel" ) != 0;
 	s_preferences.subtitles.curvalue		= trap_Cvar_VariableValue( "cg_drawsubtitles" ) != 0;
+	s_preferences.paintballmode.curvalue	= trap_Cvar_VariableValue( "cg_paintballMode" ) != 0;
+	s_preferences.bigheadmode.curvalue		= trap_Cvar_VariableValue( "cg_bigheadMode" ) != 0;
 	s_preferences.disablescripts.curvalue	= trap_Cvar_VariableValue( "g_disableScripts" ) != 0;
 }
 
@@ -131,6 +137,14 @@ static void Preferences_Event( void* ptr, int notification ) {
 
 	case ID_SUBTITLES:
 		trap_Cvar_SetValue( "cg_drawsubtitles", s_preferences.subtitles.curvalue );
+		break;
+
+	case ID_PAINTBALLMODE:
+		trap_Cvar_SetValue( "cg_paintballMode", s_preferences.paintballmode.curvalue );
+		break;
+
+	case ID_BIGHEADMODE:
+		trap_Cvar_SetValue( "cg_bigheadmode", s_preferences.bigheadmode.curvalue );
 		break;
 
 	case ID_DISABLESCRIPTS:
@@ -226,7 +240,7 @@ static void Preferences_MenuInit( void ) {
 	s_preferences.framer.width  	   = 256;
 	s_preferences.framer.height  	   = 334;
 
-	y = 144;
+	y = 112;
 	s_preferences.crosshair.generic.type		= MTYPE_TEXT;
 	s_preferences.crosshair.generic.flags		= QMF_PULSEIFFOCUS|QMF_SMALLFONT|QMF_NODEFAULTINIT|QMF_OWNERDRAW;
 	s_preferences.crosshair.generic.x			= PREFERENCES_X_POS;
@@ -314,6 +328,24 @@ static void Preferences_MenuInit( void ) {
 	s_preferences.subtitles.generic.y	     = y;
 
 	y += BIGCHAR_HEIGHT+2;
+	s_preferences.paintballmode.generic.type     = MTYPE_RADIOBUTTON;
+	s_preferences.paintballmode.generic.name	 = "Paintball Mode:";
+	s_preferences.paintballmode.generic.flags	 = QMF_PULSEIFFOCUS|QMF_SMALLFONT;
+	s_preferences.paintballmode.generic.callback = Preferences_Event;
+	s_preferences.paintballmode.generic.id       = ID_PAINTBALLMODE;
+	s_preferences.paintballmode.generic.x	     = PREFERENCES_X_POS;
+	s_preferences.paintballmode.generic.y	     = y;
+
+	y += BIGCHAR_HEIGHT+2;
+	s_preferences.bigheadmode.generic.type		= MTYPE_RADIOBUTTON;
+	s_preferences.bigheadmode.generic.name		= "Big Head Mode:";
+	s_preferences.bigheadmode.generic.flags		= QMF_PULSEIFFOCUS|QMF_SMALLFONT;
+	s_preferences.bigheadmode.generic.callback	= Preferences_Event;
+	s_preferences.bigheadmode.generic.id		= ID_BIGHEADMODE;
+	s_preferences.bigheadmode.generic.x			= PREFERENCES_X_POS;
+	s_preferences.bigheadmode.generic.y			= y;
+
+	y += BIGCHAR_HEIGHT+2;
 	s_preferences.disablescripts.generic.type		= MTYPE_RADIOBUTTON;
 	s_preferences.disablescripts.generic.name		= "Disable auto script execution:";
 	s_preferences.disablescripts.generic.flags		= QMF_PULSEIFFOCUS|QMF_SMALLFONT;
@@ -346,6 +378,8 @@ static void Preferences_MenuInit( void ) {
 	Menu_AddItem( &s_preferences.menu, &s_preferences.synceveryframe );
 	Menu_AddItem( &s_preferences.menu, &s_preferences.forcemodel );
 	Menu_AddItem( &s_preferences.menu, &s_preferences.subtitles );
+	Menu_AddItem( &s_preferences.menu, &s_preferences.paintballmode );
+	Menu_AddItem( &s_preferences.menu, &s_preferences.bigheadmode );
 	Menu_AddItem( &s_preferences.menu, &s_preferences.disablescripts );
 
 	Menu_AddItem( &s_preferences.menu, &s_preferences.back );

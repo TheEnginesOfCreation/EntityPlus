@@ -1264,7 +1264,6 @@ highscores_t COM_LoadLevelScores( char *levelname ) {
 				highScores.highscores[i].carnageScore = atoi(Info_ValueForKey(buf, va("%i%s", i, SIK_CARNAGESCORE)));
 				highScores.highscores[i].deaths = atoi(Info_ValueForKey(buf, va("%i%s", i, SIK_DEATHS)));
 				highScores.highscores[i].deathsScore = atoi(Info_ValueForKey(buf, va("%i%s", i, SIK_DEATHSSCORE)));
-				highScores.highscores[i].mutators = atoi(Info_ValueForKey(buf, va("%i%s", i, SIK_MUTATORS)));
 				highScores.highscores[i].secretsCount = atoi(Info_ValueForKey(buf, va("%i%s", i, SIK_SECRETSCOUNT)));
 				highScores.highscores[i].secretsFound = atoi(Info_ValueForKey(buf, va("%i%s", i, SIK_SECRETSFOUND)));
 				highScores.highscores[i].secretsScore = atoi(Info_ValueForKey(buf, va("%i%s", i, SIK_SECRETSSCORE)));
@@ -1278,7 +1277,6 @@ highscores_t COM_LoadLevelScores( char *levelname ) {
 				highScores.highscores[i].carnageScore = 0;
 				highScores.highscores[i].deaths = 0;
 				highScores.highscores[i].deathsScore = 0;
-				highScores.highscores[i].mutators = 0;
 				highScores.highscores[i].secretsCount = 0;
 				highScores.highscores[i].secretsFound = 0;
 				highScores.highscores[i].secretsScore = 0;
@@ -1296,7 +1294,6 @@ highscores_t COM_LoadLevelScores( char *levelname ) {
 			highScores.highscores[i].carnageScore = 0;
 			highScores.highscores[i].deaths = 0;
 			highScores.highscores[i].deathsScore = 0;
-			highScores.highscores[i].mutators = 0;
 			highScores.highscores[i].secretsCount = 0;
 			highScores.highscores[i].secretsFound = 0;
 			highScores.highscores[i].secretsScore = 0;
@@ -1355,7 +1352,6 @@ void COM_WriteLevelScores( char *levelname, playerscore_t scores ) {
 	newHighScores.highscores[newPos].carnageScore = scores.carnageScore;
 	newHighScores.highscores[newPos].deaths = scores.deaths;
 	newHighScores.highscores[newPos].deathsScore = scores.deathsScore;
-	newHighScores.highscores[newPos].mutators = scores.mutators;
 	newHighScores.highscores[newPos].secretsCount = scores.secretsCount;
 	newHighScores.highscores[newPos].secretsFound = scores.secretsFound;
 	newHighScores.highscores[newPos].secretsScore = scores.secretsScore;
@@ -1372,7 +1368,6 @@ void COM_WriteLevelScores( char *levelname, playerscore_t scores ) {
 			newHighScores.highscores[i].carnageScore = highScores.highscores[i-1].carnageScore;
 			newHighScores.highscores[i].deaths = highScores.highscores[i-1].deaths;
 			newHighScores.highscores[i].deathsScore = highScores.highscores[i-1].deathsScore;
-			newHighScores.highscores[i].mutators = highScores.highscores[i-1].mutators;
 			newHighScores.highscores[i].secretsCount = highScores.highscores[i-1].secretsCount;
 			newHighScores.highscores[i].secretsFound = highScores.highscores[i-1].secretsFound;
 			newHighScores.highscores[i].secretsScore = highScores.highscores[i-1].secretsScore;
@@ -1406,7 +1401,6 @@ void COM_WriteLevelScores( char *levelname, playerscore_t scores ) {
 		Info_SetValueForKey(scoreInfo, va("%i%s", i, SIK_SKILLMODIFIER), va("%1.1f", newHighScores.highscores[i].skillModifier));
 		Info_SetValueForKey(scoreInfo, va("%i%s", i, SIK_SKILLSCORE), va("%i", newHighScores.highscores[i].skillScore));
 		Info_SetValueForKey(scoreInfo, va("%i%s", i, SIK_TOTALSCORE), va("%i", newHighScores.highscores[i].totalScore));
-		Info_SetValueForKey(scoreInfo, va("%i%s", i, SIK_MUTATORS), va("%i", newHighScores.highscores[i].mutators));
 	}
 
 	trap_FS_FOpenFile( filename, &f, FS_WRITE );
@@ -1457,23 +1451,14 @@ playerscore_t COM_CalculatePlayerScore(int persistant[MAX_PERSISTANT], int accur
 	//secrets
 	scores.secretsFound = persistant[PERS_SECRETS] & 0x7F;
 	scores.secretsCount = (persistant[PERS_SECRETS] >> 7) & 0x7F;
-	if ( mutators & MT_RESETSCOREAFTERDEATH )
-		scores.secretsScore = 0;
-	else
-		scores.secretsScore = (scores.secretsFound * SCORE_SECRET) * scores.carnageScore;
+	scores.secretsScore = (scores.secretsFound * SCORE_SECRET) * scores.carnageScore;
 
 	//deaths
 	scores.deaths = persistant[PERS_KILLED];
-	if ( mutators & MT_RESETSCOREAFTERDEATH )
-		scores.deathsScore = 0;
-	else
-		scores.deathsScore = 0 - ((scores.deaths * SCORE_DEATH) * scores.carnageScore);
+	scores.deathsScore = 0 - ((scores.deaths * SCORE_DEATH) * scores.carnageScore);
 
 	//total score
 	scores.totalScore = scores.carnageScore + scores.accuracyScore + scores.skillScore + scores.secretsScore + scores.deathsScore ;
-
-	//enabled mutators
-	scores.mutators = mutators;
 
 	//debug scores
 	trap_Cvar_VariableStringBuffer( "g_debugScore", var, sizeof( var ) );
