@@ -2192,12 +2192,6 @@ void CG_Player( centity_t *cent ) {
 	legs.hModel = ci->legsModel;
 	legs.customSkin = ci->legsSkin;
 
-	//death shader on legs
-	if ( cent->currentState.eFlags & EF_DEAD ) {
-		//legs.customShader = cgs.media.deadBotShader;
-		//legs.shaderTime = cent->currentState.time;
-	}
-
 	VectorCopy( cent->lerpOrigin, legs.origin );
 
 	VectorCopy( cent->lerpOrigin, legs.lightingOrigin );
@@ -2232,12 +2226,6 @@ void CG_Player( centity_t *cent ) {
 
 	torso.customSkin = ci->torsoSkin;
 	
-	//death shader on torso
-	if ( cent->currentState.eFlags & EF_DEAD ) {
-		//torso.customShader = cgs.media.deadBotShader;
-		//torso.shaderTime = cent->currentState.time;
-	}
-
 	VectorCopy( cent->lerpOrigin, torso.lightingOrigin );
 
 	CG_PositionRotatedEntityOnTag( &torso, &legs, ci->legsModel, "tag_torso");
@@ -2256,12 +2244,6 @@ void CG_Player( centity_t *cent ) {
 	}
 	head.customSkin = ci->headSkin;
 
-	//death shader on head
-	if ( cent->currentState.eFlags & EF_DEAD ) {
-		//head.customShader = cgs.media.deadBotShader;
-		//head.shaderTime = cent->currentState.time;
-	}
-	
 	VectorCopy( cent->lerpOrigin, head.lightingOrigin );
 
 	if ( cg_bigheadMode.integer ) {

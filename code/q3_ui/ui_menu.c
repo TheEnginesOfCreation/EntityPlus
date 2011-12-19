@@ -23,7 +23,14 @@ MAIN MENU
 #define MAIN_MENU_OVERLAY_WIDTH		256
 #define MAIN_MENU_VERTICAL_SPACING	34
 #define MAIN_MENU_MARGIN_RIGHT		32
-#define MAIN_MENU_MARGIN_TOP		294
+#define MAIN_MENU_MARGIN_TOP		310
+
+#define YAW_OFFSET_TIME				15000					//amount of time in ms for logo to do full yaw offset rotation
+#define YAW_OFFSET_DIST				10						//number of degrees a full yaw offset rotation spans
+#define YAW_OFFSET_HALF				YAW_OFFSET_DIST / 2		//distance the yaw offset will be from the neutral (centered) position
+#define PITCH_OFFSET_TIME			20000
+#define PITCH_OFFSET_DIST			32
+#define PITCH_OFFSET_HALF			PITCH_OFFSET_DIST / 2
 
 
 
@@ -130,8 +137,9 @@ static void Main_MenuDraw( void ) {
 	vec3_t			origin;	
 	vec3_t			angles;
 	float			x, y, w, h;
-	//qtime_t tm;
-	//int seed;
+	float			yawoffset, pitchoffset;
+	//qtime_t			tm;
+	//int				seed;
 
 	if (strlen(s_errorMessage.errorMessage))
 	{
@@ -172,7 +180,24 @@ static void Main_MenuDraw( void ) {
 
 		memset( &ent, 0, sizeof(ent) );
 
-		VectorSet( angles, 15, 210, 5 );
+		//calculate yaw offset
+		yawoffset = uis.realtime % YAW_OFFSET_TIME;
+		yawoffset = YAW_OFFSET_DIST * (yawoffset / YAW_OFFSET_TIME);
+		if (yawoffset < YAW_OFFSET_HALF)
+			yawoffset = 0 - (YAW_OFFSET_HALF - yawoffset);
+		else
+			yawoffset = YAW_OFFSET_HALF - yawoffset;
+
+		//calculate pitch offset
+		pitchoffset = uis.realtime % PITCH_OFFSET_TIME;
+		pitchoffset = PITCH_OFFSET_DIST * (pitchoffset / PITCH_OFFSET_TIME);
+		if (pitchoffset < PITCH_OFFSET_HALF)
+			pitchoffset = 0 - (PITCH_OFFSET_HALF - pitchoffset);
+		else
+			pitchoffset = PITCH_OFFSET_HALF - pitchoffset;
+
+
+		VectorSet( angles, 15 - pitchoffset, 210 - yawoffset, 5 );
 		AnglesToAxis( angles, ent.axis );
 		ent.hModel = s_main.logoModel;
 		VectorCopy( origin, ent.origin );
@@ -185,7 +210,6 @@ static void Main_MenuDraw( void ) {
 		trap_R_RenderScene( &refdef );
 
 		/*
-		//determine delay until next lighting strike
 		if ( t == 270 ) {
 			trap_RealTime(&tm);
 			seed = 1;
@@ -258,7 +282,7 @@ void UI_MainMenu( void ) {
 	s_main.overlay.generic.name		= ART_OVERLAY;
 	s_main.overlay.generic.flags	= QMF_INACTIVE;
 	s_main.overlay.generic.x		= overlayX;
-	s_main.overlay.generic.y		= y - 64;//y - 48;
+	s_main.overlay.generic.y		= y - 48;
 	s_main.overlay.width  			= MAIN_MENU_OVERLAY_WIDTH;
 	s_main.overlay.height			= MAIN_MENU_OVERLAY_WIDTH;
 

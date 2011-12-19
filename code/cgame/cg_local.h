@@ -883,9 +883,6 @@ typedef struct {
 	// death view image
 	qhandle_t	deathImage;
 
-	// bot death shader
-	qhandle_t	deadBotShader;
-
 	// medals shown during gameplay
 	qhandle_t	medalImpressive;
 	qhandle_t	medalExcellent;

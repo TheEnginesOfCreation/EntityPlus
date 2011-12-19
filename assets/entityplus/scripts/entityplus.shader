@@ -15,21 +15,6 @@ textures/common/ladderclip
 
 
 //
-// DEAD BOT
-//
-
-models/players/deadbot
-{
-	{
-		map models/players/deadbot.tga
-		blendFunc blend
-		tcMod turb 0 .5 0 .125
-		AlphaGen wave sin 0 1 .75 .1
-    }
-}
-
-
-//
 // ITEM_ARMOR_VEST
 //
 
@@ -524,7 +509,7 @@ menu/backgrounds/01
 	{
 		map menu/backgrounds/02.tga
 		blendFunc blend
-		AlphaGen wave sin 0 1 0.5 .1
+		alphaGen wave sin 0 1 0.5 .1
 	}
 	//{
 	//	map menu/art/logo2.tga
@@ -553,6 +538,12 @@ models/entplus/logo/materials/plusg
 		blendFunc blend
 		rgbGen const ( 1 1 1 ) 
 	}
+	{
+		map models/entplus/logo/materials/noise.tga
+		blendfunc add
+		rgbgen wave triangle .5 .05 0 10
+		tcmod scroll 5 .25 
+	}	
 }
 models/entplus/logo/materials/plusw
 {
