@@ -10,7 +10,6 @@
 
 #define ID_MACHINEGUNONLY		MT_MACHINEGUNONLY
 #define ID_INSTAGIB				MT_INSTAGIB
-#define	ID_RESETSCOREAFTERDEATH	MT_RESETSCOREAFTERDEATH
 
 #define ID_BACK					99
 
@@ -35,7 +34,6 @@ static void Mutators_SetMenuItems( void ) {
 
 	s_mutators.machinegunonly.curvalue = (value & MT_MACHINEGUNONLY) != 0;
 	s_mutators.instagib.curvalue = (value & MT_INSTAGIB) != 0;
-	s_mutators.resetscoreafterdeath.curvalue = (value & MT_RESETSCOREAFTERDEATH) != 0;
 }
 
 static void Mutators_UpdateCvar( int id ) {
@@ -133,16 +131,6 @@ static void Mutators_MenuInit( void ) {
 	s_mutators.instagib.generic.x			= MUTATORS_X_POS;
 	s_mutators.instagib.generic.y			= y;
 
-	//reset score after death
-	y += BIGCHAR_HEIGHT;
-	s_mutators.resetscoreafterdeath.generic.type		= MTYPE_RADIOBUTTON;
-	s_mutators.resetscoreafterdeath.generic.name		= "Reset score after death:";
-	s_mutators.resetscoreafterdeath.generic.flags		= QMF_PULSEIFFOCUS|QMF_SMALLFONT;
-	s_mutators.resetscoreafterdeath.generic.callback	= Mutators_Event;
-	s_mutators.resetscoreafterdeath.generic.id			= ID_RESETSCOREAFTERDEATH;
-	s_mutators.resetscoreafterdeath.generic.x			= MUTATORS_X_POS;
-	s_mutators.resetscoreafterdeath.generic.y			= y;
-
 	s_mutators.back.generic.type		= MTYPE_BITMAP;
 	s_mutators.back.generic.name		= ART_BACK0;
 	s_mutators.back.generic.flags		= QMF_LEFT_JUSTIFY|QMF_PULSEIFFOCUS;
@@ -160,7 +148,6 @@ static void Mutators_MenuInit( void ) {
 	
 	Menu_AddItem( &s_mutators.menu, &s_mutators.machinegunonly );
 	Menu_AddItem( &s_mutators.menu, &s_mutators.instagib );
-	Menu_AddItem( &s_mutators.menu, &s_mutators.resetscoreafterdeath );
 	Menu_AddItem( &s_mutators.menu, &s_mutators.back );
 
 	Mutators_SetMenuItems();
