@@ -70,7 +70,7 @@ cr_line credits[] = { // edit this as necessary for your credits
 { "Objectives overlay art", UI_CENTER|UI_BIGFONT, &color_ochre },
 { "Noruen", UI_CENTER|UI_SMALLFONT, &color_white },
 { "", UI_CENTER|UI_SMALLFONT, &color_blue },
-{ "Main menu art", UI_CENTER|UI_BIGFONT, &color_ochre },
+{ "Main menu art and logo", UI_CENTER|UI_BIGFONT, &color_ochre },
 { "Obsidian", UI_CENTER|UI_SMALLFONT, &color_white },
 { "", UI_CENTER|UI_SMALLFONT, &color_blue },
 { "Testing & Feedback", UI_CENTER|UI_BIGFONT, &color_ochre },
