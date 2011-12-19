@@ -2,6 +2,74 @@
 
 For an overview of all features in !EntityPlus, download the level designer manual here: https://code.google.com/p/entityplus/downloads/list
 
+==Additional info about the 1.1 release==
+
+  * `[`Added] "cg_paintballMode" and "cg_bigheadMode" cvars
+  * `[`Added] Top 5 of scores are saved now instead of just the high score and viewable through scores menu.
+  * `[`Added] target_botremove entity.
+  * `[`Added] target_music entity.
+  * `[`Added] "dmg" and "radius" keys to func_breakable.
+  * `[`Added] "breaksound" key to func_breakable.
+  * `[`Added] func_breakable entities can be targeted and will break upon activation.
+  * `[`Added] "startsound" and "endsound" keys to func_train.
+  * `[`Added] "nobots" and "nohumans" keys to func_door and func_door_rotating.
+  * `[`Added] "FADE" spawnflag and "startcolor", "endcolor" and "wait" keys for target_effect.
+  * `[`Added] "ONCE" spawnflag to target_relay.
+  * `[`Added] "WP_GAUNTLET" spawnflag to target_botspawns. Botspawns without this spawnflag now spawn bots without Gauntlet.
+  * `[`Added] "lockedsound" and "unlockedsound" keys to trigger_lock.
+  * `[`Added] "fov" key to info_camera.
+  * `[`Added] "NO_BOTS" and "NO_HUMANS" spawnflags to all shooter_* entities.
+  * `[`Added] "SILENT" spawnflag to all item pickup (item_*, weapon_*, holdable_*, ammo_*) entities.
+  * `[`Added] "objectivesoverlay" key to worldspawn entity.
+  * `[`Added] "enablebreath" and "enabledust" keys to worldspawn entity.
+  * `[`Added] "position" console command to get current player position coordinates.
+  * `[`Added] "g_debugVariables", "g_debugBotspawns" and "g_debugScore" cvars.
+  * `[`Added] "g_disableCutscenes" cvar.
+  * `[`Added] "g_disableScripts" cvar.
+  * `[`Added] "g_enableBreath" and "g_enableDust" cvars.
+  * `[`Added] Support for longname, author and description through arena files.
+  * `[`Added] "Loading..." text and icon is displayed when map is loading.
+  * `[`Fixed] target_unlink does not work on func_bobbing entities.
+  * `[`Fixed] Bots get stuck in each other when they should be telefragged.
+  * `[`Fixed] Lightning gun, Railgun and BFG idle sounds continue playing during cutscenes.
+  * `[`Fixed] Shooting the machinegun into the void (in a leaked map) crashes the game.
+  * `[`Fixed] Music is audible for a short time when s_musicvolume is set to 0 and death screen or end-game scoreboard is shown.
+  * `[`Fixed] Menu item mouseover sound effect is played when mouse is moved over "EntityPlus" title in main menu.
+  * `[`Changed] Removed all gametypes from the game. Setting g_gametype to 8 is no longer necessary.
+  * `[`Changed] Scores are calculated differently.
+  * `[`Changed] End-game scoreboard specifies accuracy bonus and skill bonus seperately now.
+  * `[`Changed] New stylized icon for backpack.
+  * `[`Changed] Particles from target_effect are slightly bigger now so they are better visible.
+  * `[`Changed] Bodies of dead bots sink into the floor and no longer pop out of existence.
+  * `[`Changed] Increased max ammo amount for all weapons from 200 to 999.
+  * `[`Changed] Cameras now take shortest yaw and roll paths.
+  * `[`Changed] "setviewpos" console command no longer applies teleporter kick and allows setting of pitch, yaw and roll as well.
+  * `[`Changed] Value of "cg_marks" determines how long wallmarks stay.
+  * `[`Changed] "g_listEntity" is now cheat protected, accepts a value of 2 to only list in-use entity slots and prints out in-use entity count.
+  * `[`Changed] Allowed the use of cg_drawTimer again when cheats are enabled. Timer also displays milliseconds.
+  * `[`Changed] Objectives text in objectives overlay automatically wraps to next line without breaking words.
+  * `[`Changed] All debris related spawnflags on target_debrisemitter and func_breakable are now named DEBRIS_[type].
+  * `[`Changed] New main menu artwork.
+
+
+Most important changes:
+
+*It is no longer necessary to run EntityPlus maps in g_gametype 8*
+The g_gametype cvar is completely ignored now.
+
+*New scoring system*
+The calculation of high scores has changed, so all previous scores are ignored and the scoring starts from scratch. The mod does save a top 5 of scores now.
+
+*Paintball mode and Big Head mode*
+Paintball mode makes the gun shoot colorful blobs of paint. In big head mode, all enemies have really, _really_ large heads.
+
+*WP_GAUNTLET spawnflag for botspawns*
+Botspawns without any spawnflags will now spawn bots without any weapons. Use the WP_GAUNTLET spawnflag to make them spawn with a gauntlet.
+
+*objectives overlay can be changed in worldspawn*
+The graphics that should be used for the objectives overlay can be specified individually for each map. If no graphics are specified, the default graphics will be used.
+
+
 
 ==Additional info about the 1.0 release==
 
