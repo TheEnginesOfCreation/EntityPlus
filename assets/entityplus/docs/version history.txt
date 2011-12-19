@@ -1,4 +1,4 @@
-v1.1 (?? ??? 2011)
+v1.1 (19 dec 2011)
 	- [Added] "cg_paintballMode" and "cg_bigheadMode" cvars
 	- [Added] Top 5 of scores are saved now instead of just the high score and viewable through scores menu.
 	- [Added] target_botremove entity.
