@@ -659,22 +659,25 @@ void Use_BinaryMover( gentity_t *ent, gentity_t *other, gentity_t *activator ) {
 	int		total;
 	int		partial;
 
-	if ( (ent->flags & FL_NO_HUMANS) && !IsBot( activator ) )
+	if ( (ent->flags & FL_NO_HUMANS) && !IsBot( activator ) ) {
 		return;
+	}
 
-	if ( (ent->flags & FL_NO_BOTS) && IsBot( activator ) )
-		return;
+	if ( (ent->flags & FL_NO_BOTS) && IsBot( activator ) ) {
+		if ( strcmp(G_GetScoringMapName(), "krep1") )	//krep1 map incorrectly uses the nobots key. See http://quake3world.com/forum/viewtopic.php?p=890557#p890557
+			return;
+	}
 
 	// only the master should be used
 	if ( ent->flags & FL_TEAMSLAVE ) {
 		Use_BinaryMover( ent->teammaster, other, activator );
 		return;
 	}
-
+	
 	ent->activator = activator;
 
 	if ( ent->moverState == MOVER_POS1 ) {
-		// start moving 50 msec later, becase if this was player
+		// start moving 50 msec later, because if this was player
 		// triggered, level.time hasn't been advanced yet
 		MatchTeam( ent, MOVER_1TO2, level.time + 50 );
 
