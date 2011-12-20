@@ -1,3 +1,6 @@
+v1.1.1 (20 dec 2011)
+	- [Fixed] Invisible doors do not open anymore in krep1 map.
+
 v1.1 (19 dec 2011)
 	- [Added] "cg_paintballMode" and "cg_bigheadMode" cvars
 	- [Added] Top 5 of scores are saved now instead of just the high score and viewable through scores menu.
