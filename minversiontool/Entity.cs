@@ -40,6 +40,14 @@ namespace mvt
 				}
 			}
 		}
+
+		public string Classname
+		{
+			get
+			{
+				return GetValue("classname");
+			}
+		}
 		#endregion
 
 
