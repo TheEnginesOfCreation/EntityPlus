@@ -302,7 +302,7 @@ int BotGetPatrolWaypoints(bot_state_t *bs, bot_match_t *match) {
 			return qfalse;
 		}
 		//create a new waypoint
-		newwp = BotCreateWayPoint(keyarea, goal.origin, goal.areanum);
+		newwp = BotCreateWayPoint(keyarea, goal.origin, 0, goal.areanum);
 		if (!newwp)
 			break;
 		//add the waypoint to the patrol points
@@ -935,7 +935,7 @@ void BotMatch_CheckPoint(bot_state_t *bs, bot_match_t *match) {
 		cp->inuse = qfalse;
 	}
 	//create a new check point
-	cp = BotCreateWayPoint(buf, position, areanum);
+	cp = BotCreateWayPoint(buf, position, 0, areanum);
 	//add the check point to the bot's known chech points
 	cp->next = bs->checkpoints;
 	if (bs->checkpoints) bs->checkpoints->prev = cp;

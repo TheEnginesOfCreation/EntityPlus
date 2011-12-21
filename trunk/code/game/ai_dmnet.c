@@ -676,6 +676,18 @@ int BotGetLongTermGoal(bot_state_t *bs, int tfl, int retreat, bot_goal_t *goal) 
 		}
 		//if the bot touches the current goal
 		if (trap_BotTouchingGoal(bs->origin, &bs->curpatrolpoint->goal)) {
+			
+			//if bot should wait at current waypoint (will break away when shot at)
+			if (bs->curpatrolpoint->wait) {
+				if (!bs->curpatrolpoint->stoptime) {
+					bs->curpatrolpoint->stoptime = level.time;
+				}
+
+				if (bs->curpatrolpoint->wait == -1000 || level.time < bs->curpatrolpoint->stoptime + bs->curpatrolpoint->wait)
+					return qfalse;
+			}
+			
+			bs->curpatrolpoint->stoptime = 0;
 			if (bs->patrolflags & PATROL_LOOP) {
 				if (bs->curpatrolpoint->next)
 					bs->curpatrolpoint = bs->curpatrolpoint->next;
