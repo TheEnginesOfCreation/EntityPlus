@@ -918,7 +918,7 @@ qboolean BotInLavaOrSlime(bot_state_t *bs) {
 BotCreateWayPoint
 ==================
 */
-bot_waypoint_t *BotCreateWayPoint(char *name, vec3_t origin, int areanum) {
+bot_waypoint_t *BotCreateWayPoint(char *name, vec3_t origin, float wait, int areanum) {
 	bot_waypoint_t *wp;
 	vec3_t waypointmins = {-8, -8, -8}, waypointmaxs = {8, 8, 8};
 
@@ -934,6 +934,7 @@ bot_waypoint_t *BotCreateWayPoint(char *name, vec3_t origin, int areanum) {
 	VectorCopy(waypointmins, wp->goal.mins);
 	VectorCopy(waypointmaxs, wp->goal.maxs);
 	wp->goal.areanum = areanum;
+	wp->wait = wait * 1000;
 	wp->next = NULL;
 	wp->prev = NULL;
 	return wp;

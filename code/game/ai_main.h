@@ -75,6 +75,8 @@ typedef struct bot_waypoint_s
 	int			inuse;
 	char		name[32];
 	bot_goal_t	goal;
+	float		wait;
+	int			stoptime;			//time at which bot stopped moving at waypoint
 	struct		bot_waypoint_s *next, *prev;
 } bot_waypoint_t;
 

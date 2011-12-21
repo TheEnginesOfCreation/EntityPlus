@@ -932,6 +932,7 @@ Bot patrolling waypoint.
 -------- KEYS --------
 target : point at another info_waypoint to chain waypoints together
 targetname : target another info_waypoint or a target_botspawn entity at this to make a bot move to this waypoint after reaching the previous waypoint or spawning.
+wait : number of seconds bot will wait at waypoint before moving on. -1 will make the bot wait indefinitely. When attacked, the bot will still break free and return fire (default 0).
 -------- NOTES --------
 Waypoints can be chained together to form a path. A bot that's spawned at a target_botspawn that targets a waypoint which is part of the path will walk along this path. It is possible to make circular paths. When paths aren't circular, the bot will move up and down the path.*/
 

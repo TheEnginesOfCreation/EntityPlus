@@ -1109,7 +1109,7 @@ void BotInitPatrolPoints(bot_state_t* bs, char* target)
 		}
 
 		// alloc waypoint
-		newWP = BotCreateWayPoint("", curWpEnt->s.origin, wpArea);
+		newWP = BotCreateWayPoint("", curWpEnt->s.origin, curWpEnt->wait, wpArea);
 		if( !newWP ) continue;
 		
 		// add to bot's list

@@ -115,7 +115,7 @@ int BotGetAlternateRouteGoal(bot_state_t *bs, int base);
 //returns either the alternate route goal or the given goal
 bot_goal_t *BotAlternateRoute(bot_state_t *bs, bot_goal_t *goal);
 //create a new waypoint
-bot_waypoint_t *BotCreateWayPoint(char *name, vec3_t origin, int areanum);
+bot_waypoint_t *BotCreateWayPoint(char *name, vec3_t origin, float wait, int areanum);
 //find a waypoint with the given name
 bot_waypoint_t *BotFindWayPoint(bot_waypoint_t *waypoints, char *name);
 //strstr but case insensitive
