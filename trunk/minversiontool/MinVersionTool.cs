@@ -42,6 +42,7 @@ namespace mvt
 			UnableToDetect = 0,
 			one_zero = 1,
 			one_one = 2,
+			one_two = 3
 		}
 
 		/// <summary>List of strings for supported EntityPlus versions</summary>
@@ -49,7 +50,8 @@ namespace mvt
 		{
 			"Unable to determine due to unknown entity classnames.",
 			"1.0",
-			"1.1"
+			"1.1",
+			"1.2"
 		};
 
 		/// <summary>A list of all the known entity classnames</summary>
@@ -248,8 +250,8 @@ namespace mvt
 			}
 
 			//Checking for v1.2 requirements
-			//if (IsVersion12(ent))
-			//	return Versions.one_two;
+			if (HasVersion12Keys(ent))
+				return Versions.one_two;
 
 			//Checking for v1.1 requirements
 			if (HasVersion11Keys(ent) || HasVersion11Targets(ent))
@@ -346,12 +348,30 @@ namespace mvt
 
 
 		#region Version checking methods
+		private bool HasVersion12Keys(Entity ent)
+		{
+			bool result = false;
+			string versionString = VersionsStrings[(int)Versions.one_two];
+
+			switch (ent.Classname)
+			{
+				case "info_waypoint":
+					if (!String.IsNullOrEmpty(ent.GetValue("wait")) && ent.GetValue("wait") != "0")
+					{
+						Debug(" > use of \"wait\" key requires " + versionString);
+						result = true;
+					}
+					break;
+			}
+
+			return result;
+		}
+
 		private bool HasVersion11Keys(Entity ent)
 		{
 			bool result = false;
 			string versionString = VersionsStrings[(int)Versions.one_one];
-			string classname = ent.GetValue("classname");
-			switch (classname)
+			switch (ent.Classname)
 			{
 				case "target_relay":
 					if ((ent.Spawnflags & 8) != 0)
@@ -501,10 +521,10 @@ namespace mvt
 			}
 
 			if (
-				classname.IndexOf("item_") == 0 ||
-				classname.IndexOf("ammo_") == 0 ||
-				classname.IndexOf("weapon_") == 0 ||
-				classname.IndexOf("holdable_") == 0
+				ent.Classname.IndexOf("item_") == 0 ||
+				ent.Classname.IndexOf("ammo_") == 0 ||
+				ent.Classname.IndexOf("weapon_") == 0 ||
+				ent.Classname.IndexOf("holdable_") == 0
 			)
 			{
 				if ((ent.Spawnflags & 2) != 0)
