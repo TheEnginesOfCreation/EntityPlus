@@ -1468,7 +1468,7 @@ playerscore_t COM_CalculatePlayerScore(int persistant[MAX_PERSISTANT], int accur
 		Com_Printf("---Score debug info---\n");
 		Com_Printf("Carnage  : %i\n", scores.carnageScore);
 		Com_Printf("Accuracy : %i (%i%%)\n", scores.accuracyScore, scores.accuracy);
-		Com_Printf("Skill    : %i (%1.1f)\n", scores.skillScore, scores.skillModifier);
+		Com_Printf("Skill    : %i (%1.0f%%)\n", scores.skillScore, scores.skillModifier * 100);
 		Com_Printf("Secrets  : %i (%i)\n", scores.secretsScore, scores.secretsFound);
 		Com_Printf("Deaths   : %i (%ix)\n", scores.deathsScore, scores.deaths);
 		Com_Printf("Total    : %i\n", scores.totalScore);
