@@ -1,5 +1,8 @@
 v1.2 (? ? 2012)
 	- [Added] "wait" key on info_waypoint makes bots wait at that waypoint.
+	- [Fixed] Secrets and accuracy are lost when transitioning maps.
+	- [Fixed] Highscore is written to file with incorrect filename after transitioning maps.
+	- [Fixed] "g_debugScores" shows incorrect multiplier for skill bonus.
 
 v1.1.1 (20 dec 2011)
 	- [Fixed] Invisible doors do not open anymore in krep1 map.

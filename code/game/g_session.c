@@ -23,8 +23,9 @@ Called on game shutdown
 void G_WriteClientSessionData( gclient_t *client ) {
 	const char	*s;
 	const char	*var;
+	const char	*var2;
 
-	s = va("%i %i %i %i %i %i %i %i %i %i %i %i %i %i %i %i %i %i %i %i %i %i %s %i %i %i", 
+	s = va("%i %i %i %i %i %i %i %i %i %i %i %i %i %i %i %i %i %i %i %i %i %i %i %i %i", 
 		client->sess.sessionTeam,
 		client->sess.spectatorTime,
 		client->sess.spectatorState,
@@ -47,15 +48,17 @@ void G_WriteClientSessionData( gclient_t *client ) {
 		client->sess.sessionHoldable,
 		client->sess.carnageScore,
 		client->sess.deaths,
-		client->sess.scoreLevelName,
 		client->sess.secrets,
 		client->sess.accuracyShots,
 		client->sess.accuracyHits
 		);
 
 	var = va( "session%i", client - level.clients );
-
 	trap_Cvar_Set( var, s );
+
+	//set score level name
+	var2 = va ( "session%i_lvl", client - level.clients );
+	trap_Cvar_Set( var2, client->sess.scoreLevelName );
 }
 
 /*
@@ -68,6 +71,7 @@ Called on a reconnect
 void G_ReadSessionData( gclient_t *client ) {
 	char	s[MAX_STRING_CHARS];
 	const char	*var;
+	const char	*var2;
 
 	// bk001205 - format
 	int teamLeader;
@@ -77,7 +81,7 @@ void G_ReadSessionData( gclient_t *client ) {
 	var = va( "session%i", client - level.clients );
 	trap_Cvar_VariableStringBuffer( var, s, sizeof(s) );
 
-	sscanf( s, "%i %i %i %i %i %i %i %i %i %i %i %i %i %i %i %i %i %i %i %i %i %i %s %i %i %i",
+	sscanf( s, "%i %i %i %i %i %i %i %i %i %i %i %i %i %i %i %i %i %i %i %i %i %i %i %i %i",
 		&sessionTeam,                 // bk010221 - format
 		&client->sess.spectatorTime,
 		&spectatorState,              // bk010221 - format
@@ -100,7 +104,6 @@ void G_ReadSessionData( gclient_t *client ) {
 		&client->sess.sessionHoldable,
 		&client->sess.carnageScore,
 		&client->sess.deaths,
-		&client->sess.scoreLevelName,
 		&client->sess.secrets,
 		&client->sess.accuracyShots,
 		&client->sess.accuracyHits
@@ -110,6 +113,11 @@ void G_ReadSessionData( gclient_t *client ) {
 	client->sess.sessionTeam = (team_t)sessionTeam;
 	client->sess.spectatorState = (spectatorState_t)spectatorState;
 	client->sess.teamLeader = (qboolean)teamLeader;
+
+	// read score level name
+	var2 = va ( "session%i_lvl", client - level.clients );
+	trap_Cvar_VariableStringBuffer( var2, client->sess.scoreLevelName, sizeof(client->sess.scoreLevelName) );
+	Com_Printf("SCORELEVELNAME: %s\n", client->sess.scoreLevelName);
 }
 
 
