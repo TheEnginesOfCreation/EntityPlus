@@ -1,4 +1,4 @@
-v1.2 (? ? 2012)
+v1.1.2 (26 dec 2012)
 	- [Added] "wait" key on info_waypoint makes bots wait at that waypoint.
 	- [Fixed] Secrets and accuracy are lost when transitioning maps.
 	- [Fixed] Highscore is written to file with incorrect filename after transitioning maps.

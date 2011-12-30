@@ -1,5 +1,5 @@
 ENTITYPLUS 
-version 1.1.1
+version 1.1.2
 -------------
 
 EntityPlus is a Quake III Arena mod that is aimed at expanding the toolset for Quake III Arena map makers.
