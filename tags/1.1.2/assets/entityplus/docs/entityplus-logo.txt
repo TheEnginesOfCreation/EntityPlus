@@ -1,0 +1,11 @@
+ENTITY PLUS LOGO MODEL (ALPHA)
+By Obsidian @ RobotRenegade.com
+
+Logo for Entity Plus mod menu system for Quake 3 Arena.
+
+
+
+VERSION HISTORY:
+
+0.01a (2011-12-13)
+- Alpha stand-in model for testing purposes.
