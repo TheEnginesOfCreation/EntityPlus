@@ -42,7 +42,7 @@ namespace mvt
 			UnableToDetect = 0,
 			one_zero = 1,
 			one_one = 2,
-			one_two = 3
+			one_one_two = 3
 		}
 
 		/// <summary>List of strings for supported EntityPlus versions</summary>
@@ -51,7 +51,7 @@ namespace mvt
 			"Unable to determine due to unknown entity classnames.",
 			"1.0",
 			"1.1",
-			"1.2"
+			"1.1.2"
 		};
 
 		/// <summary>A list of all the known entity classnames</summary>
@@ -249,9 +249,9 @@ namespace mvt
 				return Versions.UnableToDetect;
 			}
 
-			//Checking for v1.2 requirements
-			if (HasVersion12Keys(ent))
-				return Versions.one_two;
+			//Checking for v1.1.2 requirements
+			if (HasVersion112Keys(ent))
+				return Versions.one_one_two;
 
 			//Checking for v1.1 requirements
 			if (HasVersion11Keys(ent) || HasVersion11Targets(ent))
@@ -348,10 +348,10 @@ namespace mvt
 
 
 		#region Version checking methods
-		private bool HasVersion12Keys(Entity ent)
+		private bool HasVersion112Keys(Entity ent)
 		{
 			bool result = false;
-			string versionString = VersionsStrings[(int)Versions.one_two];
+			string versionString = VersionsStrings[(int)Versions.one_one_two];
 
 			switch (ent.Classname)
 			{
