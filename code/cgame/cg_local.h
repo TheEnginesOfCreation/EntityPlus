@@ -1109,6 +1109,7 @@ extern	markPoly_t		cg_markPolys[MAX_MARK_POLYS];
 
 extern	vmCvar_t		cg_centertime;
 extern	vmCvar_t		cg_drawsubtitles;
+extern	vmCvar_t		cg_drawSyncMessage;
 extern	vmCvar_t		cg_runpitch;
 extern	vmCvar_t		cg_runroll;
 extern	vmCvar_t		cg_bobup;

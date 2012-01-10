@@ -528,34 +528,13 @@ menu/art/loading
 //
 // MENU LOGO MODEL SHADERS
 //
-
+// Obsidian @ RobotRenegade.com 2011
 models/entplus/logo/materials/plusg
 {
 	cull none
-	surfaceparm trans
 	{
 		map models/entplus/logo/materials/plusg.tga
+		//alphaFunc GE128
 		blendFunc blend
-		rgbGen const ( 1 1 1 ) 
-	}
-	{
-		map models/entplus/logo/materials/noise.tga
-		blendfunc add
-		rgbgen wave triangle .5 .05 0 10
-		tcmod scroll 5 .25 
-	}	
-}
-models/entplus/logo/materials/plusw
-{
-	{
-		map models/entplus/logo/materials/plusw.tga
-		rgbGen const ( 1 1 1 )
-	}
-}
-models/entplus/logo/materials/text
-{
-	{
-		map models/entplus/logo/materials/text.tga
-		rgbGen const ( 1 1 1 )
 	}
 }
