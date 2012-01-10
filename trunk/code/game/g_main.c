@@ -1415,7 +1415,7 @@ void G_RunCutscene( int levelTime ) {
 
 	trap_GetConfigstring( CS_CUTSCENE, cutsceneData, sizeof(cutsceneData) );
 
-	doPan = atoi(Info_ValueForKey(cutsceneData, "n"));
+	doPan = atoi(Info_ValueForKey(cutsceneData, "m"));
 	start_time = atoi(Info_ValueForKey(cutsceneData, "t"));
 	wait = atof(Info_ValueForKey(cutsceneData, "w"));
 	newOrigin[0] = atof(Info_ValueForKey(cutsceneData, "o10"));
