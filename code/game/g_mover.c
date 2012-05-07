@@ -664,7 +664,7 @@ void Use_BinaryMover( gentity_t *ent, gentity_t *other, gentity_t *activator ) {
 	}
 
 	if ( (ent->flags & FL_NO_BOTS) && IsBot( activator ) ) {
-		if ( strcmp(G_GetScoringMapName(), "krep1") )	//krep1 map incorrectly uses the nobots key. See http://quake3world.com/forum/viewtopic.php?p=890557#p890557
+		if ( strcmp(G_GetScoringMapName(), "KREP1") )	//krep1 map incorrectly uses the nobots key. See http://quake3world.com/forum/viewtopic.php?p=890557#p890557
 			return;
 	}
 

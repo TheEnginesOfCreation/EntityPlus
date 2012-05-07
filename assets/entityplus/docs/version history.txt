@@ -1,6 +1,7 @@
-v1.1.3 (?? ??? 2012)
+v1.1.3 (?? may 2012)
 	- [Added] "g_drawSyncMessage" cvar.
 	- [Fixed] Server does not interpolate cutscene camera pan movements, allowing the camera to move outside the current VIS area.
+	- [Fixed] Invisible doors in krep1 still don't open when loading the map through the "new game" menu.
 	- [Changed] Updated menu logo.
 
 v1.1.2 (26 dec 2012)

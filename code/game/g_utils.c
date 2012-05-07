@@ -1096,13 +1096,20 @@ returns the bsp name of the map to which high scores should be written
 */
 char *G_GetScoringMapName() {
 	char info[1024];
+	char *result;
+	int i;
 
 	if ( strcmp( va("%s", level.scoreLevelName ), "" ) ) {
 		return level.scoreLevelName;
 	}
 
 	trap_GetServerinfo(info, sizeof(info));
-	return Info_ValueForKey( info, "mapname" );
+	result = Info_ValueForKey( info, "mapname" );
+
+	for (i = 0; i < strlen(result); i++)
+		result[i] = toupper(result[i]);
+
+	return result;
 }
 
 /*
