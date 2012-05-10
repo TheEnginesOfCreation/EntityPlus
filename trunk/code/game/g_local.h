@@ -780,6 +780,7 @@ extern	vmCvar_t	g_debugCameras;
 extern	vmCvar_t	g_debugScore;
 extern	vmCvar_t	g_debugVariables;
 extern	vmCvar_t	g_debugBotspawns;
+extern	vmCvar_t	g_allowSyncCutscene;
 extern	vmCvar_t	g_weaponRespawn;
 extern	vmCvar_t	g_weaponTeamRespawn;
 extern	vmCvar_t	g_synchronousClients;
