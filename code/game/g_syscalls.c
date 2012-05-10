@@ -352,11 +352,13 @@ int trap_AAS_PredictClientMovement(void /* struct aas_clientmove_s */ *move, int
 }
 
 void trap_EA_Say(int client, char *str) {
-	syscall( BOTLIB_EA_SAY, client, str );
+	//we don't want bots chatting in EntityPlus
+	//syscall( BOTLIB_EA_SAY, client, str );
 }
 
 void trap_EA_SayTeam(int client, char *str) {
-	syscall( BOTLIB_EA_SAY_TEAM, client, str );
+	//we don't want bots chatting in EntityPlus
+	//syscall( BOTLIB_EA_SAY_TEAM, client, str );
 }
 
 void trap_EA_Command(int client, char *command) {
@@ -373,7 +375,8 @@ void trap_EA_Gesture(int client) {
 }
 
 void trap_EA_Talk(int client) {
-	syscall( BOTLIB_EA_TALK, client );
+	//we don't want bots chatting in EntityPlus
+	//syscall( BOTLIB_EA_TALK, client );
 }
 
 void trap_EA_Attack(int client) {
@@ -513,7 +516,8 @@ int	trap_BotNumInitialChats(int chatstate, char *type) {
 }
 
 int trap_BotReplyChat(int chatstate, char *message, int mcontext, int vcontext, char *var0, char *var1, char *var2, char *var3, char *var4, char *var5, char *var6, char *var7 ) {
-	return syscall( BOTLIB_AI_REPLY_CHAT, chatstate, message, mcontext, vcontext, var0, var1, var2, var3, var4, var5, var6, var7 );
+	return qfalse;	//no chats in EntityPlus
+	//return syscall( BOTLIB_AI_REPLY_CHAT, chatstate, message, mcontext, vcontext, var0, var1, var2, var3, var4, var5, var6, var7 );
 }
 
 int trap_BotChatLength(int chatstate) {
