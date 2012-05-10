@@ -331,7 +331,9 @@ qboolean G_MoverPush( gentity_t *pusher, vec3_t move, vec3_t amove, gentity_t **
 
 		// bobbing entities are instant-kill and never get blocked
 		if ( pusher->s.pos.trType == TR_SINE || pusher->s.apos.trType == TR_SINE ) {
-			G_Damage( check, pusher, pusher, NULL, NULL, 99999, 0, MOD_CRUSH );
+			//only deal damage to player if not in a cutscene
+			if (check && (check->client->ps.pm_type != PM_CUTSCENE || IsBot(check)))
+				G_Damage( check, pusher, pusher, NULL, NULL, 99999, 0, MOD_CRUSH );
 			continue;
 		}
 
