@@ -121,6 +121,11 @@ void Think_Camera (gentity_t *self) {
 
 		//link the player back into the world
 		trap_LinkEntity( self->activator );
+
+		//enable synchronousClients if it was enabled before the cutscene kicked in. The skill field is abused to
+		//temporarily store the pre-cutscene value of g_synchronousclients
+		if (g_allowSyncCutscene.integer == 0)
+			trap_Cvar_Set("g_synchronousClients", va("%1.0f", self->activator->skill ));
 	}
 }
 

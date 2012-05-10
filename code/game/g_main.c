@@ -46,6 +46,7 @@ vmCvar_t	g_debugCameras;
 vmCvar_t	g_debugScore;
 vmCvar_t	g_debugVariables;
 vmCvar_t	g_debugBotspawns;
+vmCvar_t	g_allowSyncCutscene;
 vmCvar_t	g_weaponRespawn;
 vmCvar_t	g_weaponTeamRespawn;
 vmCvar_t	g_motd;
@@ -130,6 +131,7 @@ static cvarTable_t		gameCvarTable[] = {
 	{ &g_debugScore, "g_debugScore", "0", CVAR_ARCHIVE | CVAR_CHEAT, 0, qfalse },
 	{ &g_debugVariables, "g_debugVariables", "0", CVAR_ARCHIVE | CVAR_CHEAT, 0, qfalse },
 	{ &g_debugBotspawns, "g_debugBotspawns", "0", CVAR_ARCHIVE | CVAR_CHEAT, 0, qfalse },
+	{ &g_allowSyncCutscene, "g_allowSyncCutscene", "0", CVAR_ARCHIVE, 0, qfalse },
 	{ &g_motd, "g_motd", "", 0, 0, qfalse },
 	{ &g_blood, "com_blood", "1", 0, 0, qfalse },
 
@@ -1441,7 +1443,7 @@ void G_RunCutscene( int levelTime ) {
 		diff = destOrigin[2] - newOrigin[2];
 		newOrigin[2] += diff * progress;
 	}
-
+	
 	VectorCopy( newOrigin, level.player->client->ps.origin );
 }
 
