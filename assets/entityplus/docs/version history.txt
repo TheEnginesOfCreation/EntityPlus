@@ -1,4 +1,4 @@
-v1.1.3 (?? may 2012)
+v1.1.3 (11 may 2012)
 	- [Added] "g_drawSyncMessage" cvar.
 	- [Added] "g_allowSyncCutscene" cvar.
 	- [Fixed] Server does not interpolate cutscene camera pan movements, allowing the camera to move outside the current VIS area.
