@@ -339,7 +339,7 @@ int BotValidChatPosition(bot_state_t *bs) {
 
 	return qfalse;	//bots should never chat
 	
-
+/*
 	//if the bot is dead all positions are valid
 	if (BotIsDead(bs)) return qtrue;
 	//never start chatting with a powerup
@@ -368,6 +368,7 @@ int BotValidChatPosition(bot_state_t *bs) {
 	if (trace.ent != ENTITYNUM_WORLD) return qfalse;
 	//the bot is in a position where it can chat
 	return qtrue;
+*/
 }
 
 
