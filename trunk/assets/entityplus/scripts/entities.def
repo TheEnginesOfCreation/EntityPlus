@@ -233,6 +233,8 @@ Solid entity that oscillates back and forth in a linear motion. By default, it w
 speed : amount of time in seconds for one complete oscillation cycle (default 4).
 height : sets the amount of travel of the oscillation movement (default 32). 
 phase : sets the start offset of the oscillation cycle. Values must be 0 < phase < 1. Any integer phase value is the same as no offset (default 0).
+targetname : activating entity points to this.
+targetname2 : activating entity points to this.
 noise : path/name of .wav file to play. Use looping sounds only (eg. sound/world/drone6.wav - See Notes).
 model2 : path/name of model to include (eg: models/mapobjects/jets/jets01.md3).
 origin : alternate method of setting XYZ origin of sound and .md3 model included with entity (See Notes).
@@ -310,6 +312,8 @@ When a button is touched by a player, it moves in the direction set by the "angl
 angle : determines the direction in which the button will move (up = -1, down = -2).
 target : all entities with a matching targetname will be triggered.
 target2 : all entities with a matching targetname will be triggered.
+targetname : activating entity points to this.
+targetname2 : activating entity points to this.
 speed : speed of button's displacement (default 40).
 wait : number of seconds button stays pressed (default 1, -1 = return immediately, -2 return only when triggered again)).
 lip : lip remaining at end of move (default 4 units).
@@ -346,7 +350,7 @@ speed : determines how fast the door moves (default 100).
 wait : number of seconds before door returns (default 2, -1 = return immediately, -2 return only when triggered again)
 lip : lip remaining at end of move (default 8)
 targetname : if set, a func_button or trigger is required to activate the door.
-targetname2 : if set, a func_button or trigger is required to activate the door (see Notes).
+targetname2 : activating entity points to this (see notes).
 health : (default 0) if set to any non-zero value, the button must take damage (any amount) to activate.
 dmg : damage to inflict on player when he blocks operation of door (default 2). Door will reverse direction when blocked unless CRUSHER spawnflag is set.
 team : assign the same team name to multiple doors that should operate together (see Notes).
@@ -387,7 +391,7 @@ distance : determines how many degrees the door will rotate (default 90).
 speed : determines how fast the door moves (degrees/second).
 wait : number of seconds before door returns (default 2, -1 = return immediately, -2 return only when triggered again)
 targetname : if set, a func_button or trigger is required to activate the door.
-targetname2 : if set, a func_button or trigger is required to activate the door (see Notes).
+targetname2 : activating entity points to this (see notes).
 dmg : damage to inflict on player when he blocks operation of door (default 2). Door will reverse direction when blocked unless CRUSHER spawnflag is set.
 health : (default 0) if set to any non-zero value, the button must take damage (any amount) to activate.
 team : assign the same team name to multiple doors that should operate together (see Notes).
@@ -497,12 +501,12 @@ Target this entity with a misc_model to have the model attached to the entity (s
 //=============================================================================
 
 /*QUAKED func_rotating (0 .5 .8) ? - - X_AXIS Y_AXIS Z_AXIS START_OFF
-Solid entity that rotates continuously. Rotates on one or multiple axes and requires an origin brush. It will always start on in the game and is not targetable.
+Solid entity that rotates continuously. Rotates on one or multiple axes and requires an origin brush.
 -------- KEYS --------
 speed : determines how fast entity rotates (default 100).
 noise : path/name of .wav file to play. Use looping sounds only (eg. sound/world/drone6.wav).
-targetname : activating entity points to this.
-targetname2 : activating entity points to this.
+targetname : activating entity points to this (see notes).
+targetname2 : activating entity points to this (see notes).
 model2 : path/name of model to include (eg: models/mapobjects/bitch/fembotbig.md3).
 origin : alternate method of setting XYZ origin of entity's rotation axis and .md3 model included with entity (default "0 0 0" - See Notes).
 light : constantLight radius of .md3 model included with entity. Has no effect on the entity's brushes (default 0).

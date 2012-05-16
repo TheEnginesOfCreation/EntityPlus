@@ -1192,6 +1192,11 @@ void modify_entity ( gentity_t *self, gentity_t *ent ) {
 		return;
 	}
 
+	if ( !strcmp( self->key, "damage" ) || !strcmp( self->key, "dmg" ) ) {
+		ent->damage = atoi(self->value);
+		return;
+	}
+
 	G_Printf("WARNING: Incorrect key \"%s\" for %s at %s\n", self->key, self->classname, vtos(self->s.origin));
 }
 
