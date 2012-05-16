@@ -42,7 +42,8 @@ namespace mvt
 			UnableToDetect = 0,
 			one_zero = 1,
 			one_one = 2,
-			one_one_two = 3
+			one_one_two = 3,
+			one_one_four = 4
 		}
 
 		/// <summary>List of strings for supported EntityPlus versions</summary>
@@ -51,7 +52,8 @@ namespace mvt
 			"Unable to determine due to unknown entity classnames.",
 			"1.0",
 			"1.1",
-			"1.1.2"
+			"1.1.2",
+			"1.1.4"	
 		};
 
 		/// <summary>A list of all the known entity classnames</summary>
@@ -249,6 +251,10 @@ namespace mvt
 				return Versions.UnableToDetect;
 			}
 
+			//Checking for v1.1.4 requirements
+			if (HasVersion114Keys(ent))
+				return Versions.one_one_four;
+
 			//Checking for v1.1.2 requirements
 			if (HasVersion112Keys(ent))
 				return Versions.one_one_two;
@@ -348,6 +354,33 @@ namespace mvt
 
 
 		#region Version checking methods
+		private bool HasVersion114Keys(Entity ent)
+		{
+			bool result = false;
+			string versionString = VersionsStrings[(int)Versions.one_one_four];
+
+			switch (ent.Classname)
+			{
+				case "target_modify":
+					string value = ent.GetValue("key");
+					if (!String.IsNullOrEmpty(value)) { 
+						if (value == "damage") {
+							Debug(" > use of the value \"damage\" for the \"key\" key requires " + versionString);
+							result = true;
+						}
+
+						if (value == "dmg")
+						{
+							Debug(" > use of the value \"dmg\" for the \"key\" key requires " + versionString);
+							result = true;
+						}
+					}
+					break;
+			}
+
+			return result;
+		}
+
 		private bool HasVersion112Keys(Entity ent)
 		{
 			bool result = false;
