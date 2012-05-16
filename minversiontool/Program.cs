@@ -8,11 +8,12 @@ namespace mvt
 	class Program
 	{
 		//version: first three numbers are EntityPlus version it supports, last number is incremental version of the tool itself
-		private const string version = "1.1.3.0";
+		private const string epVersion = "1.1.4";
+		private const string mvtVersion = "0";
 
 		static void Main(string[] args)
 		{
-			Console.WriteLine("=== MinVersionTool " + version + " for EntityPlus v1.1.3 ===");
+			Console.WriteLine("=== MinVersionTool " + epVersion + "." + mvtVersion + " for EntityPlus " + epVersion + " ===");
 			string filename= "";
 			MinVersionTool.LogModes logMode = MinVersionTool.LogModes.None;
 
