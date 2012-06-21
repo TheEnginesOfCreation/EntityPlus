@@ -1096,8 +1096,9 @@ char *eventnames[] = {
 
 	"EV_DEBUG_LINE",
 	"EV_STOPLOOPINGSOUND",
-	"EV_TAUNT"
+	"EV_TAUNT",
 
+	"EV_FOOTSTEP_FLESH"
 };
 
 /*

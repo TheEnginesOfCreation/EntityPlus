@@ -412,6 +412,18 @@ void CG_EntityEvent( centity_t *cent, vec3_t position ) {
 				cgs.media.footsteps[ FOOTSTEP_METAL ][rand()&3] );
 		}
 		break;
+	case EV_FOOTSTEP_FLESH:
+		DEBUGNAME("EV_FOOTSTEP_FLESH");
+		if (!cg.footstepSuppressed) {
+			cg.footstepSuppressed = qtrue;
+			return;
+		}
+
+		if (cg_footsteps.integer) {
+			trap_S_StartSound (NULL, es->number, CHAN_BODY, 
+				cgs.media.footsteps[ FOOTSTEP_FLESH ][rand()&3] );
+		}
+		break;
 	case EV_FOOTSPLASH:
 		DEBUGNAME("EV_FOOTSPLASH");
 		if (!cg.footstepSuppressed) {

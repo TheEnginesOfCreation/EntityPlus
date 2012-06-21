@@ -890,6 +890,9 @@ static int PM_FootstepForSurface( void ) {
 	if ( pml.groundTrace.surfaceFlags & SURF_METALSTEPS ) {
 		return EV_FOOTSTEP_METAL;
 	}
+	if ( pml.groundTrace.surfaceFlags * SURF_FLESH ) {
+		return EV_FOOTSTEP_FLESH;
+	}
 	return EV_FOOTSTEP;
 }
 

@@ -438,8 +438,9 @@ typedef enum {
 	EV_PARTICLES_LINEAR_DOWN,
 	EV_OVERLAY,
 	
-	EV_SILENT_ITEM_PICKUP		// item pickup without pickup sound
+	EV_SILENT_ITEM_PICKUP,		// item pickup without pickup sound
 
+	EV_FOOTSTEP_FLESH
 } entity_event_t;
 
 
