@@ -117,7 +117,6 @@ void G_ReadSessionData( gclient_t *client ) {
 	// read score level name
 	var2 = va ( "session%i_lvl", client - level.clients );
 	trap_Cvar_VariableStringBuffer( var2, client->sess.scoreLevelName, sizeof(client->sess.scoreLevelName) );
-	Com_Printf("SCORELEVELNAME: %s\n", client->sess.scoreLevelName);
 }
 
 

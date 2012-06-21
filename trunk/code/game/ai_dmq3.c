@@ -3403,6 +3403,7 @@ void BotCheckEvents(bot_state_t *bs, entityState_t *state) {
 		}
 		case EV_FOOTSTEP:
 		case EV_FOOTSTEP_METAL:
+		case EV_FOOTSTEP_FLESH:
 		case EV_FOOTSPLASH:
 		case EV_FOOTWADE:
 		case EV_SWIM:

@@ -411,7 +411,8 @@ qboolean EPMenu_VersionAccepted( char *version ) {
 			Q_stricmp( version, "1.1" ) != 0 &&
 			Q_stricmp( version, "1.1.1" ) != 0 &&
 			Q_stricmp( version, "1.1.2" ) != 0 &&
-			Q_stricmp( version, "1.1.3" ) != 0
+			Q_stricmp( version, "1.1.3" ) != 0 &&
+			Q_stricmp( version, "1.1.4" ) != 0
 		)
 		{
 			return qfalse;
