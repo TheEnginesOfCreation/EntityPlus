@@ -42,7 +42,7 @@ AMMO_* ENTITIES
 /*QUAKED ammo_bfg (.3 .3 1) (-16 -16 -16) (16 16 16) SUSPENDED SILENT
 BFG ammo. Gives the player 15 by default.
 -------- KEYS --------
-wait : time in seconds before item respawns after being picked up (default 40, -1 = never respawn).
+wait : time in seconds before item respawns after being picked up (default -1 (never respawn)).
 random : random time variance in seconds added or subtracted from "wait" delay (default 0 - see Notes).
 count: sets the amount of ammo given to the player when picked up (default 15).
 team : set this to team items. Teamed items will respawn randomly after team master is picked up (see Notes).
@@ -65,7 +65,7 @@ model="models/powerups/ammo/bfgam.md3"*/
 /*QUAKED ammo_bullets (.3 .3 1) (-16 -16 -16) (16 16 16) SUSPENDED SILENT
 Machine Gun ammo. Gives the player 50 by default.
 -------- KEYS --------
-wait : time in seconds before item respawns after being picked up (default 40, -1 = never respawn).
+wait : time in seconds before item respawns after being picked up (default -1 (never respawn)).
 random : random time variance in seconds added or subtracted from "wait" delay (default 0 - see Notes).
 count: sets the amount of ammo given to the player when picked up (default 50).
 team : set this to team items. Teamed items will respawn randomly after team master is picked up (see Notes).
@@ -88,7 +88,7 @@ model="models/powerups/ammo/machinegunam.md3"*/
 /*QUAKED ammo_cells (.3 .3 1) (-16 -16 -16) (16 16 16) SUSPENDED SILENT
 Plasma Gun ammo. Gives the player 30 by default.
 -------- KEYS --------
-wait : time in seconds before item respawns after being picked up (default 40, -1 = never respawn).
+wait : time in seconds before item respawns after being picked up (default -1 (never respawn)).
 random : random time variance in seconds added or subtracted from "wait" delay (default 0 - see Notes).
 count: sets the amount of ammo given to the player when picked up (default 30).
 team : set this to team items. Teamed items will respawn randomly after team master is picked up (see Notes).
@@ -111,7 +111,7 @@ model="models/powerups/ammo/plasmaam.md3"*/
 /*QUAKED ammo_grenades (.3 .3 1) (-16 -16 -16) (16 16 16) SUSPENDED SILENT
 Grenade Launcher ammo. Gives the player 5 by default.
 -------- KEYS --------
-wait : time in seconds before item respawns after being picked up (default 40, -1 = never respawn).
+wait : time in seconds before item respawns after being picked up (default -1 (never respawn)).
 random : random time variance in seconds added or subtracted from "wait" delay (default 0 - see Notes).
 count: sets the amount of ammo given to the player when picked up (default 5).
 team : set this to team items. Teamed items will respawn randomly after team master is picked up (see Notes).
@@ -134,7 +134,7 @@ model="models/powerups/ammo/grenadeam.md3"*/
 /*QUAKED ammo_lightning (.3 .3 1) (-16 -16 -16) (16 16 16) SUSPENDED SILENT
 Lightning Gun ammo. Gives the player 60 by default.
 -------- KEYS --------
-wait : time in seconds before item respawns after being picked up (default 40, -1 = never respawn).
+wait : time in seconds before item respawns after being picked up (default -1 (never respawn)).
 random : random time variance in seconds added or subtracted from "wait" delay (default 0 - see Notes).
 count: sets the amount of ammo given to the player when picked up (default 60).
 team : set this to team items. Teamed items will respawn randomly after team master is picked up (see Notes).
@@ -157,7 +157,7 @@ model="models/powerups/ammo/lightningam.md3"*/
 /*QUAKED ammo_rockets (.3 .3 1) (-16 -16 -16) (16 16 16) SUSPENDED SILENT
 Rocket Launcher ammo. Gives the player 5 by default.
 -------- KEYS --------
-wait : time in seconds before item respawns after being picked up (default 40, -1 = never respawn).
+wait : time in seconds before item respawns after being picked up (default -1 (never respawn)).
 random : random time variance in seconds added or subtracted from "wait" delay (default 0 - see Notes).
 count: sets the amount of ammo given to the player when picked up (default 5).
 team : set this to team items. Teamed items will respawn randomly after team master is picked up (see Notes).
@@ -180,7 +180,7 @@ model="models/powerups/ammo/rocketam.md3"*/
 /*QUAKED ammo_shells (.3 .3 1) (-16 -16 -16) (16 16 16) SUSPENDED SILENT
 Shotgun ammo. Gives the player 10 by default.
 -------- KEYS --------
-wait : time in seconds before item respawns after being picked up (default 40, -1 = never respawn).
+wait : time in seconds before item respawns after being picked up (default -1 (never respawn)).
 random : random time variance in seconds added or subtracted from "wait" delay (default 0 - see Notes).
 count: sets the amount of ammo given to the player when picked up (default 10).
 team : set this to team items. Teamed items will respawn randomly after team master is picked up (see Notes).
@@ -203,7 +203,7 @@ model="models/powerups/ammo/shotgunam.md3"*/
 /*QUAKED ammo_slugs (.3 .3 1) (-16 -16 -16) (16 16 16) SUSPENDED SILENT
 Railgun ammo. Gives the player 10 by default.
 -------- KEYS --------
-wait : time in seconds before item respawns after being picked up (default 40, -1 = never respawn).
+wait : time in seconds before item respawns after being picked up (default -1 (never respawn)).
 random : random time variance in seconds added or subtracted from "wait" delay (default 0 - see Notes).
 count: sets the amount of ammo given to the player when picked up (default 10).
 team : set this to team items. Teamed items will respawn randomly after team master is picked up (see Notes).
@@ -626,7 +626,7 @@ HOLDABLE_* ENTITIES
 /*QUAKED holdable_key_blue (.7 0 1) (-16 -16 -16) (16 16 16) SUSPENDED SILENT
 Key can be picked up and used in conjunction with a trigger_lock to open doors, etc. It is possible to pick up more than one key at once.
 -------- KEYS --------
-wait : time in seconds before item respawns after being picked up (default 60, -1 = never respawn).
+wait : time in seconds before item respawns after being picked up (default -1 (never respawn)).
 random : random time variance in seconds added or subtracted from "wait" delay (default 0 - see Notes).
 team : set this to team items. Teamed items will respawn randomly after team master is picked up (see Notes).
 target : picking up the item will trigger the entity this points to.
@@ -648,7 +648,7 @@ model="models/powerups/keys/keycard-b.md3"*/
 /*QUAKED holdable_key_gold (.7 0 1) (-16 -16 -16) (16 16 16) SUSPENDED SILENT
 Key can be picked up and used in conjunction with a trigger_lock to open doors, etc. It is possible to pick up more than one key at once.
 -------- KEYS --------
-wait : time in seconds before item respawns after being picked up (default 60, -1 = never respawn).
+wait : time in seconds before item respawns after being picked up (default -1 (never respawn)).
 random : random time variance in seconds added or subtracted from "wait" delay (default 0 - see Notes).
 team : set this to team items. Teamed items will respawn randomly after team master is picked up (see Notes).
 target : picking up the item will trigger the entity this points to.
@@ -670,7 +670,7 @@ model="models/powerups/keys/key_gold.md3"*/
 /*QUAKED holdable_key_green (.7 0 1) (-16 -16 -16) (16 16 16) SUSPENDED SILENT
 Key can be picked up and used in conjunction with a trigger_lock to open doors, etc. It is possible to pick up more than one key at once.
 -------- KEYS --------
-wait : time in seconds before item respawns after being picked up (default 60, -1 = never respawn).
+wait : time in seconds before item respawns after being picked up (default -1 (never respawn)).
 random : random time variance in seconds added or subtracted from "wait" delay (default 0 - see Notes).
 team : set this to team items. Teamed items will respawn randomly after team master is picked up (see Notes).
 target : picking up the item will trigger the entity this points to.
@@ -692,7 +692,7 @@ model="models/powerups/keys/keycard-g.md3"*/
 /*QUAKED holdable_key_iron (.7 0 1) (-16 -16 -16) (16 16 16) SUSPENDED SILENT
 Key can be picked up and used in conjunction with a trigger_lock to open doors, etc. It is possible to pick up more than one key at once.
 -------- KEYS --------
-wait : time in seconds before item respawns after being picked up (default 60, -1 = never respawn).
+wait : time in seconds before item respawns after being picked up (default -1 (never respawn)).
 random : random time variance in seconds added or subtracted from "wait" delay (default 0 - see Notes).
 team : set this to team items. Teamed items will respawn randomly after team master is picked up (see Notes).
 target : picking up the item will trigger the entity this points to.
@@ -714,7 +714,7 @@ model="models/powerups/keys/key_iron.md3"*/
 /*QUAKED holdable_key_master (.7 0 1) (-16 -16 -16) (16 16 16) SUSPENDED SILENT
 Key can be picked up and used in conjunction with a trigger_lock to open doors, etc. It is possible to pick up more than one key at once.
 -------- KEYS --------
-wait : time in seconds before item respawns after being picked up (default 60, -1 = never respawn).
+wait : time in seconds before item respawns after being picked up (default -1 (never respawn)).
 random : random time variance in seconds added or subtracted from "wait" delay (default 0 - see Notes).
 team : set this to team items. Teamed items will respawn randomly after team master is picked up (see Notes).
 target : picking up the item will trigger the entity this points to.
@@ -736,7 +736,7 @@ model="models/powerups/keys/key_master.md3"*/
 /*QUAKED holdable_medkit (.7 0 1) (-16 -16 -16) (16 16 16) SUSPENDED SILENT
 Medkit that can be picked up and used later. Brings the player's health back to 100 when used. Player can only carry one holdable item at a time.
 -------- KEYS --------
-wait : time in seconds before item respawns after being picked up (default 60, -1 = never respawn).
+wait : time in seconds before item respawns after being picked up (default -1 (never respawn)).
 random : random time variance in seconds added or subtracted from "wait" delay (default 0 - see Notes).
 team : set this to team items. Teamed items will respawn randomly after team master is picked up (see Notes).
 target : picking up the item will trigger the entity this points to.
@@ -758,7 +758,7 @@ model="models/powerups/holdable/medkit.md3"*/
 /*QUAKED holdable_key_red (.7 0 1) (-16 -16 -16) (16 16 16) SUSPENDED SILENT
 Key can be picked up and used in conjunction with a trigger_lock to open doors, etc. It is possible to pick up more than one key at once.
 -------- KEYS --------
-wait : time in seconds before item respawns after being picked up (default 60, -1 = never respawn).
+wait : time in seconds before item respawns after being picked up (default -1 (never respawn)).
 random : random time variance in seconds added or subtracted from "wait" delay (default 0 - see Notes).
 team : set this to team items. Teamed items will respawn randomly after team master is picked up (see Notes).
 target : picking up the item will trigger the entity this points to.
@@ -780,7 +780,7 @@ model="models/powerups/keys/keycard-r.md3"*/
 /*QUAKED holdable_key_silver (.7 0 1) (-16 -16 -16) (16 16 16) SUSPENDED SILENT
 Key can be picked up and used in conjunction with a trigger_lock to open doors, etc. It is possible to pick up more than one key at once.
 -------- KEYS --------
-wait : time in seconds before item respawns after being picked up (default 60, -1 = never respawn).
+wait : time in seconds before item respawns after being picked up (default -1 (never respawn)).
 random : random time variance in seconds added or subtracted from "wait" delay (default 0 - see Notes).
 team : set this to team items. Teamed items will respawn randomly after team master is picked up (see Notes).
 target : picking up the item will trigger the entity this points to.
@@ -802,7 +802,7 @@ model="models/powerups/keys/key_silver.md3"*/
 /*QUAKED holdable_teleporter (.7 0 1) (-16 -16 -16) (16 16 16) SUSPENDED SILENT
 Teleporter item that can be picked up and used later. Teleports the player to a random player spawn point when used. Player can only carry one holdable item at a time.
 -------- KEYS --------
-wait : time in seconds before item respawns after being picked up (default 60, -1 = never respawn).
+wait : time in seconds before item respawns after being picked up (default -1 (never respawn)).
 random : random time variance in seconds added or subtracted from "wait" delay (default 0 - see Notes).
 team : set this to team items. Teamed items will respawn randomly after team master is picked up (see Notes).
 target : picking up the item will trigger the entity this points to.
@@ -825,7 +825,7 @@ model="models/powerups/holdable/teleporter.md3"*/
 /*QUAKED holdable_key_yellow (.7 0 1) (-16 -16 -16) (16 16 16) SUSPENDED SILENT
 Key can be picked up and used in conjunction with a trigger_lock to open doors, etc. It is possible to pick up more than one key at once.
 -------- KEYS --------
-wait : time in seconds before item respawns after being picked up (default 60, -1 = never respawn).
+wait : time in seconds before item respawns after being picked up (default -1 (never respawn)).
 random : random time variance in seconds added or subtracted from "wait" delay (default 0 - see Notes).
 team : set this to team items. Teamed items will respawn randomly after team master is picked up (see Notes).
 target : picking up the item will trigger the entity this points to.
@@ -949,7 +949,7 @@ ITEM_* ENTITIES
 /*QUAKED item_armor_body (.6 0 0) (-16 -16 -16) (16 16 16) SUSPENDED SILENT
 Red Armor - 100 points. All armor can be cumulated up to a maximum of 200 points and slowly wears out to 100 points.
 -------- KEYS --------
-wait : time in seconds before item respawns after being picked up (default 25, -1 = never respawn).
+wait : time in seconds before item respawns after being picked up (default -1 (never respawn)).
 random : random time variance in seconds added or subtracted from "wait" delay (default 0 - see Notes).
 team : set this to team items. Teamed items will respawn randomly after team master is picked up (see Notes).
 target : picking up the item will trigger the entity this points to.
@@ -971,7 +971,7 @@ model="models/powerups/armor/armor_red.md3"*/
 /*QUAKED item_armor_combat (1 .75 .3) (-16 -16 -16) (16 16 16) SUSPENDED SILENT
 Yellow Armor - 50 points. All armor can be cumulated up to a maximum of 200 points and slowly wears out to 100 points.
 -------- KEYS --------
-wait : time in seconds before item respawns after being picked up (default 25, -1 = never respawn).
+wait : time in seconds before item respawns after being picked up (default -1 (never respawn)).
 random : random time variance in seconds added or subtracted from "wait" delay (default 0 - see Notes).
 team : set this to team items. Teamed items will respawn randomly after team master is picked up (see Notes).
 target : picking up the item will trigger the entity this points to.
@@ -993,7 +993,7 @@ model="models/powerups/armor/armor_yel.md3"*/
 /*QUAKED item_armor_vest (.18 1 .27) (-16 -16 -16) (16 16 16) SUSPENDED SILENT
 Green Armor - 25 points. All armor can be cumulated up to a maximum of 200 points and slowly wears out to 100 points.
 -------- KEYS --------
-wait : time in seconds before item respawns after being picked up (default 25, -1 = never respawn).
+wait : time in seconds before item respawns after being picked up (default -1 (never respawn)).
 random : random time variance in seconds added or subtracted from "wait" delay (default 0 - see Notes).
 team : set this to team items. Teamed items will respawn randomly after team master is picked up (see Notes).
 target : picking up the item will trigger the entity this points to.
@@ -1015,7 +1015,7 @@ model="models/powerups/armor/armor_gre.md3"*/
 /*QUAKED item_armor_shard (0 .7 0) (-16 -16 -16) (16 16 16) SUSPENDED SILENT
 Green Armor Shard - 5 points. All armor can be cumulated up to a maximum of 200 points and slowly wears out to 100 points.
 -------- KEYS --------
-wait : time in seconds before item respawns after being picked up (default 25, -1 = never respawn).
+wait : time in seconds before item respawns after being picked up (default -1 (never respawn)).
 random : random time variance in seconds added or subtracted from "wait" delay (default 0 - see Notes).
 team : set this to team items. Teamed items will respawn randomly after team master is picked up (see Notes).
 target : picking up the item will trigger the entity this points to.
@@ -1048,7 +1048,7 @@ The item_botroam entity can be used when a bot does not roam the whole level or 
 /*QUAKED item_enviro (.5 0 1) (-16 -16 -16) (16 16 16) SUSPENDED SILENT
 Battle Suit power-up - Gives protection against slime, lava and weapon splash damage. Lasts 30 seconds.
 -------- KEYS --------
-wait : time in seconds before item respawns after being picked up (default 120, -1 = never respawn).
+wait : time in seconds before item respawns after being picked up (default -1 (never respawn)).
 random : random time variance in seconds added or subtracted from "wait" delay (default 0 - see Notes).
 count : time in seconds power-up will last when picked up (default 30).
 team : set this to team items. Teamed items will respawn randomly after team master is picked up (see Notes).
@@ -1071,7 +1071,7 @@ model="models/powerups/instant/enviro.md3"*/
 /*QUAKED item_flight (.5 0 1) (-16 -16 -16) (16 16 16) SUSPENDED SILENT
 Flight power-up. Lasts 60 seconds.
 -------- KEYS --------
-wait : time in seconds before item respawns after being picked up (default 120, -1 = never respawn).
+wait : time in seconds before item respawns after being picked up (default -1 (never respawn)).
 random : random time variance in seconds added or subtracted from "wait" delay (default 0 - see Notes).
 count : time in seconds power-up will last when picked up (default 60).
 team : set this to team items. Teamed items will respawn randomly after team master is picked up (see Notes).
@@ -1094,7 +1094,7 @@ model="models/powerups/instant/flight.md3"*/
 /*QUAKED item_haste (.5 0 1) (-16 -16 -16) (16 16 16) SUSPENDED SILENT
 Speed power-up. Makes player run at double speed for 30 seconds.
 -------- KEYS --------
-wait : time in seconds before item respawns after being picked up (default 120, -1 = never respawn).
+wait : time in seconds before item respawns after being picked up (default -1 (never respawn)).
 random : random time variance in seconds added or subtracted from "wait" delay (default 0 - see Notes).
 count : time in seconds power-up will last when picked up (default 30).
 team : set this to team items. Teamed items will respawn randomly after team master is picked up (see Notes).
@@ -1117,7 +1117,7 @@ model="models/powerups/instant/haste.md3"*/
 /*QUAKED item_health (.8 .8 0) (-16 -16 -16) (16 16 16) SUSPENDED SILENT
 Yellow cross bubble - 25 Health. Cannot be picked up over 100 health.
 -------- KEYS --------
-wait : time in seconds before item respawns after being picked up (default 35, -1 = never respawn).
+wait : time in seconds before item respawns after being picked up (default -1 (never respawn)).
 random : random time variance in seconds added or subtracted from "wait" delay (default 0 - see Notes).
 count: sets the amount of health points given to the player when item is picked up (default 25).
 team : set this to team items. Teamed items will respawn randomly after team master is picked up (see Notes).
@@ -1138,7 +1138,7 @@ model="models/powerups/health/medium_cross.md3"*/
 /*QUAKED item_health_large (1 0 0) (-16 -16 -16) (16 16 16) SUSPENDED SILENT
 Gold cross bubble - 50 Health. Cannot be picked up over 100 health.
 -------- KEYS --------
-wait : time in seconds before item respawns after being picked up (default 35, -1 = never respawn).
+wait : time in seconds before item respawns after being picked up (default -1 (never respawn)).
 random : random time variance in seconds added or subtracted from "wait" delay (default 0 - see Notes).
 count: sets the amount of health points given to the player when item is picked up (default 50).
 team : set this to team items. Teamed items will respawn randomly after team master is picked up (see Notes).
@@ -1159,7 +1159,7 @@ model="models/powerups/health/large_cross.md3"*/
 /*QUAKED item_health_mega (0 0 1) (-16 -16 -16) (16 16 16) SUSPENDED SILENT
 Blue M bubble - 100 Health. Adds 100 health points to current health up to a maximum of 200.
 -------- KEYS --------
-wait : time in seconds before item respawns after being picked up (default 40, -1 = never respawn).
+wait : time in seconds before item respawns after being picked up (default -1 (never respawn)).
 random : random time variance in seconds added or subtracted from "wait" delay (default 0 - see Notes).
 count: sets the amount of health points given to the player when item is picked up (default 100).
 team : set this to team items. Teamed items will respawn randomly after team master is picked up (see Notes).
@@ -1182,7 +1182,7 @@ model="models/powerups/health/mega_cross.md3"*/
 /*QUAKED item_health_small (0 1 0) (-16 -16 -16) (16 16 16) SUSPENDED SILENT
 Green cross bubble - 5 Health. Can be picked up over 100 health but slowly wears out to 100 afterwards.
 -------- KEYS --------
-wait : time in seconds before item respawns after being picked up (default 35, -1 = never respawn).
+wait : time in seconds before item respawns after being picked up (default -1 (never respawn)).
 random : random time variance in seconds added or subtracted from "wait" delay (default 0 - see Notes).
 count: sets the amount of health points given to the player when item is picked up (default 5).
 team : set this to team items. Teamed items will respawn randomly after team master is picked up (see Notes).
@@ -1205,7 +1205,7 @@ model="models/powerups/health/small_cross.md3"*/
 /*QUAKED item_invis (.5 0 1) (-16 -16 -16) (16 16 16) SUSPENDED SILENT
 Invisibility power-up. Lasts 30 seconds.
 -------- KEYS --------
-wait : time in seconds before item respawns after being picked up (default 120, -1 = never respawn).
+wait : time in seconds before item respawns after being picked up (default -1 (never respawn)).
 random : random time variance in seconds added or subtracted from "wait" delay (default 0 - see Notes).
 count : time in seconds power-up will last when picked up (default 30).
 team : set this to team items. Teamed items will respawn randomly after team master is picked up (see Notes).
@@ -1228,7 +1228,7 @@ model="models/powerups/instant/invis.md3"*/
 /*QUAKED item_quad (.4 .6 1) (-16 -16 -16) (16 16 16) SUSPENDED SILENT
 Quad Damage power-up. Lasts 30 seconds.
 -------- KEYS --------
-wait : time in seconds before item respawns after being picked up (default 120, -1 = never respawn).
+wait : time in seconds before item respawns after being picked up (default -1 (never respawn)).
 random : random time variance in seconds added or subtracted from "wait" delay (default 0 - see Notes).
 count : time in seconds power-up will last when picked up (default 30).
 team : set this to team items. Teamed items will respawn randomly after team master is picked up (see Notes).
@@ -1250,7 +1250,7 @@ model="models/powerups/instant/quad.md3"*/
 /*QUAKED item_regen (.5 0 1) (-16 -16 -16) (16 16 16) SUSPENDED SILENT
 Health Regeneration power-up. This will boost your current health by 5 points every second for a period of up to 30 seconds or up to 200 points whichever comes first. Afterwards, any health points over 100 slowly wears out to 100.
 -------- KEYS --------
-wait : time in seconds before item respawns after being picked up (default 120, -1 = never respawn).
+wait : time in seconds before item respawns after being picked up (default -1 (never respawn)).
 random : random time variance in seconds added or subtracted from "wait" delay (default 0 - see Notes).
 count : time in seconds power-up will last when picked up (default 30).
 team : set this to team items. Teamed items will respawn randomly after team master is picked up (see Notes).
@@ -1793,7 +1793,7 @@ targetname : activating entity points to this.
 targetname2 : activating entity points to this.
 target : this points to entities to activate when this entity is triggered.
 target2 : this points to entities to activate when this entity is triggered.
-count : relay entity will only activate its target if itself has been triggered this many times (default 0)
+count : relay entity will only activate its target if itself has been triggered this many times (default 1)
 -------- SPAWNFLAGS --------
 RANDOM : one one of the targeted entities will be triggered at random.
 ONCE : the target_relay will activate its targeted entities only once.*/
@@ -2044,7 +2044,7 @@ WEAPON_* ENTITIES
 /*QUAKED weapon_bfg (1 0 .5) (-16 -16 -16) (16 16 16) SUSPENDED SILENT
 Big Freaking Gun.
 -------- KEYS --------
-wait : time in seconds before item respawns after being picked up (default 5, -1 = never respawn).
+wait : time in seconds before item respawns after being picked up (default -1 (never respawn)).
 random : random time variance in seconds added or subtracted from "wait" delay (default 0 - see Notes).
 count: sets the amount of ammo given to the player when weapon is picked up (default 20).
 team : set this to team items. Teamed items will respawn randomly after team master is picked up (see Notes).
@@ -2067,7 +2067,7 @@ model="models/weapons2/bfg/bfg.md3"*/
 /*QUAKED weapon_gauntlet (1 0 .5) (-16 -16 -16) (16 16 16) SUSPENDED SILENT
 Gauntlet.
 -------- KEYS --------
-wait : time in seconds before item respawns after being picked up (default 5, -1 = never respawn).
+wait : time in seconds before item respawns after being picked up (default -1 (never respawn)).
 random : random time variance in seconds added or subtracted from "wait" delay (default 0 - see Notes).
 team : set this to team items. Teamed items will respawn randomly after team master is picked up (see Notes).
 target : picking up the item will trigger the entity this points to.
@@ -2089,7 +2089,7 @@ model="models/weapons2/gauntlet/gauntlet.md3"*/
 ///*QUAKED weapon_grapplinghook (1 0 .5) (-16 -16 -16) (16 16 16) SUSPENDED SILENT
 //Grappling Hook. Spawns in the game and works but is unskinned.
 //-------- KEYS --------
-//wait : time in seconds before item respawns after being picked up (default 5, -1 = never respawn).
+//wait : time in seconds before item respawns after being picked up (default -1 (never respawn)).
 //random : random time variance in seconds added or subtracted from "wait" delay (default 0 - see Notes).
 //team : set this to team items. Teamed items will respawn randomly after team master is picked up (see Notes).
 //target : picking up the item will trigger the entity this points to.
@@ -2111,7 +2111,7 @@ model="models/weapons2/gauntlet/gauntlet.md3"*/
 /*QUAKED weapon_grenadelauncher (1 0 .5) (-16 -16 -16) (16 16 16) SUSPENDED SILENT
 Grenade Launcher.
 -------- KEYS --------
-wait : time in seconds before item respawns after being picked up (default 5, -1 = never respawn).
+wait : time in seconds before item respawns after being picked up (default -1 (never respawn)).
 random : random time variance in seconds added or subtracted from "wait" delay (default 0 - see Notes).
 count: sets the amount of ammo given to the player when weapon is picked up (default 10).
 team : set this to team items. Teamed items will respawn randomly after team master is picked up (see Notes).
@@ -2134,7 +2134,7 @@ model="models/weapons2/grenadel/grenadel.md3"*/
 /*QUAKED weapon_lightning (1 0 .5) (-16 -16 -16) (16 16 16) SUSPENDED SILENT
 Lightning Gun.
 -------- KEYS --------
-wait : time in seconds before item respawns after being picked up (default 5, -1 = never respawn).
+wait : time in seconds before item respawns after being picked up (default -1 (never respawn)).
 random : random time variance in seconds added or subtracted from "wait" delay (default 0 - see Notes).
 count: sets the amount of ammo given to the player when weapon is picked up (default 100).
 team : set this to team items. Teamed items will respawn randomly after team master is picked up (see Notes).
@@ -2157,7 +2157,7 @@ model="models\weapons2\lightning\lightning.md3"*/
 /*QUAKED weapon_machinegun (1 0 .5) (-16 -16 -16) (16 16 16) SUSPENDED SILENT
 Machine Gun.
 -------- KEYS --------
-wait : time in seconds before item respawns after being picked up (default 5, -1 = never respawn).
+wait : time in seconds before item respawns after being picked up (default -1 (never respawn)).
 random : random time variance in seconds added or subtracted from "wait" delay (default 0 - see Notes).
 count: sets the amount of ammo given to the player when weapon is picked up (default 100).
 team : set this to team items. Teamed items will respawn randomly after team master is picked up (see Notes).
@@ -2180,7 +2180,7 @@ model="models\weapons2\machinegun\machinegun.md3"*/
 /*QUAKED weapon_plasmagun (1 0 .5) (-16 -16 -16) (16 16 16) SUSPENDED SILENT
 Plasma gun.
 -------- KEYS --------
-wait : time in seconds before item respawns after being picked up (default 5, -1 = never respawn).
+wait : time in seconds before item respawns after being picked up (default -1 (never respawn)).
 random : random time variance in seconds added or subtracted from "wait" delay (default 0 - see Notes).
 count: sets the amount of ammo given to the player when weapon is picked up (default 50).
 team : set this to team items. Teamed items will respawn randomly after team master is picked up (see Notes).
@@ -2203,7 +2203,7 @@ model="models/weapons2/plasma/plasma.md3"*/
 /*QUAKED weapon_railgun (1 0 .5) (-16 -16 -16) (16 16 16) SUSPENDED SILENT
 Railgun.
 -------- KEYS --------
-wait : time in seconds before item respawns after being picked up (default 5, -1 = never respawn).
+wait : time in seconds before item respawns after being picked up (default -1 (never respawn)).
 random : random time variance in seconds added or subtracted from "wait" delay (default 0 - see Notes).
 count: sets the amount of ammo given to the player when weapon is picked up (default 10).
 team : set this to team items. Teamed items will respawn randomly after team master is picked up (see Notes).
@@ -2226,7 +2226,7 @@ model="models/weapons2/railgun/railgun.md3"*/
 /*QUAKED weapon_rocketlauncher (1 0 .5) (-16 -16 -16) (16 16 16) SUSPENDED SILENT
 Rocket Launcher.
 -------- KEYS --------
-wait : time in seconds before item respawns after being picked up (default 5, -1 = never respawn).
+wait : time in seconds before item respawns after being picked up (default -1 (never respawn)).
 random : random time variance in seconds added or subtracted from "wait" delay (default 0 - see Notes).
 count: sets the amount of ammo given to the player when weapon is picked up (default 10).
 team : set this to team items. Teamed items will respawn randomly after team master is picked up (see Notes).
@@ -2249,7 +2249,7 @@ model="models/weapons2/rocketl/rocketl.md3"*/
 /*QUAKED weapon_shotgun (1 0 .5) (-16 -16 -16) (16 16 16) SUSPENDED SILENT
 Shotgun.
 -------- KEYS --------
-wait : time in seconds before item respawns after being picked up (default 5, -1 = never respawn).
+wait : time in seconds before item respawns after being picked up (default -1 (never respawn)).
 random : random time variance in seconds added or subtracted from "wait" delay (default 0 - see Notes).
 count: sets the amount of ammo given to the player when weapon is picked up (default 10).
 team : set this to team items. Teamed items will respawn randomly after team master is picked up (see Notes).
