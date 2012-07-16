@@ -1,6 +1,5 @@
 ENTITYPLUS 
-version 1.1.4
--------------
+----------
 
 EntityPlus is a Quake III Arena mod that is aimed at expanding the toolset for Quake III Arena map makers. The goal is to build an expansive library of new entities that map makers can use in their maps to create whole new experiences.
 
@@ -42,15 +41,18 @@ CREDITS
 Project lead and programming	: Eraser
 								  [http://www.theenginesofcreation.com]
 
+Bot waypoint programming		: cyr
+								  [http://quake3world.com/forum/memberlist.php?mode=viewprofile&u=32395]
+
+Shrink effect programming		: Phoenix
+								  [http://wireheadstudios.org]
+
+Keycard programming				: Kaz
+								  [http://student.cs.appstate.edu/freemancw]
+
 Additional programming and		: ^misantropia^
 programming support				  [https://github.com/bnoordhuis]
 
-Additional programming			: Kaz
-								  [http://student.cs.appstate.edu/freemancw]
-								  
-Additional programming			: cyr
-								  [http://quake3world.com/forum/memberlist.php?mode=viewprofile&u=32395]
-								  
 Programming support				: Perle			
 								  [http://www.q3rally.com]
 								  

@@ -53,12 +53,19 @@ qboolean CheckGauntletAttack( gentity_t *ent ) {
 	gentity_t	*traceEnt;
 	int			damage;
 
+	// shrink
+	float shrinkScale, rangeScale;
+	shrinkScale = 1.0f - 0.75f * (float)(ent->client->ps.stats[STAT_SHRINKSCALE])/SHRINK_FRAMES;
+	rangeScale = 1.0f - 0.5f * (float)(ent->client->ps.stats[STAT_SHRINKSCALE])/SHRINK_FRAMES;
+	// End shrink
+
 	// set aiming directions
 	AngleVectors (ent->client->ps.viewangles, forward, right, up);
 
 	CalcMuzzlePoint ( ent, forward, right, up, muzzle );
 
-	VectorMA (muzzle, 32, forward, end);
+	// shrink - added rangeScale
+	VectorMA (muzzle, 32 * rangeScale, forward, end);
 
 	trap_Trace (&tr, muzzle, NULL, NULL, end, ent->s.number, MASK_SHOT);
 	if ( tr.surfaceFlags & SURF_NOIMPACT ) {
@@ -137,12 +144,18 @@ void Bullet_Fire (gentity_t *ent, float spread, int damage ) {
 	gentity_t	*traceEnt;
 	int			i, passent;
 
+// shrink
+	float shrinkScale, rangeScale;
+	shrinkScale = 1.0f - 0.75f * (float)(ent->client->ps.stats[STAT_SHRINKSCALE])/SHRINK_FRAMES;
+	rangeScale = 1.0f - 0.5f * (float)(ent->client->ps.stats[STAT_SHRINKSCALE])/SHRINK_FRAMES;
+// End shrink
+
 	damage *= s_quadFactor;
 
 	r = random() * M_PI * 2.0f;
-	u = sin(r) * crandom() * spread * 16;
-	r = cos(r) * crandom() * spread * 16;
-	VectorMA (muzzle, 8192*16, forward, end);
+	u = sin(r) * crandom() * spread * 16 * rangeScale;
+	r = cos(r) * crandom() * spread * 16 * rangeScale;
+	VectorMA (muzzle, 8192*16 * rangeScale, forward, end);
 	VectorMA (end, r, right, end);
 	VectorMA (end, u, up, end);
 
@@ -174,6 +187,9 @@ void Bullet_Fire (gentity_t *ent, float spread, int damage ) {
 		}
 
 		tent->s.otherEntityNum = ent->s.number;
+// shrink
+		tent->s.generic1 = ent->client->ps.stats[STAT_SHRINKSCALE];
+// End shrink
 
 		if ( traceEnt->takedamage) {
 			G_Damage( traceEnt, ent, ent, forward, tr.endpos,
@@ -254,6 +270,11 @@ void ShotgunPattern( vec3_t origin, vec3_t origin2, int seed, gentity_t *ent ) {
 	int			oldScore;
 	qboolean	hitClient = qfalse;
 
+// shrink
+	float rangeScale;
+	rangeScale = 1.0f - 0.5f * (float)(ent->client->ps.stats[STAT_SHRINKSCALE])/SHRINK_FRAMES;
+// End shrink
+
 	// derive the right and up vectors from the forward vector, because
 	// the client won't have any other information
 	VectorNormalize2( origin2, forward );
@@ -264,9 +285,9 @@ void ShotgunPattern( vec3_t origin, vec3_t origin2, int seed, gentity_t *ent ) {
 
 	// generate the "random" spread pattern
 	for ( i = 0 ; i < DEFAULT_SHOTGUN_COUNT ; i++ ) {
-		r = Q_crandom( &seed ) * DEFAULT_SHOTGUN_SPREAD * 16;
-		u = Q_crandom( &seed ) * DEFAULT_SHOTGUN_SPREAD * 16;
-		VectorMA( origin, 8192 * 16, forward, end);
+		r = Q_crandom( &seed ) * DEFAULT_SHOTGUN_SPREAD * 16 * rangeScale;
+		u = Q_crandom( &seed ) * DEFAULT_SHOTGUN_SPREAD * 16 * rangeScale;
+		VectorMA( origin, 8192 * 16 * rangeScale, forward, end);
 		VectorMA (end, r, right, end);
 		VectorMA (end, u, up, end);
 		if( ShotgunPellet( origin, end, ent ) && !hitClient ) {
@@ -286,6 +307,9 @@ void weapon_supershotgun_fire (gentity_t *ent) {
 	SnapVector( tent->s.origin2 );
 	tent->s.eventParm = rand() & 255;		// seed for spread pattern
 	tent->s.otherEntityNum = ent->s.number;
+// shrink
+	tent->s.generic1 = ent->client->ps.stats[STAT_SHRINKSCALE];
+// End shrink
 
 	ShotgunPattern( tent->s.pos.trBase, tent->s.origin2, tent->s.eventParm, ent );
 }
@@ -302,6 +326,12 @@ GRENADE LAUNCHER
 void weapon_grenadelauncher_fire (gentity_t *ent) {
 	gentity_t	*m;
 
+// shrink
+	float shrinkScale, rangeScale;
+	shrinkScale = 1.0f - 0.75f * (float)(ent->client->ps.stats[STAT_SHRINKSCALE])/SHRINK_FRAMES;
+	rangeScale = 1.0f - 0.5f * (float)(ent->client->ps.stats[STAT_SHRINKSCALE])/SHRINK_FRAMES;
+// End shrink
+
 	// extra vertical velocity
 	forward[2] += 0.2f;
 	VectorNormalize( forward );
@@ -309,6 +339,12 @@ void weapon_grenadelauncher_fire (gentity_t *ent) {
 	m = fire_grenade (ent, muzzle, forward);
 	m->damage *= s_quadFactor;
 	m->splashDamage *= s_quadFactor;
+
+// shrink
+	m->splashRadius *= rangeScale;
+	m->s.generic1 = ent->client->ps.stats[STAT_SHRINKSCALE];
+	VectorScale(m->s.pos.trDelta, rangeScale, m->s.pos.trDelta);
+// End shrink
 
 //	VectorAdd( m->s.pos.trDelta, ent->client->ps.velocity, m->s.pos.trDelta );	// "real" physics
 }
@@ -324,9 +360,24 @@ ROCKET
 void Weapon_RocketLauncher_Fire (gentity_t *ent) {
 	gentity_t	*m;
 
+// shrink
+	float shrinkScale, rangeScale;
+	shrinkScale = 1.0f - 0.75f * (float)(ent->client->ps.stats[STAT_SHRINKSCALE])/SHRINK_FRAMES;
+	rangeScale = 1.0f - 0.5f * (float)(ent->client->ps.stats[STAT_SHRINKSCALE])/SHRINK_FRAMES;
+// End shrink
+
 	m = fire_rocket (ent, muzzle, forward);
 	m->damage *= s_quadFactor;
 	m->splashDamage *= s_quadFactor;
+
+// shrink
+	m->splashRadius *= rangeScale;
+	m->s.generic1 = ent->client->ps.stats[STAT_SHRINKSCALE];
+	VectorScale(m->s.pos.trDelta, rangeScale, m->s.pos.trDelta);
+	if (shrinkScale < 0.6f){
+		m->s.pos.trTime = level.time;
+	}
+// End shrink
 
 //	VectorAdd( m->s.pos.trDelta, ent->client->ps.velocity, m->s.pos.trDelta );	// "real" physics
 }
@@ -343,9 +394,24 @@ PLASMA GUN
 void Weapon_Plasmagun_Fire (gentity_t *ent) {
 	gentity_t	*m;
 
+	// shrink
+	float shrinkScale, rangeScale;
+	shrinkScale = 1.0f - 0.75f * (float)(ent->client->ps.stats[STAT_SHRINKSCALE])/SHRINK_FRAMES;
+	rangeScale = 1.0f - 0.5f * (float)(ent->client->ps.stats[STAT_SHRINKSCALE])/SHRINK_FRAMES;
+	// End shrink
+
 	m = fire_plasma (ent, muzzle, forward);
 	m->damage *= s_quadFactor;
 	m->splashDamage *= s_quadFactor;
+
+	// shrink
+	m->splashRadius *= rangeScale;
+	m->s.generic1 = ent->client->ps.stats[STAT_SHRINKSCALE];
+	VectorScale(m->s.pos.trDelta, rangeScale, m->s.pos.trDelta);
+	if (shrinkScale < 0.6f){
+		m->s.pos.trTime = level.time;
+	}
+	// End shrink
 
 //	VectorAdd( m->s.pos.trDelta, ent->client->ps.velocity, m->s.pos.trDelta );	// "real" physics
 }
@@ -377,9 +443,15 @@ void weapon_railgun_fire (gentity_t *ent) {
 	int			passent;
 	gentity_t	*unlinkedEntities[MAX_RAIL_HITS];
 
+// shrink
+	float shrinkScale, rangeScale;
+	shrinkScale = 1.0f - 0.75f * (float)(ent->client->ps.stats[STAT_SHRINKSCALE])/SHRINK_FRAMES;
+	rangeScale = 1.0f - 0.5f * (float)(ent->client->ps.stats[STAT_SHRINKSCALE])/SHRINK_FRAMES;
+// End shrink
+
 	damage = 100 * s_quadFactor;
 
-	VectorMA (muzzle, 8192, forward, end);
+	VectorMA (muzzle, 8192 * rangeScale, forward, end);
 
 	// trace only against the solids, so the railgun will go through people
 	unlinked = 0;
@@ -414,7 +486,9 @@ void weapon_railgun_fire (gentity_t *ent) {
 	// the final trace endpos will be the terminal point of the rail trail
 
 	// snap the endpos to integers to save net bandwidth, but nudged towards the line
-	SnapVectorTowards( trace.endpos, muzzle );
+	if (ent->client->ps.stats[STAT_SHRINKSCALE] == 0){
+		SnapVectorTowards( trace.endpos, muzzle );
+	}
 
 	// send railgun beam effect
 	tent = G_TempEntity( trace.endpos, EV_RAILTRAIL );
@@ -424,8 +498,9 @@ void weapon_railgun_fire (gentity_t *ent) {
 
 	VectorCopy( muzzle, tent->s.origin2 );
 	// move origin a bit to come closer to the drawn gun muzzle
-	VectorMA( tent->s.origin2, 4, right, tent->s.origin2 );
-	VectorMA( tent->s.origin2, -1, up, tent->s.origin2 );
+	VectorMA( tent->s.origin2, 4 * shrinkScale, right, tent->s.origin2 );
+	VectorMA( tent->s.origin2, -1 * shrinkScale, up, tent->s.origin2 );
+
 
 	// no explosion at end if SURF_NOIMPACT, but still make the trail
 	if ( trace.surfaceFlags & SURF_NOIMPACT ) {
@@ -434,6 +509,8 @@ void weapon_railgun_fire (gentity_t *ent) {
 		tent->s.eventParm = DirToByte( trace.plane.normal );
 	}
 	tent->s.clientNum = ent->s.clientNum;
+
+	tent->s.generic1 = ent->client->ps.stats[STAT_SHRINKSCALE];
 
 	// give the shooter a reward sound if they have made two railgun hits in a row
 	if ( hits == 0 ) {
@@ -502,11 +579,17 @@ void Weapon_LightningFire( gentity_t *ent ) {
 	gentity_t	*traceEnt, *tent;
 	int			damage, i, passent;
 
+// shrink
+	float shrinkScale, rangeScale;
+	shrinkScale = 1.0f - 0.75f * (float)(ent->client->ps.stats[STAT_SHRINKSCALE])/SHRINK_FRAMES;
+	rangeScale = 1.0f - 0.5f * (float)(ent->client->ps.stats[STAT_SHRINKSCALE])/SHRINK_FRAMES;
+// End shrink
+
 	damage = 8 * s_quadFactor;
 
 	passent = ent->s.number;
 	for (i = 0; i < 10; i++) {
-		VectorMA( muzzle, LIGHTNING_RANGE, forward, end );
+		VectorMA( muzzle, LIGHTNING_RANGE * rangeScale, forward, end );
 
 		trap_Trace( &tr, muzzle, NULL, NULL, end, passent, MASK_SHOT );
 
@@ -533,6 +616,8 @@ void Weapon_LightningFire( gentity_t *ent ) {
 		if( LogAccuracyHit( traceEnt, ent ) ) {
 			ent->client->accuracy_hits++;
 		}
+
+		tent->s.generic1 = ent->client->ps.stats[STAT_SHRINKSCALE];
 
 		break;
 	}
@@ -589,9 +674,14 @@ set muzzle location relative to pivoting eye
 ===============
 */
 void CalcMuzzlePoint ( gentity_t *ent, vec3_t forward, vec3_t right, vec3_t up, vec3_t muzzlePoint ) {
+	// shrink
+	float shrinkScale;
+	shrinkScale = 1.0f - 0.75f * (float)(ent->client->ps.stats[STAT_SHRINKSCALE])/SHRINK_FRAMES;
+	// End shrink
+
 	VectorCopy( ent->s.pos.trBase, muzzlePoint );
 	muzzlePoint[2] += ent->client->ps.viewheight;
-	VectorMA( muzzlePoint, 14, forward, muzzlePoint );
+	VectorMA( muzzlePoint, 14 * shrinkScale, forward, muzzlePoint );
 	// snap to integer coordinates for more efficient network bandwidth usage
 	SnapVector( muzzlePoint );
 }
@@ -604,11 +694,18 @@ set muzzle location relative to pivoting eye
 ===============
 */
 void CalcMuzzlePointOrigin ( gentity_t *ent, vec3_t origin, vec3_t forward, vec3_t right, vec3_t up, vec3_t muzzlePoint ) {
+	// shrink
+	float shrinkScale;
+	shrinkScale = 1.0f - 0.75f * (float)(ent->client->ps.stats[STAT_SHRINKSCALE])/SHRINK_FRAMES;
+	// End shrink
+	
 	VectorCopy( ent->s.pos.trBase, muzzlePoint );
 	muzzlePoint[2] += ent->client->ps.viewheight;
-	VectorMA( muzzlePoint, 14, forward, muzzlePoint );
+	VectorMA( muzzlePoint, 14 * shrinkScale, forward, muzzlePoint );
 	// snap to integer coordinates for more efficient network bandwidth usage
-	SnapVector( muzzlePoint );
+	if (!(ent->client->ps.stats[STAT_SHRINKSCALE] && ent->s.weapon == WP_RAILGUN)){
+		SnapVector( muzzlePoint );
+	}
 }
 
 

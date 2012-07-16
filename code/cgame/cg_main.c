@@ -322,6 +322,33 @@ static void CG_ForceModelChange( void ) {
 
 /*
 =================
+CG_CheckZnear
+Need to render things a lot closer to avoid view clipping when shrunk
+=================
+*/
+
+void  CG_CheckZnear( void ){
+	char var[16];
+	int	buff;
+
+
+	trap_Cvar_VariableStringBuffer( "r_znear", var, sizeof( var ) );
+	buff = atof( var );
+	
+	if ( buff != 1 ) {
+		trap_Cvar_Set( "r_znear", "1" );
+	}
+
+	trap_Cvar_VariableStringBuffer( "r_offsetunits", var, sizeof( var ) );
+	buff = atof( var );
+	
+	if ( buff != -16 ) {
+		trap_Cvar_Set( "r_offsetunits", "-16" );
+	}
+}
+
+/*
+=================
 CG_UpdateCvars
 =================
 */
@@ -348,6 +375,10 @@ void CG_UpdateCvars( void ) {
 		// FIXME E3 HACK
 		trap_Cvar_Set( "teamoverlay", "1" );
 	}
+
+// shrink
+	CG_CheckZnear();
+// End shrink
 
 	// if force model changed
 	if ( forceModelModificationCount != cg_forceModel.modificationCount ) {
@@ -648,6 +679,10 @@ static void CG_RegisterSounds( void ) {
 	cgs.media.n_healthSound = trap_S_RegisterSound("sound/items/n_health.wav", qfalse );
 	cgs.media.hgrenb1aSound = trap_S_RegisterSound("sound/weapons/grenade/hgrenb1a.wav", qfalse);
 	cgs.media.hgrenb2aSound = trap_S_RegisterSound("sound/weapons/grenade/hgrenb2a.wav", qfalse);
+
+	// shrink
+	cgs.media.shrinkSound = trap_S_RegisterSound("sound/weapons/shrink.wav", qfalse);
+	// End shrink
 }
 
 

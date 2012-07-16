@@ -378,8 +378,8 @@ void G_MoverTeam( gentity_t *ent ) {
 	pushed_p = pushed;
 	for (part = ent ; part ; part=part->teamchain) {
 		// get current position
-		BG_EvaluateTrajectory( &part->s.pos, level.time, origin );
-		BG_EvaluateTrajectory( &part->s.apos, level.time, angles );
+		BG_EvaluateTrajectory( &part->s.pos, level.time, origin, g_gravity.integer );
+		BG_EvaluateTrajectory( &part->s.apos, level.time, angles, g_gravity.integer );
 		VectorSubtract( origin, part->r.currentOrigin, move );
 		VectorSubtract( angles, part->r.currentAngles, amove );
 		if ( !G_MoverPush( part, move, amove, &obstacle ) ) {
@@ -392,8 +392,8 @@ void G_MoverTeam( gentity_t *ent ) {
 		for ( part = ent ; part ; part = part->teamchain ) {
 			part->s.pos.trTime += level.time - level.previousTime;
 			part->s.apos.trTime += level.time - level.previousTime;
-			BG_EvaluateTrajectory( &part->s.pos, level.time, part->r.currentOrigin );
-			BG_EvaluateTrajectory( &part->s.apos, level.time, part->r.currentAngles );
+			BG_EvaluateTrajectory( &part->s.pos, level.time, part->r.currentOrigin, g_gravity.integer );
+			BG_EvaluateTrajectory( &part->s.apos, level.time, part->r.currentAngles, g_gravity.integer );
 			trap_LinkEntity( part );
 		}
 
@@ -515,8 +515,8 @@ void SetMoverState( gentity_t *ent, moverState_t moverState, int time ) {
 		ent->s.apos.trType = TR_LINEAR_STOP;
 		break;	
 	}
-	BG_EvaluateTrajectory( &ent->s.pos, level.time, ent->r.currentOrigin );
-	BG_EvaluateTrajectory( &ent->s.apos, level.time, ent->r.currentAngles );	
+	BG_EvaluateTrajectory( &ent->s.pos, level.time, ent->r.currentOrigin, g_gravity.integer );	
+	BG_EvaluateTrajectory( &ent->s.apos, level.time, ent->r.currentAngles, g_gravity.integer );	
 	trap_LinkEntity( ent );
 }
 

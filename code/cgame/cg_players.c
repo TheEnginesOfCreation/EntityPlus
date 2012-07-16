@@ -19,6 +19,9 @@ char	*cg_customSoundNames[MAX_CUSTOM_SOUNDS] = {
 	"*taunt.wav"
 };
 
+// shrink
+	static float shrinkFactor;
+// end Shrink;
 
 /*
 ================
@@ -1928,8 +1931,22 @@ static qboolean CG_PlayerShadow( centity_t *cent, float *shadowPlane ) {
 
 	// add the mark as a temporary, so it goes directly to the renderer
 	// without taking a spot in the cg_marks array
-	CG_ImpactMark( cgs.media.shadowMarkShader, trace.endpos, trace.plane.normal, 
-		cent->pe.legs.yawAngle, alpha,alpha,alpha,1, qfalse, 24, qtrue );
+	
+// shrink
+	if (cent->currentState.powerups & ( 1 << PW_SHRINK )){
+		// Shouldn't happen...
+		if (!shrinkFactor){
+			shrinkFactor = 1;
+		}
+		CG_ImpactMark( cgs.media.shadowMarkShader, trace.endpos, trace.plane.normal, 
+			cent->pe.legs.yawAngle, alpha,alpha,alpha,1, qfalse, 24 * shrinkFactor, qtrue );
+	} else {
+		CG_ImpactMark( cgs.media.shadowMarkShader, trace.endpos, trace.plane.normal, 
+			cent->pe.legs.yawAngle, alpha,alpha,alpha,1, qfalse, 24, qtrue );
+	}
+
+// End shrink
+
 
 	return qtrue;
 }
@@ -2168,6 +2185,48 @@ void CG_Player( centity_t *cent ) {
 	// get the rotation information
 	CG_PlayerAngles( cent, legs.axis, torso.axis, head.axis );
 	
+// shrink
+
+	if (cent->currentState.powerups & ( 1 << PW_SHRINK )){
+
+		int i;
+		float shrinkLerp;
+
+		// CG_Printf("SS %i T:%i\n", cent->shrinkScale, cent->currentState.time);
+
+		if (cent->shrinkScale != cent->currentState.time){
+			if (!cent->shrinkTime){
+				cent->shrinkTime = cg.time;
+			}
+			cent->oldShrinkTime = cent->shrinkTime;
+			cent->shrinkTime = cg.time + 50;
+			cent->shrinkScale = cent->currentState.time;
+		}
+		if (cent->currentState.time == cent->currentState.time2){
+			shrinkLerp = 0;
+		} else {
+			shrinkLerp = (float)(cent->shrinkTime - cg.time) / 50;
+		}
+		if (cent->currentState.time > cent->currentState.time2){
+			// shrinking
+			cent->shrinkFactor = 1 - 0.75f * (float)(cent->currentState.time - shrinkLerp) / SHRINK_FRAMES; //* 0.01875;
+		} else if (cent->currentState.time2 > cent->currentState.time){
+			// growing
+			cent->shrinkFactor = 1 - 0.75f * (float)(cent->currentState.time - (1 - shrinkLerp)) / SHRINK_FRAMES;
+		} else {
+			// shrunk
+			cent->shrinkFactor = 1 - 0.75f * (float)(cent->currentState.time) / SHRINK_FRAMES;
+		}
+		shrinkFactor = cent->shrinkFactor;
+		for (i = 0; i < 3; i++){
+			VectorScale (legs.axis[i], cent->shrinkFactor, legs.axis[i] );
+		}
+	} else {
+		cent->shrinkScale = 0;
+		cent->shrinkFactor = 1;
+	}
+// End shrink
+
 	// get the animation state (after rotation, to allow feet shuffle)
 	CG_PlayerAnimation( cent, &legs.oldframe, &legs.frame, &legs.backlerp,
 		 &torso.oldframe, &torso.frame, &torso.backlerp );
@@ -2289,8 +2348,8 @@ void CG_ResetPlayerEntity( centity_t *cent ) {
 	CG_ClearLerpFrame( &cgs.clientinfo[ cent->currentState.clientNum ], &cent->pe.legs, cent->currentState.legsAnim );
 	CG_ClearLerpFrame( &cgs.clientinfo[ cent->currentState.clientNum ], &cent->pe.torso, cent->currentState.torsoAnim );
 
-	BG_EvaluateTrajectory( &cent->currentState.pos, cg.time, cent->lerpOrigin );
-	BG_EvaluateTrajectory( &cent->currentState.apos, cg.time, cent->lerpAngles );
+	BG_EvaluateTrajectory( &cent->currentState.pos, cg.time, cent->lerpOrigin, cgs.globalgravity );
+	BG_EvaluateTrajectory( &cent->currentState.apos, cg.time, cent->lerpAngles, cgs.globalgravity );
 
 	VectorCopy( cent->lerpOrigin, cent->rawOrigin );
 	VectorCopy( cent->lerpAngles, cent->rawAngles );
