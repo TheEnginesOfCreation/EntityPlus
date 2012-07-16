@@ -194,6 +194,7 @@ void SP_target_variable (gentity_t *ent);
 void SP_target_cutscene (gentity_t *ent);
 void SP_target_botremove (gentity_t *ent);
 void SP_target_music (gentity_t *ent);
+void SP_target_shrink (gentity_t *ent);
 
 void SP_light (gentity_t *self);
 void SP_info_null (gentity_t *self);
@@ -297,6 +298,7 @@ spawn_t	spawns[] = {
 	{"target_cutscene", SP_target_cutscene},
 	{"target_botremove", SP_target_botremove},
 	{"target_music", SP_target_music},
+	{"target_shrink", SP_target_shrink},
 
 	{"light", SP_light},
 	{"path_corner", SP_path_corner},

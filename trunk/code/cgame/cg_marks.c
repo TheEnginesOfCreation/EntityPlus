@@ -125,7 +125,11 @@ void CG_ImpactMark( qhandle_t markShader, const vec3_t origin, const vec3_t dir,
 	}
 
 	if ( radius <= 0 ) {
-		CG_Error( "CG_ImpactMark called with <= 0 radius" );
+// shrink
+		// Stupid to have this as an error...
+		//CG_Error( "CG_ImpactMark called with <= 0 radius" );
+		return;
+// End shrink
 	}
 
 	//paintball mode

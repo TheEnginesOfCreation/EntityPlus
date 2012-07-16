@@ -738,6 +738,75 @@ void FinishSpawningItem( gentity_t *ent ) {
 	trap_LinkEntity (ent);
 }
 
+// shrink
+
+/*
+================
+FinishSpawningItem2
+
+Traces down to find where an item should rest, instead of letting them
+free fall from their spawn points
+================
+*/
+void FinishSpawningItem2( gentity_t *ent, qboolean ignore ) {
+	trace_t		tr;
+	vec3_t		dest;
+
+	VectorSet( ent->r.mins, -ITEM_RADIUS, -ITEM_RADIUS, -ITEM_RADIUS );
+	VectorSet( ent->r.maxs, ITEM_RADIUS, ITEM_RADIUS, ITEM_RADIUS );
+
+	ent->s.eType = ET_ITEM;
+	ent->s.modelindex = ent->item - bg_itemlist;		// store item number in modelindex
+	ent->s.modelindex2 = 0; // zero indicates this isn't a dropped item
+
+	ent->r.contents = CONTENTS_TRIGGER;
+	ent->touch = Touch_Item;
+	// useing an item causes it to respawn
+	ent->use = Use_Item;
+
+	if ( ent->spawnflags & 1 ) {
+		// suspended
+		G_SetOrigin( ent, ent->s.origin );
+	} else {
+		// drop to floor
+		VectorSet( dest, ent->s.origin[0], ent->s.origin[1], ent->s.origin[2] - 4096 );
+		trap_Trace( &tr, ent->s.origin, ent->r.mins, ent->r.maxs, dest, ent->s.number, MASK_SOLID );
+		if ( tr.startsolid && !ignore ) {
+			G_Printf ("FinishSpawningItem: %s startsolid at %s\n", ent->classname, vtos(ent->s.origin));
+			G_FreeEntity( ent );
+			return;
+		}
+
+		// allow to ride movers
+		ent->s.groundEntityNum = tr.entityNum;
+
+		G_SetOrigin( ent, tr.endpos );
+	}
+
+	// team slaves and targeted items aren't present at start
+	if ( ( ent->flags & FL_TEAMSLAVE ) || ent->targetname ) {
+		ent->s.eFlags |= EF_NODRAW;
+		ent->r.contents = 0;
+		return;
+	}
+
+	// powerups don't spawn in for a while
+	if ( ent->item->giType == IT_POWERUP ) {
+		float	respawn;
+
+		respawn = 45 + crandom() * 15;
+		ent->s.eFlags |= EF_NODRAW;
+		ent->r.contents = 0;
+		ent->nextthink = level.time + respawn * 1000;
+		ent->think = RespawnItem;
+		return;
+	}
+
+
+	trap_LinkEntity (ent);
+}
+// End shrink
+
 
 qboolean	itemRegistered[MAX_ITEMS];
 
@@ -865,7 +934,7 @@ void G_BounceItem( gentity_t *ent, trace_t *trace ) {
 
 	// reflect the velocity on the trace plane
 	hitTime = level.previousTime + ( level.time - level.previousTime ) * trace->fraction;
-	BG_EvaluateTrajectoryDelta( &ent->s.pos, hitTime, velocity );
+	BG_EvaluateTrajectoryDelta( &ent->s.pos, hitTime, velocity, g_gravity.integer );
 	dot = DotProduct( velocity, trace->plane.normal );
 	VectorMA( velocity, -2*dot, trace->plane.normal, ent->s.pos.trDelta );
 
@@ -955,7 +1024,7 @@ void G_RunItem( gentity_t *ent ) {
 	}
 
 	// get current position
-	BG_EvaluateTrajectory( &ent->s.pos, level.time, origin );
+	BG_EvaluateTrajectory( &ent->s.pos, level.time, origin, g_gravity.integer );
 
 	// trace a line from the previous position to the current position
 	if ( ent->clipmask ) {

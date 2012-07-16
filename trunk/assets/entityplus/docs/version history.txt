@@ -1,4 +1,5 @@
 v1.1.4 (?? ??? 2012)
+	- [Added] target_shrink, which shrinks the player for 10 seconds. Thanks to Phoenix of Wirehead Studios for donating this code to EntityPlus.
 	- [Added] target_modify can be used to change value of "damage" or "dmg" keys.
 	- [Added] surfaces with a shader with "surfaceparm flesh" will make flesh footstep noises instead of the default sound.
 	- [Changed] Updated entity definitions.

@@ -428,6 +428,47 @@ models/powerups/keys/key_iron
 }
 
 //
+// SHRUNK LIGHTNING GUN
+//
+lightningBoltNew_medium
+{
+	cull none
+	{
+		map gfx/misc/lightning3new_medium.tga
+		blendFunc GL_ONE GL_ONE
+		rgbgen wave sin 1 0.5 0 7.1
+		tcmod scale  2 1
+		tcMod scroll -5 0
+	}
+	{
+		map gfx/misc/lightning3new_medium.tga
+		blendFunc GL_ONE GL_ONE
+		rgbgen wave sin 1 0.8 0 8.1
+		tcmod scale  -1.3 -1
+		tcMod scroll -7.2 0
+	}
+}
+
+lightningBoltNew_small
+{
+	cull none
+	{
+		map gfx/misc/lightning3new_small.tga
+		blendFunc GL_ONE GL_ONE
+		rgbgen wave sin 1 0.5 0 7.1
+		tcmod scale  2 1
+		tcMod scroll -5 0
+	}
+	{
+		map gfx/misc/lightning3new_small.tga
+		blendFunc GL_ONE GL_ONE
+		rgbgen wave sin 1 0.8 0 8.1
+		tcmod scale  -1.3 -1
+		tcMod scroll -7.2 0
+	}
+}
+
+//
 // GLASS DEBRIS
 //
 models/debris/glass

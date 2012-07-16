@@ -31,6 +31,10 @@ float	pm_ladderfriction = 3000;
 
 int		c_pmove = 0;
 
+// shrink
+static float hscale;
+static float vscale;
+static float oldvscale;
 
 /*
 ===============
@@ -367,7 +371,7 @@ static qboolean PM_CheckJump( void ) {
 	pm->ps->pm_flags |= PMF_JUMP_HELD;
 
 	pm->ps->groundEntityNum = ENTITYNUM_NONE;
-	pm->ps->velocity[2] = JUMP_VELOCITY;
+	pm->ps->velocity[2] = JUMP_VELOCITY * hscale;
 	PM_AddEvent( EV_JUMP );
 
 	if ( pm->cmd.forwardmove >= 0 ) {
@@ -1001,6 +1005,179 @@ void PM_CheckStuck(void) {
 
 /*
 =============
+PM_CorrectAllSolid2
+This corrects our bounding box while growing to normal size
+so we don't get stuck in walls.  Z coords will be treated separately later.
+=============
+*/
+
+
+static qboolean PM_CorrectAllSolid2( trace_t *trace, float radius, qboolean duck, qboolean step ) {
+	int			i, j, k;
+	vec3_t		point;
+	vec3_t		origin, mins, maxs;
+
+	VectorCopy(pm->ps->origin, origin);
+	VectorCopy(pm->mins, mins);
+	VectorCopy(pm->maxs, maxs);
+
+	if (duck){
+		maxs[2] = 16 * vscale;
+	}
+	if (step){
+		origin[2] += 18;
+	}
+
+	if ( pm->debugLevel ) {
+		Com_Printf("%i:allsolid 2\n", c_pmove);
+	}
+
+	// jitter around
+
+	// do single axis testing first to see if we can fast path it out
+
+	// Test X
+	for (i = -1; i <= 1; i++ ) {
+		VectorCopy(origin, point);
+		point[0] += (float) i * radius;
+		pm->trace (trace, point, mins, maxs, point, pm->ps->clientNum, pm->tracemask);
+		if ( !trace->allsolid ) {
+			pm->ps->origin[0] = point[0];
+			pm->ps->origin[2] = point[2];
+
+			pm->trace (trace, pm->ps->origin, mins, maxs, point, pm->ps->clientNum, pm->tracemask);
+			pml.groundTrace = *trace;
+			return qfalse;
+		}
+	}
+
+	// Test Y
+	for (i = -1; i <= 1; i++ ) {
+		VectorCopy(origin, point);
+		point[1] += (float) i * radius;
+		pm->trace (trace, point, mins, maxs, point, pm->ps->clientNum, pm->tracemask);
+		if ( !trace->allsolid ) {
+			pm->ps->origin[1] = point[1];
+			pm->ps->origin[2] = point[2];
+
+			pm->trace (trace, pm->ps->origin, mins, maxs, point, pm->ps->clientNum, pm->tracemask);
+			pml.groundTrace = *trace;
+			return qfalse;
+		}
+	}
+
+	// Test Z
+	for (i = -1; i <= 1; i++ ) {
+		VectorCopy(origin, point);
+		point[2] += (float) i * radius;
+		pm->trace (trace, point, mins, maxs, point, pm->ps->clientNum, pm->tracemask);
+		if ( !trace->allsolid ) {
+			pm->ps->origin[2] = point[2];
+
+			pm->trace (trace, pm->ps->origin, mins, maxs, point, pm->ps->clientNum, pm->tracemask);
+			pml.groundTrace = *trace;
+			return qfalse;
+		}
+	}
+
+	// if single-axis test fails, do two-axis testing
+
+	// test x and y
+	for (i = -1; i <= 1; i++ ) {
+
+		for (j = -1; j <= 1; j++) {
+
+			VectorCopy(origin, point);
+			point[0] += (float) i * radius;
+			point[1] += (float) j * radius;
+			pm->trace (trace, point, mins, maxs, point, pm->ps->clientNum, pm->tracemask);
+			if ( !trace->allsolid ) {
+				pm->ps->origin[0] = point[0];
+				pm->ps->origin[1] = point[1];
+				pm->ps->origin[2] = point[2];
+
+				pm->trace (trace, pm->ps->origin, mins, maxs, point, pm->ps->clientNum, pm->tracemask);
+				pml.groundTrace = *trace;
+				return qfalse;
+			}
+		}
+	}
+
+	// test x and z
+	for (i = -1; i <= 1; i++ ) {
+
+		for (j = -1; j <= 1; j++) {
+
+			VectorCopy(origin, point);
+			point[0] += (float) i * radius;
+			point[2] += (float) j * radius;
+			pm->trace (trace, point, mins, maxs, point, pm->ps->clientNum, pm->tracemask);
+			if ( !trace->allsolid ) {
+				pm->ps->origin[0] = point[0];
+				pm->ps->origin[2] = point[2];
+
+				pm->trace (trace, pm->ps->origin, mins, maxs, point, pm->ps->clientNum, pm->tracemask);
+				pml.groundTrace = *trace;
+				return qfalse;
+			}
+		}
+	}
+
+	// test y and z
+	for (i = -1; i <= 1; i++ ) {
+
+		for (j = -1; j <= 1; j++) {
+
+			VectorCopy(origin, point);
+			point[1] += (float) i * radius;
+			point[2] += (float) j * radius;
+			pm->trace (trace, point, mins, maxs, point, pm->ps->clientNum, pm->tracemask);
+			if ( !trace->allsolid ) {
+				pm->ps->origin[1] = point[1];
+				pm->ps->origin[2] = point[2];
+
+				pm->trace (trace, pm->ps->origin, mins, maxs, point, pm->ps->clientNum, pm->tracemask);
+				pml.groundTrace = *trace;
+				return qfalse;
+			}
+		}
+	}
+
+	// do 3-axis test if all else fails
+	for (i = -1; i <= 1; i++ ) {
+
+		for (j = -1; j <= 1; j++) {
+
+			for (k = -1; k <= 1; k++) {
+				VectorCopy(origin, point);
+				point[0] += (float) i * radius;
+				point[1] += (float) j * radius;
+				point[2] += (float) k * radius;
+				pm->trace (trace, point, mins, maxs, point, pm->ps->clientNum, pm->tracemask);
+				if ( !trace->allsolid ) {
+					pm->ps->origin[0] = point[0];
+					pm->ps->origin[1] = point[1];
+					pm->ps->origin[2] = point[2];
+
+					pm->trace (trace, pm->ps->origin, mins, maxs, point, pm->ps->clientNum, pm->tracemask);
+					pml.groundTrace = *trace;
+					return qfalse;
+				}
+			}
+		}
+	}
+
+	// we're stuck
+	pm->ps->groundEntityNum = ENTITYNUM_NONE;
+	pml.groundPlane = qfalse;
+	pml.walking = qfalse;
+
+	return qtrue;
+}
+
+
+/*
+=============
 PM_CorrectAllSolid
 =============
 */
@@ -1199,20 +1376,20 @@ static void PM_SetWaterLevel( void ) {
 
 	point[0] = pm->ps->origin[0];
 	point[1] = pm->ps->origin[1];
-	point[2] = pm->ps->origin[2] + MINS_Z + 1;	
+	point[2] = pm->ps->origin[2] + (MINS_Z + 1) * vscale;	
 	cont = pm->pointcontents( point, pm->ps->clientNum );
 
 	if ( cont & MASK_WATER ) {
-		sample2 = pm->ps->viewheight - MINS_Z;
+		sample2 = pm->ps->viewheight - (MINS_Z * vscale);
 		sample1 = sample2 / 2;
 
 		pm->watertype = cont;
 		pm->waterlevel = 1;
-		point[2] = pm->ps->origin[2] + MINS_Z + sample1;
+		point[2] = pm->ps->origin[2] + (MINS_Z * vscale) + sample1;
 		cont = pm->pointcontents (point, pm->ps->clientNum );
 		if ( cont & MASK_WATER ) {
 			pm->waterlevel = 2;
-			point[2] = pm->ps->origin[2] + MINS_Z + sample2;
+			point[2] = pm->ps->origin[2] + (MINS_Z * vscale) + sample2;
 			cont = pm->pointcontents (point, pm->ps->clientNum );
 			if ( cont & MASK_WATER ){
 				pm->waterlevel = 3;
@@ -1232,6 +1409,13 @@ Sets mins, maxs, and pm->ps->viewheight
 static void PM_CheckDuck (void)
 {
 	trace_t	trace;
+
+	// shrink
+// this is handled in the PM_ShrinkScale function if we're scaled down.
+	if (pm->ps->powerups[PW_SHRINK]){
+		return;
+	}
+// End shrink
 
 	if ( pm->ps->powerups[PW_INVULNERABILITY] ) {
 		if ( pm->ps->pm_flags & PMF_INVULEXPAND ) {
@@ -1292,6 +1476,230 @@ static void PM_CheckDuck (void)
 	}
 }
 
+
+/*
+==============
+PM_ShrinkScale
+==============
+*/
+static void PM_ShrinkScale( void ){
+	trace_t	trace;
+	vec3_t	point;
+
+	if (pm->ps->powerups[PW_SHRINK]){
+		float radius;
+		vec3_t	mins, maxs;
+
+		//radius = 0.6;
+		radius = 18.0f / SHRINK_FRAMES;
+
+		mins[0] = -15 * vscale;
+		mins[1] = -15 * vscale;
+
+		maxs[0] = 15 * vscale;
+		maxs[1] = 15 * vscale;
+
+		mins[2] = MINS_Z * vscale;
+
+		if (pm->ps->pm_flags & PMF_DUCKED){
+			maxs[2] = 16 * vscale;
+		} else {
+			maxs[2] = 32 * vscale;
+		}
+
+		VectorCopy(mins, pm->mins);
+		VectorCopy(maxs, pm->maxs);
+
+		VectorCopy(pm->ps->origin, point);
+
+// shrink
+	// Growing
+
+	if (pm->ps->powerups[PW_SHRINK]){ // && pm->ps->groundEntityNum != ENTITYNUM_NONE  ){
+		if ( pm->ps->stats[STAT_OLDSHRINKSCALE] > pm->ps->stats[STAT_SHRINKSCALE]){
+			float offset;
+			offset = 18.0f / SHRINK_FRAMES;
+			pm->ps->origin[2] += offset * (float)pml.msec / 50;
+
+
+			//pm->ps->origin[2] += 0.6;
+
+			point[2] = pm->ps->origin[2] - 1;
+
+			pm->trace (&trace, pm->ps->origin, pm->mins, pm->maxs, point, pm->ps->clientNum, pm->tracemask);
+			pml.groundTrace = trace;
+
+			// do something corrective if the trace starts in a solid...
+
+			if ( trace.allsolid ) {
+//				if ( !PM_CorrectAllSolid(&trace) )
+//					return;
+//			}
+
+			} else {
+				if ( trace.fraction != 1.0 ) {
+					pm->ps->origin[2] = trace.endpos[2];
+				}
+			}
+
+		}
+	} 
+
+	// Shrinking
+	if (pm->ps->powerups[PW_SHRINK]){ //&& pm->ps->groundEntityNum != ENTITYNUM_NONE ){
+
+		if (pm->ps->stats[STAT_OLDSHRINKSCALE] < pm->ps->stats[STAT_SHRINKSCALE]){
+			float offset;
+			offset = 18.0f / SHRINK_FRAMES;
+
+			pm->ps->origin[2] -= offset * (float)pml.msec / 50;
+
+			point[2] = pm->ps->origin[2] - 1;
+
+			pm->trace (&trace, pm->ps->origin, pm->mins, pm->maxs, point, pm->ps->clientNum, pm->tracemask);
+			pml.groundTrace = trace;
+
+			// do something corrective if the trace starts in a solid...
+
+			if ( trace.allsolid ) {
+//				if ( !PM_CorrectAllSolid(&trace) )
+//					return;
+//			}
+			} else {
+				if ( trace.fraction != 1.0 ) {
+					pm->ps->origin[2] = trace.endpos[2];
+				}
+			}
+		}
+	}
+
+
+	// don't do solid testing if we're in noclip.
+	if (pm->ps->pm_type == PM_NOCLIP){
+		return;
+	}
+
+
+	// Make sure we're not stuck in a wall if we're growing
+	if ( pm->ps->stats[STAT_OLDSHRINKSCALE] > pm->ps->stats[STAT_SHRINKSCALE]){
+
+		pm->trace (&trace, pm->ps->origin, pm->mins, pm->maxs, pm->ps->origin,
+		 pm->ps->clientNum, pm->tracemask );
+
+		// do something corrective if the trace starts in a solid...
+		if ( trace.allsolid ) {
+			qboolean stuck = qfalse;
+
+			// if we're in the air increase the radius as we might collide badly with something.
+			if (pm->ps->groundEntityNum == ENTITYNUM_NONE){
+				//radius *= 2;
+			}
+
+
+			stuck = PM_CorrectAllSolid2(&trace, radius, qfalse, qfalse);
+
+			if (stuck){
+				stuck = PM_CorrectAllSolid2(&trace, radius, qtrue, qfalse);
+
+				// duck
+				if (!stuck){
+					pm->ps->pm_flags |= PMF_DUCKED;
+					pm->maxs[2] = 16 * vscale;
+					pm->ps->viewheight = CROUCH_VIEWHEIGHT * vscale;
+				}
+			}
+			if (stuck){
+				stuck = PM_CorrectAllSolid2(&trace, radius, qfalse, qtrue);
+				// Stepped if we succeeded
+				if (!stuck){
+					VectorCopy( pm->ps->origin, point );
+					point[2] -= STEPSIZE;
+
+					// trace down so we're on the actual step
+					// should never start solid since we just checked.
+					pm->trace (&trace, pm->ps->origin, pm->mins, pm->maxs,
+					 point, pm->ps->clientNum, pm->tracemask);
+					pml.groundTrace = trace;
+					if (pm->ps->velocity[2] > 0){
+						pm->ps->velocity[2] = 0;
+					}
+				}
+			}
+			if (stuck){
+				stuck = PM_CorrectAllSolid2(&trace, radius, qtrue, qtrue);
+
+				// Stepped, and now duck
+				if (!stuck){
+
+					VectorCopy( pm->ps->origin, point );
+					point[2] -= STEPSIZE;
+
+					// trace down so we're on the actual step
+					// should never start solid since we just checked.
+					pm->trace (&trace, pm->ps->origin, pm->mins, pm->maxs,
+					 point, pm->ps->clientNum, pm->tracemask);
+					pml.groundTrace = trace;
+					if (pm->ps->velocity[2] > 0){
+						pm->ps->velocity[2] = 0;
+					}
+
+					pm->ps->pm_flags |= PMF_DUCKED;
+					pm->maxs[2] = 16 * vscale;
+					pm->ps->viewheight = CROUCH_VIEWHEIGHT * vscale;
+				}
+			}
+
+			// We're still stuck so squish us.
+			if ( stuck ){
+
+				// clear any other timers that may be running
+				if (pm->ps->pm_flags != 0){
+					pm->ps->pm_flags = 0;
+					pm->ps->pm_time = 0;
+				}
+				// If we're stuck, it's time to gib.
+				// Set the timer so we only send the event once.
+				if (!pm->ps->pm_time){
+					PM_AddEvent( EV_SHRINK_SQUISH );
+					pm->ps->pm_time = 200;
+				}
+			}
+		}
+	}
+	if (pm->ps->pm_type == PM_DEAD){
+		pm->mins[2] = MINS_Z * vscale;
+		pm->maxs[2] = 32 * vscale;
+		pm->ps->viewheight = DEAD_VIEWHEIGHT;
+		return;
+	}
+
+	if (pm->cmd.upmove < 0){	// duck
+		pm->ps->pm_flags |= PMF_DUCKED;
+	} else {	// stand up if possible
+		if (pm->ps->pm_flags & PMF_DUCKED){
+			// try to stand up
+			pm->maxs[2] = 32 * vscale;
+			pm->trace (&trace, pm->ps->origin, pm->mins, pm->maxs, pm->ps->origin,
+			 pm->ps->clientNum, pm->tracemask );
+			if (!trace.allsolid){
+				pm->ps->pm_flags &= ~PMF_DUCKED;
+			}
+		}
+	}
+
+	if (pm->ps->pm_flags & PMF_DUCKED){
+		pm->maxs[2] = 16 * vscale;
+		pm->ps->viewheight = CROUCH_VIEWHEIGHT * vscale;
+	} else {
+		pm->maxs[2] = 32 * vscale;
+		pm->ps->viewheight = DEFAULT_VIEWHEIGHT * vscale;
+	}
+
+		// Com_Printf("Client: %i %i %f\n", pm->ps->viewheight, pm->ps->stats[STAT_SHRINKSCALE], scale);
+
+	}
+
+}
 
 
 //===================================================================
@@ -1873,6 +2281,26 @@ void PmoveSingle (pmove_t *pmove) {
 	pm->watertype = 0;
 	pm->waterlevel = 0;
 
+	// shrink
+	vscale = 1.0f - 0.75f * (float)(pm->ps->stats[STAT_SHRINKSCALE])/SHRINK_FRAMES;
+	oldvscale = 1.0f - 0.75f * (float)(pm->ps->stats[STAT_OLDSHRINKSCALE])/SHRINK_FRAMES;
+
+	hscale = 1.0f - 0.44f * (float)(pm->ps->stats[STAT_SHRINKSCALE])/SHRINK_FRAMES;
+
+	if (vscale > 1.0f){
+		vscale = 1.0f;
+	}
+	if (vscale < 0.25f){
+		vscale = 0.25f;
+	}
+	if (hscale > 1.0f){
+		hscale = 1.0f;
+	}
+	if (hscale < 0.5f){
+		hscale = 0.5f;
+	}
+	// End shrink
+
 	if ( pm->ps->stats[STAT_HEALTH] <= 0 ) {
 		pm->tracemask &= ~CONTENTS_BODY;	// corpses can fly through bodies
 	}
@@ -1952,6 +2380,12 @@ void PmoveSingle (pmove_t *pmove) {
 	} else if ( pm->cmd.forwardmove > 0 || ( pm->cmd.forwardmove == 0 && pm->cmd.rightmove ) ) {
 		pm->ps->pm_flags &= ~PMF_BACKWARDS_RUN;
 	}
+
+	// shrink
+	if ( pm->ps->powerups[PW_SHRINK] ){
+		PM_ShrinkScale();
+	}
+	// end shrink
 
 	if ( pm->ps->pm_type >= PM_DEAD ) {
 		pm->cmd.forwardmove = 0;

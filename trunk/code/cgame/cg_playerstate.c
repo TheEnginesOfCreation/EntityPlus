@@ -282,12 +282,33 @@ void CG_CheckLocalSounds( playerState_t *ps, playerState_t *ops ) {
 		return;
 	}
 
+	//TODO: When we squish an enemy, do we hear the squish sound? If not, we need to find another way of determining a squish and use the code below:
+
+	/*
+	if (ps->persistant[PERS_STOMPS] > ops->persistant[PERS_STOMPS]){
+		int r = rand()&3;
+		sfxHandle_t	s;
+
+		if ( r == 0 ) {
+			s = cgs.media.gibBounce1Sound;
+		} else if ( r == 1 ) {
+			s = cgs.media.gibBounce2Sound;
+		} else {
+			s = cgs.media.gibBounce3Sound;
+		}
+		trap_S_StartSound( ps->origin, ENTITYNUM_WORLD, CHAN_AUTO, s );
+	}
+	*/
+
 	// hit changes
 	if ( ps->persistant[PERS_HITS] > ops->persistant[PERS_HITS] ) {
 		armor  = ps->persistant[PERS_ATTACKEE_ARMOR] & 0xff;
 		health = ps->persistant[PERS_ATTACKEE_ARMOR] >> 8;
+		//do not play hit bleep in EntityPlus
+		//trap_S_StartSound( ps->origin, ENTITYNUM_WORLD, CHAN_AUTO, s );
 	} else if ( ps->persistant[PERS_HITS] < ops->persistant[PERS_HITS] ) {
-		trap_S_StartLocalSound( cgs.media.hitTeamSound, CHAN_LOCAL_SOUND );
+		//do not play teammate hit bleeps in EntityPlus
+		//trap_S_StartLocalSound( cgs.media.hitTeamSound, CHAN_LOCAL_SOUND );
 	}
 
 	// health changes of more than -1 should make pain sounds

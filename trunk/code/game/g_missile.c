@@ -15,9 +15,18 @@ void G_BounceMissile( gentity_t *ent, trace_t *trace ) {
 	float	dot;
 	int		hitTime;
 
+	// shrink - we adjust gravity on grenades when shrunk
+	float rangeScale;
+	if (ent->s.generic1){
+		rangeScale = 1.0f - 0.5f * (float)(ent->s.generic1)/SHRINK_FRAMES;
+	} else {
+		rangeScale = 1.0f;
+	}
+	// End shrink
+
 	// reflect the velocity on the trace plane
 	hitTime = level.previousTime + ( level.time - level.previousTime ) * trace->fraction;
-	BG_EvaluateTrajectoryDelta( &ent->s.pos, hitTime, velocity );
+	BG_EvaluateTrajectoryDelta( &ent->s.pos, hitTime, velocity, (g_gravity.integer * rangeScale) );
 	dot = DotProduct( velocity, trace->plane.normal );
 	VectorMA( velocity, -2*dot, trace->plane.normal, ent->s.pos.trDelta );
 
@@ -48,7 +57,16 @@ void G_ExplodeMissile( gentity_t *ent ) {
 	vec3_t		dir;
 	vec3_t		origin;
 
-	BG_EvaluateTrajectory( &ent->s.pos, level.time, origin );
+	// shrink - we adjust gravity on grenades when shrunk
+	float rangeScale;
+	if (ent->s.generic1){
+		rangeScale = 1.0f - 0.5f * (float)(ent->s.generic1)/SHRINK_FRAMES;
+	} else {
+		rangeScale = 1.0f;
+	}
+	// End shrink
+
+	BG_EvaluateTrajectory( &ent->s.pos, level.time, origin, (g_gravity.integer * rangeScale) );
 	SnapVector( origin );
 	G_SetOrigin( ent, origin );
 
@@ -81,6 +99,15 @@ void G_MissileImpact( gentity_t *ent, trace_t *trace ) {
 	gentity_t		*other;
 	qboolean		hitClient = qfalse;
 	
+// shrink - we adjust gravity on grenades when shrunk
+	float rangeScale;
+	if (ent->s.generic1){
+		rangeScale = 1.0f - 0.5f * (float)(ent->s.generic1)/SHRINK_FRAMES;
+	} else {
+		rangeScale = 1.0f;
+	}
+// End shrink
+
 	other = &g_entities[trace->entityNum];
 
 	// check for bounce
@@ -101,7 +128,7 @@ void G_MissileImpact( gentity_t *ent, trace_t *trace ) {
 				g_entities[ent->r.ownerNum].client->accuracy_hits++;
 				hitClient = qtrue;
 			}
-			BG_EvaluateTrajectoryDelta( &ent->s.pos, level.time, velocity );
+			BG_EvaluateTrajectoryDelta( &ent->s.pos, level.time, velocity, (g_gravity.integer * rangeScale) );
 			if ( VectorLength( velocity ) == 0 ) {
 				velocity[2] = 1;	// stepped on a grenade
 			}
@@ -200,8 +227,17 @@ void G_RunMissile( gentity_t *ent ) {
 	trace_t		tr;
 	int			passent;
 
+// shrink - we adjust gravity on grenades when shrunk
+	float rangeScale;
+	if (ent->s.generic1){
+		rangeScale = 1.0f - 0.5f * (float)(ent->s.generic1)/SHRINK_FRAMES;
+	} else {
+		rangeScale = 1.0f;
+	}
+// End shrink
+
 	// get current position
-	BG_EvaluateTrajectory( &ent->s.pos, level.time, origin );
+	BG_EvaluateTrajectory( &ent->s.pos, level.time, origin, (g_gravity.integer * rangeScale) );
 
 	// if this missile bounced off an invulnerability sphere
 	if ( ent->target_ent ) {

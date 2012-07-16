@@ -364,6 +364,11 @@ struct gclient_s {
 	int			timeResidual;
 
 	char		*areabits;
+
+	// shrink
+	int		shrinkTime;  
+	int		shrinkDamageTime;
+	// End shrink
 };
 
 
@@ -490,6 +495,7 @@ gentity_t *LaunchBackpack( gitem_t *item, gentity_t *self, vec3_t velocity );
 void SetRespawn (gentity_t *ent, float delay);
 void G_SpawnItem (gentity_t *ent, gitem_t *item);
 void FinishSpawningItem( gentity_t *ent );
+void FinishSpawningItem2( gentity_t *ent, qboolean ignore );
 void Think_Weapon (gentity_t *ent);
 int ArmorIndex (gentity_t *ent);
 void	Add_Ammo (gentity_t *ent, int weapon, int count);
@@ -537,6 +543,8 @@ void G_AddEvent( gentity_t *ent, int event, int eventParm );
 void G_SetOrigin( gentity_t *ent, vec3_t origin );
 void AddRemap(const char *oldShader, const char *newShader, float timeOffset);
 const char *BuildShaderStateConfig();
+
+void G_ShrinkPlayer( gentity_t *ent, gentity_t *attacker );
 
 //
 // g_combat.c
