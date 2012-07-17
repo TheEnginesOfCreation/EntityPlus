@@ -681,7 +681,7 @@ static void CG_RegisterSounds( void ) {
 	cgs.media.hgrenb2aSound = trap_S_RegisterSound("sound/weapons/grenade/hgrenb2a.wav", qfalse);
 
 	// shrink
-	cgs.media.shrinkSound = trap_S_RegisterSound("sound/weapons/shrink.wav", qfalse);
+	cgs.media.shrinkSound = trap_S_RegisterSound("sound/misc/shrink.wav", qfalse);
 	// End shrink
 }
 
