@@ -542,7 +542,8 @@ model2 : path/name of model to include (eg: models/mapobjects/bitch/fembotbig.md
 origin : alternate method of setting XYZ origin of .md3 model included with entity (See Notes).
 light : constantLight radius of .md3 model included with entity. Has no effect on the entity's brushes (default 0).
 color : constantLight color of .md3 model included with entity. Has no effect on the entity's brushes (default 1 1 1).
-targetname : NOT SUPPORTED BY RENDERER - if set, a func_button or trigger can make entity disappear from the game (See Notes).
+targetname : target_unlink can target this entity to link/unlink it from the game world.
+targetname2 : target_unlink can target this entity to link/unlink it from the game world.
 -------- Q3MAP2 KEYS --------
 _targetname : Used to attach a misc_model entity to this entity.
 _lightmapscale : Floating point value scaling the resolution of lightmaps on brushes/patches in this entity (default 1.0).
@@ -1123,6 +1124,8 @@ count: sets the amount of health points given to the player when item is picked 
 team : set this to team items. Teamed items will respawn randomly after team master is picked up (see Notes).
 target : picking up the item will trigger the entity this points to.
 target2 : picking up the item will trigger the entity this points to.
+targetname : a target_give entity can point to this for respawn freebies.
+targetname2 : a target_give entity can point to this for respawn freebies.
 -------- SPAWNFLAGS --------
 SUSPENDED : item will spawn where it was placed in map and won't drop to the floor.
 SILENT : no sound will be played when picking up this item.
@@ -1144,6 +1147,8 @@ count: sets the amount of health points given to the player when item is picked 
 team : set this to team items. Teamed items will respawn randomly after team master is picked up (see Notes).
 target : picking up the item will trigger the entity this points to.
 target2 : picking up the item will trigger the entity this points to.
+targetname : a target_give entity can point to this for respawn freebies.
+targetname2 : a target_give entity can point to this for respawn freebies.
 -------- SPAWNFLAGS --------
 SUSPENDED : item will spawn where it was placed in map and won't drop to the floor.
 SILENT : no sound will be played when picking up this item.
@@ -1647,20 +1652,6 @@ targetname2 : activating entity points to this.*/
 
 //=============================================================================
 
-//QUAKED target_laser (0 .5 0) (-8 -8 -8) (8 8 8) START_ON
-//Generates a red laser beam. I think this can somehow spawn in the game, I saw it once but it's too inconsistent to be usable. Commented out.
-//-------- KEYS --------
-//angles: alternate "pitch, yaw, roll" angles method of aiming laser (default 0 0 0).
-//target : point this to a target_position entity to set the laser's aiming direction.
-//targetname : the activating entity points to this.
-//notfree : when set to 1, entity will not spawn in "Free for all" and "Tournament" modes.
-//notteam : when set to 1, entity will not spawn in "Teamplay" and "CTF" modes.
-//notsingle : when set to 1, entity will not spawn in Single Player mode.
-//-------- SPAWNFLAGS --------
-//START_ON : when set, the laser will start on in the game.
-
-//=============================================================================
-
 /*QUAKED target_logic (0 .5 0) (-8 -8 -8) (8 8 8) - - RANDOM STAY_ON
 This enitity will be activated when all triggers targeting this entity have been triggered. 
 -------- KEYS --------
@@ -2092,28 +2083,6 @@ When the random key is set, its value is used to calculate a minimum and a maxim
 -------- MODEL FOR RADIANT ONLY - DO NOT SET THIS AS A KEY --------
 model="models/weapons2/gauntlet/gauntlet.md3"*/
 
-//=============================================================================
-//
-///*QUAKED weapon_grapplinghook (1 0 .5) (-16 -16 -16) (16 16 16) SUSPENDED SILENT
-//Grappling Hook. Spawns in the game and works but is unskinned.
-//-------- KEYS --------
-//wait : time in seconds before item respawns after being picked up (default -1 (never respawn)).
-//random : random time variance in seconds added or subtracted from "wait" delay (default 0 - see Notes).
-//team : set this to team items. Teamed items will respawn randomly after team master is picked up (see Notes).
-//target : picking up the item will trigger the entity this points to.
-//target2 : picking up the item will trigger the entity this points to.
-//targetname : a target_give entity can point to this for respawn freebies.
-//targetname2 : a target_give entity can point to this for respawn freebies.
-//-------- SPAWNFLAGS --------
-//SUSPENDED : item will spawn where it was placed in map and won't drop to the floor.
-//SILENT : no sound will be played when picking up this item.
-//-------- NOTES --------
-//The amount of time it takes for an item in the team to respawn is determined by the "wait" value of the item that was picked up previously. So if one of the items in the team has it's "wait" key set to -1 (never respawn), the random respawning cycle of the teamed items will stop after that item is picked up.
-//
-//When the random key is set, its value is used to calculate a minimum and a maximum delay. The final time delay will be a random value anywhere between the minimum and maximum values: (min delay = wait - random) (max delay = wait + random).
-//-------- MODEL FOR RADIANT ONLY - DO NOT SET THIS AS A KEY --------
-//model="models/weapons2/grapple/grapple.md3"*/
-//
 //=============================================================================
 
 /*QUAKED weapon_grenadelauncher (1 0 .5) (-16 -16 -16) (16 16 16) SUSPENDED SILENT

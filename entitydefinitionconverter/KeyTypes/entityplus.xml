@@ -8,7 +8,7 @@
 	<distance>real</distance>
 	<enablebreath>boolean</enablebreath>
 	<enabledust>boolean</enabledust>
-	<endcolor>color</endcolor>	<!-- accepts 4 float values instead of 3 though -->
+	<endcolor>rgba</endcolor>	<!-- accepts 4 float values instead of 3 though -->
 	<endsound>sound</endsound>
 	<fov>integer</fov>
 	<intensity>integer</intensity>
@@ -24,8 +24,8 @@
 	<script>string</script>
 	<skill>real</skill>
 	<sound>sound</sound>
-	<startcolor>rgba</startcolor>
-	<startsound>color</startsound> <!-- accepts 4 float values instead of 3 though -->
+	<startcolor>rgba</startcolor> <!-- accepts 4 float values instead of 3 though -->
+	<startsound>sound</startsound> 
 	<target2>target</target2>
 	<targetname2>targetname</targetname2>
 	<teleportertarget>target</teleportertarget>
