@@ -71,6 +71,7 @@ cr_line credits[] = { // edit this as necessary for your credits
 
 { "Custom Sound Effects", UI_CENTER|UI_BIGFONT, &color_ochre },
 { "Patrick 'Scout' Schotte", UI_CENTER|UI_SMALLFONT, &color_white },
+{ "Timbre", UI_CENTER|UI_SMALLFONT, &color_white },
 { "", UI_CENTER|UI_SMALLFONT, &color_white },
 
 { "Testing & Feedback", UI_CENTER|UI_BIGFONT, &color_ochre },

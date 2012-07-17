@@ -469,6 +469,33 @@ lightningBoltNew_small
 }
 
 //
+// SHRUNK RAILGUN
+//
+railCore_medium
+{
+	sort nearest
+	cull none
+	{
+		map gfx/misc/railCore_medium.tga
+		blendFunc GL_ONE GL_ONE
+		rgbGen vertex
+		tcMod scroll -1 0
+	}
+}
+
+railCore_small
+{
+	sort nearest
+	cull none
+	{
+		map gfx/misc/railCore_small.tga
+		blendFunc GL_ONE GL_ONE
+		rgbGen vertex
+		tcMod scroll -1 0
+	}
+}
+
+//
 // GLASS DEBRIS
 //
 models/debris/glass

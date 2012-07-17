@@ -74,6 +74,8 @@ additional programming			  [http://quake3world.com/forum/memberlist.php?mode=vie
 
 Custom sound effects			: Patrick "Scout" Schotte
 
+Shrinking sound effect			: Timbre
+								  [http://www.freesound.org/people/Timbre]
 
 Objectives overlay art			: Noruen
 								  [http://quake3world.com/forum/memberlist.php?mode=viewprofile&u=28238]
