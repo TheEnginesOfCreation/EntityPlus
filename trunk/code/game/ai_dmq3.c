@@ -3443,6 +3443,10 @@ void BotCheckEvents(bot_state_t *bs, entityState_t *state) {
 		case EV_USE_ITEM12:
 		case EV_USE_ITEM13:
 		case EV_USE_ITEM14:
+// shrink
+		case EV_POWERUP_SHRINK:
+		case EV_SHRINK_SQUISH:
+// End shrink
 			break;
 	}
 }
