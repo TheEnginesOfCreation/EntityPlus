@@ -506,7 +506,6 @@ void G_Damage( gentity_t *targ, gentity_t *inflictor, gentity_t *attacker,
 		attacker = &g_entities[ENTITYNUM_WORLD];
 	}
 
-
 	// shootable doors / buttons don't actually have any health
 	if ( targ->s.eType == ET_MOVER ) {
 		if ( strcmp(targ->classname, "func_breakable") && targ->use && (targ->moverState == MOVER_POS1 || targ->moverState == ROTATOR_POS1) ) {
@@ -578,13 +577,14 @@ void G_Damage( gentity_t *targ, gentity_t *inflictor, gentity_t *attacker,
 	// We scale damage based on our relative size to each other.  A max size player attacking a fully shrunk player
 	// will do double damage.  A shrunk player attacking a max size player will do quarter damage.  Anything inbetween
 	// will be scaled proportionally.
-	if (targ->client->ps.stats[STAT_SHRINKSCALE] > attacker->client->ps.stats[STAT_SHRINKSCALE]){
+	if (attacker->client && targ->client->ps.stats[STAT_SHRINKSCALE] > attacker->client->ps.stats[STAT_SHRINKSCALE]){
 		damage *= (1.0f + (float)(targ->client->ps.stats[STAT_SHRINKSCALE] - attacker->client->ps.stats[STAT_SHRINKSCALE]) / SHRINK_FRAMES);
 
-	} else if (attacker->client->ps.stats[STAT_SHRINKSCALE] > targ->client->ps.stats[STAT_SHRINKSCALE]){
+	} else if (attacker->client && attacker->client->ps.stats[STAT_SHRINKSCALE] > targ->client->ps.stats[STAT_SHRINKSCALE]){
 		damage *= 1.0f - 0.75f * (float)(attacker->client->ps.stats[STAT_SHRINKSCALE] - targ->client->ps.stats[STAT_SHRINKSCALE]) / SHRINK_FRAMES;
 	}
 	// End shrink
+
 
 	knockback = damage;
 	if ( knockback > 200 ) {
@@ -596,9 +596,11 @@ void G_Damage( gentity_t *targ, gentity_t *inflictor, gentity_t *attacker,
 	if ( dflags & DAMAGE_NO_KNOCKBACK ) {
 		knockback = 0;
 	}
-
+	
+	
 	// figure momentum add, even if the damage won't be taken
 	if ( knockback && targ->client ) {
+		
 		vec3_t	kvel;
 		float	mass;
 
@@ -639,7 +641,9 @@ void G_Damage( gentity_t *targ, gentity_t *inflictor, gentity_t *attacker,
 		if ( targ->flags & FL_GODMODE ) {
 			return;
 		}
+		
 	}
+
 
 	// battlesuit protects from all radius damage (but takes knockback)
 	// and protects 50% against all damage
@@ -666,6 +670,7 @@ void G_Damage( gentity_t *targ, gentity_t *inflictor, gentity_t *attacker,
 		}
 		attacker->client->ps.persistant[PERS_ATTACKEE_ARMOR] = (targ->health<<8)|(client->ps.stats[STAT_ARMOR]);
 	}
+
 
 	// always give half damage if hurting self
 	// calculated after knockback, so rocket jumping works
