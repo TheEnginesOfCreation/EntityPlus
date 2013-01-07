@@ -1794,7 +1794,7 @@ target : this points to entities to activate when this entity is triggered.
 target2 : this points to entities to activate when this entity is triggered.
 count : relay entity will only activate its target if itself has been triggered this many times (default 1)
 -------- SPAWNFLAGS --------
-RANDOM : one one of the targeted entities will be triggered at random.
+RANDOM : only one of the targeted entities will be triggered at random.
 ONCE : the target_relay will activate its targeted entities only once.*/
 
 //=============================================================================
