@@ -1618,15 +1618,17 @@ The notfree and notteam spawnflags have no effect on this entity because it can 
 
 //=============================================================================
 
-/*QUAKED target_give (0 .5 0) (-8 -8 -8) (8 8 8)
+/*QUAKED target_give (0 .5 0) (-8 -8 -8) (8 8 8) GIVE_PLAYER
 This is used to give ammo, weapons, health or items to the player who activates it.
 -------- KEYS --------
 target : this points to the item(s) to give when activated.
 targetname : activating trigger or spawn entity points to this.
 targetname2 : activating trigger or spawn entity points to this.
+-------- SPAWNFLAGS --------
+GIVE_PLAYER : item is always given to the player, regardless of who activated the target_give.
 -------- NOTES --------
 There are 2 ways to use this entity.
-a) automatically give items to players when they spawn in the game: make a spawn location entity like info_player_deathmatch or CTF respawn points target this entity, then make it target the item(s) to give to the player upon respawn.
+a) automatically give items to players when they spawn in the game: make a spawn location entity (info_player_start) target this entity, then make it target the item(s) to give to the player upon respawn.
 b) give items to players during the game: make a trigger_multiple target this entity, then make it target the item(s) to give to the player when the trigger is touched.*/
 
 //=============================================================================
