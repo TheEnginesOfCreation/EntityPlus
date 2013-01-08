@@ -381,6 +381,20 @@ namespace mvt
 					Debug(" > use of target_shrink requires " + versionString);
 					result = true;
 					break;
+
+				case "target_give":
+					string val = ent.GetValue("spawnflags");
+					if (!String.IsNullOrEmpty(val))
+					{
+						int spawnflags = 0;
+						int.TryParse(val, out spawnflags);
+						if ((spawnflags & 1) > 0)
+						{
+							Debug(" > use of \"GIVE_PLAYER\" spawnflag requires " + versionString);
+							result = true;
+						}
+					}
+					break;
 			}
 
 			return result;

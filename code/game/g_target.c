@@ -4,12 +4,16 @@
 
 //==========================================================
 
-/*QUAKED target_give (1 0 0) (-8 -8 -8) (8 8 8)
+/*QUAKED target_give (1 0 0) (-8 -8 -8) (8 8 8) GIVE_PLAYER
 Gives the activator all the items pointed to.
+GIVE_PLAYER : targeted item is always given to player instead of activating entity.
 */
 void Use_Target_Give( gentity_t *ent, gentity_t *other, gentity_t *activator ) {
 	gentity_t	*t;
 	trace_t		trace;
+
+	if ( ent->spawnflags & 1 )
+		activator = level.player;
 
 	if ( !activator->client ) {
 		return;
