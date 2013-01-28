@@ -69,7 +69,7 @@ Debris and backpack models		: DaEngineer
 								  [http://victorkarp.wordpress.com]
 
 Stone debris models and 		: gooball
-additional programming			  [http://quake3world.com/forum/memberlist.php?mode=viewprofile&u=30967]
+additional programming			  [http://goostudios.weebly.com/]
 
 
 Custom sound effects			: Patrick "Scout" Schotte
