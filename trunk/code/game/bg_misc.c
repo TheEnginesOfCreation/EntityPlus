@@ -1222,8 +1222,10 @@ void BG_PlayerStateToEntityState( playerState_t *ps, entityState_t *s, qboolean 
 	}
 
 	//shrink
-	s->time = ps->stats[STAT_SHRINKSCALE];
-	s->time2 = ps->stats[STAT_OLDSHRINKSCALE];
+	if (ps->pm_type != PM_DEAD) {
+		s->time = ps->stats[STAT_SHRINKSCALE];
+		s->time2 = ps->stats[STAT_OLDSHRINKSCALE];
+	}
 
 	if ( ps->externalEvent ) {
 		s->event = ps->externalEvent;
@@ -1306,8 +1308,10 @@ void BG_PlayerStateToEntityStateExtraPolate( playerState_t *ps, entityState_t *s
 	}
 
 	// shrink
-	s->time = ps->stats[STAT_SHRINKSCALE];
-	s->time2 = ps->stats[STAT_OLDSHRINKSCALE];
+	if (ps->pm_type != PM_DEAD) {
+		s->time = ps->stats[STAT_SHRINKSCALE];
+		s->time2 = ps->stats[STAT_OLDSHRINKSCALE];
+	}
 
 	if ( ps->externalEvent ) {
 		s->event = ps->externalEvent;
