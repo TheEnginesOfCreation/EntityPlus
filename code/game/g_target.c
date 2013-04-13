@@ -50,7 +50,6 @@ Used to drop flight powerups into death puts.
 */
 void Use_target_remove_powerups( gentity_t *ent, gentity_t *other, gentity_t *activator ) {
 	int i;
-	int temp;
 
 	if( !activator->client ) {
 		return;
@@ -1470,17 +1469,4 @@ void SP_target_music (gentity_t *self) {
 	Q_strncpyz( self->music, s, sizeof(self->music) );
 
 	self->use = target_music_use;
-}
-
-//==========================================================
-
-/*QUAKED target_shrink (0 .7 .7) (-8 -8 -8) (8 8 8)
-When triggered, shrinks the activating player
-*/
-void target_shrink_use (gentity_t *self, gentity_t *other, gentity_t *activator) {
-	G_ShrinkPlayer(activator, NULL);
-}
-
-void SP_target_shrink (gentity_t *self) {
-	self->use = target_shrink_use;
 }

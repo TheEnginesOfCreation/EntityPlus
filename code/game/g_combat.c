@@ -274,14 +274,7 @@ void player_die( gentity_t *self, gentity_t *inflictor, gentity_t *attacker, int
 	self->takedamage = qtrue;	// can still be gibbed
 
 	self->s.weapon = WP_NONE;
-	// shrink
-	if ( self->client->ps.powerups[PW_SHRINK]){
-		self->s.powerups = 0;
-		self->s.powerups |= (1 << PW_SHRINK);
-	} else {
-		self->s.powerups = 0;
-	}
-	// End shrink
+	self->s.powerups = 0;
 	self->r.contents = CONTENTS_CORPSE;
 
 	self->s.angles[0] = 0;
@@ -292,13 +285,7 @@ void player_die( gentity_t *self, gentity_t *inflictor, gentity_t *attacker, int
 
 	self->s.loopSound = 0;
 
-	// shrink
-	if ( self->client->ps.powerups[PW_SHRINK]){
-		self->r.maxs[2] = 8;
-	} else {
-		self->r.maxs[2] = -8;
-	}
-	// End shrink
+	self->r.maxs[2] = -8;
 
 	// don't allow respawn until the death anim is done
 	// g_forcerespawn may force spawning at some later time
@@ -307,19 +294,11 @@ void player_die( gentity_t *self, gentity_t *inflictor, gentity_t *attacker, int
 	else
 		self->client->respawnTime = level.time + 5000;	//keep bot bodies around slightly longer
 
-	// shrink
-	if ( self->client->ps.powerups[PW_SHRINK]){
-		// remove powerups except for being shrunk.  Set the duration to exceed any forced respawn times.
-		memset( self->client->ps.powerups, 0, sizeof(self->client->ps.powerups) );
-		self->client->ps.powerups[PW_SHRINK] = level.time + (g_forcerespawn.integer * 1000) + 10000;
-	} else {
-		// remove powerups
-		memset( self->client->ps.powerups, 0, sizeof(self->client->ps.powerups) );
-	}
-	// End shrink
+	// remove powerups
+	memset( self->client->ps.powerups, 0, sizeof(self->client->ps.powerups) );
 
 	// never gib in a nodrop
-	if ( (self->health <= GIB_HEALTH && !(contents & CONTENTS_NODROP) && g_blood.integer) ) {
+	if ( (self->health <= GIB_HEALTH && !(contents & CONTENTS_NODROP) && g_blood.integer) || meansOfDeath == MOD_SUICIDE) {
 		// gib death
 		GibEntity( self, killer );
 	} else {
@@ -506,6 +485,7 @@ void G_Damage( gentity_t *targ, gentity_t *inflictor, gentity_t *attacker,
 		attacker = &g_entities[ENTITYNUM_WORLD];
 	}
 
+
 	// shootable doors / buttons don't actually have any health
 	if ( targ->s.eType == ET_MOVER ) {
 		if ( strcmp(targ->classname, "func_breakable") && targ->use && (targ->moverState == MOVER_POS1 || targ->moverState == ROTATOR_POS1) ) {
@@ -573,19 +553,6 @@ void G_Damage( gentity_t *targ, gentity_t *inflictor, gentity_t *attacker,
 		VectorNormalize(dir);
 	}
 
-	// shrink
-	// We scale damage based on our relative size to each other.  A max size player attacking a fully shrunk player
-	// will do double damage.  A shrunk player attacking a max size player will do quarter damage.  Anything inbetween
-	// will be scaled proportionally.
-	if (attacker->client && targ->client->ps.stats[STAT_SHRINKSCALE] > attacker->client->ps.stats[STAT_SHRINKSCALE]){
-		damage *= (1.0f + (float)(targ->client->ps.stats[STAT_SHRINKSCALE] - attacker->client->ps.stats[STAT_SHRINKSCALE]) / SHRINK_FRAMES);
-
-	} else if (attacker->client && attacker->client->ps.stats[STAT_SHRINKSCALE] > targ->client->ps.stats[STAT_SHRINKSCALE]){
-		damage *= 1.0f - 0.75f * (float)(attacker->client->ps.stats[STAT_SHRINKSCALE] - targ->client->ps.stats[STAT_SHRINKSCALE]) / SHRINK_FRAMES;
-	}
-	// End shrink
-
-
 	knockback = damage;
 	if ( knockback > 200 ) {
 		knockback = 200;
@@ -596,11 +563,9 @@ void G_Damage( gentity_t *targ, gentity_t *inflictor, gentity_t *attacker,
 	if ( dflags & DAMAGE_NO_KNOCKBACK ) {
 		knockback = 0;
 	}
-	
-	
+
 	// figure momentum add, even if the damage won't be taken
 	if ( knockback && targ->client ) {
-		
 		vec3_t	kvel;
 		float	mass;
 
@@ -641,9 +606,7 @@ void G_Damage( gentity_t *targ, gentity_t *inflictor, gentity_t *attacker,
 		if ( targ->flags & FL_GODMODE ) {
 			return;
 		}
-		
 	}
-
 
 	// battlesuit protects from all radius damage (but takes knockback)
 	// and protects 50% against all damage
@@ -652,11 +615,7 @@ void G_Damage( gentity_t *targ, gentity_t *inflictor, gentity_t *attacker,
 		if ( ( dflags & DAMAGE_RADIUS ) || ( mod == MOD_FALLING ) ) {
 			return;
 		}
-		//shrink
-		if ( mod != MOD_SUICIDE ) {
-			damage *= 0.5;
-		}
-		//end shrink
+		damage *= 0.5;
 	}
 
 	// add to the attacker's hit counter (if the target isn't a general entity like a prox mine)
@@ -671,15 +630,10 @@ void G_Damage( gentity_t *targ, gentity_t *inflictor, gentity_t *attacker,
 		attacker->client->ps.persistant[PERS_ATTACKEE_ARMOR] = (targ->health<<8)|(client->ps.stats[STAT_ARMOR]);
 	}
 
-
 	// always give half damage if hurting self
 	// calculated after knockback, so rocket jumping works
 	if ( targ == attacker) {
-		//shrink
-		if ( mod != MOD_SUICIDE ){
-			damage *= 0.5;
-		}
-		//end shrink
+		damage *= 0.5;
 	}
 
 	if ( damage < 1 ) {

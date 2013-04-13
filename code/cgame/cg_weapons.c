@@ -16,31 +16,16 @@ static void CG_MachineGunEjectBrass( centity_t *cent ) {
 	float			waterScale = 1.0f;
 	vec3_t			v[3];
 
-// shrink
-	float shrinkScale, velScale;
-// End shrink
-
 	if ( cg_brassTime.integer <= 0 ) {
 		return;
 	}
-
-// shrink
-	shrinkScale = 1 - 0.75f * (float)(cent->currentState.time) / SHRINK_FRAMES;
-	velScale = 1 - 0.5f * (float)(cent->currentState.time) / SHRINK_FRAMES;
-	if (!shrinkScale){
-		shrinkScale = 1;
-	}
-	if (!velScale){
-		velScale = 1;
-	}
-// End shrink
 
 	le = CG_AllocLocalEntity();
 	re = &le->refEntity;
 
 	velocity[0] = 0;
-	velocity[1] = (-50 + 40 * crandom()) * velScale;
-	velocity[2] = (100 + 50 * crandom()) * velScale;
+	velocity[1] = -50 + 40 * crandom();
+	velocity[2] = 100 + 50 * crandom();
 
 	le->leType = LE_FRAGMENT;
 	le->startTime = cg.time;
@@ -51,9 +36,9 @@ static void CG_MachineGunEjectBrass( centity_t *cent ) {
 
 	AnglesToAxis( cent->lerpAngles, v );
 
-	offset[0] = 8 * shrinkScale;
-	offset[1] = -4 * shrinkScale;
-	offset[2] = 24 * shrinkScale;
+	offset[0] = 8;
+	offset[1] = -4;
+	offset[2] = 24;
 
 	xoffset[0] = offset[0] * v[0][0] + offset[1] * v[1][0] + offset[2] * v[2][0];
 	xoffset[1] = offset[0] * v[0][1] + offset[1] * v[1][1] + offset[2] * v[2][1];
@@ -73,13 +58,6 @@ static void CG_MachineGunEjectBrass( centity_t *cent ) {
 
 	AxisCopy( axisDefault, re->axis );
 	re->hModel = cgs.media.machinegunBrassModel;
-
-// shrink
-	VectorScale (re->axis[0], shrinkScale, re->axis[0]);
-	VectorScale (re->axis[1], shrinkScale, re->axis[1]);
-	VectorScale (re->axis[2], shrinkScale, re->axis[2]);
-	le->scale = shrinkScale;
-// End shrink
 
 	le->bounceFactor = 0.4 * waterScale;
 
@@ -180,159 +158,6 @@ static void CG_ShotgunEjectBrass( centity_t *cent ) {
 CG_RailTrail
 ==========================
 */
-void CG_RailTrail (clientInfo_t *ci, vec3_t start, vec3_t end, int scale) {
-	vec3_t axis[36], move, move2, next_move, vec, temp;
-	float  len;
-	int    i, j, skip;
- 
-	localEntity_t *le;
-	refEntity_t   *re;
-
-// shrink
-	float shrinkScale, spacingScale, lenScale;
-// End shrink 
-
-#define RADIUS   4
-#define ROTATION 1
-#define SPACING  5
- 
-	shrinkScale = 1.0f - 0.75f * (float)(scale) / SHRINK_FRAMES;
-	if (shrinkScale < 1){
-		spacingScale = 1.0f - 0.625f * (float)(scale) / SHRINK_FRAMES;
-	} else {
-		spacingScale = 1;
-
-	}
-	start[2] -= 4 * shrinkScale;
-	VectorCopy (start, move);
-	VectorSubtract (end, start, vec);
-	len = VectorNormalize (vec);
-	PerpendicularVector(temp, vec);
-	for (i = 0 ; i < 36; i++) {
-		RotatePointAroundVector(axis[i], vec, temp, i * 10);//banshee 2.4 was 10
-	}
- 
-	le = CG_AllocLocalEntity();
-	re = &le->refEntity;
- 
-	le->leType = LE_FADE_RGB;
-	le->startTime = cg.time;
-	le->endTime = cg.time + cg_railTrailTime.value;
-	le->lifeRate = 1.0 / (le->endTime - le->startTime);
- 
-	re->shaderTime = cg.time / 1000.0f;
-	re->reType = RT_RAIL_CORE;
-	if (scale > 16){
-		re->customShader = cgs.media.railCoreShader_small;
-	} else if (scale > 8){
-		re->customShader = cgs.media.railCoreShader_medium;
-	} else {
-		re->customShader = cgs.media.railCoreShader;
- 	}
-
-	VectorCopy(start, re->origin);
-	VectorCopy(end, re->oldorigin);
- 
-	re->shaderRGBA[0] = ci->color1[0] * 255;
-    re->shaderRGBA[1] = ci->color1[1] * 255;
-    re->shaderRGBA[2] = ci->color1[2] * 255;
-    re->shaderRGBA[3] = 255;
-
-	le->color[0] = ci->color1[0] * 0.75;
-	le->color[1] = ci->color1[1] * 0.75;
-	le->color[2] = ci->color1[2] * 0.75;
-	le->color[3] = 1.0f;
-
-	AxisClear( re->axis );
- 
-
-// When shrunk, it is possible to run out of refEntity_t when firing the railgun on long shots since we're drawing
-// more disks in a smaller length.  To solve this we'll adjust the spacing based on the range of the gun and the
-// size of the player. A fully shrunk player making a long shot will draw fewer disks than a short shot.
-// This proportions the distance to keep the trail scaled properly as much as possible while balancing it
-// against the refEntity_t cap.
-
-	if (shrinkScale == 1){
-		lenScale = 1;
-	} else {
-
-		if (len <= (8192.0f / 4.0f) * shrinkScale){
-			lenScale = shrinkScale;
-		}
-		if (len >= (8192.0f / 2.0f) * shrinkScale ){
-			lenScale = 1;
-		}
-		if (len > (8192.0f / 4.0f) * shrinkScale && len < (8192 / 2) * shrinkScale ){
-			lenScale = 1.0f - (0.75f * ((8192.0f / 2.0f) * shrinkScale - len) / ((8192.0f / 4.0f) * shrinkScale));
-		}
-	}
-
-	VectorMA(move, 20 * lenScale, vec, move);
-	VectorCopy(move, next_move);
-	VectorScale (vec, SPACING * lenScale, vec);
-
-	if (cg_oldRail.integer != 0) {
-		// nudge down a bit so it isn't exactly in center
-		re->origin[2] -= 8 * shrinkScale;
-		re->oldorigin[2] -= 8 * shrinkScale;
-		return;
-	}
-	skip = -1;
- 
-	j = 18;
-
-
-
-    for (i = 0; i < len; i += SPACING * lenScale) {
-		if (i != skip) {
-			skip = i + SPACING * lenScale;
-			le = CG_AllocLocalEntity();
-            re = &le->refEntity;
-            le->leFlags = LEF_PUFF_DONT_SCALE;
-			le->leType = LE_MOVE_SCALE_FADE;
-            le->startTime = cg.time;
-            le->endTime = cg.time + (i>>1) + 600;
-            le->lifeRate = 1.0 / (le->endTime - le->startTime);
-
-            re->shaderTime = cg.time / 1000.0f;
-            re->reType = RT_SPRITE;
-            re->radius = 1.1f * (spacingScale);
-			re->customShader = cgs.media.railRingsShader;
-
-            re->shaderRGBA[0] = ci->color2[0] * 255;
-            re->shaderRGBA[1] = ci->color2[1] * 255;
-            re->shaderRGBA[2] = ci->color2[2] * 255;
-            re->shaderRGBA[3] = 255;
-
-            le->color[0] = ci->color2[0] * 0.75;
-            le->color[1] = ci->color2[1] * 0.75;
-            le->color[2] = ci->color2[2] * 0.75;
-            le->color[3] = 1.0f;
-
-            le->pos.trType = TR_LINEAR;
-            le->pos.trTime = cg.time;
-
-			VectorCopy( move, move2);
-            VectorMA(move2, RADIUS * shrinkScale , axis[j], move2);
-            VectorCopy(move2, le->pos.trBase);
-
-            le->pos.trDelta[0] = axis[j][0]*6 * shrinkScale;
-            le->pos.trDelta[1] = axis[j][1]*6 * shrinkScale;
-            le->pos.trDelta[2] = axis[j][2]*6 * shrinkScale;
-		}
-
-        VectorAdd (move, vec, move);
-
-        j = j + ROTATION < 36 ? j + ROTATION : (j + ROTATION) % 36;
-	}
-}
-
-/*
-==========================
-CG_RailTrail
-==========================
-*/
-/*
 void CG_RailTrail (clientInfo_t *ci, vec3_t start, vec3_t end) {
 	vec3_t axis[36], move, move2, next_move, vec, temp;
 	float  len;
@@ -437,7 +262,6 @@ void CG_RailTrail (clientInfo_t *ci, vec3_t start, vec3_t end) {
         j = j + ROTATION < 36 ? j + ROTATION : (j + ROTATION) % 36;
 	}
 }
-*/
 
 /*
 ==========================
@@ -454,19 +278,9 @@ static void CG_RocketTrail( centity_t *ent, const weaponInfo_t *wi ) {
 	vec3_t	up;
 	localEntity_t	*smoke;
 
-// shrink
-	float shrinkScale;
-	float rangeScale;
-// End shrink
-
 	if ( cg_noProjectileTrail.integer ) {
 		return;
 	}
-
-// shrink
-	rangeScale = 1.0f - 0.5f * (float)(ent->currentState.generic1)/SHRINK_FRAMES;
-	shrinkScale = 1.0f - 0.75f * (float)(ent->currentState.generic1) / SHRINK_FRAMES;
-// End shrink
 
 	up[0] = 0;
 	up[1] = 0;
@@ -478,7 +292,7 @@ static void CG_RocketTrail( centity_t *ent, const weaponInfo_t *wi ) {
 	startTime = ent->trailTime;
 	t = step * ( (startTime + step) / step );
 
-	BG_EvaluateTrajectory( &es->pos, cg.time, origin, (cgs.globalgravity * rangeScale) );
+	BG_EvaluateTrajectory( &es->pos, cg.time, origin );
 	contents = CG_PointContents( origin, -1 );
 
 	// if object (e.g. grenade) is stationary, don't toss up smoke
@@ -487,23 +301,23 @@ static void CG_RocketTrail( centity_t *ent, const weaponInfo_t *wi ) {
 		return;
 	}
 
-	BG_EvaluateTrajectory( &es->pos, ent->trailTime, lastPos, (cgs.globalgravity * rangeScale) );
+	BG_EvaluateTrajectory( &es->pos, ent->trailTime, lastPos );
 	lastContents = CG_PointContents( lastPos, -1 );
 
 	ent->trailTime = cg.time;
 
 	if ( contents & ( CONTENTS_WATER | CONTENTS_SLIME | CONTENTS_LAVA ) ) {
 		if ( contents & lastContents & CONTENTS_WATER ) {
-			CG_BubbleTrail( lastPos, origin, 8, ent->currentState.generic1);
+			CG_BubbleTrail( lastPos, origin, 8 );
 		}
 		return;
 	}
 
 	for ( ; t <= ent->trailTime ; t += step ) {
-		BG_EvaluateTrajectory( &es->pos, t, lastPos, (cgs.globalgravity * rangeScale) );
+		BG_EvaluateTrajectory( &es->pos, t, lastPos );
 
 		smoke = CG_SmokePuff( lastPos, up, 
-					  wi->trailRadius * shrinkScale, 
+					  wi->trailRadius, 
 					  1, 1, 1, 0.33f,
 					  wi->wiTrailTime, 
 					  t,
@@ -531,20 +345,11 @@ static void CG_PlasmaTrail( centity_t *cent, const weaponInfo_t *wi ) {
 	vec3_t			v[3];
 	int				t, startTime, step;
 
-// shrink
-	float shrinkScale, velScale;
-// End shrink
-
 	float	waterScale = 1.0f;
 
 	if ( cg_noProjectileTrail.integer || cg_oldPlasma.integer ) {
 		return;
 	}
-
-// shrink
-	shrinkScale = 1.0f - 0.75f * (float)(cent->currentState.generic1) / SHRINK_FRAMES;
-	velScale = 1.0f - 0.5f * (float)(cent->currentState.generic1) / SHRINK_FRAMES;
-// End shrink
 
 	step = 50;
 
@@ -552,7 +357,7 @@ static void CG_PlasmaTrail( centity_t *cent, const weaponInfo_t *wi ) {
 	startTime = cent->trailTime;
 	t = step * ( (startTime + step) / step );
 
-	BG_EvaluateTrajectory( &es->pos, cg.time, origin, cgs.globalgravity );
+	BG_EvaluateTrajectory( &es->pos, cg.time, origin );
 
 	le = CG_AllocLocalEntity();
 	re = &le->refEntity;
@@ -574,9 +379,9 @@ static void CG_PlasmaTrail( centity_t *cent, const weaponInfo_t *wi ) {
 
 	AnglesToAxis( cent->lerpAngles, v );
 
-	offset[0] = 2 * shrinkScale;
-	offset[1] = 2 * shrinkScale;
-	offset[2] = 2 * shrinkScale;
+	offset[0] = 2;
+	offset[1] = 2;
+	offset[2] = 2;
 
 	xoffset[0] = offset[0] * v[0][0] + offset[1] * v[1][0] + offset[2] * v[2][0];
 	xoffset[1] = offset[0] * v[0][1] + offset[1] * v[1][1] + offset[2] * v[2][1];
@@ -594,14 +399,10 @@ static void CG_PlasmaTrail( centity_t *cent, const weaponInfo_t *wi ) {
 	xvelocity[2] = velocity[0] * v[0][2] + velocity[1] * v[1][2] + velocity[2] * v[2][2];
 	VectorScale( xvelocity, waterScale, le->pos.trDelta );
 
-//shrink
-	VectorScale( le->pos.trDelta, velScale, le->pos.trDelta );
-//End shrink
-
 	AxisCopy( axisDefault, re->axis );
     re->shaderTime = cg.time / 1000.0f;
     re->reType = RT_SPRITE;
-    re->radius = 0.25f * shrinkScale;
+    re->radius = 0.25f;
 	re->customShader = cgs.media.railRingsShader;
 	le->bounceFactor = 0.3f;
 
@@ -638,7 +439,7 @@ void CG_GrappleTrail( centity_t *ent, const weaponInfo_t *wi ) {
 
 	es = &ent->currentState;
 
-	BG_EvaluateTrajectory( &es->pos, cg.time, origin, cgs.globalgravity );
+	BG_EvaluateTrajectory( &es->pos, cg.time, origin );
 	ent->trailTime = cg.time;
 
 	memset( &beam, 0, sizeof( beam ) );
@@ -767,10 +568,6 @@ void CG_RegisterWeapon( int weaponNum ) {
 
 		weaponInfo->flashSound[0] = trap_S_RegisterSound( "sound/weapons/lightning/lg_fire.wav", qfalse );
 		cgs.media.lightningShader = trap_R_RegisterShader( "lightningBoltNew");
-//shrink
-		cgs.media.lightningShader_medium = trap_R_RegisterShader( "lightningBoltNew_medium");
-		cgs.media.lightningShader_small = trap_R_RegisterShader( "lightningBoltNew_small");
-//End shrink
 		cgs.media.lightningExplosionModel = trap_R_RegisterModel( "models/weaphits/crackle.md3" );
 		cgs.media.sfx_lghit1 = trap_S_RegisterSound( "sound/weapons/lightning/lg_hit.wav", qfalse );
 		cgs.media.sfx_lghit2 = trap_S_RegisterSound( "sound/weapons/lightning/lg_hit2.wav", qfalse );
@@ -848,10 +645,6 @@ void CG_RegisterWeapon( int weaponNum ) {
 		cgs.media.railExplosionShader = trap_R_RegisterShader( "railExplosion" );
 		cgs.media.railRingsShader = trap_R_RegisterShader( "railDisc" );
 		cgs.media.railCoreShader = trap_R_RegisterShader( "railCore" );
-// shrink
-		cgs.media.railCoreShader_medium = trap_R_RegisterShader( "railCore_medium" );
-		cgs.media.railCoreShader_small = trap_R_RegisterShader( "railCore_small" );
-// End shrink
 		break;
 
 	case WP_BFG:
@@ -1017,28 +810,11 @@ so the endpoint will reflect the simulated strike (lagging the predicted
 angle)
 ===============
 */
-static void CG_LightningBolt( centity_t *cent, vec3_t origin, qboolean firstperson ) {
+static void CG_LightningBolt( centity_t *cent, vec3_t origin ) {
 	trace_t  trace;
 	refEntity_t  beam;
 	vec3_t   forward;
 	vec3_t   muzzlePoint, endPoint;
-
-// shrink
-	float shrinkScale;	// only calculated for thirdperson
-	float shrinkScale2;	// always calculated
-	float rangeScale;		// always calculated
-	float impactScale;	// is half for firstperson
-
-	if (firstperson){
-		shrinkScale = 1.0f;
-		impactScale = 1.0f - 0.5f * (float)(cent->currentState.time) / SHRINK_FRAMES;
-	} else {
-		shrinkScale = 1.0f - 0.75f * (float)(cent->currentState.time) / SHRINK_FRAMES;
-		impactScale = shrinkScale;
-	}
-	rangeScale = 1.0f - 0.5f * (float)(cent->currentState.time) / SHRINK_FRAMES;
-	shrinkScale2 = 1.0f - 0.75f * (float)(cent->currentState.time) / SHRINK_FRAMES;
-// End shrink
 
 	if (cent->currentState.weapon != WP_LIGHTNING) {
 		return;
@@ -1079,12 +855,12 @@ static void CG_LightningBolt( centity_t *cent, vec3_t origin, qboolean firstpers
 	}
 
 	// FIXME: crouch
-	muzzlePoint[2] += DEFAULT_VIEWHEIGHT * shrinkScale2;
+	muzzlePoint[2] += DEFAULT_VIEWHEIGHT;
 
-	VectorMA( muzzlePoint, 14 * shrinkScale2, forward, muzzlePoint );
+	VectorMA( muzzlePoint, 14, forward, muzzlePoint );
 
 	// project forward by the lightning range
-	VectorMA( muzzlePoint, LIGHTNING_RANGE * rangeScale, forward, endPoint );
+	VectorMA( muzzlePoint, LIGHTNING_RANGE, forward, endPoint );
 
 	// see if it hit a wall
 	CG_Trace( &trace, muzzlePoint, vec3_origin, vec3_origin, endPoint, 
@@ -1098,18 +874,7 @@ static void CG_LightningBolt( centity_t *cent, vec3_t origin, qboolean firstpers
 	VectorCopy( origin, beam.origin );
 
 	beam.reType = RT_LIGHTNING;
-//shrink	
-	// Lightning beams are procedurally generated in the engine and can't be scaled
-	// So we'll just replace the default graphic with pre-scaled graphics depending on the
-	// size of the player
-	if (shrinkScale <= 0.5f ){
-		beam.customShader = cgs.media.lightningShader_small;
-	} else if (shrinkScale <= 0.75f){
-		beam.customShader = cgs.media.lightningShader_medium;
-	} else {
-		beam.customShader = cgs.media.lightningShader;
-	}
-//End shrink
+	beam.customShader = cgs.media.lightningShader;
 	trap_R_AddRefEntityToScene( &beam );
 
 	// add the impact flare if it hit something
@@ -1123,21 +888,13 @@ static void CG_LightningBolt( centity_t *cent, vec3_t origin, qboolean firstpers
 		memset( &beam, 0, sizeof( beam ) );
 		beam.hModel = cgs.media.lightningExplosionModel;
 
-		VectorMA( trace.endpos, -16 * shrinkScale2, dir, beam.origin );
+		VectorMA( trace.endpos, -16, dir, beam.origin );
 
 		// make a random orientation
 		angles[0] = rand() % 360;
 		angles[1] = rand() % 360;
 		angles[2] = rand() % 360;
 		AnglesToAxis( angles, beam.axis );
-
-// shrink
-		// We can scale the impact effect raw since it just uses an hmodel.
-		VectorScale (beam.axis[0], impactScale, beam.axis[0]);
-		VectorScale (beam.axis[1], impactScale, beam.axis[1]);
-		VectorScale (beam.axis[2], impactScale, beam.axis[2]);
-// End shrink
-
 		trap_R_AddRefEntityToScene( &beam );
 	}
 }
@@ -1224,7 +981,7 @@ static void CG_SpawnRailTrail( centity_t *cent, vec3_t origin ) {
 	}
 	cent->pe.railgunFlash = qtrue;
 	ci = &cgs.clientinfo[ cent->currentState.clientNum ];
-	CG_RailTrail( ci, origin, cent->pe.railgunImpact, cent->currentState.time );
+	CG_RailTrail( ci, origin, cent->pe.railgunImpact );
 }
 
 
@@ -1305,10 +1062,6 @@ void CG_AddPlayerWeapon( refEntity_t *parent, playerState_t *ps, centity_t *cent
 	weaponInfo_t	*weapon;
 	centity_t	*nonPredictedCent;
 //	int	col;
-
-// shrink
-	float lightRadius;
-// End shrink
 
 	weaponNum = cent->currentState.weapon;
 
@@ -1434,28 +1187,15 @@ void CG_AddPlayerWeapon( refEntity_t *parent, playerState_t *ps, centity_t *cent
 	if ( ps || cg.renderingThirdPerson ||
 		cent->currentState.number != cg.predictedPlayerState.clientNum ) {
 		// add lightning bolt
-//shrink
-		if (ps){
-			CG_LightningBolt( nonPredictedCent, flash.origin, qtrue );
-		} else {
-			CG_LightningBolt( nonPredictedCent, flash.origin, qfalse );
-		}
-//End shrink
+		CG_LightningBolt( nonPredictedCent, flash.origin );
 
 		// add rail trail
 		CG_SpawnRailTrail( cent, flash.origin );
 
-// shrink
-		lightRadius = 300 + (rand()&31);
-		if (cent->shrinkFactor){
-			lightRadius *= cent->shrinkFactor;
-		}
-
 		if ( weapon->flashDlightColor[0] || weapon->flashDlightColor[1] || weapon->flashDlightColor[2] ) {
-			trap_R_AddLightToScene( flash.origin, lightRadius, weapon->flashDlightColor[0],
+			trap_R_AddLightToScene( flash.origin, 300 + (rand()&31), weapon->flashDlightColor[0],
 				weapon->flashDlightColor[1], weapon->flashDlightColor[2] );
 		}
-//End shrink
 	}
 }
 
@@ -1495,7 +1235,7 @@ void CG_AddViewWeapon( playerState_t *ps ) {
 			// special hack for lightning gun...
 			VectorCopy( cg.refdef.vieworg, origin );
 			VectorMA( origin, -8, cg.refdef.viewaxis[2], origin );
-			CG_LightningBolt( &cg_entities[ps->clientNum], origin, qtrue );
+			CG_LightningBolt( &cg_entities[ps->clientNum], origin );
 		}
 		return;
 	}
@@ -1849,7 +1589,7 @@ CG_MissileHitWall
 Caused by an EV_MISSILE_MISS event, or directly by local bullet tracing
 =================
 */
-void CG_MissileHitWall( int weapon, int clientNum, vec3_t origin, vec3_t dir, impactSound_t soundType, int size ) {
+void CG_MissileHitWall( int weapon, int clientNum, vec3_t origin, vec3_t dir, impactSound_t soundType ) {
 	qhandle_t		mod;
 	qhandle_t		mark;
 	qhandle_t		shader;
@@ -1864,15 +1604,6 @@ void CG_MissileHitWall( int weapon, int clientNum, vec3_t origin, vec3_t dir, im
 	int				duration;
 	vec3_t			sprOrg;
 	vec3_t			sprVel;
-
-// shrink
-	float		scale;
-	if (size){
-		scale = 1 - 0.75 * ((float)size / SHRINK_FRAMES);
-	} else {
-		scale = 1;
-	}
-// End shrink
 
 	mark = 0;
 	radius = 32;
@@ -1911,7 +1642,7 @@ void CG_MissileHitWall( int weapon, int clientNum, vec3_t origin, vec3_t dir, im
 			}
 		}
 		mark = cgs.media.holeMarkShader;
-		radius = 12 * scale;
+		radius = 12;
 		break;
 	case WP_GRENADE_LAUNCHER:
 		mod = cgs.media.dishFlashModel;
@@ -1921,8 +1652,8 @@ void CG_MissileHitWall( int weapon, int clientNum, vec3_t origin, vec3_t dir, im
 		else
 			sfx = cgs.media.gibSound;
 		mark = cgs.media.burnMarkShader;
-		radius = 64 * scale;
-		light = 300 * scale;
+		radius = 64;
+		light = 300;
 		isSprite = qtrue;
 		break;
 	case WP_ROCKET_LAUNCHER:
@@ -1933,8 +1664,8 @@ void CG_MissileHitWall( int weapon, int clientNum, vec3_t origin, vec3_t dir, im
 		else
 			sfx = cgs.media.gibSound;
 		mark = cgs.media.burnMarkShader;
-		radius = 64 * scale;
-		light = 300 * scale;
+		radius = 64;
+		light = 300;
 		isSprite = qtrue;
 		duration = 1000;
 		lightColor[0] = 1;
@@ -1956,7 +1687,7 @@ void CG_MissileHitWall( int weapon, int clientNum, vec3_t origin, vec3_t dir, im
 		else
 			sfx = cgs.media.gibBounce3Sound;
 		mark = cgs.media.energyMarkShader;
-		radius = 24 * scale;
+		radius = 24;
 		break;
 	case WP_PLASMAGUN:
 		mod = cgs.media.ringFlashModel;
@@ -1966,7 +1697,7 @@ void CG_MissileHitWall( int weapon, int clientNum, vec3_t origin, vec3_t dir, im
 		else
 			sfx = cgs.media.gibBounce3Sound;
 		mark = cgs.media.energyMarkShader;
-		radius = 16 * scale;
+		radius = 16;
 		break;
 	case WP_BFG:
 		mod = cgs.media.dishFlashModel;
@@ -1976,7 +1707,7 @@ void CG_MissileHitWall( int weapon, int clientNum, vec3_t origin, vec3_t dir, im
 		else
 			sfx = cgs.media.gibSound;
 		mark = cgs.media.burnMarkShader;
-		radius = 32 * scale;
+		radius = 32;
 		isSprite = qtrue;
 		break;
 	case WP_SHOTGUN:
@@ -1984,7 +1715,7 @@ void CG_MissileHitWall( int weapon, int clientNum, vec3_t origin, vec3_t dir, im
 		shader = cgs.media.bulletExplosionShader;
 		mark = cgs.media.bulletMarkShader;
 		sfx = 0;
-		radius = 4 * scale;
+		radius = 4;
 		break;
 
 	case WP_MACHINEGUN:
@@ -2011,7 +1742,7 @@ void CG_MissileHitWall( int weapon, int clientNum, vec3_t origin, vec3_t dir, im
 			}
 		}
 
-		radius = 8 * scale;
+		radius = 8;
 		break;
 	}
 
@@ -2025,7 +1756,7 @@ void CG_MissileHitWall( int weapon, int clientNum, vec3_t origin, vec3_t dir, im
 	if ( mod ) {
 		le = CG_MakeExplosion( origin, dir, 
 							   mod,	shader,
-							   duration, isSprite, scale );
+							   duration, isSprite );
 		le->light = light;
 		VectorCopy( lightColor, le->lightColor );
 		if ( weapon == WP_RAILGUN ) {
@@ -2055,15 +1786,15 @@ void CG_MissileHitWall( int weapon, int clientNum, vec3_t origin, vec3_t dir, im
 CG_MissileHitPlayer
 =================
 */
-void CG_MissileHitPlayer( int weapon, vec3_t origin, vec3_t dir, int entityNum, int size ) {
-	CG_Bleed( origin, entityNum, size );
+void CG_MissileHitPlayer( int weapon, vec3_t origin, vec3_t dir, int entityNum ) {
+	CG_Bleed( origin, entityNum );
 
 	// some weapons will make an explosion with the blood, while
 	// others will just make the blood
 	switch ( weapon ) {
 	case WP_GRENADE_LAUNCHER:
 	case WP_ROCKET_LAUNCHER:
-		CG_MissileHitWall( weapon, 0, origin, dir, IMPACTSOUND_FLESH, size );
+		CG_MissileHitWall( weapon, 0, origin, dir, IMPACTSOUND_FLESH );
 		break;
 	default:
 		break;
@@ -2085,7 +1816,7 @@ SHOTGUN TRACING
 CG_ShotgunPellet
 ================
 */
-static void CG_ShotgunPellet( vec3_t start, vec3_t end, int skipNum, int size ) {
+static void CG_ShotgunPellet( vec3_t start, vec3_t end, int skipNum ) {
 	trace_t		tr;
 	int sourceContentType, destContentType;
 
@@ -2097,18 +1828,18 @@ static void CG_ShotgunPellet( vec3_t start, vec3_t end, int skipNum, int size ) 
 	// FIXME: should probably move this cruft into CG_BubbleTrail
 	if ( sourceContentType == destContentType ) {
 		if ( sourceContentType & CONTENTS_WATER ) {
-			CG_BubbleTrail( start, tr.endpos, 32, size );
+			CG_BubbleTrail( start, tr.endpos, 32 );
 		}
 	} else if ( sourceContentType & CONTENTS_WATER ) {
 		trace_t trace;
 
 		trap_CM_BoxTrace( &trace, end, start, NULL, NULL, 0, CONTENTS_WATER );
-		CG_BubbleTrail( start, trace.endpos, 32, size );
+		CG_BubbleTrail( start, trace.endpos, 32 );
 	} else if ( destContentType & CONTENTS_WATER ) {
 		trace_t trace;
 
 		trap_CM_BoxTrace( &trace, start, end, NULL, NULL, 0, CONTENTS_WATER );
-		CG_BubbleTrail( tr.endpos, trace.endpos, 32, size );
+		CG_BubbleTrail( tr.endpos, trace.endpos, 32 );
 	}
 
 	if (  tr.surfaceFlags & SURF_NOIMPACT ) {
@@ -2116,16 +1847,16 @@ static void CG_ShotgunPellet( vec3_t start, vec3_t end, int skipNum, int size ) 
 	}
 
 	if ( cg_entities[tr.entityNum].currentState.eType == ET_PLAYER ) {
-		CG_MissileHitPlayer( WP_SHOTGUN, tr.endpos, tr.plane.normal, tr.entityNum, 0 );
+		CG_MissileHitPlayer( WP_SHOTGUN, tr.endpos, tr.plane.normal, tr.entityNum );
 	} else {
 		if ( tr.surfaceFlags & SURF_NOIMPACT ) {
 			// SURF_NOIMPACT will not make a flame puff or a mark
 			return;
 		}
 		if ( tr.surfaceFlags & SURF_METALSTEPS ) {
-			CG_MissileHitWall( WP_SHOTGUN, 0, tr.endpos, tr.plane.normal, IMPACTSOUND_METAL, size );
+			CG_MissileHitWall( WP_SHOTGUN, 0, tr.endpos, tr.plane.normal, IMPACTSOUND_METAL );
 		} else {
-			CG_MissileHitWall( WP_SHOTGUN, 0, tr.endpos, tr.plane.normal, IMPACTSOUND_DEFAULT, size );
+			CG_MissileHitWall( WP_SHOTGUN, 0, tr.endpos, tr.plane.normal, IMPACTSOUND_DEFAULT );
 		}
 	}
 }
@@ -2138,7 +1869,7 @@ Perform the same traces the server did to locate the
 hit splashes
 ================
 */
-static void CG_ShotgunPattern( vec3_t origin, vec3_t origin2, int seed, int otherEntNum, int size ) {
+static void CG_ShotgunPattern( vec3_t origin, vec3_t origin2, int seed, int otherEntNum ) {
 	int			i;
 	float		r, u;
 	vec3_t		end;
@@ -2158,7 +1889,7 @@ static void CG_ShotgunPattern( vec3_t origin, vec3_t origin2, int seed, int othe
 		VectorMA (end, r, right, end);
 		VectorMA (end, u, up, end);
 
-		CG_ShotgunPellet( origin, end, otherEntNum, size );
+		CG_ShotgunPellet( origin, end, otherEntNum );
 	}
 }
 
@@ -2167,14 +1898,9 @@ static void CG_ShotgunPattern( vec3_t origin, vec3_t origin2, int seed, int othe
 CG_ShotgunFire
 ==============
 */
-void CG_ShotgunFire( entityState_t *es, int size ) {
+void CG_ShotgunFire( entityState_t *es ) {
 	vec3_t	v;
 	int		contents;
-
-// shrink
-	float shrinkScale;
-	shrinkScale = 1.0f - 0.75f * (float)(es->generic1) / SHRINK_FRAMES;
-// End shrink
 
 	VectorSubtract( es->origin2, es->pos.trBase, v );
 	VectorNormalize( v );
@@ -2187,10 +1913,10 @@ void CG_ShotgunFire( entityState_t *es, int size ) {
 		contents = trap_CM_PointContents( es->pos.trBase, 0 );
 		if ( !( contents & CONTENTS_WATER ) ) {
 			VectorSet( up, 0, 0, 8 );
-			CG_SmokePuff( v, up, 32 * shrinkScale, 1, 1, 1, 0.33f, 900, cg.time, 0, LEF_PUFF_DONT_SCALE, cgs.media.shotgunSmokePuffShader );
+			CG_SmokePuff( v, up, 32, 1, 1, 1, 0.33f, 900, cg.time, 0, LEF_PUFF_DONT_SCALE, cgs.media.shotgunSmokePuffShader );
 		}
 	}
-	CG_ShotgunPattern( es->pos.trBase, es->origin2, es->eventParm, es->otherEntityNum, size );
+	CG_ShotgunPattern( es->pos.trBase, es->origin2, es->eventParm, es->otherEntityNum );
 }
 
 /*
@@ -2328,7 +2054,7 @@ CG_Bullet
 Renders bullet effects.
 ======================
 */
-void CG_Bullet( vec3_t end, int sourceEntityNum, vec3_t normal, qboolean flesh, int fleshEntityNum, int size ) {
+void CG_Bullet( vec3_t end, int sourceEntityNum, vec3_t normal, qboolean flesh, int fleshEntityNum ) {
 	trace_t trace;
 	int sourceContentType, destContentType;
 	vec3_t		start;
@@ -2342,17 +2068,17 @@ void CG_Bullet( vec3_t end, int sourceEntityNum, vec3_t normal, qboolean flesh, 
 
 			// do a complete bubble trail if necessary
 			if ( ( sourceContentType == destContentType ) && ( sourceContentType & CONTENTS_WATER ) ) {
-				CG_BubbleTrail( start, end, 32, size );
+				CG_BubbleTrail( start, end, 32 );
 			}
 			// bubble trail from water into air
 			else if ( ( sourceContentType & CONTENTS_WATER ) ) {
 				trap_CM_BoxTrace( &trace, end, start, NULL, NULL, 0, CONTENTS_WATER );
-				CG_BubbleTrail( start, trace.endpos, 32, size );
+				CG_BubbleTrail( start, trace.endpos, 32 );
 			}
 			// bubble trail from air into water
 			else if ( ( destContentType & CONTENTS_WATER ) ) {
 				trap_CM_BoxTrace( &trace, start, end, NULL, NULL, 0, CONTENTS_WATER );
-				CG_BubbleTrail( trace.endpos, end, 32, size );
+				CG_BubbleTrail( trace.endpos, end, 32 );
 			}
 
 			// draw a tracer
@@ -2364,9 +2090,9 @@ void CG_Bullet( vec3_t end, int sourceEntityNum, vec3_t normal, qboolean flesh, 
 
 	// impact splash and mark
 	if ( flesh ) {
-		CG_Bleed( end, fleshEntityNum, size );
+		CG_Bleed( end, fleshEntityNum );
 	} else {
-		CG_MissileHitWall( WP_MACHINEGUN, 0, end, normal, IMPACTSOUND_DEFAULT, size );
+		CG_MissileHitWall( WP_MACHINEGUN, 0, end, normal, IMPACTSOUND_DEFAULT );
 	}
 
 }

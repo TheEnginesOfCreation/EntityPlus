@@ -13,20 +13,11 @@ CG_BubbleTrail
 Bullets shot underwater
 ==================
 */
-void CG_BubbleTrail( vec3_t start, vec3_t end, float spacing, int size ) {
+void CG_BubbleTrail( vec3_t start, vec3_t end, float spacing ) {
 	vec3_t		move;
 	vec3_t		vec;
 	float		len;
 	int			i;
-
-// shrink
-	float		scale;
-	if (size){
-		scale = 1 - 0.75 * ((float)size / SHRINK_FRAMES);
-	} else {
-		scale = 1;
-	}
-// End shrink
 
 	if ( cg_noProjectileTrail.integer ) {
 		return;
@@ -58,7 +49,7 @@ void CG_BubbleTrail( vec3_t start, vec3_t end, float spacing, int size ) {
 
 		re->reType = RT_SPRITE;
 		re->rotation = 0;
-		re->radius = 3 * scale;
+		re->radius = 3;
 		re->customShader = cgs.media.waterBubbleShader;
 		re->shaderRGBA[0] = 0xff;
 		re->shaderRGBA[1] = 0xff;
@@ -70,9 +61,9 @@ void CG_BubbleTrail( vec3_t start, vec3_t end, float spacing, int size ) {
 		le->pos.trType = TR_LINEAR;
 		le->pos.trTime = cg.time;
 		VectorCopy( move, le->pos.trBase );
-		le->pos.trDelta[0] = crandom()*5 * scale;
-		le->pos.trDelta[1] = crandom()*5 * scale;
-		le->pos.trDelta[2] = crandom()*5 * scale + 6;
+		le->pos.trDelta[0] = crandom()*5;
+		le->pos.trDelta[1] = crandom()*5;
+		le->pos.trDelta[2] = crandom()*5 + 6;
 
 		VectorAdd (move, vec, move);
 	}
@@ -238,7 +229,7 @@ CG_MakeExplosion
 */
 localEntity_t *CG_MakeExplosion( vec3_t origin, vec3_t dir, 
 								qhandle_t hModel, qhandle_t shader,
-								int msec, qboolean isSprite, float scale ) {
+								int msec, qboolean isSprite ) {
 	float			ang;
 	localEntity_t	*ex;
 	int				offset;
@@ -257,13 +248,6 @@ localEntity_t *CG_MakeExplosion( vec3_t origin, vec3_t dir,
 
 		// randomly rotate sprite orientation
 		ex->refEntity.rotation = rand() % 360;
-// shrink
-		if (scale){
-			VectorScale( dir, 16 * scale, tmpVec );
-		} else {
-			VectorScale( dir, 16, tmpVec );
-		}
-// End shrink
 		VectorScale( dir, 16, tmpVec );
 		VectorAdd( tmpVec, origin, newOrigin );
 	} else {
@@ -278,19 +262,7 @@ localEntity_t *CG_MakeExplosion( vec3_t origin, vec3_t dir,
 			VectorCopy( dir, ex->refEntity.axis[0] );
 			RotateAroundDirection( ex->refEntity.axis, ang );
 		}
-// shrink
-		if (scale){
-			VectorScale( ex->refEntity.axis[0], scale, ex->refEntity.axis[0]);
-			VectorScale( ex->refEntity.axis[1], scale, ex->refEntity.axis[1]);
-			VectorScale( ex->refEntity.axis[2], scale, ex->refEntity.axis[2]);
-			ex->refEntity.nonNormalizedAxes = qtrue;
-		}
-// End shrink
 	}
-
-// shrink
-	ex->scale = scale;
-// End shrink
 
 	ex->startTime = cg.time - offset;
 	ex->endTime = ex->startTime + msec;
@@ -318,17 +290,8 @@ CG_Bleed
 This is the spurt of blood when a character gets hit
 =================
 */
-void CG_Bleed( vec3_t origin, int entityNum, int size ) {
+void CG_Bleed( vec3_t origin, int entityNum ) {
 	localEntity_t	*ex;
-
-// shrink
-	float		scale;
-	if (size){
-		scale = 1 - 0.75 * ((float)size / SHRINK_FRAMES);
-	} else {
-		scale = 1;
-	}
-// End shrink
 
 	if ( !cg_blood.integer ) {
 		return;
@@ -343,9 +306,7 @@ void CG_Bleed( vec3_t origin, int entityNum, int size ) {
 	VectorCopy ( origin, ex->refEntity.origin);
 	ex->refEntity.reType = RT_SPRITE;
 	ex->refEntity.rotation = rand() % 360;
-// shrink
-	ex->refEntity.radius = 24 * scale;
-// End shrink
+	ex->refEntity.radius = 24;
 
 	ex->refEntity.customShader = cgs.media.bloodExplosionShader;
 
@@ -362,14 +323,9 @@ void CG_Bleed( vec3_t origin, int entityNum, int size ) {
 CG_LaunchGib
 ==================
 */
-void CG_LaunchGib( vec3_t origin, vec3_t velocity, qhandle_t hModel, int scale ) {
+void CG_LaunchGib( vec3_t origin, vec3_t velocity, qhandle_t hModel ) {
 	localEntity_t	*le;
 	refEntity_t		*re;
-
-// shrink
-	float shrinkScale;
-	shrinkScale = 1.0f - 0.5f * (float)(scale) / SHRINK_FRAMES;
-// End shrink
 
 	le = CG_AllocLocalEntity();
 	re = &le->refEntity;
@@ -380,15 +336,6 @@ void CG_LaunchGib( vec3_t origin, vec3_t velocity, qhandle_t hModel, int scale )
 
 	VectorCopy( origin, re->origin );
 	AxisCopy( axisDefault, re->axis );
-
-// shrink
-	VectorScale (re->axis[0], shrinkScale, re->axis[0]);
-	VectorScale (re->axis[1], shrinkScale, re->axis[1]);
-	VectorScale (re->axis[2], shrinkScale, re->axis[2]);
-
-	VectorScale (velocity, shrinkScale, velocity);
-// End shrink
-
 	re->hModel = hModel;
 
 	le->pos.trType = TR_GRAVITY;
@@ -401,10 +348,6 @@ void CG_LaunchGib( vec3_t origin, vec3_t velocity, qhandle_t hModel, int scale )
 	le->leBounceSoundType = LEBS_BLOOD;
 	le->leMarkType = LEMT_BLOOD;
 	le->leTrailType = LETT_BLOOD;
-
-// shrink
-	le->scale = 1.0f - 0.75f * (float)(scale) / SHRINK_FRAMES;
-// End shrink
 }
 
 /*
@@ -416,7 +359,7 @@ Generated a bunch of gibs launching out from the bodies location
 */
 #define	GIB_VELOCITY	250
 #define	GIB_JUMP		250
-void CG_GibPlayer( vec3_t playerOrigin, int scale ) {
+void CG_GibPlayer( vec3_t playerOrigin ) {
 	vec3_t	origin, velocity;
 
 	if ( !cg_blood.integer ) {
@@ -428,9 +371,9 @@ void CG_GibPlayer( vec3_t playerOrigin, int scale ) {
 	velocity[1] = crandom()*GIB_VELOCITY;
 	velocity[2] = GIB_JUMP + crandom()*GIB_VELOCITY;
 	if ( rand() & 1 ) {
-		CG_LaunchGib( origin, velocity, cgs.media.gibSkull, scale );
+		CG_LaunchFragment( origin, velocity, LETT_BLOOD, cgs.media.gibSkull );
 	} else {
-		CG_LaunchFragment( origin, velocity, LETT_BLOOD, cgs.media.gibBrain, scale );
+		CG_LaunchFragment( origin, velocity, LETT_BLOOD, cgs.media.gibBrain );
 	}
 
 	// allow gibs to be turned off for speed
@@ -442,55 +385,55 @@ void CG_GibPlayer( vec3_t playerOrigin, int scale ) {
 	velocity[0] = crandom()*GIB_VELOCITY;
 	velocity[1] = crandom()*GIB_VELOCITY;
 	velocity[2] = GIB_JUMP + crandom()*GIB_VELOCITY;
-	CG_LaunchFragment( origin, velocity, LETT_BLOOD, cgs.media.gibAbdomen, scale );
+	CG_LaunchFragment( origin, velocity, LETT_BLOOD, cgs.media.gibAbdomen );
 
 	VectorCopy( playerOrigin, origin );
 	velocity[0] = crandom()*GIB_VELOCITY;
 	velocity[1] = crandom()*GIB_VELOCITY;
 	velocity[2] = GIB_JUMP + crandom()*GIB_VELOCITY;
-	CG_LaunchFragment( origin, velocity, LETT_BLOOD, cgs.media.gibArm, scale );
+	CG_LaunchFragment( origin, velocity, LETT_BLOOD, cgs.media.gibArm );
 
 	VectorCopy( playerOrigin, origin );
 	velocity[0] = crandom()*GIB_VELOCITY;
 	velocity[1] = crandom()*GIB_VELOCITY;
 	velocity[2] = GIB_JUMP + crandom()*GIB_VELOCITY;
-	CG_LaunchFragment( origin, velocity, LETT_BLOOD, cgs.media.gibChest, scale );
+	CG_LaunchFragment( origin, velocity, LETT_BLOOD, cgs.media.gibChest );
 
 	VectorCopy( playerOrigin, origin );
 	velocity[0] = crandom()*GIB_VELOCITY;
 	velocity[1] = crandom()*GIB_VELOCITY;
 	velocity[2] = GIB_JUMP + crandom()*GIB_VELOCITY;
-	CG_LaunchFragment( origin, velocity, LETT_BLOOD, cgs.media.gibFist, scale );
+	CG_LaunchFragment( origin, velocity, LETT_BLOOD, cgs.media.gibFist );
 
 	VectorCopy( playerOrigin, origin );
 	velocity[0] = crandom()*GIB_VELOCITY;
 	velocity[1] = crandom()*GIB_VELOCITY;
 	velocity[2] = GIB_JUMP + crandom()*GIB_VELOCITY;
-	CG_LaunchFragment( origin, velocity, LETT_BLOOD, cgs.media.gibFoot, scale );
+	CG_LaunchFragment( origin, velocity, LETT_BLOOD, cgs.media.gibFoot );
 
 	VectorCopy( playerOrigin, origin );
 	velocity[0] = crandom()*GIB_VELOCITY;
 	velocity[1] = crandom()*GIB_VELOCITY;
 	velocity[2] = GIB_JUMP + crandom()*GIB_VELOCITY;
-	CG_LaunchFragment( origin, velocity, LETT_BLOOD, cgs.media.gibForearm, scale );
+	CG_LaunchFragment( origin, velocity, LETT_BLOOD, cgs.media.gibForearm );
 
 	VectorCopy( playerOrigin, origin );
 	velocity[0] = crandom()*GIB_VELOCITY;
 	velocity[1] = crandom()*GIB_VELOCITY;
 	velocity[2] = GIB_JUMP + crandom()*GIB_VELOCITY;
-	CG_LaunchFragment( origin, velocity, LETT_BLOOD, cgs.media.gibIntestine, scale );
+	CG_LaunchFragment( origin, velocity, LETT_BLOOD, cgs.media.gibIntestine );
 
 	VectorCopy( playerOrigin, origin );
 	velocity[0] = crandom()*GIB_VELOCITY;
 	velocity[1] = crandom()*GIB_VELOCITY;
 	velocity[2] = GIB_JUMP + crandom()*GIB_VELOCITY;
-	CG_LaunchFragment( origin, velocity, LETT_BLOOD, cgs.media.gibLeg, scale );
+	CG_LaunchFragment( origin, velocity, LETT_BLOOD, cgs.media.gibLeg );
 
 	VectorCopy( playerOrigin, origin );
 	velocity[0] = crandom()*GIB_VELOCITY;
 	velocity[1] = crandom()*GIB_VELOCITY;
 	velocity[2] = GIB_JUMP + crandom()*GIB_VELOCITY;
-	CG_LaunchFragment( origin, velocity, LETT_BLOOD, cgs.media.gibLeg, scale );
+	CG_LaunchFragment( origin, velocity, LETT_BLOOD, cgs.media.gibLeg );
 }
 
 /*

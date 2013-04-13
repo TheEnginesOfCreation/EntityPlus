@@ -195,27 +195,6 @@ void ClientImpacts( gentity_t *ent, pmove_t *pm ) {
 		}
 		other = &g_entities[ pm->touchents[i] ];
 
-// shrink
-		// if we step on someone that's shrunk, squish them.
-		if (!ent->client->ps.powerups[PW_SHRINK]){
-			if (other->client && other->health > 0 && other->client->ps.powerups[PW_SHRINK]
-				&& ent->client->shrinkDamageTime <= level.time){
-				if (ent->s.groundEntityNum == other->s.number){
-					vec3_t dir;
-					int damage;
-					// damage is doubled for full-size players against shrunk players, so do about half as
-					// much as we want the player to actually take
-					damage = 65 * ((float)(other->client->ps.stats[STAT_SHRINKSCALE]) / SHRINK_FRAMES);
-					VectorSubtract(other->client->ps.origin, ent->client->ps.origin, dir);
-					VectorNormalize(dir);
-					G_Damage( other, ent, ent, dir, ent->r.currentOrigin, damage, 0, MOD_SHRINK_SQUISH );
-					ent->client->shrinkDamageTime = level.time + 400;
-				}
-			}
-		}
-// End shrink
-
-
 		if ( ( ent->r.svFlags & SVF_BOT ) && ( ent->touch ) ) {
 			ent->touch( ent, other, &trace );
 		}
@@ -286,7 +265,7 @@ void	G_TouchTriggers( gentity_t *ent ) {
 		// use seperate code for determining if an item is picked up
 		// so you don't have to actually contact its bounding box
 		if ( hit->s.eType == ET_ITEM ) {
-			if ( !BG_PlayerTouchesItem( &ent->client->ps, &hit->s, level.time, g_gravity.integer ) ) {
+			if ( !BG_PlayerTouchesItem( &ent->client->ps, &hit->s, level.time ) ) {
 				continue;
 			}
 		} else {
@@ -495,14 +474,6 @@ void ClientEvents( gentity_t *ent, int oldEventSequence ) {
 			G_Damage (ent, NULL, NULL, NULL, NULL, damage, 0, MOD_FALLING);
 			break;
 
-// shrink
-		case EV_SHRINK_SQUISH:
-			damage = 10000;
-			G_Damage (ent, NULL, NULL, NULL, NULL, damage, DAMAGE_NO_PROTECTION, MOD_CRUSH);
-			break;
-
-// End shrink
-
 		case EV_FIRE_WEAPON:
 			FireWeapon( ent );
 			break;
@@ -701,66 +672,6 @@ void ClientThink_real( gentity_t *ent ) {
 	if ( client->ps.powerups[PW_HASTE] ) {
 		client->ps.speed *= 1.3;
 	}
-
-// shrink
-
-// FIXME:  There's a calculation somewhere that's throwing scale to zero and causing a glitch.
-// Not sure which code segment is doing it and why.
-
-// bug caught:  If (PW_SHRINK - level.time == SHRINK_TIME + SHRUNK_TIME), no case catches it and scale is null.
-// Need to case this to either start of shrink or maintaining of current size.
-
-	if ( client->ps.powerups[PW_SHRINK] ) {
-
-		// don't shrink or grow if we're dead.  Stay the same size.
-		if (client->ps.stats[STAT_HEALTH] > 0){
-			int scale;
-			if (client->ps.powerups[PW_SHRINK] - level.time - (SHRINK_TIME + SHRUNK_TIME) <= SHRINK_TIME
-			  && client->ps.powerups[PW_SHRINK] - level.time - (SHRINK_TIME + SHRUNK_TIME) > 0){
-				//scale down
-				scale = SHRINK_FRAMES - (client->ps.powerups[PW_SHRINK] - (SHRINK_TIME + SHRUNK_TIME)  - level.time) / 50;
-
-				// lower us to the ground each time our bounding box shrinks
-				// client->ps.origin[2] -= 0.45f;
-			}
-			if (client->ps.powerups[PW_SHRINK] - level.time <= SHRINK_TIME){
-				//scale up
-				scale = (client->ps.powerups[PW_SHRINK] - level.time) / 50;
-			}
-			if (client->ps.powerups[PW_SHRINK] - level.time <= (SHRINK_TIME + SHRUNK_TIME) 
-				&& client->ps.powerups[PW_SHRINK] - level.time > SHRINK_TIME){
-				scale = SHRINK_FRAMES;
-			}
-
-			if (scale > SHRINK_FRAMES){
-				scale = SHRINK_FRAMES;
-			}
-			if (scale < 0){
-				scale = 0;
-			}
-
-			if (scale == 0){
-				if (client->ps.stats[STAT_OLDSHRINKSCALE] == 25){
-					G_Printf("Scale bug trapped:  PW:%i S:%f LT:%i ST:%i\n",
-					 client->ps.powerups[PW_SHRINK],
-					 scale,
-					 level.time,
-					 client->shrinkTime);
-				}			
-			}
-			if (level.time >= client->shrinkTime){
-				client->ps.stats[STAT_OLDSHRINKSCALE] = client->ps.stats[STAT_SHRINKSCALE];
-				client->ps.stats[STAT_SHRINKSCALE] = scale;
-//				G_Printf("OS: %i S: %i\n",client->ps.stats[STAT_OLDSHRINKSCALE], client->ps.stats[STAT_SHRINKSCALE]);
-				client->shrinkTime += 50;
-			}
-			client->ps.speed *= 1.0f - 0.5f * scale /SHRINK_FRAMES;
-		} else {
-			client->ps.stats[STAT_OLDSHRINKSCALE] = client->ps.stats[STAT_SHRINKSCALE];
-		}
-	}
-
-// End shrink
 
 	// Let go of the hook if we aren't firing
 	if ( client->ps.weapon == WP_GRAPPLING_HOOK &&
@@ -984,18 +895,6 @@ void ClientEndFrame( gentity_t *ent ) {
 	// turn off any expired powerups
 	for ( i = 0 ; i < MAX_POWERUPS ; i++ ) {
 		if ( ent->client->ps.powerups[ i ] < level.time ) {
-			// shrink
-			if (i == PW_SHRINK && ent->client->ps.powerups[ i ] != 0 ){
-				if (ent->client->ps.pm_flags & PMF_DUCKED){
-					VectorSet(ent->r.mins, -15, -15, -24);
-					VectorSet(ent->r.maxs, 15, 15, 16);
-				} else {
-					VectorSet(ent->r.mins, -15, -15, -24);
-					VectorSet(ent->r.maxs, 15, 15, 32);
-				}
-			}
-			// end shrink
-
 			ent->client->ps.powerups[ i ] = 0;
 		}
 	}
