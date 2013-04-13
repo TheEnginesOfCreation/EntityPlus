@@ -632,7 +632,7 @@ Use the skill key to specify the skill level for the bot relative to the g_spski
 */
 void target_botspawn_use (gentity_t *self, gentity_t *other, gentity_t *activator) {
 	if ( g_debugBotspawns.integer )
-		G_Printf("\n%i\n spawn bot \"%s\"\n botspawn \"%s\" / \"%s\" (%i)\n waypoint \"%s\"\n", level.time, self->clientname, self->targetname, self->targetname2, self->s.number, self->target);
+		G_Printf("\ntime %i\n spawn bot \"%s\"\n botspawn \"%s\" / \"%s\" (%i)\n waypoint \"%s\"\n health %i\n", level.time, self->clientname, self->targetname, self->targetname2, self->s.number, self->target, self->health);
 	G_AddCustomBot( self->clientname, self->s.number, self->target, self->skill );
 }
 
