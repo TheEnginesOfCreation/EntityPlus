@@ -183,14 +183,6 @@ typedef struct centity_s {
 	// exact interpolated position of entity on this frame
 	vec3_t			lerpOrigin;
 	vec3_t			lerpAngles;
-
-// shrink
-	int shrinkScale;
-	int shrinkTime;
-	int oldShrinkTime;
-	float	shrinkFactor;
-// End shrink
-
 } centity_t;
 
 
@@ -283,10 +275,6 @@ typedef struct localEntity_s {
 	leTrailType_t		leTrailType;		// trail to show behind fragment
 
 	refEntity_t		refEntity;		
-
-	// shrink
-	float scale;	
-// End shrink
 } localEntity_t;
 
 //======================================================================
@@ -798,16 +786,8 @@ typedef struct {
 
 	qhandle_t	railRingsShader;
 	qhandle_t	railCoreShader;
-// shrink
-	qhandle_t	railCoreShader_medium;
-	qhandle_t	railCoreShader_small;
-// End shrink
 
 	qhandle_t	lightningShader;
-// shrink
-	qhandle_t	lightningShader_medium;
-	qhandle_t	lightningShader_small;
-// End shrink
 
 	qhandle_t	friendShader;
 
@@ -1026,10 +1006,6 @@ typedef struct {
 	sfxHandle_t	wstbimpdSound;
 	sfxHandle_t	wstbactvSound;
 
-// shrink
-	sfxHandle_t shrinkSound;
-// End shrink
-
 } cgMedia_t;
 
 
@@ -1119,10 +1095,6 @@ typedef struct {
 
 	// media
 	cgMedia_t		media;
-
-// shrink
-	int	globalgravity;
-// End shrink
 
 } cgs_t;
 
@@ -1404,12 +1376,12 @@ void CG_RegisterWeapon( int weaponNum );
 void CG_RegisterItemVisuals( int itemNum );
 
 void CG_FireWeapon( centity_t *cent );
-void CG_MissileHitWall( int weapon, int clientNum, vec3_t origin, vec3_t dir, impactSound_t soundType, int size );
-void CG_MissileHitPlayer( int weapon, vec3_t origin, vec3_t dir, int entityNum, int size );
-void CG_ShotgunFire( entityState_t *es, int size );
-void CG_Bullet( vec3_t origin, int sourceEntityNum, vec3_t normal, qboolean flesh, int fleshEntityNum, int size );
-void CG_RailTrail( clientInfo_t *ci, vec3_t start, vec3_t end, int scale );
+void CG_MissileHitWall( int weapon, int clientNum, vec3_t origin, vec3_t dir, impactSound_t soundType );
+void CG_MissileHitPlayer( int weapon, vec3_t origin, vec3_t dir, int entityNum );
+void CG_ShotgunFire( entityState_t *es );
+void CG_Bullet( vec3_t origin, int sourceEntityNum, vec3_t normal, qboolean flesh, int fleshEntityNum );
 
+void CG_RailTrail( clientInfo_t *ci, vec3_t start, vec3_t end );
 void CG_GrappleTrail( centity_t *ent, const weaponInfo_t *wi );
 void CG_AddViewWeapon (playerState_t *ps);
 void CG_AddPlayerWeapon( refEntity_t *parent, playerState_t *ps, centity_t *cent, int team );
@@ -1448,18 +1420,18 @@ localEntity_t *CG_SmokePuff( const vec3_t p,
 				   int fadeInTime,
 				   int leFlags,
 				   qhandle_t hShader );
-void CG_BubbleTrail( vec3_t start, vec3_t end, float spacing, int size );
+void CG_BubbleTrail( vec3_t start, vec3_t end, float spacing );
 void CG_SpawnEffect( vec3_t org );
 void CG_ScorePlum( int client, vec3_t org, int score );
 
-void CG_GibPlayer( vec3_t playerOrigin, int scale );
+void CG_GibPlayer( vec3_t playerOrigin );
 void CG_BigExplode( vec3_t playerOrigin );
 
-void CG_Bleed( vec3_t origin, int entityNum, int scale );
+void CG_Bleed( vec3_t origin, int entityNum );
 
 localEntity_t *CG_MakeExplosion( vec3_t origin, vec3_t dir,
 								qhandle_t hModel, qhandle_t shader, int msec,
-								qboolean isSprite, float scale );
+								qboolean isSprite );
 
 //
 // cg_snapshot.c
@@ -1694,7 +1666,6 @@ qboolean	trap_GetEntityToken( char *buffer, int bufferSize );
 
 void	CG_ClearParticles (void);
 void	CG_AddParticles (void);
-void  CG_AddSimpleParticles(void);
 void	CG_ParticleSnow (qhandle_t pshader, vec3_t origin, vec3_t origin2, int turb, float range, int snum);
 void	CG_ParticleSmoke (qhandle_t pshader, centity_t *cent);
 void	CG_AddParticleShrapnel (localEntity_t *le);

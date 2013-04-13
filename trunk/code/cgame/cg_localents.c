@@ -108,11 +108,6 @@ void CG_PuffTrail( localEntity_t *le ) {
 	qhandle_t mediaShader;
 	int verticalMovement;
 
-// shrink
-	float radius;
-	radius = 20;
-// End shrink
-
 	if ( le->leTrailType == LETT_NONE )
 		return;
 
@@ -147,15 +142,8 @@ void CG_PuffTrail( localEntity_t *le ) {
 	t = step * ( (cg.time - cg.frametime + step ) / step );
 	t2 = step * ( cg.time / step );
 
-// shrink
-	if (le->scale){
-		radius *= le->scale;
-	}
-// End shrink
-
-
 	for ( ; t <= t2; t += step ) {
-		BG_EvaluateTrajectory( &le->pos, t, newOrigin, cgs.globalgravity );
+		BG_EvaluateTrajectory( &le->pos, t, newOrigin );
 
 		puff = CG_SmokePuff( newOrigin, vec3_origin, 
 					  20,		// radius
@@ -183,13 +171,6 @@ void CG_FragmentBounceMark( localEntity_t *le, trace_t *trace ) {
 
 	if ( le->leMarkType == LEMT_BLOOD ) {
 		radius = 16 + (rand()&31);
-
-		// shrink
-		if (le->scale){
-			radius *= le->scale;
-		}
-		// End shrink
-
 		CG_ImpactMark( cgs.media.bloodMarkShader, trace->endpos, trace->plane.normal, random()*360,
 			1,1,1,1, qtrue, radius, qfalse );
 	} else if ( le->leMarkType == LEMT_BURN ) {
@@ -241,14 +222,14 @@ void CG_FragmentBounceSound( localEntity_t *le, trace_t *trace ) {
 CG_ReflectVelocity
 ================
 */
-void CG_ReflectVelocity( localEntity_t *le, trace_t *trace, float velScale ) {
+void CG_ReflectVelocity( localEntity_t *le, trace_t *trace ) {
 	vec3_t	velocity;
 	float	dot;
 	int		hitTime;
 
 	// reflect the velocity on the trace plane
 	hitTime = cg.time - cg.frametime + cg.frametime * trace->fraction;
-	BG_EvaluateTrajectoryDelta( &le->pos, hitTime, velocity, cgs.globalgravity * velScale );
+	BG_EvaluateTrajectoryDelta( &le->pos, hitTime, velocity );
 	dot = DotProduct( velocity, trace->plane.normal );
 	VectorMA( velocity, -2*dot, trace->plane.normal, le->pos.trDelta );
 
@@ -277,16 +258,6 @@ void CG_AddFragment( localEntity_t *le ) {
 	vec3_t	newOrigin;
 	trace_t	trace;
 
-// shrink
-	// Ejected brass is less bouncy when shrunk.  We'll leave gib speed alone as low grav gibs look strange.
-	float		velScale;
-	if (le->scale && (le->leFlags & LEF_TUMBLE) ){
-		velScale = 0.5f + ((le->scale - 0.25f) / 0.75f) * 0.5f;
-	} else {
-		velScale = 1.0f;
-	}
-// End shrink
-
 	if ( le->pos.trType == TR_STATIONARY ) {
 		// sink into the ground if near the removal time
 		int		t;
@@ -311,7 +282,7 @@ void CG_AddFragment( localEntity_t *le ) {
 	}
 
 	// calculate new position
-	BG_EvaluateTrajectory( &le->pos, cg.time, newOrigin, cgs.globalgravity * velScale);
+	BG_EvaluateTrajectory( &le->pos, cg.time, newOrigin );
 
 	// trace a line from previous position to new position
 	CG_Trace( &trace, le->refEntity.origin, NULL, NULL, newOrigin, -1, CONTENTS_SOLID );
@@ -322,16 +293,8 @@ void CG_AddFragment( localEntity_t *le ) {
 		if ( le->leFlags & LEF_TUMBLE ) {
 			vec3_t angles;
 
-			BG_EvaluateTrajectory( &le->angles, cg.time, angles, cgs.globalgravity  * velScale);
+			BG_EvaluateTrajectory( &le->angles, cg.time, angles );
 			AnglesToAxis( angles, le->refEntity.axis );
-
-			// shrink
-			if (le->scale){
-				VectorScale (le->refEntity.axis[0], le->scale, le->refEntity.axis[0]);
-				VectorScale (le->refEntity.axis[1], le->scale, le->refEntity.axis[1]);
-				VectorScale (le->refEntity.axis[2], le->scale, le->refEntity.axis[2]);
-			}
-			// End shrink
 		}
 
 		trap_R_AddRefEntityToScene( &le->refEntity );
@@ -356,7 +319,7 @@ void CG_AddFragment( localEntity_t *le ) {
 	CG_FragmentBounceSound( le, &trace );
 
 	// reflect the velocity on the trace plane
-	CG_ReflectVelocity( le, &trace, velScale );
+	CG_ReflectVelocity( le, &trace );
 
 	trap_R_AddRefEntityToScene( &le->refEntity );
 }
@@ -420,7 +383,7 @@ static void CG_AddMoveScaleFade( localEntity_t *le ) {
 		re->radius = le->radius * ( 1.0 - c ) + 8;
 	}
 
-	BG_EvaluateTrajectory( &le->pos, cg.time, re->origin, cgs.globalgravity );
+	BG_EvaluateTrajectory( &le->pos, cg.time, re->origin );
 
 	// if the view would be "inside" the sprite, kill the sprite
 	// so it doesn't add too much overdraw
@@ -563,12 +526,6 @@ static void CG_AddSpriteExplosion( localEntity_t *le ) {
 
 	re.reType = RT_SPRITE;
 	re.radius = 42 * ( 1.0 - c ) + 30;
-
-// shrink
-	if (le->scale){
-		re.radius *= le->scale;
-	}
-// End shrink
 
 	trap_R_AddRefEntityToScene( &re );
 

@@ -1717,14 +1717,6 @@ SILENT : When set, the player will not be notified that the objectives are updat
 
 //=============================================================================
 
-/*QUAKED target_shrink (0 .5 0) (-8 -8 -8) (8 8 8) 
-Shrinks the activating player to 1/4 size (15 units height) for 10 seconds.
--------- KEYS --------
-targetname : activating entity points to this.
-targetname2 : activating entity points to this.
-
-//=============================================================================
-
 /*QUAKED target_playerspeed (0 .5 0) (-8 -8 -8) (8 8 8)
 Sets the movement speed for player(s). Defaults to the speed set through the g_speed cvar (320 by default).
 -------- KEYS --------

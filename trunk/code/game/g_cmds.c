@@ -310,14 +310,6 @@ void Cmd_Give_f (gentity_t *ent)
 	}
 	*/
 
-	// shrink
-	if (Q_stricmp(name, "shrink") == 0) {
-		G_ShrinkPlayer(ent, ent);
-		return;
-	}
-	// End shrink
-
-
 	// spawn a specific item right on the player
 	if ( !give_all ) {
 		it = BG_FindItem (name);
@@ -334,22 +326,10 @@ void Cmd_Give_f (gentity_t *ent)
 			return;
 
 		it_ent = G_Spawn();
-		// shrink
-		//VectorCopy( ent->r.currentOrigin, it_ent->s.origin );
-		if (ent->client->ps.powerups[PW_SHRINK]){
-			vec3_t origin;
-			VectorCopy( ent->r.currentOrigin, origin );
-			origin[2] -= MINS_Z * (0.75f * (float)(ent->client->ps.stats[STAT_SHRINKSCALE])/SHRINK_FRAMES);
-			VectorCopy( origin, it_ent->s.origin );
-		} else {
-			VectorCopy( ent->r.currentOrigin, it_ent->s.origin );
-		}
-		// End shrink
-
 		VectorCopy( ent->r.currentOrigin, it_ent->s.origin );
 		it_ent->classname = it->classname;
 		G_SpawnItem (it_ent, it);
-		FinishSpawningItem2(it_ent, qtrue );
+		FinishSpawningItem(it_ent );
 		memset( &trace, 0, sizeof( trace ) );
 		Touch_Item (it_ent, ent, &trace);
 		if (it_ent->inuse) {
@@ -507,7 +487,8 @@ void Cmd_Kill_f( gentity_t *ent ) {
 		return;
 	}
 	ent->flags &= ~FL_GODMODE;
-	G_Damage (ent, ent, ent, NULL, ent->r.currentOrigin, 10 + ent->client->ps.stats[STAT_HEALTH], (DAMAGE_NO_PROTECTION | DAMAGE_NO_ARMOR), MOD_SUICIDE);
+	ent->client->ps.stats[STAT_HEALTH] = ent->health = -999;
+	player_die (ent, ent, ent, 100000, MOD_SUICIDE);
 }
 
 /*

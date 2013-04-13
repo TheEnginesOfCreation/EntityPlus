@@ -452,21 +452,7 @@ void CopyToBodyQue( gentity_t *ent ) {
 
 	body->s = ent->s;
 	body->s.eFlags = EF_DEAD;		// clear EF_TALK, etc
-
-	// shrink
-	if (ent->s.powerups & (1 << PW_SHRINK)){
-		body->s.powerups |= (1 << PW_SHRINK);
-
-		// remove the powerup off the player since we're done copying to the corpse
-		if (ent->client){
-			ent->client->ps.powerups[PW_SHRINK] = 0;
-		}
-		ent->s.powerups = 0 ;
-
-	} else {
-		body->s.powerups = 0;	// clear powerups
-	}
-	// End shrink
+	body->s.powerups = 0;	// clear powerups
 	body->s.loopSound = 0;	// clear lava burning
 	body->s.number = body - g_entities;
 	body->timestamp = level.time;
@@ -850,11 +836,7 @@ void ClientUserinfoChanged( int clientNum ) {
 	if ( client->pers.maxHealth < 1 || client->pers.maxHealth > 100 ) {
 		client->pers.maxHealth = 100;
 	}
-	// clear entity values
 	client->ps.stats[STAT_MAX_HEALTH] = client->pers.maxHealth;
-	// shrink
-	client->ps.stats[STAT_SHRINKSCALE] = 0;
-	// End shrink
 
 	// set model
 	if( G_IsTeamGame() ) {

@@ -31,12 +31,6 @@
 #define CROUCH_VIEWHEIGHT	12
 #define	DEAD_VIEWHEIGHT		-16
 
-// shrink
-#define	SHRINK_FRAMES	25
-#define	SHRINK_TIME		1250
-#define	SHRUNK_TIME		10000
-// End shrink
-
 //
 // config strings are a general means of communicating variable length strings
 // from the server to all connected clients.
@@ -208,11 +202,7 @@ typedef enum {
 	STAT_ARMOR,				
 	STAT_DEAD_YAW,					// look this direction when dead (FIXME: get rid of?)
 	STAT_CLIENTS_READY,				// bit mask of clients wishing to exit the intermission (FIXME: configstring?)
-	STAT_MAX_HEALTH,				// health / armor limit, changable by handicap
-	// shrink
-	STAT_SHRINKSCALE,
-	STAT_OLDSHRINKSCALE
-	// End shrink
+	STAT_MAX_HEALTH					// health / armor limit, changable by handicap
 } statIndex_t;
 
 
@@ -258,8 +248,6 @@ typedef enum {
 	PW_DOUBLER,
 	PW_AMMOREGEN,
 	PW_INVULNERABILITY,
-
-	PW_SHRINK,
 
 	PW_NUM_POWERUPS
 
@@ -409,9 +397,6 @@ typedef enum {
 	EV_POWERUP_BATTLESUIT,
 	EV_POWERUP_REGEN,
 
-	EV_POWERUP_SHRINK,
-	EV_SHRINK_SQUISH,
-
 	EV_GIB_PLAYER,			// gib a previously living player
 	EV_SCOREPLUM,			// score plum
 
@@ -456,6 +441,7 @@ typedef enum {
 	EV_SILENT_ITEM_PICKUP,		// item pickup without pickup sound
 
 	EV_FOOTSTEP_FLESH
+
 } entity_event_t;
 
 
@@ -601,8 +587,7 @@ typedef enum {
 	MOD_TARGET_LASER,
 	MOD_TRIGGER_HURT,
 	MOD_GRAPPLE,
-	MOD_BREAKABLE_SPLASH,
-	MOD_SHRINK_SQUISH
+	MOD_BREAKABLE_SPLASH
 } meansOfDeath_t;
 
 
@@ -697,8 +682,8 @@ typedef enum {
 
 
 
-void	BG_EvaluateTrajectory( const trajectory_t *tr, int atTime, vec3_t result, int gravity );
-void	BG_EvaluateTrajectoryDelta( const trajectory_t *tr, int atTime, vec3_t result, int gravity );
+void	BG_EvaluateTrajectory( const trajectory_t *tr, int atTime, vec3_t result );
+void	BG_EvaluateTrajectoryDelta( const trajectory_t *tr, int atTime, vec3_t result );
 
 void	BG_AddPredictableEventToPlayerstate( int newEvent, int eventParm, playerState_t *ps );
 
@@ -707,7 +692,7 @@ void	BG_TouchJumpPad( playerState_t *ps, entityState_t *jumppad );
 void	BG_PlayerStateToEntityState( playerState_t *ps, entityState_t *s, qboolean snap );
 void	BG_PlayerStateToEntityStateExtraPolate( playerState_t *ps, entityState_t *s, int time, qboolean snap );
 
-qboolean	BG_PlayerTouchesItem( playerState_t *ps, entityState_t *item, int atTime, int gravity );
+qboolean	BG_PlayerTouchesItem( playerState_t *ps, entityState_t *item, int atTime );
 
 #define ARENAS_PER_TIER		4
 #define MAX_ARENAS			1024

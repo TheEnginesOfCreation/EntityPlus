@@ -360,21 +360,11 @@ static void CG_Missile( centity_t *cent ) {
 	const weaponInfo_t		*weapon;
 //	int	col;
 
-// shrink
-	float shrinkScale;
-	float rangeScale;
-// End shrink
-
 	s1 = &cent->currentState;
 	if ( s1->weapon > WP_NUM_WEAPONS ) {
 		s1->weapon = 0;
 	}
 	weapon = &cg_weapons[s1->weapon];
-
-// shrink - we adjust gravity on grenades when shrunk
-	rangeScale = 1.0f - 0.5f * (float)(s1->generic1)/SHRINK_FRAMES;
-	shrinkScale = 1.0f - 0.75f * (float)(s1->generic1) / SHRINK_FRAMES;
-// End shrink
 
 	// calculate the axis
 	VectorCopy( s1->angles, cent->lerpAngles);
@@ -403,7 +393,7 @@ static void CG_Missile( centity_t *cent ) {
 */
 	// add dynamic light
 	if ( weapon->missileDlight ) {
-		trap_R_AddLightToScene(cent->lerpOrigin, weapon->missileDlight * shrinkScale, 
+		trap_R_AddLightToScene(cent->lerpOrigin, weapon->missileDlight, 
 			weapon->missileDlightColor[0], weapon->missileDlightColor[1], weapon->missileDlightColor[2] );
 	}
 
@@ -411,7 +401,7 @@ static void CG_Missile( centity_t *cent ) {
 	if ( weapon->missileSound ) {
 		vec3_t	velocity;
 
-		BG_EvaluateTrajectoryDelta( &cent->currentState.pos, cg.time, velocity, (cgs.globalgravity * rangeScale) );
+		BG_EvaluateTrajectoryDelta( &cent->currentState.pos, cg.time, velocity );
 
 		trap_S_AddLoopingSound( cent->currentState.number, cent->lerpOrigin, velocity, weapon->missileSound );
 	}
@@ -423,7 +413,7 @@ static void CG_Missile( centity_t *cent ) {
 
 	if ( cent->currentState.weapon == WP_PLASMAGUN ) {
 		ent.reType = RT_SPRITE;
-		ent.radius = 16 * shrinkScale;
+		ent.radius = 16;
 		ent.rotation = 0;
 		ent.customShader = cgs.media.plasmaBallShader;
 		trap_R_AddRefEntityToScene( &ent );
@@ -446,12 +436,6 @@ static void CG_Missile( centity_t *cent ) {
 	} else {
 		RotateAroundDirection( ent.axis, s1->time );
 	}
-
-// shrink
-	VectorScale (ent.axis[0], shrinkScale, ent.axis[0]);
-	VectorScale (ent.axis[1], shrinkScale, ent.axis[1]);
-	VectorScale (ent.axis[2], shrinkScale, ent.axis[2]);
-// End shrink
 
 	// add to refresh list, possibly with quad glow
 	CG_AddRefEntityWithPowerups( &ent, s1, TEAM_FREE );
@@ -630,11 +614,11 @@ void CG_AdjustPositionForMover( const vec3_t in, int moverNum, int fromTime, int
 		return;
 	}
 
-	BG_EvaluateTrajectory( &cent->currentState.pos, fromTime, oldOrigin, cgs.globalgravity );
-	BG_EvaluateTrajectory( &cent->currentState.apos, fromTime, oldAngles, cgs.globalgravity );
+	BG_EvaluateTrajectory( &cent->currentState.pos, fromTime, oldOrigin );
+	BG_EvaluateTrajectory( &cent->currentState.apos, fromTime, oldAngles );
 
-	BG_EvaluateTrajectory( &cent->currentState.pos, toTime, origin, cgs.globalgravity );
-	BG_EvaluateTrajectory( &cent->currentState.apos, toTime, angles, cgs.globalgravity );
+	BG_EvaluateTrajectory( &cent->currentState.pos, toTime, origin );
+	BG_EvaluateTrajectory( &cent->currentState.apos, toTime, angles );
 
 	VectorSubtract( origin, oldOrigin, deltaOrigin );
 	VectorSubtract( angles, oldAngles, deltaAngles );
@@ -664,15 +648,15 @@ static void CG_InterpolateEntityPosition( centity_t *cent ) {
 
 	// this will linearize a sine or parabolic curve, but it is important
 	// to not extrapolate player positions if more recent data is available
-	BG_EvaluateTrajectory( &cent->currentState.pos, cg.snap->serverTime, current, cgs.globalgravity );
-	BG_EvaluateTrajectory( &cent->nextState.pos, cg.nextSnap->serverTime, next, cgs.globalgravity );
+	BG_EvaluateTrajectory( &cent->currentState.pos, cg.snap->serverTime, current );
+	BG_EvaluateTrajectory( &cent->nextState.pos, cg.nextSnap->serverTime, next );
 
 	cent->lerpOrigin[0] = current[0] + f * ( next[0] - current[0] );
 	cent->lerpOrigin[1] = current[1] + f * ( next[1] - current[1] );
 	cent->lerpOrigin[2] = current[2] + f * ( next[2] - current[2] );
 
-	BG_EvaluateTrajectory( &cent->currentState.apos, cg.snap->serverTime, current, cgs.globalgravity );
-	BG_EvaluateTrajectory( &cent->nextState.apos, cg.nextSnap->serverTime, next, cgs.globalgravity );
+	BG_EvaluateTrajectory( &cent->currentState.apos, cg.snap->serverTime, current );
+	BG_EvaluateTrajectory( &cent->nextState.apos, cg.nextSnap->serverTime, next );
 
 	cent->lerpAngles[0] = LerpAngle( current[0], next[0], f );
 	cent->lerpAngles[1] = LerpAngle( current[1], next[1], f );
@@ -687,9 +671,6 @@ CG_CalcEntityLerpPositions
 ===============
 */
 static void CG_CalcEntityLerpPositions( centity_t *cent ) {
-// shrink
-	float rangeScale = 1.0f;
-// End shrink
 
 	// if this player does not want to see extrapolated players
 	if ( !cg_smoothClients.integer ) {
@@ -714,13 +695,8 @@ static void CG_CalcEntityLerpPositions( centity_t *cent ) {
 	}
 
 	// just use the current frame and evaluate as best we can
-// shrink
-	if (cent->currentState.eType == ET_MISSILE){
-		rangeScale = 1.0f - 0.5f * (float)(cent->currentState.generic1)/SHRINK_FRAMES;
-	}
-	BG_EvaluateTrajectory( &cent->currentState.pos, cg.time, cent->lerpOrigin, (cgs.globalgravity * rangeScale) );
-	BG_EvaluateTrajectory( &cent->currentState.apos, cg.time, cent->lerpAngles, (cgs.globalgravity * rangeScale) );
-// End shrink
+	BG_EvaluateTrajectory( &cent->currentState.pos, cg.time, cent->lerpOrigin );
+	BG_EvaluateTrajectory( &cent->currentState.apos, cg.time, cent->lerpAngles );
 
 	// adjust for riding a mover if it wasn't rolled into the predicted
 	// player state
