@@ -89,7 +89,7 @@ namespace mvt
 			"target_effect", "target_finish", "target_give", "target_gravity", "target_kill", "target_laser", "target_logic", 
 			"target_mapchange", "target_modify", "target_music", "target_objective", "target_playerspeed", "target_playerstats",
 			"target_position", "target_print", "target_push", "target_relay", "target_remove_powerups", "target_score", "target_script",
-			"target_secret", "target_shrink", "target_skill", "target_speaker", "target_teleporter", "target_unlink", "target_variable",
+			"target_secret", /*"target_shrink", */"target_skill", "target_speaker", "target_teleporter", "target_unlink", "target_variable",
 			//trigger_
 			"trigger_always", "trigger_death", "trigger_frag", "trigger_lock", "trigger_hurt", "trigger_multiple", "trigger_push",
 			"trigger_teleport",
@@ -359,6 +359,11 @@ namespace mvt
 			bool result = false;
 			string versionString = VersionsStrings[(int)Versions.one_one_four];
 
+			string val = ent.GetValue("spawnflags");
+			int spawnflags = 0;
+			if (!String.IsNullOrEmpty(val))
+				int.TryParse(val, out spawnflags);
+
 			switch (ent.Classname)
 			{
 				case "target_modify":
@@ -377,22 +382,25 @@ namespace mvt
 					}
 					break;
 
+				/*
 				case "target_shrink":
 					Debug(" > use of target_shrink requires " + versionString);
 					result = true;
 					break;
-
+				*/
 				case "target_give":
-					string val = ent.GetValue("spawnflags");
-					if (!String.IsNullOrEmpty(val))
+					if ((spawnflags & 1) > 0)
 					{
-						int spawnflags = 0;
-						int.TryParse(val, out spawnflags);
-						if ((spawnflags & 1) > 0)
-						{
-							Debug(" > use of \"GIVE_PLAYER\" spawnflag requires " + versionString);
-							result = true;
-						}
+						Debug(" > use of \"GIVE_PLAYER\" spawnflag requires " + versionString);
+						result = true;
+					}
+					break;
+
+				case "target_botspawn":
+					if ((spawnflags & 2048) > 0)
+					{
+						Debug(" > use of \"IGNORE_PLAYER\" spawnflag requires " + versionString);
+						result = true;
 					}
 					break;
 			}

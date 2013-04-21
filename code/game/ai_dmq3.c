@@ -1623,6 +1623,9 @@ int BotFindEnemy(bot_state_t *bs, int curenemy) {
 	aas_entityinfo_t entinfo, curenemyinfo;
 	vec3_t dir, angles;
 
+	if (g_entities[bs->client].parent->spawnflags & 2048)
+		return qfalse;
+
 	alertness = trap_Characteristic_BFloat(bs->character, CHARACTERISTIC_ALERTNESS, 0, 1);
 	easyfragger = trap_Characteristic_BFloat(bs->character, CHARACTERISTIC_EASY_FRAGGER, 0, 1);
 	//check if the health decreased
