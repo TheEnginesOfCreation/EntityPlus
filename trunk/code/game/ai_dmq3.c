@@ -999,6 +999,7 @@ BotAggression
 ==================
 */
 float BotAggression(bot_state_t *bs) {
+
 	//if the bot has quad
 	if (bs->inventory[INVENTORY_QUAD]) {
 		//if the bot is not holding the gauntlet or the enemy is really nearby
@@ -1621,6 +1622,9 @@ int BotFindEnemy(bot_state_t *bs, int curenemy) {
 	float squaredist, cursquaredist;
 	aas_entityinfo_t entinfo, curenemyinfo;
 	vec3_t dir, angles;
+
+	if (level.player->flags & FL_NOTARGET)
+		return qfalse;
 
 	alertness = trap_Characteristic_BFloat(bs->character, CHARACTERISTIC_ALERTNESS, 0, 1);
 	easyfragger = trap_Characteristic_BFloat(bs->character, CHARACTERISTIC_EASY_FRAGGER, 0, 1);
@@ -2340,6 +2344,7 @@ static vec3_t VEC_DOWN		= {0, -2,  0};
 static vec3_t MOVEDIR_DOWN	= {0,  0, -1};
 
 void BotSetMovedir(vec3_t angles, vec3_t movedir) {
+	G_Printf("BotSetMovedir %s %s", vtos(angles), vtos(movedir));
 	if (VectorCompare(angles, VEC_UP)) {
 		VectorCopy(MOVEDIR_UP, movedir);
 	}
@@ -3763,7 +3768,7 @@ void BotSetupDeathmatchAI(void) {
 	trap_Cvar_Register(&bot_rocketjump, "bot_rocketjump", "1", 0);
 	trap_Cvar_Register(&bot_grapple, "bot_grapple", "0", 0);
 	trap_Cvar_Register(&bot_fastchat, "bot_fastchat", "0", 0);
-	trap_Cvar_Register(&bot_nochat, "bot_nochat", "0", 0);
+	trap_Cvar_Register(&bot_nochat, "bot_nochat", "1", 1);
 	trap_Cvar_Register(&bot_testrchat, "bot_testrchat", "0", 0);
 	trap_Cvar_Register(&bot_challenge, "bot_challenge", "0", 0);
 	trap_Cvar_Register(&bot_predictobstacles, "bot_predictobstacles", "1", 0);
