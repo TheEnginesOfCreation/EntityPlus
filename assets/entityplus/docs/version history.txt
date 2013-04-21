@@ -1,4 +1,5 @@
 v1.1.4 (?? ??? 2013)
+	- [Fixed] notarget console command does nothing.
 	- [Added] target_modify can be used to change value of "damage" or "dmg" keys.
 	- [Added] surfaces with a shader with "surfaceparm flesh" will make flesh footstep noises instead of the default sound.
 	- [Added] GIVE_PLAYER spawnflag to target_give.
