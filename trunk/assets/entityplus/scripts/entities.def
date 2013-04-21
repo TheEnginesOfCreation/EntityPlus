@@ -1488,7 +1488,7 @@ The target/target2 keys MUST be used to target an existing target_botspawn entit
 
 //=============================================================================
 
-/*QUAKED target_botspawn (0 .7 .7) (-16 -16 -24) (16 16 32) WP_GAUNTLET WP_MACHINEGUN WP_SHOTGUN WP_GRENADE_LAUNCHER WP_ROCKET_LAUNCHER WP_LIGHTNING WP_RAILGUN WP_PLASMAGUN WP_BFG
+/*QUAKED target_botspawn (0 .7 .7) (-16 -16 -24) (16 16 32) WP_GAUNTLET WP_MACHINEGUN WP_SHOTGUN WP_GRENADE_LAUNCHER WP_ROCKET_LAUNCHER WP_LIGHTNING WP_RAILGUN WP_PLASMAGUN WP_BFG - - IGNORE_PLAYER
 Spawns a bot into the game at the location of the target_botspawn entity.
 -------- KEYS --------
 angle : direction in which bot will look when spawning in the game.
@@ -1509,6 +1509,7 @@ WP_LIGHTNING : The bot spawns into the game with a Lightninggun.
 WP_RAILGUN : The bot spawns into the game with a Railgun.
 WP_PLASMAGUN : The bot spawns into the game with a Plasmagun.
 WP_BFG : The bot spawns into the game with a BFG.
+IGNORE_PLAYER : The bot ignores the player, even when attacked.
 -------- NOTES --------
 By default bots spawn without any weapons. Use spawnflags to customize the set of weapons the bot will spawn with. Bots will always have unlimited ammo for all weapons. The choice of weapon is still up to the bot. This means that spawning a bot with a MG and GL doesn't guarantee the bot will use the GL.
 
