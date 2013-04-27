@@ -1683,6 +1683,7 @@ When the map is loaded in single player mode, the target_mapchange entity stores
 modifies the value of a specific key on a targeted entity.
 -------- KEYS --------
 target : this points to entities to modify when this entity is triggered.
+target2 : this points to entities to modify when this entity is triggered.
 targetname : activating entity points to this.
 targetname2 : activating entity points to this.
 key : the key to modify on the target entity.

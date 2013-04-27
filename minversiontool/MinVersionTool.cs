@@ -380,6 +380,12 @@ namespace mvt
 							result = true;
 						}
 					}
+
+					if (!String.IsNullOrEmpty("target2"))
+					{
+						Debug(" > use of \"target2\" key requires " + versionString);
+						result = true;
+					}
 					break;
 
 				/*

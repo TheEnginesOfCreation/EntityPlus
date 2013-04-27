@@ -1215,6 +1215,33 @@ void target_modify_use (gentity_t *self, gentity_t *other, gentity_t *activator)
 			return;
 		}
 	}
+
+	t = NULL;
+	while ( (t = G_Find (t, FOFS(targetname2), self->target)) != NULL ) {
+		modify_entity(self, t);
+		if ( !self->inuse ) {
+			G_Printf("entity was removed while using targets\n");
+			return;
+		}
+	}
+
+	t = NULL;
+	while ( (t = G_Find (t, FOFS(targetname), self->target2)) != NULL ) {
+		modify_entity(self, t);
+		if ( !self->inuse ) {
+			G_Printf("entity was removed while using targets\n");
+			return;
+		}
+	}
+
+	t = NULL;
+	while ( (t = G_Find (t, FOFS(targetname2), self->target2)) != NULL ) {
+		modify_entity(self, t);
+		if ( !self->inuse ) {
+			G_Printf("entity was removed while using targets\n");
+			return;
+		}
+	}
 }
 
 void SP_target_modify (gentity_t *self) {
