@@ -1559,6 +1559,46 @@ void Cmd_Stats_f( gentity_t *ent ) {
 
 /*
 =================
+Cmd_TriggerTarget_f
+=================
+*/
+void Cmd_TriggerTarget_f( gentity_t *ent ) {
+	char		buffer[MAX_TOKEN_CHARS];
+	gentity_t		*t;
+
+	if ( !g_cheats.integer ) {
+		trap_SendServerCommand( ent-g_entities, va("print \"Cheats are not enabled on this server.\n\""));
+		return;
+	}
+	if ( trap_Argc() != 2 ) {
+		trap_SendServerCommand( ent-g_entities, va("print \"usage: trigger_target targetname\n\""));
+		return;
+	}
+
+	trap_Argv( 1, buffer, sizeof( buffer ) );
+
+	G_Printf("triggering entities with targetname or targetname2 %s\n", buffer);
+
+	//find all entities with matching targetname
+	t = NULL;
+	while ( (t = G_Find (t, FOFS(targetname), buffer)) != NULL ) {
+		if ( t->use ) {
+			t->use (t, NULL, ent);
+		}
+	}
+
+	//find all entities with matching targetname2
+	t = NULL;
+	while ( (t = G_Find (t, FOFS(targetname2), buffer)) != NULL ) {
+		if ( t->use ) {
+			t->use (t, NULL, ent);
+		}
+	}
+
+}
+
+/*
+=================
 ClientCommand
 =================
 */
@@ -1665,6 +1705,8 @@ void ClientCommand( int clientNum ) {
 		Cmd_SetViewpos_f( ent );
 	else if (Q_stricmp (cmd, "stats") == 0)
 		Cmd_Stats_f( ent );
+	else if (Q_stricmp (cmd, "trigger_target") == 0)
+		Cmd_TriggerTarget_f( ent );
 	else
 		trap_SendServerCommand( clientNum, va("print \"unknown cmd %s\n\"", cmd ) );
 }
