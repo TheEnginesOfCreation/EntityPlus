@@ -97,11 +97,17 @@ void SP_target_remove_powerups( gentity_t *ent ) {
 "random" delay variance, total delay = delay +/- random seconds
 */
 void Think_Target_Delay( gentity_t *ent ) {
+	if (!ent->r.linked)
+		return;
+
 	ent->nextthink = 0;
 	G_UseTargets( ent, ent->activator );
 }
 
 void Use_Target_Delay( gentity_t *ent, gentity_t *other, gentity_t *activator ) {
+	if (!ent->r.linked)
+		return;
+
 	if ( ent->nextthink && (ent->spawnflags & 1) ) {
 		ent->nextthink = 0;
 	} else {
@@ -121,6 +127,7 @@ void SP_target_delay( gentity_t *ent ) {
 		ent->wait = 1;
 	}
 	ent->use = Use_Target_Delay;
+	ent->r.linked = qtrue;
 }
 
 
@@ -391,6 +398,9 @@ if RANDOM is checked, only one of the targets will be fired, not all of them
 A count key can be set to delay the triggering until the entity has been triggered [count] number of times
 */
 void target_relay_use (gentity_t *self, gentity_t *other, gentity_t *activator) {
+	if (!self->r.linked)
+		return;
+
 	if ( ( self->spawnflags & 1 ) && activator->client 
 		&& activator->client->sess.sessionTeam != TEAM_RED ) {
 		return;
@@ -438,6 +448,7 @@ void target_relay_use (gentity_t *self, gentity_t *other, gentity_t *activator) 
 
 void SP_target_relay (gentity_t *self) {
 	self->use = target_relay_use;
+	self->r.linked = qtrue;
 }
 
 //==========================================================
