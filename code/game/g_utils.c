@@ -368,7 +368,7 @@ G_SetEntityLinked
 */
 void G_SetEntityLinked( gentity_t *t, int spawnflags ) {
 	if ( spawnflags & 4 ) {								
-		//always_unlink spawnflag is set, so unlink entity to the world
+		//always_unlink spawnflag is set, so unlink entity from the world
 		if ( strcmp(t->classname, "func_bobbing") ) {
 			if ( t->r.linked ) { trap_UnlinkEntity( t ); }
 		} else {

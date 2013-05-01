@@ -1,6 +1,7 @@
 v1.1.4 (?? ??? 2013)
 	- [Fixed] notarget console command does nothing.
 	- [Fixed] entities with matching targetname2 don't respond to target_modify.
+	- [Fixed] target_unlink won't unlink target_relay or target_delay entities.
 	- [Added] trigger_target command.
 	- [Added] target2 key to target_modify.
 	- [Added] target_modify can be used to change value of "damage" or "dmg" keys.
