@@ -737,10 +737,13 @@ void BotChangeViewAngles(bot_state_t *bs, float thinktime) {
 BotInputToUserCommand
 ==============
 */
-void BotInputToUserCommand(bot_input_t *bi, usercmd_t *ucmd, int delta_angles[3], int time) {
+void BotInputToUserCommand(bot_input_t *bi, usercmd_t *ucmd, int delta_angles[3], int time, int pmflags) {
 	vec3_t angles, forward, right;
 	short temp;
 	int j;
+	int movevalue;
+	
+	
 
 	//clear the whole structure
 	memset(ucmd, 0, sizeof(usercmd_t));
@@ -785,6 +788,15 @@ void BotInputToUserCommand(bot_input_t *bi, usercmd_t *ucmd, int delta_angles[3]
 		*/
 		ucmd->angles[j] = temp;
 	}
+
+	if (pmflags & PMF_FORCE_WALK)
+		movevalue = 60;
+	else
+		movevalue = 127;
+
+	if (movevalue <= 60)
+		ucmd->buttons |= BUTTON_WALKING;
+
 	//NOTE: movement is relative to the REAL view angles
 	//get the horizontal forward and right vector
 	//get the pitch in the range [-180, 180]
@@ -794,16 +806,16 @@ void BotInputToUserCommand(bot_input_t *bi, usercmd_t *ucmd, int delta_angles[3]
 	angles[ROLL] = 0;
 	AngleVectors(angles, forward, right, NULL);
 	//bot input speed is in the range [0, 400]
-	bi->speed = bi->speed * 127 / 400;
+	bi->speed = bi->speed * movevalue / 400;
 	//set the view independent movement
 	ucmd->forwardmove = DotProduct(forward, bi->dir) * bi->speed;
 	ucmd->rightmove = DotProduct(right, bi->dir) * bi->speed;
 	ucmd->upmove = abs(forward[2]) * bi->dir[2] * bi->speed;
 	//normal keyboard movement
-	if (bi->actionflags & ACTION_MOVEFORWARD) ucmd->forwardmove += 127;
-	if (bi->actionflags & ACTION_MOVEBACK) ucmd->forwardmove -= 127;
-	if (bi->actionflags & ACTION_MOVELEFT) ucmd->rightmove -= 127;
-	if (bi->actionflags & ACTION_MOVERIGHT) ucmd->rightmove += 127;
+	if (bi->actionflags & ACTION_MOVEFORWARD) ucmd->forwardmove += movevalue;
+	if (bi->actionflags & ACTION_MOVEBACK) ucmd->forwardmove -= movevalue;
+	if (bi->actionflags & ACTION_MOVELEFT) ucmd->rightmove -= movevalue;
+	if (bi->actionflags & ACTION_MOVERIGHT) ucmd->rightmove += movevalue;
 	//jump/moveup
 	if (bi->actionflags & ACTION_JUMP) ucmd->upmove += 127;
 	//crouch/movedown
@@ -835,7 +847,7 @@ void BotUpdateInput(bot_state_t *bs, int time, int elapsed_time) {
 		if (bs->lastucmd.buttons & BUTTON_ATTACK) bi.actionflags &= ~(ACTION_RESPAWN|ACTION_ATTACK);
 	}
 	//convert the bot input to a usercmd
-	BotInputToUserCommand(&bi, &bs->lastucmd, bs->cur_ps.delta_angles, time);
+	BotInputToUserCommand(&bi, &bs->lastucmd, bs->cur_ps.delta_angles, time, bs->cur_ps.pm_flags);
 	//subtract the delta angles
 	for (j = 0; j < 3; j++) {
 		bs->viewangles[j] = AngleMod(bs->viewangles[j] - SHORT2ANGLE(bs->cur_ps.delta_angles[j]));

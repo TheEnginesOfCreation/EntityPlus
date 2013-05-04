@@ -634,7 +634,7 @@ void SP_target_gravity (gentity_t *self) {
 //==========================================================
 
 /*QUAKED target_botspawn (.5 .5 .5) (-8 -8 -8) (8 8 8) 
-WP_GAUNTLET WP_MACHINEGUN WP_SHOTGUN WP_GRENADE_LAUNCHER WP_ROCKET_LAUNCHER WP_LIGHTNING WP_RAILGUN WP_PLASMAGUN WP_BFG IGNORE_PLAYER
+WP_GAUNTLET WP_MACHINEGUN WP_SHOTGUN WP_GRENADE_LAUNCHER WP_ROCKET_LAUNCHER WP_LIGHTNING WP_RAILGUN WP_PLASMAGUN WP_BFG - - IGNORE_PLAYER PATROL_WALK ALWAYS_WALK 
 Spawns a bot into the game
 Use the health key to determine the amount of health the bot will spawn with
 The entity specified with deathtarget will be activated when the spawned bot dies

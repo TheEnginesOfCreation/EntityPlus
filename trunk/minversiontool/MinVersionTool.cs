@@ -408,6 +408,16 @@ namespace mvt
 						Debug(" > use of \"IGNORE_PLAYER\" spawnflag requires " + versionString);
 						result = true;
 					}
+					if ((spawnflags & 4096) > 0)
+					{
+						Debug(" > use of \"PATROL_WALK\" spawnflag requires " + versionString);
+						result = true;
+					}
+					if ((spawnflags & 8192) > 0)
+					{
+						Debug(" > use of \"ALWAYS_WALK\" spawnflag requires " + versionString);
+						result = true;
+					}
 					break;
 			}
 
