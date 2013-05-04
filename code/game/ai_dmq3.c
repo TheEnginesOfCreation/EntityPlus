@@ -1321,6 +1321,10 @@ bot_moveresult_t BotAttackMove(bot_state_t *bs, int tfl) {
 	bot_moveresult_t moveresult;
 	bot_goal_t goal;
 
+	//remove force walk flag so bot can run again if this is allowed
+	if (bs->cur_ps.pm_flags & PMF_ATTACK_RUN)
+		bs->cur_ps.pm_flags &= ~PMF_FORCE_WALK;
+
 	attackentity = bs->enemy;
 	//
 	if (bs->attackchase_time > FloatTime()) {

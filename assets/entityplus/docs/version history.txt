@@ -7,7 +7,7 @@ v1.1.4 (?? ??? 2013)
 	- [Added] target_modify can be used to change value of "damage" or "dmg" keys.
 	- [Added] surfaces with a shader with "surfaceparm flesh" will make flesh footstep noises instead of the default sound.
 	- [Added] GIVE_PLAYER spawnflag to target_give.
-	- [Added] IGNORE_PLAYER spawnflag to target_botspawn.
+	- [Added] IGNORE_PLAYER, PATROL_WALK and ALWAYS_WALK spawnflags to target_botspawn.
 	- [Added] Green glow to BFG bolts.
 	- [Changed] g_debugBotSpawns echoes out health for spawned bot.
 
