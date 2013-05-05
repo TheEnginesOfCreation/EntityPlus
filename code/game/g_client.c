@@ -1393,15 +1393,16 @@ void SetupCustomBot( gentity_t *bot ) {
 	//set bot's health (it doesn't degrade automatically)
 	bot->health = bot->client->ps.stats[STAT_HEALTH] = bot->client->ps.stats[STAT_MAX_HEALTH] = bot->parent->health;
 
+	//set walking behavior
+	if (bot->parent->spawnflags & 4096 || bot->parent->spawnflags & 8192)
+		bot->client->ps.pm_flags |= PMF_FORCE_WALK;
+
+	if (bot->parent->spawnflags & 4096 && !(bot->parent->spawnflags & 8192))
+		bot->client->ps.pm_flags |= PMF_ATTACK_RUN;
+
 	//use targets of target_botspawn
 	if ( bot->parent->target ) {
 		G_UseTargets( bot->parent, bot);
-
-		if (bot->parent->spawnflags & 4096 || bot->parent->spawnflags & 8192)
-			bot->client->ps.pm_flags |= PMF_FORCE_WALK;
-
-		if (bot->parent->spawnflags & 4096 && !(bot->parent->spawnflags & 8192))
-			bot->client->ps.pm_flags |= PMF_ATTACK_RUN;
 	}
 }
 
