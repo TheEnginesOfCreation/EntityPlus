@@ -364,6 +364,13 @@ namespace mvt
 			if (!String.IsNullOrEmpty(val))
 				int.TryParse(val, out spawnflags);
 
+
+			if (ent.GetValue("notep") == "1")
+			{
+				Debug(" > use of \"notep\" key requires " + versionString);
+				result = true;
+			}
+
 			switch (ent.Classname)
 			{
 				case "target_modify":
