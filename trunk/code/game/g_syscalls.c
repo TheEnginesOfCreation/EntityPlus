@@ -731,6 +731,7 @@ void trap_BotInitMoveState(int handle, void /* struct bot_initmove_s */ *initmov
 }
 
 int trap_BotChooseBestFightWeapon(int weaponstate, int *inventory) {
+	//TODO: This syscall may cause "weapon index out of range" error. Replace the syscall with our own hardcoded weapon selection code?
 	return syscall( BOTLIB_AI_CHOOSE_BEST_FIGHT_WEAPON, weaponstate, inventory );
 }
 
