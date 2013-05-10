@@ -129,41 +129,57 @@ int Pickup_Backpack( gentity_t *ent, gentity_t *other) {
 	//after dying, player spawns with 'free' 100 MG ammo, so we're taking 100 bullets from the backpack and give the remainder to the player
 	if ( ent->backpackContents[WP_MACHINEGUN] > 100 )
 		other->client->ps.ammo[WP_MACHINEGUN] += (ent->backpackContents[WP_MACHINEGUN] - 100);
+	if (other->client->ps.ammo[WP_MACHINEGUN] > 999)
+		other->client->ps.ammo[WP_MACHINEGUN] = 999;
 	
 	//shotgun
 	if ( ent->count & (1 << WP_SHOTGUN) )
 		other->client->ps.stats[STAT_WEAPONS] |= (1 << WP_SHOTGUN);
 	other->client->ps.ammo[WP_SHOTGUN] += ent->backpackContents[WP_SHOTGUN];
+	if (other->client->ps.ammo[WP_SHOTGUN] > 999)
+		other->client->ps.ammo[WP_SHOTGUN] = 999;
 
 	//grenade launcher
 	if ( ent->count & (1 << WP_GRENADE_LAUNCHER) )
 		other->client->ps.stats[STAT_WEAPONS] |= (1 << WP_GRENADE_LAUNCHER);
 	other->client->ps.ammo[WP_GRENADE_LAUNCHER] += ent->backpackContents[WP_GRENADE_LAUNCHER];
+	if (other->client->ps.ammo[WP_GRENADE_LAUNCHER] > 999)
+		other->client->ps.ammo[WP_GRENADE_LAUNCHER] = 999;
 
 	//rocket launcher
 	if ( ent->count & (1 << WP_ROCKET_LAUNCHER) )
 		other->client->ps.stats[STAT_WEAPONS] |= (1 << WP_ROCKET_LAUNCHER);
 	other->client->ps.ammo[WP_ROCKET_LAUNCHER] += ent->backpackContents[WP_ROCKET_LAUNCHER];
+	if (other->client->ps.ammo[WP_ROCKET_LAUNCHER] > 999)
+		other->client->ps.ammo[WP_ROCKET_LAUNCHER] = 999;
 
 	//lightning gun
 	if ( ent->count & (1 << WP_LIGHTNING) )
 		other->client->ps.stats[STAT_WEAPONS] |= (1 << WP_LIGHTNING);
 	other->client->ps.ammo[WP_LIGHTNING] += ent->backpackContents[WP_LIGHTNING];
+	if (other->client->ps.ammo[WP_LIGHTNING] > 999)
+		other->client->ps.ammo[WP_LIGHTNING] = 999;
 	
 	//railgun
 	if ( ent->count & (1 << WP_RAILGUN) )
 		other->client->ps.stats[STAT_WEAPONS] |= (1 << WP_RAILGUN);
 	other->client->ps.ammo[WP_RAILGUN] += ent->backpackContents[WP_RAILGUN];
+	if (other->client->ps.ammo[WP_RAILGUN] > 999)
+		other->client->ps.ammo[WP_RAILGUN] = 999;
 
 	//plasma gun
 	if ( ent->count & (1 << WP_PLASMAGUN) )
 		other->client->ps.stats[STAT_WEAPONS] |= (1 << WP_PLASMAGUN);
 	other->client->ps.ammo[WP_PLASMAGUN] += ent->backpackContents[WP_PLASMAGUN];
+	if (other->client->ps.ammo[WP_PLASMAGUN] > 999)
+		other->client->ps.ammo[WP_PLASMAGUN] = 999;
 
 	//bfg
 		if ( ent->count & (1 << WP_BFG) )
 		other->client->ps.stats[STAT_WEAPONS] |= (1 << WP_BFG);
 	other->client->ps.ammo[WP_BFG] += ent->backpackContents[WP_BFG];
+	if (other->client->ps.ammo[WP_BFG] > 999)
+		other->client->ps.ammo[WP_BFG] = 999;
 
 	//holdables
 	other->client->ps.stats[STAT_HOLDABLE_ITEM] = ent->backpackContents[0];
