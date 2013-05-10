@@ -1,4 +1,4 @@
-v1.1.4 (?? may 2013)
+v1.1.4 (11 may 2013)
 	- [Fixed] notarget console command does nothing.
 	- [Fixed] Entities with matching targetname2 don't respond to target_modify.
 	- [Fixed] target_unlink won't unlink target_relay or target_delay entities.
