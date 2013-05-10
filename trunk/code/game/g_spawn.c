@@ -494,16 +494,10 @@ void G_SpawnGEntityFromSpawnVars( void ) {
 		G_ParseField( level.spawnVars[i][0], level.spawnVars[i][1], ent );
 	}
 
-	if( G_SpawnString( "gametype", NULL, &value ) ) {
-		if( g_gametype.integer >= GT_FFA && g_gametype.integer < GT_MAX_GAME_TYPE ) {
-			gametypeName = gametypeNames[g_gametype.integer];
-
-			s = strstr( value, gametypeName );
-			if( !s ) {
-				G_FreeEntity( ent );
-				return;
-			}
-		}
+	G_SpawnInt( "notep", "0", &i );
+	if ( i ) {
+		G_FreeEntity( ent );
+		return;
 	}
 
 	// move editor origin to pos
