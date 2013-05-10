@@ -1,11 +1,12 @@
 v1.1.4 (?? may 2013)
 	- [Fixed] notarget console command does nothing.
-	- [Fixed] entities with matching targetname2 don't respond to target_modify.
+	- [Fixed] Entities with matching targetname2 don't respond to target_modify.
 	- [Fixed] target_unlink won't unlink target_relay or target_delay entities.
+	- [Fixed] Picking up backpack can push ammo count beyond 999.
 	- [Added] trigger_target command.
 	- [Added] target2 key to target_modify.
 	- [Added] target_modify can be used to change value of "damage" or "dmg" keys.
-	- [Added] surfaces with a shader with "surfaceparm flesh" will make flesh footstep noises instead of the default sound.
+	- [Added] Surfaces with a shader with "surfaceparm flesh" will make flesh footstep noises instead of the default sound.
 	- [Added] GIVE_PLAYER spawnflag to target_give.
 	- [Added] IGNORE_PLAYER, PATROL_WALK and ALWAYS_WALK spawnflags to target_botspawn.
 	- [Added] Green glow to BFG bolts.
