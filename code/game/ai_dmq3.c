@@ -733,24 +733,24 @@ void BotChooseWeapon(bot_state_t *bs) {
 
 		//in case "weapon index out of range" error occurs.
 		if (!newweaponnum) {
-			if (bs->inventory[INVENTORY_BFG10K] == 1)
-			  newweaponnum = WP_BFG;
-			if (bs->inventory[INVENTORY_PLASMAGUN] == 1)
-			  newweaponnum = WP_PLASMAGUN;
-			if (bs->inventory[INVENTORY_RAILGUN] == 1)
-			  newweaponnum = WP_RAILGUN;
-			if (bs->inventory[INVENTORY_LIGHTNING] == 1)
-			  newweaponnum = WP_LIGHTNING;
-			if (bs->inventory[INVENTORY_ROCKETLAUNCHER] == 1)
-			  newweaponnum = WP_ROCKET_LAUNCHER;
-			if (bs->inventory[INVENTORY_GRENADELAUNCHER] == 1)
-			  newweaponnum = WP_GRENADE_LAUNCHER;
-			if (bs->inventory[INVENTORY_SHOTGUN] == 1)
-			  newweaponnum = WP_SHOTGUN;
-			if (bs->inventory[INVENTORY_MACHINEGUN] == 1)
-			  newweaponnum = WP_MACHINEGUN;
 			if (bs->inventory[INVENTORY_GAUNTLET] == 1)
 			  newweaponnum = WP_GAUNTLET;
+			if (bs->inventory[INVENTORY_MACHINEGUN] == 1)
+			  newweaponnum = WP_MACHINEGUN;
+			if (bs->inventory[INVENTORY_SHOTGUN] == 1)
+			  newweaponnum = WP_SHOTGUN;
+			if (bs->inventory[INVENTORY_GRENADELAUNCHER] == 1)
+			  newweaponnum = WP_GRENADE_LAUNCHER;
+			if (bs->inventory[INVENTORY_ROCKETLAUNCHER] == 1)
+			  newweaponnum = WP_ROCKET_LAUNCHER;
+			if (bs->inventory[INVENTORY_LIGHTNING] == 1)
+			  newweaponnum = WP_LIGHTNING;
+			if (bs->inventory[INVENTORY_RAILGUN] == 1)
+			  newweaponnum = WP_RAILGUN;
+			if (bs->inventory[INVENTORY_PLASMAGUN] == 1)
+			  newweaponnum = WP_PLASMAGUN;
+			if (bs->inventory[INVENTORY_BFG10K] == 1)
+			  newweaponnum = WP_BFG;
 		}
 
 		if (bs->weaponnum != newweaponnum) bs->weaponchange_time = FloatTime();
