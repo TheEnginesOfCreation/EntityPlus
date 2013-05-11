@@ -2,6 +2,41 @@
 
 For an overview of all features in !EntityPlus, download the level designer manual here: https://code.google.com/p/entityplus/downloads/list
 
+==Additional info about the 1.1.4 release==
+  * `[`Fixed] notarget console command does nothing.
+  * `[`Fixed] Entities with matching targetname2 don't respond to target_modify.
+  * `[`Fixed] target_unlink won't unlink target_relay or target_delay entities.
+  * `[`Fixed] Picking up backpack can push ammo count beyond 999.
+  * `[`Added] trigger_target command.
+  * `[`Added] target2 key to target_modify.
+  * `[`Added] target_modify can be used to change value of "damage" or "dmg" keys.
+  * `[`Added] Surfaces with a shader with "surfaceparm flesh" will make flesh footstep noises instead of the default sound.
+  * `[`Added] GIVE_PLAYER spawnflag to target_give.
+  * `[`Added] IGNORE_PLAYER, PATROL_WALK and ALWAYS_WALK spawnflags to target_botspawn.
+  * `[`Added] Green glow to BFG bolts.
+  * `[`Added] notep key to prevent entities from spawning in EntityPlus.
+  * `[`Changed] g_debugBotSpawns echoes out health for spawned bot.
+
+Most important changes:
+
+*notep key added to all entities*
+
+EntityPlus now supports the "notep" key for all entities. This key works similar to the notq3a and notta keys, meaning that any entities that have the value of this key set to 1 won't be spawned in EntityPlus games. In theory, this allows level designers to create an ordinary deathmatch level and then tag the correct entities with "notep" or "notq3a" keys so that the same map can be played in deathmatch games using baseq3 or as single player adventure using EntityPlus.
+
+
+*trigger_target console command*
+
+The trigger_target console command can be used to trigger entities with specific targetname or targetname2 values. Usage of the command is:
+
+trigger_target [targetname]
+
+where [targetname] is replaced with any targetname/targetname2 value that should be triggered. This can be used to test parts of complex entity setups or trigger entities that would normally require a relatively long time to trigger.
+
+*additional target_botspawn spawnflags*
+
+The target_botspawn entity received a number of new spawnflags. These are: IGNORE_PLAYER, PATROL_WALK and ALWAYS_WALK. The IGNORE_PLAYER spawnflag can be used to force bots to always ignore the player (even when attacked). Patrol walk and always walk can be used to force the bot to walk (only when patrolling or always, respectively). These spawnflags can be used to create more believable non-combat or NPC characters.
+
+
 ==Additional info about the 1.1 release==
 
   * `[`Added] "cg_paintballMode" and "cg_bigheadMode" cvars
