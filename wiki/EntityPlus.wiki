@@ -28,9 +28,9 @@ Most important changes:
 
 The trigger_target console command can be used to trigger entities with specific targetname or targetname2 values. Usage of the command is:
 
-trigger_target `[`!targetname]
+trigger_target `[`targetname]
 
-where `[`!targetname] is replaced with any targetname/targetname2 value that should be triggered. This can be used to test parts of complex entity setups or trigger entities that would normally require a relatively long time to trigger.
+where `[`targetname] is replaced with any targetname/targetname2 value that should be triggered. This can be used to test parts of complex entity setups or trigger entities that would normally require a relatively long time to trigger.
 
 *additional target_botspawn spawnflags*
 
