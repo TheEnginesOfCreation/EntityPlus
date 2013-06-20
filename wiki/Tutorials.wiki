@@ -4,4 +4,4 @@ Note that all tutorials assume some basic knowledge about the use of the !GtkRad
 
   * [Tutorial1 Tutorial 1]: A basic map.
 
-Want to add your own tutorials? Let me know at eraesr [at] gmail [dot] com.
+Want to add your own tutorials? Let me know at eraesr at gmail dot com.
