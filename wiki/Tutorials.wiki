@@ -1,3 +1,5 @@
 =Tutorials=
 
+Note that all tutorials assume some basic knowledge about the use of the !GtkRadiant map editor and the q3map2 compiler.
+
   * [Tutorial1 Tutorial 1]: A basic map.
