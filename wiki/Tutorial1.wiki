@@ -15,7 +15,7 @@ Simply follow these basic steps to create your first map:
 
   * Create an empty box room.
   * Place an info_player_start entity somewhere in the room.
-  * Create a trigger_multiple entity and give it a wait key of -1.
+  * Create a trigger_multiple entity.
   * Create a target_finish entity and have the trigger_multiple entity target the target_finish entity.
   * Compile the map
 
