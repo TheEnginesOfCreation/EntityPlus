@@ -17,7 +17,7 @@
 #define MAX_MAPCOLS 2
 #define MAX_MAPROWS 2
 #define MAX_SERVERMAPS	64
-#define MAX_NAMELENGTH	16
+#define MAX_NAMELENGTH	64
 #define MAX_DESCRIPTIONLINES 10
 #define MAX_DESCRIPTIONLINELENGTH 40
 #define MAX_DESCRIPTIONLENGTH	MAX_DESCRIPTIONLINES * MAX_DESCRIPTIONLINELENGTH
@@ -412,7 +412,8 @@ qboolean EPMenu_VersionAccepted( char *version ) {
 			Q_stricmp( version, "1.1.1" ) != 0 &&
 			Q_stricmp( version, "1.1.2" ) != 0 &&
 			Q_stricmp( version, "1.1.3" ) != 0 &&
-			Q_stricmp( version, "1.1.4" ) != 0
+			Q_stricmp( version, "1.1.4" ) != 0 &&
+			Q_stricmp( version, "1.1.5" ) != 0
 		)
 		{
 			return qfalse;
