@@ -1,3 +1,6 @@
+v1.1.5 (? ? 201?)
+	- [Changed] BSP filenames can now have a maximum length of 64 characters rather than 16.
+
 v1.1.4 (11 may 2013)
 	- [Fixed] notarget console command does nothing.
 	- [Fixed] Entities with matching targetname2 don't respond to target_modify.
