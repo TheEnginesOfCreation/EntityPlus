@@ -16,7 +16,7 @@ The starting point for this tutorial is where tutorial 1 left off. Load that map
   # Check the WP_SHOTGUN spawnflag for the target_botspawn entity to make sure the enemy spawns with a shotgun. You can check other WP`_` spawnflags as well to spawn the enemy with those weapons.
   # Have the new trigger_multiple target the target_botspawn entity.
 
-If you compile the map and load it in the game, you'll be able to run into the new trigger_multiple and you'll see that a bot spawns into the map. It's possible that he doesn't after spawning, most likely when he spawns with his back to you. Shooting the bot will eventually kill it. Run into the trigger_multiple that targets the target_finish and you'll see that you've actually accumulated some points this time around.
+If you compile the map and load it in the game, you'll be able to run into the new trigger_multiple and you'll see that a bot spawns into the map. It's possible that he doesn't move after spawning, most likely when he spawns with his back to you. Shooting the bot will eventually kill it. Run into the trigger_multiple that targets the target_finish and you'll see that you've actually accumulated some points this time around.
 
 A more realistic behavior is to have enemies patrol along certain paths. !EntityPlus allows you to define bot patrol routes using info_waypoint entities. Follow these steps to define a route for our bot to patrol:
 
