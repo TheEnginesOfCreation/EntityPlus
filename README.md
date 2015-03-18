@@ -23,15 +23,15 @@ If you're just going to play EntityPlus, you want to grab the files below:
 * [Survival map by Eraser](https://code.google.com/p/entityplus/downloads/detail?name=ep_survival-v1.zip) (12.1MB) 
 
 If you're a level designer, you might be interested in the following downloads:
-* [The manual for v1.1.4](https://code.google.com/p/entityplus/downloads/detail?name=manual-1.1.4.pdf)
-* [MinversionTool 1.1.4.0](https://code.google.com/p/entityplus/downloads/detail?name=minversiontool-1.1.4.0.zip) to help you determine what the minimum requirements for your map are 
+* [The manual for v1.1.4](https://github.com/TheEnginesOfCreation/EntityPlus/releases/download/1.1.4/manual-1.1.4.pdf)
+* [MinversionTool 1.1.4.0](https://github.com/TheEnginesOfCreation/EntityPlus/releases/download/1.1.4/minversiontool-1.1.4.0.zip) to help you determine what the minimum requirements for your map are (note: requires the .NET Framework 3.5 or newer)
 
 If you're a level designer who is using GtkRadiant 1.5, then you may want to download the EntityPlus entities.ent file (.def file for GtkRadiant 1.4/1.6 is included with the mod):
-* [entities.ent for v1.1.4](https://code.google.com/p/entityplus/downloads/detail?name=entities.ent)
+* [entities.ent for v1.1.4](https://github.com/TheEnginesOfCreation/EntityPlus/releases/download/1.1.4/entities.ent)
 
 ## Features
 
-To view a complete list of features added to EntityPlus, download [the manual](https://code.google.com/p/entityplus/downloads/detail?name=manual-1.1.4.pdf). Additional information about each release can be found on the [EntityPlus wiki page](https://github.com/TheEnginesOfCreation/EntityPlus/blob/wiki/Index.md). 
+To view a complete list of features added to EntityPlus, download [the manual](https://github.com/TheEnginesOfCreation/EntityPlus/releases/download/1.1.4/manual-1.1.4.pdf). Additional information about each release can be found on the [EntityPlus wiki page](https://github.com/TheEnginesOfCreation/EntityPlus/blob/wiki/Index.md). 
 
 ## Example map
 The release package of EntityPlus contains an example map which demonstrates a number of the features found in EntityPlus. It is based on an old classic map that everyone that played Quake 3 will instantly recognize. Don't get too comfy though, because this time you'll be fighting through piles of enemy guards to uncover a secret that you never knew was there and escape to safety. The map can be found in the single player menu. 
