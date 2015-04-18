@@ -6,3 +6,4 @@ code/cgame/Debug/
 code/q3_ui/Debug/
 *.sdf
 *.opensdf
+code/*/vm/
