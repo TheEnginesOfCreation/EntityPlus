@@ -26,7 +26,7 @@ FEATURES
 --------
 EntityPlus adds a few new entities that can be used in maps. If you use any of the EntityPlus features in your map, it can only be correctly played using the EntityPlus mod. For a list of features added to EntityPlus, download the manual from:
 
-https://code.google.com/p/entityplus/downloads/list
+https://github.com/TheEnginesOfCreation/EntityPlus
 
 
 
@@ -110,7 +110,7 @@ ADDITIONAL CREDIT
 CONTACT
 -------
 Contact Eraser at eraesr@gmail.com or visit The Engines of Creation at http://www.theenginesofcreation.com.
-To follow the project or get the source code, go to https://code.google.com/p/entityplus.
+To follow the project or get the source code, go to https://github.com/TheEnginesOfCreation/EntityPlus.
 If you want to follow discussions surrounding the mod or leave your own input, visit the 
 discussion thread in the Quake3World Level Editing & Modeling forums at http://quake3world.com/forum/viewtopic.php?f=10&t=45510, or report an issue at the Google Code page.
 

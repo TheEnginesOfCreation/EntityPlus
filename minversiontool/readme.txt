@@ -30,4 +30,4 @@ The minversiontool is only able to determine the minversion up to the version th
 
 Contact
 -------
-Visit the EntityPlus project website at http://code.google.com/p/entityplus
+Visit the EntityPlus project website at https://github.com/TheEnginesOfCreation/EntityPlus

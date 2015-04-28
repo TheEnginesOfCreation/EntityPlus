@@ -21,4 +21,4 @@ where the name of the node is equal to the name of the key. The text within the 
 
 Contact
 -------
-Visit the EntityPlus project website at http://code.google.com/p/entityplus
+Visit the EntityPlus project website at https://github.com/TheEnginesOfCreation/EntityPlus
