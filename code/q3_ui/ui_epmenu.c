@@ -120,6 +120,7 @@ Starts the game at the selected skill level
 */
 void EPSkill_StartGame( void ) {
 	trap_Cvar_SetValue( "sv_maxclients", 64 );
+	trap_Cvar_SetValue( "sv_pure", 0 );
 	trap_Cvar_SetValue ("timelimit", 0 );
 	trap_Cvar_SetValue ("fraglimit", 0 );
 	//trap_Cvar_SetValue ("con_notifytime", 0 );

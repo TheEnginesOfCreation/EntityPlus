@@ -1,4 +1,5 @@
 v1.1.5 (? ? 201?)
+	- [Changed] Pure server is automatically disabled when starting a game through the new game menu. Pure server prevents existing highscore files from being read.
 	- [Changed] BSP filenames can now have a maximum length of 64 characters rather than 16.
 
 v1.1.4 (11 may 2013)
