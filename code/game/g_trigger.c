@@ -465,7 +465,10 @@ void SP_func_timer( gentity_t *self ) {
 	}
 
 	if ( self->spawnflags & 1 ) {
-		self->nextthink = level.time + FRAMETIME;
+		if (self->spawnflags & 2)
+			self->nextthink = level.time + 1000 * (self->wait + crandom() * self->random);
+		else
+			self->nextthink = level.time + FRAMETIME;
 		self->activator = self;
 	}
 
