@@ -2018,10 +2018,12 @@ When the random key is set, its value is used to calculate a minimum and a maxim
 
 //=============================================================================
 
-/*QUAKED trigger_push (.5 .5 .5) ?
+/*QUAKED trigger_push (.5 .5 .5) ? SILENT
 This is used to create jump pads and launch ramps. It MUST point to a target_position or info_notnull entity to work. Unlike target_push, this is client side predicted.
 -------- KEYS --------
 target : this points to the target_position to which the player will jump.
+-------- SPAWNFLAGS --------
+SILENT : Do not play any sounds when a player hits this trigger.
 -------- NOTES --------
 To make a jump pad or launch ramp, place the target_position/info_notnull entity at the highest point of the jump and target it with this entity.*/
 

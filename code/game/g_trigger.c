@@ -140,13 +140,16 @@ trigger_push
 ==============================================================================
 */
 
+/*QUAKED trigger_push ? SILENT 
+This trigger will push a player or bot towards a targeted entity.
+*/
 void trigger_push_touch (gentity_t *self, gentity_t *other, trace_t *trace ) {
 
 	if ( !other->client ) {
 		return;
 	}
 
-	BG_TouchJumpPad( &other->client->ps, &self->s );
+	BG_TouchJumpPad( &other->client->ps, &self->s, !(self->spawnflags & 1) );
 }
 
 
