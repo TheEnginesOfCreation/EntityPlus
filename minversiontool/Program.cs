@@ -8,7 +8,7 @@ namespace mvt
 	class Program
 	{
 		//version: first three numbers are EntityPlus version it supports, last number is incremental version of the tool itself
-		private const string epVersion = "1.1.4";
+		private const string epVersion = "1.1.6";
 		private const string mvtVersion = "0";
 
 		static void Main(string[] args)

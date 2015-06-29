@@ -43,7 +43,8 @@ namespace mvt
 			one_zero = 1,
 			one_one = 2,
 			one_one_two = 3,
-			one_one_four = 4
+			one_one_four = 4,
+            one_one_six = 5
 		}
 
 		/// <summary>List of strings for supported EntityPlus versions</summary>
@@ -53,7 +54,8 @@ namespace mvt
 			"1.0",
 			"1.1",
 			"1.1.2",
-			"1.1.4"	
+			"1.1.4",
+            "1.1.6"
 		};
 
 		/// <summary>A list of all the known entity classnames</summary>
@@ -119,9 +121,9 @@ namespace mvt
 				prefix += "0";
 			Console.WriteLine("Finished parsing \"" + filename + "\" in " + diff.Seconds + "." + prefix + diff.Milliseconds + "s");
 			
-			Console.WriteLine("\n================");
+			Console.WriteLine("\n==================");
 			Console.WriteLine("minversion = " + VersionsStrings[(int)minversion]);
-			Console.WriteLine("================");
+			Console.WriteLine("==================");
 			Console.WriteLine("\n\npress any key to continue...");
 
 			Console.ReadKey(true);
@@ -251,6 +253,10 @@ namespace mvt
 				return Versions.UnableToDetect;
 			}
 
+            //Checking for v1.1.6 requirements
+            if (HasVersion116Keys(ent))
+                return Versions.one_one_six;
+
 			//Checking for v1.1.4 requirements
 			if (HasVersion114Keys(ent))
 				return Versions.one_one_four;
@@ -354,6 +360,27 @@ namespace mvt
 
 
 		#region Version checking methods
+        private bool HasVersion116Keys(Entity ent)
+        {
+            switch (ent.Classname)
+            {
+                case "trigger_push":
+                    string val = ent.GetValue("spawnflags");
+                    int spawnflags = 0;
+                    if (!String.IsNullOrEmpty(val))
+                        int.TryParse(val, out spawnflags);
+
+                    if ((spawnflags & 1) > 0)
+                    {
+                        Debug(" > use of \"SILENT\" spawnflag requires " + VersionsStrings[(int)Versions.one_one_six]);
+                        return true;
+                    }
+                    break;
+            }
+
+            return false;
+        }
+
 		private bool HasVersion114Keys(Entity ent)
 		{
 			bool result = false;
@@ -395,12 +422,6 @@ namespace mvt
 					}
 					break;
 
-				/*
-				case "target_shrink":
-					Debug(" > use of target_shrink requires " + versionString);
-					result = true;
-					break;
-				*/
 				case "target_give":
 					if ((spawnflags & 1) > 0)
 					{
