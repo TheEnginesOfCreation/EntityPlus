@@ -4,6 +4,7 @@ EntityPlus is a mod that offers a true single player experience in the Quake III
 News and information about new features will be reported to our [Twitter feed](https://twitter.com/#!/EntityPlus) as they are implemented. This offers a sneak peek into new features the next release of the mod will have.
 
 ## Latest News
+* EntityPlus 1.1.6 has been released!
 * EntityPlus 1.1.5 has been released!
 * With Google Code's impending closure, all of the EntityPlus code and content has been migrated to GitHub.
 * A new map for EntityPlus has been released. It's called Survival and really brings something fresh to the table! Download it!
@@ -18,21 +19,21 @@ Visit the [Twitter feed](https://twitter.com/#!/EntityPlus) for more news.
 ## Downloads
 
 If you're just going to play EntityPlus, you want to grab the files below:
-* [EntityPlus v1.1.5](https://github.com/TheEnginesOfCreation/EntityPlus/releases/tag/1.1.5)
+* [EntityPlus v1.1.6](https://github.com/TheEnginesOfCreation/EntityPlus/releases/tag/1.1.6)
 * [Carmack Fortress map by deqer] (https://code.google.com/p/entityplus/downloads/detail?name=krep1.zip) (29.1MB)
 * [Testing Procedures map by Eraser] (https://code.google.com/p/entityplus/downloads/detail?name=ep_procedures-v5.zip) (33.6MB)
 * [Survival map by Eraser](https://code.google.com/p/entityplus/downloads/detail?name=ep_survival-v1.zip) (12.1MB) 
 
 If you're a level designer, you might be interested in the following downloads:
-* [The manual for v1.1.5](https://github.com/TheEnginesOfCreation/EntityPlus/releases/download/1.1.5/manual-1.1.5.pdf)
-* [MinversionTool 1.1.4.0](https://github.com/TheEnginesOfCreation/EntityPlus/releases/download/1.1.4/minversiontool-1.1.4.0.zip) to help you determine what the minimum requirements for your map are (note: requires the .NET Framework 3.5 or newer)
+* [The manual for v1.1.6](https://github.com/TheEnginesOfCreation/EntityPlus/releases/download/1.1.6/manual-1.1.6.pdf)
+* [MinversionTool 1.1.6.0](https://github.com/TheEnginesOfCreation/EntityPlus/releases/download/1.1.6/minversiontool-1.1.6.0.zip) to help you determine what the minimum requirements for your map are (note: requires the .NET Framework 3.5 or newer)
 
 If you're a level designer who is using GtkRadiant 1.5, then you may want to download the EntityPlus entities.ent file (.def file for GtkRadiant 1.4/1.6 is included with the mod):
-* [entities.ent for v1.1.5](https://github.com/TheEnginesOfCreation/EntityPlus/releases/download/1.1.5/entities.ent)
+* [entities.ent for v1.1.6](https://github.com/TheEnginesOfCreation/EntityPlus/releases/download/1.1.6/entities.ent)
 
 ## Features
 
-To view a complete list of features added to EntityPlus, download [the manual](https://github.com/TheEnginesOfCreation/EntityPlus/releases/download/1.1.5/manual-1.1.5.pdf). Additional information about each release can be found on the [EntityPlus wiki page](https://github.com/TheEnginesOfCreation/EntityPlus/blob/wiki/Index.md). 
+To view a complete list of features added to EntityPlus, download [the manual](https://github.com/TheEnginesOfCreation/EntityPlus/releases/download/1.1.6/manual-1.1.6.pdf). Additional information about each release can be found on the [EntityPlus wiki page](https://github.com/TheEnginesOfCreation/EntityPlus/blob/wiki/Index.md). 
 
 ## Example map
 The release package of EntityPlus contains an example map which demonstrates a number of the features found in EntityPlus. It is based on an old classic map that everyone that played Quake 3 will instantly recognize. Don't get too comfy though, because this time you'll be fighting through piles of enemy guards to uncover a secret that you never knew was there and escape to safety. The map can be found in the single player menu. 
