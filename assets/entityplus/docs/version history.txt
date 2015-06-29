@@ -1,5 +1,6 @@
-v1.1.6 (?? ?? 2015)
+v1.1.6 (29 june 2015)
 	- [Fixed] func_time with START_ON and START_DELAYED spawnflags will fire targets after [wait]+[random] time instead of immediately.
+	- [Added] SILENT spawnflag to trigger_push.
 
 v1.1.5 (28 april 2015)
 	- [Changed] Pure server is automatically disabled when starting a game through the new game menu. Pure server prevents existing highscore files from being read.
