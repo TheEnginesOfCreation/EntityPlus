@@ -488,11 +488,10 @@ void G_Damage( gentity_t *targ, gentity_t *inflictor, gentity_t *attacker,
 
 	// shootable doors / buttons don't actually have any health
 	if ( targ->s.eType == ET_MOVER ) {
-		Com_Printf("triggered\n");
 		if (strcmp(targ->classname, "func_breakable") && targ->use && (targ->moverState == MOVER_POS1 || targ->moverState == ROTATOR_POS1)) {
 			targ->use(targ, inflictor, attacker);
 		}
-		if (!strcmp(targ->classname, "func_train")) {
+		if (!strcmp(targ->classname, "func_train") && targ->health > 0) {
 			G_UseTargets(targ, attacker);
 		} else {	// entity is a func_breakable
 			if ( (targ->spawnflags & 1024) && attacker == level.player )
