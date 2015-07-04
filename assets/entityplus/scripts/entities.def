@@ -590,6 +590,8 @@ Trains are moving solids that follow a string of path_corner entities. Trains in
 -------- KEYS --------
 speed : speed of displacement of train (default 100 or overridden by speed value of path).
 target : this points to the first path_corner of the path which is also the spawn location of the train's origin.
+target2 : this points to the entities to trigger.
+health : (default 0) if set to any non-zero value, the train will activate its targets when it takes any amount of damage.
 model2 : path/name of model to include (eg: models/mapobjects/pipe/pipe02.md3).
 origin : alternate method of setting XYZ origin of the train's brush(es) and .md3 model included with entity (See Notes).
 startsound : sound to play when the train starts moving.

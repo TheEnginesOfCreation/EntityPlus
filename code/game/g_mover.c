@@ -1785,6 +1785,7 @@ void SP_func_train (gentity_t *self) {
 	InitMover( self );
 
 	self->reached = Reached_Train;
+	self->takedamage = qtrue;
 
 	// start trains on the second frame, to make sure their targets have had
 	// a chance to spawn
@@ -1863,7 +1864,7 @@ void Break_Breakable(gentity_t *ent, gentity_t *other) {
 
 
 
-	//need to store properties of the entity in seperate variables because we're going to free the entity
+	//need to store properties of the entity in separate variables because we're going to free the entity
 	if ( ent->count > 0) {
 		count = ent->count;
 		spawnflags = ent->spawnflags;
