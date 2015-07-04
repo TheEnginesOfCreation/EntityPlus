@@ -589,7 +589,7 @@ When a count has been set, the timer will turn itself off when it has activate i
 Trains are moving solids that follow a string of path_corner entities. Trains in Q3A are very basic, they also require an origin brush (see Notes).
 -------- KEYS --------
 speed : speed of displacement of train (default 100 or overridden by speed value of path).
-target : this points to the first path_corner of the path which is also the spawn location of the train's origin.
+target : this points to the first path_corner of the path which is also the spawn location of the train's origin. Do not target anything other than a single path_corner with this key.
 target2 : this points to the entities to trigger.
 health : (default 0) if set to any non-zero value, the train will activate its targets when it takes any amount of damage.
 model2 : path/name of model to include (eg: models/mapobjects/pipe/pipe02.md3).
