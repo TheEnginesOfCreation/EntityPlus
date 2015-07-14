@@ -1983,7 +1983,7 @@ ROTATING
 */
 
 
-/*QUAKED func_rotating (0 .5 .8) ? - - X_AXIS Y_AXIS Z_AXIS START_OFF
+/*QUAKED func_rotating (0 .5 .8) ? - - X_AXIS Y_AXIS Z_AXIS TOGGLEABLE START_OFF
 You need to have an origin brush as part of this entity.  The center of that brush will be
 the point around which it is rotated. You can check the X_AXIS, Y_AXIS or Z_AXIS boxes to 
 determine around which axes the brush will be rotated. If no boxes are checked the brush will
@@ -2016,8 +2016,11 @@ void SP_func_rotating (gentity_t *ent) {
 	}
 
 	// set the axis of rotation
-	//ent->s.apos.trType = TR_LINEAR;
-	ent->s.apos.trType = TR_ROTATING;
+	if ( ent->spawnflags & 32 || ent->spawnflags & 64)
+		ent->s.apos.trType = TR_ROTATING;
+	else
+		ent->s.apos.trType = TR_LINEAR;
+	
 	if ( ent->spawnflags & 4 ) {
 		ent->s.apos.trDelta[2] = ent->speed;
 		axisset = qtrue;
@@ -2048,7 +2051,7 @@ void SP_func_rotating (gentity_t *ent) {
 	ent->use = Use_Rotating;
 
 	// if START_OFF is set, disable the func_rotating from the start
-	if ( ent->spawnflags & 32 )
+	if ( ent->spawnflags & 64 )
 		Use_Rotating( ent, NULL, NULL );
 }
 

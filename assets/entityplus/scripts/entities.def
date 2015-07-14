@@ -500,7 +500,7 @@ Target this entity with a misc_model to have the model attached to the entity (s
 
 //=============================================================================
 
-/*QUAKED func_rotating (0 .5 .8) ? - - X_AXIS Y_AXIS Z_AXIS START_OFF
+/*QUAKED func_rotating (0 .5 .8) ? - - X_AXIS Y_AXIS Z_AXIS TOGGLEABLE START_OFF
 Solid entity that rotates continuously. Rotates on one or multiple axes and requires an origin brush.
 -------- KEYS --------
 speed : determines how fast entity rotates (default 100).
@@ -525,11 +525,12 @@ _shader OR shader : Path to the metashader used to assign textures to the terrai
 X_AXIS : entity will rotate along the X axis.
 Y_AXIS : entity will rotate along the Y axis.
 Z_AXIS : entity will rotate along the Z axis.
+TOGGLEABLE : rotation can be started/stopped by targeting it with a trigger.
 START_OFF : The entity will initially not rotate.
 -------- NOTES --------
 You need to have an origin brush as part of this entity. The center of that brush will be the point through which the rotation axis passes. Setting the origin key is simply an alternate method to using an origin brush. You can check the X_AXIS, Y_AXIS or Z_AXIS boxes to determine along which axes rotation should occur. If no boxes are checked the entity will rotate along the Z axis. When using the model2 key, the origin point of the model will correspond to the origin point defined by either the origin brush or the origin coordinate value.
 
-The entity's rotation can be stopped and resumed by targetting the func_rotating with a trigger.
+When the TOGGLEABLE spawnflag is set, the entity's rotation can be stopped and resumed by targetting the func_rotating with a trigger. However, do note that player clipping with the brushes of the entity will be broken when this spawnflag is set. Preferably only use when players or bots cannot come into contact with the entity. Note that setting the START_OFF spawnflag implicitly enables the TOGGLEABLE spawnflag as well.
 
 Target this entity with a misc_model to have the model attached to the entity (set the model's "target" key to the same value as this entity's "targetname").*/
 
@@ -589,9 +590,7 @@ When a count has been set, the timer will turn itself off when it has activate i
 Trains are moving solids that follow a string of path_corner entities. Trains in Q3A are very basic, they also require an origin brush (see Notes).
 -------- KEYS --------
 speed : speed of displacement of train (default 100 or overridden by speed value of path).
-target : this points to the first path_corner of the path which is also the spawn location of the train's origin. Do not target anything other than a single path_corner with this key.
-target2 : this points to the entities to trigger.
-health : (default 0) if set to any non-zero value, the train will activate its targets when it takes any amount of damage.
+target : this points to the first path_corner of the path which is also the spawn location of the train's origin.
 model2 : path/name of model to include (eg: models/mapobjects/pipe/pipe02.md3).
 origin : alternate method of setting XYZ origin of the train's brush(es) and .md3 model included with entity (See Notes).
 startsound : sound to play when the train starts moving.
@@ -922,13 +921,15 @@ angle : direction in which player will look when spawning in the game. Does not 
 target : this can point at a target_give entity for respawn freebies.
 target2 : this can point at a target_give entity for respawn freebies.
 count : number of times this spawnpoint can be used to spawn a player. Omit or set to 0 to set no limit.
+nobots : when set to 1, bots will never use this spawn point to respawn in the game.
+nohumans : when set to 1, human players will never use this spawn point to respawn in the game.
 targetname : activating entity points to this. When info_player_start is triggered it is either disabled or enabled. See notes.
 targetname2 : activating entity points to this. When info_player_start is triggered it is either disabled or enabled. See notes.
 -------- SPAWNFLAGS --------
 INITIAL : makes the spawnpoint the initial place for the player to spawn at the beginning of the game.
 DISABLED : the spawn point is in a disabled state when the map is first loaded. It can be enabled by triggering it. See notes.
 -------- NOTES --------
-Targetting an info_player_start spawnpoint with a trigger will enable or disable the spawnpoint. Spawnpoints are enabled by default unless the DISABLED spawnflag is set. Note that a spawnpoint that is disabled because it reached its [count] number of spawns is not enabled by triggering it.*/
+Targetting an info_player_start spawnpoint with a trigger will enable or disable the spawnpoint. Spawnpoints are by default enabled unless the DISABLED spawnflag is set. Note that a spawnpoint that is disabled because it reached its [count] number of spawns is not enabled by triggering it.*/
 
 //=============================================================================
 
@@ -2020,12 +2021,10 @@ When the random key is set, its value is used to calculate a minimum and a maxim
 
 //=============================================================================
 
-/*QUAKED trigger_push (.5 .5 .5) ? SILENT
+/*QUAKED trigger_push (.5 .5 .5) ?
 This is used to create jump pads and launch ramps. It MUST point to a target_position or info_notnull entity to work. Unlike target_push, this is client side predicted.
 -------- KEYS --------
 target : this points to the target_position to which the player will jump.
--------- SPAWNFLAGS --------
-SILENT : Do not play any sounds when a player hits this trigger.
 -------- NOTES --------
 To make a jump pad or launch ramp, place the target_position/info_notnull entity at the highest point of the jump and target it with this entity.*/
 
