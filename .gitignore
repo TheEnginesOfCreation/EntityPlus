@@ -7,3 +7,4 @@ code/q3_ui/Debug/
 *.sdf
 *.opensdf
 code/*/vm/
+code/Release/
