@@ -44,7 +44,8 @@ namespace mvt
 			one_one = 2,
 			one_one_two = 3,
 			one_one_four = 4,
-            one_one_six = 5
+            one_one_six = 5,
+            one_one_seven = 6
 		}
 
 		/// <summary>List of strings for supported EntityPlus versions</summary>
@@ -55,7 +56,8 @@ namespace mvt
 			"1.1",
 			"1.1.2",
 			"1.1.4",
-            "1.1.6"
+            "1.1.6",
+            "1.1.7"
 		};
 
 		/// <summary>A list of all the known entity classnames</summary>
@@ -253,6 +255,10 @@ namespace mvt
 				return Versions.UnableToDetect;
 			}
 
+            //Checking for v1.1.7 requirements
+            if (HasVersion117Keys(ent))
+                return Versions.one_one_seven;
+
             //Checking for v1.1.6 requirements
             if (HasVersion116Keys(ent))
                 return Versions.one_one_six;
@@ -360,6 +366,45 @@ namespace mvt
 
 
 		#region Version checking methods
+        private bool HasVersion117Keys(Entity ent)
+        {
+            bool result = false;
+            switch (ent.Classname)
+            {
+                case "func_train":
+                    string val = ent.GetValue("health");
+                    int health;
+                    if (int.TryParse(val, out health))
+                    {
+                        if (health > 0)
+                        {
+                            Debug(" > use of \"health\" key requires " + VersionsStrings[(int)Versions.one_one_seven]);
+                            result = true;
+                        }
+                    }
+                    break;
+
+                case "func_rotating":
+                    string sfVal = ent.GetValue("spawnflags");
+                    int spawnflags;
+                    if (int.TryParse(sfVal, out spawnflags))
+                    {
+                        if ((spawnflags & 32) > 0)
+                        {
+                            Debug(" > use of \"TOGGLABLE\" spawnflag requires " + VersionsStrings[(int)Versions.one_one_seven]);
+                            result = true;
+                        }
+                        if ((spawnflags & 64) > 0)
+                        {
+                            Debug(" > use of \"START_OFF\" spawnflag requires " + VersionsStrings[(int)Versions.one_one_seven]);
+                            result = true;
+                        }
+                    }
+                    break;
+            }
+            return result;
+        }
+
         private bool HasVersion116Keys(Entity ent)
         {
             switch (ent.Classname)
