@@ -369,7 +369,11 @@ void RespawnItem( gentity_t *ent ) {
 Touch_Item
 ===============
 */
-void Touch_Item (gentity_t *ent, gentity_t *other, trace_t *trace) {
+void Touch_Item(gentity_t *ent, gentity_t *other, trace_t *trace) {
+	Touch_Item2(ent, other, trace, qfalse);
+}
+
+void Touch_Item2 (gentity_t *ent, gentity_t *other, trace_t *trace, qboolean allowBot ) {
 	int			respawn;
 	qboolean	predict;
 
@@ -378,7 +382,7 @@ void Touch_Item (gentity_t *ent, gentity_t *other, trace_t *trace) {
 	if (other->health < 1)
 		return;		// dead people can't pickup
 
-	if ( IsBot(other) )
+	if ( !allowBot && IsBot(other) )
 		return;		// bots don't pick up items in entityplus
 
 	// the same pickup rules are used for client side and server side

@@ -493,7 +493,8 @@ void FinishSpawningItem( gentity_t *ent );
 void Think_Weapon (gentity_t *ent);
 int ArmorIndex (gentity_t *ent);
 void	Add_Ammo (gentity_t *ent, int weapon, int count);
-void Touch_Item (gentity_t *ent, gentity_t *other, trace_t *trace);
+void Touch_Item (gentity_t *ent, gentity_t *other, trace_t *trace );
+void Touch_Item2(gentity_t *ent, gentity_t *other, trace_t *trace, qboolean allowBot);
 
 void ClearRegisteredItems( void );
 void RegisterItem( gitem_t *item );

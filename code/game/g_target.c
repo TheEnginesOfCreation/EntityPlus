@@ -14,7 +14,7 @@ void Use_Target_Give( gentity_t *ent, gentity_t *other, gentity_t *activator ) {
 
 	if ( ent->spawnflags & 1 )
 		activator = level.player;
-
+	
 	if ( !activator->client ) {
 		return;
 	}
@@ -29,7 +29,7 @@ void Use_Target_Give( gentity_t *ent, gentity_t *other, gentity_t *activator ) {
 		if ( !t->item ) {
 			continue;
 		}
-		Touch_Item( t, activator, &trace );
+		Touch_Item2( t, activator, &trace, qtrue );
 
 		// make sure it isn't going to respawn or show any events
 		t->nextthink = 0;

@@ -8,3 +8,4 @@ code/q3_ui/Debug/
 *.opensdf
 code/*/vm/
 code/Release/
+code/.vs/EntityPlus/v14/.suo

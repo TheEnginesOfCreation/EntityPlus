@@ -1,6 +1,8 @@
 v1.1.7 (? ? 2015)
 	- [Added] health key to func_train.
 	- [Added] TOGGLEABLE spawnflag to func_rotating
+	- [Fixed] Bots never receive items from target_give
+	- [Fixed] Bots without weapon that try to attack the player cause "weapon index out of range" error in console.
 
 v1.1.6 (29 june 2015)
 	- [Fixed] func_time with START_ON and START_DELAYED spawnflags will fire targets after [wait]+[random] time instead of immediately.
