@@ -741,8 +741,10 @@ void FinishSpawningItem( gentity_t *ent ) {
 		ent->r.contents = 0;
 		return;
 	}
-
+	
 	// powerups don't spawn in for a while
+	// ENTITYPLUS: in EntityPlus, powerups should spawn immediately as well
+	/*
 	if ( ent->item->giType == IT_POWERUP ) {
 		float	respawn;
 
@@ -753,6 +755,7 @@ void FinishSpawningItem( gentity_t *ent ) {
 		ent->think = RespawnItem;
 		return;
 	}
+	*/
 
 
 	trap_LinkEntity (ent);

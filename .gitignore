@@ -9,3 +9,5 @@ code/q3_ui/Debug/
 code/*/vm/
 code/Release/
 code/.vs/EntityPlus/v14/.suo
+minversiontool/bin/
+minversiontool/.vs/
