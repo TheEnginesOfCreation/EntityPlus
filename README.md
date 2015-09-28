@@ -4,6 +4,7 @@ EntityPlus is a mod that offers a true single player experience in the Quake III
 News and information about new features will be reported to our [Twitter feed](https://twitter.com/#!/EntityPlus) as they are implemented. This offers a sneak peek into new features the next release of the mod will have.
 
 ## Latest News
+* Quake 3 mapper Martinus has released his map "Shipyard 17". The package contains a version for Team Arena as well as a version for EntityPlus. The gameplay is an arena boss battle type of thing where you'll be facing increasingly difficult opponents.
 * A new EntityPlus map is available! It's actually one map in three flavors: Duckhunt, Duckhunt DOOM! and Duckhunt VR!
 * EntityPlus 1.1.6 has been released!
 * EntityPlus 1.1.5 has been released!
