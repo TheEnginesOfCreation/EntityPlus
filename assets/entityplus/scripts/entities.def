@@ -933,7 +933,7 @@ Targetting an info_player_start spawnpoint with a trigger will enable or disable
 
 //=============================================================================
 
-/*QUAKED info_waypoint (1 0 0) (-16 -16 -24) (16 16 32)
+/*QUAKED info_waypoint (0 0.4 0.4) (-16 -16 -24) (16 16 32)
 Bot patrolling waypoint.
 -------- KEYS --------
 target : point at another info_waypoint to chain waypoints together

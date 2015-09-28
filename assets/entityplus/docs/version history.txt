@@ -4,6 +4,7 @@ v1.1.7 (? ? 2015)
 	- [Added] health key to func_train.
 	- [Added] TOGGLEABLE spawnflag to func_rotating
 	- [Changed] Powerups now spawn immediately into the map
+	- [Changed] info_waypoint entities are colored a darker shade of teal in GtkRadiant to better distinguish them from info_player_start entities.
 
 
 v1.1.6 (29 june 2015)
