@@ -25,6 +25,7 @@ If you're just going to play EntityPlus, you want to grab the files below:
 * [Testing Procedures map by Eraser] (https://code.google.com/p/entityplus/downloads/detail?name=ep_procedures-v5.zip) (33.6MB)
 * [Survival map by Eraser](https://code.google.com/p/entityplus/downloads/detail?name=ep_survival-v1.zip) (12.1MB) 
 * [Duckhunt mappack by Eraser] (https://dl.dropboxusercontent.com/u/18687963/theenginesofcreation/ep_duckhunt.zip) (696KB)
+* [Shipyard 17 map by Martinus] (http://www.quake3world.com/forum/viewtopic.php?f=10&t=51412) (56.9MB)
 
 If you're a level designer, you might be interested in the following downloads:
 * [The manual for v1.1.6](https://github.com/TheEnginesOfCreation/EntityPlus/releases/download/1.1.6/manual-1.1.6.pdf)
