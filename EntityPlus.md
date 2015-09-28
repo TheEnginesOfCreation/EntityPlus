@@ -1,6 +1,6 @@
 # EntityPlus Features #
 
-For an overview of all features in EntityPlus, download the level designer manual here: https://code.google.com/p/entityplus/downloads/list
+For an overview of all features in EntityPlus, download the level designer manual here: https://github.com/TheEnginesOfCreation/EntityPlus/releases/tag/1.1.4
 
 ## Additional info about the 1.1.4 release ##
   * `[`Fixed] notarget console command does nothing.
