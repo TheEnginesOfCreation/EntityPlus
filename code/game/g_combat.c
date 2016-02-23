@@ -132,11 +132,11 @@ body_die
 ==================
 */
 void body_die( gentity_t *self, gentity_t *inflictor, gentity_t *attacker, int damage, int meansOfDeath ) {
-	if ( self->health > GIB_HEALTH ) {
+	if ( self->health > GIB_HEALTH) {
 		return;
 	}
 	if ( !g_blood.integer ) {
-		self->health = GIB_HEALTH+1;
+		self->health = GIB_HEALTH +1;
 		return;
 	}
 
@@ -184,6 +184,9 @@ void player_die( gentity_t *self, gentity_t *inflictor, gentity_t *attacker, int
 	int			killer;
 	int			i;
 	char		*killerName, *obit;
+
+	if (g_gibs.integer == 2)
+		self->health = GIB_HEALTH - 1;
 
 	if ( self->client->ps.pm_type == PM_DEAD ) {
 		return;
@@ -320,7 +323,7 @@ void player_die( gentity_t *self, gentity_t *inflictor, gentity_t *attacker, int
 
 		// for the no-blood option, we need to prevent the health
 		// from going to gib level
-		if ( self->health <= GIB_HEALTH ) {
+		if ( self->health <= GIB_HEALTH) {
 			self->health = GIB_HEALTH+1;
 		}
 

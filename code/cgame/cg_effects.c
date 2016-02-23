@@ -434,6 +434,33 @@ void CG_GibPlayer( vec3_t playerOrigin ) {
 	velocity[1] = crandom()*GIB_VELOCITY;
 	velocity[2] = GIB_JUMP + crandom()*GIB_VELOCITY;
 	CG_LaunchFragment( origin, velocity, LETT_BLOOD, cgs.media.gibLeg );
+
+	
+	if (cg_gibs.integer == 2) {
+		VectorCopy(playerOrigin, origin);
+		velocity[0] = crandom()*(GIB_VELOCITY / 4);
+		velocity[1] = crandom()*(GIB_VELOCITY / 4);
+		velocity[2] = GIB_JUMP + crandom()*(GIB_VELOCITY / 4);
+		CG_LaunchFragment(origin, velocity, LETT_BLOOD, cgs.media.gibIntestine);
+
+		VectorCopy(playerOrigin, origin);
+		velocity[0] = crandom()*(GIB_VELOCITY / 2);
+		velocity[1] = crandom()*(GIB_VELOCITY / 2);
+		velocity[2] = GIB_JUMP + crandom()*(GIB_VELOCITY / 2);
+		CG_LaunchFragment(origin, velocity, LETT_BLOOD, cgs.media.gibIntestine);
+
+		VectorCopy(playerOrigin, origin);
+		velocity[0] = crandom()*(GIB_VELOCITY * 2);
+		velocity[1] = crandom()*(GIB_VELOCITY * 2);
+		velocity[2] = GIB_JUMP + crandom()*(GIB_VELOCITY * 2);
+		CG_LaunchFragment(origin, velocity, LETT_BLOOD, cgs.media.gibIntestine);
+
+		VectorCopy(playerOrigin, origin);
+		velocity[0] = crandom()*(GIB_VELOCITY * 4);
+		velocity[1] = crandom()*(GIB_VELOCITY * 4);
+		velocity[2] = GIB_JUMP + crandom()*(GIB_VELOCITY * 4);
+		CG_LaunchFragment(origin, velocity, LETT_BLOOD, cgs.media.gibIntestine);
+	}
 }
 
 /*
