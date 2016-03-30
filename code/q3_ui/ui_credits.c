@@ -45,6 +45,7 @@ cr_line credits[] = { // edit this as necessary for your credits
 { "^misantropia^", UI_CENTER|UI_SMALLFONT, &color_white },
 { "Kaz", UI_CENTER|UI_SMALLFONT, &color_white },
 { "cyr", UI_CENTER|UI_SMALLFONT, &color_white },
+{ "Rene Breitinger", UI_CENTER | UI_SMALLFONT, &color_white },
 { "gooball", UI_CENTER|UI_SMALLFONT, &color_white },
 { "", UI_CENTER|UI_SMALLFONT, &color_blue },
 { "Programming Support", UI_CENTER|UI_BIGFONT, &color_ochre },
