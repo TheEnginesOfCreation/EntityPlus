@@ -560,6 +560,9 @@ void CG_Beam(centity_t *cent) {
 
 	// add to refresh list
 	trap_R_AddRefEntityToScene(&ent);
+
+	//CG_Particles(origin, count, speed, lifetime, radius, type, r, g, b)
+	CG_Particles(s1->origin2, 1, (int)((random() * 50) + 50), 300, 3, PT_GRAVITY, 255, (byte)((random() * 155) + 100), 0);
 }
 
 
