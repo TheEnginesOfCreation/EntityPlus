@@ -538,18 +538,23 @@ CG_Beam
 Also called as an event
 ===============
 */
-void CG_Beam( centity_t *cent ) {
-	refEntity_t			ent;
-	entityState_t		*s1;
+void CG_Beam(centity_t *cent) {
+	refEntity_t            ent;
+	entityState_t        *s1;
 
 	s1 = &cent->currentState;
 
 	// create the render entity
-	memset (&ent, 0, sizeof(ent));
-	VectorCopy( s1->pos.trBase, ent.origin );
-	VectorCopy( s1->origin2, ent.oldorigin );
-	AxisClear( ent.axis );
-	ent.reType = RT_BEAM;
+	memset(&ent, 0, sizeof(ent));
+	VectorCopy(s1->pos.trBase, ent.origin);
+	VectorCopy(s1->origin2, ent.oldorigin);
+	AxisClear(ent.axis);
+	ent.reType = RT_RAIL_CORE;
+	ent.customShader = cgs.media.railCoreShader;
+	ent.shaderRGBA[0] = 255;
+	ent.shaderRGBA[1] = 0;
+	ent.shaderRGBA[2] = 0;
+	ent.shaderRGBA[3] = 255;
 
 	ent.renderfx = RF_NOSHADOW;
 

@@ -273,35 +273,36 @@ void SP_target_speaker( gentity_t *ent ) {
 /*QUAKED target_laser (0 .5 .8) (-8 -8 -8) (8 8 8) START_ON
 When triggered, fires a laser.  You can either set a target or a direction.
 */
-void target_laser_think (gentity_t *self) {
-	vec3_t	end;
-	trace_t	tr;
-	vec3_t	point;
+void target_laser_think(gentity_t *self) {
+	vec3_t    end;
+	trace_t    tr;
+	vec3_t    point;
 
 	// if pointed at another entity, set movedir to point at it
-	if ( self->enemy ) {
-		VectorMA (self->enemy->s.origin, 0.5, self->enemy->r.mins, point);
-		VectorMA (point, 0.5, self->enemy->r.maxs, point);
-		VectorSubtract (point, self->s.origin, self->movedir);
-		VectorNormalize (self->movedir);
+	if (self->enemy) {
+		VectorMA(self->enemy->s.origin, 0.5, self->enemy->r.mins, point);
+		VectorMA(point, 0.5, self->enemy->r.maxs, point);
+		VectorSubtract(point, self->s.origin, self->movedir);
+		VectorNormalize(self->movedir);
 	}
 
 	// fire forward and see what we hit
-	VectorMA (self->s.origin, 2048, self->movedir, end);
+	VectorMA(self->s.origin, 2048, self->movedir, end);
 
-	trap_Trace( &tr, self->s.origin, NULL, NULL, end, self->s.number, CONTENTS_SOLID|CONTENTS_BODY|CONTENTS_CORPSE);
+	trap_Trace(&tr, self->s.origin, NULL, NULL, end, self->s.number, CONTENTS_SOLID | CONTENTS_BODY | CONTENTS_CORPSE);
 
-	if ( tr.entityNum ) {
+	if (tr.entityNum != ENTITYNUM_NONE) {
 		// hurt it if we can
-		G_Damage ( &g_entities[tr.entityNum], self, self->activator, self->movedir, 
+		G_Damage(&g_entities[tr.entityNum], self, self, self->movedir,
 			tr.endpos, self->damage, DAMAGE_NO_KNOCKBACK, MOD_TARGET_LASER);
 	}
 
-	VectorCopy (tr.endpos, self->s.origin2);
+	VectorCopy(tr.endpos, self->s.origin2);
 
-	trap_LinkEntity( self );
+	trap_LinkEntity(self);
 	self->nextthink = level.time + FRAMETIME;
 }
+
 
 void target_laser_on (gentity_t *self)
 {
@@ -354,8 +355,14 @@ void target_laser_start (gentity_t *self)
 		target_laser_off (self);
 }
 
-void SP_target_laser (gentity_t *self)
+void SP_target_laser(gentity_t *self)
 {
+	char        *sound;
+
+	// if the "noise" key is set, use a constant looping sound when moving
+	if (G_SpawnString("noise", "100", &sound)) {
+		self->s.loopSound = G_SoundIndex(sound);
+	}
 	// let everything else get spawned before we start firing
 	self->think = target_laser_start;
 	self->nextthink = level.time + FRAMETIME;
