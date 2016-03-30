@@ -1918,6 +1918,22 @@ Written variables will persists across mapchanges if the map changes was initial
 
 //=============================================================================
 
+/*QUAKED target_laser (0 .7 .7) (-8 -8 -8) (8 8 8) START_ON
+Draws a laser beam originating from the target_laser entity. Can be set up to deal damage as well.
+-------- KEYS --------
+targetname : activating entity points to this.
+targetname2 : activating entity points to this.
+target : this points to a target_position entity at which the laser will be aimed.
+target2 : this points to a target_position entity at which the laser will be aimed.
+dmg : the amount of damage to deal whenever a player, bot or func_breakable is blocking the laser.
+noise : path/name of .wav file to play while laser is turned on (eg. sound/weapons/lightning/lg_hum.wav).
+-------- SPAWNFLAGS --------
+START_ON : the laser will be turned on as it is spawned.
+-------- NOTES --------
+The laser deals its damage every 100ms. Unless the laser should absolutely positively be lethal, don't use too high a value for the dmg key.*/
+
+//=============================================================================
+
 TRIGGER_* ENTITIES
 
 //=============================================================================

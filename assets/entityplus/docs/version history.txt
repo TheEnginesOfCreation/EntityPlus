@@ -1,3 +1,6 @@
+v1.1.8 (?? ???????? ????)
+	- [Added] target_laser entity
+
 v1.1.7 (23 february 2016)
 	- [Fixed] Bots never receive items from target_give
 	- [Fixed] Bots without weapon that try to attack the player cause "weapon index out of range" error in console.
