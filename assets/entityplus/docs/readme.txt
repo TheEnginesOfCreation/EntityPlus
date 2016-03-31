@@ -49,6 +49,8 @@ Shrink effect programming		: Phoenix
 
 Keycard programming				: Kaz
 								  [http://student.cs.appstate.edu/freemancw]
+								  
+target_laser programming		: sL1k
 
 Additional programming and		: ^misantropia^
 programming support				  [https://github.com/bnoordhuis]
