@@ -289,7 +289,7 @@ void target_laser_think(gentity_t *self) {
 	// fire forward and see what we hit
 	VectorMA(self->s.origin, 2048, self->movedir, end);
 
-	trap_Trace(&tr, self->s.origin, NULL, NULL, end, self->s.number, CONTENTS_SOLID | CONTENTS_BODY | CONTENTS_CORPSE);
+	trap_Trace(&tr, self->s.origin, NULL, NULL, end, self->s.number, CONTENTS_SOLID | CONTENTS_BODY );
 
 	if (tr.entityNum != ENTITYNUM_NONE && self->damage) {
 		// hurt it if we can
