@@ -1,0 +1,1 @@
+All EntityPlus assets (files contained in the "assets" folder) not covered by any of the other text files in this folder ("docs") are distributed under a Creative Commons BY-NC license (http://creativecommons.org/licenses/by-nc/4.0/)
