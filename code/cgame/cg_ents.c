@@ -551,9 +551,9 @@ void CG_Beam(centity_t *cent) {
 	AxisClear(ent.axis);
 	ent.reType = RT_RAIL_CORE;
 	ent.customShader = cgs.media.railCoreShader;
-	ent.shaderRGBA[0] = 255;
-	ent.shaderRGBA[1] = 0;
-	ent.shaderRGBA[2] = 0;
+	ent.shaderRGBA[0] = s1->constantLight & 255;
+	ent.shaderRGBA[1] = (s1->constantLight >> 8) & 255;
+	ent.shaderRGBA[2] = (s1->constantLight >> 16) & 255;
 	ent.shaderRGBA[3] = 255;
 
 	ent.renderfx = RF_NOSHADOW;

@@ -1925,6 +1925,7 @@ targetname : activating entity points to this.
 targetname2 : activating entity points to this.
 target : this points to a target_position entity at which the laser will be aimed.
 target2 : this points to a target_position entity at which the laser will be aimed.
+color : color of the laser beam (default 1.0 0.0 0.0).
 dmg : the amount of damage to deal whenever a player, bot or func_breakable is blocking the laser.
 noise : path/name of .wav file to play while laser is turned on (eg. sound/weapons/lightning/lg_hum.wav).
 -------- SPAWNFLAGS --------

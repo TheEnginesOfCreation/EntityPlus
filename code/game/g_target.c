@@ -354,6 +354,8 @@ void target_laser_start (gentity_t *self)
 void SP_target_laser(gentity_t *self)
 {
 	char        *sound;
+	vec3_t		color;
+	int			r, g, b, i;
 
 	// if the "noise" key is set, use a constant looping sound when moving
 	if (G_SpawnString("noise", "100", &sound)) {
@@ -362,6 +364,30 @@ void SP_target_laser(gentity_t *self)
 	// let everything else get spawned before we start firing
 	self->think = target_laser_start;
 	self->nextthink = level.time + FRAMETIME;
+
+	//beam color
+	G_SpawnVector("color", "1 0 0", color);
+
+	r = color[0] * 255;
+	if (r > 255) {
+		r = 255;
+	}
+	g = color[1] * 255;
+	if (g > 255) {
+		g = 255;
+	}
+	b = color[2] * 255;
+	if (b > 255) {
+		b = 255;
+	}
+	/*
+	i = light / 4;
+	if (i > 255) {
+		i = 255;
+	}
+	self->s.constantLight = r | (g << 8) | (b << 16) | (i << 24);
+	*/
+	self->s.constantLight = r | (g << 8) | (b << 16);
 }
 
 
