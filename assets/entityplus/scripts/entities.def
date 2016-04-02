@@ -2047,10 +2047,12 @@ To make a jump pad or launch ramp, place the target_position/info_notnull entity
 
 //=============================================================================
 
-/*QUAKED trigger_teleport (.5 .5 .5) ?
+/*QUAKED trigger_teleport (.5 .5 .5) ? PORTAL
 Touching this will teleport players to the location of the targeted misc_teleporter_dest entity. This entity allows client prediction of events.
 -------- KEYS --------
-target : this must point to a misc_teleporter_dest entity.*/
+target : this must point to a misc_teleporter_dest entity.
+-------- SPAWNFLAGS --------
+PORTAL : when set, the teleporter acts as a portal. No teleportion effect is shown, no sound is played and the player's spawn location has the same relative distance to the teleporter destination as to the trigger_teleport's origin. For this to function, an origin brush needs to be placed at the origin of the trigger_teleport and be part of the entity. Momentum through the portal is maintained as well as the view-angles of the player.*/
 
 //=============================================================================
 

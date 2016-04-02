@@ -153,16 +153,7 @@ Sets player's location without spitting out the player
 ===========*/
 void TeleportPlayerNoKnockback( gentity_t *player, vec3_t origin, vec3_t angles ) {
 	gentity_t	*tent;
-
-	// use temp events at source and destination to prevent the effect
-	// from getting dropped by a second player event
-	if ( player->client->sess.sessionTeam != TEAM_SPECTATOR ) {
-		tent = G_TempEntity( player->client->ps.origin, EV_PLAYER_TELEPORT_OUT );
-		tent->s.clientNum = player->s.clientNum;
-
-		tent = G_TempEntity( origin, EV_PLAYER_TELEPORT_IN );
-		tent->s.clientNum = player->s.clientNum;
-	}
+	vec3_t orgAngles;
 
 	// unlink to make sure it can't possibly interfere with G_KillBox
 	trap_UnlinkEntity (player);
@@ -179,7 +170,6 @@ void TeleportPlayerNoKnockback( gentity_t *player, vec3_t origin, vec3_t angles 
 	// toggle the teleport bit so the client knows to not lerp
 	player->client->ps.eFlags ^= EF_TELEPORT_BIT;
 
-	// set angles
 	SetClientViewAngle( player, angles );
 
 	player->s.angles[0] = atof(va("%.4f", player->s.angles[0]));

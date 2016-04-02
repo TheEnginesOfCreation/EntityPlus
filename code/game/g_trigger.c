@@ -273,19 +273,15 @@ trigger_teleport
 
 void trigger_teleporter_touch (gentity_t *self, gentity_t *other, trace_t *trace ) {
 	gentity_t	*dest;
+	vec3_t originDiff;
+	vec3_t destRelOrigin;
 
 	if ( !other->client ) {
 		return;
 	}
-	if ( other->client->ps.pm_type == PM_DEAD ) {
+	if (other->client->ps.pm_type == PM_DEAD) {
 		return;
 	}
-	// Spectators only?
-	if ( ( self->spawnflags & 1 ) && 
-		other->client->sess.sessionTeam != TEAM_SPECTATOR ) {
-		return;
-	}
-
 
 	dest = 	G_PickTarget( self->target );
 	if (!dest) {
@@ -293,28 +289,31 @@ void trigger_teleporter_touch (gentity_t *self, gentity_t *other, trace_t *trace
 		return;
 	}
 
-	TeleportPlayer( other, dest->s.origin, dest->s.angles );
+	if (self->spawnflags & 1) {
+		VectorSubtract(self->s.origin, other->client->ps.origin, originDiff);
+		VectorSubtract(dest->s.origin, originDiff, destRelOrigin);
+
+		/*
+		G_Printf("self->s.origin: %s\n", vtos(self->s.origin));
+		G_Printf("dest->s.origin: %s\n", vtos(dest->s.origin));
+		G_Printf("originDiff: %s\n", vtos(originDiff));
+		G_Printf("destRelOrigin: %s\n", vtos(destRelOrigin));
+		*/
+		TeleportPlayerNoKnockback(other, destRelOrigin, other->client->ps.viewangles);
+	} else {
+		TeleportPlayer(other, dest->s.origin, dest->s.angles);
+	}
 }
 
 
-/*QUAKED trigger_teleport (.5 .5 .5) ? SPECTATOR
+/*QUAKED trigger_teleport (.5 .5 .5) ? PORTAL
 Allows client side prediction of teleportation events.
 Must point at a target_position, which will be the teleport destination.
 
-If spectator is set, only spectators can use this teleport
-Spectator teleporters are not normally placed in the editor, but are created
-automatically near doors to allow spectators to move through them
+If portal is set, the teleporter functions as a portal. There is no teleportation effect and players aren't "pushed" out of the portal
 */
 void SP_trigger_teleport( gentity_t *self ) {
 	InitTrigger (self);
-
-	// unlike other triggers, we need to send this one to the client
-	// unless is a spectator trigger
-	if ( self->spawnflags & 1 ) {
-		self->r.svFlags |= SVF_NOCLIENT;
-	} else {
-		self->r.svFlags &= ~SVF_NOCLIENT;
-	}
 
 	// make sure the client precaches this sound
 	G_SoundIndex("sound/world/jumppad.wav");
