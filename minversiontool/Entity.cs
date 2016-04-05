@@ -74,5 +74,26 @@ namespace mvt
 			else
 				return null;
 		}
+
+        public int? GetIntValue(string key)
+        {
+            key = key.ToLower();
+            if (KeyValuePairs.ContainsKey(key))
+            {
+                int value;
+                if (int.TryParse(KeyValuePairs[key], out value))
+                {
+                    return value;
+                }
+                else
+                {
+                    return null;
+                }
+            }
+            else
+            {
+                return null;
+            }
+        }
 	}
 }

@@ -45,7 +45,8 @@ namespace mvt
 			one_one_two = 3,
 			one_one_four = 4,
             one_one_six = 5,
-            one_one_seven = 6
+            one_one_seven = 6,
+            one_one_eight = 7
 		}
 
 		/// <summary>List of strings for supported EntityPlus versions</summary>
@@ -57,7 +58,8 @@ namespace mvt
 			"1.1.2",
 			"1.1.4",
             "1.1.6",
-            "1.1.7"
+            "1.1.7",
+            "1.1.8"
 		};
 
 		/// <summary>A list of all the known entity classnames</summary>
@@ -255,6 +257,10 @@ namespace mvt
 				return Versions.UnableToDetect;
 			}
 
+            //Checking for v1.1.8 requirements
+            if (HasVersion118Keys(ent))
+                return Versions.one_one_eight;
+
             //Checking for v1.1.7 requirements
             if (HasVersion117Keys(ent))
                 return Versions.one_one_seven;
@@ -362,10 +368,28 @@ namespace mvt
 					Console.Write(text);
 			}
 		}
-		#endregion
+        #endregion
 
 
-		#region Version checking methods
+        #region Version checking methods
+        private bool HasVersion118Keys(Entity ent)
+        {
+            switch (ent.Classname)
+            {
+                case "target_laser":
+                    Debug(" > use of \"target_laser\" requires " + VersionsStrings[(int)Versions.one_one_eight]);
+                    return true;
+
+                case "trigger_teleport":
+                    if (ent.GetIntValue("spawnflags") != null && ((ent.GetIntValue("spawnflags").Value & 1) > 0)) {
+                        Debug(" > use of \"PORTAL\" spawnflag requires " + VersionsStrings[(int)Versions.one_one_eight]);
+                        return true;
+                    }
+                    break;
+            }
+            return false;
+        }
+
         private bool HasVersion117Keys(Entity ent)
         {
             bool result = false;
