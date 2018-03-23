@@ -1,6 +1,7 @@
 v1.1.8 (?? ???????? ????)
 	- [Added] target_laser entity.
 	- [Added] PORTAL spawnflag to trigger_teleport.
+	- [Added] KEEP_KEYS spawnflag to trigger_lock.
 	- [Changed] Particles look much better now.
 
 v1.1.7 (23 february 2016)

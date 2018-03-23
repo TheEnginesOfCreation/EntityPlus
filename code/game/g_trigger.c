@@ -703,23 +703,25 @@ void lock_touch(gentity_t *self, gentity_t *other, trace_t *trace) {
 		}
 	}
 
-	// remove the required key(card)s
-	if (self->spawnflags & 4)
-		other->client->ps.stats[STAT_HOLDABLE_ITEM] -= (1 << HI_KEY_RED);
-	if (self->spawnflags & 8)
-		other->client->ps.stats[STAT_HOLDABLE_ITEM] -= (1 << HI_KEY_GREEN);
-	if (self->spawnflags & 16)
-		other->client->ps.stats[STAT_HOLDABLE_ITEM] -= (1 << HI_KEY_BLUE);
-	if (self->spawnflags & 32)
-		other->client->ps.stats[STAT_HOLDABLE_ITEM] -= (1 << HI_KEY_YELLOW);
-	if (self->spawnflags & 64)
-		other->client->ps.stats[STAT_HOLDABLE_ITEM] -= (1 << HI_KEY_MASTER);
-	if (self->spawnflags & 128)
-		other->client->ps.stats[STAT_HOLDABLE_ITEM] -= (1 << HI_KEY_GOLD);
-	if (self->spawnflags & 256)
-		other->client->ps.stats[STAT_HOLDABLE_ITEM] -= (1 << HI_KEY_SILVER);
-	if (self->spawnflags & 512)
-		other->client->ps.stats[STAT_HOLDABLE_ITEM] -= (1 << HI_KEY_IRON);
+	// remove the required key(card)s if KEEP_KEYS spawnflag isn't set
+	if (!(self->spawnflags & 1024)) {
+		if (self->spawnflags & 4)
+			other->client->ps.stats[STAT_HOLDABLE_ITEM] -= (1 << HI_KEY_RED);
+		if (self->spawnflags & 8)
+			other->client->ps.stats[STAT_HOLDABLE_ITEM] -= (1 << HI_KEY_GREEN);
+		if (self->spawnflags & 16)
+			other->client->ps.stats[STAT_HOLDABLE_ITEM] -= (1 << HI_KEY_BLUE);
+		if (self->spawnflags & 32)
+			other->client->ps.stats[STAT_HOLDABLE_ITEM] -= (1 << HI_KEY_YELLOW);
+		if (self->spawnflags & 64)
+			other->client->ps.stats[STAT_HOLDABLE_ITEM] -= (1 << HI_KEY_MASTER);
+		if (self->spawnflags & 128)
+			other->client->ps.stats[STAT_HOLDABLE_ITEM] -= (1 << HI_KEY_GOLD);
+		if (self->spawnflags & 256)
+			other->client->ps.stats[STAT_HOLDABLE_ITEM] -= (1 << HI_KEY_SILVER);
+		if (self->spawnflags & 512)
+			other->client->ps.stats[STAT_HOLDABLE_ITEM] -= (1 << HI_KEY_IRON);
+	}
 
 	// everything else is the same as a trigger_multiple
 	multi_trigger(self, other);
