@@ -386,6 +386,14 @@ namespace mvt
                         return true;
                     }
                     break;
+
+                case "trigger_lock":
+                    if (ent.GetIntValue("spawnflags") != null && ((ent.GetIntValue("spawnflags").Value & 1024) > 0))
+                    {
+                        Debug(" > use of \"KEEP_KEYS\" spawnflag requires " + VersionsStrings[(int)Versions.one_one_eight]);
+                        return true;
+                    }
+                    break;
             }
             return false;
         }
