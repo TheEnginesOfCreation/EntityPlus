@@ -60,6 +60,7 @@ weaponInfo_t		cg_weapons[MAX_WEAPONS];
 itemInfo_t			cg_items[MAX_ITEMS];
 
 vmCvar_t	cg_paintballMode;
+vmCvar_t	cg_disableLevelStartFade;
 vmCvar_t	cg_bigheadMode;
 vmCvar_t	cg_railTrailTime;
 vmCvar_t	cg_centertime;
@@ -199,6 +200,7 @@ static cvarTable_t cvarTable[] = { // bk001129
 	{ &cg_addMarks, "cg_marks", "1", CVAR_ARCHIVE },
 	{ &cg_lagometer, "cg_lagometer", "1", CVAR_ARCHIVE },
 	{ &cg_paintballMode, "cg_paintballMode", "0", CVAR_ARCHIVE },
+	{ &cg_disableLevelStartFade , "cg_disableLevelStartFade", "0", CVAR_ARCHIVE | CVAR_CHEAT},
 	{ &cg_bigheadMode, "cg_bigheadMode", "0", CVAR_ARCHIVE },
 	{ &cg_railTrailTime, "cg_railTrailTime", "400", CVAR_ARCHIVE  },
 	{ &cg_gun_x, "cg_gunX", "0", CVAR_CHEAT },

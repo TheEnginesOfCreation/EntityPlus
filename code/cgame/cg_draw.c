@@ -2290,7 +2290,9 @@ void CG_DrawActive( stereoFrame_t stereoView ) {
  	CG_Draw2D();
 
 	// initialize the fade in at level start
-	CG_FadeLevelStart();
+	if (!cg_disableLevelStartFade.integer) {
+		CG_FadeLevelStart();
+	}
 
 	// draw fade-in/out
 	CG_DrawFade();
