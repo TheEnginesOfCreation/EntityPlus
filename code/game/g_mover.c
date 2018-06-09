@@ -1894,6 +1894,11 @@ void Break_Breakable(gentity_t *ent, gentity_t *other) {
 		tmp2 = G_TempEntity( center, EV_GENERAL_SOUND );
 		tmp2->s.eventParm = sound;
 	}
+
+	//show explosion effect
+	if (spawnflags & 8192) {
+		G_TempEntity(center, EV_EXPLOSION);
+	}
 }
 
 void Use_Breakable (gentity_t *ent, gentity_t *other, gentity_t *activator) {
