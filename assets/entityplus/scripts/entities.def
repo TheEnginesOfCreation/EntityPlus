@@ -1983,7 +1983,7 @@ This entity will be triggered only when the player or a bot makes a frag. The pl
 
 //=============================================================================
 
-/*QUAKED trigger_lock (.5 .5 .5) ? - - KEY_RED KEY_GREEN KEY_BLUE KEY_YELLOW KEY_MASTER KEY_GOLD KEY_SILVER KEY_IRON
+/*QUAKED trigger_lock (.5 .5 .5) ? - - KEY_RED KEY_GREEN KEY_BLUE KEY_YELLOW KEY_MASTER KEY_GOLD KEY_SILVER KEY_IRON KEEP_KEYS
 Used in conjunction with a holdable_key_* entities to grant/deny access to an entity (e.g. a door).
 -------- KEYS --------
 target : this points to the entity to activate.
@@ -2004,8 +2004,6 @@ KEY_IRON : only triggered when player has holdable_key_iron item.
 KEEP_KEYS : the player keeps the keys used to activate this trigger. Otherwise, used keys are removed from inventory.
 -------- NOTES --------
 The KEY_* spawnflags are AND-ed, meaning that checking multiple of these spawnflags will require the player to have multiple keys to trigger the lock. When no KEY_* spawnflag is checked, the lock will always be triggered, even if the player has no keys.
-
-While it's possible to set the wait key to -1, it is not advised to do so, because touching the trigger_lock without the required keys is registered as a trigger nonetheless. This would mean that the player is unable to continue if such a situation were to arise. 
 
 When using the unlockedsound, it is advised to set a wait key that is at least as long as the duration of the sound file that is being played. Otherwise the sound file will be played again before it has finished playing the first time.*/
 
