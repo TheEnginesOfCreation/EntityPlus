@@ -394,6 +394,14 @@ namespace mvt
                         return true;
                     }
                     break;
+
+                case "target_modify":
+                    if (ent.GetValue("key") == "wait")
+                    {
+                        Debug(" > use of \"wait\" as key requires " + VersionsStrings[(int)Versions.one_one_eight]);
+                        return true;
+                    }
+                    break;
             }
             return false;
         }

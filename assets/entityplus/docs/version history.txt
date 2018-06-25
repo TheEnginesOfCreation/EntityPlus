@@ -5,6 +5,7 @@ v1.1.8 (?? ???????? ????)
 	- [Added] EXPLOSION spawnflag to func_breakable.
 	- [Added] cg_disableLevelStartFade cvar.
 	- [Changed] Particles look much better now.
+	- [Changed] target_modify can modify "wait" property now.
 
 v1.1.7 (23 february 2016)
 	- [Fixed] Bots never receive items from target_give

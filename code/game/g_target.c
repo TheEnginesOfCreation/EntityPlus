@@ -1087,6 +1087,11 @@ void modify_entity ( gentity_t *self, gentity_t *ent ) {
 		return;
 	}
 
+	if (!strcmp(self->key, "wait")) {
+		ent->wait = atof(self->value);
+		return;
+	}
+
 	if ( !strcmp( self->key, "message" ) ) {
 		ent->message = self->value;
 		return;
