@@ -852,7 +852,6 @@ G_GetBotInfoByName
 char *G_GetBotInfoByName( const char *name ) {
 	int		n;
 	char	*value;
-G_Printf("%i\n", g_numBots);
 	for ( n = 0; n < g_numBots ; n++ ) {
 		value = Info_ValueForKey( g_botInfos[n], "name" );
 		if ( !Q_stricmp( value, name ) ) {
