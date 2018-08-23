@@ -4,6 +4,7 @@ v1.1.8 (?? ???????? ????)
 	- [Added] KEEP_KEYS spawnflag to trigger_lock.
 	- [Added] EXPLOSION spawnflag to func_breakable.
 	- [Added] cg_disableLevelStartFade cvar.
+	- [Added] Objectives scoreboard shows current skill level.
 	- [Changed] Particles look much better now.
 	- [Changed] target_modify can modify "wait" property now.
 
