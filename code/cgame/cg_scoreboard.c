@@ -365,6 +365,9 @@ qboolean CG_DrawSinglePlayerObjectives( void ) {
 	char c[2];
 	qboolean tooLong = qfalse;	
 	playerscore_t scores;
+	float scoreboardX;
+	float scoreboardY;
+	int skill;
 
 
 	if ( !cg.showScores )
@@ -387,7 +390,9 @@ qboolean CG_DrawSinglePlayerObjectives( void ) {
 	s = CG_ConfigString( CS_SECONDARYOBJECTIVE );
 
 	//draw objectives overlay
-	CG_DrawPic( (SCREEN_WIDTH - 512) / 2, (SCREEN_HEIGHT - 256) / 2, 512, 256, cgs.media.objectivesOverlay );
+	scoreboardX = (SCREEN_WIDTH - 512) / 2;
+	scoreboardY = (SCREEN_HEIGHT - 256) / 2;
+	CG_DrawPic( scoreboardX, scoreboardY, 512, 256, cgs.media.objectivesOverlay );
 	
 	//draw primary objective
 	objlen = strlen(p);
@@ -494,6 +499,10 @@ qboolean CG_DrawSinglePlayerObjectives( void ) {
 	if ( ++cg.deferredPlayerLoading > 10 ) {
 		CG_LoadDeferredPlayers();
 	}
+
+	//draw skill level
+	skill = CG_GetSkill();
+	CG_DrawPic(scoreboardX + (512 - 36), scoreboardY + (256 - 30), 24, 24, cgs.media.botSkillShaders[skill - 1]);
 
 	return qtrue;
 }
