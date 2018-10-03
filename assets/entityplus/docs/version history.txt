@@ -7,6 +7,7 @@ v1.1.8 (?? ???????? ????)
 	- [Added] Objectives scoreboard shows current skill level.
 	- [Changed] Particles look much better now.
 	- [Changed] target_modify can modify "wait" property now.
+	- [Changed] Health pickup notifications read "Small", "Medium" and "Large" instead of the assumed health values (5, 25 and 50)
 
 v1.1.7 (23 february 2016)
 	- [Fixed] Bots never receive items from target_give
