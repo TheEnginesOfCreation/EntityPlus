@@ -5,6 +5,7 @@ v1.1.8 (?? ???????? ????)
 	- [Added] EXPLOSION spawnflag to func_breakable.
 	- [Added] cg_disableLevelStartFade cvar.
 	- [Added] Objectives scoreboard shows current skill level.
+	- [Fixed] Shotgun and Lightninggun shots don't register as hit when the shot kills the bot.
 	- [Changed] Particles look much better now.
 	- [Changed] target_modify can modify "wait" property now.
 	- [Changed] Health pickup notifications read "Small", "Medium" and "Large" instead of the assumed health values (5, 25 and 50)
