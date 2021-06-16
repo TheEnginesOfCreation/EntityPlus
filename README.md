@@ -6,17 +6,17 @@ News and information about new features will be reported to our [Twitter feed](h
 
 ## Downloads
 
-If you're just going to play EntityPlus, you have to download the EntityPlus mod:
+If you're going to play EntityPlus, you have to download the EntityPlus mod:
 * [EntityPlus v1.1.8](https://github.com/TheEnginesOfCreation/EntityPlus/releases/tag/1.1.8)
 
 To add a little variety to the mix, download these custom maps:
-* [Carmack Fortress map by deqer] (https://code.google.com/p/entityplus/downloads/detail?name=krep1.zip) (29.1MB)
-* [Testing Procedures map by Eraser] (https://code.google.com/p/entityplus/downloads/detail?name=ep_procedures-v5.zip) (33.6MB)
+* [Carmack Fortress map by deqer](https://code.google.com/p/entityplus/downloads/detail?name=krep1.zip) (29.1MB)
+* [Testing Procedures map by Eraser](https://code.google.com/p/entityplus/downloads/detail?name=ep_procedures-v5.zip) (33.6MB)
 * [Survival map by Eraser](https://code.google.com/p/entityplus/downloads/detail?name=ep_survival-v1.zip) (12.1MB) 
-* [Duckhunt mappack by Eraser] (https://dl.dropboxusercontent.com/u/18687963/theenginesofcreation/ep_duckhunt.zip) (696KB)
-* [Shipyard 17 map by Martinus] (http://www.quake3world.com/forum/viewtopic.php?f=10&t=51412) (56.9MB)
-* [Dissent Breach map by Eraser] (http://www.theenginesofcreation.com/content.php?id=addons/ep_dissent) (29MB)
-* [Castle Wolfenstein map by Eraser] (http://www.theenginesofcreation.com/content.php?id=addons/ep_wolf3d) (3MB)
+* [Duckhunt mappack by Eraser](https://dl.dropboxusercontent.com/u/18687963/theenginesofcreation/ep_duckhunt.zip) (696KB)
+* [Shipyard 17 map by Martinus](http://www.quake3world.com/forum/viewtopic.php?f=10&t=51412) (56.9MB)
+* [Dissent Breach map by Eraser](http://www.theenginesofcreation.com/content.php?id=addons/ep_dissent) (29MB)
+* [Castle Wolfenstein map by Eraser](http://www.theenginesofcreation.com/content.php?id=addons/ep_wolf3d) (3MB)
 
 If you're a level designer, you might be interested in the following downloads:
 * [The manual for v1.1.8](https://github.com/TheEnginesOfCreation/EntityPlus/releases/download/1.1.8/manual-1.1.8.pdf)
