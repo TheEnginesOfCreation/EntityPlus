@@ -3,8 +3,8 @@
 Before you can create a map for EntityPlus, you'll need a few things:
   * A legal copy of [Quake III Arena](http://store.steampowered.com/app/2200/), updated to version 1.32 or 1.32c.
   * [GtkRadiant](http://icculus.org/gtkradiant/) version 1.4, 1.5 or 1.6.
-  * The [EntityPlus mod](https://code.google.com/p/entityplus/downloads/list).
-  * The mod download package contains the manual, but it is available as stand alone download in the [downloads section](https://code.google.com/p/entityplus/downloads/list) as well.
+  * The [EntityPlus mod](https://github.com/TheEnginesOfCreation/EntityPlus/releases).
+  * The mod download package contains the manual in the entityplus/docs folder.
   * If you are using GtkRadiant 1.5, then you will need to download the entities.ent file for GtkRadiant 1.5 as well.
 
 If you want to know how to configure GtkRadiant to use EntityPlus, then refer to the EntityPlus manual.
