@@ -4,6 +4,10 @@ code/game/Debug/
 code/cgame/Release/
 code/cgame/Debug/
 code/q3_ui/Debug/
+code/.vs/
+code/game/*.user
+code/cgame/*.user
+code/q3_ui/*.user
 *.sdf
 *.opensdf
 code/*/vm/
