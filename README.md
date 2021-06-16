@@ -22,7 +22,7 @@ If you're a level designer, you might be interested in the following downloads:
 * [The manual for v1.1.8](https://github.com/TheEnginesOfCreation/EntityPlus/releases/download/1.1.8/manual-1.1.8.pdf) (note: the manual is also included with the mod itself)
 * [MinversionTool 1.1.8.0](https://github.com/TheEnginesOfCreation/EntityPlus/releases/download/1.1.8/minversiontool-1.1.8.0.zip) to help you determine what the minimum requirements for your map are (note: requires the .NET Framework 3.5 or newer)
 
-If you're a level designer who is using GtkRadiant 1.5, then you may want to download the EntityPlus entities.ent file (.def file for GtkRadiant 1.4/1.6 is included with the mod):
+If you're a level designer who is using GtkRadiant 1.5, then you may want to download the EntityPlus entities.ent file .def file for GtkRadiant 1.4/1.6 is included with the mod):
 * [entities.ent for v1.1.8](https://github.com/TheEnginesOfCreation/EntityPlus/releases/download/1.1.8/entities.ent)
 
 ## Features
