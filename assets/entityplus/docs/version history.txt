@@ -1,4 +1,4 @@
-v1.1.8 (?? ???????? ????)
+v1.1.8 (16 june 2021)
 	- [Added] target_laser entity.
 	- [Added] PORTAL spawnflag to trigger_teleport.
 	- [Added] KEEP_KEYS spawnflag to trigger_lock.
