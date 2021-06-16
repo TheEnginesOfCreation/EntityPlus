@@ -6,8 +6,10 @@ News and information about new features will be reported to our [Twitter feed](h
 
 ## Downloads
 
-If you're just going to play EntityPlus, you want to grab the files below:
+If you're just going to play EntityPlus, you have to download the EntityPlus mod:
 * [EntityPlus v1.1.8](https://github.com/TheEnginesOfCreation/EntityPlus/releases/tag/1.1.8)
+
+To add a little variety to the mix, download these custom maps:
 * [Carmack Fortress map by deqer] (https://code.google.com/p/entityplus/downloads/detail?name=krep1.zip) (29.1MB)
 * [Testing Procedures map by Eraser] (https://code.google.com/p/entityplus/downloads/detail?name=ep_procedures-v5.zip) (33.6MB)
 * [Survival map by Eraser](https://code.google.com/p/entityplus/downloads/detail?name=ep_survival-v1.zip) (12.1MB) 
