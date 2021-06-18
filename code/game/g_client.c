@@ -1053,6 +1053,12 @@ void ClientBegin( int clientNum ) {
 	// locate ent at a spawn point
 	ClientSpawn( ent );
 
+	// teleport effect
+	if (IsBot(ent) && (ent->parent->spawnflags & 16384)) {
+		tent = G_TempEntity(ent->client->ps.origin, EV_PLAYER_TELEPORT_IN);
+		tent->s.clientNum = ent->s.clientNum;
+	}
+
 	// set info that persisted after mapchange
 	G_UpdateClientWithSessionData( ent );
 	G_LogPrintf( "ClientBegin: %i\n", clientNum );

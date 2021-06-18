@@ -1,3 +1,6 @@
+v1.1.9 (?? ??? ????)
+	- [Added] SPAWN_EFFECT spawnflag to target_botspawn.
+
 v1.1.8 (16 june 2021)
 	- [Added] target_laser entity.
 	- [Added] PORTAL spawnflag to trigger_teleport.
