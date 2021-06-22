@@ -1,5 +1,6 @@
 v1.1.9 (?? ??? ????)
 	- [Added] SPAWN_EFFECT spawnflag to target_botspawn.
+	- [Changed] Skill level indicator icons colors.
 
 v1.1.8 (16 june 2021)
 	- [Added] target_laser entity.
