@@ -882,7 +882,6 @@ static void CG_RegisterGraphics( void ) {
 	cgs.media.medalAssist = trap_R_RegisterShaderNoMip( "medal_assist" );
 	cgs.media.medalCapture = trap_R_RegisterShaderNoMip( "medal_capture" );
 
-
 	memset( cg_items, 0, sizeof( cg_items ) );
 	memset( cg_weapons, 0, sizeof( cg_weapons ) );
 
@@ -910,6 +909,9 @@ static void CG_RegisterGraphics( void ) {
 	cgs.media.burnMarkPaintShader = trap_R_RegisterShader( "gfx/damage/burn_med_mrk_paint" );
 	cgs.media.holeMarkPaintShader = trap_R_RegisterShader( "gfx/damage/hole_lg_mrk_paint" );
 	cgs.media.energyMarkPaintShader = trap_R_RegisterShader( "gfx/damage/plasma_mrk_paint" );
+
+	//explosion effect
+	cgs.media.rocketExplosionShader = trap_R_RegisterShader("rocketExplosion");
 
 	// register the inline models
 	cgs.numInlineModels = trap_CM_NumInlineModels();

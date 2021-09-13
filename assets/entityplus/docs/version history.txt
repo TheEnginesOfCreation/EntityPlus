@@ -1,5 +1,6 @@
 v1.1.9 (?? ??? ????)
 	- [Added] SPAWN_EFFECT spawnflag to target_botspawn.
+	- [Fixed] func_breakable EXPLOSION spawnflag shows missing shader effect when used before a rocket launcher is used in the level.
 	- [Changed] Skill level indicator icons colors.
 
 v1.1.8 (16 june 2021)
