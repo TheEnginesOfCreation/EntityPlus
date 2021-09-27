@@ -2,6 +2,7 @@ v1.1.9 (?? ??? ????)
 	- [Added] SPAWN_EFFECT spawnflag to target_botspawn.
 	- [Added] Setting "health" key for a func_door to a value less than 0 prevents door from being opened by shooting it.
 	- [Fixed] func_breakable EXPLOSION spawnflag shows missing shader effect when used before a rocket launcher is used in the level.
+	- [Fixed] SILENT spawnflag for trigger_push was missing from entities.def
 	- [Changed] Skill level indicator icons colors.
 
 v1.1.8 (16 june 2021)

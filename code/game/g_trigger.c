@@ -140,7 +140,7 @@ trigger_push
 ==============================================================================
 */
 
-/*QUAKED trigger_push ? SILENT 
+/*QUAKED trigger_push SILENT 
 This trigger will push a player or bot towards a targeted entity.
 */
 void trigger_push_touch (gentity_t *self, gentity_t *other, trace_t *trace ) {
@@ -195,7 +195,7 @@ void AimAtTarget( gentity_t *self ) {
 }
 
 
-/*QUAKED trigger_push (.5 .5 .5) ?
+/*QUAKED trigger_push (.5 .5 .5) SILENT
 Must point at a target_position, which will be the apex of the leap.
 This will be client side predicted, unlike target_push
 */
