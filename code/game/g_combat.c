@@ -490,7 +490,7 @@ void G_Damage( gentity_t *targ, gentity_t *inflictor, gentity_t *attacker,
 
 
 	// shootable doors / buttons don't actually have any health
-	if ( targ->s.eType == ET_MOVER ) {
+	if ( targ->s.eType == ET_MOVER && targ->health > -1) {
 		if (strcmp(targ->classname, "func_breakable") && targ->use && (targ->moverState == MOVER_POS1 || targ->moverState == ROTATOR_POS1)) {
 			targ->use(targ, inflictor, attacker);
 		}

@@ -1190,10 +1190,10 @@ void SP_func_door (gentity_t *ent) {
 		int health;
 
 		G_SpawnInt( "health", "0", &health );
-		if ( health ) {
+		if ( health > 0 ) {
 			ent->takedamage = qtrue;
 		}
-		if ( ent->targetname || health ) {
+		if ( ent->targetname || health > 0 ) {
 			// non touch/shoot doors
 			ent->think = Think_MatchTeam;
 		} else {

@@ -388,6 +388,14 @@ namespace mvt
 						return true;
 					}
 					break;
+
+				case "func_door":
+					if (ent.GetIntValue("health") != null && ent.GetIntValue("health").Value < 0)
+					{
+						Debug(" > use of a value < 0 as health requires " + VersionsStrings[(int)Versions.one_one_nine]);
+						return true;
+					}
+					break;
 			}
 			return false;
 		}
