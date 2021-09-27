@@ -2372,7 +2372,7 @@ static vec3_t VEC_DOWN		= {0, -2,  0};
 static vec3_t MOVEDIR_DOWN	= {0,  0, -1};
 
 void BotSetMovedir(vec3_t angles, vec3_t movedir) {
-	G_Printf("BotSetMovedir %s %s", vtos(angles), vtos(movedir));
+	// G_Printf("BotSetMovedir %s %s", vtos(angles), vtos(movedir));
 	if (VectorCompare(angles, VEC_UP)) {
 		VectorCopy(MOVEDIR_UP, movedir);
 	}
