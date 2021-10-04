@@ -195,7 +195,7 @@ BFG
 void BFG_Fire ( gentity_t *ent ) {
 	gentity_t	*m;
 
-	m = fire_bfg (ent, muzzle, forward);
+	m = fire_bfg (ent, muzzle, forward, BFG_SPEED);
 	m->damage *= s_quadFactor;
 	m->splashDamage *= s_quadFactor;
 
@@ -309,7 +309,7 @@ void weapon_grenadelauncher_fire (gentity_t *ent) {
 	forward[2] += 0.2f;
 	VectorNormalize( forward );
 
-	m = fire_grenade (ent, muzzle, forward);
+	m = fire_grenade (ent, muzzle, forward, GRENADE_SPEED);
 	m->damage *= s_quadFactor;
 	m->splashDamage *= s_quadFactor;
 
@@ -327,7 +327,7 @@ ROCKET
 void Weapon_RocketLauncher_Fire (gentity_t *ent) {
 	gentity_t	*m;
 
-	m = fire_rocket (ent, muzzle, forward);
+	m = fire_rocket (ent, muzzle, forward, ROCKET_SPEED);
 	m->damage *= s_quadFactor;
 	m->splashDamage *= s_quadFactor;
 
@@ -346,7 +346,7 @@ PLASMA GUN
 void Weapon_Plasmagun_Fire (gentity_t *ent) {
 	gentity_t	*m;
 
-	m = fire_plasma (ent, muzzle, forward);
+	m = fire_plasma (ent, muzzle, forward, PLASMA_SPEED);
 	m->damage *= s_quadFactor;
 	m->splashDamage *= s_quadFactor;
 

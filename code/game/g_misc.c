@@ -398,22 +398,22 @@ void Use_Shooter( gentity_t *ent, gentity_t *other, gentity_t *activator ) {
 
 	switch ( ent->s.weapon ) {
 		case WP_GRENADE_LAUNCHER:
-			bolt = fire_grenade( ent, ent->s.origin, dir );
+			bolt = fire_grenade( ent, ent->s.origin, dir, ent->speed );
 			bolt->damage = ent->damage;
 			bolt->splashDamage = ent->damage;
 			break;
 		case WP_ROCKET_LAUNCHER:
-			bolt = fire_rocket( ent, ent->s.origin, dir );
+			bolt = fire_rocket( ent, ent->s.origin, dir, ent->speed );
 			bolt->damage = ent->damage;
 			bolt->splashDamage = ent->damage;
 			break;
 		case WP_PLASMAGUN:
-			bolt = fire_plasma( ent, ent->s.origin, dir );
+			bolt = fire_plasma( ent, ent->s.origin, dir, ent->speed );
 			bolt->damage = ent->damage;
 			bolt->splashDamage = ent->damage * 0.75;
 			break;
 		case WP_BFG:
-			bolt = fire_bfg( ent, ent->s.origin, dir );
+			bolt = fire_bfg( ent, ent->s.origin, dir, ent->speed );
 			bolt->damage = ent->damage;
 			bolt->splashDamage = ent->damage;
 			break;
@@ -449,38 +449,42 @@ void InitShooter( gentity_t *ent, int weapon ) {
 	trap_LinkEntity( ent );
 }
 
-/*QUAKED shooter_rocket (1 0 0) (-16 -16 -16) (16 16 16) TARGET_PLAYER
+/*QUAKED shooter_rocket (1 0 0) (-16 -16 -16) (16 16 16) TARGET_PLAYER NO_BOTS NO_HUMANS
 Fires at either the target or the current direction.
 "random" the number of degrees of deviance from the taget. (1.0 default)
 */
 void SP_shooter_rocket( gentity_t *ent ) {
 	G_SpawnInt( "dmg", "100", &ent->damage );
+	G_SpawnFloat( "speed", va("%i", ROCKET_SPEED), &ent->speed );
 	InitShooter( ent, WP_ROCKET_LAUNCHER );
 }
 
-/*QUAKED shooter_plasma (1 0 0) (-16 -16 -16) (16 16 16) TARGET_PLAYER
+/*QUAKED shooter_plasma (1 0 0) (-16 -16 -16) (16 16 16) TARGET_PLAYER NO_BOTS NO_HUMANS
 Fires at either the target or the current direction.
 "random" is the number of degrees of deviance from the taget. (1.0 default)
 */
 void SP_shooter_plasma( gentity_t *ent ) {
 	G_SpawnInt( "dmg", "20", &ent->damage );
+	G_SpawnFloat( "speed", va("%i", PLASMA_SPEED), &ent->speed );
 	InitShooter( ent, WP_PLASMAGUN);
 }
 
-/*QUAKED shooter_grenade (1 0 0) (-16 -16 -16) (16 16 16) TARGET_PLAYER
+/*QUAKED shooter_grenade (1 0 0) (-16 -16 -16) (16 16 16) TARGET_PLAYER NO_BOTS NO_HUMANS
 Fires at either the target or the current direction.
 "random" is the number of degrees of deviance from the taget. (1.0 default)
 */
 void SP_shooter_grenade( gentity_t *ent ) {
 	G_SpawnInt( "dmg", "100", &ent->damage );
+	G_SpawnFloat( "speed", va("%i", GRENADE_SPEED), &ent->speed );
 	InitShooter( ent, WP_GRENADE_LAUNCHER);
 }
 
-/*QUAKED shooter_bfg (1 0 0) (-16 -16 -16) (16 16 16) TARGET_PLAYER
+/*QUAKED shooter_bfg (1 0 0) (-16 -16 -16) (16 16 16) TARGET_PLAYER NO_BOTS NO_HUMANS
 Fires at either the target or the current direction.
 "random" is the number of degrees of deviance from the taget. (1.0 default)
 */
 void SP_shooter_bfg( gentity_t *ent ) {
 	G_SpawnInt( "dmg", "100", &ent->damage );
+	G_SpawnFloat( "speed", va("%i", BFG_SPEED), &ent->speed );
 	InitShooter( ent, WP_BFG );
 }

@@ -1400,6 +1400,7 @@ targetname2 : activating entity points to this.
 target : this points to a target_position entity for aiming the bfg shots.
 random : random aiming variance in degrees from the straight line to the targeted entity (default 0 - see Notes).
 dmg : amount of damage a bfg projectile will deal (default 100).
+speed : the movement speed of the BFG bolt (default 2000).
 -------- SPAWNFLAGS --------
 TARGET_PLAYER : The shooter will always aim directly at the player.
 NO_BOTS : The shooter will not harm bots
@@ -1420,6 +1421,7 @@ targetname2 : activating entity points to this.
 target : this points to a target_position entity for aiming the grenades.
 random : random aiming variance in degrees from the straight line to the targeted entity (default 0 - see Notes).
 dmg : amount of damage a grenade will deal (default 100).
+speed : the movement speed of the grenade (default 700).
 -------- SPAWNFLAGS --------
 TARGET_PLAYER : The shooter will always aim directly at the player.
 NO_BOTS : The shooter will not harm bots
@@ -1440,6 +1442,7 @@ targetname2 : activating entity points to this.
 target : this points to a target_position entity for aiming the plasma balls.
 random : random aiming variance in degrees from the straight line to the targeted entity (default 0 - see Notes).
 dmg : amount of damage a plasma ball will deal (default 20).
+speed : the movement speed of the plasma bolt (default 2000).
 -------- SPAWNFLAGS --------
 TARGET_PLAYER : The shooter will always aim directly at the player.
 NO_BOTS : The shooter will not harm bots
@@ -1460,6 +1463,7 @@ targetname2 : activating entity points to this.
 target : this points to a target_position entity for aiming the rockets.
 random : random aiming variance in degrees from the straight line to the targeted entity (default 0 - see Notes).
 dmg : amount of damage a rocket will deal (default 100).
+speed : the movement speed of the rocket (default 900).
 -------- SPAWNFLAGS --------
 TARGET_PLAYER : The shooter will always aim directly at the player.
 NO_BOTS : The shooter will not harm bots

@@ -5,7 +5,7 @@
 // because games can change separately from the main system version, we need a
 // second version that must match between game and cgame
 
-#define	GAME_VERSION		"baseq3-1"
+#define	GAME_VERSION		"entityplus"
 
 #define	DEFAULT_GRAVITY		800
 #define	GIB_HEALTH			-40
@@ -30,6 +30,11 @@
 #define	DEFAULT_VIEWHEIGHT	26
 #define CROUCH_VIEWHEIGHT	12
 #define	DEAD_VIEWHEIGHT		-16
+
+#define GRENADE_SPEED		700
+#define ROCKET_SPEED		900
+#define PLASMA_SPEED		2000
+#define BFG_SPEED			2000
 
 //
 // config strings are a general means of communicating variable length strings

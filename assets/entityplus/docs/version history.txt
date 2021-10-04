@@ -1,6 +1,7 @@
 v1.1.9 (?? ??? ????)
 	- [Added] SPAWN_EFFECT spawnflag to target_botspawn.
 	- [Added] Setting "health" key for a func_door to a value less than 0 prevents door from being opened by shooting it.
+	- [Added] The "speed" key to all shooter_ entities to control the speed of the projectiles they shoot.
 	- [Fixed] func_breakable EXPLOSION spawnflag shows missing shader effect when used before a rocket launcher is used in the level.
 	- [Fixed] SILENT spawnflag for trigger_push is missing from entities.def
 	- [Fixed] Obsolete debugging code outputs bot AI related debug messages to console.

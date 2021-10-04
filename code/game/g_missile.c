@@ -252,8 +252,12 @@ fire_plasma
 
 =================
 */
-gentity_t *fire_plasma (gentity_t *self, vec3_t start, vec3_t dir) {
+gentity_t *fire_plasma (gentity_t *self, vec3_t start, vec3_t dir, float speed) {
 	gentity_t	*bolt;
+
+	if (speed < 0) {
+		speed = PLASMA_SPEED;
+	}
 
 	VectorNormalize (dir);
 
@@ -277,7 +281,7 @@ gentity_t *fire_plasma (gentity_t *self, vec3_t start, vec3_t dir) {
 	bolt->s.pos.trType = TR_LINEAR;
 	bolt->s.pos.trTime = level.time - MISSILE_PRESTEP_TIME;		// move a bit on the very first frame
 	VectorCopy( start, bolt->s.pos.trBase );
-	VectorScale( dir, 2000, bolt->s.pos.trDelta );
+	VectorScale( dir, speed, bolt->s.pos.trDelta );
 	SnapVector( bolt->s.pos.trDelta );			// save net bandwidth
 
 	VectorCopy (start, bolt->r.currentOrigin);
@@ -293,8 +297,12 @@ gentity_t *fire_plasma (gentity_t *self, vec3_t start, vec3_t dir) {
 fire_grenade
 =================
 */
-gentity_t *fire_grenade (gentity_t *self, vec3_t start, vec3_t dir) {
+gentity_t *fire_grenade (gentity_t *self, vec3_t start, vec3_t dir, float speed) {
 	gentity_t	*bolt;
+
+	if (speed < 0) {
+		speed = GRENADE_SPEED;
+	}
 
 	VectorNormalize (dir);
 
@@ -319,7 +327,7 @@ gentity_t *fire_grenade (gentity_t *self, vec3_t start, vec3_t dir) {
 	bolt->s.pos.trType = TR_GRAVITY;
 	bolt->s.pos.trTime = level.time - MISSILE_PRESTEP_TIME;		// move a bit on the very first frame
 	VectorCopy( start, bolt->s.pos.trBase );
-	VectorScale( dir, 700, bolt->s.pos.trDelta );
+	VectorScale( dir, speed, bolt->s.pos.trDelta );
 	SnapVector( bolt->s.pos.trDelta );			// save net bandwidth
 
 	VectorCopy (start, bolt->r.currentOrigin);
@@ -335,8 +343,12 @@ gentity_t *fire_grenade (gentity_t *self, vec3_t start, vec3_t dir) {
 fire_bfg
 =================
 */
-gentity_t *fire_bfg (gentity_t *self, vec3_t start, vec3_t dir) {
+gentity_t *fire_bfg (gentity_t *self, vec3_t start, vec3_t dir, float speed) {
 	gentity_t	*bolt;
+
+	if (speed < 0) {
+		speed = BFG_SPEED;
+	}
 
 	VectorNormalize (dir);
 
@@ -360,7 +372,7 @@ gentity_t *fire_bfg (gentity_t *self, vec3_t start, vec3_t dir) {
 	bolt->s.pos.trType = TR_LINEAR;
 	bolt->s.pos.trTime = level.time - MISSILE_PRESTEP_TIME;		// move a bit on the very first frame
 	VectorCopy( start, bolt->s.pos.trBase );
-	VectorScale( dir, 2000, bolt->s.pos.trDelta );
+	VectorScale( dir, speed, bolt->s.pos.trDelta );
 	SnapVector( bolt->s.pos.trDelta );			// save net bandwidth
 	VectorCopy (start, bolt->r.currentOrigin);
 
@@ -375,8 +387,12 @@ gentity_t *fire_bfg (gentity_t *self, vec3_t start, vec3_t dir) {
 fire_rocket
 =================
 */
-gentity_t *fire_rocket (gentity_t *self, vec3_t start, vec3_t dir) {
+gentity_t *fire_rocket (gentity_t *self, vec3_t start, vec3_t dir, float speed) {
 	gentity_t	*bolt;
+
+	if (speed < 0) {
+		speed = ROCKET_SPEED;
+	}
 
 	VectorNormalize (dir);
 
@@ -400,7 +416,7 @@ gentity_t *fire_rocket (gentity_t *self, vec3_t start, vec3_t dir) {
 	bolt->s.pos.trType = TR_LINEAR;
 	bolt->s.pos.trTime = level.time - MISSILE_PRESTEP_TIME;		// move a bit on the very first frame
 	VectorCopy( start, bolt->s.pos.trBase );
-	VectorScale( dir, 900, bolt->s.pos.trDelta );
+	VectorScale( dir, speed, bolt->s.pos.trDelta );
 	SnapVector( bolt->s.pos.trDelta );			// save net bandwidth
 	VectorCopy (start, bolt->r.currentOrigin);
 

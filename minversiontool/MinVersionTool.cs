@@ -392,7 +392,29 @@ namespace mvt
 				case "func_door":
 					if (ent.GetIntValue("health") != null && ent.GetIntValue("health").Value < 0)
 					{
-						Debug(" > use of a value < 0 as health requires " + VersionsStrings[(int)Versions.one_one_nine]);
+						Debug(" > use of a \"health\" value less than 0 requires " + VersionsStrings[(int)Versions.one_one_nine]);
+						return true;
+					}
+					break;
+				case "shooter_rocket":
+					if (ent.GetIntValue("speed") != null && ent.GetIntValue("speed").Value != 900)
+					{
+						Debug(" > use of a \"speed\" value other than 900 requires " + VersionsStrings[(int)Versions.one_one_nine]);
+						return true;
+					}
+					break;
+				case "shooter_grenade":
+					if (ent.GetIntValue("speed") != null && ent.GetIntValue("speed").Value != 700)
+					{
+						Debug(" > use of a \"speed\" value other than 700 requires " + VersionsStrings[(int)Versions.one_one_nine]);
+						return true;
+					}
+					break;
+				case "shooter_plasma":
+				case "shooter_bfg":
+					if (ent.GetIntValue("speed") != null && ent.GetIntValue("speed").Value != 2000)
+					{
+						Debug(" > use of a \"speed\" value other than 2000 requires " + VersionsStrings[(int)Versions.one_one_nine]);
 						return true;
 					}
 					break;
