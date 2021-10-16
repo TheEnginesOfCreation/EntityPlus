@@ -5,6 +5,7 @@ v1.1.9 (?? ??? ????)
 	- [Fixed] func_breakable EXPLOSION spawnflag shows missing shader effect when used before a rocket launcher is used in the level.
 	- [Fixed] SILENT spawnflag for trigger_push is missing from entities.def
 	- [Fixed] Obsolete debugging code outputs bot AI related debug messages to console.
+	- [Fixed] Dropped backpack gets removed when stuck between doors
 	- [Changed] Skill level indicator icons colors.
 
 v1.1.8 (16 june 2021)

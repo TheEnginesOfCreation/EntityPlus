@@ -971,9 +971,9 @@ Blocked_Door
 ================
 */
 void Blocked_Door( gentity_t *ent, gentity_t *other ) {
-	// remove anything other than a client
-	if ( !other->client ) {
-		//TODO: Backpack will disappear when blocked in door. This shouldn't happen.
+	// remove anything other than a client and backpack
+	
+	if ( !other->client && strcmp(other->classname, "item_backpack")) {
 		G_TempEntity( other->s.origin, EV_ITEM_POP );
 		G_FreeEntity( other );
 		return;
