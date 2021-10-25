@@ -926,13 +926,13 @@ qboolean TeleportBackpack( gentity_t *backpack ) {
 	if ( backpack->item->giType != IT_BACKPACK )
 		return qfalse;
 
-	VectorCopy(backpack->s.origin, from);
+	VectorCopy(backpack->r.currentOrigin, from);
+
 	nearestDist = 999999;
 	nearestSpot = NULL;
 	spot = NULL;
 
 	while ((spot = G_Find (spot, FOFS(classname), "info_backpack")) != NULL) {
-
 		VectorSubtract( spot->s.origin, from, delta );
 		dist = VectorLength( delta );
 		if ( dist < nearestDist ) {
