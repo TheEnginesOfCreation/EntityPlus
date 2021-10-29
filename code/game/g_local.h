@@ -52,6 +52,7 @@
 #define SF_EFFECT_PARTICLES_LINEAR_DOWN	16
 #define SF_EFFECT_OVERLAY				32
 #define SF_EFFECT_FADE					64
+#define SF_EFFECT_SMOKEPUFF				128
 
 // movers are things like doors, plats, buttons, etc
 typedef enum {

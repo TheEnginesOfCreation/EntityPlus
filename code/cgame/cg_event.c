@@ -1047,6 +1047,33 @@ void CG_EntityEvent( centity_t *cent, vec3_t position ) {
 		CG_MakeExplosion( cent->lerpOrigin, dir, cgs.media.dishFlashModel, cgs.media.rocketExplosionShader, 1000, qtrue );
 		break;
 	
+	case EV_SMOKEPUFF:
+		DEBUGNAME("EV_SMOKEPUFF");
+
+		//es->constantLight is used to specify color of the smoke puff
+		r = es->constantLight & 255;
+		g = (es->constantLight >> 8) & 255;
+		b = (es->constantLight >> 16) & 255;
+
+		//es->generic1 is used to specify movement speed of the smokepuff
+		VectorSet(dir, es->angles[0] * es->generic1, es->angles[1] * es->generic1, es->angles[2] * es->generic1);
+
+		CG_SmokePuff(
+			cent->lerpOrigin, //origin
+			dir, //movement direction
+			32, //radius
+			r / 255, //red
+			g / 255, //green
+			b / 255, //blue
+			0.33f, //alpha
+			es->eventParm * 1000, //duration
+			cg.time, //startTime
+			0, //fadeinTime
+			0, //LEF_PUFF_DONT_SCALE, //flags
+			cgs.media.smokePuffShader //shader
+		);
+		break;
+
 	case EV_PARTICLES_GRAVITY:
 		DEBUGNAME("EV_PARTICLES_GRAVITY");
 		CG_ParticlesFromEntityState( cent->lerpOrigin, PT_GRAVITY, es );

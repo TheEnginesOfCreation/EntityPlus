@@ -30,6 +30,8 @@ namespace mvt
 			if (filename == "")
 			{
 				Console.WriteLine("You must supply the path to a .map file");
+				Console.WriteLine(" -d : show a list of entities causing a minimum version requirement.");
+				Console.WriteLine(" -v : list all entities.");
 				Console.ReadKey();
 				return;
 			}

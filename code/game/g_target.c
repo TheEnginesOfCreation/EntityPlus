@@ -867,6 +867,7 @@ void target_effect_use (gentity_t *self, gentity_t *other, gentity_t *activator)
 	gentity_t	*ent3;
 	gentity_t	*ent4;
 	gentity_t	*ent5;
+	gentity_t   *ent6;
 
 	if ( !self->r.linked )
 		return;
@@ -924,25 +925,60 @@ void target_effect_use (gentity_t *self, gentity_t *other, gentity_t *activator)
 	if ( self->spawnflags & SF_EFFECT_FADE ) {
 		G_Fade( self->wait, self->rgba1, self->rgba2 ); 
 	}
+
+	//smoke
+	if (self->spawnflags & SF_EFFECT_SMOKEPUFF) {
+		ent6 = G_TempEntity(self->s.origin, EV_SMOKEPUFF);
+		ent6->s.constantLight = self->s.constantLight;
+		ent6->s.eventParm = self->wait;	//eventParm is used to determine the amount of time the smoke puff exists
+		ent6->s.generic1 = self->speed;	//generic1 is used to determine the movement speed of the smoke puff
+		VectorCopy(self->s.angles, ent6->s.angles);
+	}
+}
+
+void target_effect_think(gentity_t* self) {
+	gentity_t* tmp;
+	vec3_t		wut;
+	vec3_t		dir;
+
+	if (self->target) {
+		tmp = G_PickTarget(self->target);
+		VectorSubtract(tmp->s.origin, self->s.origin, dir);
+		VectorCopy(dir, self->s.angles);
+	}
+	else if (self->target2) {
+		tmp = G_PickTarget(self->target2);
+		VectorSubtract(tmp->s.origin, self->s.origin, dir);
+		VectorCopy(dir, self->s.angles);
+	}
+	else {
+		self->s.angles[0] = 0;
+		self->s.angles[1] = 0;
+		self->s.angles[2] = 1;
+	}
+	VectorNormalize(self->s.angles);
+
+	self->nextthink = 0;
 }
 
 void SP_target_effect (gentity_t *self) {
 	vec3_t		color;
 	float		light;
 	int			r, g, b, i;
-
+	
 	//check if effects are selected
 	if ( !self->spawnflags ) {
 		G_Printf( va( S_COLOR_YELLOW "WARNING: %s without selected effects at %s\n", self->classname, vtos(self->s.origin) ) );
 		G_FreeEntity( self );
 	}
 	
-	// particle color
+	// particle/smoke color
 	if ( 
 		self->spawnflags & SF_EFFECT_PARTICLES_GRAVITY || 
 		self->spawnflags & SF_EFFECT_PARTICLES_LINEAR || 
 		self->spawnflags & SF_EFFECT_PARTICLES_LINEAR_UP ||
-		self->spawnflags & SF_EFFECT_PARTICLES_LINEAR_DOWN
+		self->spawnflags & SF_EFFECT_PARTICLES_LINEAR_DOWN ||
+		self->spawnflags & SF_EFFECT_SMOKEPUFF
 	) {
 		G_SpawnVector( "color", "1 1 1", color );
 
@@ -965,7 +1001,7 @@ void SP_target_effect (gentity_t *self) {
 		self->s.constantLight = r | ( g << 8 ) | ( b << 16 ) | ( i << 24 );
 	}
 
-	//particle count and speed
+	//particle count
 	if ( 
 		self->spawnflags & SF_EFFECT_PARTICLES_GRAVITY || 
 		self->spawnflags & SF_EFFECT_PARTICLES_LINEAR || 
@@ -981,6 +1017,18 @@ void SP_target_effect (gentity_t *self) {
 			self->speed = 100;
 	}
 
+	//smoke speed, duration and angle
+	if (self->spawnflags & SF_EFFECT_SMOKEPUFF) {
+		if ( !self->speed ) {
+			self->speed = 16;
+		}
+		if (!self->wait) {
+			self->wait = 2;
+		}
+		self->nextthink = level.time + FRAMETIME * 3;
+		self->think = target_effect_think;
+	}
+
 	//preload explosion assets if necessary
 	if ( self->spawnflags & SF_EFFECT_EXPLOSION ) {
 		RegisterItem( BG_FindItemForWeapon( WP_ROCKET_LAUNCHER ) );	//uses RL gfx so we must register the RL
@@ -990,6 +1038,9 @@ void SP_target_effect (gentity_t *self) {
 	if ( self->spawnflags & SF_EFFECT_FADE ) {
 		G_SpawnVector4( "startcolor", "0 0 0 0", self->rgba1 );
 		G_SpawnVector4( "endcolor", "0 0 0 1", self->rgba2 );
+		if ( !self->wait ) {
+			self->wait = 2;
+		}
 	}
 
 	self->use = target_effect_use;
