@@ -20,6 +20,7 @@
 	<overlay>string</overlay>
 	<playermodel>string</playermodel>
 	<playerheadmodel>string</playerheadmodel>
+	<scale>real</scale>
 	<scoreboardmusic>sound</scoreboardmusic>
 	<script>string</script>
 	<skill>real</skill>

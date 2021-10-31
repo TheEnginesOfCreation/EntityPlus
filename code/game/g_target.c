@@ -932,6 +932,7 @@ void target_effect_use (gentity_t *self, gentity_t *other, gentity_t *activator)
 		ent6->s.constantLight = self->s.constantLight;
 		ent6->s.eventParm = self->wait;	//eventParm is used to determine the amount of time the smoke puff exists
 		ent6->s.generic1 = self->speed;	//generic1 is used to determine the movement speed of the smoke puff
+		ent6->s.otherEntityNum = self->distance * 32; //otherEntityNum is used to determine the size of the smokepuff. The default is 32.
 		VectorCopy(self->s.angles, ent6->s.angles);
 	}
 }
@@ -965,6 +966,7 @@ void SP_target_effect (gentity_t *self) {
 	vec3_t		color;
 	float		light;
 	int			r, g, b, i;
+	float		scale;
 	
 	//check if effects are selected
 	if ( !self->spawnflags ) {
@@ -1025,6 +1027,12 @@ void SP_target_effect (gentity_t *self) {
 		if (!self->wait) {
 			self->wait = 2;
 		}
+		if (!G_SpawnFloat("scale", "1", &scale)) {
+			scale = 1;
+		}
+
+		self->distance = scale;		//abuse the distance field for scale
+		
 		self->nextthink = level.time + FRAMETIME * 3;
 		self->think = target_effect_think;
 	}

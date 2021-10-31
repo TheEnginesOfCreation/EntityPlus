@@ -1603,6 +1603,7 @@ overlay : specifies an image to overlay over the screen. Leave empty to remove e
 startcolor : specifies the rgba value of the starting color of a fade (default 0.0 0.0 0.0 0.0).
 endcolor : specifies the rgba value of the ending color of a fade (default 0.0 0.0 0.0 1.0).
 wait : When using FADE, this specifies the amount of time it takes to fade from the start color to the end color. When using SMOKEPUFF, this specifies the duration the smokepuff stays visible. (default 2)
+scale : specifies the size scale factor of smokepuffs (default 1).
 -------- SPAWNFLAGS --------
 EXPLOSION : Shows an explosion when activated.
 PARTICLES_GRAVITY : Generates particles that are affected by gravity.

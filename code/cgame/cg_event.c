@@ -1061,7 +1061,7 @@ void CG_EntityEvent( centity_t *cent, vec3_t position ) {
 		CG_SmokePuff(
 			cent->lerpOrigin, //origin
 			dir, //movement direction
-			32, //radius
+			es->otherEntityNum, //radius		es->otherEntityNum is used to specify the radius. Default is 32.
 			r / 255, //red
 			g / 255, //green
 			b / 255, //blue
