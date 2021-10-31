@@ -825,14 +825,14 @@ void target_earthquake_use (gentity_t *self, gentity_t *other, gentity_t *activa
 
 void SP_target_earthquake (gentity_t *self) {
 	int param;
-	float length;		// length in seconds (2 to 32)
+	float length;		// length in seconds (3 to 32)
 	float intensity;	// intensity (1 to 16)
 	int length_;
 	int intensity_;
 	
 	// read parameters
-	G_SpawnFloat( "length", "1000", &length );
-	G_SpawnFloat( "intensity", "50", &intensity );
+	G_SpawnFloat( "length", "3.0", &length );
+	G_SpawnFloat( "intensity", "1.0", &intensity );
 	if ( length < 2 ) length = 2;
 	if ( length > 32 ) length = 32;
 	if ( intensity < 1 ) intensity = 1;

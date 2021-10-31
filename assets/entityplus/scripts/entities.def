@@ -1586,8 +1586,8 @@ Starts an earthquake that shakes the screen
 -------- KEYS --------
 targetname : activating entity points to this.
 targetname2 : activating entity points to this.
-length : duration of the earthquake in seconds (2 - 32).
-intensity : intensity of the earthquake (1 - 16).*/
+length : duration of the earthquake in seconds (3 - 32, default 3).
+intensity : intensity of the earthquake (1 - 16, default 1).*/
 
 //=============================================================================
 
