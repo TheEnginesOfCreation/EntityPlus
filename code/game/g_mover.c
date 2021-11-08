@@ -1804,7 +1804,6 @@ STATIC
 
 
 void Use_Static(gentity_t* ent, gentity_t* other, gentity_t* activator) {
-	G_Printf("link or unlink\n");
 	G_SetEntityLinked(ent, 0);
 }
 
