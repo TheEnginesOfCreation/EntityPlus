@@ -544,8 +544,8 @@ model2 : path/name of model to include (eg: models/mapobjects/bitch/fembotbig.md
 origin : alternate method of setting XYZ origin of .md3 model included with entity (See Notes).
 light : constantLight radius of .md3 model included with entity. Has no effect on the entity's brushes (default 0).
 color : constantLight color of .md3 model included with entity. Has no effect on the entity's brushes (default 1 1 1).
-targetname : target_unlink can target this entity to link/unlink it from the game world.
-targetname2 : target_unlink can target this entity to link/unlink it from the game world.
+targetname : a func_button or trigger that points to this will link/unlink the func_static from the world.
+targetname2 : a func_button or trigger that points to this will link/unlink the func_static from the world.
 -------- Q3MAP2 KEYS --------
 _targetname : Used to attach a misc_model entity to this entity.
 _lightmapscale : Floating point value scaling the resolution of lightmaps on brushes/patches in this entity (default 1.0).

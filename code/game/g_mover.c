@@ -1803,6 +1803,11 @@ STATIC
 */
 
 
+void Use_Static(gentity_t* ent, gentity_t* other, gentity_t* activator) {
+	G_Printf("link or unlink\n");
+	G_SetEntityLinked(ent, 0);
+}
+
 /*QUAKED func_static (0 .5 .8) ? START_UNLINKED
 A bmodel that just sits there, doing nothing.  Can be used for conditional walls and models.
 "model2"	.md3 model to also draw
@@ -1818,6 +1823,8 @@ void SP_func_static( gentity_t *ent ) {
 	if ( ent->spawnflags & 1 ) {
 		trap_UnlinkEntity( ent );
 	}
+
+	ent->use = Use_Static;
 }
 
 
