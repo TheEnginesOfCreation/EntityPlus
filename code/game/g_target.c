@@ -280,14 +280,16 @@ void target_laser_think(gentity_t *self) {
 
 	// if pointed at another entity, set movedir to point at it
 	if (self->enemy) {
-		VectorMA(self->enemy->s.origin, 0.5, self->enemy->r.mins, point);
+		//VectorMA(self->enemy->s.origin, 0.5, self->enemy->r.mins, point);
+		VectorMA(self->enemy->r.currentOrigin, 0.5, self->enemy->r.mins, point);
+		
 		VectorMA(point, 0.5, self->enemy->r.maxs, point);
 		VectorSubtract(point, self->s.origin, self->movedir);
 		VectorNormalize(self->movedir);
 	}
 
 	// fire forward and see what we hit
-	VectorMA(self->s.origin, 2048, self->movedir, end);
+	VectorMA(self->s.origin, 4096, self->movedir, end);
 
 	trap_Trace(&tr, self->s.origin, NULL, NULL, end, self->s.number, CONTENTS_SOLID | CONTENTS_BODY );
 

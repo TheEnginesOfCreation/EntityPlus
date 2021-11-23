@@ -10,6 +10,7 @@ v1.1.9 (?? ??? ????)
 	- [Fixed] Dropped backpack gets removed when stuck between doors.
 	- [Fixed] Dropped backpack is always moved to the same info_backpack position if multiple info_backpacks exist.
 	- [Changed] Skill level indicator icons colors.
+	- [Changed] target_laser can target moving func_entities to create moving laser effects
 
 v1.1.8 (16 june 2021)
 	- [Added] target_laser entity.
