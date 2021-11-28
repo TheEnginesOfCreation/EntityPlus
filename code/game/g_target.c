@@ -1523,6 +1523,7 @@ void target_cutscene_use (gentity_t *self, gentity_t *other, gentity_t *activato
 
 	//unlink the player from the world so he becomes non-solid, as the player will physically be in the position of the camera
 	trap_UnlinkEntity( activator );
+	activator->r.contents -= CONTENTS_BODY;
 
 	//prevent bots from moving/shooting while playing the cutscene
 	if ( self->spawnflags & 1 ) {

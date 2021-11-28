@@ -6,13 +6,14 @@ v1.1.9 (?? ??? ????)
 	- [Added] Any trigger can target func_static to link or unlink it from the world.
 	- [Added] START_AT_PLAYER spawnflag to target_cutscene.
 	- [Fixed] func_breakable EXPLOSION spawnflag shows missing shader effect when used before a rocket launcher is used in the level.
-	- [Fixed] SILENT spawnflag for trigger_push is missing from entities.def
+	- [Fixed] SILENT spawnflag for trigger_push is missing from entities.def.
 	- [Fixed] Obsolete debugging code outputs bot AI related debug messages to console.
 	- [Fixed] Dropped backpack gets removed when stuck between doors.
 	- [Fixed] Dropped backpack is always moved to the same info_backpack position if multiple info_backpacks exist.
 	- [Fixed] Every time the player gains or loses (carnage) score, the player gains an additional single point.
+	- [Fixed] Player gets damaged during cutscene if camera moves through target_laser entity.
 	- [Changed] Skill level indicator icons colors.
-	- [Changed] target_laser can target moving func_entities to create moving laser effects
+	- [Changed] target_laser can target moving func_entities to create moving laser effects.
 
 v1.1.8 (16 june 2021)
 	- [Added] target_laser entity.
