@@ -45,7 +45,7 @@ void AddScore( gentity_t *ent, vec3_t origin, int score ) {
 	if ( origin )
 		ScorePlum(ent, origin, score);
 
-	if ( ent->client->ps.persistant[PERS_SCORE] += score >= 0 )	//don't let score drop below 0 in entityplus
+	if ( (ent->client->ps.persistant[PERS_SCORE] + score) >= 0 )	//don't let score drop below 0 in entityplus, in case added score is negative
 		ent->client->ps.persistant[PERS_SCORE] += score;
 
 	//CalculateRanks();
