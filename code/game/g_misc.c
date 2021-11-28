@@ -60,6 +60,18 @@ void SP_light( gentity_t *self ) {
 /*QUAKED info_camera (0 0.5 0) (-4 -4 -4) (4 4 4)
 Used as a positional and viewangles target for in-game cutscenes.
 */
+void originToVariableInfo( char variableInfo[MAX_INFO_STRING], vec3_t origin ) {
+	Info_SetValueForKey(variableInfo, "o10", va("%f", origin[0]));
+	Info_SetValueForKey(variableInfo, "o11", va("%f", origin[1]));
+	Info_SetValueForKey(variableInfo, "o12", va("%f", origin[2]));
+}
+
+void anglesToVariableInfo(char variableInfo[MAX_INFO_STRING], vec3_t angles) {
+	Info_SetValueForKey(variableInfo, "a10", va("%f", angles[0]));
+	Info_SetValueForKey(variableInfo, "a11", va("%f", angles[1]));
+	Info_SetValueForKey(variableInfo, "a12", va("%f", angles[2]));
+}
+
 void Use_Camera (gentity_t *self, gentity_t *other, gentity_t *activator) {
 	char variableInfo[MAX_INFO_STRING];
 
@@ -69,12 +81,16 @@ void Use_Camera (gentity_t *self, gentity_t *other, gentity_t *activator) {
 	Info_SetValueForKey(variableInfo, "t", va("%i", level.time));
 
 	//add origin, viewangles and fov of source camera
-	Info_SetValueForKey(variableInfo, "o10", va("%f", self->s.origin[0]));
-	Info_SetValueForKey(variableInfo, "o11", va("%f", self->s.origin[1]));
-	Info_SetValueForKey(variableInfo, "o12", va("%f", self->s.origin[2]));
-	Info_SetValueForKey(variableInfo, "a10", va("%f", self->s.angles[0]));
-	Info_SetValueForKey(variableInfo, "a11", va("%f", self->s.angles[1]));
-	Info_SetValueForKey(variableInfo, "a12", va("%f", self->s.angles[2]));
+	if (self->armor > 0) {	//armor is abused here to indicate whether or not camera should use player's origin/viewangles or its own
+		//use origin and viewangles of player
+		originToVariableInfo(variableInfo, level.clients[0].ps.origin);
+		anglesToVariableInfo(variableInfo, level.clients[0].ps.viewangles);
+	}
+	else {
+		//use origin and angles of this camera
+		originToVariableInfo(variableInfo, self->s.origin);
+		anglesToVariableInfo(variableInfo, self->s.angles);
+	}
 	Info_SetValueForKey(variableInfo, "f1", va("%i", self->count));
 	
 	if ( self->nextTrain && (self->spawnflags & 1) ) {

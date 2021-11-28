@@ -1126,13 +1126,18 @@ void G_LinkCameras( gentity_t *ent ) {
 	gentity_t	*viewTarget;
 	gentity_t	*tmp;
 	vec3_t		dir;
+	int			usePlayerOriginAndViewangles = 0;
 	
 	// if no entity was passed or the passed entity is not a target_cutscene and not an info_camera, do not link
 	if ( !ent || (strcmp(ent->classname, "target_cutscene") && strcmp(ent->classname, "info_camera")) )
 		return;
 
-	if ( !strcmp(ent->classname, "target_cutscene") )
+	if (!strcmp(ent->classname, "target_cutscene")) {
 		parent = ent;			//if entity is a target_cutscene, the nextTrain target should set the target_cutscene as its parent
+		if (ent->spawnflags & 2) {
+			usePlayerOriginAndViewangles = 1;	//only allow first camera in cutscene to start at player's origin/viewangles
+		}
+	}
 	else
 	{
 		parent = ent->parent;	//if entity is an info_camera, the nextTrain target should set the info_camera's parent as parent
@@ -1184,6 +1189,9 @@ void G_LinkCameras( gentity_t *ent ) {
 			} else if ( !strcmp(t->classname, "info_camera") ) {
 				ent->nextTrain = t;
 				t->parent = parent;
+				if (usePlayerOriginAndViewangles) {
+					t->armor = 1;	//abuse the "armor" property to tell this camera it needs to use the player's origin and viewangles
+				}
 				G_LinkCameras( t );
 				return;
 			}
@@ -1201,6 +1209,9 @@ void G_LinkCameras( gentity_t *ent ) {
 			} else if ( !strcmp(t->classname, "info_camera") ) {
 				ent->nextTrain = t;
 				t->parent = parent;
+				if (usePlayerOriginAndViewangles) {
+					t->armor = 1;	//abuse the "armor" property to tell this camera it needs to use the player's origin and viewangles
+				}
 				G_LinkCameras( t );
 				return;
 			}
@@ -1222,6 +1233,9 @@ void G_LinkCameras( gentity_t *ent ) {
 			} else if ( !strcmp(t->classname, "info_camera") ) {
 				ent->nextTrain = t;
 				t->parent = parent;
+				if (usePlayerOriginAndViewangles) {
+					t->armor = 1;	//abuse the "armor" property to tell this camera it needs to use the player's origin and viewangles
+				}
 				G_LinkCameras( t );
 				return;
 			}
@@ -1239,6 +1253,9 @@ void G_LinkCameras( gentity_t *ent ) {
 			} else if ( !strcmp(t->classname, "info_camera") ) {
 				ent->nextTrain = t;
 				t->parent = parent;
+				if (usePlayerOriginAndViewangles) {
+					t->armor = 1;	//abuse the "armor" property to tell this camera it needs to use the player's origin and viewangles
+				}
 				G_LinkCameras( t );
 				return;
 			}

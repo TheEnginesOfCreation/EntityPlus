@@ -420,7 +420,14 @@ namespace mvt
 					break;
 				case "target_effect":
 					if (ent.GetIntValue("spawnflags") != null && ((ent.GetIntValue("spawnflags").Value & 128) > 0)) {
-						Debug(" > use of \"SMOKEPUFF\" spawnflag required " + VersionsStrings[(int)Versions.one_one_nine]);
+						Debug(" > use of \"SMOKEPUFF\" spawnflag requires " + VersionsStrings[(int)Versions.one_one_nine]);
+						return true;
+					}
+					break;
+				case "target_cutscene":
+					if (ent.GetIntValue("spawnflags") != null && ((ent.GetIntValue("spawnflags").Value & 2) > 0))
+					{
+						Debug(" > use of \"START_AT_PLAYER\" spawnflag requires " + VersionsStrings[(int)Versions.one_one_nine]);
 						return true;
 					}
 					break;

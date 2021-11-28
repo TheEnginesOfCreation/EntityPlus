@@ -1530,7 +1530,7 @@ When bot PATROL_WALK and ALWAYS_WALK are set, the bot will always walk and ignor
 
 //=============================================================================
 
-/*QUAKED target_cutscene (0 .5 0) (-8 -8 -8) (8 8 8) HALT_AI
+/*QUAKED target_cutscene (0 .5 0) (-8 -8 -8) (8 8 8) HALT_AI START_AT_PLAYER
 Starts a cutscene. Moves player view to the info_camera it targets.
 -------- KEYS --------
 target : this points to an info_camera entity to which the camera view should go.
@@ -1539,8 +1539,11 @@ targetname : activating entity points to this.
 targetname2 : activating entity points to this.
 -------- SPAWNFLAGS --------
 HALT_AI : Freezes all enemies in place while the cutscene is running.
+START_AT_PLAYER : The first info_camera's position and viewing angles are ignored and replaced with the player's position and viewing angles at the time of activating the cutscene.
 -------- NOTES --------
-Note that the player disappears from the map during the cutscene. This means that the player itself can never be shown during the cutscene.*/
+Note that the player disappears from the map during the cutscene. This means that the player itself can never be shown during the cutscene.
+
+The START_AT_PLAYER spawnflag ONLY affects the camera targeted by this target_cutscene. Any subsequent camera's in the cutscene will use their own position and viewing angles.*/
 
 //=============================================================================
 
