@@ -392,7 +392,8 @@ void Use_Shooter( gentity_t *ent, gentity_t *other, gentity_t *activator ) {
 		VectorSubtract( ent->enemy->r.currentOrigin, ent->s.origin, dir );
 		VectorNormalize( dir );
 	} else if ( ent->spawnflags & 1 ) {
-		if ( !level.player )
+		
+		if ( !level.player || level.player->client->ps.pm_type == PM_CUTSCENE)
 			return;
 
 		VectorSubtract( level.player->r.currentOrigin, ent->s.origin, dir );
