@@ -12,6 +12,7 @@ v1.1.9 (?? ??? ????)
 	- [Fixed] Dropped backpack is always moved to the same info_backpack position if multiple info_backpacks exist.
 	- [Fixed] Every time the player gains or loses (carnage) score, the player gains an additional single point.
 	- [Fixed] Player gets damaged during cutscene if camera moves through target_laser entity.
+	- [Fixed] Network timeout occurs when triggering target_finish during a cutscene.
 	- [Changed] Skill level indicator icons colors.
 	- [Changed] target_laser can target moving func_entities to create moving laser effects.
 
