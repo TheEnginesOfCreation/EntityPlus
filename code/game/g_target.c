@@ -1106,7 +1106,7 @@ high score (if it is higher than the current highscore) for the current map and,
 game.
 */
 void target_finish_think(gentity_t* self) {
-	target_finish_use(self, self, self->activator);
+	target_finish_use(self, self, level.player);
 }
 
 void target_finish_use (gentity_t *self, gentity_t *other, gentity_t *activator) {
@@ -1118,24 +1118,23 @@ void target_finish_use (gentity_t *self, gentity_t *other, gentity_t *activator)
 	if ( IsBot( activator ) )
 		return;
 
-	if (activator->client->ps.pm_type == PM_CUTSCENE) {
+	if (level.player->client->ps.pm_type == PM_CUTSCENE) {
 		// we're in a cutscene. Things break if we go to intermission while in a cutscene. Make target_finish wait for cutscene to end.
 		self->think = target_finish_think;
 		self->nextthink = level.time + FRAMETIME;
-		self->activator = activator;
 	} else {
 		//set number of secrets to persistant so it can be displayed in the client side scoreboard. If user persistant secretcount already
 		//contains a secretcount from a previous level, add that to the secretcount of this level.
 
 		//TODO: This code below is "run once" code (I think). Rewrite it so it can be run over and over again so we can properly determine the player's score at any point in time
-		secretFound = (activator->client->ps.persistant[PERS_SECRETS] & 0x7F);
-		secretCount = ((activator->client->ps.persistant[PERS_SECRETS] >> 7) & 0x7F) + level.secretCount;
-		activator->client->ps.persistant[PERS_SECRETS] = secretFound + (secretCount << 7);
+		secretFound = (level.player->client->ps.persistant[PERS_SECRETS] & 0x7F);
+		secretCount = ((level.player->client->ps.persistant[PERS_SECRETS] >> 7) & 0x7F) + level.secretCount;
+		level.player->client->ps.persistant[PERS_SECRETS] = secretFound + (secretCount << 7);
 		///
 
 
 		// calculate player's score
-		scores = G_CalculatePlayerScore(activator);
+		scores = G_CalculatePlayerScore(level.player);
 
 		// write high score file
 		COM_WriteLevelScores(G_GetScoringMapName(), scores);
