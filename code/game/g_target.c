@@ -1533,8 +1533,8 @@ void target_cutscene_use (gentity_t *self, gentity_t *other, gentity_t *activato
 	}
 
 	//unlink the player from the world so he becomes non-solid, as the player will physically be in the position of the camera
-	trap_UnlinkEntity( activator );
-	activator->r.contents -= CONTENTS_BODY;
+	trap_UnlinkEntity( level.player );
+	level.player->r.contents -= CONTENTS_BODY;
 
 	//prevent bots from moving/shooting while playing the cutscene
 	if ( self->spawnflags & 1 ) {
@@ -1545,21 +1545,21 @@ void target_cutscene_use (gentity_t *self, gentity_t *other, gentity_t *activato
 	}
 
 	//set player's velocity to 0 so he stops right in his tracks (without this the player slides slightly forward when the cutscene ends)
-	activator->client->ps.velocity[0] = 0;
-	activator->client->ps.velocity[1] = 0;
-	activator->client->ps.velocity[2] = 0;
+	level.player->client->ps.velocity[0] = 0;
+	level.player->client->ps.velocity[1] = 0;
+	level.player->client->ps.velocity[2] = 0;
 
 	//set player's orgOrigin so we can move the player back to its original location when the cutscene ends
-	VectorCopy(activator->client->ps.origin, activator->orgOrigin);
+	VectorCopy(level.player->client->ps.origin, level.player->orgOrigin);
 
 	//disable synchronousClients to prevent "CVAR_Update: handle out of range" error. See issue 162.
 	if (g_allowSyncCutscene.integer == 0) {
-		activator->skill = g_synchronousClients.integer;	//abusing the skill field to temporarily store the sync-clients value
+		level.player->skill = g_synchronousClients.integer;	//abusing the skill field to temporarily store the sync-clients value
 		trap_Cvar_Set("g_synchronousClients", "0");
 	}
-
+	
 	//activate the first camera
-	self->nextTrain->use( self->nextTrain, other, activator );
+	self->nextTrain->use( self->nextTrain, other, level.player);
 }
 
 void target_cutscene_think (gentity_t *self) {

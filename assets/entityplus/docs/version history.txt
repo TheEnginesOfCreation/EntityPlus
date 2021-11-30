@@ -14,6 +14,7 @@ v1.1.9 (?? ??? ????)
 	- [Fixed] Player gets damaged during cutscene if camera moves through target_laser entity.
 	- [Fixed] Network timeout occurs when triggering target_finish during a cutscene.
 	- [Fixed] shooter_ entities with TARGET_PLAYER spawnflag try to shoot the camera while in a cutscene.
+	- [Fixed] target_cutscene causes error when triggered by any entity other than the player.
 	- [Changed] Skill level indicator icons colors.
 	- [Changed] target_laser can target moving func_entities to create moving laser effects.
 
