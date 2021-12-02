@@ -1785,7 +1785,7 @@ When the SUBTITLE spawnflag is set and no wait key has been specified, the game 
 
 //=============================================================================
 
-/*QUAKED target_push (.5 .5 .5) (-8 -8 -8) (8 8 8) BOUNCEPAD
+/*QUAKED target_push (.5 .5 .5) (-8 -8 -8) (8 8 8) BOUNCEPAD JUMP
 This can be used to create jump pads and launch ramps. The direction of push can be set by the "angles" key or pointing to a target_position or info_notnull entity. Unlike trigger_push, this is NOT client side predicted and must be activated by a trigger.
 -------- KEYS --------
 angles: this sets the pitch and yaw aiming angles of push entity (default 0 0). The roll angle does not apply.
@@ -1793,8 +1793,11 @@ speed : speed of push (default 1000). Has no effect if entity targets an aiming 
 targetname : the activating entity points to this. Push originates from the location of the trigger.
 target : this points to the aiming entity to which the player will jump.
 -------- SPAWNFLAGS --------
-BOUNCEPAD : if set, trigger will play bounce noise instead of beep noise when activated (recommended).
+BOUNCEPAD : if set, trigger will play bounce noise instead of being silent when activated. Cannot be used in combination with JUMP.
+JUMP : if set, trigger will play the activating player/bot's jump sound instead of being silent when activated. Cannot be used in combination with BOUNCEPAD.
 -------- NOTES --------
+If both BOUNCEPAD and JUMP are selected, the JUMP spawnflag is ignored.
+
 To make a jump pad or launch ramp, create a trigger_multiple where the jump must originate. Place the target_push directly above the trigger_multiple and place the target_position entity at the highest point of the jump. Target the trigger_multiple to the target_push and target the target_push to the target_position/info_notnull (or set the target_push's "angles" key). Note that the "angle" key also works.*/
 
 //=============================================================================

@@ -251,8 +251,10 @@ void SP_target_push( gentity_t *self ) {
 
 	if ( self->spawnflags & 1 ) {
 		self->noise_index = G_SoundIndex("sound/world/jumppad.wav");
+	} else if (self->spawnflags & 2) {
+		self->noise_index = G_SoundIndex("*jump1.wav");
 	} else {
-		self->noise_index = G_SoundIndex("sound/misc/windfly.wav");
+		self->noise_index = G_SoundIndex("sound/misc/silence.wav");
 	}
 	if ( self->target ) {
 		VectorCopy( self->s.origin, self->r.absmin );

@@ -431,6 +431,13 @@ namespace mvt
 						return true;
 					}
 					break;
+				case "target_push":
+					if (ent.GetIntValue("spawnflags") != null && ((ent.GetIntValue("spawnflags").Value & 2) > 0))
+					{
+						Debug(" > use of \"JUMP\" spawnflag requires " + VersionsStrings[(int)Versions.one_one_nine]);
+						return true;
+					}
+					break;
 			}
 			return false;
 		}
