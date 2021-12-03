@@ -1,4 +1,4 @@
-v1.1.9 (?? ??? ????)
+v1.1.9 (3 december 2021)
 	- [Added] SPAWN_EFFECT spawnflag to target_botspawn.
 	- [Added] SMOKEPUFF spawnflag to target_effect.
 	- [Added] Setting "health" key for a func_door to a value less than 0 prevents door from being opened by shooting it.
