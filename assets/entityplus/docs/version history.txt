@@ -19,6 +19,7 @@ v1.1.9 (?? ??? ????)
 	- [Fixed] target_push without spawnflags causes beep sound to play instead of being silent.
 	- [Changed] Skill level indicator icons colors.
 	- [Changed] target_laser can target moving func_entities to create moving laser effects.
+	- [Changed] Removed target_script from entities.def
 
 v1.1.8 (16 june 2021)
 	- [Added] target_laser entity.

@@ -1839,15 +1839,6 @@ count: number of points to add to player's carnage score (default 1).*/
 
 //=============================================================================
 
-/*QUAKED target_script (0 .5 0) (-8 -8 -8) (8 8 8)
-When activated the entity executes the specified script file. Note that the player can disable the execution of scripts by setting g_disableScripts to 1. Therefore it is important that level designers always assume that the script is NOT going to be executed. In practice, this means that scripts used by target_script should only tweak aestethical settings which will not directly impact the gameplay or experience of the level.
--------- KEYS --------
-targetname : ativating entity points to this.
-targetname2 : activating entity points to this.
-script: filename of the script to execute (example: scripts/myscript.cfg).*/
-
-//=============================================================================
-
 /*QUAKED target_secret (0 .5 0) (-8 -8 -8) (8 8 8) SILENT
 When activated, counts the secret as being found. Finding a secret adds 5% of the carnage score to the player's total score.
 -------- KEYS --------
@@ -1948,7 +1939,7 @@ noise : path/name of .wav file to play while laser is turned on (eg. sound/weapo
 START_ON : the laser will be turned on as it is spawned.
 -------- NOTES --------
 The laser deals its damage every 100ms. Unless the laser should absolutely positively be lethal, don't use too high a value for the dmg key.
-Entities used as target can be target_position for static lasers, or func_ entities for moving lasers.*/
+Entities used as target can be target_position for static lasers, or func_ entities for moving lasers. When using func_ entities, the func_ entity must have an origin brush.*/
 
 //=============================================================================
 
