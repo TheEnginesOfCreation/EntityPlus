@@ -17,6 +17,7 @@ To add a little variety to the mix, download these custom maps:
 * [Shipyard 17 map by Martinus](http://www.quake3world.com/forum/viewtopic.php?f=10&t=51412) (56.9MB)
 * [Dissent Breach map by Eraser](http://www.theenginesofcreation.com/content.php?id=addons/ep_dissent) (29MB)
 * [Castle Wolfenstein map by Eraser](http://www.theenginesofcreation.com/content.php?id=addons/ep_wolf3d) (3MB)
+* [The Dimension of Evil map by Eraser](http://www.theenginesofcreation.com/content.php?id=addons/ep_evil) (39MB)
 
 If you're a level designer, you might be interested in the following downloads:
 * [The manual for v1.1.9](https://github.com/TheEnginesOfCreation/EntityPlus/releases/download/1.1.9/manual-1.1.9.pdf) (note: the manual is also included with the mod itself)
