@@ -10,7 +10,7 @@ If you're going to play EntityPlus, you have to download the EntityPlus mod:
 * [EntityPlus v1.1.9](https://github.com/TheEnginesOfCreation/EntityPlus/releases/tag/1.1.9)
 
 To add a little variety to the mix, download these custom maps:
-* [Carmack Fortress map by deqer](https://code.google.com/p/entityplus/downloads/detail?name=krep1.zip) (29.1MB)
+* [Carmack Fortress map by deqer](https://storage.googleapis.com/google-code-archive-downloads/v2/code.google.com/entityplus/krep1.zip) (29.1MB)
 * [Testing Procedures map by Eraser](https://code.google.com/p/entityplus/downloads/detail?name=ep_procedures-v5.zip) (33.6MB)
 * [Survival map by Eraser](https://code.google.com/p/entityplus/downloads/detail?name=ep_survival-v1.zip) (12.1MB) 
 * [Duckhunt mappack by Eraser](https://dl.dropboxusercontent.com/u/18687963/theenginesofcreation/ep_duckhunt.zip) (696KB)
