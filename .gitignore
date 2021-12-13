@@ -18,3 +18,7 @@ minversiontool/.vs/
 minversiontool/obj/Debug/DesignTimeResolveAssemblyReferencesInput.cache
 minversiontool/obj/
 minversiontool/mvt.csproj.user
+
+entitydefinitionconverter/.vs/edc/v16/.suo
+
+entitydefinitionconverter/obj/Debug/

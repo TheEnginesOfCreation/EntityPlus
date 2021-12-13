@@ -15,6 +15,7 @@
 	<key>string</key>
 	<length>integer</length>
 	<lockedsound>sound</lockedsound>
+  <loottarget>target</loottarget>
 	<mapname>string</mapname>
 	<objectivesoverlay>string</objectivesoverlay>
 	<overlay>string</overlay>

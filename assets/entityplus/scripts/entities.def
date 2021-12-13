@@ -1505,6 +1505,7 @@ target : this points to a info_waypoint entity to which the bot should patrol af
 targetname : activating entity points to this.
 targetname2 : activating entity points to this.
 deathtarget : this points to entities to activate when a bot spawned by the target_botspawn dies.
+loottarget : this points to any item or holdable entity. The item will be dropped by the bot when it dies.
 -------- SPAWNFLAGS --------
 WP_GAUNTLET : The bot spawns into the game with a Gauntlet.
 WP_MACHINEGUN : The bot spawns into the game with a Machinegun.
@@ -1707,7 +1708,7 @@ targetname2 : activating entity points to this.
 key : the key to modify on the target entity.
 value : the value to set for the key on the target entity.
 -------- NOTES --------
-The following keys can be modified: angle, clientname, color, count, deathtarget, health, key, light, mapname, message, overlay, script, target, target2, targetname, targetname2, targetshadername, teleportertarget, spawnflags, speed, skill, value, wait, armor.
+The following keys can be modified: angle, clientname, color, count, deathtarget, loottarget, health, key, light, mapname, message, overlay, script, target, target2, targetname, targetname2, targetshadername, teleportertarget, spawnflags, speed, skill, value, wait, armor.
 
 The values for color and light can only be set on func_ entities. Light entities cannot be modified in-game.*/
 

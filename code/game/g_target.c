@@ -1257,6 +1257,11 @@ void modify_entity ( gentity_t *self, gentity_t *ent ) {
 		return;
 	}
 
+	if ( !strcmp( self->key, "loottarget" ) ) {
+		ent->lootTarget = self->value;
+		return;
+	}
+
 	if ( !strcmp( self->key, "skill" ) ) {
 		ent->skill = atof(self->value);
 		return;

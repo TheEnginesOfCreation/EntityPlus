@@ -62,7 +62,7 @@ void TossClientItems( gentity_t *self ) {
 	gitem_t		*item;
 
 	if ( IsBot( self ) )
-		return;	//bots don't drop items in single player
+		return;	//bots don't drop items in single player. Bots dropping loot is handled in G_DropLoot(...)
 
 	//the player drops a backpack in single player
 	item = BG_FindItemForBackpack(); 
@@ -345,8 +345,12 @@ void player_die( gentity_t *self, gentity_t *inflictor, gentity_t *attacker, int
 
 	// Fire trigger_death and trigger_frag target entities and the deathtarget for the related target_botspawn 
 	G_UseTriggerFragAndDeathEntities ( self, attacker );
-	if ( self->parent )
-		G_UseDeathTargets( self->parent, self );
+	
+	// Trigger deathtarget and drop loot
+	if ( self->parent ) {
+		G_UseDeathTargets(self->parent, self);
+		G_DropLoot(self->parent, self);
+	}
 
 	if ( !IsBot( self ) )
 		G_FadeOut( 1.0 );

@@ -302,7 +302,7 @@ void G_UseTargets( gentity_t *ent, gentity_t *activator ) {
 ==============================
 G_UseDeathTargets
 
-"activator" should be set to the entity that initiated the firing.
+"activator" is the BOT client that died.
 
 Search for (string)targetname in all entities that
 match (string)self.deathtarget and call their .use function.
@@ -328,7 +328,7 @@ void G_UseDeathTargets( gentity_t *ent, gentity_t *activator ) {
 		return;
 	}
 
-	//search for entities with mathcing targetname
+	//search for entities with matching targetname
 	t = NULL;
 	while ( (t = G_Find (t, FOFS(targetname), ent->deathTarget)) != NULL ) {
 		if ( t == ent ) {
@@ -355,6 +355,62 @@ void G_UseDeathTargets( gentity_t *ent, gentity_t *activator ) {
 			}
 		}
 		if ( !ent->inuse ) {
+			G_Printf("entity was removed while using targets\n");
+			return;
+		}
+	}
+}
+
+/*
+==============================
+G_DropLoot
+
+"activator" is the BOT client that died
+
+Search for (string)targetname in all entities that
+match (string)self.lootTarget and spawn it.
+Specifically used for target_botspawn entities that have their
+lootTarget key set.
+
+==============================
+*/
+
+void G_DropLoot(gentity_t* ent, gentity_t* activator) {
+	gentity_t* t;
+
+	if (!ent || !activator) {
+		return;
+	}
+
+	if (!ent->lootTarget) {
+		return;
+	}
+
+	//search for entities with matching targetname
+	t = NULL;
+	while ((t = G_Find(t, FOFS(targetname), ent->lootTarget)) != NULL) {
+		if (t->s.eType != ET_ITEM) {
+			G_Printf("WARNING: Target entity is not an item\n");
+		} else {
+			t->item->quantity = t->count;
+			Drop_Item(activator, t->item, 0);
+		}
+		if (!ent->inuse) {
+			G_Printf("entity was removed while using targets\n");
+			return;
+		}
+	}
+
+	//search for entities with matching targetname2
+	t = NULL;
+	while ((t = G_Find(t, FOFS(targetname2), ent->lootTarget)) != NULL) {
+		if (t->s.eType != ET_ITEM) {
+			G_Printf("WARNING: Target entity is not an item\n");
+		} else {
+			t->item->quantity = t->count;
+			Drop_Item(activator, t->item, 0);
+		}
+		if (!ent->inuse) {
 			G_Printf("entity was removed while using targets\n");
 			return;
 		}

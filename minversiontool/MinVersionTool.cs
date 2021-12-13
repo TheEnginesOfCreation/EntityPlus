@@ -47,7 +47,8 @@ namespace mvt
             one_one_six = 5,
             one_one_seven = 6,
             one_one_eight = 7,
-			one_one_nine = 8
+			one_one_nine = 8,
+			one_one_ten = 9
 		}
 
 		/// <summary>List of strings for supported EntityPlus versions</summary>
@@ -61,7 +62,8 @@ namespace mvt
             "1.1.6",
             "1.1.7",
             "1.1.8",
-			"1.1.9"
+			"1.1.9",
+			"1.1.10"
 		};
 
 		/// <summary>A list of all the known entity classnames</summary>
@@ -259,6 +261,10 @@ namespace mvt
 				return Versions.UnableToDetect;
 			}
 
+			//Checking for v1.1.10 requirements
+			if (HasVersion1110Keys(ent))
+				return Versions.one_one_ten;
+
 			//Checking for v1.1.9 requirements
 			if (HasVersion119Keys(ent))
 				return Versions.one_one_nine;
@@ -378,13 +384,27 @@ namespace mvt
 
 
 		#region Version checking methods
+		private bool HasVersion1110Keys(Entity ent)
+		{
+			switch (ent.Classname)
+			{
+				case "target_botspawn":
+					if (ent.GetValue("loottarget") != null) {
+						Debug(" > use of \"loottarget\" key requires " + VersionsStrings[(int)Versions.one_one_ten]);
+						return true;
+					}
+					break;
+			}
+			return false;
+		}
+
 		private bool HasVersion119Keys(Entity ent)
 		{
 			switch (ent.Classname)
 			{
 				case "target_botspawn":
 					if (ent.GetIntValue("spawnflags") != null && ((ent.GetIntValue("spawnflags").Value & 16384) > 0)) {
-						Debug(" > use of \"SPAWN_EFFECT\" spawnflag required " + VersionsStrings[(int)Versions.one_one_nine]);
+						Debug(" > use of \"SPAWN_EFFECT\" spawnflag requires " + VersionsStrings[(int)Versions.one_one_nine]);
 						return true;
 					}
 					break;

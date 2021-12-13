@@ -192,6 +192,7 @@ struct gentity_s {
 	char		*targetname2; //second targetname
 	int			backpackContents[WP_NUM_WEAPONS - 1];
 	char		*deathTarget;	// target to trigger when bot from target_botspawn dies
+	char		*lootTarget;	//item to drop when bot from target_botspawn dies
 	float		skill; // skill level set by target_skill
 	char		*overlay; // reference to overlay texture for target_effect
 	char		*key;	// key for target_modify to change
