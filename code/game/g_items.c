@@ -599,6 +599,8 @@ gentity_t *LaunchBackpack( gitem_t *item, gentity_t *self, vec3_t velocity ) {
 	dropped->s.eFlags |= EF_BOUNCE_HALF;
 	dropped->flags = FL_DROPPED_ITEM;
 
+	dropped->s.constantLight = (255 << 8) | (50 << 24);
+
 	trap_LinkEntity (dropped);
 
 	//set contents of backpack
