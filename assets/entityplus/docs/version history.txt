@@ -1,6 +1,7 @@
 v1.1.10 (?)
 	- [Added] Dropped backpacks glow with green light so they're easily distinguisable.
 	- [Added] "loottarget" key to target_botspawn.
+	- [Changed] New backpack model by DaEngineer.
 
 v1.1.9 (3 december 2021)
 	- [Added] SPAWN_EFFECT spawnflag to target_botspawn.

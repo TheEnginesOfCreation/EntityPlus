@@ -5,8 +5,9 @@
 		Backpack & Debris Models
 		By Victor "DaEngineer" Karp
 
-		June 5, 2011
-		http://www.victorkarp.wordpress.com
+		June 5, 2011 (first backpack version and debris models)
+		December 13, 2021 (new backpack)
+		https://victorkarp.com
 
 ======================================================================
 
