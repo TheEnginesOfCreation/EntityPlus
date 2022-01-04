@@ -1060,7 +1060,9 @@ void ClientBegin( int clientNum ) {
 	}
 
 	// set info that persisted after mapchange
-	G_UpdateClientWithSessionData( ent );
+	if (!IsBot(ent)) {
+		G_UpdateClientWithSessionData(ent);
+	}
 	G_LogPrintf( "ClientBegin: %i\n", clientNum );
 
 	// count current clients and rank for scoreboard
