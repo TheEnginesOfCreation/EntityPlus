@@ -1,5 +1,5 @@
 v1.1.10 (?)
-	- [Added] Dropped backpacks glow with green light so they're easily distinguisable.
+	- [Added] Dropped backpacks emit green smoke so they're more easily distinguisable.
 	- [Added] "loottarget" key to target_botspawn.
 	- [Fixed] Spawning a bot causes scores to be written to wrong file in multi-bsp levels.
 	- [Changed] New backpack model by DaEngineer.

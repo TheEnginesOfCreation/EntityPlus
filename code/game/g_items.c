@@ -563,6 +563,26 @@ gentity_t *LaunchItem( gitem_t *item, vec3_t origin, vec3_t velocity ) {
 	return dropped;
 }
 
+void BackpackThink(gentity_t* self) {
+	gentity_t* ent2;
+	
+	/*(
+	ent2 = G_TempEntity(self->r.currentOrigin, EV_PARTICLES_LINEAR_UP);
+	ent2->s.constantLight = (255 << 8);	//constantLight is used to determine particle color
+	ent2->s.eventParm = 25; //eventParm is used to determine the number of particles
+	ent2->s.generic1 = 50; //generic1 is used to determine the speed of the particles
+	*/
+
+	ent2 = G_TempEntity(self->r.currentOrigin, EV_SMOKEPUFF);
+	ent2->s.constantLight = (255 << 8);
+	ent2->s.eventParm = 10;	//eventParm is used to determine the amount of time the smoke puff exists
+	ent2->s.generic1 = 16;	//generic1 is used to determine the movement speed of the smoke puff
+	ent2->s.otherEntityNum = 1 * 32; //otherEntityNum is used to determine the size of the smokepuff. The default is 32.
+	ent2->s.angles[2] = 1;
+
+	self->nextthink = level.time + 1000;
+}
+
 /*
 ================
 LaunchBackpack
@@ -599,7 +619,10 @@ gentity_t *LaunchBackpack( gitem_t *item, gentity_t *self, vec3_t velocity ) {
 	dropped->s.eFlags |= EF_BOUNCE_HALF;
 	dropped->flags = FL_DROPPED_ITEM;
 
-	dropped->s.constantLight = (255 << 8) | (50 << 24);
+	// dropped->s.constantLight = (255 << 8) | (50 << 24);
+
+	dropped->nextthink = level.time + 1000;
+	dropped->think = BackpackThink;
 
 	trap_LinkEntity (dropped);
 
