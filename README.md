@@ -7,7 +7,7 @@ News and information about new features will be reported to our [Twitter feed](h
 ## Downloads
 
 If you're going to play EntityPlus, you have to download the EntityPlus mod:
-* [EntityPlus v1.1.9](https://github.com/TheEnginesOfCreation/EntityPlus/releases/tag/1.1.9)
+* [EntityPlus v1.1.10](https://github.com/TheEnginesOfCreation/EntityPlus/releases/tag/1.1.10)
 
 To add a little variety to the mix, download these custom maps:
 * [Carmack Fortress map by deqer](https://storage.googleapis.com/google-code-archive-downloads/v2/code.google.com/entityplus/krep1.zip) (29.1MB)
@@ -20,15 +20,15 @@ To add a little variety to the mix, download these custom maps:
 * [The Dimension of Evil map by Eraser](http://www.theenginesofcreation.com/content.php?id=addons/ep_evil) (39MB)
 
 If you're a level designer, you might be interested in the following downloads:
-* [The manual for v1.1.9](https://github.com/TheEnginesOfCreation/EntityPlus/releases/download/1.1.9/manual-1.1.9.pdf) (note: the manual is also included with the mod itself)
-* [MinversionTool 1.1.9.0](https://github.com/TheEnginesOfCreation/EntityPlus/releases/download/1.1.9/minversiontool-1.1.9.0.zip) to help you determine what the minimum requirements for your map are (note: requires the .NET Framework 3.5 or newer)
+* [The manual for v1.1.10](https://github.com/TheEnginesOfCreation/EntityPlus/releases/download/1.1.10/manual-1.1.10.pdf) (note: the manual is also included with the mod itself)
+* [MinversionTool 1.1.10.0](https://github.com/TheEnginesOfCreation/EntityPlus/releases/download/1.1.10/minversiontool-1.1.10.0.zip) to help you determine what the minimum requirements for your map are (note: requires the .NET Framework 3.5 or newer)
 
-If you're a level designer who is using GtkRadiant 1.5, then you may want to download the EntityPlus entities.ent file .def file for GtkRadiant 1.4/1.6 is included with the mod):
+If you're a level designer who is using GtkRadiant 1.5, then you may want to download the EntityPlus entities.ent file. The .def file for GtkRadiant 1.4/1.6 is included with the mod). Note that the file below was last compiled for EntityPlus 1.1.8 and is not be entirely up-to-date with the latest changes:
 * [entities.ent for v1.1.8](https://github.com/TheEnginesOfCreation/EntityPlus/releases/download/1.1.8/entities.ent)
 
 ## Features
 
-To view a complete list of features added to EntityPlus, download [the manual](https://github.com/TheEnginesOfCreation/EntityPlus/releases/download/1.1.9/manual-1.1.9.pdf). Additional information about each release can be found on the [EntityPlus wiki page](https://github.com/TheEnginesOfCreation/EntityPlus/blob/wiki/Index.md). 
+To view a complete list of features added to EntityPlus, download [the manual](https://github.com/TheEnginesOfCreation/EntityPlus/releases/download/1.1.10/manual-1.1.10.pdf). Additional information about each release can be found on the [EntityPlus wiki page](https://github.com/TheEnginesOfCreation/EntityPlus/blob/wiki/Index.md). 
 
 ## Example map
 The release package of EntityPlus contains an example map which demonstrates a number of the features found in EntityPlus. It is based on an old classic map that everyone that played Quake 3 will instantly recognize. Don't get too comfy though, because this time you'll be fighting through piles of enemy guards to uncover a secret that you never knew was there and escape to safety. The map can be found in the single player menu. 
