@@ -2,6 +2,22 @@
 
 For an overview of all features in EntityPlus, download the level designer manual here: https://github.com/TheEnginesOfCreation/EntityPlus/releases/tag/1.1.4
 
+## Additional info about the 1.1.10 release ##
+  * `[`Added] "loottarget" key to target\_botspawn to allow bots to drop items or holdables when fragged.
+  * `[`Fixed] Spawning a bot causes scores to be written to wrong file in multi-bsp levels.
+  * `[`Changed] New backpack model by DaEngineer.
+  * `[`Changed] Removed target_script from gamecode. The entity type no longer exists.
+
+Most important changes:
+
+**loottarget key for target\_botspawn**
+
+Bots normally don't drop weapons or items when they die in EntityPlus. Many games reward the player for dealing with enemies by dropping loot when the enemy is killed. To facilitate this type of reward, EntityPlus now allows level designers to set a loottarget key on target\_botspawn entities. The value of the key is the targetname (or targetname2) value of any item (weapons, ammo, health, armor, powerups) or holdable (medkit, teleporter, keys). The targeted item or holdable won't spawn into the level (similar to how target\_give works) but is dropped by the bot when it dies.
+
+**multi-bsp level fix**
+
+A long standing bug caused scores to be written to a file with the wrong filename when bots were spawned in a multi-bsp file level (levels which use the target\_mapchange entity). If you make and release a multi-bsp level, it is advised to set your level's minversion (in the .arena file) to at least 1.1.10
+
 ## Additional info about the 1.1.4 release ##
   * `[`Fixed] notarget console command does nothing.
   * `[`Fixed] Entities with matching targetname2 don't respond to target\_modify.
