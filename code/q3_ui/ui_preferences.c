@@ -31,7 +31,6 @@ GAME OPTIONS MENU
 #define ID_SUBTITLES			136
 #define ID_PAINTBALLMODE		137
 #define ID_BIGHEADMODE			138
-#define ID_DISABLESCRIPTS		139
 
 #define ID_BACK					150
 
@@ -65,7 +64,6 @@ typedef struct {
 	menuradiobutton_s	subtitles;
 	menuradiobutton_s	paintballmode;
 	menuradiobutton_s	bigheadmode;
-	menuradiobutton_s	disablescripts;
 	menubitmap_s		back;
 
 	qhandle_t			crosshairShader[NUM_CROSSHAIRS];
@@ -101,7 +99,6 @@ static void Preferences_SetMenuItems( void ) {
 	s_preferences.subtitles.curvalue		= trap_Cvar_VariableValue( "cg_drawsubtitles" ) != 0;
 	s_preferences.paintballmode.curvalue	= trap_Cvar_VariableValue( "cg_paintballMode" ) != 0;
 	s_preferences.bigheadmode.curvalue		= trap_Cvar_VariableValue( "cg_bigheadMode" ) != 0;
-	s_preferences.disablescripts.curvalue	= trap_Cvar_VariableValue( "g_disableScripts" ) != 0;
 }
 
 
@@ -164,10 +161,6 @@ static void Preferences_Event( void* ptr, int notification ) {
 
 	case ID_BIGHEADMODE:
 		trap_Cvar_SetValue( "cg_bigheadmode", s_preferences.bigheadmode.curvalue );
-		break;
-
-	case ID_DISABLESCRIPTS:
-		trap_Cvar_SetValue( "g_disableScripts", s_preferences.disablescripts.curvalue );
 		break;
 
 	case ID_BACK:
@@ -374,15 +367,6 @@ static void Preferences_MenuInit( void ) {
 	s_preferences.bigheadmode.generic.x			= PREFERENCES_X_POS;
 	s_preferences.bigheadmode.generic.y			= y;
 
-	y += BIGCHAR_HEIGHT+2;
-	s_preferences.disablescripts.generic.type		= MTYPE_RADIOBUTTON;
-	s_preferences.disablescripts.generic.name		= "Disable auto script execution:";
-	s_preferences.disablescripts.generic.flags		= QMF_PULSEIFFOCUS|QMF_SMALLFONT;
-	s_preferences.disablescripts.generic.callback	= Preferences_Event;
-	s_preferences.disablescripts.generic.id			= ID_DISABLESCRIPTS;
-	s_preferences.disablescripts.generic.x			= PREFERENCES_X_POS;
-	s_preferences.disablescripts.generic.y			= y;
-
 	s_preferences.back.generic.type	    = MTYPE_BITMAP;
 	s_preferences.back.generic.name     = ART_BACK0;
 	s_preferences.back.generic.flags    = QMF_LEFT_JUSTIFY|QMF_PULSEIFFOCUS;
@@ -410,7 +394,6 @@ static void Preferences_MenuInit( void ) {
 	Menu_AddItem( &s_preferences.menu, &s_preferences.subtitles );
 	Menu_AddItem( &s_preferences.menu, &s_preferences.paintballmode );
 	Menu_AddItem( &s_preferences.menu, &s_preferences.bigheadmode );
-	Menu_AddItem( &s_preferences.menu, &s_preferences.disablescripts );
 
 	Menu_AddItem( &s_preferences.menu, &s_preferences.back );
 

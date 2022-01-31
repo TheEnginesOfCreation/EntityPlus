@@ -23,7 +23,6 @@
 	<playerheadmodel>string</playerheadmodel>
 	<scale>real</scale>
 	<scoreboardmusic>sound</scoreboardmusic>
-	<script>string</script>
 	<skill>real</skill>
 	<sound>sound</sound>
 	<startcolor>rgba</startcolor> <!-- accepts 4 float values instead of 3 though -->

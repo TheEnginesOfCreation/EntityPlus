@@ -1525,9 +1525,11 @@ By default bots spawn without any weapons. Use spawnflags to customize the set o
 
 Setting the skill key works like a modifier on top of the current skill level. So a skill value of 1 means the bot is one skill level tougher than the current skill setting. A skill value of -2 means the bot is two skill levels lower than the current setting. A bot's relative skill level never drops below 1 but may rise above 5. Floating point values (like 1.3) are allowed.
 
-Note that the Radiant level editor will not display targetting paths for the deathtarget key.
+When bot PATROL_WALK and ALWAYS_WALK are set, the bot will always walk and ignore the PATROL_WALK spawnflag.
 
-When bot PATROL_WALK and ALWAYS_WALK are set, the bot will always walk and ignore the PATROL_WALK spawnflag. */
+When the loottarget key is set, the item it points to is not spawned into the game. Instead it will be dropped by the bot when it dies.
+
+Note that the Radiant level editor will not display targetting paths for the deathtarget or loottarget keys.*/
 
 //=============================================================================
 
@@ -1708,7 +1710,7 @@ targetname2 : activating entity points to this.
 key : the key to modify on the target entity.
 value : the value to set for the key on the target entity.
 -------- NOTES --------
-The following keys can be modified: angle, clientname, color, count, deathtarget, loottarget, health, key, light, mapname, message, overlay, script, target, target2, targetname, targetname2, targetshadername, teleportertarget, spawnflags, speed, skill, value, wait, armor.
+The following keys can be modified: angle, clientname, color, count, deathtarget, loottarget, health, key, light, mapname, message, overlay, target, target2, targetname, targetname2, targetshadername, teleportertarget, spawnflags, speed, skill, value, wait, armor.
 
 The values for color and light can only be set on func_ entities. Light entities cannot be modified in-game.*/
 

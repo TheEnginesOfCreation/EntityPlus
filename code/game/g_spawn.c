@@ -105,7 +105,6 @@ field_t fields[] = {
 	{"targetShaderName", FOFS(targetShaderName), F_LSTRING},
 	{"targetShaderNewName", FOFS(targetShaderNewName), F_LSTRING},
 	{"mapname", FOFS(mapname), F_LSTRING},
-	{"script", FOFS(script), F_LSTRING},
 	{"clientname", FOFS(clientname), F_LSTRING},
 	{"teleporterTarget", FOFS(teleporterTarget), F_LSTRING},
 	{"deathTarget", FOFS(deathTarget), F_LSTRING},
@@ -186,7 +185,6 @@ void SP_target_objective (gentity_t *ent);
 void SP_target_skill (gentity_t *ent);
 void SP_target_earthquake (gentity_t *ent);
 void SP_target_effect (gentity_t *ent);
-void SP_target_script (gentity_t *ent);
 void SP_target_finish (gentity_t *ent);
 void SP_target_modify (gentity_t *ent);
 void SP_target_secret (gentity_t *ent);
@@ -289,7 +287,6 @@ spawn_t	spawns[] = {
 	{"target_skill", SP_target_skill},
 	{"target_earthquake", SP_target_earthquake},
 	{"target_effect", SP_target_effect},
-	{"target_script", SP_target_script},
 	{"target_finish", SP_target_finish},
 	{"target_modify", SP_target_modify},
 	{"target_secret", SP_target_secret},

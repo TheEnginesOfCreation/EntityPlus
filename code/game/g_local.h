@@ -185,7 +185,6 @@ struct gentity_s {
 	//entityplus variables
 	char		*clientname;			// name of the bot to spawn for target_botspawn
 	char		*mapname;				// name of the map to switch to for target_mapchange
-	char		*script;				// name of the script to execute for target_script
 	char		*teleporterTarget;		// forces a client to be teleported to the entity with this targetname when using holdable_teleporter. Also used as key for holdable_teleporter itself.
 	int			logicEntities[MAX_LOGIC_ENTITIES];	//keeping track of entities targeting a target_logic
 	char		*target2;	//second target
@@ -775,7 +774,6 @@ extern	vmCvar_t	g_quadfactor;
 extern	vmCvar_t	g_forcerespawn;
 extern	vmCvar_t	g_inactivity;
 extern	vmCvar_t	g_disableCutscenes;
-extern	vmCvar_t	g_disableScripts;
 extern	vmCvar_t	g_debugMove;
 extern	vmCvar_t	g_debugAlloc;
 extern	vmCvar_t	g_debugDamage;

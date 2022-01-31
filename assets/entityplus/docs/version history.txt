@@ -1,7 +1,8 @@
 v1.1.10 (31 january 2022)
-	- [Added] "loottarget" key to target_botspawn.
+	- [Added] "loottarget" key to target_botspawn to allow bots to drop items or holdables when fragged.
 	- [Fixed] Spawning a bot causes scores to be written to wrong file in multi-bsp levels.
 	- [Changed] New backpack model by DaEngineer.
+	- [Changed] Removed target_script from gamecode. The entity type no longer exists.
 
 v1.1.9 (3 december 2021)
 	- [Added] SPAWN_EFFECT spawnflag to target_botspawn.

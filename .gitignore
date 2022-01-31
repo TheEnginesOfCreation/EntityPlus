@@ -22,3 +22,7 @@ minversiontool/mvt.csproj.user
 entitydefinitionconverter/.vs/edc/v16/.suo
 
 entitydefinitionconverter/obj/Debug/
+
+entitydefinitionconverter/obj/Release/
+
+entitydefinitionconverter/bin/Release/

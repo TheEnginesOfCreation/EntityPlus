@@ -1060,46 +1060,6 @@ void SP_target_effect (gentity_t *self) {
 
 //==========================================================
 
-/*QUAKED target_script (.5 .5 .5) (-8 -8 -8) (8 8 8)
-When triggered, executes the specified script.
-*/
-void target_script_use (gentity_t *self, gentity_t *other, gentity_t *activator) {
-
-	//store the current value of cl_noprint so we can retrieve it in the _think function. Count variable is used for no specific reason.
-	self->count = trap_Cvar_VariableIntegerValue( "cl_noprint" );
-
-	//set cl_noprint to 1 while executing script so the "execing xxx.cfg" message isn't displayed
-	trap_Cvar_Set( "cl_noprint", "1" );
-	trap_SendConsoleCommand( EXEC_INSERT, va( "exec %s\n", self->script ) ); 
-
-	//we wait 300ms before returning cl_noprint to its former value, otherwise cl_noprint is reset too soon.
-	self->nextthink = level.time + 300;
-}
-
-void target_script_think (gentity_t *self) {
-	//restore cl_noprint to its former value
-	trap_Cvar_Set( "cl_noprint", va("%i", self->count ) );
-}
-
-void SP_target_script (gentity_t *self) {
-	//if script execution by target_script is not allowed, free the entity and return
-	if ( g_disableScripts.integer )
-	{
-		G_FreeEntity( self );
-		return;
-	}
-
-	if ( !self->script )
-	{
-		G_Printf( va( S_COLOR_YELLOW "WARNING: target_script without specified script at %s\n", vtos(self->s.origin) ) );
-		G_FreeEntity( self );
-	}
-	self->use = target_script_use;
-	self->think = target_script_think;
-}
-
-//==========================================================
-
 /*QUAKED target_finish (.5 .5 .5) (-8 -8 -8) (8 8 8)
 When triggered, forces the game to go into the intermission which will show the SP end-level scores, registers the player's score as new 
 high score (if it is higher than the current highscore) for the current map and, when the player clicks during the intermission, ends the
@@ -1229,11 +1189,6 @@ void modify_entity ( gentity_t *self, gentity_t *ent ) {
 
 	if ( !strcmp( self->key, "mapname" ) ) {
 		ent->mapname = self->value;
-		return;
-	}
-
-	if ( !strcmp( self->key, "script" ) ) {
-		ent->script = self->value;
 		return;
 	}
 	
