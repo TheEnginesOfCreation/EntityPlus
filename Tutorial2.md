@@ -13,7 +13,7 @@ The starting point for this tutorial is where tutorial 1 left off. Load that map
   1. Add a _nobots_ key to the old trigger\_multiple (the one targeting the target\_finish entity) and give it a value of 1. This is done so that the enemy we are going to spawn won't accidentally run into this trigger\_multiple and activate it.
   1. Add a target\_botspawn entity and place it in the position where you want the enemy to spawn.
   1. Give the target\_botspawn entity a _health_ key with a value of 25. This will give the bot 25 health which means he's relatively easy to kill. Also add a _clientname_ key to the target\_botspawn and give it a value like "sarge" or "visor" or some other bot's name. You can omit this key as well. The game will default to "sarge" then.
-  1. Check the WP\_SHOTGUN spawnflag for the target\_botspawn entity to make sure the enemy spawns with a shotgun. You can check other WP`_` spawnflags as well to spawn the enemy with those weapons.
+  1. Check the WP\_SHOTGUN spawnflag for the target\_botspawn entity to make sure the enemy spawns with a shotgun. You can check other WP\_ spawnflags as well to spawn the enemy with those weapons.
   1. Have the new trigger\_multiple target the target\_botspawn entity.
 
 If you compile the map and load it in the game, you'll be able to run into the new trigger\_multiple and you'll see that a bot spawns into the map. It's possible that he doesn't move after spawning, most likely when he spawns with his back to you. Shooting the bot will eventually kill it. Run into the trigger\_multiple that targets the target\_finish and you'll see that you've actually accumulated some points this time around.
