@@ -1,4 +1,24 @@
 //
+// BACKPACK
+//
+models/powerups/backpack/backpack
+{
+	{
+		map models/powerups/backpack/backpack.jpg
+	}
+}
+
+models/powerups/backpack/backpack_fx
+{
+	{
+		map models/powerups/backpack/backpack_fx.jpg
+		rgbGen identity
+		blendFunc GL_ONE GL_ONE
+		tcMod scroll 7.4 1.3
+	}
+}
+
+//
 // LADDERCLIP
 //
 textures/common/ladderclip
