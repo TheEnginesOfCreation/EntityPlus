@@ -48,7 +48,8 @@ namespace mvt
             one_one_seven = 6,
             one_one_eight = 7,
 			one_one_nine = 8,
-			one_one_ten = 9
+			one_one_ten = 9,
+			one_one_eleven = 10,
 		}
 
 		/// <summary>List of strings for supported EntityPlus versions</summary>
@@ -63,7 +64,8 @@ namespace mvt
             "1.1.7",
             "1.1.8",
 			"1.1.9",
-			"1.1.10"
+			"1.1.10",
+			"1.1.11"
 		};
 
 		/// <summary>A list of all the known entity classnames</summary>
@@ -261,6 +263,10 @@ namespace mvt
 				return Versions.UnableToDetect;
 			}
 
+			//Checking for v1.1.11 requirements
+			if (HasVersion1111Keys(ent))
+				return Versions.one_one_eleven;
+
 			//Checking for v1.1.10 requirements
 			if (HasVersion1110Keys(ent))
 				return Versions.one_one_ten;
@@ -384,6 +390,18 @@ namespace mvt
 
 
 		#region Version checking methods
+		private bool HasVersion1111Keys(Entity ent) {
+			switch (ent.Classname) {
+				case "target_laser":
+					if (ent.HasSpawnflag(2)) {
+						Debug(" > use of \"NO_SPARKS\" spawnflag requires " + VersionsStrings[(int)Versions.one_one_eleven]);
+						return true;
+					}
+					break;
+			}
+			return false;
+		}
+
 		private bool HasVersion1110Keys(Entity ent)
 		{
 			switch (ent.Classname)

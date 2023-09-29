@@ -95,5 +95,9 @@ namespace mvt
                 return null;
             }
         }
+
+		public bool HasSpawnflag(int value) {
+			return (GetIntValue("spawnflags") != null && ((GetIntValue("spawnflags").Value & value) > 0));
+		}
 	}
 }
