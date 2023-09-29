@@ -270,7 +270,7 @@ void SP_target_speaker( gentity_t *ent ) {
 
 //==========================================================
 
-/*QUAKED target_laser (0 .5 .8) (-8 -8 -8) (8 8 8) START_ON
+/*QUAKED target_laser (0 .5 .8) (-8 -8 -8) (8 8 8) START_ON NO_SPARKS
 When triggered, fires a laser.  You can either set a target or a direction.
 */
 void target_laser_think(gentity_t *self) {
@@ -351,6 +351,12 @@ void target_laser_start (gentity_t *self)
 		target_laser_on (self);
 	else
 		target_laser_off (self);
+
+
+	if (self->spawnflags & 2)
+		self->s.generic1 = 0;
+	else
+		self->s.generic1 = 1;
 }
 
 void SP_target_laser(gentity_t *self)
@@ -382,13 +388,7 @@ void SP_target_laser(gentity_t *self)
 	if (b > 255) {
 		b = 255;
 	}
-	/*
-	i = light / 4;
-	if (i > 255) {
-		i = 255;
-	}
-	self->s.constantLight = r | (g << 8) | (b << 16) | (i << 24);
-	*/
+	
 	self->s.constantLight = r | (g << 8) | (b << 16);
 }
 

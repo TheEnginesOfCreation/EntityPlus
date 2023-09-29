@@ -1,3 +1,6 @@
+v1.1.11 (?? ??? ????)
+	- [Added] NO_SPARKS spawnflag to target_laser.
+
 v1.1.10 (31 january 2022)
 	- [Added] "loottarget" key to target_botspawn to allow bots to drop items or holdables when fragged.
 	- [Fixed] Spawning a bot causes scores to be written to wrong file in multi-bsp levels.
