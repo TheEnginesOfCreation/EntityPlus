@@ -11,9 +11,9 @@ If you're going to play EntityPlus, you have to download the EntityPlus mod:
 
 To add a little variety to the mix, download these custom maps:
 * [Carmack Fortress map by deqer](https://storage.googleapis.com/google-code-archive-downloads/v2/code.google.com/entityplus/krep1.zip) (29.1MB)
-* [Testing Procedures map by Eraser](https://code.google.com/p/entityplus/downloads/detail?name=ep_procedures-v5.zip) (33.6MB)
-* [Survival map by Eraser](https://code.google.com/p/entityplus/downloads/detail?name=ep_survival-v1.zip) (12.1MB) 
-* [Duckhunt mappack by Eraser](https://dl.dropboxusercontent.com/u/18687963/theenginesofcreation/ep_duckhunt.zip) (696KB)
+* [Testing Procedures map by Eraser](http://www.theenginesofcreation.com/content.php?id=addons/ep_procedures) (33.6MB)
+* [Survival map by Eraser](http://www.theenginesofcreation.com/content.php?id=addons/ep_survival) (12.1MB) 
+* [Duckhunt mappack by Eraser](http://www.theenginesofcreation.com/content.php?id=addons/ep_duckhunt) (696KB)
 * [Shipyard 17 map by Martinus](http://www.quake3world.com/forum/viewtopic.php?f=10&t=51412) (56.9MB)
 * [Dissent Breach map by Eraser](http://www.theenginesofcreation.com/content.php?id=addons/ep_dissent) (29MB)
 * [Castle Wolfenstein map by Eraser](http://www.theenginesofcreation.com/content.php?id=addons/ep_wolf3d) (3MB)
