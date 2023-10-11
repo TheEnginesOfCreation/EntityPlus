@@ -392,7 +392,9 @@ void G_DropLoot(gentity_t* ent, gentity_t* activator) {
 		if (t->s.eType != ET_ITEM) {
 			G_Printf("WARNING: Target entity is not an item\n");
 		} else {
-			t->item->quantity = t->count;
+			if (t->count > 0) {
+				t->item->quantity = t->count;
+			}
 			Drop_Item(activator, t->item, 0);
 		}
 		if (!ent->inuse) {
