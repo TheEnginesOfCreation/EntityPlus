@@ -1,5 +1,6 @@
 v1.1.11 (?? ??? ????)
 	- [Added] NO_SPARKS spawnflag to target_laser.
+	- [Fixed] Loot items not giving health/ammo/armor if item doesn't have count key set.
 
 v1.1.10 (31 january 2022)
 	- [Added] "loottarget" key to target_botspawn to allow bots to drop items or holdables when fragged.
