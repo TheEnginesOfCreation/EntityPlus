@@ -23,8 +23,17 @@ If you're a level designer, you might be interested in the following downloads:
 * [The manual for v1.1.10](https://github.com/TheEnginesOfCreation/EntityPlus/releases/download/1.1.10/manual-1.1.10.pdf) (note: the manual is also included with the mod itself)
 * [MinversionTool 1.1.10.0](https://github.com/TheEnginesOfCreation/EntityPlus/releases/download/1.1.10/minversiontool-1.1.10.0.zip) to help you determine what the minimum requirements for your map are (note: requires the .NET Framework 3.5 or newer)
 
-If you're a level designer who is using GtkRadiant 1.5, then you may want to download the EntityPlus entities.ent file. The .def file for GtkRadiant 1.4/1.6 is included with the mod). Note that the file below was last compiled for EntityPlus 1.1.8 and is not be entirely up-to-date with the latest changes:
-* [entities.ent for v1.1.8](https://github.com/TheEnginesOfCreation/EntityPlus/releases/download/1.1.8/entities.ent)
+## GtkRadiant 1.5 users
+If you're a level designer who is using GtkRadiant 1.5, then you may want to download the EntityPlus entities.ent file (the entities.def file for GtkRadiant 1.4/1.6 is included with the mod).
+* [entities.ent for v1.1.10](https://github.com/TheEnginesOfCreation/EntityPlus/releases/download/1.1.10/entities.ent)
+
+When using GtkRadiant 1.5/NetRadiant, perform the following steps to make GtkRadiant usable for EntityPlus:
+* Add an "entityplus" folder to the q3.game folder
+* Copy "default_shaderlist.txt" from the q3.game/baseq3 folder to the q3.game/entityplus folder
+* Open the copied "default_shaderlist.txt" with a text editor and add "entityplus" on a new line at the end of the file and save it.
+* Make a backup copy of the "entities.ent" in the q3.game/baseq3 folder.
+* Put the downloaded entities.ent for EntityPlus in the q3.game/baseq3 folder.
+* Configure GtkRadiant to use a custom modification folder named "entityplus". 
 
 ## Features
 
