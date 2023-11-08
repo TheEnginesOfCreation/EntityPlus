@@ -8,7 +8,7 @@
 	<distance>real</distance>
 	<enablebreath>boolean</enablebreath>
 	<enabledust>boolean</enabledust>
-	<endcolor>rgba</endcolor>	<!-- accepts 4 float values instead of 3 though -->
+	<endcolor>color</endcolor>	<!-- accepts 4 float values instead of 3 though -->
 	<endsound>sound</endsound>
 	<fov>integer</fov>
 	<intensity>integer</intensity>
@@ -25,7 +25,7 @@
 	<scoreboardmusic>sound</scoreboardmusic>
 	<skill>real</skill>
 	<sound>sound</sound>
-	<startcolor>rgba</startcolor> <!-- accepts 4 float values instead of 3 though -->
+	<startcolor>color</startcolor> <!-- accepts 4 float values instead of 3 though -->
 	<startsound>sound</startsound> 
 	<target2>target</target2>
 	<targetname2>targetname</targetname2>
