@@ -2049,7 +2049,7 @@ When the random key is set, its value is used to calculate a minimum and a maxim
 
 //=============================================================================
 
-/*QUAKED trigger_push (.5 .5 .5) SILENT
+/*QUAKED trigger_push (.5 .5 .5) ? SILENT
 This is used to create jump pads and launch ramps. It MUST point to a target_position or info_notnull entity to work. Unlike target_push, this is client side predicted.
 -------- KEYS --------
 target : this points to the target_position to which the player will jump.
