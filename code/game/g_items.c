@@ -182,7 +182,7 @@ int Pickup_Backpack( gentity_t *ent, gentity_t *other) {
 		other->client->ps.ammo[WP_BFG] = 999;
 
 	//holdables
-	other->client->ps.stats[STAT_HOLDABLE_ITEM] = ent->backpackContents[0];
+	other->client->ps.stats[STAT_HOLDABLE_ITEM] |= ent->backpackContents[0];
 
 	return -1;
 }
