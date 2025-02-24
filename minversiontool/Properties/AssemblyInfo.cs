@@ -10,7 +10,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("The Engines of Creation")]
 [assembly: AssemblyProduct("MinVersion Tool for EntityPlus")]
-[assembly: AssemblyCopyright("Copyright © 2023 The Engines of Creation")]
+[assembly: AssemblyCopyright("Copyright © 2025 The Engines of Creation")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
